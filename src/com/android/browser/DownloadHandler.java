@@ -22,9 +22,11 @@ import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.media.MediaFile;
 import android.net.Uri;
 import android.net.WebAddress;
 import android.os.Environment;
@@ -55,14 +57,59 @@ public class DownloadHandler {
      * @param referer The referer associated with the downloaded url
      * @param privateBrowsing If the request is coming from a private browsing tab.
      */
-    public static void onDownloadStart(Activity activity, String url,
-            String userAgent, String contentDisposition, String mimetype,
-            String referer, boolean privateBrowsing) {
+    public static boolean onDownloadStart(final Activity activity, final String url,
+            final String userAgent, final String contentDisposition, final String mimetype,
+            final String referer, final boolean privateBrowsing) {
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
                 || !contentDisposition.regionMatches(
                         true, 0, "attachment", 0, 10)) {
+
+            // Add for Carrier Feature - When open an audio/video link, prompt a dialog
+            // to let the user choose play or download operation.
+            Uri uri = Uri.parse(url);
+            String scheme = uri.getScheme();
+            Log.v(LOGTAG, "scheme:" + scheme + ", mimetype:" + mimetype);
+            // Some mimetype for audio/video files is not started with "audio" or "video",
+            // such as ogg audio file with mimetype "application/ogg". So we also check
+            // file type by MediaFile.isAudioFileType() and MediaFile.isVideoFileType().
+            // For those file types other than audio or video, download it immediately.
+            int fileType = MediaFile.getFileTypeForMimeType(mimetype);
+            if ("http".equalsIgnoreCase(scheme) &&
+                    (mimetype.startsWith("audio/") ||
+                        mimetype.startsWith("video/") ||
+                            MediaFile.isAudioFileType(fileType) ||
+                                MediaFile.isVideoFileType(fileType))) {
+                new AlertDialog.Builder(activity)
+                .setTitle(R.string.application_name)
+                .setIcon(R.drawable.default_video_poster)
+                .setMessage(R.string.http_video_msg)
+                .setPositiveButton(R.string.video_save, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
+                                mimetype, referer, privateBrowsing);
+                    }
+                 })
+                .setNegativeButton(R.string.video_play, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.parse(url), mimetype);
+                        try {
+                            String title = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                            intent.putExtra(Intent.EXTRA_TITLE, title);
+                            activity.startActivity(intent);
+                        } catch (ActivityNotFoundException ex) {
+                            Log.w(LOGTAG, "When http stream play, activity not found for "
+                                    + mimetype + " over " + Uri.parse(url).getScheme(),
+                                    ex);
+                        }
+                    }
+                }).show();
+
+                return true;
+            }
+
             // query the package manager to see if there's a registered handler
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -81,7 +128,7 @@ public class DownloadHandler {
                     // type with this scheme, don't download.
                     try {
                         activity.startActivity(intent);
-                        return;
+                        return false;
                     } catch (ActivityNotFoundException ex) {
                         if (LOGD_ENABLED) {
                             Log.d(LOGTAG, "activity not found for " + mimetype
@@ -96,6 +143,7 @@ public class DownloadHandler {
         }
         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
                 mimetype, referer, privateBrowsing);
+        return false;
     }
 
     // This is to work around the fact that java.net.URI throws Exceptions

@@ -399,4 +399,9 @@
     <string name="accessibility_state_frozen" msgid="8041539250447035570">"已保存的网页"</string>
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"标签页管理"</string>
     <string name="accessibility_button_bookmarks_folder_up" msgid="9179389954714270505">"上一个文件夹"</string>
+
+    <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+    <string name="http_video_msg">请选择以下操作</string>
+    <string name="video_save">保存</string>
+    <string name="video_play">播放</string>
 </resources>

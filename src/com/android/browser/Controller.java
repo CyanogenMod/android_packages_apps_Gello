@@ -1036,9 +1036,9 @@ public class Controller
             String contentDisposition, String mimetype, String referer,
             long contentLength) {
         WebView w = tab.getWebView();
-        DownloadHandler.onDownloadStart(mActivity, url, userAgent,
+        boolean ret = DownloadHandler.onDownloadStart(mActivity, url, userAgent,
                 contentDisposition, mimetype, referer, w.isPrivateBrowsingEnabled());
-        if (w.copyBackForwardList().getSize() == 0) {
+        if (ret == false && w.copyBackForwardList().getSize() == 0) {
             // This Tab was opened for the sole purpose of downloading a
             // file. Remove it.
             if (tab == mTabControl.getCurrentTab()) {
