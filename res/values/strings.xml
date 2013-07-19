@@ -1032,4 +1032,10 @@
 
     <!-- Add for Unsupport Uploading Drm Files Feature -->
     <string name="drm_file_unsupported">Drm file is unsupported!</string>
+
+    <!-- Add for exit prompt Feature -->
+    <string name="exit_browser_title">Exit Browser</string>
+    <string name="exit_browser_msg">Please Select How to Exit Browser?</string>
+    <string name="exit_minimize">Minimize</string>
+    <string name="exit_quit">Quit</string>
 </resources>

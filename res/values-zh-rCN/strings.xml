@@ -418,4 +418,10 @@
 
     <!-- Add for Unsupport Uploading Drm Files Feature -->
     <string name="drm_file_unsupported">不支持Drm文件上传!</string>
+
+    <!-- Add for exit prompt Feature -->
+    <string name="exit_browser_title">退出方式选择</string>
+    <string name="exit_browser_msg">请选择退出浏览器的方式？</string>
+    <string name="exit_minimize">最小化</string>
+    <string name="exit_quit">退出</string>
 </resources>
