@@ -41,6 +41,7 @@ import android.provider.BrowserContract.Accounts;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,6 +89,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     static final String ACCOUNT_TYPE = "account_type";
     static final String ACCOUNT_NAME = "account_name";
 
+    static final long DEFAULT_FOLDER_ID = -1;
+
     BookmarksPageCallbacks mCallbacks;
     View mRoot;
     BookmarkExpandableView mGrid;
@@ -97,6 +100,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     View mHeader;
     HashMap<Integer, BrowserBookmarksAdapter> mBookmarkAdapters = new HashMap<Integer, BrowserBookmarksAdapter>();
     JSONObject mState;
+    long mCurrentFolderId = BrowserProvider2.FIXED_ID_ROOT;
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -147,6 +151,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         } else if (loader.getId() >= LOADER_BOOKMARKS) {
             BrowserBookmarksAdapter adapter = mBookmarkAdapters.get(loader.getId());
             adapter.changeCursor(cursor);
+            if (adapter.getCount() != 0) {
+                mCurrentFolderId = adapter.getItem(0).getLong(BookmarksLoader.COLUMN_INDEX_PARENT);
+            }
         }
     }
 
@@ -156,6 +163,31 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             BrowserBookmarksAdapter adapter = mBookmarkAdapters.get(loader.getId());
             adapter.changeCursor(null);
         }
+    }
+
+    //add for carrier feature which adds new bookmark/folder function.
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.bookmark, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
+        if (item.getItemId() == R.id.add_bookmark_menu_id) {
+            Intent intent = new Intent(activity, AddBookmarkPage.class);
+            intent.putExtra(BrowserContract.Bookmarks.URL, "http://");
+            intent.putExtra(BrowserContract.Bookmarks.TITLE, "");
+            intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+            activity.startActivity(intent);
+        }
+        if (item.getItemId() == R.id.new_bmfolder_menu_id) {
+            Intent intent = new Intent(activity, AddBookmarkFolder.class);
+            intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+            activity.startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -444,6 +476,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 // update crumbs
                 crumbs.pushView(title, uri);
                 crumbs.setVisibility(View.VISIBLE);
+                Object data = crumbs.getTopData();
+                mCurrentFolderId = (data != null ? ContentUris.parseId((Uri) data)
+                        : DEFAULT_FOLDER_ID);
             }
             loadFolder(groupPosition, uri);
         }

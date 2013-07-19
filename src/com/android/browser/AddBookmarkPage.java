@@ -16,10 +16,8 @@
 
 package com.android.browser;
 
-import com.android.browser.addbookmark.FolderSpinner;
-import com.android.browser.addbookmark.FolderSpinnerAdapter;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -28,6 +26,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -40,6 +39,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Browser;
 import android.provider.BrowserContract;
 import android.provider.BrowserContract.Accounts;
 import android.text.TextUtils;
@@ -61,6 +61,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.browser.BrowserUtils;
+import com.android.browser.addbookmark.FolderSpinner;
+import com.android.browser.addbookmark.FolderSpinnerAdapter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -123,6 +127,9 @@ public class AddBookmarkPage extends Activity
     private FolderSpinnerAdapter mFolderAdapter;
     private Spinner mAccountSpinner;
     private ArrayAdapter<BookmarkAccount> mAccountAdapter;
+    // add for carrier which requires same title or address can not exist.
+    private long mDuplicateId;
+    private Context mDuplicateContext;
 
     private static class Folder {
         String Name;
@@ -256,8 +263,16 @@ public class AddBookmarkPage extends Activity
                     mSaveToHomeScreen = false;
                     switchToDefaultView(true);
                 }
-            } else if (save()) {
-                finish();
+            } else {
+                // add for carrier which requires same title or address can not
+                // exist.
+                if (mSaveToHomeScreen) {
+                    if (save()) {
+                        return;
+                    }
+                } else {
+                    onSaveWithConfirm();
+                }
             }
         } else if (v == mCancelButton) {
             if (mIsFolderNamerShowing) {
@@ -638,9 +653,11 @@ public class AddBookmarkPage extends Activity
 
         mTitle = (EditText) findViewById(R.id.title);
         mTitle.setText(title);
+        BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mTitle, BrowserUtils.FILENAME_MAX_LENGTH);
 
         mAddress = (EditText) findViewById(R.id.address);
         mAddress.setText(url);
+        BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mAddress, BrowserUtils.ADDRESS_MAX_LENGTH);
 
         mButton = (TextView) findViewById(R.id.OK);
         mButton.setOnClickListener(this);
@@ -659,6 +676,11 @@ public class AddBookmarkPage extends Activity
         mFolderNamerHolder = getLayoutInflater().inflate(R.layout.new_folder_layout, null);
         mFolderNamer = (EditText) mFolderNamerHolder.findViewById(R.id.folder_namer);
         mFolderNamer.setOnEditorActionListener(this);
+
+        // add for carrier test about warning limit of edit text
+        BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mFolderNamer,
+                BrowserUtils.FILENAME_MAX_LENGTH);
+
         mFolderCancel = mFolderNamerHolder.findViewById(R.id.close);
         mFolderCancel.setOnClickListener(this);
 
@@ -835,6 +857,72 @@ public class AddBookmarkPage extends Activity
         }
     }
 
+    static void deleteDuplicateBookmark(final Context context, final long id) {
+        Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id);
+        context.getContentResolver().delete(uri, null, null);
+    }
+
+    private void onSaveWithConfirm() {
+        String title = mTitle.getText().toString().trim();
+        String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        String url = unfilteredUrl.trim();
+        Long id = mMap.getLong(BrowserContract.Bookmarks._ID);
+        int duplicateCount;
+        final ContentResolver cr = getContentResolver();
+
+        Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                BookmarksLoader.PROJECTION,
+                "( title = ? OR url = ? ) AND parent = ?",
+                new String[] {
+                        title, url, Long.toString(mCurrentFolder)
+                },
+                null);
+
+        if (cursor == null) {
+            save();
+            return;
+        }
+
+        duplicateCount = cursor.getCount();
+        if (duplicateCount <= 0) {
+            cursor.close();
+            save();
+            return;
+        } else {
+            try {
+                while (cursor.moveToNext()) {
+                    mDuplicateId = cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID);
+                    mDuplicateContext = AddBookmarkPage.this;
+                }
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } finally {
+                if (cursor != null)
+                    cursor.close();
+            }
+        }
+
+        if (mEditingExisting && duplicateCount == 1 && mDuplicateId == id) {
+            save();
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.save_to_bookmarks_title))
+                .setMessage(getString(R.string.overwrite_bookmark_msg))
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mDuplicateContext == null) {
+                            return;
+                        }
+                        deleteDuplicateBookmark(mDuplicateContext, mDuplicateId);
+                        save();
+                    }
+                })
+                .show();
+    }
+
     /**
      * Parse the data entered in the dialog and post a message to update the bookmarks database.
      */
@@ -842,8 +930,7 @@ public class AddBookmarkPage extends Activity
         createHandler();
 
         String title = mTitle.getText().toString().trim();
-        String unfilteredUrl;
-        unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
 
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
@@ -856,7 +943,6 @@ public class AddBookmarkPage extends Activity
                 mAddress.setError(r.getText(R.string.bookmark_needs_url));
             }
             return false;
-
         }
         String url = unfilteredUrl.trim();
         if (!mEditingFolder) {
@@ -958,6 +1044,7 @@ public class AddBookmarkPage extends Activity
             setResult(RESULT_OK);
             LogTag.logBookmarkAdded(url, "bookmarkview");
         }
+        finish();
         return true;
     }
 
