@@ -116,12 +116,20 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>ISO-8859-1</item>
     <item></item>
   </string-array>
-  <string-array name="baidu" translatable="false">
+  <string-array name="baidu_cn" translatable="false">
     <item>&#x767e;&#x5ea6;</item>
     <item>baidu.com</item>
     <item>http://www.baidu.com/favicon.ico</item>
     <item>http://www.baidu.com/s?wd={searchTerms}</item>
     <item>GB2312</item>
+    <item></item>
+  </string-array>
+  <string-array name="baidu" translatable="false">
+    <item>Baidu</item>
+    <item>baidu.com</item>
+    <item>http://www.baidu.com/favicon.ico</item>
+    <item>http://www.baidu.com/s?wd={searchTerms}</item>
+    <item>UTF-8</item>
     <item></item>
   </string-array>
   <string-array name="yahoo_ch" translatable="false">
@@ -139,6 +147,23 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://www.bing.com/search?setmkt=nl-BE&amp;q={searchTerms}</item>
     <item>UTF-8</item>
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
+  </string-array>
+  <string-array name="cmcc_cn" translatable="false">
+    <item>&#x79FB;&#x52A8;&#x641C;&#x7D22;</item>
+    <item>s.139.com</item>
+    <item>http://s.139.com/favicon.ico</item>
+    <item>http://s.139.com/search.do?q={searchTerms}&amp;category=downloadable|web|browseable&amp;tid=2123,2124,2125,2126&amp;fr=portalcustom2</item>
+    <item>GB2312</item>
+    <item></item>
+  </string-array>
+
+  <string-array name="cmcc" translatable="false">
+    <item>139 Search</item>
+    <item>s.139.com</item>
+    <item>http://s.139.com/favicon.ico</item>
+    <item>http://s.139.com/search.do?q={searchTerms}&amp;category=downloadable|web|browseable&amp;tid=2123,2124,2125,2126&amp;fr=portalcustom2</item>
+    <item>UTF-8</item>
+    <item></item>
   </string-array>
   <string-array name="yahoo_cn" translatable="false">
     <item>&#x4e2d;&#x56fd;&#x96c5;&#x864e;</item>
