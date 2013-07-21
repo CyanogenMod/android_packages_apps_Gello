@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.DownloadManager.Request;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,12 +30,18 @@ import android.content.pm.ResolveInfo;
 import android.media.MediaFile;
 import android.net.Uri;
 import android.net.WebAddress;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.StatFs;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Toast;
+
+import java.io.File;
 
 /**
  * Handle download requests
@@ -45,6 +52,9 @@ public class DownloadHandler {
             com.android.browser.Browser.LOGD_ENABLED;
 
     private static final String LOGTAG = "DLHandler";
+    private static String mInternalStorage;
+    private static String mExternalStorage;
+    private final static String INVALID_PATH = "/storage";
 
     /**
      * Notify the host application a download should be done, or that
@@ -57,9 +67,68 @@ public class DownloadHandler {
      * @param referer The referer associated with the downloaded url
      * @param privateBrowsing If the request is coming from a private browsing tab.
      */
+
+    public static void startingDownload(Activity activity,
+            String url, String userAgent, String contentDisposition,
+            String mimetype, String referer, boolean privateBrowsing, long contentLength,
+            String filename, String downloadPath) {
+        // java.net.URI is a lot stricter than KURL so we have to encode some
+        // extra characters. Fix for b 2538060 and b 1634719
+        WebAddress webAddress;
+        try {
+            webAddress = new WebAddress(url);
+            webAddress.setPath(encodePath(webAddress.getPath()));
+        } catch (Exception e) {
+            // This only happens for very bad urls, we want to chatch the
+            // exception here
+            Log.e(LOGTAG, "Exception trying to parse url:" + url);
+            return;
+        }
+
+        String addressString = webAddress.toString();
+        Uri uri = Uri.parse(addressString);
+        final DownloadManager.Request request;
+        try {
+            request = new DownloadManager.Request(uri);
+        } catch (IllegalArgumentException e) {
+            Toast.makeText(activity, R.string.cannot_download, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        request.setMimeType(mimetype);
+        // set downloaded file destination to /sdcard/Download.
+        // or, should it be set to one of several Environment.DIRECTORY* dirs
+        // depending on mimetype?
+        try {
+            setDestinationDir(downloadPath, filename, request);
+        } catch (Exception e) {
+            showNoEnoughMemoryDialog(activity);
+            return;
+        }
+        // let this downloaded file be scanned by MediaScanner - so that it can
+        // show up in Gallery app, for example.
+        request.allowScanningByMediaScanner();
+        request.setDescription(webAddress.getHost());
+        // XXX: Have to use the old url since the cookies were stored using the
+        // old percent-encoded url.
+        String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
+        request.addRequestHeader("cookie", cookies);
+        request.addRequestHeader("User-Agent", userAgent);
+        request.addRequestHeader("Referer", referer);
+        request.setNotificationVisibility(
+                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        final DownloadManager manager = (DownloadManager) activity
+                .getSystemService(Context.DOWNLOAD_SERVICE);
+        new Thread("Browser download") {
+            public void run() {
+                manager.enqueue(request);
+            }
+        }.start();
+        showStartDownloadToast(activity);
+    }
+
     public static boolean onDownloadStart(final Activity activity, final String url,
             final String userAgent, final String contentDisposition, final String mimetype,
-            final String referer, final boolean privateBrowsing) {
+            final String referer, final boolean privateBrowsing, final long contentLength) {
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
@@ -88,7 +157,7 @@ public class DownloadHandler {
                 .setPositiveButton(R.string.video_save, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
-                                mimetype, referer, privateBrowsing);
+                                mimetype, referer, privateBrowsing, contentLength);
                     }
                  })
                 .setNegativeButton(R.string.video_play, new DialogInterface.OnClickListener() {
@@ -142,7 +211,7 @@ public class DownloadHandler {
             }
         }
         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
-                mimetype, referer, privateBrowsing);
+                mimetype, referer, privateBrowsing, contentLength);
         return false;
     }
 
@@ -187,10 +256,11 @@ public class DownloadHandler {
      * @param referer The referer associated with the downloaded url
      * @param privateBrowsing If the request is coming from a private browsing tab.
      */
-    /*package */ static void onDownloadStartNoStream(Activity activity,
+    /* package */static void onDownloadStartNoStream(Activity activity,
             String url, String userAgent, String contentDisposition,
-            String mimetype, String referer, boolean privateBrowsing) {
+            String mimetype, String referer, boolean privateBrowsing, long contentLength) {
 
+        initStorageDefaultPath(activity);
         String filename = URLUtil.guessFileName(url,
                 contentDisposition, mimetype);
 
@@ -218,63 +288,309 @@ public class DownloadHandler {
             return;
         }
 
-        // java.net.URI is a lot stricter than KURL so we have to encode some
-        // extra characters. Fix for b 2538060 and b 1634719
-        WebAddress webAddress;
-        try {
-            webAddress = new WebAddress(url);
-            webAddress.setPath(encodePath(webAddress.getPath()));
-        } catch (Exception e) {
-            // This only happens for very bad urls, we want to chatch the
-            // exception here
-            Log.e(LOGTAG, "Exception trying to parse url:" + url);
-            return;
-        }
-
-        String addressString = webAddress.toString();
-        Uri uri = Uri.parse(addressString);
-        final DownloadManager.Request request;
-        try {
-            request = new DownloadManager.Request(uri);
-        } catch (IllegalArgumentException e) {
-            Toast.makeText(activity, R.string.cannot_download, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        request.setMimeType(mimetype);
-        // set downloaded file destination to /sdcard/Download.
-        // or, should it be set to one of several Environment.DIRECTORY* dirs depending on mimetype?
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-        // let this downloaded file be scanned by MediaScanner - so that it can 
-        // show up in Gallery app, for example.
-        request.allowScanningByMediaScanner();
-        request.setDescription(webAddress.getHost());
-        // XXX: Have to use the old url since the cookies were stored using the
-        // old percent-encoded url.
-        String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
-        request.addRequestHeader("cookie", cookies);
-        request.addRequestHeader("User-Agent", userAgent);
-        request.addRequestHeader("Referer", referer);
-        request.setNotificationVisibility(
-                DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         if (mimetype == null) {
-            if (TextUtils.isEmpty(addressString)) {
-                return;
-            }
             // We must have long pressed on a link or image to download it. We
             // are not sure of the mimetype in this case, so do a head request
-            new FetchUrlMimeType(activity, request, addressString, cookies,
-                    userAgent).start();
+            new FetchUrlMimeType(activity, url, userAgent, referer,
+                    privateBrowsing, filename).start();
         } else {
-            final DownloadManager manager
-                    = (DownloadManager) activity.getSystemService(Context.DOWNLOAD_SERVICE);
-            new Thread("Browser download") {
-                public void run() {
-                    manager.enqueue(request);
-                }
-            }.start();
+            startDownloadSettings(activity, url, userAgent, contentDisposition, mimetype, referer,
+                    privateBrowsing, contentLength, filename);
         }
+
+    }
+
+    public static void initStorageDefaultPath(Context context) {
+        mExternalStorage = getExternalStorageDirectory(context);
+        if (isPhoneStorageSupported()) {
+            mInternalStorage = Environment.getExternalStorageDirectory().getPath();
+        } else {
+            mInternalStorage = null;
+        }
+    }
+
+    public static void startDownloadSettings(Activity activity,
+            String url, String userAgent, String contentDisposition,
+            String mimetype, String referer, boolean privateBrowsing, long contentLength,
+            String filename) {
+        Bundle fileInfo = new Bundle();
+        fileInfo.putString("url", url);
+        fileInfo.putString("userAgent", userAgent);
+        fileInfo.putString("contentDisposition", contentDisposition);
+        fileInfo.putString("mimetype", mimetype);
+        fileInfo.putString("referer", referer);
+        fileInfo.putLong("contentLength", contentLength);
+        fileInfo.putBoolean("privateBrowsing", privateBrowsing);
+        fileInfo.putString("filename", filename);
+        Intent intent = new Intent("android.intent.action.BROWSERDOWNLOAD");
+        intent.putExtras(fileInfo);
+        activity.startActivity(intent);
+    }
+
+    public static void setAppointedFolder(String downloadPath) {
+        File file = new File(downloadPath);
+        if (file.exists()) {
+            if (!file.isDirectory()) {
+                throw new IllegalStateException(file.getAbsolutePath() +
+                        " already exists and is not a directory");
+            }
+        } else {
+            if (!file.mkdir()) {
+                throw new IllegalStateException("Unable to create directory: " +
+                        file.getAbsolutePath());
+            }
+        }
+    }
+
+    private static void setDestinationDir(String downloadPath, String filename, Request request) {
+        File file = new File(downloadPath);
+        if (file.exists()) {
+            if (!file.isDirectory()) {
+                throw new IllegalStateException(file.getAbsolutePath() +
+                        " already exists and is not a directory");
+            }
+        } else {
+            if (!file.mkdir()) {
+                throw new IllegalStateException("Unable to create directory: " +
+                        file.getAbsolutePath());
+            }
+        }
+        setDestinationFromBase(file, filename, request);
+    }
+
+    private static void setDestinationFromBase(File file, String filename, Request request) {
+        if (filename == null) {
+            throw new NullPointerException("filename cannot be null");
+        }
+        request.setDestinationUri(Uri.withAppendedPath(Uri.fromFile(file), filename));
+    }
+
+    public static void fileExistQueryDialog(Activity activity) {
+        new AlertDialog.Builder(activity)
+                .setTitle(R.string.download_file_exist)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setMessage(R.string.download_file_exist_msg)
+                // if yes, delete existed file and start new download thread
+                .setPositiveButton(R.string.ok, null)
+                // if no, do nothing at all
+                .show();
+    }
+
+    public static long getAvailableMemory(String root) {
+        StatFs stat = new StatFs(root);
+        final long LEFT10MByte = 2560;
+        long blockSize = stat.getBlockSize();
+        long availableBlocks = stat.getAvailableBlocks() - LEFT10MByte;
+        return availableBlocks * blockSize;
+    }
+
+    public static void showNoEnoughMemoryDialog(Activity mContext) {
+        new AlertDialog.Builder(mContext)
+                .setTitle(R.string.download_no_enough_memory)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setMessage(R.string.download_no_enough_memory)
+                .setPositiveButton(R.string.ok, null)
+                .show();
+    }
+
+    public static boolean manageNoEnoughMemory(Activity mContext, long contentLength, String root) {
+        Log.i(LOGTAG, "----------- download file contentLength is ------------>" + contentLength);
+        long mAvailableBytes = getAvailableMemory(root);
+        if (mAvailableBytes > 0) {
+            if (contentLength > mAvailableBytes) {
+                showNoEnoughMemoryDialog(mContext);
+                return true;
+            }
+        } else {
+            showNoEnoughMemoryDialog(mContext);
+            return true;
+        }
+        return false;
+    }
+
+    public static void showStartDownloadToast(Activity activity) {
+        Intent intent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+        activity.startActivity(intent);
         Toast.makeText(activity, R.string.download_pending, Toast.LENGTH_SHORT)
                 .show();
     }
 
+    /**
+     * wheather the storage status OK for download file
+     *
+     * @param activity
+     * @param filename the download file's name
+     * @param downloadPath the download file's path will be in
+     * @return boolean true is ok,and false is not
+     */
+    public static boolean isStorageStatusOK(Activity activity, String filename, String downloadPath) {
+        if (downloadPath.equals(INVALID_PATH)) {
+            new AlertDialog.Builder(activity)
+                    .setTitle(R.string.path_wrong)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setMessage(R.string.invalid_path)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            return false;
+        }
+
+        if (!(isPhoneStorageSupported() && downloadPath.contains(mInternalStorage))) {
+            String status = getExternalStorageState(activity);
+            if (!status.equals(Environment.MEDIA_MOUNTED)) {
+                int title;
+                String msg;
+
+                // Check to see if the SDCard is busy, same as the music app
+                if (status.equals(Environment.MEDIA_SHARED)) {
+                    msg = activity.getString(R.string.download_sdcard_busy_dlg_msg);
+                    title = R.string.download_sdcard_busy_dlg_title;
+                } else {
+                    msg = activity.getString(R.string.download_no_sdcard_dlg_msg, filename);
+                    title = R.string.download_no_sdcard_dlg_title;
+                }
+
+                new AlertDialog.Builder(activity)
+                        .setTitle(title)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage(msg)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                return false;
+            }
+        } else {
+            String status = Environment.getExternalStorageState();
+            if (!status.equals(Environment.MEDIA_MOUNTED)) {
+                int mTitle = R.string.download_path_unavailable_dlg_title;
+                String mMsg = activity.getString(R.string.download_path_unavailable_dlg_msg);
+                new AlertDialog.Builder(activity)
+                        .setTitle(mTitle)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setMessage(mMsg)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * wheather support Phone Storage
+     *
+     * @return boolean true support Phone Storage ,false will be not
+     */
+    public static boolean isPhoneStorageSupported() {
+        return true;
+    }
+
+    /**
+     * show Dialog to warn filename is null
+     *
+     * @param activity
+     */
+    public static void showFilenameEmptyDialog(Activity activity) {
+        new AlertDialog.Builder(activity)
+                .setTitle(R.string.filename_empty_title)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage(R.string.filename_empty_msg)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * get the filename except the suffix and dot
+     *
+     * @return String the filename except suffix and dot
+     */
+    public static String getFilenameBase(String filename) {
+        int dotindex = filename.lastIndexOf('.');
+        if (dotindex != -1) {
+            return filename.substring(0, dotindex);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * get the filename's extension from filename
+     *
+     * @param filename the download filename, may be the user entered
+     * @return String the filename's extension
+     */
+    public static String getFilenameExtension(String filename) {
+        int dotindex = filename.lastIndexOf('.');
+        if (dotindex != -1) {
+            return filename.substring(dotindex + 1);
+        } else {
+            return "";
+        }
+    }
+
+    public static String getDefaultDownloadPath(Context context) {
+        String defaultDownloadPath;
+
+        String defaultStorage;
+        if (isPhoneStorageSupported()) {
+            defaultStorage = Environment.getExternalStorageDirectory().getPath();
+        } else {
+            defaultStorage = getExternalStorageDirectory(context);
+        }
+
+        defaultDownloadPath = defaultStorage + context.getString(R.string.default_savepath_name);
+        Log.e(LOGTAG, "defaultStorage directory is : " + defaultDownloadPath);
+        return defaultDownloadPath;
+    }
+
+    /**
+     * translate the directory name into a name which is easy to know for user
+     *
+     * @param activity
+     * @param downloadPath
+     * @return String
+     */
+    public static String getDownloadPathForUser(Activity activity, String downloadPath) {
+        if (downloadPath == null) {
+            return downloadPath;
+        }
+        final String phoneStorageDir;
+        final String sdCardDir = getExternalStorageDirectory(activity);
+        if (isPhoneStorageSupported()) {
+            phoneStorageDir = Environment.getExternalStorageDirectory().getPath();
+        } else {
+            phoneStorageDir = null;
+        }
+
+        if (downloadPath.startsWith(sdCardDir)) {
+            String sdCardLabel = activity.getResources().getString(
+                    R.string.download_path_sd_card_label);
+            downloadPath = downloadPath.replace(sdCardDir, sdCardLabel);
+        } else if ((phoneStorageDir != null) && downloadPath.startsWith(phoneStorageDir)) {
+            String phoneStorageLabel = activity.getResources().getString(
+                    R.string.download_path_phone_stroage_label);
+            downloadPath = downloadPath.replace(phoneStorageDir, phoneStorageLabel);
+        }
+        return downloadPath;
+    }
+
+    private static String getExternalStorageDirectory(Context context) {
+        String sd = null;
+        StorageManager mStorageManager = (StorageManager) context
+                .getSystemService(Context.STORAGE_SERVICE);
+        StorageVolume[] volumes = mStorageManager.getVolumeList();
+        for (int i = 0; i < volumes.length; i++) {
+            if (volumes[i].isRemovable() && volumes[i].allowMassStorage()) {
+                sd = volumes[i].getPath();
+            }
+        }
+        return sd;
+    }
+
+    private static String getExternalStorageState(Context context) {
+        StorageManager mStorageManager = (StorageManager) context
+                .getSystemService(Context.STORAGE_SERVICE);
+        return mStorageManager.getVolumeState(getExternalStorageDirectory(context));
+    }
 }

@@ -17,11 +17,16 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserActivity;
+import com.android.browser.BrowserSettings;
+import com.android.browser.DownloadHandler;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -31,6 +36,7 @@ import android.util.Log;
 import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
+import android.widget.Toast;
 
 import java.util.Map;
 import java.util.Set;
@@ -38,6 +44,7 @@ import java.util.Set;
 public class AdvancedPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
+    private static final int DOWNLOAD_PATH_RESULT_CODE = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +75,62 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
         e.setOnPreferenceChangeListener(this);
         updateListPreferenceSummary((ListPreference) e);
+        onInitdownloadSettingsPreference();
+    }
+
+    private void onInitdownloadSettingsPreference() {
+        addPreferencesFromResource(R.xml.download_settings_preferences);
+        PreferenceScreen downloadPathPreset =
+                (PreferenceScreen) findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
+        downloadPathPreset.setOnPreferenceClickListener(onClickDownloadPathSettings());
+
+        String downloadPath = downloadPathPreset.getSharedPreferences().
+                getString(PreferenceKeys.PREF_DOWNLOAD_PATH,
+                        BrowserSettings.getInstance().getDownloadPath());
+        String downloadPathForUser = DownloadHandler.getDownloadPathForUser(this.getActivity(),
+                downloadPath);
+        downloadPathPreset.setSummary(downloadPathForUser);
+    }
+
+    private Preference.OnPreferenceClickListener onClickDownloadPathSettings() {
+        return new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                try {
+                    Intent i = new Intent("com.android.fileexplorer.action.DIR_SEL");
+                    AdvancedPreferencesFragment.this.startActivityForResult(i,
+                            DOWNLOAD_PATH_RESULT_CODE);
+                } catch (Exception e) {
+                    String err_msg = getResources().getString(R.string.activity_not_found,
+                            "com.android.fileexplorer.action.DIR_SEL");
+                    Toast.makeText(getActivity(), err_msg, Toast.LENGTH_LONG).show();
+                }
+                return true;
+            }
+        };
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == DOWNLOAD_PATH_RESULT_CODE) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                String downloadPath = data.getStringExtra("result_dir_sel");
+                if (downloadPath != null) {
+                    PreferenceScreen downloadPathPreset =
+                            (PreferenceScreen) findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
+                    Editor editor = downloadPathPreset.getEditor();
+                    editor.putString(PreferenceKeys.PREF_DOWNLOAD_PATH, downloadPath);
+                    editor.apply();
+                    String downloadPathForUser = DownloadHandler.getDownloadPathForUser(
+                            this.getActivity(), downloadPath);
+                    downloadPathPreset.setSummary(downloadPathForUser);
+                }
+
+                return;
+            }
+        }
+        return;
     }
 
     void updateListPreferenceSummary(ListPreference e) {

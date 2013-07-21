@@ -36,6 +36,7 @@
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -195,6 +196,17 @@
                 <action android:name="android.intent.action.INSERT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="DownloadSettings" android:label="@string/download_settings_title"
+                  android:theme="@style/DialogWhenLarge"
+                  android:launchMode="singleTask"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.BROWSERDOWNLOAD" />
+                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

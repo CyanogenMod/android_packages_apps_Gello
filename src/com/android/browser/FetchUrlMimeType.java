@@ -22,14 +22,15 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.conn.params.ConnRouteParams;
 
-import android.app.DownloadManager;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Proxy;
+import android.net.Uri;
 import android.net.http.AndroidHttpClient;
-import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.CookieManager;
 import android.webkit.MimeTypeMap;
-import android.webkit.URLUtil;
 
 import java.io.IOException;
 
@@ -48,18 +49,23 @@ class FetchUrlMimeType extends Thread {
     private final static String LOGTAG = "FetchUrlMimeType";
 
     private Context mContext;
-    private DownloadManager.Request mRequest;
     private String mUri;
-    private String mCookies;
     private String mUserAgent;
+    private String mFilename;
+    private String mReferer;
+    private Activity mActivity;
+    private boolean mPrivateBrowsing;
+    private long mContentLength;
 
-    public FetchUrlMimeType(Context context, DownloadManager.Request request,
-            String uri, String cookies, String userAgent) {
-        mContext = context.getApplicationContext();
-        mRequest = request;
-        mUri = uri;
-        mCookies = cookies;
+    public FetchUrlMimeType(Activity activity, String url, String userAgent,
+            String referer, boolean privateBrowsing, String filename) {
+        mActivity = activity;
+        mContext = activity.getApplicationContext();
+        mUri = url;
         mUserAgent = userAgent;
+        mPrivateBrowsing = privateBrowsing;
+        mFilename = filename;
+        mReferer = referer;
     }
 
     @Override
@@ -80,13 +86,16 @@ class FetchUrlMimeType extends Thread {
         }
         HttpHead request = new HttpHead(mUri);
 
-        if (mCookies != null && mCookies.length() > 0) {
-            request.addHeader("Cookie", mCookies);
+        String cookies = CookieManager.getInstance().getCookie(mUri, mPrivateBrowsing);
+        if (cookies != null && cookies.length() > 0) {
+            request.addHeader("Cookie", cookies);
         }
 
         HttpResponse response;
+        String filename = mFilename;
         String mimeType = null;
         String contentDisposition = null;
+        String contentLength = null;
         try {
             response = client.execute(request);
             // We could get a redirect here, but if we do lets let
@@ -101,6 +110,10 @@ class FetchUrlMimeType extends Thread {
                         mimeType = mimeType.substring(0, semicolonIndex);
                     }
                 }
+                Header contentLengthHeader = response.getFirstHeader("Content-Length");
+                if (contentLengthHeader != null) {
+                    contentLength = contentLengthHeader.getValue();
+                }
                 Header contentDispositionHeader = response.getFirstHeader("Content-Disposition");
                 if (contentDispositionHeader != null) {
                     contentDisposition = contentDispositionHeader.getValue();
@@ -114,26 +127,150 @@ class FetchUrlMimeType extends Thread {
             client.close();
         }
 
-       if (mimeType != null) {
-           if (mimeType.equalsIgnoreCase("text/plain") ||
-                   mimeType.equalsIgnoreCase("application/octet-stream")) {
-               String newMimeType =
-                       MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                           MimeTypeMap.getFileExtensionFromUrl(mUri));
-               if (newMimeType != null) {
-                   mimeType = newMimeType;
-                   mRequest.setMimeType(newMimeType);
-               }
-           }
-           String filename = URLUtil.guessFileName(mUri, contentDisposition,
-                mimeType);
-           mRequest.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-       }
+        if (mimeType != null) {
+            Log.e(LOGTAG, "-----------the mimeType from http header is ------------->" + mimeType);
+            if (mimeType.equalsIgnoreCase("text/plain") ||
+                    mimeType.equalsIgnoreCase("application/octet-stream")) {
+                String newMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                        MimeTypeMap.getFileExtensionFromUrl(mUri));
+                if (newMimeType != null) {
+                    mimeType = newMimeType;
+                }
+            }
 
-       // Start the download
-       DownloadManager manager = (DownloadManager) mContext.getSystemService(
-               Context.DOWNLOAD_SERVICE);
-       manager.enqueue(mRequest);
+            String fileExtension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+            if (fileExtension == null || (fileExtension != null && fileExtension.equals("bin"))) {
+                fileExtension = MimeTypeMap.getFileExtensionFromUrl(mUri);
+                if (fileExtension == null) {
+                    fileExtension = "bin";
+                }
+            }
+            filename = DownloadHandler.getFilenameBase(filename) + "." + fileExtension;
+
+        } else {
+            String fileExtension = getFileExtensionFromUrlEx(mUri);
+            if (fileExtension == "") {
+                fileExtension = "bin";
+            }
+            String newMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+            if (newMimeType != null) {
+                mimeType = newMimeType;
+            }
+            filename = guessFileNameEx(mUri, contentDisposition, mimeType);
+
+        }
+
+        if (contentLength != null) {
+            mContentLength = Long.parseLong(contentLength);
+        } else {
+            mContentLength = 0;
+        }
+
+        DownloadHandler.startDownloadSettings(mActivity, mUri, mUserAgent, contentDisposition,
+                mimeType, mReferer, mPrivateBrowsing, mContentLength, filename);
+    }
+
+    /**
+     * when we can not parse MineType and Filename from the header of http body
+     * ,Call the fallowing functions for this matter
+     * getFileExtensionFromUrlEx(String url) : get the file Extension from Url
+     * guessFileNameEx() : get the file name from url Note: this modified for
+     * download http://www.baidu.com girl picture error extension and error
+     * filename
+     */
+    private String getFileExtensionFromUrlEx(String url) {
+        Log.e("FetchUrlMimeType",
+                "--------can not get mimetype from http header, the URL is ---------->" + url);
+        if (!TextUtils.isEmpty(url)) {
+            int fragment = url.lastIndexOf('#');
+            if (fragment > 0) {
+                url = url.substring(0, fragment);
+            }
+
+            int filenamePos = url.lastIndexOf('/');
+            String filename =
+                    0 <= filenamePos ? url.substring(filenamePos + 1) : url;
+            Log.e(LOGTAG,
+                    "--------can not get mimetype from http header, the temp filename is----------"
+                            + filename);
+            // if the filename contains special characters, we don't
+            // consider it valid for our matching purposes:
+            if (!filename.isEmpty()) {
+                int dotPos = filename.lastIndexOf('.');
+                if (0 <= dotPos) {
+                    return filename.substring(dotPos + 1);
+                }
+            }
+        }
+
+        return "";
+    }
+
+    private String guessFileNameEx(String url, String contentDisposition, String mimeType) {
+        String filename = null;
+        String extension = null;
+
+        // If all the other http-related approaches failed, use the plain uri
+        if (filename == null) {
+            String decodedUrl = Uri.decode(url);
+            if (decodedUrl != null) {
+                if (!decodedUrl.endsWith("/")) {
+                    int index = decodedUrl.lastIndexOf('/') + 1;
+                    if (index > 0) {
+                        filename = decodedUrl.substring(index);
+                    }
+                }
+            }
+        }
+
+        // Finally, if couldn't get filename from URI, get a generic filename
+        if (filename == null) {
+            filename = "downloadfile";
+        }
+
+        // Split filename between base and extension
+        // Add an extension if filename does not have one
+        int dotIndex = filename.indexOf('.');
+        if (dotIndex < 0) {
+            if (mimeType != null) {
+                extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+                if (extension != null) {
+                    extension = "." + extension;
+                }
+            }
+            if (extension == null) {
+                if (mimeType != null && mimeType.toLowerCase().startsWith("text/")) {
+                    if (mimeType.equalsIgnoreCase("text/html")) {
+                        extension = ".html";
+                    } else {
+                        extension = ".txt";
+                    }
+                } else {
+                    extension = ".bin";
+                }
+            }
+        } else {
+            if (mimeType != null) {
+                // Compare the last segment of the extension against the mime
+                // type.
+                // If there's a mismatch, discard the entire extension.
+                int lastDotIndex = filename.lastIndexOf('.');
+                String typeFromExt = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                        filename.substring(lastDotIndex + 1));
+                if (typeFromExt != null && !typeFromExt.equalsIgnoreCase(mimeType)) {
+                    extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+                    if (extension != null) {
+                        extension = "." + extension;
+                    }
+                }
+            }
+            if (extension == null) {
+                extension = filename.substring(dotIndex);
+            }
+            filename = filename.substring(0, dotIndex);
+        }
+
+        return filename + extension;
     }
 
 }
