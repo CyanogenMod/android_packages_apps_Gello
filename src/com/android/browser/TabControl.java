@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.util.Log;
 import android.webkit.WebView;
 
@@ -408,6 +409,22 @@ class TabControl {
                     // sNextId to be set correctly.
                     continue;
                 }
+
+                // add for carrier homepage feature
+                // If the webview restore successfully, add javascript interface again.
+                WebView view = t.getWebView();
+                if (view != null) {
+                    String browserRes = SystemProperties.get("persist.env.c.browser.resource",
+                            "default");
+                    if ("ct".equals(browserRes)) {
+                        view.getSettings().setJavaScriptEnabled(true);
+                        if (mController.getActivity() instanceof BrowserActivity) {
+                            view.addJavascriptInterface(mController.getActivity(),
+                                    "default_homepage");
+                        }
+                    }
+                }
+
                 tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.

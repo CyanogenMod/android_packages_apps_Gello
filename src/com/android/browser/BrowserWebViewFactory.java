@@ -17,6 +17,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.SystemProperties;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.WebView;
@@ -60,6 +61,15 @@ public class BrowserWebViewFactory implements WebViewFactory {
                 pm.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH)
                 || pm.hasSystemFeature(PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT);
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
+
+        // add for carrier homepage feature
+        String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
+        if ("ct".equals(browserRes)) {
+            w.getSettings().setJavaScriptEnabled(true);
+            if (mContext instanceof BrowserActivity) {
+                w.addJavascriptInterface(mContext, "default_homepage");
+            }
+        }
 
         // Add this WebView to the settings observer list and update the
         // settings
