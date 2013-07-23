@@ -1022,4 +1022,6 @@
     <!-- Add for Carrier Feature.Content description for exit menu item -->
     <string name="exit">Exit</string>
 
+    <!-- Add for Carrier Feature.Content description for about menu item -->
+    <string name="about">About</string>
 </resources>

@@ -407,4 +407,7 @@
 
     <!-- Add for Carrier Feature.Content description for exit menu item -->
     <string name="exit">退出</string>
+
+    <!-- Add for Carrier Feature.Content description for about menu item -->
+    <string name="about">关于</string>
 </resources>
