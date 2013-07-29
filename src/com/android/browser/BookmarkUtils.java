@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,6 +40,7 @@ import android.net.Uri;
 import android.os.Message;
 import android.provider.Browser;
 import android.provider.BrowserContract;
+import android.provider.BrowserContract.Bookmarks;
 
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";
@@ -247,10 +249,7 @@ public class BookmarkUtils {
                                 Runnable runnable = new Runnable(){
                                     @Override
                                     public void run() {
-                                        Uri uri = ContentUris.withAppendedId(
-                                                BrowserContract.Bookmarks.CONTENT_URI,
-                                                id);
-                                        context.getContentResolver().delete(uri, null, null);
+                                        removeBookmarkOrFolder(context, id);
                                     }
                                 };
                                 new Thread(runnable).start();
@@ -258,5 +257,36 @@ public class BookmarkUtils {
                         })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    /**
+     * Remove the bookmark or folder.Remove all sub folders and bookmarks under current folder.
+     * @param context Package Context for strings, dialog, ContentResolver.
+     * @param id Id of the bookmark to remove.
+     */
+    private static void removeBookmarkOrFolder(Context context, long id) {
+        Cursor cursor = context.getContentResolver().query(Bookmarks.CONTENT_URI,
+                new String[] {Bookmarks._ID},
+                Bookmarks.PARENT + "=?",
+                new String[] {Long.toString(id)},
+                null);
+
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        removeBookmarkOrFolder(context,
+                                cursor.getLong(cursor.getColumnIndex(Bookmarks._ID)));
+                    } while (cursor.moveToNext());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        }
+
+        context.getContentResolver().delete(
+                ContentUris.withAppendedId(Bookmarks.CONTENT_URI, id), null, null);
     }
 }
