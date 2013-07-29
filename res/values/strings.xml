@@ -1013,4 +1013,9 @@
     <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_bookmarks_folder_up">Previous folder</string>
 
+
+    <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+    <string name="http_video_msg">Please choose a following operation</string>
+    <string name="video_save">Save</string>
+    <string name="video_play">Play</string>
 </resources>
