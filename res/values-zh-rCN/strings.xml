@@ -404,4 +404,7 @@
     <string name="http_video_msg">请选择以下操作</string>
     <string name="video_save">保存</string>
     <string name="video_play">播放</string>
+
+    <!-- Add for Carrier Feature.Content description for exit menu item -->
+    <string name="exit">退出</string>
 </resources>

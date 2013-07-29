@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.os.SystemProperties;
 import android.preference.PreferenceActivity;
 import android.provider.Browser;
 import android.provider.BrowserContract;
@@ -769,6 +770,7 @@ public class Controller
         // Stop watching the default geolocation permissions
         mSystemAllowGeolocationOrigins.stop();
         mSystemAllowGeolocationOrigins = null;
+        mCrashRecoveryHandler.clearState();
     }
 
     protected boolean isActivityPaused() {
@@ -1509,13 +1511,11 @@ public class Controller
     public void updateMenuState(Tab tab, Menu menu) {
         boolean canGoBack = false;
         boolean canGoForward = false;
-        boolean isHome = false;
         boolean isDesktopUa = false;
         boolean isLive = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
-            isHome = mSettings.getHomePage().equals(tab.getUrl());
             isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
             isLive = !tab.isSnapshot();
         }
@@ -1523,7 +1523,6 @@ public class Controller
         back.setEnabled(canGoBack);
 
         final MenuItem home = menu.findItem(R.id.homepage_menu_id);
-        home.setEnabled(!isHome);
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
         forward.setEnabled(canGoForward);
@@ -1555,7 +1554,10 @@ public class Controller
         uaSwitcher.setChecked(isDesktopUa);
         menu.setGroupVisible(R.id.LIVE_MENU, isLive);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
-        menu.setGroupVisible(R.id.COMBO_MENU, false);
+
+        // history and snapshots item are the members of COMBO menu group,
+        // so if show history item, only make snapshots item invisible.
+        menu.findItem(R.id.snapshots_menu_id).setVisible(false);
 
         mUi.updateMenuState(tab, menu);
     }
@@ -1634,6 +1636,13 @@ public class Controller
                 }
                 closeCurrentTab();
                 break;
+
+            case R.id.exit_menu_id:
+                String ret = SystemProperties.get("persist.debug.browsermonkeytest");
+                if (ret != null && ret.equals("enable"))
+                    break;
+                onPause();
+                return false;
 
             case R.id.homepage_menu_id:
                 Tab current = mTabControl.getCurrentTab();
