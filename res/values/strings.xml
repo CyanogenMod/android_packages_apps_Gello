@@ -1029,4 +1029,7 @@
     <string name="estore_homepage" translatable="false">http://3g.189store.com/downclient</string>
     <string name="download_estore_app">Estore app does not exist, please download and install it.</string>
     <string name="estore_url_warning">Launch Estore app failed, url is too long!</string>
+
+    <!-- Add for Unsupport Uploading Drm Files Feature -->
+    <string name="drm_file_unsupported">Drm file is unsupported!</string>
 </resources>

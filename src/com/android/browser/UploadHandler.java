@@ -19,8 +19,10 @@ package com.android.browser;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.SystemProperties;
 import android.provider.MediaStore;
 import android.webkit.ValueCallback;
 import android.widget.Toast;
@@ -56,6 +58,38 @@ public class UploadHandler {
         return mHandled;
     }
 
+    private boolean isDrmFileUpload(Uri uri) {
+        if (uri == null) return false;
+
+        String path = null;
+        String scheme = uri.getScheme();
+        if ("content".equals(scheme)) {
+            String[] proj = null;
+            if (uri.toString().contains("/images/")) {
+                proj = new String[]{MediaStore.Images.Media.DATA};
+            } else if (uri.toString().contains("/audio/")) {
+                proj = new String[]{MediaStore.Audio.Media.DATA};
+            } else if (uri.toString().contains("/video/")) {
+                proj = new String[]{MediaStore.Video.Media.DATA};
+            }
+            Cursor cursor = mController.getActivity().managedQuery(uri, proj, null, null, null);
+            if (cursor != null && cursor.moveToFirst() && proj != null) {
+                path = cursor.getString(0);
+            }
+        } else if ("file".equals(scheme)) {
+            path = uri.getPath();
+        }
+        if (path != null) {
+            if (path.endsWith(".fl") || path.endsWith(".dm")
+                    || path.endsWith(".dcf") || path.endsWith(".dr") || path.endsWith(".dd")) {
+                Toast.makeText(mController.getContext(), R.string.drm_file_unsupported,
+                        Toast.LENGTH_LONG).show();
+                return true;
+            }
+        }
+        return false;
+    }
+
     void onResult(int resultCode, Intent intent) {
 
         if (resultCode == Activity.RESULT_CANCELED && mCaughtActivityNotFoundException) {
@@ -85,7 +119,14 @@ public class UploadHandler {
             }
         }
 
-        mUploadMessage.onReceiveValue(result);
+        // add unsupport uploading drm file feature for carrier.
+        boolean drmUpload = SystemProperties.getBoolean("persist.env.browser.drmupload", false);
+        if (drmUpload && isDrmFileUpload(result)) {
+            mUploadMessage.onReceiveValue(null);
+        } else {
+            mUploadMessage.onReceiveValue(result);
+        }
+
         mHandled = true;
         mCaughtActivityNotFoundException = false;
     }
