@@ -1018,4 +1018,8 @@
     <string name="http_video_msg">Please choose a following operation</string>
     <string name="video_save">Save</string>
     <string name="video_play">Play</string>
+
+    <!-- Add for Carrier Feature.Content description for exit menu item -->
+    <string name="exit">Exit</string>
+
 </resources>

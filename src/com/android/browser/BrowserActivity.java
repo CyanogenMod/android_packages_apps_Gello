@@ -222,6 +222,23 @@ public class BrowserActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (!mController.onOptionsItemSelected(item)) {
+            if (item.getItemId() == R.id.exit_menu_id) {
+                finish();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Make sure all tabs are closed.
+                        if (mController != NullController.INSTANCE) {
+                            mController.onPause();
+                            mController.onDestroy();
+                            // Clear the state before kill the browser process.
+                            CrashRecoveryHandler.getInstance().clearState(true);
+                            mController = NullController.INSTANCE;
+                        }
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                }, 300);
+            }
             return super.onOptionsItemSelected(item);
         }
         return true;

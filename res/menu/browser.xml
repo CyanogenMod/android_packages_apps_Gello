@@ -17,6 +17,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
         android:id="@+id/MAIN_MENU">
+        <item
+            android:id="@+id/homepage_menu_id"
+            android:title="@string/go_home"
+            android:alphabeticShortcut="&#32;" />
         <group
             android:id="@+id/NAV_MENU"
             android:visible="@bool/menu_show_navigation">
@@ -28,6 +32,9 @@
                 android:title="@string/forward"
                 android:icon="@*android:drawable/ic_menu_forward" />
         </group>
+        <item
+            android:id="@+id/back_menu_id"
+            android:title="@string/back" />
         <item
             android:id="@+id/new_tab_menu_id"
             android:title="@string/new_tab"
@@ -94,6 +101,9 @@
             android:title="@string/menu_preferences"
             android:icon="@drawable/ic_settings_holo_dark"
             android:alphabeticShortcut="p" />
+        <item
+            android:id="@+id/exit_menu_id"
+            android:title="@string/exit" />
         <!-- followings are debug only -->
         <item
             android:id="@+id/dump_nav_menu_id"
