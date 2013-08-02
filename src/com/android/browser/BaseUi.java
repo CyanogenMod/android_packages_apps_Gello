@@ -876,4 +876,7 @@ public abstract class BaseUi implements UI {
         mNavigationBar.onVoiceResult(result);
     }
 
+    protected UiController getUiController() {
+        return mUiController;
+    }
 }

@@ -59,6 +59,20 @@ public class BrowserActivity extends Activity {
     private ActivityController mController = NullController.INSTANCE;
     private Handler mHandler = new Handler();
 
+    private UiController mUiController;
+    private Handler mHandlerEx = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+           if (mUiController != null) {
+               WebView current = mUiController.getCurrentWebView();
+               if (current != null) {
+                   current.postInvalidate();
+               }
+           }
+        }
+    };
+
     @Override
     public void onCreate(Bundle icicle) {
         if (LOGV_ENABLED) {
@@ -93,9 +107,13 @@ public class BrowserActivity extends Activity {
         boolean xlarge = isTablet(this);
         UI ui = null;
         if (xlarge) {
-            ui = new XLargeUi(this, controller);
+            XLargeUi tablet = new XLargeUi(this, controller);
+            ui = tablet;
+            mUiController = tablet.getUiController();
         } else {
-            ui = new PhoneUi(this, controller);
+            PhoneUi phone = new PhoneUi(this, controller);
+            ui = phone;
+            mUiController = phone.getUiController();
         }
         controller.setUi(ui);
         return controller;
@@ -202,6 +220,9 @@ public class BrowserActivity extends Activity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mController.onConfgurationChanged(newConfig);
+
+        //For avoiding bug CR520353 temporarily, delay 300ms to refresh WebView.
+        mHandlerEx.postDelayed(runnable, 300);
     }
 
     @Override
