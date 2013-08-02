@@ -302,6 +302,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 sFactoryResetUrl = mContext.getResources().getString(R.string.homepage_base);
             }
 
+            if (!mPrefs.contains(PREF_DEFAULT_TEXT_ENCODING)) {
+                if (!"default".equals(browserRes)) {
+                    mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING,
+                            "GBK").apply();
+                }
+            }
+
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
                 sFactoryResetUrl = sFactoryResetUrl.replace("{CID}",
                     BrowserProvider.getClientId(mContext.getContentResolver()));
