@@ -410,4 +410,9 @@
 
     <!-- Add for Carrier Feature.Content description for about menu item -->
     <string name="about">关于</string>
+
+    <!-- Add for Wap2Estore Feature -->
+    <string name="estore_homepage" translatable="false">http://3g.189store.com/downclient</string>
+    <string name="download_estore_app">天翼空间客户端不存在，请下载并安装。</string>
+    <string name="estore_url_warning">url太长，无法启动天翼空间客户端！</string>
 </resources>

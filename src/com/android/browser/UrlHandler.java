@@ -25,10 +25,13 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.SystemProperties;
 import android.provider.Browser;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -38,6 +41,7 @@ import java.util.regex.Matcher;
  */
 public class UrlHandler {
 
+    private final static String TAG = "UrlHandler";
     static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
     static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
 
@@ -115,6 +119,14 @@ public class UrlHandler {
             }
         }
 
+        // add for carrier wap2estore feature
+        boolean wap2estore = SystemProperties.getBoolean(
+                "persist.env.browser.wap2estore", false);
+        if (wap2estore && isEstoreTypeUrl(url)) {
+            handleEstoreTypeUrl(url);
+            return true;
+        }
+
         if (startActivityForUrl(tab, url)) {
             return true;
         }
@@ -124,6 +136,46 @@ public class UrlHandler {
         }
 
         return false;
+    }
+
+    private boolean isEstoreTypeUrl(String url) {
+        String utf8Url = null;
+        try {
+            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "err " + e);
+        }
+        if (utf8Url != null && utf8Url.startsWith("estore:")) {
+            return true;
+        }
+        return false;
+    }
+
+    private void handleEstoreTypeUrl(String url) {
+        String utf8Url = null, finalUrl = null;
+        try {
+            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "err " + e);
+        }
+        if (utf8Url != null) {
+            finalUrl = utf8Url;
+        } else {
+            finalUrl = url;
+        }
+        if (finalUrl.replaceFirst("estore:", "").length() > 256) {
+            Toast.makeText(mActivity, R.string.estore_url_warning, Toast.LENGTH_LONG).show();
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(finalUrl));
+        try {
+            mActivity.startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            String downloadUrl = mActivity.getResources().getString(R.string.estore_homepage);
+            mController.loadUrl(mController.getCurrentTab(), downloadUrl);
+            Toast.makeText(mActivity, R.string.download_estore_app, Toast.LENGTH_LONG).show();
+        }
     }
 
     boolean startActivityForUrl(Tab tab, String url) {
