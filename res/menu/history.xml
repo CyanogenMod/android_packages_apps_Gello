@@ -15,4 +15,7 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/clear_history_menu_id"
+        android:title="@string/clear_history"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
 </menu>
