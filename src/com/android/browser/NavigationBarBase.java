@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.android.browser.UrlInputView.UrlInputListener;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
@@ -170,7 +171,8 @@ public class NavigationBarBase extends LinearLayout implements
             String url = null;
             boolean wap2estore = SystemProperties.getBoolean(
                     "persist.env.browser.wap2estore", false);
-            if (wap2estore && isEstoreTypeUrl(text)) {
+            if ((wap2estore && isEstoreTypeUrl(text))
+                || isRtspTypeUrl(text)) {
                 url = text;
             } else {
                 url = UrlUtils.smartUrlFilter(text, false);
@@ -190,6 +192,12 @@ public class NavigationBarBase extends LinearLayout implements
                 handleEstoreTypeUrl(url);
                 setDisplayTitle(text);
                 return;
+            }
+            // add for rtsp scheme feature
+            if (url != null && t != null && isRtspTypeUrl(url)) {
+                if (handleRtspTypeUrl(url)) {
+                    return;
+                }
             }
         }
         Intent i = new Intent();
@@ -246,6 +254,38 @@ public class NavigationBarBase extends LinearLayout implements
             mUiController.loadUrl(mBaseUi.getActiveTab(), downloadUrl);
             Toast.makeText(mContext, R.string.download_estore_app, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private boolean isRtspTypeUrl(String url) {
+        String utf8Url = null;
+        try {
+            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "err " + e);
+        }
+        if (utf8Url != null && utf8Url.startsWith("rtsp://")) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleRtspTypeUrl(String url) {
+        Intent intent;
+        // perform generic parsing of the URI to turn it into an Intent.
+        try {
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+        } catch (URISyntaxException ex) {
+            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            return false;
+        }
+
+        try {
+            mContext.startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Log.w("Browser", "No resolveActivity " + url);
+            return false;
+        }
+        return true;
     }
 
     @Override
