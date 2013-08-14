@@ -23,8 +23,10 @@ Each value in the string-array is the name of a value in all_search_engines.xml
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="search_engines" translatable="false">
     <item>google</item>
-    <item>baidu</item>
+    <item>baidu_cn</item>
+    <item>cmcc_cn</item>
     <item>yahoo_cn</item>
     <item>bing_zh_CN</item>
   </string-array>
+  <string name="default_search_engine_value">baidu_cn</string>
 </resources>

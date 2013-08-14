@@ -19,6 +19,7 @@ import com.android.browser.R;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -37,10 +38,16 @@ public class SearchEngines {
         ArrayList<SearchEngineInfo> searchEngineInfos = new ArrayList<SearchEngineInfo>();
         Resources res = context.getResources();
         String[] searchEngines = res.getStringArray(R.array.search_engines);
+        String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
         for (int i = 0; i < searchEngines.length; i++) {
             String name = searchEngines[i];
-            SearchEngineInfo info = new SearchEngineInfo(context, name);
-            searchEngineInfos.add(info);
+            if ("cmcc".equals(browserRes)) {
+                SearchEngineInfo info = new SearchEngineInfo(context, name);
+                searchEngineInfos.add(info);
+            } else if (!name.startsWith("cmcc")) {
+                SearchEngineInfo info = new SearchEngineInfo(context, name);
+                searchEngineInfos.add(info);
+            }
         }
         return searchEngineInfos;
     }
