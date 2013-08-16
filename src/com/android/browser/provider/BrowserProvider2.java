@@ -654,10 +654,14 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             values.put(Bookmarks.DIRTY, true);
             db.insertOrThrow(TABLE_BOOKMARKS, null, values);
 
-            addDefaultBookmarks(db, FIXED_ID_ROOT);
             // add for carrier bookmark feature
             String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
-            if ("ct".equals(browserRes)) {
+
+            //don't add default bookmarks for cmcc
+            if (!"cmcc".equals(browserRes)) {
+                addDefaultBookmarks(db, FIXED_ID_ROOT);
+            }
+            if ("ct".equals(browserRes) || "cmcc".equals(browserRes)) {
                 addDefaultCarrierBookmarks(db, FIXED_ID_ROOT);
             }
         }
