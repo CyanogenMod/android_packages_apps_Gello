@@ -1203,8 +1203,10 @@ public class Controller
                             ComboViewActivity.EXTRA_OPEN_ALL);
                     Tab parent = getCurrentTab();
                     for (String url : urls) {
-                        parent = openTab(url, parent,
-                                !mSettings.openInBackground(), true);
+                        if (url != null) {
+                            parent = openTab(url, parent,
+                                    !mSettings.openInBackground(), true);
+                        }
                     }
                 } else if (intent.hasExtra(ComboViewActivity.EXTRA_OPEN_SNAPSHOT)) {
                     long id = intent.getLongExtra(
