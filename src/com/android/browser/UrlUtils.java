@@ -130,7 +130,7 @@ public class UrlUtils {
         return null;
     }
 
-    /* package */ static String fixUrl(String inUrl) {
+    public static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
         // duplicates functionality in smartUrlFilter().
         // However, changing all current callers of fixUrl to

@@ -105,6 +105,10 @@ public class UrlHandler {
             return false;
         }
 
+        if (url.startsWith("ae://") && url.endsWith("add-fav")) {
+            mController.startAddMyNavigation(url);
+            return true;
+        }
         // If this is a Google search, attempt to add an RLZ string
         // (if one isn't already present).
         if (rlzProviderPresent()) {
