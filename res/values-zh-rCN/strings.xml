@@ -424,4 +424,12 @@
     <string name="exit_browser_msg">请选择退出浏览器的方式？</string>
     <string name="exit_minimize">最小化</string>
     <string name="exit_quit">退出</string>
+
+    <!-- Add for new bookmark/folder Feature -->
+    <string name="save_bookmark_folder">新建书签文件夹</string>
+    <string name="browser_max_input_title">已达输入上限</string>
+    <string name="browser_max_input">您输入的字符数已经达到最大长度<xliff:g id="MAXLIMIT">%s</xliff:g>个字符。</string>
+    <string name="save_to_bookmarks_title">保存书签</string>
+    <string name="duplicated_folder_warning">该文件夹已经存在</string>
+    <string name="overwrite_bookmark_msg">该书签的标签或者地址已经存在，是否覆盖？</string>
 </resources>

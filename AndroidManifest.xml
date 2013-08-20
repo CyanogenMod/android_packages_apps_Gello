@@ -201,6 +201,16 @@
         <activity android:name="ComboViewActivity">
         </activity>
 
+        <!-- used to new folder in bookmark page for carrier -->
+        <activity android:name="AddBookmarkFolder" android:label="@string/save_bookmark_folder"
+                  android:theme="@style/DialogWhenLarge"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
+            </intent-filter>
+        </activity>
+
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
             android:name=".widget.BookmarkThumbnailWidgetProvider"

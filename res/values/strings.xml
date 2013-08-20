@@ -1038,4 +1038,12 @@
     <string name="exit_browser_msg">Please Select How to Exit Browser?</string>
     <string name="exit_minimize">Minimize</string>
     <string name="exit_quit">Quit</string>
+
+    <!-- Add for new bookmark/folder Feature -->
+    <string name="save_bookmark_folder">New folder</string>
+    <string name="browser_max_input_title">Reached Input Limit</string>
+    <string name="browser_max_input">Your input has reached the maximum limit of <xliff:g id="MAXLIMIT">%s</xliff:g> characters.</string>
+    <string name="save_to_bookmarks_title">Save to Bookmarks</string>
+    <string name="duplicated_folder_warning">The folder has already exists</string>
+    <string name="overwrite_bookmark_msg">This bookmark\'s name or address already exists, overwrite it?</string>
 </resources>
