@@ -1046,4 +1046,33 @@
     <string name="save_to_bookmarks_title">Save to Bookmarks</string>
     <string name="duplicated_folder_warning">The folder has already exists</string>
     <string name="overwrite_bookmark_msg">This bookmark\'s name or address already exists, overwrite it?</string>
+
+    <!-- Add for download save path setting Feature -->
+    <string name="invalid_path">"Path is invalid!"</string>
+    <string name="path_wrong">"Wrong Path"</string>
+    <string name="pref_download_title">Download Path Settings</string>
+    <string name="pref_download_path_setting_screen_title">Custom Download Path</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Cancel</string>
+    <string name="download_timeneeded">Time</string>
+    <string name="download_filesize">Size</string>
+    <string name="download_filepath_label">Path</string>
+    <string name="download_edit_filename_label">Name</string>
+    <string name="download_default_path">default</string>
+    <string name="default_savepath_name">/Download</string>
+    <string name="download_no_enough_memory">Download no enough memory</string>
+    <string name="download_settings_title">Download Settings</string>
+    <string name="save_page_needs_title">Download File Name is Empty!</string>
+    <string name="filename_empty_title">Download File Name is Null</string>
+    <string name="filename_empty_msg">Download File Name Can not Be Null!Please Enter a Valid File Name!</string>
+    <string name="download_file_setting">Download File Settings</string>
+    <string name="unknow_length">Unknow</string>
+    <string name="download_file_exist_msg">This File is Already Exist,Please Enter a New File Name!</string>
+    <string name="download_file_exist">File Exist</string>
+    <string name ="time_min">min</string>
+    <string name="download_path_phone_stroage_label">/Phone Stroage</string>
+    <string name="download_path_sd_card_label">/SD card</string>
+    <string name="download_path_unavailable_dlg_title">Download Directory Unavailable</string>
+    <string name="download_path_unavailable_dlg_msg">Please modify the Download Directory of Browser</string>
+    <string name="activity_not_found">Activity Not Found to Handle Intent <xliff:g id="NOACTIVITY">%s</xliff:g>.</string>
 </resources>
