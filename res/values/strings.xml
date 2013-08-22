@@ -1058,23 +1058,22 @@
     <string name="download_filesize">Size</string>
     <string name="download_filepath_label">Path</string>
     <string name="download_edit_filename_label">Name</string>
-    <string name="download_default_path">default</string>
-    <string name="default_savepath_name">/Download</string>
+    <string name="download_default_path">/Download</string>
     <string name="download_no_enough_memory">Download no enough memory</string>
     <string name="download_settings_title">Download Settings</string>
-    <string name="save_page_needs_title">Download File Name is Empty!</string>
-    <string name="filename_empty_title">Download File Name is Null</string>
-    <string name="filename_empty_msg">Download File Name Can not Be Null!Please Enter a Valid File Name!</string>
+    <string name="save_page_needs_title">Download File\'s Name Can not be Empty!</string>
+    <string name="filename_empty_title">Download File\'s Name is Empty</string>
+    <string name="filename_empty_msg">Download File\'s Name Can not Be Empty! Please Input a Valid File\'s Name!</string>
     <string name="download_file_setting">Download File Settings</string>
     <string name="unknow_length">Unknow</string>
-    <string name="download_file_exist_msg">This File is Already Exist,Please Enter a New File Name!</string>
+    <string name="download_file_exist_msg">This File is Already Exist,Please Input a New File\'s Name!</string>
     <string name="download_file_exist">File Exist</string>
     <string name ="time_min">min</string>
     <string name="download_path_phone_stroage_label">/Phone Stroage</string>
     <string name="download_path_sd_card_label">/SD card</string>
-    <string name="download_path_unavailable_dlg_title">Download Directory Unavailable</string>
+    <string name="download_path_unavailable_dlg_title">Download Directory is Unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the Download Directory of Browser</string>
-    <string name="activity_not_found">Activity Not Found to Handle Intent <xliff:g id="NOACTIVITY">%s</xliff:g>.</string>
+    <string name="activity_not_found">Can\'t Find the Activity to Handle this Intent <xliff:g id="NOACTIVITY">%s</xliff:g>.</string>
     <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>

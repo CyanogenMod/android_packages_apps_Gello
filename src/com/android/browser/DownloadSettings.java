@@ -168,9 +168,10 @@ public class DownloadSettings extends Activity {
                 DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
                 return;
             }
-            boolean isNoEnoughMemory = DownloadHandler.manageNoEnoughMemory(DownloadSettings.this,
-                    contentLength, downloadPath);
+            boolean isNoEnoughMemory = DownloadHandler.manageNoEnoughMemory(contentLength,
+                    downloadPath);
             if (isNoEnoughMemory) {
+                DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
                 return;
             }
 
