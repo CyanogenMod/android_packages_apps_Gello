@@ -782,7 +782,6 @@ public class Controller
         // Stop watching the default geolocation permissions
         mSystemAllowGeolocationOrigins.stop();
         mSystemAllowGeolocationOrigins = null;
-        mCrashRecoveryHandler.clearState();
     }
 
     protected boolean isActivityPaused() {
