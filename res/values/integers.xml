@@ -30,4 +30,5 @@
     <integer name="max_bookmark_columns">5</integer>
     <!-- The duration of the titlebar animation in millisecs -->
     <integer name="titlebar_animation_duration">200</integer>
+    <integer name="netswitch_type_remind">1</integer>
 </resources>
