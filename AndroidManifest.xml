@@ -281,6 +281,12 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".MessagesReceiver">
+            <intent-filter>
+                <action android:name="com.android.mms.transaction.MESSAGE_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".PreloadRequestReceiver"
              android:permission="com.android.browser.permission.PRELOAD" >
              <intent-filter>
