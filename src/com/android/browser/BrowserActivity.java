@@ -40,6 +40,8 @@ import android.webkit.WebView;
 import android.webkit.JavascriptInterface;
 
 import com.android.browser.UI.ComboViews;
+import com.android.browser.search.DefaultSearchEngine;
+import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -88,7 +90,9 @@ public class BrowserActivity extends Activity {
 
         // If this was a web search request, pass it on to the default web
         // search provider and finish this activity.
-        if (IntentHandler.handleWebSearchIntent(this, null, getIntent())) {
+        SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
+        boolean result = IntentHandler.handleWebSearchIntent(this, null, getIntent());
+        if (result && (searchEngine instanceof DefaultSearchEngine)) {
             finish();
             return;
         }
