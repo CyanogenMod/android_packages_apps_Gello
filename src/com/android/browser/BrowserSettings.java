@@ -251,7 +251,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
             // add for carrier homepage feature
             String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
-            if ("cu".equals(browserRes)) {
+            if ("cu".equals(browserRes) || "cmcc".equals(browserRes)) {
                 int resID = sResPackageCtx.getResources().getIdentifier(
                         "homepage_base", "string", "com.android.browser.res");
                 sFactoryResetUrl = sResPackageCtx.getResources().getString(resID);
