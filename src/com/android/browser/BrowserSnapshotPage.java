@@ -182,6 +182,9 @@ public class BrowserSnapshotPage extends Fragment implements
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        if (!(item.getMenuInfo() instanceof AdapterContextMenuInfo)) {
+            return false;
+        }
         if (item.getItemId() == R.id.delete_context_menu_id) {
             AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
             deleteSnapshot(info.id);
