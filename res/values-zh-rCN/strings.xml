@@ -459,4 +459,6 @@
     <string name="download_path_unavailable_dlg_title">﻿浏览器的下载路径不可达</string>
     <string name="download_path_unavailable_dlg_msg">请重新设置浏览器的下载路径</string>
     <string name="activity_not_found">没有找到处理 Intent <xliff:g id="NOACTIVITY">%s</xliff:g> 的Activity.</string>
+    <!-- Toast message displayed when the full screen received message -->
+    <string name="received_message_full_screen">收到来自: <xliff:g id="FROM">%s</xliff:g> 的一条消息.</string>
 </resources>
