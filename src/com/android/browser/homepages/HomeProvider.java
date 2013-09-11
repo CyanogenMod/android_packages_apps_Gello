@@ -38,7 +38,7 @@ public class HomeProvider extends ContentProvider {
 
     private static final String TAG = "HomeProvider";
     public static final String AUTHORITY = "com.android.browser.home";
-    public static final String MOST_VISITED = "content://" + AUTHORITY + "/";
+    public static final String MOST_VISITED = "content://" + AUTHORITY + "/index";
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
