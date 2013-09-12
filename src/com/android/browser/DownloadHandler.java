@@ -56,18 +56,6 @@ public class DownloadHandler {
     private static String mExternalStorage;
     private final static String INVALID_PATH = "/storage";
 
-    /**
-     * Notify the host application a download should be done, or that
-     * the data should be streamed if a streaming viewer is available.
-     * @param activity Activity requesting the download.
-     * @param url The full url to the content that should be downloaded
-     * @param userAgent User agent of the downloading application.
-     * @param contentDisposition Content-disposition http header, if present.
-     * @param mimetype The mimetype of the content reported by the server
-     * @param referer The referer associated with the downloaded url
-     * @param privateBrowsing If the request is coming from a private browsing tab.
-     */
-
     public static void startingDownload(Activity activity,
             String url, String userAgent, String contentDisposition,
             String mimetype, String referer, boolean privateBrowsing, long contentLength,
@@ -125,6 +113,18 @@ public class DownloadHandler {
         }.start();
         showStartDownloadToast(activity);
     }
+
+    /**
+     * Notify the host application a download should be done, or that
+     * the data should be streamed if a streaming viewer is available.
+     * @param activity Activity requesting the download.
+     * @param url The full url to the content that should be downloaded
+     * @param userAgent User agent of the downloading application.
+     * @param contentDisposition Content-disposition http header, if present.
+     * @param mimetype The mimetype of the content reported by the server
+     * @param referer The referer associated with the downloaded url
+     * @param privateBrowsing If the request is coming from a private browsing tab.
+     */
 
     public static boolean onDownloadStart(final Activity activity, final String url,
             final String userAgent, final String contentDisposition, final String mimetype,
@@ -393,16 +393,13 @@ public class DownloadHandler {
                 .show();
     }
 
-    public static boolean manageNoEnoughMemory(Activity mContext, long contentLength, String root) {
-        Log.i(LOGTAG, "----------- download file contentLength is ------------>" + contentLength);
+    public static boolean manageNoEnoughMemory(long contentLength, String root) {
         long mAvailableBytes = getAvailableMemory(root);
         if (mAvailableBytes > 0) {
             if (contentLength > mAvailableBytes) {
-                showNoEnoughMemoryDialog(mContext);
                 return true;
             }
         } else {
-            showNoEnoughMemoryDialog(mContext);
             return true;
         }
         return false;
@@ -539,7 +536,7 @@ public class DownloadHandler {
             defaultStorage = getExternalStorageDirectory(context);
         }
 
-        defaultDownloadPath = defaultStorage + context.getString(R.string.default_savepath_name);
+        defaultDownloadPath = defaultStorage + context.getString(R.string.download_default_path);
         Log.e(LOGTAG, "defaultStorage directory is : " + defaultDownloadPath);
         return defaultDownloadPath;
     }
