@@ -54,7 +54,7 @@ public class RequestHandler extends Thread {
     OutputStream mOutput;
 
     static {
-        sUriMatcher.addURI(HomeProvider.AUTHORITY, "/", INDEX);
+        sUriMatcher.addURI(HomeProvider.AUTHORITY, "index", INDEX);
         sUriMatcher.addURI(HomeProvider.AUTHORITY, "res/*/*", RESOURCE);
     }
 
