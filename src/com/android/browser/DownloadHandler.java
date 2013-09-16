@@ -566,7 +566,7 @@ public class DownloadHandler {
             downloadPath = downloadPath.replace(sdCardDir, sdCardLabel);
         } else if ((phoneStorageDir != null) && downloadPath.startsWith(phoneStorageDir)) {
             String phoneStorageLabel = activity.getResources().getString(
-                    R.string.download_path_phone_stroage_label);
+                    R.string.download_path_phone_storage_label);
             downloadPath = downloadPath.replace(phoneStorageDir, phoneStorageLabel);
         }
         return downloadPath;

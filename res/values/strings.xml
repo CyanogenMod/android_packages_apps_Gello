@@ -1069,7 +1069,7 @@
     <string name="download_file_exist_msg">This File is Already Exist,Please Input a New File\'s Name!</string>
     <string name="download_file_exist">File Exist</string>
     <string name ="time_min">min</string>
-    <string name="download_path_phone_stroage_label">/Phone Stroage</string>
+    <string name="download_path_phone_storage_label">/Phone Storage</string>
     <string name="download_path_sd_card_label">/SD card</string>
     <string name="download_path_unavailable_dlg_title">Download Directory is Unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the Download Directory of Browser</string>
