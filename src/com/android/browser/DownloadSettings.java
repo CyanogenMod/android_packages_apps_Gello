@@ -36,6 +36,7 @@ import android.content.Intent;
 import java.lang.Thread;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.format.*;
 import android.util.Log;
 import android.view.View;
@@ -115,7 +116,8 @@ public class DownloadSettings extends Activity {
                 BrowserUtils.FILENAME_MAX_LENGTH);
 
         downloadFilenameET.setText(filenameBase);
-        downloadPath = BrowserSettings.getInstance().getDownloadPath();
+        downloadPath = chooseFolderFromMimeType(BrowserSettings.getInstance().getDownloadPath(),
+                mimetype);
         downloadPathForUser = DownloadHandler.getDownloadPathForUser(DownloadSettings.this,
                 downloadPath);
         setDownloadPathForUserText(downloadPathForUser);
@@ -236,6 +238,22 @@ public class DownloadSettings extends Activity {
                 }
             }
         }
+    }
+
+    // Add for carrier feature - download to related folders by mimetype.
+    private static String chooseFolderFromMimeType(String path, String mimeType) {
+        String destinationFolder = null;
+        if (!path.contains(Environment.DIRECTORY_DOWNLOADS) || null == mimeType)
+            return path;
+        if (mimeType.startsWith("audio"))
+            destinationFolder = Environment.DIRECTORY_MUSIC;
+        else if (mimeType.startsWith("video"))
+            destinationFolder = Environment.DIRECTORY_MOVIES;
+        else if (mimeType.startsWith("image"))
+            destinationFolder = Environment.DIRECTORY_PICTURES;
+        if (null != destinationFolder)
+            path = path.replace(Environment.DIRECTORY_DOWNLOADS, destinationFolder);
+        return path;
     }
 
     /**

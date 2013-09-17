@@ -454,7 +454,7 @@
     <string name="download_file_exist_msg">文件已经存在，请重新输入文件名！</string>
     <string name="download_file_exist">文件已经存在</string>
     <string name ="time_min">分钟</string>
-    <string name="download_path_phone_stroage_label">/内置存储器</string>
+    <string name="download_path_phone_storage_label">/内置存储器</string>
     <string name="download_path_sd_card_label">/SD卡</string>
     <string name="download_path_unavailable_dlg_title">﻿浏览器的下载路径不可达</string>
     <string name="download_path_unavailable_dlg_msg">请重新设置浏览器的下载路径</string>
