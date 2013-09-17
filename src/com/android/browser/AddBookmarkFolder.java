@@ -75,7 +75,7 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
 
     /* package */static final String EXTRA_IS_FOLDER = "is_folder";
 
-    private static final int MAX_CRUMBS_SHOWN = 2;
+    private static final int MAX_CRUMBS_SHOWN = 1;
 
     private long mOriginalFolder = -1;
 

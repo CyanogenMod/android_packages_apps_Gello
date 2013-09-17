@@ -417,7 +417,7 @@ public class BookmarkExpandableView extends ExpandableListView
                         mInflater.inflate(R.layout.bookmarks_header, null);
                 crumbs.setController(BookmarkExpandableView.this);
                 crumbs.setUseBackButton(true);
-                crumbs.setMaxVisible(2);
+                crumbs.setMaxVisible(1);
                 String bookmarks = mContext.getString(R.string.bookmarks);
                 crumbs.pushView(bookmarks, false,
                         BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);
