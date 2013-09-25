@@ -251,6 +251,13 @@
             </intent-filter>
         </activity>
 
+        <!-- add or edit my navigation activity -->
+        <activity android:name=".mynavigation.AddMyNavigationPage"
+            android:label="@string/my_navigation_page_title"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
+
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
@@ -299,6 +306,10 @@
                   android:authorities="com.android.browser.snapshots"
                   android:exported="false" />
 
+        <provider
+            android:name=".provider.MyNavigationProvider"
+            android:authorities="com.android.browser.mynavigation"
+            android:exported="false" />
     </application>
 
 </manifest>

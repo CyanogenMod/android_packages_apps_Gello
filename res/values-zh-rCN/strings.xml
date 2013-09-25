@@ -400,6 +400,20 @@
     <string name="accessibility_transition_navscreen" msgid="2734915619351519547">"标签页管理"</string>
     <string name="accessibility_button_bookmarks_folder_up" msgid="9179389954714270505">"上一个文件夹"</string>
 
+    <!--Add for Navigation Feature -->
+    <string name="my_navigation_delete_label">删除我的导航</string>
+    <string name="my_navigation_edit_label">编辑我的导航</string>
+    <string name="my_navigation_add_label">添加我的导航</string>
+    <string name="my_navigation_add">添加</string>
+    <string name="my_navigation_delete_msg">删除此网站?</string>
+    <string name="my_navigation_name">名称</string>
+    <string name="my_navigation_address">地址</string>
+    <string name="website_needs_title">名称不能为空</string>
+    <string name="website_needs_url">地址不能为空</string>
+    <string name="my_navigation_cannot_save_url">该网址可能不正确，请重新输入</string>
+    <string name="my_navigation_duplicate_url">该网址已经存在，请重新输入</string>
+    <string name="my_navigation_page_title">我的导航</string>
+
     <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
     <string name="http_video_msg">请选择以下操作</string>
     <string name="video_save">保存</string>

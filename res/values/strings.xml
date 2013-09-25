@@ -1013,6 +1013,19 @@
     <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_bookmarks_folder_up">Previous folder</string>
 
+    <!--Add for Navigation Feature -->
+    <string name="my_navigation_delete_label">Delete My Navigation</string>
+    <string name="my_navigation_edit_label">Edit My Navigation</string>
+    <string name="my_navigation_add_label">Add My Navigation</string>
+    <string name="my_navigation_add">add</string>
+    <string name="my_navigation_delete_msg">Delete this item?</string>
+    <string name="my_navigation_name">Name</string>
+    <string name="my_navigation_address">Address</string>
+    <string name="website_needs_title">"Website must have a name."</string>
+    <string name="website_needs_url">"Website must have a location."</string>
+    <string name="my_navigation_cannot_save_url">This URL cannot be website.</string>
+    <string name="my_navigation_duplicate_url">This URL has already existed.</string>
+    <string name="my_navigation_page_title">My Navigation</string>
 
     <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
     <string name="http_video_msg">Please choose a following operation</string>
