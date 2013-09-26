@@ -1884,6 +1884,8 @@ class Tab implements PictureListener {
             return false;
         }
         long size = savedFile.length();
+        if (values == null)
+            return false;
         values.put(Snapshots.VIEWSTATE_PATH, path);
         values.put(Snapshots.VIEWSTATE_SIZE, size);
         return true;
