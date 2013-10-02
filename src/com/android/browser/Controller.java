@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.ActivityManagerNative;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
@@ -46,6 +47,7 @@ import android.net.Uri;
 import android.net.http.SslError;
 import android.net.WebAddress;
 import android.net.wifi.WifiManager;
+import android.net.wifi.ScanResult;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -126,7 +128,8 @@ public class Controller
             "android.net.wifi.cmcc.WIFI_SELECTION_DATA_CONNECTION";
     private static final String OFFLINE_PAGE =
             "content://com.android.browser.mynavigation/websites";
-
+    private static final String INTENT_PICK_NETWORK =
+            "android.net.wifi.cmcc.PICK_WIFI_NETWORK_AND_GPRS";
     // public message ids
     public final static int LOAD_URL = 1001;
     public final static int STOP_LOAD = 1002;
@@ -869,17 +872,33 @@ public class Controller
             if (mNetworkInfo == null
                     || (mNetworkInfo != null && (mNetworkInfo.getType() !=
                     ConnectivityManager.TYPE_WIFI))) {
-                int isReminder = Settings.System.getInt(
-                        mActivity.getContentResolver(),
-                        this.getContext().getResources()
-                                .getString(R.string.network_switch_remind_type),
-                        networkSwitchTypeOK);
-
-                if (isReminder == networkSwitchTypeOK) {
-                    Intent intent = new Intent(
-                            INTENT_WIFI_SELECTION_DATA_CONNECTION);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    this.getContext().startActivity(intent);
+                List<ScanResult> list = wifiMgr.getScanResults();
+                if (list != null && list.size() == 0) {
+                    int isReminder = Settings.System.getInt(
+                            mActivity.getContentResolver(),
+                            this.getContext().getResources()
+                                    .getString(R.string.network_switch_remind_type),
+                            networkSwitchTypeOK);
+                    if (isReminder == networkSwitchTypeOK) {
+                        Intent intent = new Intent(
+                                INTENT_WIFI_SELECTION_DATA_CONNECTION);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        this.getContext().startActivity(intent);
+                    }
+                } else {
+                    if (ActivityManagerNative.isSystemReady()) {
+                        try {
+                            Intent intent = new Intent(INTENT_PICK_NETWORK);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            this.getContext().startActivity(intent);
+                        } catch (Exception e) {
+                            String err_msg = this.getContext().getString(
+                                    R.string.acivity_not_found, INTENT_PICK_NETWORK);
+                            Toast.makeText(this.getContext(), err_msg, Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Log.e(LOGTAG, "System is not ready!");
+                    }
                 }
                 mNetworkShouldNotify = false;
             }
