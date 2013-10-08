@@ -1090,4 +1090,5 @@
     <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="acivity_not_found">Activity Not Found to Handle Intent <xliff:g id="NOACTIVITY">%s</xliff:g>.</string>
 </resources>
