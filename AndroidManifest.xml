@@ -47,6 +47,8 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="com.android.browser.permission.READ_HOMEPAGE" />
+    <uses-permission android:name="com.android.browser.permission.WRITE_HOMEPAGE" />
 
     <application   android:name="Browser"
                    android:label="@string/application_name"
@@ -66,6 +68,9 @@
                   android:writePermission="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS">
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
+            <path-permission android:path="/homepage"
+                    android:readPermission="com.android.browser.permission.READ_HOMEPAGE"
+                    android:writePermission="com.android.browser.permission.WRITE_HOMEPAGE" />
         </provider>
         <activity android:name="BrowserActivity"
                   android:label="@string/application_name"
