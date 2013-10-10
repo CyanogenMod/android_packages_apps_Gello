@@ -55,6 +55,7 @@ import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
@@ -150,6 +151,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     static final int THUMBNAILS = 10;
     static final int THUMBNAILS_ID = 11;
     static final int OMNIBOX_SUGGESTIONS = 20;
+    static final int HOMEPAGE = 60;
 
     static final int BOOKMARKS = 1000;
     static final int BOOKMARKS_ID = 1001;
@@ -230,6 +232,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "thumbnails", THUMBNAILS);
         matcher.addURI(authority, "thumbnails/#", THUMBNAILS_ID);
         matcher.addURI(authority, "omnibox_suggestions", OMNIBOX_SUGGESTIONS);
+        matcher.addURI(authority, "homepage", HOMEPAGE);
 
         // Legacy
         matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
@@ -1216,6 +1219,19 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 break;
             }
 
+            case HOMEPAGE: {
+                String homepage = BrowserSettings.getInstance().getHomePage();
+                Log.d(TAG,"get home page for DM");
+                if (null == homepage) {
+                    return null;
+                }
+                String arrColumns[] = {"homepage"};
+                String arrHomepage[] = {homepage};
+                MatrixCursor matrixCursor = new MatrixCursor(arrColumns, 1);
+                matrixCursor.addRow(arrHomepage);
+                return matrixCursor;
+            }
+
             default: {
                 throw new UnsupportedOperationException("Unknown URL " + uri.toString());
             }
@@ -1836,6 +1852,21 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 modified = db.update(TABLE_THUMBNAILS, values,
                         selection, selectionArgs);
                 break;
+            }
+
+            case HOMEPAGE: {
+                if (null != values) {
+                    String homepage = values.getAsString("homepage");
+                    if (null != homepage) {
+                        if (BrowserSettings.getInstance() == null) {
+                            BrowserSettings.initialize(getContext());
+                        }
+                        BrowserSettings.getInstance().setHomePage(homepage);
+                        Log.d(TAG,"set home page for DM");
+                        return 1;
+                    }
+                }
+                return 0;
             }
 
             default: {
