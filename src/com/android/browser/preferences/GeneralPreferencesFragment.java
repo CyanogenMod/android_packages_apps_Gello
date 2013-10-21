@@ -17,6 +17,9 @@
 package com.android.browser.preferences;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
@@ -103,7 +106,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                 settings.setHomePage(HomeProvider.MOST_VISITED);
             }
             if (OTHER.equals(objValue)) {
-                promptForHomepage((ListPreference) pref);
+                promptForHomepage();
                 return false;
             }
             pref.setSummary(getHomepageSummary());
@@ -114,48 +117,10 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         return true;
     }
 
-    void promptForHomepage(final ListPreference pref) {
-        final BrowserSettings settings = BrowserSettings.getInstance();
-        final EditText editText = new EditText(getActivity());
-        editText.setInputType(InputType.TYPE_CLASS_TEXT
-                | InputType.TYPE_TEXT_VARIATION_URI);
-        editText.setText(settings.getHomePage());
-        editText.setSelectAllOnFocus(true);
-        editText.setSingleLine(true);
-        editText.setImeActionLabel(null, EditorInfo.IME_ACTION_DONE);
-        final AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setView(editText)
-                .setPositiveButton(android.R.string.ok, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String homepage = editText.getText().toString().trim();
-                        homepage = UrlUtils.smartUrlFilter(homepage);
-                        settings.setHomePage(homepage);
-                        pref.setValue(getHomepageValue());
-                        pref.setSummary(getHomepageSummary());
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .setTitle(R.string.pref_set_homepage_to)
-                .create();
-        editText.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
-                    return true;
-                }
-                return false;
-            }
-        });
-        dialog.getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        dialog.show();
+    void promptForHomepage() {
+        MyAlertDialogFragment fragment = MyAlertDialogFragment.newInstance();
+        fragment.setTargetFragment(this, -1);
+        fragment.show(getActivity().getFragmentManager(), "setHomepage dialog");
     }
 
     String getHomepageValue() {
@@ -210,5 +175,71 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         PreferenceScreen autoFillSettings =
                 (PreferenceScreen)findPreference(PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autoFillSettings.setDependency(PreferenceKeys.PREF_AUTOFILL_ENABLED);
+    }
+
+    /*
+      Add this class to manage AlertDialog lifecycle.
+    */
+    public static class MyAlertDialogFragment extends DialogFragment {
+        public static MyAlertDialogFragment newInstance() {
+            MyAlertDialogFragment frag = new MyAlertDialogFragment();
+            return frag;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final BrowserSettings settings = BrowserSettings.getInstance();
+            final EditText editText = new EditText(getActivity());
+            editText.setInputType(InputType.TYPE_CLASS_TEXT
+                    | InputType.TYPE_TEXT_VARIATION_URI);
+            editText.setText(settings.getHomePage());
+            editText.setSelectAllOnFocus(true);
+            editText.setSingleLine(true);
+            editText.setImeActionLabel(null, EditorInfo.IME_ACTION_DONE);
+            final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setView(editText)
+                    .setPositiveButton(android.R.string.ok, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String homepage = editText.getText().toString().trim();
+                            homepage = UrlUtils.smartUrlFilter(homepage);
+                            settings.setHomePage(homepage);
+                            Fragment frag = getTargetFragment();
+                            if (frag == null || !(frag instanceof GeneralPreferencesFragment)) {
+                                Log.e("MyAlertDialogFragment", "get target fragment error!");
+                                return;
+                            }
+                            GeneralPreferencesFragment target = (GeneralPreferencesFragment)frag;
+                            ListPreference pref = (ListPreference) target.
+                                    findPreference(PREF_HOMEPAGE_PICKER);
+                            pref.setValue(target.getHomepageValue());
+                            pref.setSummary(target.getHomepageSummary());
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .setTitle(R.string.pref_set_homepage_to)
+                    .create();
+
+            editText.setOnEditorActionListener(new OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            dialog.getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+            return dialog;
+        }
     }
 }
