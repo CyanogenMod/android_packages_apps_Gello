@@ -284,6 +284,7 @@
         <provider
             android:name=".homepages.HomeProvider"
             android:authorities="com.android.browser.home"
+            android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
 
