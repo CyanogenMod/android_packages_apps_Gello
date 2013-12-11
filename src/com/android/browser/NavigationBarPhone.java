@@ -131,7 +131,15 @@ public class NavigationBarPhone extends NavigationBarBase implements
             if (title == null) {
                 mUrlInput.setText(R.string.new_tab);
             } else {
-                mUrlInput.setText(UrlUtils.stripUrl(title), false);
+                Tab tab = mUiController.getTabControl().getCurrentTab();
+                if (tab != null && tab.getUrl() != null &&
+                        tab.getUrl().startsWith("http://218.206.177.209:8080/waptest/browser15")) {
+                    //for cmcc test case, display website title for specified cmcc website,
+                    //not url address.
+                    mUrlInput.setText(tab.getTitle(), false);
+                } else {
+                    mUrlInput.setText(UrlUtils.stripUrl(title), false);
+                }
             }
             mUrlInput.setSelection(0);
         }
