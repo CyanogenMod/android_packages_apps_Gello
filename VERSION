@@ -1,0 +1,6 @@
+1.0
+# base version, needs to be on first line of this file
+# if you need to change that, please also fix
+# tools/generate_about.sh
+
+
