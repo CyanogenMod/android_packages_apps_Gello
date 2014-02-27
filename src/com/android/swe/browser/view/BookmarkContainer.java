@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.view;
+package com.android.swe.browser.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

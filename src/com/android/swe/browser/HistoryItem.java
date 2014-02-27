@@ -15,7 +15,9 @@
  */
 
  
-package com.android.browser;
+package com.android.swe.browser;
+
+import com.android.swe.browser.R;
 
 import android.content.Context;
 import android.provider.Browser;

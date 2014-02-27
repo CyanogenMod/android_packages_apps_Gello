@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.net.Uri;
 import android.text.TextUtils;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * Class to manage the controlling of preloaded tab.
  */
 public class PreloadedTabControl {
-    private static final boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+    private static final boolean LOGD_ENABLED = com.android.swe.browser.Browser.LOGD_ENABLED;
     private static final String LOGTAG = "PreloadedTabControl";
 
     final Tab mTab;

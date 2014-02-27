@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import org.codeaurora.swe.AutoFillProfile;
+
+import com.android.swe.browser.R;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -32,7 +36,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebSettingsClassic.AutoFillProfile;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -66,7 +69,6 @@ public class AutoFillSettingsFragment extends Fragment {
     // For now we support just one profile so it's safe to hardcode the
     // id to 1 here. In the future this unique identifier will be set
     // dynamically.
-    private int mUniqueId = 1;
 
     private class PhoneNumberValidator implements TextWatcher {
         // Keep in sync with kPhoneNumberLength in chrome/browser/autofill/phone_number.cc
@@ -171,14 +173,14 @@ public class AutoFillSettingsFragment extends Fragment {
 
             // Update browser settings and native with a null profile. This will
             // trigger the current profile to get deleted from the DB.
-            mSettings.setAutoFillProfile(null,
-                    mHandler.obtainMessage(PROFILE_DELETED_MSG));
+            mSettings.updateAutoFillProfile(null);
+
             updateSaveMenuItemState();
             return true;
 
         case R.id.autofill_profile_editor_save_profile_menu_id:
             AutoFillProfile newProfile = new AutoFillProfile(
-                    mUniqueId,
+                    mSettings.getAutoFillProfileId(),
                     mFullNameEdit.getText().toString(),
                     mEmailEdit.getText().toString(),
                     mCompanyEdit.getText().toString(),
@@ -190,8 +192,8 @@ public class AutoFillSettingsFragment extends Fragment {
                     mCountryEdit.getText().toString(),
                     mPhoneEdit.getText().toString());
 
-            mSettings.setAutoFillProfile(newProfile,
-                    mHandler.obtainMessage(PROFILE_SAVED_MSG));
+            mSettings.updateAutoFillProfile(newProfile);
+
             return true;
 
         default:

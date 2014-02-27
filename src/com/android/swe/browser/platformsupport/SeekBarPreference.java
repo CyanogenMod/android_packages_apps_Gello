@@ -22,17 +22,19 @@ public class SeekBarPreference extends Preference
             Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        int[] attrs2 = new int[] { android.R.attr.indeterminateDrawable /* index 0 */};
-        TypedArray a = context.obtainStyledAttributes(android.R.style.Widget_ProgressBar, attrs2);
+        int[] attributes = new int[] { android.R.attr.indeterminateDrawable};
+        TypedArray a = context.obtainStyledAttributes(
+                                     android.R.style.Widget_ProgressBar, attributes);
+        //SWE_TODO:  Modify setMax to attain max from XML
         setMax(100);
         a.recycle();
         setLayoutResource(com.android.swe.browser.R.layout.preference_widget_seekbar);
-        /*SWE_TODO: Fix w Reflection
+        /*SWE_TODO : Refactor to use Reflection & replace corresponding above
           TypedArray a = context.obtainStyledAttributes(attrs,
                 com.android.internal.R.styleable.ProgressBar, defStyle, 0);
-        setMax(a.getInt(com.android.internal.R.styleable.ProgressBar_max, mMax));
-        a.recycle();
-       setLayoutResource(com.android.internal.R.layout.preference_widget_seekbar);
+          setMax(a.getInt(com.android.internal.R.styleable.ProgressBar_max, mMax));
+          a.recycle();
+          setLayoutResource(com.android.internal.R.layout.preference_widget_seekbar);
        */
     }
 
@@ -72,8 +74,7 @@ public class SeekBarPreference extends Preference
     }
 
     //@Override
-    //TODO : Verify the interface and Uncommend the override
-    public boolean onKey(View v, int keyCode, KeyEvent event) {
+   public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP) {
             if (keyCode == KeyEvent.KEYCODE_PLUS
                     || keyCode == KeyEvent.KEYCODE_EQUALS) {
@@ -236,3 +237,4 @@ public class SeekBarPreference extends Preference
         };
     }
 }
+

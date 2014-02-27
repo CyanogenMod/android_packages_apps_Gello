@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.UI.ComboViews;
+import com.android.swe.browser.UI.ComboViews;
 
 import java.util.List;
 

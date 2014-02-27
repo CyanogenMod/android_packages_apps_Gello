@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser.mynavigation;
+package com.android.swe.browser.mynavigation;
 
 import android.content.Context;
 import android.content.UriMatcher;
@@ -42,7 +42,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 public class MyNavigationRequestHandler extends Thread {
 
@@ -96,7 +96,7 @@ public class MyNavigationRequestHandler extends Thread {
         MyNavigationTemplate t = MyNavigationTemplate.getCachedTemplate(mContext,
                 R.raw.my_navigation);
         Cursor cursor = mContext.getContentResolver().query(
-                Uri.parse("content://com.android.browser.mynavigation/websites"),
+                Uri.parse("content://com.android.swe.browser.mynavigation/websites"),
                 new String[] {
                         "url", "title", "thumbnail"
                 },

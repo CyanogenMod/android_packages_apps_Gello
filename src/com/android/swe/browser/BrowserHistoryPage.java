@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,8 +38,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Browser;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Combined;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -60,6 +58,11 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Combined;
+import com.android.swe.browser.reflect.ReflectHelper;
 
 /**
  * Activity for displaying the browser's history, divided into
@@ -412,8 +415,14 @@ public class BrowserHistoryPage extends Fragment
                 }
                 return true;
             case R.id.share_link_context_menu_id:
-                Browser.sendString(activity, url,
-                        activity.getText(R.string.choosertitle_sharevia).toString());
+                Object[] params  = {activity,
+                            url,
+                            activity.getText(R.string.choosertitle_sharevia).toString()};
+                Class[] type = new Class[] { android.content.Context.class,
+                                             String.class,
+                                             String.class};
+                ReflectHelper.invokeStaticMethod("android.provider.Browser","sendString",
+                    type, params);
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);

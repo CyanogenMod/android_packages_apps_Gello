@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser.provider;
+package com.android.swe.browser.provider;
 
 import android.content.Context;
 import android.content.ContentProvider;
@@ -48,11 +48,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebResourceResponse;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.homepages.RequestHandler;
-import com.android.browser.mynavigation.MyNavigationUtil;
-import com.android.browser.mynavigation.MyNavigationRequestHandler;
-import com.android.browser.provider.BrowserProvider2;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -60,7 +55,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import com.android.browser.R;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.homepages.RequestHandler;
+import com.android.swe.browser.mynavigation.MyNavigationRequestHandler;
+import com.android.swe.browser.mynavigation.MyNavigationUtil;
+import com.android.swe.browser.provider.BrowserProvider2;
 
 public class MyNavigationProvider extends ContentProvider {
 

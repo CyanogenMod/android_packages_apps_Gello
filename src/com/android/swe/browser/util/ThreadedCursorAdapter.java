@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.util;
+package com.android.swe.browser.util;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -21,7 +21,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.os.Process;
-import android.os.SystemProperties;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import java.lang.ref.WeakReference;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -22,7 +22,7 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.Activity;
 import android.os.Bundle;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 public class DeviceAccountLogin implements
         AccountManagerCallback<Bundle> {

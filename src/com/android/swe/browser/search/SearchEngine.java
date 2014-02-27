@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.search;
+package com.android.swe.browser.search;
 
 import android.content.Context;
 import android.database.Cursor;

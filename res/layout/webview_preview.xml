@@ -72,7 +72,7 @@
             android:gravity="center"
             android:orientation="vertical" />
 
-        <WebView
+        <org.codeaurora.swe.WebView
             android:id="@+id/webview"
             android:layout_width="match_parent"
             android:layout_height="180dp"

@@ -14,11 +14,11 @@
  * the License.
  */
 
-package com.android.browser.view;
+package com.android.swe.browser.view;
 
 import android.view.View;
 
-import com.android.browser.view.PieMenu.PieView;
+import com.android.swe.browser.view.PieMenu.PieView;
 
 import java.util.ArrayList;
 import java.util.List;

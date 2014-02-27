@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -31,8 +31,9 @@ import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
+import org.codeaurora.swe.WebView;
+
+import com.android.swe.browser.R;
 
 import java.util.List;
 
@@ -117,8 +118,8 @@ public class XLargeUi extends BaseUi {
 
     void stopWebViewScrolling() {
         BrowserWebView web = (BrowserWebView) mUiController.getCurrentWebView();
-        if (web != null && BrowserWebView.isClassic()) {
-            WebViewClassic.fromWebView(web).stopScroll();
+        if (web != null) {
+            web.stopScroll();
         }
     }
 

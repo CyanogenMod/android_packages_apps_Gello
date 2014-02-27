@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import com.android.swe.browser.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -117,7 +119,7 @@ class BookmarkItem extends HorizontalScrollView {
 
         mTextView.setText(name);
     }
-    
+
     /**
      *  Set the new url for the bookmark item.
      *  @param url  The new url for the bookmark item.
@@ -164,9 +166,9 @@ class BookmarkItem extends HorizontalScrollView {
         final ViewGroup.LayoutParams lp = child.getLayoutParams();
 
         final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
-                mPaddingLeft + mPaddingRight, lp.width);
+                getPaddingLeft() + getPaddingRight(), lp.width);
         final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
-                mPaddingTop + mPaddingBottom, lp.height);
+                getPaddingTop() + getPaddingBottom(), lp.height);
 
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
@@ -184,10 +186,10 @@ class BookmarkItem extends HorizontalScrollView {
         final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
         final int childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,
-                mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin
+                getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin
                         + widthUsed, lp.width);
         final int childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,
-                mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin
+                getPaddingTop() + getPaddingBottom() + lp.topMargin + lp.bottomMargin
                         + heightUsed, lp.height);
 
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);

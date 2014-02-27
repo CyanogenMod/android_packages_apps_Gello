@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<com.android.browser.AutologinBar
+<com.android.swe.browser.AutologinBar
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -66,4 +66,4 @@
         android:paddingRight="15dip"
         android:background="@null"
         android:src="@*android:drawable/btn_close"/>
-</com.android.browser.AutologinBar>
+</com.android.swe.browser.AutologinBar>

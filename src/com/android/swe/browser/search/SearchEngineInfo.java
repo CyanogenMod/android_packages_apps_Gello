@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.search;
+package com.android.swe.browser.search;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -21,7 +21,7 @@ import android.content.res.Resources.NotFoundException;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import java.net.URLEncoder;
 import java.util.Arrays;

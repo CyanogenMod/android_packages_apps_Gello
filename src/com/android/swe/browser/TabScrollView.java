@@ -14,9 +14,10 @@
  * the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
-import com.android.browser.TabBar.TabView;
+import com.android.swe.browser.R;
+import com.android.swe.browser.TabBar.TabView;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;

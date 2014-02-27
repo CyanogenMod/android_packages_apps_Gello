@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,11 +25,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.HttpAuthHandler;
-import android.webkit.SslErrorHandler;
+import org.codeaurora.swe.HttpAuthHandler;
+import org.codeaurora.swe.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 public class PreloadController implements WebViewController {
 

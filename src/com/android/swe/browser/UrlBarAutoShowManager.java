@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.BrowserWebView.OnScrollChangedListener;
+import com.android.swe.browser.BrowserWebView.OnScrollChangedListener;
 
 /**
  * Helper class to manage when to show the URL bar based off of touch

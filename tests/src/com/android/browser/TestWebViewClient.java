@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
-import android.webkit.ClientCertRequestHandler;
-import android.webkit.HttpAuthHandler;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.webkit.WebViewClientClassicExt;
 
+import org.codeaurora.swe.ClientCertRequestHandler;
+import org.codeaurora.swe.HttpAuthHandler;
+import org.codeaurora.swe.SslErrorHandler;
+import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebViewClient;
 /**
  *
  *

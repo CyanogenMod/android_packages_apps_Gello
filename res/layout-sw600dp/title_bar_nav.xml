@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<com.android.browser.NavigationBarTablet
+<com.android.swe.browser.NavigationBarTablet
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:background="@drawable/bg_urlbar">
@@ -67,7 +67,7 @@
             android:layout_marginLeft="0dip"
             style="@style/HoloIcon"
             android:visibility="gone" />
-        <com.android.browser.UrlInputView
+        <com.android.swe.browser.UrlInputView
             android:id="@+id/url"
             android:layout_width="0dip"
             android:layout_weight="1.0"
@@ -122,4 +122,4 @@
         style="@style/HoloButton"
         android:contentDescription="@string/accessibility_button_bookmarks"
         android:src="@drawable/ic_bookmarks_history_holo_dark" />
-</com.android.browser.NavigationBarTablet>
+</com.android.swe.browser.NavigationBarTablet>

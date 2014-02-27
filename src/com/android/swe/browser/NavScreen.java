@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -36,10 +36,11 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.browser.NavTabScroller.OnLayoutListener;
-import com.android.browser.NavTabScroller.OnRemoveListener;
-import com.android.browser.TabControl.OnThumbnailUpdatedListener;
-import com.android.browser.UI.ComboViews;
+import com.android.swe.browser.R;
+import com.android.swe.browser.NavTabScroller.OnLayoutListener;
+import com.android.swe.browser.NavTabScroller.OnRemoveListener;
+import com.android.swe.browser.TabControl.OnThumbnailUpdatedListener;
+import com.android.swe.browser.UI.ComboViews;
 
 import java.util.HashMap;
 
@@ -79,7 +80,7 @@ public class NavScreen extends RelativeLayout
     }
 
     protected void showMenu() {
-        PopupMenu popup = new PopupMenu(mContext, mMore);
+        PopupMenu popup = new PopupMenu(getContext(), mMore);
         Menu menu = popup.getMenu();
         popup.getMenuInflater().inflate(R.menu.browser, menu);
         mUiController.updateMenuState(mUiController.getCurrentTab(), menu);
@@ -114,8 +115,8 @@ public class NavScreen extends RelativeLayout
     }
 
     private void init() {
-        LayoutInflater.from(mContext).inflate(R.layout.nav_screen, this);
-        setContentDescription(mContext.getResources().getString(
+        LayoutInflater.from(getContext()).inflate(R.layout.nav_screen, this);
+        setContentDescription(getContext().getResources().getString(
                 R.string.accessibility_transition_navscreen));
         mBookmarks = (ImageButton) findViewById(R.id.bookmarks);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
@@ -126,7 +127,7 @@ public class NavScreen extends RelativeLayout
         mScroller = (NavTabScroller) findViewById(R.id.scroller);
         TabControl tc = mUiController.getTabControl();
         mTabViews = new HashMap<Tab, View>(tc.getTabCount());
-        mAdapter = new TabAdapter(mContext, tc);
+        mAdapter = new TabAdapter(getContext(), tc);
         mScroller.setOrientation(mOrientation == Configuration.ORIENTATION_LANDSCAPE
                 ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         // update state for active tab

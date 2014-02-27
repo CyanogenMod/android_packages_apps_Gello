@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,29 +27,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.media.MediaFile;
 import android.net.Uri;
-import android.net.WebAddress;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
-import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.CookieManager;
+import org.codeaurora.swe.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
-import java.io.File;
+import com.android.swe.browser.R;
+import com.android.swe.browser.platformsupport.WebAddress;
+import com.android.swe.browser.reflect.ReflectHelper;
 
+import java.io.File;
 /**
  * Handle download requests
  */
 public class DownloadHandler {
 
     private static final boolean LOGD_ENABLED =
-            com.android.browser.Browser.LOGD_ENABLED;
+            com.android.swe.browser.Browser.LOGD_ENABLED;
 
     private static final String LOGTAG = "DLHandler";
     private static String mInternalStorage;
@@ -98,6 +97,7 @@ public class DownloadHandler {
         request.setDescription(webAddress.getHost());
         // XXX: Have to use the old url since the cookies were stored using the
         // old percent-encoded url.
+
         String cookies = CookieManager.getInstance().getCookie(url, privateBrowsing);
         request.addRequestHeader("cookie", cookies);
         request.addRequestHeader("User-Agent", userAgent);
@@ -114,6 +114,24 @@ public class DownloadHandler {
         showStartDownloadToast(activity);
     }
 
+    private static boolean isAudioFileType(int fileType){
+        Object[] params  = { new Integer(fileType)};
+        Class[] type = new Class[] {Integer.class};
+        Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+                "isAudioFileType",
+                type, params);
+        return result;
+    }
+
+    private static boolean isVideoFileType(int fileType){
+        Object[] params  = { new Integer(fileType)};
+        Class[] type = new Class[] {Integer.class};
+        Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+                "isVideoFileType",
+                type, params);
+        return result;
+    }
+
     /**
      * Notify the host application a download should be done, or that
      * the data should be streamed if a streaming viewer is available.
@@ -125,7 +143,6 @@ public class DownloadHandler {
      * @param referer The referer associated with the downloaded url
      * @param privateBrowsing If the request is coming from a private browsing tab.
      */
-
     public static boolean onDownloadStart(final Activity activity, final String url,
             final String userAgent, final String contentDisposition, final String mimetype,
             final String referer, final boolean privateBrowsing, final long contentLength) {
@@ -134,7 +151,6 @@ public class DownloadHandler {
         if (contentDisposition == null
                 || !contentDisposition.regionMatches(
                         true, 0, "attachment", 0, 10)) {
-
             // Add for Carrier Feature - When open an audio/video link, prompt a dialog
             // to let the user choose play or download operation.
             Uri uri = Uri.parse(url);
@@ -144,12 +160,19 @@ public class DownloadHandler {
             // such as ogg audio file with mimetype "application/ogg". So we also check
             // file type by MediaFile.isAudioFileType() and MediaFile.isVideoFileType().
             // For those file types other than audio or video, download it immediately.
-            int fileType = MediaFile.getFileTypeForMimeType(mimetype);
+
+            //int fileType = MediaFile.getFileTypeForMimeType(mimetype);
+            Object[] params  = { new Integer(mimetype)};
+            Class[] type = new Class[] {Integer.class};
+            Integer result = (Integer) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+                "getFileTypeForMimeType",
+                type, params);
+            int fileType = result.intValue();
             if ("http".equalsIgnoreCase(scheme) &&
                     (mimetype.startsWith("audio/") ||
                         mimetype.startsWith("video/") ||
-                            MediaFile.isAudioFileType(fileType) ||
-                                MediaFile.isVideoFileType(fileType))) {
+                            isAudioFileType(fileType) ||
+                                isVideoFileType(fileType))) {
                 new AlertDialog.Builder(activity)
                 .setTitle(R.string.application_name)
                 .setIcon(R.drawable.default_video_poster)
@@ -178,7 +201,6 @@ public class DownloadHandler {
 
                 return true;
             }
-
             // query the package manager to see if there's a registered handler
             //     that matches.
             Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -560,7 +582,7 @@ public class DownloadHandler {
             phoneStorageDir = null;
         }
 
-        if (downloadPath.startsWith(sdCardDir)) {
+        if (sdCardDir != null && downloadPath.startsWith(sdCardDir)) {
             String sdCardLabel = activity.getResources().getString(
                     R.string.download_path_sd_card_label);
             downloadPath = downloadPath.replace(sdCardDir, sdCardLabel);
@@ -572,14 +594,30 @@ public class DownloadHandler {
         return downloadPath;
     }
 
+    private static boolean isRemovable(Object obj) {
+        return (Boolean) ReflectHelper.invokeMethod(obj,
+                "isRemovable", null, null);
+    }
+
+    private static boolean allowMassStorage(Object obj) {
+        return (Boolean) ReflectHelper.invokeMethod(obj,
+                "allowMassStorage", null, null);
+    }
+
+    private static String getPath(Object obj) {
+        return (String) ReflectHelper.invokeMethod(obj,
+                "getPath", null, null);
+    }
+
     private static String getExternalStorageDirectory(Context context) {
         String sd = null;
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
-        StorageVolume[] volumes = mStorageManager.getVolumeList();
+        Object[] volumes = (Object[]) ReflectHelper.invokeMethod(
+                                 mStorageManager, "getVolumeList", null, null);
         for (int i = 0; i < volumes.length; i++) {
-            if (volumes[i].isRemovable() && volumes[i].allowMassStorage()) {
-                sd = volumes[i].getPath();
+            if (isRemovable(volumes[i]) && allowMassStorage(volumes[i])) {
+                sd = getPath(volumes[i]);
             }
         }
         return sd;
@@ -588,6 +626,10 @@ public class DownloadHandler {
     private static String getExternalStorageState(Context context) {
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
-        return mStorageManager.getVolumeState(getExternalStorageDirectory(context));
+        String path = getExternalStorageDirectory(context);
+        Object[] params  = {path};
+        Class[] type = new Class[] {String.class};
+        return (String) ReflectHelper.invokeMethod("android.os.storage.StorageManager",
+                "getVolumeState", type, params);
     }
 }

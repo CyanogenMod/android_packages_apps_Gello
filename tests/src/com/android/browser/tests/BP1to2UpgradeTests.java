@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests;
-
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.tests.utils.BP2TestCaseHelper;
+package com.android.swe.browser.tests;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -26,12 +23,15 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.net.Uri;
 import android.provider.Browser;
-import android.provider.Browser.BookmarkColumns;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.History;
-import android.provider.BrowserContract.Images;
 import android.test.suitebuilder.annotation.SmallTest;
+
+import com.android.swe.browser.platformsupport.BookmarkColumns;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.platformsupport.BrowserContract.History;
+import com.android.swe.browser.platformsupport.BrowserContract.Images;
+import com.android.swe.browser.provider.BrowserProvider;
+import com.android.swe.browser.tests.utils.BP2TestCaseHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;

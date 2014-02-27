@@ -24,7 +24,7 @@
         android:orientation="horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
-        <com.android.browser.BreadCrumbView android:id="@+id/crumbs"
+        <com.android.swe.browser.BreadCrumbView android:id="@+id/crumbs"
             android:layout_width="0dip"
             android:layout_weight="1"
             android:layout_height="match_parent" />
@@ -160,7 +160,7 @@
                     android:text="@string/containing_folder"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <view class="com.android.browser.addbookmark.FolderSpinner"
+                <view class="com.android.swe.browser.addbookmark.FolderSpinner"
                     android:id="@+id/folder"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
             android:visibility="gone"
             >
 
-            <view class="com.android.browser.AddBookmarkPage$CustomListView"
+            <view class="com.android.swe.browser.AddBookmarkPage$CustomListView"
                 android:id="@+id/list"
                 android:layout_marginLeft="16dip"
                 android:layout_marginRight="16dip"

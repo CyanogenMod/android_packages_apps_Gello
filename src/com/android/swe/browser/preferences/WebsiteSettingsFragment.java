@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.app.AlertDialog;
 import android.app.ListFragment;
@@ -29,28 +29,29 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.PreferenceActivity;
-import android.provider.BrowserContract.Bookmarks;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
-import android.webkit.WebStorage;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.browser.R;
-import com.android.browser.WebStorageSizeManager;
+import com.android.swe.browser.R;
+import com.android.swe.browser.WebStorageSizeManager;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import org.codeaurora.swe.GeolocationPermissions;
+import org.codeaurora.swe.WebStorage;
 
 /**
  * Manage the settings for an origin.

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests;
+package com.android.swe.browser.tests;
 
-import com.android.browser.tests.utils.BP2TestCaseHelper;
+import com.android.swe.browser.tests.utils.BP2TestCaseHelper;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -24,9 +24,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.net.Uri;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Images;
 import android.test.suitebuilder.annotation.SmallTest;
+
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Images;
 
 import java.io.ByteArrayOutputStream;
 

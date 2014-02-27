@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.BrowserContract;
+
+import com.android.swe.browser.R;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -34,8 +36,9 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.browser.provider.BrowserProvider2.OmniboxSuggestions;
-import com.android.browser.search.SearchEngine;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.provider.BrowserProvider2.OmniboxSuggestions;
+import com.android.swe.browser.search.SearchEngine;
 
 import java.util.ArrayList;
 import java.util.List;

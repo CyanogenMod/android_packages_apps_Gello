@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser.mynavigation;
+package com.android.swe.browser.mynavigation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -41,7 +41,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ParseException;
 import android.net.Uri;
-import android.net.WebAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,9 +51,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.android.browser.BrowserUtils;
-import com.android.browser.R;
-import com.android.browser.UrlUtils;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserUtils;
+import com.android.swe.browser.UrlUtils;
+import com.android.swe.browser.platformsupport.WebAddress;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;

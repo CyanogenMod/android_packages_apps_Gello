@@ -22,7 +22,7 @@
     android:showDividers="middle"
     android:dividerPadding="16dip">
 
-    <fragment class="com.android.browser.BrowserBookmarksPage"
+    <fragment class="com.android.swe.browser.BrowserBookmarksPage"
         android:id="@+id/bookmarks"
         android:layout_width="match_parent"
         android:layout_height="0dip"

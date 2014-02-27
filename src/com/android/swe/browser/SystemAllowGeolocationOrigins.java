@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.codeaurora.swe.GeolocationPermissions;
 
 /**
  * Manages the interaction between the secure system setting for default geolocation

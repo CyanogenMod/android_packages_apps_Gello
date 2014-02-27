@@ -14,25 +14,22 @@
  * the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebStorage;
-import android.webkit.WebStorageClassic;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
-import android.webkit.WebViewClient;
+import org.codeaurora.swe.WebChromeClient;
+import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebViewClient;
 
 import java.util.Map;
 
 /**
  * Manage WebView scroll events
  */
-public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDelegate {
+public class BrowserWebView extends WebView implements WebView.TitleBarDelegate {
 
     public interface OnScrollChangedListener {
         void onScrollChanged(int l, int t, int oldl, int oldt);
@@ -52,7 +49,8 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
      */
     public BrowserWebView(Context context, AttributeSet attrs, int defStyle,
             Map<String, Object> javascriptInterfaces, boolean privateBrowsing) {
-        super(context, attrs, defStyle, javascriptInterfaces, privateBrowsing);
+        super(context, attrs, defStyle, privateBrowsing);
+        this.setJavascriptInterfaces(javascriptInterfaces);
     }
 
     /**
@@ -78,11 +76,6 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
      */
     public BrowserWebView(Context context) {
         super(context);
-    }
-
-    public static boolean isClassic() {
-        // Using WebStorage for convenience of access in a static method.
-        return WebStorage.getInstance() instanceof WebStorageClassic;
     }
 
     @Override
@@ -126,7 +119,7 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     }
 
     @Override
-    protected void onDraw(Canvas c) {
+    public void onDraw(Canvas c) {
         super.onDraw(c);
         if (!mBackgroundRemoved && getRootView().getBackground() != null) {
             mBackgroundRemoved = true;
@@ -139,11 +132,11 @@ public class BrowserWebView extends WebView implements WebViewClassic.TitleBarDe
     }
 
     public void drawContent(Canvas c) {
-        onDraw(c);
+        //super.drawContent(c);
     }
 
     @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+    public void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
         if (mTitleBar != null) {
             mTitleBar.onScrollChanged();

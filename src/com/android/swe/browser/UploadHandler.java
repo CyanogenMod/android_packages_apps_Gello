@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -22,10 +22,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.SystemProperties;
 import android.provider.MediaStore;
 import android.webkit.ValueCallback;
 import android.widget.Toast;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.reflect.ReflectHelper;
 
 import java.io.File;
 import java.util.Vector;
@@ -120,7 +122,11 @@ public class UploadHandler {
         }
 
         // add unsupport uploading drm file feature for carrier.
-        boolean drmUpload = SystemProperties.getBoolean("persist.env.browser.drmupload", false);
+        Object[] params  = {new String("persist.env.browser.drmupload"),
+                            Boolean.valueOf(false)};
+        Class[] type = new Class[] {String.class, boolean.class};
+        Boolean drmUpload = (Boolean) ReflectHelper.invokeStaticMethod(
+                      "android.os.SystemProperties", "getBoolean", type, params);
         if (drmUpload && isDrmFileUpload(result)) {
             mUploadMessage.onReceiveValue(null);
         } else {

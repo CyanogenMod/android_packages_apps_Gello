@@ -33,7 +33,7 @@
         android:visibility="gone"
     />
 
-    <view class="com.android.browser.ErrorConsoleView$ErrorConsoleListView"
+    <view class="com.android.swe.browser.ErrorConsoleView$ErrorConsoleListView"
         android:id="@+id/error_console_list_id"
         android:layout_width="match_parent"
         android:layout_height="200dip"

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.homepages;
+package com.android.swe.browser.homepages;
 
 import android.content.Context;
 import android.content.UriMatcher;
@@ -22,14 +22,14 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.net.Uri;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.History;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
-import com.android.browser.R;
-import com.android.browser.homepages.Template.ListEntityIterator;
+import com.android.swe.browser.R;
+import com.android.swe.browser.homepages.Template.ListEntityIterator;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.platformsupport.BrowserContract.History;
 
 import java.io.File;
 import java.io.IOException;

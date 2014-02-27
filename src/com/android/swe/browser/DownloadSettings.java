@@ -27,13 +27,16 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import java.io.File;
 
 import android.app.Activity;
 import android.content.Intent;
 import java.lang.Thread;
+
+import com.android.swe.browser.R;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;

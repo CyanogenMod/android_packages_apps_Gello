@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.android.swe.browser.R;
 
 /**
  *  Custom layout for an item representing a bookmark in the browser.

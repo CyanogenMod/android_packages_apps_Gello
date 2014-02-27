@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.provider;
+package com.android.swe.browser.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;

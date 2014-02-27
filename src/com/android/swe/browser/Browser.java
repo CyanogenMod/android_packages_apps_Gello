@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.Log;
-import android.webkit.CookieSyncManager;
+import android.os.Process;
 
-public class Browser extends Application { 
+import org.codeaurora.swe.CookieSyncManager;
+
+public class Browser extends Application {
 
     private final static String LOGTAG = "browser";
-    
+
     // Set to true to enable verbose logging.
     final static boolean LOGV_ENABLED = false;
 
@@ -37,11 +41,18 @@ public class Browser extends Application {
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
-        // create CookieSyncManager with current Context
-        CookieSyncManager.createInstance(this);
-        BrowserSettings.initialize(getApplicationContext());
-        Preloader.initialize(getApplicationContext());
-    }
+        // SWE: Avoid initializing databases for sandboxed processes.
+        // Must have INITIALIZE_DATABASE permission in AndroidManifest.xml only for browser process
+        final String INITIALIZE_DATABASE="com.android.swe.browser.permission.INITIALIZE_DATABASE";
+        final Context context = getApplicationContext();
+        if (context.checkPermission(INITIALIZE_DATABASE,
+              Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED) {
 
+                // create CookieSyncManager with current Context
+                CookieSyncManager.createInstance(this);
+                BrowserSettings.initialize(getApplicationContext());
+                Preloader.initialize(getApplicationContext());
+        }
+    }
 }
 

@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser.mynavigation;
+package com.android.swe.browser.mynavigation;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -35,7 +35,7 @@ import android.database.Cursor;
 import android.util.TypedValue;
 import android.util.Log;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import java.io.InputStream;
 import java.io.IOException;

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 import java.util.Map;
 
@@ -29,7 +29,7 @@ import java.util.Map;
 public class Preloader {
 
     private final static String LOGTAG = "browser.preloader";
-    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+    private final static boolean LOGD_ENABLED = com.android.swe.browser.Browser.LOGD_ENABLED;
 
     private static final int PRERENDER_TIMEOUT_MILLIS = 30 * 1000; // 30s
 

@@ -36,7 +36,7 @@
         android:layout_below="@id/taburlbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <com.android.browser.PageProgressView
+    <com.android.swe.browser.PageProgressView
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

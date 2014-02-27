@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -30,15 +30,17 @@ import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.CookieSyncManager;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import org.codeaurora.swe.CookieSyncManager;
+import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebViewClient;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.util.EntityUtils;
+
+import com.android.swe.browser.R;
 
 public class GoogleAccountLogin implements Runnable,
         AccountManagerCallback<Bundle>, OnCancelListener {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Instrumentation;
 import android.content.Intent;
@@ -31,8 +31,7 @@ import android.webkit.HttpAuthHandler;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.SslErrorHandler;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
+import android.webkit.WebViewClassic
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,6 +46,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.codeaurora.swe.WebView;
 /**
  *
  * Iterates over a list of URLs from a file and outputs the time to load each.
@@ -248,9 +248,6 @@ public class PopularUrlsTest extends ActivityInstrumentationTestCase2<BrowserAct
                 handler.proceed("user", "passwd");
             }
 
-            /* (non-Javadoc)
-             * @see com.android.browser.TestWebViewClient#onPageFinished(android.webkit.WebView, java.lang.String)
-             */
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);

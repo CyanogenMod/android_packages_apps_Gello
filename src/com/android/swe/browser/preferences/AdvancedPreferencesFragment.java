@@ -14,13 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
-
-import com.android.browser.BrowserActivity;
-import com.android.browser.BrowserSettings;
-import com.android.browser.DownloadHandler;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
+package com.android.swe.browser.preferences;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,13 +27,19 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.util.Log;
-import android.webkit.GeolocationPermissions;
 import android.webkit.ValueCallback;
-import android.webkit.WebStorage;
 import android.widget.Toast;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserActivity;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.DownloadHandler;
+import com.android.swe.browser.PreferenceKeys;
 
 import java.util.Map;
 import java.util.Set;
+import org.codeaurora.swe.GeolocationPermissions;
+import org.codeaurora.swe.WebStorage;
 
 public class AdvancedPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {

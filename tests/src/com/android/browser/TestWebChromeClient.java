@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,12 +22,13 @@ import android.os.Message;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
 import android.webkit.WebStorage;
-import android.webkit.WebView;
+
+import org.codeaurora.swe.JsPromptResult;
+import org.codeaurora.swe.JsResult;
+import org.codeaurora.swe.WebChromeClient;
+import org.codeaurora.swe.WebView;
 
 /**
  *

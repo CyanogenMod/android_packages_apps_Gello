@@ -16,27 +16,27 @@
 
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <header android:fragment="com.android.browser.preferences.GeneralPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.GeneralPreferencesFragment"
         android:title="@string/pref_general_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.PrivacySecurityPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.PrivacySecurityPreferencesFragment"
         android:title="@string/pref_privacy_security_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.AccessibilityPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.AccessibilityPreferencesFragment"
         android:title="@string/pref_accessibility_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.AdvancedPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.AdvancedPreferencesFragment"
         android:title="@string/pref_extras_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.BandwidthPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.BandwidthPreferencesFragment"
         android:title="@string/pref_data_title"
     />
 
-    <header android:fragment="com.android.browser.preferences.LabPreferencesFragment"
+    <header android:fragment="com.android.swe.browser.preferences.LabPreferencesFragment"
         android:title="@string/pref_lab_title"
     />
 

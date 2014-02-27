@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -26,9 +26,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Combined;
-import android.provider.BrowserContract.Images;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Combined;
+import com.android.swe.browser.platformsupport.BrowserContract.Images;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
@@ -162,15 +165,15 @@ public class Bookmarks {
         if (cr == null || url == null) {
             return null;
         }
-    
+
         // If originalUrl is null, just set it to url.
         if (originalUrl == null) {
             originalUrl = url;
         }
-    
+
         // Look for both the original url and the actual url. This takes in to
         // account redirects.
-    
+
         final String[] selArgs = new String[] { originalUrl, url };
         final String[] projection = new String[] { Combined.URL };
         return cr.query(Combined.CONTENT_URI, projection, QUERY_BOOKMARKS_WHERE, selArgs, null);

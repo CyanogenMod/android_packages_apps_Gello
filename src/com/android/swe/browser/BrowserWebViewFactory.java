@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.SystemProperties;
 import android.util.AttributeSet;
 import android.view.View;
-import android.webkit.WebView;
+
+import com.android.swe.browser.reflect.ReflectHelper;
+
+import org.codeaurora.swe.WebView;
 
 /**
  * Web view factory class for creating {@link BrowserWebView}'s.
@@ -63,7 +65,11 @@ public class BrowserWebViewFactory implements WebViewFactory {
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
 
         // add for carrier homepage feature
-        String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
+        Object[] params  = {new String("persist.env.c.browser.resource"),
+                            new String("default")};
+        Class[] type = new Class[] {String.class, String.class};
+        String browserRes = (String)ReflectHelper.invokeStaticMethod(
+                            "android.os.SystemProperties","get", type, params);
         if ("ct".equals(browserRes)) {
             w.getSettings().setJavaScriptEnabled(true);
             if (mContext instanceof BrowserActivity) {

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.browser.view;
+package com.android.swe.browser.view;
 
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.provider.BrowserContract;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -32,14 +31,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.browser.BreadCrumbView;
-import com.android.browser.BrowserBookmarksAdapter;
-import com.android.browser.R;
-import com.android.internal.view.menu.MenuBuilder;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BreadCrumbView;
+import com.android.swe.browser.BrowserBookmarksAdapter;
+import com.android.swe.browser.platformsupport.BrowserContract;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -156,6 +156,26 @@ public class BookmarkExpandableView extends ExpandableListView
         }
     }
 
+    // SWE: com.android.internal.view.menu.MenuBuilder is a hidden class in SDK.
+    // Since the 'menu' object is of type MenuBuilder, java reflection method
+    // is the only way to access MenuBuilder.setCurrentMenuInfo().
+    static void setCurrentMenuInfo(ContextMenu menu, ContextMenuInfo menuInfo) {
+        try {
+            Class<?> proxyClass = Class.forName("com.android.internal.view.menu.MenuBuilder");
+            Class<?> argTypes[] = new Class[1];
+            argTypes[0] = ContextMenuInfo.class;
+            Method m =  proxyClass.getDeclaredMethod("setCurrentMenuInfo", argTypes);
+            m.setAccessible(true);
+
+            Object args[] = new Object[1];
+            args[0] = menuInfo;
+            m.invoke(menu, args);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void createContextMenu(ContextMenu menu) {
         // The below is copied from View - we want to bypass the override
@@ -165,7 +185,7 @@ public class BookmarkExpandableView extends ExpandableListView
 
         // Sets the current menu info so all items added to menu will have
         // my extra info set.
-        ((MenuBuilder)menu).setCurrentMenuInfo(menuInfo);
+        setCurrentMenuInfo(menu, menuInfo);
 
         onCreateContextMenu(menu);
         if (mOnCreateContextMenuListener != null) {
@@ -174,10 +194,10 @@ public class BookmarkExpandableView extends ExpandableListView
 
         // Clear the extra information so subsequent items that aren't mine don't
         // have my extra info.
-        ((MenuBuilder)menu).setCurrentMenuInfo(null);
+        setCurrentMenuInfo(menu, null);
 
-        if (mParent != null) {
-            mParent.createContextMenu(menu);
+        if (getParent() != null) {
+            getParent().createContextMenu(menu);
         }
     }
 

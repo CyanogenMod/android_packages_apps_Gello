@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 public interface WebViewProperties {
     static final String gfxInvertedScreen = "inverted";

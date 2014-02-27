@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -34,9 +34,12 @@ import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Images;
-import android.webkit.WebView;
+
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Images;
+import com.android.swe.browser.reflect.ReflectHelper;
+
+import org.codeaurora.swe.WebView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -115,7 +118,12 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
 
             try {
                 client = AndroidHttpClient.newInstance(mUserAgent);
-                HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
+                //HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
+                Object[] params  = { mContext, url};
+                Class[] type = new Class[] {android.content.Context.class, String.class};
+                HttpHost httpHost = (HttpHost) ReflectHelper.invokeStaticMethod(
+                    "android.net.Proxy", "getPreferredHttpHost",
+                    type, params);
                 if (httpHost != null) {
                     ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
                 }

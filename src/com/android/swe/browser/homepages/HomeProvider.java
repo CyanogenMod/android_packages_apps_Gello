@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.homepages;
+package com.android.swe.browser.homepages;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -26,7 +26,7 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.webkit.WebResourceResponse;
 
-import com.android.browser.BrowserSettings;
+import com.android.swe.browser.BrowserSettings;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import java.io.PipedOutputStream;
 public class HomeProvider extends ContentProvider {
 
     private static final String TAG = "HomeProvider";
-    public static final String AUTHORITY = "com.android.browser.home";
+    public static final String AUTHORITY = "com.android.swe.browser.home";
     public static final String MOST_VISITED = "content://" + AUTHORITY + "/index";
 
     @Override

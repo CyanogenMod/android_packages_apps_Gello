@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -33,6 +33,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.android.swe.browser.R;
 
 /**
  * Simple bread crumb view
@@ -92,9 +94,8 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
         setGravity(Gravity.CENTER_VERTICAL);
         mUseBackButton = false;
         mCrumbs = new ArrayList<Crumb>();
-        TypedArray a = mContext.obtainStyledAttributes(com.android.internal.R.styleable.Theme);
-        mSeparatorDrawable = a.getDrawable(com.android.internal.R.styleable.Theme_dividerVertical);
-        a.recycle();
+        mSeparatorDrawable = ctx.getResources().getDrawable(
+                                android.R.drawable.divider_horizontal_dark);
         float density = mContext.getResources().getDisplayMetrics().density;
         mDividerPadding = DIVIDER_PADDING * density;
         mCrumbPadding = (int) (CRUMB_PADDING * density);

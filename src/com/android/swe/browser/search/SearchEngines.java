@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.search;
+package com.android.swe.browser.search;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.swe.browser.reflect.ReflectHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,11 @@ public class SearchEngines {
         ArrayList<SearchEngineInfo> searchEngineInfos = new ArrayList<SearchEngineInfo>();
         Resources res = context.getResources();
         String[] searchEngines = res.getStringArray(R.array.search_engines);
-        String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
+        Object[] params  = { new String("persist.env.c.browser.resource"),
+                                 new String("default")};
+        Class[] type = new Class[] {String.class, String.class};
+        String browserRes = (String)ReflectHelper.invokeStaticMethod(
+                                "android.os.SystemProperties","get", type, params);
         for (int i = 0; i < searchEngines.length; i++) {
             String name = searchEngines[i];
             if ("cmcc".equals(browserRes)) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -31,7 +31,10 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
+
+import com.android.swe.browser.R;
+
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -120,9 +123,8 @@ public class TitleBar extends RelativeLayout {
 
     private void setFixedTitleBar() {
         boolean isFixed = !mUseQuickControls
-                && !mContext.getResources().getBoolean(R.bool.hide_title);
+                && !getContext().getResources().getBoolean(R.bool.hide_title);
         isFixed |= mAccessibilityManager.isEnabled();
-        isFixed |= !BrowserWebView.isClassic();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
         if (mIsFixedTitleBar == isFixed && parent != null) return;
@@ -172,7 +174,7 @@ public class TitleBar extends RelativeLayout {
     }
 
     void setupTitleBarAnimator(Animator animator) {
-        Resources res = mContext.getResources();
+        Resources res = getContext().getResources();
         int duration = res.getInteger(R.integer.titlebar_animation_duration);
         animator.setInterpolator(new DecelerateInterpolator(
                 ANIM_TITLEBAR_DECELERATE));
@@ -300,7 +302,11 @@ public class TitleBar extends RelativeLayout {
         return calculateEmbeddedHeight();
     }
 
-    private int calculateEmbeddedHeight() {
+     public boolean isFixed() {
+        return mIsFixedTitleBar;
+    }
+
+    int calculateEmbeddedHeight() {
         int height = mNavBar.getHeight();
         if (mAutoLogin != null && mAutoLogin.getVisibility() == View.VISIBLE) {
             height += mAutoLogin.getHeight();

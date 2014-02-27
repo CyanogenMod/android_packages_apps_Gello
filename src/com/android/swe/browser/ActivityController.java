@@ -1,4 +1,4 @@
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Intent;
 import android.content.res.Configuration;

@@ -17,7 +17,7 @@
     android:layout_height="?android:attr/actionBarSize"
     android:orientation="horizontal"
     >
-    <com.android.browser.TabScrollView
+    <com.android.swe.browser.TabScrollView
         android:id="@+id/tabs"
         android:layout_width="0dip"
         android:layout_height="match_parent"

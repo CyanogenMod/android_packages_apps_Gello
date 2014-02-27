@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import java.lang.reflect.Method;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.HttpAuthHandler;
-import android.webkit.SslErrorHandler;
-import android.webkit.WebView;
+import org.codeaurora.swe.HttpAuthHandler;
+import org.codeaurora.swe.SslErrorHandler;
+import org.codeaurora.swe.WebView;
+
+import com.android.swe.browser.R;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -332,6 +338,28 @@ public class PageDialogsHandler {
                 .show();
     }
 
+    private static View inflateCertificateView(SslCertificate certificate, Context ctx) {
+        Class certClass;
+        try {
+            certClass = Class.forName("android.net.http.SslCertificate");
+
+            Class argTypes[] = new Class[1];
+            argTypes[0] = Context.class;
+
+            Method m =  certClass.getDeclaredMethod("inflateCertificateView", argTypes);
+            m.setAccessible(true);
+
+            Object args[] = new Object[1];
+            args[0] = ctx;
+            return (View) m.invoke(certificate, args);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     /*
      * Creates an AlertDialog to display the given certificate. If error is
      * null, text is added to state that the certificae is valid and the icon
@@ -341,9 +369,11 @@ public class PageDialogsHandler {
      */
     private AlertDialog.Builder createSslCertificateDialog(SslCertificate certificate,
             SslError error) {
-        View certificateView = certificate.inflateCertificateView(mContext);
+        View certificateView = inflateCertificateView(certificate, mContext);
+        Resources res = Resources.getSystem();
+        int placeholder_id = res.getIdentifier("placeholder", "id", "android");
         final LinearLayout placeholder =
-                (LinearLayout)certificateView.findViewById(com.android.internal.R.id.placeholder);
+                (LinearLayout)certificateView.findViewById(placeholder_id);
 
         LayoutInflater factory = LayoutInflater.from(mContext);
         int iconId;
@@ -352,7 +382,7 @@ public class PageDialogsHandler {
             iconId = R.drawable.ic_dialog_browser_certificate_secure;
             LinearLayout table = (LinearLayout)factory.inflate(R.layout.ssl_success, placeholder);
             TextView successString = (TextView)table.findViewById(R.id.success);
-            successString.setText(com.android.internal.R.string.ssl_certificate_is_valid);
+            successString.setText(R.string.ssl_certificate_is_valid);
         } else {
             iconId = R.drawable.ic_dialog_browser_certificate_partially_secure;
             if (error.hasError(SslError.SSL_UNTRUSTED)) {
@@ -384,7 +414,7 @@ public class PageDialogsHandler {
         }
 
         return new AlertDialog.Builder(mContext)
-                .setTitle(com.android.internal.R.string.ssl_certificate)
+                .setTitle(R.string.ssl_certificate)
                 .setIcon(iconId)
                 .setView(certificateView);
     }

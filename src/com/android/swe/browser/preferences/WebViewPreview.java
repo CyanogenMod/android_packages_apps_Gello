@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,9 +24,9 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 public abstract class WebViewPreview extends Preference
         implements OnSharedPreferenceChangeListener {

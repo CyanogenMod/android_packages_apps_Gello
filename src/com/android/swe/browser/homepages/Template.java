@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.homepages;
+package com.android.swe.browser.homepages;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.util.TypedValue;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 public class Template {
 

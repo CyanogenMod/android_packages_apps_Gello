@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.backup.BackupAgent;
 import android.app.backup.BackupDataInput;
@@ -22,8 +22,10 @@ import android.app.backup.BackupDataOutput;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.ParcelFileDescriptor;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
+
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+
 import android.util.Log;
 
 import java.io.DataInputStream;

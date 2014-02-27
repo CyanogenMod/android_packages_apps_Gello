@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests.utils;
+package com.android.swe.browser.tests.utils;
 
-import com.android.browser.provider.BrowserProvider2;
+import com.android.swe.browser.provider.BrowserProvider2;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -25,10 +25,11 @@ import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.provider.Browser;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.History;
 import android.util.Log;
+
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.platformsupport.BrowserContract.History;
 
 /**
  *  This is a replacement for ProviderTestCase2 that can handle notifyChange testing.

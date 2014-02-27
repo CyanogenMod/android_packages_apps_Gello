@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,9 +22,9 @@ import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.PreferenceKeys;
 
 public class BandwidthPreferencesFragment extends PreferenceFragment {
 

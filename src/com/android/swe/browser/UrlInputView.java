@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
@@ -36,14 +35,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.android.browser.SuggestionsAdapter.CompletionListener;
-import com.android.browser.SuggestionsAdapter.SuggestItem;
-import com.android.browser.search.SearchEngine;
-import com.android.browser.search.SearchEngineInfo;
-import com.android.browser.search.SearchEngines;
-import com.android.internal.R;
+import com.android.swe.browser.SuggestionsAdapter.CompletionListener;
+import com.android.swe.browser.SuggestionsAdapter.SuggestItem;
+import com.android.swe.browser.reflect.ReflectHelper;
+import com.android.swe.browser.search.SearchEngine;
+import com.android.swe.browser.search.SearchEngineInfo;
+import com.android.swe.browser.search.SearchEngines;
 
-import java.util.List;
 
 /**
  * url/search input view
@@ -80,19 +78,24 @@ public class UrlInputView extends AutoCompleteTextView
 
     public UrlInputView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        // SWE_TODO : HARDCODED a random background - clean up
+        /*
         TypedArray a = context.obtainStyledAttributes(
-                attrs, com.android.internal.R.styleable.PopupWindow,
+                attrs, R.styleable.PopupWindow,
                 R.attr.autoCompleteTextViewStyle, 0);
 
         Drawable popupbg = a.getDrawable(R.styleable.PopupWindow_popupBackground);
-        a.recycle();
+        a.recycle(); */
+        Drawable popupbg = context.getResources().getDrawable(android.R.drawable.editbox_background);
         mPopupPadding = new Rect();
         popupbg.getPadding(mPopupPadding);
         init(context);
     }
 
     public UrlInputView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.autoCompleteTextViewStyle);
+        // SWE_TODO : Needs Fix
+        //this(context, attrs, R.attr.autoCompleteTextViewStyle);
+        this(context, attrs, 0);
     }
 
     public UrlInputView(Context context) {
@@ -246,7 +249,10 @@ public class UrlInputView extends AutoCompleteTextView
     }
 
     void showIME() {
-        mInputManager.focusIn(this);
+        //mInputManager.focusIn(this);
+        Object[] params  = {this};
+        Class[] type = new Class[] {View.class};
+        ReflectHelper.invokeMethod(mInputManager, "focusIn", type, params);
         mInputManager.showSoftInput(this, 0);
     }
 
@@ -264,7 +270,7 @@ public class UrlInputView extends AutoCompleteTextView
                         .getSearchEngine();
                 if (searchEngine == null) return;
                 SearchEngineInfo engineInfo = SearchEngines
-                        .getSearchEngineInfo(mContext, searchEngine.getName());
+                        .getSearchEngineInfo(getContext(), searchEngine.getName());
                 if (engineInfo == null) return;
                 url = engineInfo.getSearchUriForQuery(url);
                 // mLister.onAction can take it from here without logging

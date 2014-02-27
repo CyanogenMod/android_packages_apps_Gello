@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.provider;
+package com.android.swe.browser.provider;
 
 import android.app.SearchManager;
 import android.app.backup.BackupManager;
@@ -42,9 +42,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.R;
-import com.android.browser.search.SearchEngine;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.search.SearchEngine;
 
 import java.io.File;
 import java.io.FilenameFilter;

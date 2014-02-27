@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -35,10 +35,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 import android.widget.ImageView;
 
-import com.android.browser.UrlInputView.StateListener;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UrlInputView.StateListener;
 
 /**
  * Ui for regular phone screen sizes
@@ -66,7 +67,7 @@ public class PhoneUi extends BaseUi {
         mNavigationBar = (NavigationBarPhone) mTitleBar.getNavigationBar();
         TypedValue heightValue = new TypedValue();
         browser.getTheme().resolveAttribute(
-                com.android.internal.R.attr.actionBarSize, heightValue, true);
+                android.R.attr.actionBarSize, heightValue, true);
         mActionBarHeight = TypedValue.complexToDimensionPixelSize(heightValue.data,
                 browser.getResources().getDisplayMetrics());
     }
@@ -292,7 +293,8 @@ public class PhoneUi extends BaseUi {
         int fromLeft = 0;
         int fromTop = getTitleBar().getHeight();
         int fromRight = mContentView.getWidth();
-        int fromBottom = mContentView.getHeight();
+        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
+        int fromBottom = mContentView.getHeight() + fixedTbarHeight;
         int width = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_width);
         int height = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_height);
         int ntth = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_titleheight);
@@ -301,7 +303,9 @@ public class PhoneUi extends BaseUi {
         int toRight = toLeft + width;
         int toBottom = toTop + height;
         float scaleFactor = width / (float) mContentView.getWidth();
-        detachTab(mActiveTab);
+        // SWE: Detaching the active tab results flashing screen with SWE.
+        // Not detaching the tab doesn't seem to have any issues.
+        //detachTab(mActiveTab);
         mContentView.setVisibility(View.GONE);
         AnimatorSet set1 = new AnimatorSet();
         AnimatorSet inanim = new AnimatorSet();
@@ -378,12 +382,18 @@ public class PhoneUi extends BaseUi {
         if (mAnimScreen.mMain.getParent() == null) {
             mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         }
+        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
         mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
-                mContentView.getHeight());
+                mContentView.getHeight()  + fixedTbarHeight);
         mNavScreen.mScroller.finishScroller();
         ImageView target = tabview.mImage;
         int toLeft = 0;
-        int toTop = (tab.getWebView() != null) ? tab.getWebView().getVisibleTitleHeight() : 0;
+        int toTop = 0;
+        if (mTitleBar.isFixed()) {
+            toTop = fixedTbarHeight;
+        } else {
+            toTop = (tab.getWebView() != null) ? tab.getWebView().getVisibleTitleHeight() : 0;
+        }
         int toRight = mContentView.getWidth();
         int width = target.getDrawable().getIntrinsicWidth();
         int height = target.getDrawable().getIntrinsicHeight();
@@ -480,12 +490,14 @@ public class PhoneUi extends BaseUi {
             if (tbar == null || web == null) {
                 return;
             }
-            if (tbar.getWidth() > 0 && tbar.getEmbeddedHeight() > 0) {
+            int embTbarHeight = tbar.getEmbeddedHeight();
+            int tbarHeight = tbar.isFixed() ? tbar.calculateEmbeddedHeight() : embTbarHeight;
+            if (tbar.getWidth() > 0 && tbarHeight > 0) {
                 if (mTitleBarBitmap == null
                         || mTitleBarBitmap.getWidth() != tbar.getWidth()
-                        || mTitleBarBitmap.getHeight() != tbar.getEmbeddedHeight()) {
+                        || mTitleBarBitmap.getHeight() != tbarHeight) {
                     mTitleBarBitmap = safeCreateBitmap(tbar.getWidth(),
-                            tbar.getEmbeddedHeight());
+                            tbarHeight);
                 }
                 if (mTitleBarBitmap != null) {
                     Canvas c = new Canvas(mTitleBarBitmap);
@@ -497,19 +509,23 @@ public class PhoneUi extends BaseUi {
             }
             mTitle.setImageBitmap(mTitleBarBitmap);
             mTitle.setVisibility(View.VISIBLE);
-            int h = web.getHeight() - tbar.getEmbeddedHeight();
-            if (mContentBitmap == null
-                    || mContentBitmap.getWidth() != web.getWidth()
-                    || mContentBitmap.getHeight() != h) {
-                mContentBitmap = safeCreateBitmap(web.getWidth(), h);
-            }
-            if (mContentBitmap != null) {
-                Canvas c = new Canvas(mContentBitmap);
-                int tx = web.getScrollX();
-                int ty = web.getScrollY();
-                c.translate(-tx, -ty - tbar.getEmbeddedHeight());
-                web.draw(c);
-                c.setBitmap(null);
+            // SWE: WebView.draw() wouldn't draw anything if SurfaceView is enabled.
+            mContentBitmap = web.getViewportBitmap();
+            if (mContentBitmap == null) {
+                int h = web.getHeight() - embTbarHeight;
+                if (mContentBitmap == null
+                        || mContentBitmap.getWidth() != web.getWidth()
+                        || mContentBitmap.getHeight() != h) {
+                    mContentBitmap = safeCreateBitmap(web.getWidth(), h);
+                }
+                if (mContentBitmap != null) {
+                        Canvas c = new Canvas(mContentBitmap);
+                        int tx = web.getScrollX();
+                        int ty = web.getScrollY();
+                        c.translate(-tx, -ty - embTbarHeight);
+                        web.draw(c);
+                        c.setBitmap(null);
+                }
             }
             mContent.setImageBitmap(mContentBitmap);
         }

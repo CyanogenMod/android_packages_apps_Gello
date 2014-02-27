@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 public interface PreferenceKeys {
 
@@ -40,6 +40,7 @@ public interface PreferenceKeys {
     static final String PREF_DEFAULT_TEXT_ENCODING = "default_text_encoding";
     static final String PREF_DEFAULT_ZOOM = "default_zoom";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
+    static final String PREF_ENABLE_MEMORY_MONITOR = "enable_memory_monitor";
     static final String PREF_LOAD_PAGE = "load_page";
     static final String PREF_OPEN_IN_BACKGROUND = "open_in_background";
     static final String PREF_PLUGIN_STATE = "plugin_state";

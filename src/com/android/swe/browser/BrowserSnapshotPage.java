@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -47,7 +47,8 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import com.android.browser.provider.SnapshotProvider.Snapshots;
+import com.android.swe.browser.R;
+import com.android.swe.browser.provider.SnapshotProvider.Snapshots;
 
 import java.text.DateFormat;
 import java.util.Date;

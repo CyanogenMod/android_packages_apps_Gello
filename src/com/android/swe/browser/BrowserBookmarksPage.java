@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -36,8 +36,6 @@ import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Accounts;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -50,14 +48,17 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
-import com.android.browser.provider.BrowserProvider2;
-import com.android.browser.view.BookmarkExpandableView;
-import com.android.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
+import com.android.swe.browser.R;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Accounts;
+import com.android.swe.browser.provider.BrowserProvider2;
+import com.android.swe.browser.view.BookmarkExpandableView;
+import com.android.swe.browser.view.BookmarkExpandableView.BookmarkContextMenuInfo;
+
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 
 interface BookmarksPageCallbacks {
     // Return true if handled

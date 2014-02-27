@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.tests.utils;
+package com.android.swe.browser.tests.utils;
 
 import com.google.android.collect.Maps;
 

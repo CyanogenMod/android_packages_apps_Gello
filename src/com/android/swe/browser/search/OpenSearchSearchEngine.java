@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.search;
+package com.android.swe.browser.search;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

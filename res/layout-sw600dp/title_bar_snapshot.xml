@@ -14,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<com.android.browser.SnapshotBar
+<com.android.swe.browser.SnapshotBar
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -50,6 +50,6 @@
         android:scaleType="center"
         android:paddingRight="16dip"
         style="@style/HoloButton"
-        android:src="@drawable/ic_bookmarks_history_holo_dark" 
+        android:src="@drawable/ic_bookmarks_history_holo_dark"
         android:contentDescription="@string/accessibility_button_bookmarks" />
-</com.android.browser.SnapshotBar>
+</com.android.swe.browser.SnapshotBar>

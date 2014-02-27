@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.ActionBar;
 import android.content.Intent;
@@ -22,8 +22,9 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 
-import com.android.browser.preferences.BandwidthPreferencesFragment;
-import com.android.browser.preferences.DebugPreferencesFragment;
+import com.android.swe.browser.R;
+import com.android.swe.browser.preferences.BandwidthPreferencesFragment;
+import com.android.swe.browser.preferences.DebugPreferencesFragment;
 
 import java.util.List;
 

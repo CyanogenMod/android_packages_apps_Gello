@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.android.swe.browser.R;
 
 /**
  * Handle setWallpaper requests

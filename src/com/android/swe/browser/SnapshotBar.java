@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,7 +31,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TextView;
 
-import com.android.browser.UI.ComboViews;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UI.ComboViews;
 
 import java.text.DateFormat;
 import java.util.Date;

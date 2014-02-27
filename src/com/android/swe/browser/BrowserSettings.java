@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
-import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,41 +25,39 @@ import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Message;
-import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Log;
-import android.webkit.CookieManager;
-import android.webkit.GeolocationPermissions;
 import android.webkit.WebIconDatabase;
-import android.webkit.WebSettings;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebSettings.PluginState;
-import android.webkit.WebSettings.TextSize;
-import android.webkit.WebSettings.ZoomDensity;
-import android.webkit.WebSettingsClassic;
-import android.webkit.WebSettingsClassic.AutoFillProfile;
 import android.webkit.WebStorage;
-import android.webkit.WebView;
 import android.webkit.WebViewDatabase;
 
-import com.android.browser.homepages.HomeProvider;
-import com.android.browser.provider.BrowserProvider;
-import com.android.browser.search.SearchEngine;
-import com.android.browser.search.SearchEngines;
+import com.android.swe.browser.R;
+import com.android.swe.browser.homepages.HomeProvider;
+import com.android.swe.browser.provider.BrowserProvider;
+import com.android.swe.browser.reflect.ReflectHelper;
+import com.android.swe.browser.search.SearchEngine;
+import com.android.swe.browser.search.SearchEngines;
 
 import java.io.InputStream;
-import java.lang.Class;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.WeakHashMap;
+
+import org.codeaurora.swe.AutoFillProfile;
+import org.codeaurora.swe.CookieManager;
+import org.codeaurora.swe.GeolocationPermissions;
+import org.codeaurora.swe.WebSettings.LayoutAlgorithm;
+import org.codeaurora.swe.WebSettings.PluginState;
+import org.codeaurora.swe.WebSettings.TextSize;
+import org.codeaurora.swe.WebSettings.ZoomDensity;
+import org.codeaurora.swe.WebSettings;
+import org.codeaurora.swe.WebView;
 
 /**
  * Class for managing settings
@@ -98,7 +95,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     };
 
     private static final String TAG = "BrowserSettings";
-
     // The minimum min font size
     // Aka, the lower bounds for the min font size range
     // which is 1:5..24
@@ -141,6 +137,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     // add for carrier feature
     private static Context sResPackageCtx;
+    private android.os.CountDownTimer mCountDownTimer;
+
+    //Determine if WebView is Initialized or not
+    private boolean mWebViewInitialized;
 
     public static void initialize(final Context context) {
         sInstance = new BrowserSettings(context);
@@ -156,18 +156,17 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
-        mAutofillHandler.asyncLoadFromDb();
 
         // add for carrier feature
         try {
             sResPackageCtx = context.createPackageContext(
-                "com.android.browser.res",
+                "com.android.swe.browser.res",
                 Context.CONTEXT_IGNORE_SECURITY);
         } catch (Exception e) {
             Log.e("Res_Update", "Create Res Apk Failed");
         }
-
         BackgroundHandler.execute(mSetup);
+        mWebViewInitialized = false;
     }
 
     public void setController(Controller controller) {
@@ -177,7 +176,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    public void startManagingSettings(WebSettings settings) {
+    public void startManagingSettings(final WebSettings settings) {
 
         if (mNeedsSharedSync) {
             syncSharedSettings();
@@ -201,6 +200,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public void initializeCookieSettings() {
+        CookieManager.getInstance().setAcceptCookie(acceptCookies());
+        mWebViewInitialized = true;
+    }
     private Runnable mSetup = new Runnable() {
 
         @Override
@@ -210,9 +213,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             // the cost of one cached page is ~3M (measured using nytimes.com). For
             // low end devices, we only cache one page. For high end devices, we try
             // to cache more pages, currently choose 5.
-            if (ActivityManager.staticGetMemoryClass() > 16) {
+
+            // SWE_TODO : assume a high-memory device
+            //if (ActivityManager.staticGetMemoryClass() > 16) {
                 mPageCacheCapacity = 5;
-            }
+            //}
             mWebStorageSizeManager = new WebStorageSizeManager(mContext,
                     new WebStorageSizeManager.StatFsDiskInfo(getAppCachePath()),
                     new WebStorageSizeManager.WebKitAppCacheInfo(getAppCachePath()));
@@ -248,20 +253,23 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 mPrefs.edit().remove(PREF_TEXT_SIZE).apply();
             }
 
-
             // add for carrier homepage feature
-            String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
+            Object[] params  = { new String("persist.env.c.browser.resource"),
+                                 new String("default")};
+            Class[] type = new Class[] {String.class, String.class};
+            String browserRes = (String)ReflectHelper.invokeStaticMethod(
+                                "android.os.SystemProperties","get",type, params);
             if ("cu".equals(browserRes) || "cmcc".equals(browserRes)) {
                 int resID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_base", "string", "com.android.browser.res");
+                        "homepage_base", "string", "com.android.swe.browser.res");
                 sFactoryResetUrl = sResPackageCtx.getResources().getString(resID);
             } else if ("ct".equals(browserRes)) {
                 int resID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_base", "string", "com.android.browser.res");
+                        "homepage_base", "string", "com.android.swe.browser.res");
                 sFactoryResetUrl = sResPackageCtx.getResources().getString(resID);
 
                 int pathID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_path", "string", "com.android.browser.res");
+                        "homepage_path", "string", "com.android.swe.browser.res");
                 String path = sResPackageCtx.getResources().getString(pathID);
                 Locale locale = Locale.getDefault();
                 path = path.replace("%y", locale.getLanguage().toLowerCase());
@@ -308,7 +316,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                             "GBK").apply();
                 }
             }
-
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
                 sFactoryResetUrl = sFactoryResetUrl.replace("{CID}",
                     BrowserProvider.getClientId(mContext.getContentResolver()));
@@ -365,22 +372,18 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             Log.e(TAG, "plug in Load failed, err " + e);
             ua = mCustomUserAgents.get(settings);
         }
-
         if (ua != null) {
             settings.setUserAgentString(ua);
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
         }
 
-        if (!(settings instanceof WebSettingsClassic)) return;
-
-        WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
+        WebSettings settingsClassic = (WebSettings) settings;
         settingsClassic.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
         settingsClassic.setShowVisualIndicator(enableVisualIndicator());
         settingsClassic.setForceUserScalable(forceEnableUserScalable());
         settingsClassic.setDoubleTapZoom(getDoubleTapZoom());
         settingsClassic.setAutoFillEnabled(isAutofillEnabled());
-        settingsClassic.setAutoFillProfile(getAutoFillProfile());
 
         boolean useInverted = useInvertedRendering();
         settingsClassic.setProperty(WebViewProperties.gfxInvertedScreen,
@@ -430,7 +433,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setAllowFileAccessFromFileURLs(false);
 
-        if (!(settings instanceof WebSettingsClassic)) return;
+        //if (!(settings instanceof WebSettingsClassic)) return;
+        /*
 
         WebSettingsClassic settingsClassic = (WebSettingsClassic) settings;
         settingsClassic.setPageCacheCapacity(getPageCacheCapacity());
@@ -442,11 +446,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // buffering is always turned on, which is unnecessary.
         settingsClassic.setProperty(WebViewProperties.gfxUseMinimalMemory, "false");
         settingsClassic.setWorkersEnabled(true);  // This only affects V8.
+        */
     }
 
     private void syncSharedSettings() {
         mNeedsSharedSync = false;
-        CookieManager.getInstance().setAcceptCookie(acceptCookies());
+        if (mWebViewInitialized) {
+            CookieManager.getInstance().setAcceptCookie(acceptCookies());
+        }
         if (mController != null) {
             mController.setShouldShowErrorConsole(enableJavascriptConsole());
         }
@@ -458,7 +465,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
             while (iter.hasNext()) {
                 WeakReference<WebSettings> ref = iter.next();
-                WebSettings settings = ref.get();
+                WebSettings settings = (WebSettings)ref.get();
                 if (settings == null) {
                     iter.remove();
                     continue;
@@ -618,18 +625,54 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public AutoFillProfile getAutoFillProfile() {
+         // query the profile from components autofill database 524
+        if (mAutofillHandler.mAutoFillProfile == null &&
+               !mAutofillHandler.mAutoFillActiveProfileId.equals("")) {
+            WebSettings settings = null;
+            // find a valid settings object
+            Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
+            while (iter.hasNext()) {
+                WeakReference<WebSettings> ref = iter.next();
+                settings = (WebSettings)ref.get();
+                if (settings != null) {
+                    break;
+                }
+            }
+            if (settings != null) {
+                AutoFillProfile profile =
+                    settings.getAutoFillProfile(mAutofillHandler.mAutoFillActiveProfileId);
+                mAutofillHandler.setAutoFillProfile(profile);
+            }
+        }
         return mAutofillHandler.getAutoFillProfile();
     }
 
-    public void setAutoFillProfile(AutoFillProfile profile, Message msg) {
-        mAutofillHandler.setAutoFillProfile(profile, msg);
-        // Auto-fill will reuse the same profile ID when making edits to the profile,
-        // so we need to force a settings sync (otherwise the SharedPreferences
-        // manager will optimise out the call to onSharedPreferenceChanged(), as
-        // it thinks nothing has changed).
-        syncManagedSettings();
+    public String getAutoFillProfileId() {
+        return mAutofillHandler.getAutoFillProfileId();
     }
 
+    public void updateAutoFillProfile(AutoFillProfile profile) {
+         syncAutoFillProfile(profile);
+    }
+
+    private void syncAutoFillProfile(AutoFillProfile profile) {
+       synchronized (mManagedSettings) {
+            Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
+            while (iter.hasNext()) {
+                WeakReference<WebSettings> ref = iter.next();
+                WebSettings settings = (WebSettings)ref.get();
+                if (settings == null) {
+                    iter.remove();
+                    continue;
+                }
+                // update the profile only once.
+                settings.setAutoFillProfile(profile);
+                // Now we should have the guid
+                mAutofillHandler.setAutoFillProfile(profile);
+                break;
+            }
+        }
+    }
     public void toggleDebugSettings() {
         setDebugEnabled(!isDebugEnabled());
     }
@@ -717,7 +760,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getString(PREF_DOWNLOAD_PATH,
                 DownloadHandler.getDefaultDownloadPath(mContext));
     }
-
     // -----------------------------
     // getter/setters for accessibility_preferences.xml
     // -----------------------------
@@ -779,6 +821,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean enableJavascript() {
         return mPrefs.getBoolean(PREF_ENABLE_JAVASCRIPT, true);
+    }
+
+    public boolean enableMemoryMonitor() {
+        return mPrefs.getBoolean(PREF_ENABLE_MEMORY_MONITOR, true);
     }
 
     // TODO: Cache

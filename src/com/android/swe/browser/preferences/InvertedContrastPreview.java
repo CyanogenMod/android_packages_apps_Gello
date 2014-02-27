@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.webkit.WebSettingsClassic;
-import android.webkit.WebViewClassic;
+import org.codeaurora.swe.WebSettings;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.BrowserWebView;
-import com.android.browser.WebViewProperties;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.BrowserWebView;
+import com.android.swe.browser.WebViewProperties;
 
 public class InvertedContrastPreview extends WebViewPreview {
 
-    static final String IMG_ROOT = "content://com.android.browser.home/res/raw/";
+    static final String IMG_ROOT = "content://com.android.swe.browser.home/res/raw/";
     static final String[] THUMBS = new String[] {
         "thumb_google",
         "thumb_amazon",
@@ -76,9 +76,9 @@ public class InvertedContrastPreview extends WebViewPreview {
 
     @Override
     protected void updatePreview(boolean forceReload) {
-        if (mWebView == null || !BrowserWebView.isClassic()) return;
+        if (mWebView == null) return;
 
-        WebSettingsClassic ws = WebViewClassic.fromWebView(mWebView).getSettings();
+        WebSettings ws = mWebView.getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setProperty(WebViewProperties.gfxInvertedScreen,
                 bs.useInvertedRendering() ? "true" : "false");

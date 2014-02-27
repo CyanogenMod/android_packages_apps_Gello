@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -25,7 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
+
+import com.android.swe.browser.R;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;

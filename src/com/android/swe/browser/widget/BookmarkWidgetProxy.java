@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser.widget;
+package com.android.swe.browser.widget;
 
-import com.android.browser.BrowserActivity;
+import com.android.swe.browser.BrowserActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

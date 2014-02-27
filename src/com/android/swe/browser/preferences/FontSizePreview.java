@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebSettings;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.R;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
 
 public class FontSizePreview extends WebViewPreview {
 

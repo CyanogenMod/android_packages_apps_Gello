@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.provider;
+package com.android.swe.browser.provider;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -36,30 +36,30 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.SystemProperties;
 import android.provider.BaseColumns;
 import android.provider.Browser;
-import android.provider.Browser.BookmarkColumns;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Accounts;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.ChromeSyncColumns;
-import android.provider.BrowserContract.Combined;
-import android.provider.BrowserContract.History;
-import android.provider.BrowserContract.Images;
-import android.provider.BrowserContract.Searches;
-import android.provider.BrowserContract.Settings;
-import android.provider.BrowserContract.SyncState;
 import android.provider.ContactsContract.RawContacts;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.R;
-import com.android.browser.UrlUtils;
-import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
-import com.android.common.content.SyncStateContentProviderHelper;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.UrlUtils;
+import com.android.swe.browser.platformsupport.BookmarkColumns;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.SyncStateContentProviderHelper;
+import com.android.swe.browser.platformsupport.BrowserContract.Accounts;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.platformsupport.BrowserContract.ChromeSyncColumns;
+import com.android.swe.browser.platformsupport.BrowserContract.Combined;
+import com.android.swe.browser.platformsupport.BrowserContract.History;
+import com.android.swe.browser.platformsupport.BrowserContract.Images;
+import com.android.swe.browser.platformsupport.BrowserContract.Searches;
+import com.android.swe.browser.platformsupport.BrowserContract.Settings;
+import com.android.swe.browser.platformsupport.BrowserContract.SyncState;
+import com.android.swe.browser.reflect.ReflectHelper;
+import com.android.swe.browser.widget.BookmarkThumbnailWidgetProvider;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.io.ByteArrayOutputStream;
@@ -76,7 +76,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
     public static final String PARAM_GROUP_BY = "groupBy";
     public static final String PARAM_ALLOW_EMPTY_ACCOUNTS = "allowEmptyAccounts";
 
-    public static final String LEGACY_AUTHORITY = "browser";
+    public static final String LEGACY_AUTHORITY = "swebrowser";
     static final Uri LEGACY_AUTHORITY_URI = new Uri.Builder()
             .authority(LEGACY_AUTHORITY).scheme("content").build();
 
@@ -658,7 +658,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             db.insertOrThrow(TABLE_BOOKMARKS, null, values);
 
             // add for carrier bookmark feature
-            String browserRes = SystemProperties.get("persist.env.c.browser.resource", "default");
+            Object[] params  = { new String("persist.env.c.browser.resource"),
+                                             new String("default")};
+                        Class[] type = new Class[] {String.class, String.class};
+                        String browserRes = (String)ReflectHelper.invokeStaticMethod(
+                                    "android.os.SystemProperties", "get",
+                                    type, params);
 
             //don't add default bookmarks for cmcc
             if (!"cmcc".equals(browserRes)) {
@@ -731,7 +736,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             Context mResPackageCtx = null;
             try {
                 mResPackageCtx = getContext().createPackageContext(
-                    "com.android.browser.res",
+                    "com.android.swe.browser.res",
                     Context.CONTEXT_IGNORE_SECURITY);
             } catch (Exception e) {
                 Log.e(TAG, "Create Res Apk Failed");
@@ -742,9 +747,11 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             CharSequence[] bookmarks = null;
             TypedArray preloads = null;
             Resources res = mResPackageCtx.getResources();
-            int resBookmarksID = res.getIdentifier("bookmarks", "array", "com.android.browser.res");
+            int resBookmarksID = res.getIdentifier("bookmarks",
+                                                   "array",
+                                                   "com.android.swe.browser.res");
             int resPreloadsID = res.getIdentifier("bookmark_preloads", "array",
-                    "com.android.browser.res");
+                    "com.android.swe.browser.res");
             if (resBookmarksID != 0 && resPreloadsID != 0) {
                 bookmarks = res.getTextArray(resBookmarksID);
                 preloads = res.obtainTypedArray(resPreloadsID);
@@ -851,7 +858,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             return ret;
         }
 
-        private CharSequence replaceSystemPropertyInString(Context context, CharSequence srcString) {
+        private CharSequence replaceSystemPropertyInString(Context context, CharSequence srcString){
             StringBuffer sb = new StringBuffer();
             int lastCharLoc = 0;
 
@@ -1001,7 +1008,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             case BOOKMARKS_ID:
             case BOOKMARKS: {
                 // Only show deleted bookmarks if requested to do so
-                if (!uri.getBooleanQueryParameter(Bookmarks.QUERY_PARAMETER_SHOW_DELETED, false)) {
+                if (!uri.getBooleanQueryParameter(Bookmarks.QUERY_PARAMETER_SHOW_DELETED, false)){
                     selection = DatabaseUtils.concatenateWhere(
                             Bookmarks.IS_DELETED + "=0", selection);
                 }

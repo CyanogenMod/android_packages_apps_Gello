@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
-import android.net.WebAddress;
+import com.android.swe.browser.platformsupport.Process;
+import com.android.swe.browser.platformsupport.WebAddress;
+
 import android.os.Debug;
-import android.os.Process;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -30,7 +31,7 @@ public class Performance {
     private static final String LOGTAG = "browser";
 
     private final static boolean LOGD_ENABLED =
-            com.android.browser.Browser.LOGD_ENABLED;
+            com.android.swe.browser.Browser.LOGD_ENABLED;
 
     private static boolean mInTrace;
 

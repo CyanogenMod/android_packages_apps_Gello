@@ -14,16 +14,16 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
-import com.android.browser.search.SearchEngine;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.PreferenceKeys;
+import com.android.swe.browser.search.SearchEngine;
 
 public class LabPreferencesFragment extends PreferenceFragment {
 

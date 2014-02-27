@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.search;
+package com.android.swe.browser.search;
 
 import android.app.PendingIntent;
 import android.app.SearchManager;
@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.provider.Browser;
 import android.text.TextUtils;
 import android.util.Log;
+import com.android.swe.browser.reflect.ReflectHelper;
 
 public class DefaultSearchEngine implements SearchEngine {
 
@@ -46,7 +47,9 @@ public class DefaultSearchEngine implements SearchEngine {
     public static DefaultSearchEngine create(Context context) {
         SearchManager searchManager =
                 (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
-        ComponentName name = searchManager.getWebSearchActivity();
+        ComponentName name = (ComponentName) ReflectHelper.invokeMethod(
+                              searchManager, "getWebSearchActivity", null, null);
+
         if (name == null) return null;
         SearchableInfo searchable = searchManager.getSearchableInfo(name);
         if (searchable == null) return null;
@@ -80,7 +83,8 @@ public class DefaultSearchEngine implements SearchEngine {
         return mLabel;
     }
 
-    public void startSearch(Context context, String query, Bundle appData, String extraData) {
+    public void startSearch(Context context, String query,
+                            Bundle appData, String extraData) {
         try {
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
             intent.setComponent(mSearchable.getSearchActivity());
@@ -101,14 +105,19 @@ public class DefaultSearchEngine implements SearchEngine {
             intent.putExtra(SearchManager.EXTRA_WEB_SEARCH_PENDINGINTENT, pending);
             context.startActivity(intent);
         } catch (ActivityNotFoundException ex) {
-            Log.e(TAG, "Web search activity not found: " + mSearchable.getSearchActivity());
+            Log.e(TAG, "Web search activity not found: " +
+                        mSearchable.getSearchActivity());
         }
     }
 
     public Cursor getSuggestions(Context context, String query) {
         SearchManager searchManager =
                 (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
-        return searchManager.getSuggestions(mSearchable, query);
+        Object[] params  = {mSearchable, query};
+        Class[] type = new Class[] {SearchableInfo.class, String.class};
+        Cursor cursor = (Cursor) ReflectHelper.invokeMethod(
+                                   searchManager, "getSuggestions", type, params);
+        return cursor;
     }
 
     public boolean supportsSuggestions() {

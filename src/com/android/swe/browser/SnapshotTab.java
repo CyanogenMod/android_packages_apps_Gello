@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -26,10 +26,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.provider.SnapshotProvider.Snapshots;
+import com.android.swe.browser.provider.SnapshotProvider.Snapshots;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -48,6 +47,7 @@ public class SnapshotTab extends Tab {
     private int mBackgroundColor;
     private long mDateCreated;
     private boolean mIsLive;
+    private String mLiveUrl;
 
     public SnapshotTab(WebViewController wvcontroller, long snapshotId) {
         super(wvcontroller, null, null);
@@ -122,11 +122,15 @@ public class SnapshotTab extends Tab {
         return mDateCreated;
     }
 
+    public String getLiveUrl() {
+        return mLiveUrl;
+    }
+
     @Override
     public void loadUrl(String url, Map<String, String> headers) {
         if (!mIsLive) {
             mIsLive = true;
-            getWebViewClassic().clearViewState();
+            getWebView().clearViewState();
         }
         super.loadUrl(url, headers);
     }
@@ -191,10 +195,6 @@ public class SnapshotTab extends Tab {
         }
 
         private InputStream getInputStream(Cursor c) throws FileNotFoundException {
-            String path = c.getString(SNAPSHOT_VIEWSTATE_PATH);
-            if (!TextUtils.isEmpty(path)) {
-                return mContext.openFileInput(path);
-            }
             byte[] data = c.getBlob(SNAPSHOT_VIEWSTATE);
             ByteArrayInputStream bis = new ByteArrayInputStream(data);
             return bis;
@@ -206,16 +206,22 @@ public class SnapshotTab extends Tab {
                 if (result.moveToFirst()) {
                     mTab.mCurrentState.mTitle = result.getString(SNAPSHOT_TITLE);
                     mTab.mCurrentState.mUrl = result.getString(SNAPSHOT_URL);
+                    mTab.mLiveUrl = result.getString(SNAPSHOT_URL);
                     byte[] favicon = result.getBlob(SNAPSHOT_FAVICON);
                     if (favicon != null) {
                         mTab.mCurrentState.mFavicon = BitmapFactory
                                 .decodeByteArray(favicon, 0, favicon.length);
                     }
-                    WebViewClassic web = mTab.getWebViewClassic();
+                    WebView web = mTab.getWebView();
                     if (web != null) {
-                        InputStream ins = getInputStream(result);
-                        GZIPInputStream stream = new GZIPInputStream(ins);
-                        web.loadViewState(stream);
+                        String path = result.getString(SNAPSHOT_VIEWSTATE_PATH);
+                        if (!TextUtils.isEmpty(path)) {
+                             web.loadViewState(path);
+                        } else {
+                            InputStream ins = getInputStream(result);
+                            GZIPInputStream stream = new GZIPInputStream(ins);
+                            web.loadViewState(stream);
+                        }
                     }
                     mTab.mBackgroundColor = result.getInt(SNAPSHOT_BACKGROUND);
                     mTab.mDateCreated = result.getLong(SNAPSHOT_DATE_CREATED);

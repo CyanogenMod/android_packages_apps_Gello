@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,13 +24,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnDismissListener;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 
-import com.android.browser.UrlInputView.StateListener;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UrlInputView.StateListener;
 
 public class NavigationBarPhone extends NavigationBarBase implements
         StateListener, OnMenuItemClickListener, OnDismissListener {
@@ -154,6 +155,10 @@ public class NavigationBarPhone extends NavigationBarBase implements
                 WebView web = mBaseUi.getWebView();
                 if (web != null) {
                     stopEditingUrl();
+                    Tab currentTab = mUiController.getTabControl().getCurrentTab();
+                    if (currentTab.hasCrashed) {
+                        currentTab.replaceCrashView(web, currentTab.getViewContainer());
+                    }
                     web.reload();
                 }
             }
@@ -180,7 +185,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
     void showMenu(View anchor) {
         Activity activity = mUiController.getActivity();
         if (mPopupMenu == null) {
-            mPopupMenu = new PopupMenu(mContext, anchor);
+            mPopupMenu = new PopupMenu(getContext(), anchor);
             mPopupMenu.setOnMenuItemClickListener(this);
             mPopupMenu.setOnDismissListener(this);
             if (!activity.onCreateOptionsMenu(mPopupMenu.getMenu())) {

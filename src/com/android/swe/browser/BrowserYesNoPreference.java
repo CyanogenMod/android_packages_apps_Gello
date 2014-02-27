@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.browser;
-
-import com.android.internal.preference.YesNoPreference;
+package com.android.swe.browser;
 
 import android.content.Context;
+import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 
-class BrowserYesNoPreference extends YesNoPreference {
+class BrowserYesNoPreference extends DialogPreference {
 
     // This is the constructor called by the inflater
     public BrowserYesNoPreference(Context context, AttributeSet attrs) {

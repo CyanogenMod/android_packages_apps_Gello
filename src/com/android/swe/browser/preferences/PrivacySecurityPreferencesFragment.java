@@ -14,10 +14,10 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
+import com.android.swe.browser.R;
+import com.android.swe.browser.PreferenceKeys;
 
 import android.app.Activity;
 import android.content.Intent;

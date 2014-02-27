@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -22,28 +22,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.SystemProperties;
 import android.provider.Browser;
 import android.util.Log;
-import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.reflect.ReflectHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Matcher;
 
-/**
- *
- */
+import org.codeaurora.swe.WebView;
+
 public class UrlHandler {
 
     private final static String TAG = "UrlHandler";
-    static final String RLZ_PROVIDER = "com.google.android.partnersetup.rlzappprovider";
-    static final Uri RLZ_PROVIDER_URI = Uri.parse("content://" + RLZ_PROVIDER + "/");
 
     // Use in overrideUrlLoading
     /* package */ final static String SCHEME_WTAI = "wtai://wp/";
@@ -53,9 +49,6 @@ public class UrlHandler {
 
     Controller mController;
     Activity mActivity;
-
-    private Boolean mIsProviderPresent = null;
-    private Uri mRlzUri = null;
 
     public UrlHandler(Controller controller) {
         mController = controller;
@@ -109,23 +102,13 @@ public class UrlHandler {
             mController.startAddMyNavigation(url);
             return true;
         }
-        // If this is a Google search, attempt to add an RLZ string
-        // (if one isn't already present).
-        if (rlzProviderPresent()) {
-            Uri siteUri = Uri.parse(url);
-            if (needsRlzString(siteUri)) {
-                // Need to look up the RLZ info from a database, so do it in an
-                // AsyncTask. Although we are not overriding the URL load synchronously,
-                // we guarantee that we will handle this URL load after the task executes,
-                // so it's safe to just return true to WebCore now to stop its own loading.
-                new RLZTask(tab, siteUri, view).execute();
-                return true;
-            }
-        }
 
         // add for carrier wap2estore feature
-        boolean wap2estore = SystemProperties.getBoolean(
-                "persist.env.browser.wap2estore", false);
+        Object[] params  = {new String("persist.env.browser.wap2estore"),
+                            Boolean.valueOf(false)};
+        Class[] type = new Class[] {String.class, boolean.class};
+        Boolean wap2estore = (Boolean)ReflectHelper.invokeStaticMethod(
+                      "android.os.SystemProperties", "getBoolean", type, params);
         if (wap2estore && isEstoreTypeUrl(url)) {
             handleEstoreTypeUrl(url);
             return true;
@@ -286,114 +269,6 @@ public class UrlHandler {
             return true;
         }
 
-        return false;
-    }
-
-    // TODO: Move this class into Tab, where it can be properly stopped upon
-    // closure of the tab
-    private class RLZTask extends AsyncTask<Void, Void, String> {
-        private Tab mTab;
-        private Uri mSiteUri;
-        private WebView mWebView;
-
-        public RLZTask(Tab tab, Uri uri, WebView webView) {
-            mTab = tab;
-            mSiteUri = uri;
-            mWebView = webView;
-        }
-
-        protected String doInBackground(Void... unused) {
-            String result = mSiteUri.toString();
-            Cursor cur = null;
-            try {
-                cur = mActivity.getContentResolver()
-                        .query(getRlzUri(), null, null, null, null);
-                if (cur != null && cur.moveToFirst() && !cur.isNull(0)) {
-                    result = mSiteUri.buildUpon()
-                           .appendQueryParameter("rlz", cur.getString(0))
-                           .build().toString();
-                }
-            } finally {
-                if (cur != null) {
-                    cur.close();
-                }
-            }
-            return result;
-        }
-
-        protected void onPostExecute(String result) {
-            // abort if we left browser already
-            if (mController.isActivityPaused()) return;
-            // Make sure the Tab was not closed while handling the task
-            if (mController.getTabControl().getTabPosition(mTab) != -1) {
-                // If the Activity Manager is not invoked, load the URL directly
-                if (!startActivityForUrl(mTab, result)) {
-                    if (!handleMenuClick(mTab, result)) {
-                        mController.loadUrl(mTab, result);
-                    }
-                }
-            }
-        }
-    }
-
-    // Determine whether the RLZ provider is present on the system.
-    private boolean rlzProviderPresent() {
-        if (mIsProviderPresent == null) {
-            PackageManager pm = mActivity.getPackageManager();
-            mIsProviderPresent = pm.resolveContentProvider(RLZ_PROVIDER, 0) != null;
-        }
-        return mIsProviderPresent;
-    }
-
-    // Retrieve the RLZ access point string and cache the URI used to
-    // retrieve RLZ values.
-    private Uri getRlzUri() {
-        if (mRlzUri == null) {
-            String ap = mActivity.getResources()
-                    .getString(R.string.rlz_access_point);
-            mRlzUri = Uri.withAppendedPath(RLZ_PROVIDER_URI, ap);
-        }
-        return mRlzUri;
-    }
-
-    // Determine if this URI appears to be for a Google search
-    // and does not have an RLZ parameter.
-    // Taken largely from Chrome source, src/chrome/browser/google_url_tracker.cc
-    private static boolean needsRlzString(Uri uri) {
-        String scheme = uri.getScheme();
-        if (("http".equals(scheme) || "https".equals(scheme)) &&
-            (uri.getQueryParameter("q") != null) &&
-                    (uri.getQueryParameter("rlz") == null)) {
-            String host = uri.getHost();
-            if (host == null) {
-                return false;
-            }
-            String[] hostComponents = host.split("\\.");
-
-            if (hostComponents.length < 2) {
-                return false;
-            }
-            int googleComponent = hostComponents.length - 2;
-            String component = hostComponents[googleComponent];
-            if (!"google".equals(component)) {
-                if (hostComponents.length < 3 ||
-                        (!"co".equals(component) && !"com".equals(component))) {
-                    return false;
-                }
-                googleComponent = hostComponents.length - 3;
-                if (!"google".equals(hostComponents[googleComponent])) {
-                    return false;
-                }
-            }
-
-            // Google corp network handling.
-            if (googleComponent > 0 && "corp".equals(
-                    hostComponents[googleComponent - 1])) {
-                return false;
-            }
-
-            return true;
-        }
         return false;
     }
 

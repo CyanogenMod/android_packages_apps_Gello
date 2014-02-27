@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.widget;
+package com.android.swe.browser.widget;
 
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -25,15 +25,15 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.BrowserContract.Accounts;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.android.browser.AddBookmarkPage.BookmarkAccount;
-import com.android.browser.R;
-import com.android.browser.provider.BrowserProvider2;
+import com.android.swe.browser.R;
+import com.android.swe.browser.AddBookmarkPage.BookmarkAccount;
+import com.android.swe.browser.platformsupport.BrowserContract.Accounts;
+import com.android.swe.browser.provider.BrowserProvider2;
 
 public class BookmarkWidgetConfigure extends ListActivity
         implements OnClickListener, LoaderCallbacks<Cursor> {

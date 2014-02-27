@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.os.Looper;
 import android.util.Log;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 /**
  * Centralised point for controlling WebView timers pausing and resuming.
@@ -26,7 +26,7 @@ import android.webkit.WebView;
  */
 public class WebViewTimersControl {
 
-    private static final boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+    private static final boolean LOGD_ENABLED = com.android.swe.browser.Browser.LOGD_ENABLED;
     private static final String LOGTAG = "WebViewTimersControl";
 
     private static WebViewTimersControl sInstance;

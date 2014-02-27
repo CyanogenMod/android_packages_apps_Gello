@@ -14,7 +14,19 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
+import android.net.http.AndroidHttpClient;
+import android.text.TextUtils;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
+
+import com.android.swe.browser.reflect.ReflectHelper;
+
+import java.io.IOException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
@@ -22,17 +34,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.conn.params.ConnRouteParams;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Proxy;
-import android.net.Uri;
-import android.net.http.AndroidHttpClient;
-import android.text.TextUtils;
-import android.util.Log;
-import android.webkit.CookieManager;
-import android.webkit.MimeTypeMap;
-
-import java.io.IOException;
+import org.codeaurora.swe.CookieManager;
 
 /**
  * This class is used to pull down the http headers of a given URL so that
@@ -75,7 +77,10 @@ class FetchUrlMimeType extends Thread {
         AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
         HttpHost httpHost;
         try {
-            httpHost = Proxy.getPreferredHttpHost(mContext, mUri);
+            Class<?> argTypes[] = new Class[]{Context.class, String.class};
+            Object args[] = new Object[]{mContext, mUri};
+            httpHost = (HttpHost) ReflectHelper.invokeStaticMethod("android.net.Proxy",
+                "getPreferredHttpHost", argTypes, args);
             if (httpHost != null) {
                 ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);
             }
@@ -85,7 +90,6 @@ class FetchUrlMimeType extends Thread {
             return;
         }
         HttpHead request = new HttpHead(mUri);
-
         String cookies = CookieManager.getInstance().getCookie(mUri, mPrivateBrowsing);
         if (cookies != null && cookies.length() > 0) {
             request.addHeader("Cookie", cookies);

@@ -25,5 +25,5 @@
     android:previewImage="@drawable/browser_widget_preview"
     android:initialLayout="@layout/bookmarkthumbnailwidget"
     android:resizeMode="vertical|horizontal"
-    android:configure="com.android.browser.widget.BookmarkWidgetConfigure">
+    android:configure="com.android.swe.browser.widget.BookmarkWidgetConfigure">
 </appwidget-provider>

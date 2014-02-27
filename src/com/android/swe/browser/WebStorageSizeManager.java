@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
-import com.android.browser.preferences.WebsiteSettingsFragment;
+import com.android.swe.browser.R;
+import com.android.swe.browser.preferences.WebsiteSettingsFragment;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -86,8 +87,8 @@ import java.io.File;
  */
 public class WebStorageSizeManager {
     // Logging flags.
-    private final static boolean LOGV_ENABLED = com.android.browser.Browser.LOGV_ENABLED;
-    private final static boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+    private final static boolean LOGV_ENABLED = com.android.swe.browser.Browser.LOGV_ENABLED;
+    private final static boolean LOGD_ENABLED = com.android.swe.browser.Browser.LOGD_ENABLED;
     private final static String LOGTAG = "browser";
     // The default quota value for an origin.
     public final static long ORIGIN_DEFAULT_QUOTA = 3 * 1024 * 1024;  // 3MB

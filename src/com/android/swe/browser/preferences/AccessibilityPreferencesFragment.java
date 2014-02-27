@@ -14,18 +14,17 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.webkit.WebView;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.PreferenceKeys;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
-
+import org.codeaurora.swe.WebView;
 import java.text.NumberFormat;
 
 public class AccessibilityPreferencesFragment extends PreferenceFragment
@@ -52,9 +51,13 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_DOUBLE_TAP_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateDoubleTapZoomSummary(e, settings.getDoubleTapZoom());
+        /*
+         * SWE_TODO: Commented out functionality for inverted rendering
+         * (as well as corresponding sections below)
         e = findPreference(PreferenceKeys.PREF_INVERTED_CONTRAST);
         e.setOnPreferenceChangeListener(this);
         updateInvertedContrastSummary(e, (int) (settings.getInvertedContrast() * 100));
+        */
     }
 
     @Override
@@ -89,9 +92,11 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         pref.setSummary(mFormat.format(doubleTapZoom / 100.0));
     }
 
+    /*
     void updateInvertedContrastSummary(Preference pref, int contrast) {
         pref.setSummary(mFormat.format(contrast / 100.0));
     }
+    */
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
@@ -115,10 +120,13 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
             updateDoubleTapZoomSummary(pref, settings
                     .getAdjustedDoubleTapZoom((Integer) objValue));
         }
+        /*
         if (PreferenceKeys.PREF_INVERTED_CONTRAST.equals(pref.getKey())) {
             updateInvertedContrastSummary(pref,
                     (int) ((10 + (Integer) objValue) * 10));
         }
+        */
+
         return true;
     }
 

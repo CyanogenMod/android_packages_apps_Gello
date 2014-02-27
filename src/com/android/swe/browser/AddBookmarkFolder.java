@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.AsyncTaskLoader;
@@ -26,19 +25,14 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Accounts;
-import android.text.InputFilter;
-import android.text.Spanned;
+
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,9 +49,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.browser.addbookmark.FolderSpinner;
-import com.android.browser.addbookmark.FolderSpinnerAdapter;
-import com.android.browser.provider.BrowserProvider2;
+import com.android.swe.browser.addbookmark.FolderSpinner;
+import com.android.swe.browser.addbookmark.FolderSpinnerAdapter;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Accounts;
+import com.android.swe.browser.provider.BrowserProvider2;
+import com.android.swe.browser.reflect.ReflectHelper;
+import com.android.swe.browser.R;
 
 public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         TextView.OnEditorActionListener, AdapterView.OnItemClickListener,
@@ -671,7 +669,9 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         mFolderNamer.setText(R.string.new_folder);
         mFolderNamer.requestFocus();
         InputMethodManager imm = getInputMethodManager();
-        imm.focusIn(mListView);
+        Object[] params  = {mListView};
+        Class[] type = new Class[] {View.class};
+        ReflectHelper.invokeMethod(imm, "focusIn", type, params);
         imm.showSoftInput(mFolderNamer, InputMethodManager.SHOW_IMPLICIT);
 
         mCurrentFolder = getIntent().getLongExtra(

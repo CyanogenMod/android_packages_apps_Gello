@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,22 +37,28 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.webkit.JavascriptInterface;
 
-import com.android.browser.UI.ComboViews;
-import com.android.browser.search.DefaultSearchEngine;
-import com.android.browser.search.SearchEngine;
-import com.android.browser.stub.NullController;
-
 import com.google.common.annotations.VisibleForTesting;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UI.ComboViews;
+import com.android.swe.browser.search.DefaultSearchEngine;
+import com.android.swe.browser.search.SearchEngine;
+import com.android.swe.browser.stub.NullController;
+
+import org.chromium.content.browser.TracingIntentHandler;
+import org.codeaurora.swe.WebSettings;
+import org.codeaurora.swe.WebView;
 
 public class BrowserActivity extends Activity {
 
     public static final String ACTION_SHOW_BOOKMARKS = "show_bookmarks";
     public static final String ACTION_SHOW_BROWSER = "show_browser";
     public static final String ACTION_RESTART = "--restart--";
+    private static final String ACTION_START_TRACE =
+            "org.chromium.content_shell.action.PROFILE_START";
+    private static final String ACTION_STOP_TRACE =
+            "org.chromium.content_shell.action.PROFILE_STOP";
     private static final String EXTRA_STATE = "state";
     public static final String EXTRA_DISABLE_URL_OVERRIDE = "disable_url_override";
 
@@ -59,6 +67,8 @@ public class BrowserActivity extends Activity {
     private final static boolean LOGV_ENABLED = Browser.LOGV_ENABLED;
 
     private ActivityController mController = NullController.INSTANCE;
+
+
     private Handler mHandler = new Handler();
 
     private UiController mUiController;
@@ -74,6 +84,9 @@ public class BrowserActivity extends Activity {
            }
         }
     };
+
+    private BroadcastReceiver mReceiver;
+
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -170,6 +183,27 @@ public class BrowserActivity extends Activity {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
         mController.onResume();
+        IntentFilter intentFilter = new IntentFilter(ACTION_START_TRACE);
+        intentFilter.addAction(ACTION_STOP_TRACE);
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                String extra = intent.getStringExtra("file");
+                if (ACTION_START_TRACE.equals(action)) {
+                    if (extra.isEmpty()) {
+                        Log.e(LOGTAG, "Can not start tracing without specifing saving location");
+                    } else {
+                        TracingIntentHandler.beginTracing(extra);
+                        Log.i(LOGTAG, "start tracing");
+                    }
+                } else if (ACTION_STOP_TRACE.equals(action)) {
+                    Log.i(LOGTAG, "stop tracing");
+                    TracingIntentHandler.endTracing();
+                }
+            }
+        };
+        registerReceiver(mReceiver, intentFilter);
     }
 
     @Override

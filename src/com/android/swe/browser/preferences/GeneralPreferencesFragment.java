@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -38,12 +38,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.android.browser.BrowserPreferencesPage;
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
-import com.android.browser.R;
-import com.android.browser.UrlUtils;
-import com.android.browser.homepages.HomeProvider;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserPreferencesPage;
+import com.android.swe.browser.BrowserSettings;
+import com.android.swe.browser.PreferenceKeys;
+import com.android.swe.browser.UrlUtils;
+import com.android.swe.browser.homepages.HomeProvider;
 
 public class GeneralPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {

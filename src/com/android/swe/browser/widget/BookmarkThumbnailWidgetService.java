@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.widget;
+package com.android.swe.browser.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ContentUris;
@@ -29,16 +29,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
 import android.os.Binder;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.android.browser.BrowserActivity;
-import com.android.browser.R;
-import com.android.browser.provider.BrowserProvider2;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserActivity;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.provider.BrowserProvider2;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -50,7 +50,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
 
     static final String TAG = "BookmarkThumbnailWidgetService";
     static final String ACTION_CHANGE_FOLDER
-            = "com.android.browser.widget.CHANGE_FOLDER";
+            = "com.android.swe.browser.widget.CHANGE_FOLDER";
 
     static final String STATE_CURRENT_FOLDER = "current_folder";
     static final String STATE_ROOT_FOLDER = "root_folder";
@@ -88,8 +88,26 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
                 Context.MODE_PRIVATE);
     }
 
+    static private File mPreferencesDir;
+    static File getPreferencesDir(Context context) {
+            if (mPreferencesDir == null) {
+                mPreferencesDir = new File(context.getApplicationInfo().dataDir, "shared_prefs");
+            }
+            return mPreferencesDir;
+    }
+    static File makeFilename(File base, String name) {
+        if (name.indexOf(File.separatorChar) < 0) {
+            return new File(base, name);
+        }
+        throw new IllegalArgumentException(
+                "File " + name + " contains a path separator");
+    }
+    static File getSharedPrefsFile(Context context, String name) {
+        return makeFilename(getPreferencesDir(context), name + ".xml");
+    }
+
     static void deleteWidgetState(Context context, int widgetId) {
-        File file = context.getSharedPrefsFile(
+        File file = getSharedPrefsFile(context,
                 String.format("widgetState-%d", widgetId));
         if (file.exists()) {
             if (!file.delete()) {
@@ -121,7 +139,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
      *  Checks for any state files that may have not received onDeleted
      */
     static void removeOrphanedStates(Context context, int[] widgetIds) {
-        File prefsDirectory = context.getSharedPrefsFile("null").getParentFile();
+        File prefsDirectory = getSharedPrefsFile(context, "null").getParentFile();
         File[] widgetStates = prefsDirectory.listFiles(new StateFilter(widgetIds));
         if (widgetStates != null) {
             for (File f : widgetStates) {
@@ -242,19 +260,24 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
             if (isFolder) {
                 if (id == mCurrentFolder) {
                     id = mBookmarks.getLong(BOOKMARK_INDEX_PARENT_ID);
-                    views.setImageViewResource(R.id.thumb, R.drawable.thumb_bookmark_widget_folder_back_holo);
+                    views.setImageViewResource(R.id.thumb,
+                        R.drawable.thumb_bookmark_widget_folder_back_holo);
                 } else {
-                    views.setImageViewResource(R.id.thumb, R.drawable.thumb_bookmark_widget_folder_holo);
+                    views.setImageViewResource(R.id.thumb,
+                        R.drawable.thumb_bookmark_widget_folder_holo);
                 }
-                views.setImageViewResource(R.id.favicon, R.drawable.ic_bookmark_widget_bookmark_holo_dark);
-                views.setDrawableParameters(R.id.thumb, true, 0, -1, null, -1);
+                views.setImageViewResource(R.id.favicon,
+                    R.drawable.ic_bookmark_widget_bookmark_holo_dark);
+                // SWE_TODO : Fix Me
+                //views.setDrawableParameters(R.id.thumb, true, 0, -1, null, -1);
             } else {
                 // RemoteViews require a valid bitmap config
                 Options options = new Options();
                 options.inPreferredConfig = Config.ARGB_8888;
                 Bitmap thumbnail = null, favicon = null;
                 byte[] blob = mBookmarks.getBlob(BOOKMARK_INDEX_THUMBNAIL);
-                views.setDrawableParameters(R.id.thumb, true, 255, -1, null, -1);
+                // SWE_TODO : Fix Me
+                //views.setDrawableParameters(R.id.thumb, true, 255, -1, null, -1);
                 if (blob != null && blob.length > 0) {
                     thumbnail = BitmapFactory.decodeByteArray(
                             blob, 0, blob.length, options);

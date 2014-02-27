@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,16 +44,16 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
+import android.webkit.WebChromeClient.CustomViewCallback;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.browser.Tab.SecurityState;
-import com.android.internal.view.menu.MenuBuilder;
+import com.android.swe.browser.R;
+import com.android.swe.browser.Tab.SecurityState;
+
+import org.codeaurora.swe.WebView;
 
 import java.util.List;
 
@@ -94,7 +94,7 @@ public abstract class BaseUi implements UI {
     private FrameLayout mFixedTitlebarContainer;
 
     private View mCustomView;
-    private WebChromeClient.CustomViewCallback mCustomViewCallback;
+    private CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
 
     private LinearLayout mErrorConsoleContainer = null;
@@ -521,7 +521,7 @@ public abstract class BaseUi implements UI {
 
     @Override
     public void showCustomView(View view, int requestedOrientation,
-            WebChromeClient.CustomViewCallback callback) {
+            CustomViewCallback callback) {
         // if a view already exists then immediately terminate the new one
         if (mCustomView != null) {
             callback.onCustomViewHidden();
@@ -754,12 +754,6 @@ public abstract class BaseUi implements UI {
         } else {
             return null;
         }
-    }
-
-    protected Menu getMenu() {
-        MenuBuilder menu = new MenuBuilder(mActivity);
-        mActivity.getMenuInflater().inflate(R.menu.browser, menu);
-        return menu;
     }
 
     public void setFullscreen(boolean enabled) {

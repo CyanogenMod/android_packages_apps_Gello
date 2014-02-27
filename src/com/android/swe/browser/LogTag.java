@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.util.EventLog;
 
 public class LogTag {
 
+    public static final int BROWSER_BOOKMARK_ADDED = 70103;
+    public static final int BROWSER_PAGE_LOADED = 70104;
+    public static final int BROWSER_TIMEONPAGE = 70105;
     /**
      * Log when the user is adding a new bookmark.
      *
@@ -27,7 +30,7 @@ public class LogTag {
      * @param where the location from where the bookmark was added
      */
     public static void logBookmarkAdded(String url, String where) {
-        EventLog.writeEvent(EventLogTags.BROWSER_BOOKMARK_ADDED, url + "|"
+        EventLog.writeEvent(BROWSER_BOOKMARK_ADDED, url + "|"
             + where);
     }
 
@@ -42,7 +45,7 @@ public class LogTag {
      * @param duration the time the browser spent loading the page.
      */
     public static void logPageFinishedLoading(String url, long duration) {
-        EventLog.writeEvent(EventLogTags.BROWSER_PAGE_LOADED, url + "|"
+        EventLog.writeEvent(BROWSER_PAGE_LOADED, url + "|"
             + duration);
     }
 
@@ -53,7 +56,7 @@ public class LogTag {
      * @param duration the time spent on the webpage.
      */
     public static void logTimeOnPage(String url, long duration) {
-        EventLog.writeEvent(EventLogTags.BROWSER_TIMEONPAGE, url + "|"
+        EventLog.writeEvent(BROWSER_TIMEONPAGE, url + "|"
             + duration);
     }
 }

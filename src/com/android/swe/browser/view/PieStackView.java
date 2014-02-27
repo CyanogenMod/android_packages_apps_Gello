@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser.view;
+package com.android.swe.browser.view;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import android.content.Context;
 import android.graphics.Canvas;

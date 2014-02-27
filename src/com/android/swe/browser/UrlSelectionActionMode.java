@@ -14,7 +14,9 @@
  * the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import com.android.swe.browser.R;
 
 import android.view.ActionMode;
 import android.view.Menu;

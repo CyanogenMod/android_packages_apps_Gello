@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.addbookmark;
+package com.android.swe.browser.addbookmark;
 
 import android.content.Context;
 import android.view.View;

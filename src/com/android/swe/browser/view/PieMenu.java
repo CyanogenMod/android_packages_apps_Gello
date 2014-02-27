@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.view;
+package com.android.swe.browser.view;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -37,7 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.android.browser.R;
+import com.android.swe.browser.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import android.net.Uri;
 import android.provider.Browser;
 import android.test.ActivityInstrumentationTestCase2;
 import android.text.TextUtils;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 public class IntentHandlerTests extends ActivityInstrumentationTestCase2<BrowserActivity> {
 

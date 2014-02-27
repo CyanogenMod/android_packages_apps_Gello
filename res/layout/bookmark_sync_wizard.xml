@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<view class="com.android.browser.view.EventRedirectingFrameLayout"
+<view class="com.android.swe.browser.view.EventRedirectingFrameLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pages"
     android:paddingTop="6dip">

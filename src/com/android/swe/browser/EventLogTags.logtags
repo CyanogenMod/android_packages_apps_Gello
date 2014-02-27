@@ -1,6 +1,6 @@
 # See system/core/logcat/event.logtags for a description of the format of this file.
 
-option java_package com.android.browser
+option java_package com.android.swe.browser
 
 # This event is logged when a user adds a new bookmark. This could just be a boolean,
 # but if lots of users add the same bookmark it could be a default bookmark on the browser.

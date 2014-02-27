@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.util.Log;
-import android.webkit.WebView;
+
+import com.android.swe.browser.reflect.ReflectHelper;
+
+import org.codeaurora.swe.WebView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -304,7 +306,8 @@ class TabControl {
         int i = 0;
         for (Tab tab : mTabs) {
             Bundle tabState = tab.saveState();
-            if (tabState != null) {
+            if (tabState != null && tab.getWebView() != null
+                && tab.getWebView().isPrivateBrowsingEnabled() == false) {
                 ids[i++] = tab.getId();
                 String key = Long.toString(tab.getId());
                 if (outState.containsKey(key)) {
@@ -414,8 +417,12 @@ class TabControl {
                 // If the webview restore successfully, add javascript interface again.
                 WebView view = t.getWebView();
                 if (view != null) {
-                    String browserRes = SystemProperties.get("persist.env.c.browser.resource",
-                            "default");
+                    Object[] params  = { new String("persist.env.c.browser.resource"),
+                                 new String("default")};
+                    Class[] type = new Class[] {String.class, String.class};
+                    String browserRes = (String)ReflectHelper.invokeStaticMethod(
+                        "android.os.SystemProperties","get",
+                        type, params);
                     if ("ct".equals(browserRes)) {
                         view.getSettings().setJavaScriptEnabled(true);
                         if (mController.getActivity() instanceof BrowserActivity) {

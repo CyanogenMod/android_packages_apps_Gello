@@ -15,7 +15,7 @@
  */
 
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -31,9 +31,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Patterns;
 
-import com.android.browser.UI.ComboViews;
-import com.android.browser.search.SearchEngine;
-import com.android.common.Search;
+import com.android.swe.browser.UI.ComboViews;
+import com.android.swe.browser.search.SearchEngine;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -172,18 +171,18 @@ public class IntentHandler {
                     }
                 }
             } else {
-                if (BrowserWebView.isClassic() && !urlData.isEmpty()
+                if (!urlData.isEmpty()
                         && urlData.mUrl.startsWith("about:debug")) {
                     if ("about:debug.dom".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDomTree(false);
+                        current.getWebView().dumpDomTree(false);
                     } else if ("about:debug.dom.file".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDomTree(true);
+                        current.getWebView().dumpDomTree(true);
                     } else if ("about:debug.render".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpRenderTree(false);
+                        current.getWebView().dumpRenderTree(false);
                     } else if ("about:debug.render.file".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpRenderTree(true);
+                        current.getWebView().dumpRenderTree(true);
                     } else if ("about:debug.display".equals(urlData.mUrl)) {
-                        current.getWebViewClassic().dumpDisplayTree();
+                        current.getWebView().dumpDisplayTree();
                     } else if ("about:debug.nav".equals(urlData.mUrl)) {
                         current.getWebView().debugDump();
                     } else {
@@ -245,7 +244,7 @@ public class IntentHandler {
                         String source = null;
                         final Bundle appData = intent.getBundleExtra(SearchManager.APP_DATA);
                         if (appData != null) {
-                            source = appData.getString(Search.SOURCE);
+                            source = appData.getString("source");
                         }
                         if (TextUtils.isEmpty(source)) {
                             source = GOOGLE_SEARCH_SOURCE_UNKNOWN;

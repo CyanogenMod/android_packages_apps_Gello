@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import java.net.MalformedURLException;
 
-import libcore.io.Base64;
-
+import android.util.Base64;
 /**
  * Class extracts the mime type and data from a data uri.
  * A data URI is of the form:
@@ -46,7 +45,7 @@ public class DataUri {
                 commaIndex);
         mData = uri.substring(commaIndex + 1).getBytes();
         if (contentType.contains(BASE_64_ENCODING)) {
-            mData = Base64.decode(mData);
+            mData = Base64.decode(mData, Base64.DEFAULT);
         }
         int semiIndex = contentType.indexOf(';');
         if (semiIndex > 0) {

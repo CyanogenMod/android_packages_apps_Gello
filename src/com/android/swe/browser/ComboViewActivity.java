@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -28,7 +28,8 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.browser.UI.ComboViews;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UI.ComboViews;
 
 import java.util.ArrayList;
 
@@ -71,14 +72,10 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
         mTabsAdapter = new TabsAdapter(this, mViewPager);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_bookmarks),
                 BrowserBookmarksPage.class, args);
-        if (BrowserWebView.isClassic()) {
-            // TODO: history page should be able to work in Classic mode, but there's some
-            // provider name conflict. (Snapshot would never work in that mode though).
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_history),
-                    BrowserHistoryPage.class, args);
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_snapshots),
-                    BrowserSnapshotPage.class, args);
-        }
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_history),
+                BrowserHistoryPage.class, args);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_snapshots),
+                BrowserSnapshotPage.class, args);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,11 +24,12 @@ import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.HttpAuthHandler;
-import android.webkit.SslErrorHandler;
+import org.codeaurora.swe.HttpAuthHandler;
+import org.codeaurora.swe.SslErrorHandler;
 import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.webkit.WebChromeClient.CustomViewCallback;
+import org.codeaurora.swe.WebChromeClient;
+import org.codeaurora.swe.WebView;
 
 import java.util.List;
 
@@ -76,7 +77,7 @@ public interface WebViewController {
             String mimeType, String referer, long contentLength);
 
     void showCustomView(Tab tab, View view, int requestedOrientation,
-            WebChromeClient.CustomViewCallback callback);
+            CustomViewCallback callback);
 
     void hideCustomView();
 

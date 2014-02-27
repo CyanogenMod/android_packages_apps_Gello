@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
@@ -23,7 +23,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -32,15 +31,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.android.browser.UrlInputView.UrlInputListener;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UrlInputView.UrlInputListener;
+import com.android.swe.browser.reflect.ReflectHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+
+import org.codeaurora.swe.WebView;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
@@ -169,10 +171,12 @@ public class NavigationBarBase extends LinearLayout implements
         stopEditingUrl();
         if (UrlInputView.TYPED.equals(source)) {
             String url = null;
-            boolean wap2estore = SystemProperties.getBoolean(
-                    "persist.env.browser.wap2estore", false);
-            if ((wap2estore && isEstoreTypeUrl(text))
-                || isRtspTypeUrl(text)) {
+            Object[] params  = {new String("persist.env.browser.wap2estore"),
+                                    Boolean.valueOf(false)};
+            Class[] type = new Class[] {String.class, boolean.class};
+            Boolean wap2estore = (Boolean) ReflectHelper.invokeStaticMethod(
+                      "android.os.SystemProperties", "getBoolean", type, params);
+            if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)) {
                 url = text;
             } else {
                 url = UrlUtils.smartUrlFilter(text, false);
@@ -209,8 +213,8 @@ public class NavigationBarBase extends LinearLayout implements
         }
         if (source != null) {
             Bundle appData = new Bundle();
-            appData.putString(com.android.common.Search.SOURCE, source);
-            i.putExtra(SearchManager.APP_DATA, appData);
+            appData.putString("source", source);
+            i.putExtra("source", appData);
         }
         mUiController.handleNewIntent(i);
         setDisplayTitle(text);
@@ -242,17 +246,17 @@ public class NavigationBarBase extends LinearLayout implements
             finalUrl = url;
         }
         if (finalUrl.replaceFirst("estore:", "").length() > 256) {
-            Toast.makeText(mContext, R.string.estore_url_warning, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.estore_url_warning, Toast.LENGTH_LONG).show();
             return;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(finalUrl));
         try {
-            mContext.startActivity(intent);
+            getContext().startActivity(intent);
         } catch (ActivityNotFoundException ex) {
-            String downloadUrl = mContext.getResources().getString(R.string.estore_homepage);
+            String downloadUrl = getContext().getResources().getString(R.string.estore_homepage);
             mUiController.loadUrl(mBaseUi.getActiveTab(), downloadUrl);
-            Toast.makeText(mContext, R.string.download_estore_app, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.download_estore_app, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -280,7 +284,7 @@ public class NavigationBarBase extends LinearLayout implements
         }
 
         try {
-            mContext.startActivity(intent);
+            getContext().startActivity(intent);
         } catch (ActivityNotFoundException ex) {
             Log.w("Browser", "No resolveActivity " + url);
             return false;

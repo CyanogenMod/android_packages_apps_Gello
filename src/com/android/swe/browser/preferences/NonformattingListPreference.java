@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
 import android.preference.ListPreference;

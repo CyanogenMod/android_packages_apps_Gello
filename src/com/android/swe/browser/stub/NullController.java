@@ -1,4 +1,4 @@
-package com.android.browser.stub;
+package com.android.swe.browser.stub;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
-import com.android.browser.ActivityController;
+import com.android.swe.browser.ActivityController;
 
 
 public class NullController implements ActivityController {

@@ -27,9 +27,11 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import org.w3c.dom.Text;
+
+import com.android.swe.browser.R;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

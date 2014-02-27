@@ -27,7 +27,9 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
+
+import com.android.swe.browser.R;
 
 import android.app.AlertDialog;
 import android.content.Context;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.security.KeyChain;
 import android.security.KeyChainException;
-import android.webkit.ClientCertRequestHandler;
+import org.codeaurora.swe.ClientCertRequestHandler;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 

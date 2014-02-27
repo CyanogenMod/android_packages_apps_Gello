@@ -27,7 +27,7 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.android.browser.mynavigation;
+package com.android.swe.browser.mynavigation;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -48,10 +48,10 @@ public class MyNavigationUtil {
     public static final String THUMBNAIL = "thumbnail";
     public static final int WEBSITE_NUMBER = 12;
 
-    public static final String AUTHORITY = "com.android.browser.mynavigation";
+    public static final String AUTHORITY = "com.android.swe.browser.mynavigation";
     public static final String MY_NAVIGATION = "content://" + AUTHORITY + "/" + "websites";
     public static final Uri MY_NAVIGATION_URI = Uri
-            .parse("content://com.android.browser.mynavigation/websites");
+            .parse("content://com.android.swe.browser.mynavigation/websites");
     public static final String DEFAULT_THUMB = "default_thumb";
     public static final String LOGTAG = "MyNavigationUtil";
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,8 +31,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.android.browser.UI.ComboViews;
-import com.android.browser.UrlInputView.StateListener;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UI.ComboViews;
+import com.android.swe.browser.UrlInputView.StateListener;
 
 public class NavigationBarTablet extends NavigationBarBase implements StateListener {
 
@@ -115,7 +116,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     public void onConfigurationChanged(Configuration config) {
         super.onConfigurationChanged(config);
-        Resources res = mContext.getResources();
+        Resources res = getContext().getResources();
         mHideNavButtons = res.getBoolean(R.bool.hide_nav_buttons);
         if (mUrlInput.hasFocus()) {
             if (mHideNavButtons && (mNavButtons.getVisibility() == View.VISIBLE)) {
@@ -245,6 +246,11 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             mUiController.stopLoading();
         } else {
             if (mUiController.getCurrentTopWebView() != null) {
+                Tab currTab = mUiController.getTabControl().getCurrentTab();
+                if (currTab.hasCrashed) {
+                    currTab.replaceCrashView(mUiController.getCurrentTopWebView(),
+                        currTab.getViewContainer());
+                }
                 mUiController.getCurrentTopWebView().reload();
             }
         }

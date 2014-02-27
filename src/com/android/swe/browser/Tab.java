@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,6 +23,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -46,45 +47,50 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
-import android.webkit.BrowserDownloadListener;
-import android.webkit.ClientCertRequestHandler;
+import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
-import android.webkit.HttpAuthHandler;
-import android.webkit.SslErrorHandler;
 import android.webkit.URLUtil;
-import android.webkit.ValueCallback;
-import android.webkit.WebBackForwardList;
-import android.webkit.WebBackForwardListClient;
-import android.webkit.WebChromeClient;
-import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
-import android.webkit.WebView;
-import android.webkit.WebView.PictureListener;
-import android.webkit.WebViewClassic;
-import android.webkit.WebViewClient;
-import android.webkit.WebViewClientClassicExt;
+import android.webkit.WebChromeClient.CustomViewCallback;
+import android.webkit.ValueCallback;
 import android.widget.CheckBox;
 import android.widget.Toast;
+import android.widget.FrameLayout;
+import android.widget.Button;
 
-import com.android.browser.TabControl.OnThumbnailUpdatedListener;
-import com.android.browser.homepages.HomeProvider;
-import com.android.browser.mynavigation.MyNavigationUtil;
-import com.android.browser.provider.MyNavigationProvider;
-import com.android.browser.provider.SnapshotProvider.Snapshots;
+import com.android.swe.browser.R;
+
+import org.codeaurora.swe.BrowserDownloadListener;
+import org.codeaurora.swe.ClientCertRequestHandler;
+import org.codeaurora.swe.HttpAuthHandler;
+import org.codeaurora.swe.SslErrorHandler;
+import org.codeaurora.swe.WebBackForwardList;
+import org.codeaurora.swe.WebBackForwardListClient;
+import org.codeaurora.swe.WebChromeClient;
+import org.codeaurora.swe.WebHistoryItem;
+import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebView.PictureListener;
+import org.codeaurora.swe.WebViewClient;
+
+import com.android.swe.browser.TabControl.OnThumbnailUpdatedListener;
+import com.android.swe.browser.homepages.HomeProvider;
+import com.android.swe.browser.mynavigation.MyNavigationUtil;
+import com.android.swe.browser.provider.MyNavigationProvider;
+import com.android.swe.browser.provider.SnapshotProvider.Snapshots;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.regex.Pattern;
-import java.util.zip.GZIPOutputStream;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Class for maintaining Tabs with a main WebView and a subwindow.
@@ -93,17 +99,18 @@ class Tab implements PictureListener {
 
     // Log Tag
     private static final String LOGTAG = "Tab";
-    private static final boolean LOGD_ENABLED = com.android.browser.Browser.LOGD_ENABLED;
+    private static final boolean LOGD_ENABLED = com.android.swe.browser.Browser.LOGD_ENABLED;
     // Special case the logtag for messages for the Console to make it easier to
     // filter them and match the logtag used for these messages in older versions
     // of the browser.
     private static final String CONSOLE_LOGTAG = "browser";
 
     private static final int MSG_CAPTURE = 42;
-    private static final int CAPTURE_DELAY = 100;
+    private static final int CAPTURE_DELAY = 1000;
     private static final int INITIAL_PROGRESS = 5;
 
     private static Bitmap sDefaultFavicon;
+    protected boolean hasCrashed = false;
 
     private static Paint sAlphaPaint = new Paint();
     static {
@@ -190,6 +197,7 @@ class Tab implements PictureListener {
     private Bitmap mCapture;
     private Handler mHandler;
     private boolean mUpdateThumbnail;
+    private Timestamp timestamp;
 
     /**
      * See {@link #clearBackStackWhenItemAdded(String)}.
@@ -322,11 +330,41 @@ class Tab implements PictureListener {
         }
     }
 
+    protected void replaceCrashView(View view, View container) {
+        if (hasCrashed && (view == mMainView)) {
+            final FrameLayout wrapper = (FrameLayout) container.findViewById(R.id.webview_wrapper);
+            wrapper.removeAllViewsInLayout();
+            wrapper.addView(view);
+            hasCrashed = false;
+        }
+    }
+
+    protected void showCrashView() {
+        if (hasCrashed) {
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+            final View crashLayout = inflater.inflate(R.layout.browser_tab_crash, null);
+            final FrameLayout wrapper =
+                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
+            wrapper.removeAllViewsInLayout();
+            wrapper.addView(crashLayout);
+            mContainer.requestFocus();
+            Button reloadBtn = (Button) crashLayout.findViewById(R.id.browser_crash_reload_btn);
+            reloadBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    replaceCrashView(mMainView, mContainer);
+                    mMainView.reload();
+                }
+            });
+        }
+    }
+
     // -------------------------------------------------------------------------
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
 
-    private final WebViewClientClassicExt mWebViewClient = new WebViewClientClassicExt() {
+    private final WebViewClient mWebViewClient = new WebViewClient() {
         private Message mDontResend;
         private Message mResend;
 
@@ -611,6 +649,13 @@ class Tab implements PictureListener {
             }, null, null, host, port, null);
         }
 
+        @Override
+        public void onRendererCrash(WebView view, boolean crashedWhileOomProtected) {
+            Log.e(LOGTAG, "Tab Crashed");
+            hasCrashed = true;
+            showCrashView();
+        }
+
         /**
          * Handles an HTTP authentication request.
          *
@@ -628,6 +673,13 @@ class Tab implements PictureListener {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
+            //intercept if opening a new incognito tab - show the incognito welcome page
+            if (url.startsWith("browser:incognito")) {
+                Resources resourceHandle = mContext.getResources();
+                InputStream inStream = resourceHandle.openRawResource(
+                        com.android.swe.browser.R.raw.incognito_mode_start_page);
+                return new WebResourceResponse("text/html", "utf8", inStream);
+            }
             WebResourceResponse res;
             if (MyNavigationUtil.MY_NAVIGATION.equals(url)) {
                 res = MyNavigationProvider.shouldInterceptRequest(mContext, url);
@@ -741,7 +793,7 @@ class Tab implements PictureListener {
             }
 
             // Short-circuit if this was a user gesture.
-            if (userGesture) {
+            if (userGesture || !mSettings.blockPopupWindows()) {
                 createWindow(dialog, resultMsg);
                 return true;
             }
@@ -800,6 +852,7 @@ class Tab implements PictureListener {
         public void onProgressChanged(WebView view, int newProgress) {
             mPageLoadProgress = newProgress;
             if (newProgress == 100) {
+                Log.i(CONSOLE_LOGTAG, "SWE Pageload Progress = 100");
                 mInPageLoad = false;
             }
             mWebViewController.onProgressChanged(Tab.this);
@@ -840,7 +893,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onShowCustomView(View view,
-                WebChromeClient.CustomViewCallback callback) {
+                CustomViewCallback callback) {
             Activity activity = mWebViewController.getActivity();
             if (activity != null) {
                 onShowCustomView(view, activity.getRequestedOrientation(), callback);
@@ -849,7 +902,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onShowCustomView(View view, int requestedOrientation,
-                WebChromeClient.CustomViewCallback callback) {
+                CustomViewCallback callback) {
             if (mInForeground) mWebViewController.showCustomView(Tab.this, view,
                     requestedOrientation, callback);
         }
@@ -1054,12 +1107,12 @@ class Tab implements PictureListener {
 
     // Subclass of WebViewClient used in subwindows to notify the main
     // WebViewClient of certain WebView activities.
-    private static class SubWindowClient extends WebViewClientClassicExt {
+    private static class SubWindowClient extends WebViewClient {
         // The main WebViewClient.
-        private final WebViewClientClassicExt mClient;
+        private final WebViewClient mClient;
         private final WebViewController mController;
 
-        SubWindowClient(WebViewClientClassicExt client, WebViewController controller) {
+        SubWindowClient(WebViewClient client, WebViewController controller) {
             mClient = client;
             mController = controller;
         }
@@ -1263,6 +1316,20 @@ class Tab implements PictureListener {
         setWebView(w, true);
     }
 
+    public boolean isNativeActive(){
+        if (mMainView == null)
+            return false;
+        return true;
+    }
+
+    public void setTimeStamp(){
+        Date d = new Date();
+        timestamp = (new Timestamp(d.getTime()));
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
     /**
      * Sets the WebView for this tab, correctly removing the old WebView from
      * the container view.
@@ -1299,11 +1366,9 @@ class Tab implements PictureListener {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
-            if (BrowserWebView.isClassic()) {
-                getWebViewClassic().setWebBackForwardListClient(mWebBackForwardListClient);
-            }
+            getWebView().setWebBackForwardListClient(mWebBackForwardListClient);
             TabControl tc = mWebViewController.getTabControl();
-            if (tc != null && tc.getOnThumbnailUpdatedListener() != null) {
+            if (tc != null /*&& tc.getOnThumbnailUpdatedListener() != null*/) {
                 mMainView.setPictureListener(this);
             }
             if (restore && (mSavedState != null)) {
@@ -1535,18 +1600,6 @@ class Tab implements PictureListener {
      */
     WebView getWebView() {
         return mMainView;
-    }
-
-    /**
-     * Return the underlying WebViewClassic implementation. As with getWebView,
-     * this maybe null for background tabs.
-     * @return The main WebView of this tab.
-     */
-    WebViewClassic getWebViewClassic() {
-        if (!BrowserWebView.isClassic()) {
-            return null;
-        }
-        return WebViewClassic.fromWebView(mMainView);
     }
 
     void setViewContainer(View container) {
@@ -1813,24 +1866,29 @@ class Tab implements PictureListener {
         return false;
     }
 
-    private static class SaveCallback implements ValueCallback<Boolean> {
-        boolean mResult;
+    private static class SaveCallback implements ValueCallback<String> {
+        boolean onReceiveValueCalled = false;
+        private String mPath;
 
         @Override
-        public void onReceiveValue(Boolean value) {
-            mResult = value;
+        public void onReceiveValue(String path) {
+            this.onReceiveValueCalled = true;
+            this.mPath = path;
             synchronized (this) {
                 notifyAll();
             }
         }
 
+        public String getPath() {
+          return mPath;
+        }
     }
 
     /**
      * Must be called on the UI thread
      */
     public ContentValues createSnapshotValues() {
-        WebViewClassic web = getWebViewClassic();
+        WebView web = getWebView();
         if (web == null) return null;
         ContentValues values = new ContentValues();
         values.put(Snapshots.TITLE, mCurrentState.mTitle);
@@ -1838,9 +1896,7 @@ class Tab implements PictureListener {
         values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
-        Bitmap screenshot = Controller.createScreenshot(mMainView,
-                Controller.getDesiredThumbnailWidth(mContext),
-                Controller.getDesiredThumbnailHeight(mContext));
+        Bitmap screenshot = web.getViewportBitmap();
         values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
         return values;
     }
@@ -1849,45 +1905,33 @@ class Tab implements PictureListener {
      * Probably want to call this on a background thread
      */
     public boolean saveViewState(ContentValues values) {
-        WebViewClassic web = getWebViewClassic();
+        WebView web = getWebView();
         if (web == null) return false;
-        String path = UUID.randomUUID().toString();
+        String filename = UUID.randomUUID().toString();
         SaveCallback callback = new SaveCallback();
-        OutputStream outs = null;
         try {
-            outs = mContext.openFileOutput(path, Context.MODE_PRIVATE);
-            GZIPOutputStream stream = new GZIPOutputStream(outs);
             synchronized (callback) {
-                web.saveViewState(stream, callback);
-                callback.wait();
+               web.saveViewState(filename, callback);
+               callback.wait();
             }
-            stream.flush();
-            stream.close();
         } catch (Exception e) {
             Log.w(LOGTAG, "Failed to save view state", e);
-            if (outs != null) {
-                try {
-                    outs.close();
-                } catch (IOException ignore) {}
-            }
-            File file = mContext.getFileStreamPath(path);
-            if (file.exists() && !file.delete()) {
-                file.deleteOnExit();
+            String path = callback.getPath();
+            if (path != null) {
+                File file = mContext.getFileStreamPath(path);
+                if (file.exists() && !file.delete()) {
+                    file.deleteOnExit();
+                }
             }
             return false;
         }
-        File savedFile = mContext.getFileStreamPath(path);
-        if (!callback.mResult) {
-            if (!savedFile.delete()) {
-                savedFile.deleteOnExit();
-            }
-            return false;
+        String path = callback.getPath();
+        File savedFile = new File(path);
+        if (!savedFile.exists()) {
+           return false;
         }
-        long size = savedFile.length();
-        if (values == null)
-            return false;
-        values.put(Snapshots.VIEWSTATE_PATH, path);
-        values.put(Snapshots.VIEWSTATE_SIZE, size);
+        values.put(Snapshots.VIEWSTATE_PATH, path.substring(path.lastIndexOf('/') + 1));
+        values.put(Snapshots.VIEWSTATE_SIZE, savedFile.length());
         return true;
     }
 
@@ -1920,16 +1964,24 @@ class Tab implements PictureListener {
             return;
         }
         Canvas c = new Canvas(mCapture);
-        final int left = mMainView.getScrollX();
-        final int top = mMainView.getScrollY() + mMainView.getVisibleTitleHeight();
         int state = c.save();
-        c.translate(-left, -top);
-        float scale = mCaptureWidth / (float) mMainView.getWidth();
-        c.scale(scale, scale, left, top);
-        if (mMainView instanceof BrowserWebView) {
-            ((BrowserWebView)mMainView).drawContent(c);
-        } else {
-            mMainView.draw(c);
+        Bitmap screenShot = mMainView.getViewportBitmap();
+        if (screenShot != null) {
+           mCapture.eraseColor(Color.WHITE);
+           float scale = (float) mCaptureWidth / screenShot.getWidth();
+           c.scale(scale, scale);
+           c.drawBitmap(screenShot, 0, 0, null);
+         } else {
+             final int left = mMainView.getViewScrollX();
+             final int top = mMainView.getViewScrollY() +  mMainView.getVisibleTitleHeight();
+             c.translate(-left, -top);
+             float scale = mCaptureWidth / (float) mMainView.getWidth();
+             c.scale(scale, scale, left, top);
+             if (mMainView instanceof BrowserWebView) {
+                ((BrowserWebView)mMainView).drawContent(c);
+             } else {
+                mMainView.draw(c);
+             }
         }
         c.restoreToCount(state);
         // manually anti-alias the edges for the tilt

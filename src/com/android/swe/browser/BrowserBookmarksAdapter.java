@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.provider.BrowserContract.Bookmarks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,10 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
-import com.android.browser.util.ThreadedCursorAdapter;
-import com.android.browser.view.BookmarkContainer;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.swe.browser.R;
+import com.android.swe.browser.util.ThreadedCursorAdapter;
+import com.android.swe.browser.view.BookmarkContainer;
 
 public class BrowserBookmarksAdapter extends
         ThreadedCursorAdapter<BrowserBookmarksAdapterItem> {

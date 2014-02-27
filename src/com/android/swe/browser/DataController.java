@@ -15,7 +15,7 @@
  */
 
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -27,11 +27,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.History;
 import android.util.Log;
 
-import com.android.browser.provider.BrowserProvider2.Thumbnails;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.History;
+import com.android.swe.browser.provider.BrowserProvider2.Thumbnails;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.BlockingQueue;
@@ -244,7 +244,7 @@ public class DataController {
             ContentResolver cr = mContext.getContentResolver();
             Cursor c = null;
             try {
-                c = cr.query(History.CONTENT_URI, new String[] { History._ID, History.VISITS },
+                c = cr.query(History.CONTENT_URI, new String[] {History._ID, History.VISITS},
                         History.URL + "=?", new String[] { url }, null);
                 if (c.moveToFirst()) {
                     ContentValues values = new ContentValues();

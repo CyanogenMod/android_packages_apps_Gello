@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -39,8 +39,10 @@ import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Message;
 import android.provider.Browser;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Bookmarks;
+
+import com.android.swe.browser.R;
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
 
 public class BookmarkUtils {
     private final static String LOGTAG = "BookmarkUtils";

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -23,9 +23,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.BrowserContract;
-import android.provider.BrowserContract.Accounts;
-import android.provider.BrowserContract.Bookmarks;
+
+import com.android.swe.browser.platformsupport.BrowserContract;
+import com.android.swe.browser.platformsupport.BrowserContract.Accounts;
+import com.android.swe.browser.platformsupport.BrowserContract.Bookmarks;
+
 import android.text.TextUtils;
 
 public class AccountsChangedReceiver extends BroadcastReceiver {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -25,7 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient.CustomViewCallback;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 import java.util.List;
 

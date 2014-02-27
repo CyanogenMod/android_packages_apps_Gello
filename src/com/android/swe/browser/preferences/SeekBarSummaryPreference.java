@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.browser.preferences;
+package com.android.swe.browser.preferences;
 
 import android.content.Context;
-import android.preference.SeekBarPreference;
+import com.android.swe.browser.platformsupport.SeekBarPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.android.browser.R;
 
 public class SeekBarSummaryPreference extends SeekBarPreference {
 
@@ -48,7 +47,7 @@ public class SeekBarSummaryPreference extends SeekBarPreference {
     }
 
     void init() {
-        setWidgetLayoutResource(R.layout.font_size_widget);
+        setWidgetLayoutResource(com.android.swe.browser.R.layout.font_size_widget);
     }
 
     @Override
@@ -67,7 +66,7 @@ public class SeekBarSummaryPreference extends SeekBarPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        mSummaryView = (TextView) view.findViewById(R.id.text);
+        mSummaryView = (TextView) view.findViewById(com.android.swe.browser.R.id.text);
         if (TextUtils.isEmpty(mSummary)) {
             mSummaryView.setVisibility(View.GONE);
         } else {

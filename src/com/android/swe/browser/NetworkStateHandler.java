@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -23,10 +23,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.webkit.WebView;
-import android.webkit.WebViewClassic;
+import org.codeaurora.swe.WebView;
 
-import com.android.browser.BrowserSettings;
+import com.android.swe.browser.BrowserSettings;
 
 /**
  * Handle network state changes
@@ -114,8 +113,8 @@ public class NetworkStateHandler {
 
     private void sendNetworkType(String type, String subtype) {
         WebView w = mController.getCurrentWebView();
-        if (w != null && BrowserWebView.isClassic()) {
-            WebViewClassic.fromWebView(w).setNetworkType(type, subtype);
+        if (w != null ) {
+            w.setNetworkType(type, subtype);
         }
     }
 }

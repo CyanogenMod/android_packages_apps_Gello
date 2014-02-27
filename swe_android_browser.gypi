@@ -17,9 +17,7 @@
         'resource_dir': '../../swe/browser/res',
         'native_lib_target': 'libswewebviewchromium',
         'additional_input_paths': ['<(PRODUCT_DIR)/android_webview_apk/assets/webviewchromium.pak'],
-        'additional_native_libs': ['<@(libnetxt_native_libs)',
-                                   '<@(libsweadrenoext_native_libs)',
-                                   '<(SHARED_LIB_DIR)/libswewebviewchromium/libswenetxt_plugin_proxy.so',]
+        'additional_native_libs': ['<@(libnetxt_native_libs)']
       },
       'copies': [
         {

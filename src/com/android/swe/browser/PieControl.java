@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,19 +24,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
-import com.android.browser.UI.ComboViews;
-import com.android.browser.view.PieItem;
-import com.android.browser.view.PieMenu;
-import com.android.browser.view.PieMenu.PieView.OnLayoutListener;
-import com.android.browser.view.PieStackView;
-import com.android.browser.view.PieStackView.OnCurrentListener;
+import com.android.swe.browser.R;
+import com.android.swe.browser.UI.ComboViews;
+import com.android.swe.browser.view.PieItem;
+import com.android.swe.browser.view.PieMenu;
+import com.android.swe.browser.view.PieStackView;
+import com.android.swe.browser.view.PieMenu.PieView.OnLayoutListener;
+import com.android.swe.browser.view.PieStackView.OnCurrentListener;
 
 import java.util.ArrayList;
 import java.util.List;

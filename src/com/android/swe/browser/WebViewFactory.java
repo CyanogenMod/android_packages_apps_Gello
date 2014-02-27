@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
-import android.webkit.WebView;
+import org.codeaurora.swe.WebView;
 
 /**
  * Factory for WebViews

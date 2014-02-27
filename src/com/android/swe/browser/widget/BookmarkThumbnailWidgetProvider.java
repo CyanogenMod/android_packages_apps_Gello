@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser.widget;
+package com.android.swe.browser.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -25,15 +25,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.android.browser.BrowserActivity;
-import com.android.browser.R;
+import com.android.swe.browser.R;
+import com.android.swe.browser.BrowserActivity;
 
 /**
  * Widget that shows a preview of the user's bookmarks.
  */
 public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
     public static final String ACTION_BOOKMARK_APPWIDGET_UPDATE =
-        "com.android.browser.BOOKMARK_APPWIDGET_UPDATE";
+        "com.android.swe.browser.BOOKMARK_APPWIDGET_UPDATE";
 
     @Override
     public void onReceive(Context context, Intent intent) {

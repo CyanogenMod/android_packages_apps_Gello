@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.browser;
+package com.android.swe.browser;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
@@ -44,6 +44,8 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.android.swe.browser.R;
 
 /**
  * tabbed title bar for xlarge screen browser
