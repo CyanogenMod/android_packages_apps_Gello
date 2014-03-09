@@ -596,6 +596,22 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void clearPasswords() {
+        // Clear password store maintained by SWE engine
+        WebSettings settings = null;
+        // find a valid settings object
+        Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();
+        while (iter.hasNext()) {
+            WeakReference<WebSettings> ref = iter.next();
+            settings = (WebSettings)ref.get();
+            if (settings != null) {
+                break;
+            }
+        }
+        if (settings != null) {
+            settings.clearPasswords();
+        }
+
+        // Clear passwords in WebView database
         WebViewDatabase db = WebViewDatabase.getInstance(mContext);
         db.clearUsernamePassword();
         db.clearHttpAuthUsernamePassword();
