@@ -21,21 +21,12 @@ public class SeekBarPreference extends Preference
     public SeekBarPreference(
             Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
-        int[] attributes = new int[] { android.R.attr.indeterminateDrawable};
-        TypedArray a = context.obtainStyledAttributes(
-                                     android.R.style.Widget_ProgressBar, attributes);
-        //SWE_TODO:  Modify setMax to attain max from XML
-        setMax(100);
-        a.recycle();
+        //SWE: Unable to attain the internal resources via reflection, instead
+        //attaining the max values from xml directly
+        int max = attrs.getAttributeIntValue(
+                      "http://schemas.android.com/apk/res/android", "max", mMax);
+        setMax(max);
         setLayoutResource(com.android.swe.browser.R.layout.preference_widget_seekbar);
-        /*SWE_TODO : Refactor to use Reflection & replace corresponding above
-          TypedArray a = context.obtainStyledAttributes(attrs,
-                com.android.internal.R.styleable.ProgressBar, defStyle, 0);
-          setMax(a.getInt(com.android.internal.R.styleable.ProgressBar_max, mMax));
-          a.recycle();
-          setLayoutResource(com.android.internal.R.layout.preference_widget_seekbar);
-       */
     }
 
     public SeekBarPreference(Context context, AttributeSet attrs) {

@@ -115,20 +115,18 @@ public class DownloadHandler {
     }
 
     private static boolean isAudioFileType(int fileType){
-        Object[] params  = { new Integer(fileType)};
-        Class[] type = new Class[] {Integer.class};
+        Object[] params  = {Integer.valueOf(fileType)};
+        Class[] type = new Class[] {int.class};
         Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
-                "isAudioFileType",
-                type, params);
+                               "isAudioFileType", type, params);
         return result;
     }
 
     private static boolean isVideoFileType(int fileType){
-        Object[] params  = { new Integer(fileType)};
-        Class[] type = new Class[] {Integer.class};
+        Object[] params  = {Integer.valueOf(fileType)};
+        Class[] type = new Class[] {int.class};
         Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
-                "isVideoFileType",
-                type, params);
+                             "isVideoFileType", type, params);
         return result;
     }
 
@@ -160,13 +158,10 @@ public class DownloadHandler {
             // such as ogg audio file with mimetype "application/ogg". So we also check
             // file type by MediaFile.isAudioFileType() and MediaFile.isVideoFileType().
             // For those file types other than audio or video, download it immediately.
-
-            //int fileType = MediaFile.getFileTypeForMimeType(mimetype);
-            Object[] params  = { new Integer(mimetype)};
-            Class[] type = new Class[] {Integer.class};
+            Object[] params = {mimetype};
+            Class[] type = new Class[] {String.class};
             Integer result = (Integer) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
-                "getFileTypeForMimeType",
-                type, params);
+                                           "getFileTypeForMimeType", type, params);
             int fileType = result.intValue();
             if ("http".equalsIgnoreCase(scheme) &&
                     (mimetype.startsWith("audio/") ||
@@ -193,8 +188,7 @@ public class DownloadHandler {
                             activity.startActivity(intent);
                         } catch (ActivityNotFoundException ex) {
                             Log.w(LOGTAG, "When http stream play, activity not found for "
-                                    + mimetype + " over " + Uri.parse(url).getScheme(),
-                                    ex);
+                                    + mimetype + " over " + Uri.parse(url).getScheme(), ex);
                         }
                     }
                 }).show();

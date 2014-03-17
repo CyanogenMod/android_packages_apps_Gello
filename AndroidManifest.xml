@@ -64,7 +64,7 @@
                       android:required="false" />
 
         <provider android:name="com.android.swe.browser.provider.BrowserProvider2"
-                  android:authorities="com.android.swe.browser"
+                  android:authorities="com.android.swe.browser;swebrowser"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
