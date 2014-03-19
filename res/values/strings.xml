@@ -1110,4 +1110,5 @@
     <!-- SWE Android Browser -->
     <string name="ssl_certificate">Security certificate</string>
     <string name="ssl_certificate_is_valid">This certificate is valid.</string>
+    <string name="version">Version</string>
 </resources>

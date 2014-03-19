@@ -2101,25 +2101,6 @@ public class Controller
                 }
                 break;
 
-            case R.id.about_menu_id:
-                {
-                   /* SWE_TODO: Un-comment below to fix About
-                   final Dialog dialog = new AlertDialog.Builder(getActivity())
-                      .setTitle(R.string.application_name)
-                      .setMessage(R.string.about_text)
-                      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                               public void onClick(DialogInterface dialog, int which) {
-                               dialog.cancel();
-                            }
-                         })
-                      .show();
-                   ((TextView)dialog.findViewById(android.R.id.message))
-                      .setMovementMethod(LinkMovementMethod.getInstance());
-                   */
-                }
-                break;
-
             default:
                 return false;
         }
