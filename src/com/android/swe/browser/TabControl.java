@@ -637,7 +637,7 @@ class TabControl {
         }
         // Create a new WebView. If this tab is the current tab, we need to put
         // back all the clients so force it to be the current tab.
-        t.setWebView(createNewWebView(), false);
+        t.setWebView(createNewWebView(t.isPrivateBrowsingEnabled()), false);
         if (getCurrentTab() == t) {
             setCurrentTab(t, true);
         }
@@ -697,7 +697,7 @@ class TabControl {
         boolean needRestore = !newTab.isSnapshot() && (mainView == null);
         if (needRestore) {
             // Same work as in createNewTab() except don't do new Tab()
-            mainView = createNewWebView();
+            mainView = createNewWebView(newTab.isPrivateBrowsingEnabled());
             newTab.setWebView(mainView);
         }
         newTab.putInForeground();

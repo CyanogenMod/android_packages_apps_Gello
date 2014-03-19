@@ -1352,7 +1352,7 @@ class Tab implements PictureListener {
             if (w != null) {
                 syncCurrentState(w, null);
             } else {
-                mCurrentState = new PageState(mContext, false);
+                mCurrentState = new PageState(mContext, mMainView.isPrivateBrowsingEnabled());
             }
         }
         // set the new one
