@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.swe.browser;
+package com.android.browser;
 
 import android.app.Activity;
 import android.content.Intent;

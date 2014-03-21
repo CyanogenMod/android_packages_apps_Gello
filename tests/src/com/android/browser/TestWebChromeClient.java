@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser;
+package com.android.browser;
 
 import android.graphics.Bitmap;
 import android.net.Uri;

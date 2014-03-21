@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.android.swe.browser.view.BookmarkContainer
+<com.android.browser.view.BookmarkContainer
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -61,4 +61,4 @@
         android:textColor="#AAAAAA"
         />
 
-</com.android.swe.browser.view.BookmarkContainer>
+</com.android.browser.view.BookmarkContainer>

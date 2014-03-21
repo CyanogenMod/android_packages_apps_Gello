@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     />
-    <com.android.swe.browser.view.CustomScreenLinearLayout
+    <com.android.browser.view.CustomScreenLinearLayout
         android:orientation="vertical"
         android:id="@+id/vertical_layout"
         android:layout_width="match_parent"
@@ -42,6 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
         />
-    </com.android.swe.browser.view.CustomScreenLinearLayout>
+    </com.android.browser.view.CustomScreenLinearLayout>
 </merge>
 

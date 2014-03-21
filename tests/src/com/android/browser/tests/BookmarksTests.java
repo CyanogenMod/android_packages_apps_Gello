@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser.tests;
+package com.android.browser.tests;
 
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.test.suitebuilder.annotation.SmallTest;
 
-import com.android.swe.browser.Bookmarks;
-import com.android.swe.browser.tests.utils.BP2TestCaseHelper;
+import com.android.browser.Bookmarks;
+import com.android.browser.tests.utils.BP2TestCaseHelper;
 
 /**
  * Extends from BP2TestCaseHelper for the helper methods

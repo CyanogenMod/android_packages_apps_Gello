@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser;
+package com.android.browser;
 
 import android.app.Instrumentation;
 import android.content.Intent;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser.tests.utils;
+package com.android.browser.tests.utils;
 
 import android.database.ContentObserver;
 import android.net.Uri;

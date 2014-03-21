@@ -16,15 +16,16 @@
  */
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.android.swe.browser">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
 
-    <original-package android:name="com.android.swe.browser" />
+    <original-package android:name="com.android.browser" />
 
-    <permission android:name="com.android.swe.browser.permission.PRELOAD"
+    <permission android:name="com.android.browser.permission.PRELOAD"
         android:label="@string/permission_preload_label"
         android:protectionLevel="signatureOrSystem" />
-    <permission android:name="com.android.swe.browser.permission.INITIALIZE_DATABASE"
+    <permission android:name="com.android.browser.permission.INITIALIZE_DATABASE"
+        android:protectionLevel="signatureOrSystem" />
+    <permission android:name="org.chromium.content_shell.permission.SANDBOX"
         android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -39,7 +40,6 @@
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -50,21 +50,25 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="com.android.swe.browser.permission.READ_HOMEPAGE" />
-    <uses-permission android:name="com.android.swe.browser.permission.WRITE_HOMEPAGE" />
-    <uses-permission android:name="com.android.swe.browser.permission.INITIALIZE_DATABASE"/>
+    <uses-permission android:name="com.android.browser.permission.READ_HOMEPAGE" />
+    <uses-permission android:name="com.android.browser.permission.WRITE_HOMEPAGE" />
+    <uses-permission android:name="com.android.browser.permission.INITIALIZE_DATABASE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <application   android:name="com.android.swe.browser.Browser"
+    <application   android:name="Browser"
                    android:label="@string/application_name"
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
-                   android:hardwareAccelerated="true"
+                   android:hardwareAccelerated="false"
                    android:taskAffinity="android.task.browser" >
+
         <uses-library android:name="com.qrd.useragent"
                       android:required="false" />
 
-        <provider android:name="com.android.swe.browser.provider.BrowserProvider2"
-                  android:authorities="com.android.swe.browser;swebrowser"
+        <provider android:name=".provider.BrowserProvider2"
+                  android:authorities="com.android.browser;browser"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
@@ -72,10 +76,10 @@
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
             <path-permission android:path="/homepage"
-                    android:readPermission="com.android.swe.browser.permission.READ_HOMEPAGE"
-                    android:writePermission="com.android.swe.browser.permission.WRITE_HOMEPAGE" />
+                    android:readPermission="com.android.browser.permission.READ_HOMEPAGE"
+                    android:writePermission="com.android.browser.permission.WRITE_HOMEPAGE" />
         </provider>
-        <activity android:name="com.android.swe.browser.BrowserActivity"
+        <activity android:name="BrowserActivity"
                   android:label="@string/application_name"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
@@ -164,27 +168,24 @@
                     android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name="com.android.swe.browser.ShortcutActivity"
+        <activity android:name="ShortcutActivity"
             android:theme="@style/ShortcutTheme"
             android:label="@string/shortcut_bookmark"
             android:icon="@mipmap/ic_launcher_shortcut_browser_bookmark">
-
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </activity>
 
-        <activity android:name="com.android.swe.browser.BrowserPreferencesPage"
-                  android:label="@string/menu_preferences">
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences">
             <intent-filter>
                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.swe.browser.BookmarkSearch"
+        <activity android:name="BookmarkSearch"
                   android:label="@string/bookmarks_search"
                   android:stateNotNeeded="true"
                   android:theme="@android:style/Theme.NoDisplay"
@@ -197,8 +198,7 @@
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
 
-        <activity android:name="com.android.swe.browser.AddBookmarkPage"
-                  android:label="@string/bookmarks_add_page"
+        <activity android:name="AddBookmarkPage" android:label="@string/bookmarks_add_page"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="adjustResize">
@@ -209,77 +209,58 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.android.swe.browser.DownloadSettings"
-                  android:label="@string/download_settings_title"
+        <activity android:name="DownloadSettings" android:label="@string/download_settings_title"
                   android:theme="@style/DialogWhenLarge"
                   android:launchMode="singleTask"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.BROWSERDOWNLOAD" />
-                 <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.BROWSER_DOWNLOAD" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-        <activity android:name="ComboViewActivity">
         </activity>
 
-        <!-- used to new folder in bookmark page for carrier -->
-        <activity android:name="com.android.swe.browser.AddBookmarkFolder"
-                  android:label="@string/save_bookmark_folder"
+        <!-- For creating new folder in bookmarks page -->
+        <activity android:name="AddBookmarkFolder" android:label="@string/save_bookmark_folder"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
-            </intent-filter>
+        </activity>
+
+        <activity android:name="ComboViewActivity">
         </activity>
 
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
-            android:name="com.android.swe.browser.widget.BookmarkThumbnailWidgetProvider"
+            android:name=".widget.BookmarkThumbnailWidgetProvider"
             android:label="@string/bookmarks">
             <intent-filter>
                 <action
                     android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action
-                    android:name="com.android.swe.browser.BOOKMARK_APPWIDGET_UPDATE" />
+                    android:name="com.android.browser.BOOKMARK_APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/bookmarkthumbnailwidget_info" />
         </receiver>
         <service
-            android:name="com.android.swe.browser.widget.BookmarkThumbnailWidgetService"
+            android:name=".widget.BookmarkThumbnailWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
         <receiver
-            android:name="com.android.swe.browser.widget.BookmarkWidgetProxy"
+            android:name=".widget.BookmarkWidgetProxy"
             android:exported="false" />
-        <activity android:name="com.android.swe.browser.widget.BookmarkWidgetConfigure"
+        <activity android:name=".widget.BookmarkWidgetConfigure"
             android:theme="@android:style/Theme.Holo.DialogWhenLarge">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
 
-        <!-- add or edit my navigation activity -->
-        <activity android:name="com.android.swe.browser.mynavigation.AddMyNavigationPage"
-            android:label="@string/my_navigation_page_title"
-            android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
 
-        <!-- Application code for RLZ tracking.  RLZ assigns non-unique, non-personally identifiable
-             tracking labels to client products; these labels sometimes appear in Google search
-             queries.  See http://code.google.com/p/rlz for more info.
-
-             This value signifies to the RLZ client that this application uses RLZ tracking. -->
-        <meta-data android:name="com.google.android.partnersetup.RLZ_ACCESS_POINT"
-                   android:value="@string/rlz_access_point" />
-
-        <receiver android:name="com.android.swe.browser.OpenDownloadReceiver">
+        <receiver android:name=".OpenDownloadReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
             </intent-filter>
@@ -287,39 +268,30 @@
 
         <!-- For custom home pages (like most visited) -->
         <provider
-            android:name="com.android.swe.browser.homepages.HomeProvider"
-            android:authorities="com.android.swe.browser.home"
+            android:name=".homepages.HomeProvider"
+            android:authorities="com.android.browser.home"
             android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
 
-        <receiver android:name="com.android.swe.browser.AccountsChangedReceiver">
+        <receiver android:name=".AccountsChangedReceiver">
             <intent-filter>
                 <action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.swe.browser.MessagesReceiver">
-            <intent-filter>
-                <action android:name="com.android.mms.transaction.MESSAGE_RECEIVED" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.android.swe.browser.PreloadRequestReceiver"
-             android:permission="com.android.swe.browser.permission.PRELOAD" >
+        <receiver android:name=".PreloadRequestReceiver"
+             android:permission="com.android.browser.permission.PRELOAD" >
              <intent-filter>
                  <action android:name="android.intent.action.PRELOAD"/>
                  <data android:scheme="http" />
              </intent-filter>
          </receiver>
 
-        <provider android:name="com.android.swe.browser.provider.SnapshotProvider"
-                  android:authorities="com.android.swe.browser.snapshots"
+        <provider android:name=".provider.SnapshotProvider"
+                  android:authorities="com.android.browser.snapshots"
                   android:exported="false" />
 
-        <provider
-            android:name="com.android.swe.browser.provider.MyNavigationProvider"
-            android:authorities="com.android.swe.browser.mynavigation"
-            android:exported="false" />
         <service android:name="org.chromium.content.app.SandboxedProcessService0"
                  android:process=":sandboxed_process0"
                  android:permission="org.chromium.content_shell.permission.SANDBOX"
@@ -394,12 +366,7 @@
 
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="16" />
 
-    <permission android:name="org.chromium.content_shell.permission.SANDBOX"
-                android:protectionLevel="signatureOrSystem" />
-
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
 
 </manifest>
+

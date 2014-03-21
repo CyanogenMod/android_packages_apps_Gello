@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser.tests.utils;
+package com.android.browser.tests.utils;
 
 import android.content.ContentProvider;
 import android.content.Context;
@@ -102,7 +102,7 @@ public abstract class ProviderTestCase3<T extends ContentProvider> extends Andro
      * Sets up the environment for the test fixture.
      * <p>
      * Creates a new
-     * {@link com.android.swe.browser.tests.utils.MockContentResolver2}, a new IsolatedContext
+     * {@link com.android.browser.tests.utils.MockContentResolver2}, a new IsolatedContext
      * that isolates the provider's file operations, and a new instance of
      * the provider under test within the isolated environment.
      * </p>

@@ -20,7 +20,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/combo_paddingTop">
 
-    <com.android.swe.browser.view.SnapshotGridView
+    <com.android.browser.view.SnapshotGridView
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

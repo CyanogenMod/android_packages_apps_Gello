@@ -1,4 +1,4 @@
-package com.android.swe.browser;
+package com.android.browser;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ public class BrowserLaunchPerformance extends LaunchPerformanceBase {
     public void onCreate(Bundle arguments) {
         super.onCreate(arguments);
 
-        mIntent.setClassName(getTargetContext(), "com.android.swe.browser.BrowserActivity");
+        mIntent.setClassName(getTargetContext(), "com.android.browser.BrowserActivity");
         start();
     }
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.swe.browser;
+package com.android.browser;
 
-import com.android.swe.browser.provider.BrowserProvider;
-import com.android.swe.browser.provider.BrowserProvider2;
-import com.android.swe.browser.tests.utils.ProviderTestCase3;
+import com.android.browser.provider.BrowserProvider;
+import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.tests.utils.ProviderTestCase3;
 
 import android.app.SearchManager;
 import android.content.ContentValues;

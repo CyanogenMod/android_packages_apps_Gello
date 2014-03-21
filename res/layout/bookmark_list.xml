@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<com.android.swe.browser.view.BookmarkContainer
+<com.android.browser.view.BookmarkContainer
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_item"
     android:layout_width="match_parent"
@@ -40,4 +40,4 @@
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"/>
-</com.android.swe.browser.view.BookmarkContainer>
+</com.android.browser.view.BookmarkContainer>

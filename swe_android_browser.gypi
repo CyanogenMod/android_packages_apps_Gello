@@ -9,8 +9,8 @@
         '<@(libnetxt_dependencies)',
       ],
       'variables': {
-        'apk_name': 'SWE_AndroidBrowser',
-        'manifest_package_name': 'com.android.swe.browser',
+        'apk_name': 'Browser',
+        'manifest_package_name': 'com.android.browser',
         'app_manifest_version_name': '<!(../swe/browser/tools/generate_about.sh --quiet --name --about)',
         'app_manifest_version_code': '<!(../swe/browser/tools/generate_about.sh --quiet --code)',
         'java_in_dir': '.',
