@@ -137,16 +137,15 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     // add for carrier feature
     private static Context sResPackageCtx;
-    private android.os.CountDownTimer mCountDownTimer;
 
     //Determine if WebView is Initialized or not
     private boolean mWebViewInitialized;
 
-    public static void initialize(final Context context) {    	
+    public static void initialize(final Context context) {
         sInstance = new BrowserSettings(context);
     }
 
-    public static BrowserSettings getInstance() {    	
+    public static BrowserSettings getInstance() {
         return sInstance;
     }
 
@@ -254,11 +253,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
 
             // add for carrier homepage feature
-            Object[] params  = { new String("persist.env.c.browser.resource"),
-                                 new String("default")};
-            Class[] type = new Class[] {String.class, String.class};
-            String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                                "android.os.SystemProperties","get",type, params);
+            String browserRes = mContext.getResources().getString(R.string.config_carrier_resource);
             if ("cu".equals(browserRes) || "cmcc".equals(browserRes)) {
                 int resID = sResPackageCtx.getResources().getIdentifier(
                         "homepage_base", "string", "com.android.browser.res");

@@ -658,12 +658,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             db.insertOrThrow(TABLE_BOOKMARKS, null, values);
 
             // add for carrier bookmark feature
-            Object[] params  = { new String("persist.env.c.browser.resource"),
-                                             new String("default")};
-                        Class[] type = new Class[] {String.class, String.class};
-                        String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                                    "android.os.SystemProperties", "get",
-                                    type, params);
+            String browserRes = getContext().getResources().getString(
+                    R.string.config_carrier_resource);
 
             //don't add default bookmarks for cmcc
             if (!"cmcc".equals(browserRes)) {

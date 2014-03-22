@@ -68,6 +68,7 @@
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
+    <string name="config_carrier_resource">default</string>
 
     <!-- Displayed on the title bar while the page is loading -->
     <string name="title_bar_loading">Loading\u2026</string>

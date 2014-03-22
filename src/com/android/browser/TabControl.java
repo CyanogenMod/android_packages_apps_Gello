@@ -417,12 +417,8 @@ class TabControl {
                 // If the webview restore successfully, add javascript interface again.
                 WebView view = t.getWebView();
                 if (view != null) {
-                    Object[] params  = { new String("persist.env.c.browser.resource"),
-                                 new String("default")};
-                    Class[] type = new Class[] {String.class, String.class};
-                    String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                        "android.os.SystemProperties","get",
-                        type, params);
+                    String browserRes = mController.getActivity().getApplicationContext()
+                            .getResources().getString(R.string.config_carrier_resource);
                     if ("ct".equals(browserRes)) {
                         view.getSettings().setJavaScriptEnabled(true);
                         if (mController.getActivity() instanceof BrowserActivity) {

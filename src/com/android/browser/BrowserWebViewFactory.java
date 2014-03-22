@@ -65,11 +65,7 @@ public class BrowserWebViewFactory implements WebViewFactory {
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
 
         // add for carrier homepage feature
-        Object[] params  = {new String("persist.env.c.browser.resource"),
-                            new String("default")};
-        Class[] type = new Class[] {String.class, String.class};
-        String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                            "android.os.SystemProperties","get", type, params);
+        String browserRes = mContext.getResources().getString(R.string.config_carrier_resource);
         if ("ct".equals(browserRes)) {
             w.getSettings().setJavaScriptEnabled(true);
             if (mContext instanceof BrowserActivity) {
