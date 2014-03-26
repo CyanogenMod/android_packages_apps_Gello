@@ -623,7 +623,7 @@ public class DownloadHandler {
         String path = getExternalStorageDirectory(context);
         Object[] params  = {path};
         Class[] type = new Class[] {String.class};
-        return (String) ReflectHelper.invokeMethod("android.os.storage.StorageManager",
+        return (String) ReflectHelper.invokeMethod(mStorageManager,
                 "getVolumeState", type, params);
     }
 }
