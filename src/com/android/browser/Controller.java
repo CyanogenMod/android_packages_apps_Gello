@@ -571,6 +571,9 @@ public class Controller
                                   mActivity, url, view.getSettings().getUserAgentString(),
                                   null, null, null, view.isPrivateBrowsingEnabled(), 0);
                                 break;
+                            case R.id.save_link_bookmark_context_menu_id:
+                                bookmarkCurrentPage();
+                                break;
                         }
                         break;
                     }
@@ -2247,6 +2250,7 @@ public class Controller
             // -- Browser context menu
             case R.id.open_context_menu_id:
             case R.id.save_link_context_menu_id:
+            case R.id.save_link_bookmark_context_menu_id:
             case R.id.copy_link_context_menu_id:
                 final WebView webView = getCurrentTopWebView();
                 if (null == webView) {
