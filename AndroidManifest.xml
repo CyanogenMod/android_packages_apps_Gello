@@ -40,6 +40,7 @@
     <uses-permission android:name="android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
@@ -61,7 +62,7 @@
                    android:label="@string/application_name"
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
-                   android:hardwareAccelerated="false"
+                   android:hardwareAccelerated="true"
                    android:taskAffinity="android.task.browser" >
 
         <uses-library android:name="com.qrd.useragent"
@@ -215,7 +216,7 @@
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.BROWSER_DOWNLOAD" />
+                <action android:name="android.intent.action.BROWSERDOWNLOAD" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -224,6 +225,10 @@
         <activity android:name="AddBookmarkFolder" android:label="@string/save_bookmark_folder"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize">
+                  <intent-filter>
+                      <category android:name="android.intent.category.DEFAULT" />
+                      <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
+                  </intent-filter>
         </activity>
 
         <activity android:name="ComboViewActivity">
@@ -256,6 +261,12 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+        <!-- add or edit my navigation activity -->
+        <activity android:name=".mynavigation.AddMyNavigationPage"
+            android:label="@string/my_navigation_page_title"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
@@ -280,6 +291,12 @@
             </intent-filter>
         </receiver>
 
+         <receiver android:name=".MessagesReceiver">
+            <intent-filter>
+                <action android:name="com.android.mms.transaction.MESSAGE_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".PreloadRequestReceiver"
              android:permission="com.android.browser.permission.PRELOAD" >
              <intent-filter>
@@ -291,6 +308,10 @@
         <provider android:name=".provider.SnapshotProvider"
                   android:authorities="com.android.browser.snapshots"
                   android:exported="false" />
+        <provider
+            android:name=".provider.MyNavigationProvider"
+            android:authorities="com.android.browser.mynavigation"
+            android:exported="false" />
 
         <service android:name="org.chromium.content.app.SandboxedProcessService0"
                  android:process=":sandboxed_process0"

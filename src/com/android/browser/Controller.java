@@ -22,6 +22,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.res.Resources;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -358,12 +360,8 @@ public class Controller
                 }
                 Tab t = null;
                 if (urlData.isEmpty()) {
-                    Object[] params  = { new String("persist.env.c.browser.resource"),
-                                 new String("default")};
-                    Class[] type = new Class[] {String.class, String.class};
-                    String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                        "android.os.SystemProperties", "get",
-                        type, params);
+                    Resources res = mActivity.getResources();
+                    String browserRes = res.getString(R.string.config_carrier_resource);
                     if (browserRes.equals(
                             "cmcc")) {
                         t = openTab(OFFLINE_PAGE, false, true, true);

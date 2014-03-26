@@ -39,11 +39,8 @@ public class SearchEngines {
         ArrayList<SearchEngineInfo> searchEngineInfos = new ArrayList<SearchEngineInfo>();
         Resources res = context.getResources();
         String[] searchEngines = res.getStringArray(R.array.search_engines);
-        Object[] params  = { new String("persist.env.c.browser.resource"),
-                                 new String("default")};
-        Class[] type = new Class[] {String.class, String.class};
-        String browserRes = (String)ReflectHelper.invokeStaticMethod(
-                                "android.os.SystemProperties","get", type, params);
+        // add for carrier feature - preset search engine
+        String browserRes = res.getString(R.string.config_carrier_resource);
         for (int i = 0; i < searchEngines.length; i++) {
             String name = searchEngines[i];
             if ("cmcc".equals(browserRes)) {
