@@ -412,7 +412,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // zooming
         settings.setEnableSmoothTransition(true);
         // disable content url access
-        settings.setAllowContentAccess(false);
+        settings.setAllowContentAccess(true);
 
         // HTML5 API flags
         settings.setAppCacheEnabled(true);
