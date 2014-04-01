@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013,2014, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -51,6 +51,8 @@ import android.view.Window;
 import android.widget.Toast;
 import android.text.TextUtils;
 
+import com.android.browser.reflect.ReflectHelper;
+
 public class DownloadSettings extends Activity {
 
     private EditText downloadFilenameET;
@@ -78,6 +80,8 @@ public class DownloadSettings extends Activity {
     private boolean isDownloadStarted = false;
 
     private static final String ENV_EMULATED_STORAGE_TARGET = "EMULATED_STORAGE_TARGET";
+    private static final String APK_TYPE="apk";
+    private static final String OCTET_STREAM = "application/octet-stream";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,6 +123,23 @@ public class DownloadSettings extends Activity {
                 BrowserUtils.FILENAME_MAX_LENGTH);
 
         downloadFilenameET.setText(filenameBase);
+
+        String filenameExtension = DownloadHandler.getFilenameExtension(filename);
+
+        if (mimetype == null  || mimetype.isEmpty()) {
+
+            String updatedFileName = filenameBase + "." + filenameExtension;
+            Object[] params = {updatedFileName};
+            Class[] type = new Class[] {String.class};
+            mimetype = (String) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+                                           "getMimeTypeForFile", type, params);
+        }
+
+        //Add special check for .apk files with octet-stream mimetype
+        if (mimetype.equals(OCTET_STREAM) && filenameExtension.equals(APK_TYPE)) {
+            mimetype =  "application/vnd.android.package-archive";
+        }
+
         downloadPath = chooseFolderFromMimeType(BrowserSettings.getInstance().getDownloadPath(),
                 mimetype);
         downloadPathForUser = DownloadHandler.getDownloadPathForUser(DownloadSettings.this,
@@ -126,7 +147,6 @@ public class DownloadSettings extends Activity {
         setDownloadPathForUserText(downloadPathForUser);
         setDownloadFileSizeText();
         setDownloadFileTimeText();
-
     }
 
     private OnClickListener downloadPathListener = new OnClickListener() {
@@ -197,7 +217,6 @@ public class DownloadSettings extends Activity {
     };
 
     private OnClickListener downloadCancelListener = new OnClickListener() {
-
         @Override
         public void onClick(View v) {
             finish();
