@@ -121,7 +121,7 @@ class DownloadTouchIcon extends AsyncTask<String, Void, Void> {
                 //HttpHost httpHost = Proxy.getPreferredHttpHost(mContext, url);
                 Object[] params  = { mContext, url};
                 Class[] type = new Class[] {android.content.Context.class, String.class};
-                HttpHost httpHost = (HttpHost) ReflectHelper.invokeStaticMethod(
+                HttpHost httpHost = (HttpHost) ReflectHelper.invokeMethod(
                     "android.net.Proxy", "getPreferredHttpHost",
                     type, params);
                 if (httpHost != null) {

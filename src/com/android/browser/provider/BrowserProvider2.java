@@ -58,7 +58,6 @@ import com.android.browser.platformsupport.BrowserContract.Images;
 import com.android.browser.platformsupport.BrowserContract.Searches;
 import com.android.browser.platformsupport.BrowserContract.Settings;
 import com.android.browser.platformsupport.BrowserContract.SyncState;
-import com.android.browser.reflect.ReflectHelper;
 import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
 import com.google.common.annotations.VisibleForTesting;
 

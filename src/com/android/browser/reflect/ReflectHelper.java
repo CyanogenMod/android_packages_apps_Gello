@@ -41,42 +41,46 @@ public class ReflectHelper {
 
     private final static String LOGTAG = "ReflectHelper";
 
-    public static Object newObject(String className) {
-        Object obj = null;
-        try {
-            Class clazz = Class.forName(className);
-            obj = clazz.newInstance();
-        } catch (Exception e) {
-            Log.e(LOGTAG, "An exception occured : " + e.getMessage());
-        }
-        return obj;
-    }
-
     public static Object newObject(String className, Class[] argTypes, Object[] args) {
-        if (args == null || args.length == 0) {
-            return newObject(className);
-        }
         Object obj = null;
-        try {
+
+        try{
             Class clazz = Class.forName(className);
-            Constructor ctor = clazz.getDeclaredConstructor(argTypes);
-            obj = ctor.newInstance(args);
-        } catch (Exception e) {
+
+            if (args == null || args.length == 0) {
+                obj = clazz.newInstance();
+            } else {
+                Constructor ctor = clazz.getDeclaredConstructor(argTypes);
+                obj = ctor.newInstance(args);
+            }
+        }
+        catch (Exception e) {
             Log.e(LOGTAG, "An exception occured : " + e.getMessage() );
         }
         return obj;
     }
 
     public static Object invokeMethod(Object obj, String method, Class[] argTypes, Object[] args) {
-        Object result  = null;
         boolean modifiedAccessibility = false;
-        if (obj == null || method == null) {
-            throw new IllegalArgumentException("Object and Method must be supplied.");
-        }
+        Object result = null;
+        Method m = null;
+
+        if (obj == null || method == null)
+            return null;
+
         try {
-            Method m = obj.getClass().getDeclaredMethod(method, argTypes);
+            if (obj instanceof String){
+                //Process call as a static method call
+                String className = (String)obj;
+                obj = null;
+                Class clazz = Class.forName(className);
+                m = clazz.getDeclaredMethod(method, argTypes);
+            } else {
+                //Process call on instance of obj
+                m = obj.getClass().getDeclaredMethod(method, argTypes);
+            }
+
             if(m != null) {
-                // make it visible
                 if (!m.isAccessible()) {
                     modifiedAccessibility = true;
                     m.setAccessible(true);
@@ -87,33 +91,34 @@ public class ReflectHelper {
             }
         } catch (Exception e) {
             Log.e(LOGTAG, "An exception occured : " + e.getMessage() );
+            return null;
         }
         return result;
     }
 
-    public static Object invokeStaticMethod(String className, String method,
-                                            Class[] argTypes, Object[] args) {
-        Object result  = null;
+    public static Object invokeProxyMethod(String proxyClassName, String method, Object obj,
+                                           Class[] proxyArgTypes, Object[] args) {
+        Object result = null;
         boolean modifiedAccessibility = false;
-        if (className == null || method == null) {
+        if (proxyClassName == null || method == null) {
             throw new IllegalArgumentException("Object and Method must be supplied.");
         }
         try {
-            Class clazz = Class.forName(className);
-            Method m = clazz.getDeclaredMethod(method, argTypes);
+            Class clazz = Class.forName(proxyClassName);
+            Method m = clazz.getDeclaredMethod(method, proxyArgTypes);
             if(m != null) {
                 // make it visible
                 if (!m.isAccessible()) {
                     modifiedAccessibility = true;
                     m.setAccessible(true);
                 }
-                result = m.invoke(null, args);
+                result = m.invoke(obj, args);
                 if (modifiedAccessibility)
                     m.setAccessible(false);
+                }
+            } catch (Exception e) {
+                Log.e(LOGTAG, "An exception occured : " + e.getMessage() );
             }
-        } catch (Exception e) {
-            Log.e(LOGTAG, "An exception occured : " + e.getMessage() );
-        }
         return result;
     }
 

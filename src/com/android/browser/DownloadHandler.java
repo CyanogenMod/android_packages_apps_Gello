@@ -117,7 +117,7 @@ public class DownloadHandler {
     private static boolean isAudioFileType(int fileType){
         Object[] params  = {Integer.valueOf(fileType)};
         Class[] type = new Class[] {int.class};
-        Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+        Boolean result = (Boolean) ReflectHelper.invokeMethod("android.media.MediaFile",
                                "isAudioFileType", type, params);
         return result;
     }
@@ -125,7 +125,7 @@ public class DownloadHandler {
     private static boolean isVideoFileType(int fileType){
         Object[] params  = {Integer.valueOf(fileType)};
         Class[] type = new Class[] {int.class};
-        Boolean result = (Boolean) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+        Boolean result = (Boolean) ReflectHelper.invokeMethod("android.media.MediaFile",
                              "isVideoFileType", type, params);
         return result;
     }
@@ -160,7 +160,7 @@ public class DownloadHandler {
             // For those file types other than audio or video, download it immediately.
             Object[] params = {mimetype};
             Class[] type = new Class[] {String.class};
-            Integer result = (Integer) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+            Integer result = (Integer) ReflectHelper.invokeMethod("android.media.MediaFile",
                                            "getFileTypeForMimeType", type, params);
             int fileType = result.intValue();
             if ("http".equalsIgnoreCase(scheme) &&

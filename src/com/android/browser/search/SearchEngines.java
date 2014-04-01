@@ -16,8 +16,6 @@
 package com.android.browser.search;
 
 import com.android.browser.R;
-import com.android.browser.reflect.ReflectHelper;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;

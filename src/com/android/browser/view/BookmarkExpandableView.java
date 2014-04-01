@@ -33,13 +33,13 @@ import android.widget.TextView;
 
 import com.android.browser.BreadCrumbView;
 import com.android.browser.BrowserBookmarksAdapter;
-import com.android.browser.R;
 import com.android.browser.platformsupport.BrowserContract;
+import com.android.browser.reflect.ReflectHelper;
+import com.android.browser.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -160,20 +160,10 @@ public class BookmarkExpandableView extends ExpandableListView
     // Since the 'menu' object is of type MenuBuilder, java reflection method
     // is the only way to access MenuBuilder.setCurrentMenuInfo().
     static void setCurrentMenuInfo(ContextMenu menu, ContextMenuInfo menuInfo) {
-        try {
-            Class<?> proxyClass = Class.forName("com.android.internal.view.menu.MenuBuilder");
-            Class<?> argTypes[] = new Class[1];
-            argTypes[0] = ContextMenuInfo.class;
-            Method m =  proxyClass.getDeclaredMethod("setCurrentMenuInfo", argTypes);
-            m.setAccessible(true);
-
-            Object args[] = new Object[1];
-            args[0] = menuInfo;
-            m.invoke(menu, args);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Object[] params = {menuInfo};
+        Class[] proxyType = new Class[] {ContextMenuInfo.class};
+        ReflectHelper.invokeProxyMethod("com.android.internal.view.menu.MenuBuilder",
+                                        "setCurrentMenuInfo", menu, proxyType, params);
     }
 
     @Override

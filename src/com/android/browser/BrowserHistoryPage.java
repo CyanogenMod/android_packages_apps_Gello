@@ -421,8 +421,8 @@ public class BrowserHistoryPage extends Fragment
                 Class[] type = new Class[] { android.content.Context.class,
                                              String.class,
                                              String.class};
-                ReflectHelper.invokeStaticMethod("android.provider.Browser","sendString",
-                    type, params);
+                ReflectHelper.invokeMethod("android.provider.Browser","sendString",
+                                           type, params);
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);

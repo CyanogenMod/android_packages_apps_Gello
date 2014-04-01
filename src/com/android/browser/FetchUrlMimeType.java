@@ -79,7 +79,7 @@ class FetchUrlMimeType extends Thread {
         try {
             Class<?> argTypes[] = new Class[]{Context.class, String.class};
             Object args[] = new Object[]{mContext, mUri};
-            httpHost = (HttpHost) ReflectHelper.invokeStaticMethod("android.net.Proxy",
+            httpHost = (HttpHost) ReflectHelper.invokeMethod("android.net.Proxy",
                 "getPreferredHttpHost", argTypes, args);
             if (httpHost != null) {
                 ConnRouteParams.setDefaultProxy(client.getParams(), httpHost);

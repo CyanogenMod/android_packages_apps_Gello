@@ -131,7 +131,7 @@ public class DownloadSettings extends Activity {
             String updatedFileName = filenameBase + "." + filenameExtension;
             Object[] params = {updatedFileName};
             Class[] type = new Class[] {String.class};
-            mimetype = (String) ReflectHelper.invokeStaticMethod("android.media.MediaFile",
+            mimetype = (String) ReflectHelper.invokeMethod("android.media.MediaFile",
                                            "getMimeTypeForFile", type, params);
         }
 

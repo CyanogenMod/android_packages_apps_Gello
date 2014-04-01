@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import java.lang.reflect.Method;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +29,7 @@ import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebView;
 
+import com.android.browser.reflect.ReflectHelper;
 import com.android.browser.R;
 
 import android.widget.LinearLayout;
@@ -339,25 +338,9 @@ public class PageDialogsHandler {
     }
 
     private static View inflateCertificateView(SslCertificate certificate, Context ctx) {
-        Class certClass;
-        try {
-            certClass = Class.forName("android.net.http.SslCertificate");
-
-            Class argTypes[] = new Class[1];
-            argTypes[0] = Context.class;
-
-            Method m =  certClass.getDeclaredMethod("inflateCertificateView", argTypes);
-            m.setAccessible(true);
-
-            Object args[] = new Object[1];
-            args[0] = ctx;
-            return (View) m.invoke(certificate, args);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        Object[] params = {ctx};
+        Class[] type = new Class[] {Context.class};
+        return (View)ReflectHelper.invokeMethod(certificate, "inflateCertificateView",type, params);
     }
 
     /*

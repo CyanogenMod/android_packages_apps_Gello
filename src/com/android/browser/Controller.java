@@ -906,8 +906,8 @@ public class Controller
                         this.getContext().startActivity(intent);
                     }
                 } else {
-                    if ((Boolean)ReflectHelper.invokeStaticMethod(
-                             "ActivityManagerNative", "isSystemReady", null, null)) {
+                    if ((Boolean)ReflectHelper.invokeMethod(
+                             "android.app.ActivityManagerNative", "isSystemReady", null, null)) {
                         try {
                             Intent intent = new Intent(INTENT_PICK_NETWORK);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -947,7 +947,7 @@ public class Controller
         Object[] params  = {new String(PROP_NETSWITCH),
                             new Boolean(false)};
         Class[] type = new Class[] {String.class, boolean.class};
-        Boolean result = (Boolean) ReflectHelper.invokeStaticMethod(
+        Boolean result = (Boolean) ReflectHelper.invokeMethod(
                         "android.os.SystemProperties", "getBoolean",
                         type, params);
         if (result) {
@@ -1164,7 +1164,7 @@ public class Controller
             public String[] doInBackground(Void... unused) {
                 Object[] params  = {mActivity.getContentResolver()};
                 Class[] type = new Class[] {ContentResolver.class};
-                return (String[])ReflectHelper.invokeStaticMethod(
+                return (String[])ReflectHelper.invokeMethod(
                     "android.provider.Browser","getVisitedHistory",
                     type, params);
             }
@@ -2001,7 +2001,7 @@ public class Controller
             case R.id.exit_menu_id:
                 Object[] params  = { new String("persist.debug.browsermonkeytest")};
                 Class[] type = new Class[] {String.class};
-                String ret = (String)ReflectHelper.invokeStaticMethod(
+                String ret = (String)ReflectHelper.invokeMethod(
                              "android.os.SystemProperties","get", type, params);
                 if (ret != null && ret.equals("enable"))
                     break;

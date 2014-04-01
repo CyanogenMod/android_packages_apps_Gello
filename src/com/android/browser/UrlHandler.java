@@ -107,7 +107,7 @@ public class UrlHandler {
         Object[] params  = {new String("persist.env.browser.wap2estore"),
                             Boolean.valueOf(false)};
         Class[] type = new Class[] {String.class, boolean.class};
-        Boolean wap2estore = (Boolean)ReflectHelper.invokeStaticMethod(
+        Boolean wap2estore = (Boolean)ReflectHelper.invokeMethod(
                       "android.os.SystemProperties", "getBoolean", type, params);
         if (wap2estore && isEstoreTypeUrl(url)) {
             handleEstoreTypeUrl(url);

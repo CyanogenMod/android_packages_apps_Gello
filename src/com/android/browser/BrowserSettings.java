@@ -43,7 +43,6 @@ import com.android.browser.search.SearchEngines;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -358,16 +357,16 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
         // add for carrier useragent feature
         String ua = null;
-        try {
-            Class c = Class.forName("com.qrd.useragent.UserAgentHandler");
-            Object cObj = c.newInstance();
-            Method m = c.getDeclaredMethod("getUAString", Context.class);
-            ua = (String)m.invoke(cObj, mContext);
-        } catch (Exception e) {
-            Log.e(TAG, "plug in Load failed, err " + e);
+        Object objUserAgentHandler = ReflectHelper.newObject(
+                "com.qrd.useragent.UserAgentHandler", null, null);
+        Object[] params = {mContext};
+        Class[] type = new Class[] {Context.class};
+        ua = (String) ReflectHelper.invokeMethod(objUserAgentHandler,"getUAString",
+                                type, params);
+        if (ua == null)
             ua = mCustomUserAgents.get(settings);
-        }
-        if (ua != null) {
+
+        if (ua != null){
             settings.setUserAgentString(ua);
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);

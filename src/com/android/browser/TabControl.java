@@ -19,8 +19,6 @@ package com.android.browser;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.android.browser.reflect.ReflectHelper;
-
 import org.codeaurora.swe.WebView;
 
 import java.util.ArrayList;

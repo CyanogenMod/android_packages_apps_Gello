@@ -125,7 +125,7 @@ public class UploadHandler {
         Object[] params  = {new String("persist.env.browser.drmupload"),
                             Boolean.valueOf(false)};
         Class[] type = new Class[] {String.class, boolean.class};
-        Boolean drmUpload = (Boolean) ReflectHelper.invokeStaticMethod(
+        Boolean drmUpload = (Boolean) ReflectHelper.invokeMethod(
                       "android.os.SystemProperties", "getBoolean", type, params);
         if (drmUpload && isDrmFileUpload(result)) {
             mUploadMessage.onReceiveValue(null);
