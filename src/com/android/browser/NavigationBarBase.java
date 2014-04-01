@@ -176,7 +176,8 @@ public class NavigationBarBase extends LinearLayout implements
             Class[] type = new Class[] {String.class, boolean.class};
             Boolean wap2estore = (Boolean) ReflectHelper.invokeStaticMethod(
                       "android.os.SystemProperties", "getBoolean", type, params);
-            if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)) {
+            if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)
+                || isMakeCallTypeUrl(text)) {
                 url = text;
             } else {
                 url = UrlUtils.smartUrlFilter(text, false);
@@ -203,6 +204,12 @@ public class NavigationBarBase extends LinearLayout implements
                     return;
                 }
             }
+            // add for "wtai://wp/mc;" scheme feature
+            if (url != null && t != null && isMakeCallTypeUrl(url)) {
+                if (handleMakeCallTypeUrl(url)) {
+                    return;
+                }
+            }
         }
         Intent i = new Intent();
         String action = Intent.ACTION_SEARCH;
@@ -218,6 +225,41 @@ public class NavigationBarBase extends LinearLayout implements
         }
         mUiController.handleNewIntent(i);
         setDisplayTitle(text);
+    }
+
+    private boolean isMakeCallTypeUrl(String url) {
+        String utf8Url = null;
+        try {
+            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, "err " + e);
+        }
+        if (utf8Url != null && utf8Url.startsWith(UrlHandler.SCHEME_WTAI_MC)) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleMakeCallTypeUrl(String url) {
+        // wtai://wp/mc;number
+        // number=string(phone-number)
+        if (url.startsWith(UrlHandler.SCHEME_WTAI_MC)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(WebView.SCHEME_TEL +
+                    url.substring(UrlHandler.SCHEME_WTAI_MC.length())));
+            getContext().startActivity(intent);
+            // before leaving BrowserActivity, close the empty child tab.
+            // If a new tab is created through JavaScript open to load this
+            // url, we would like to close it as we will load this url in a
+            // different Activity.
+            Tab current = mUiController.getCurrentTab();
+            if (current != null
+                    && current.getWebView().copyBackForwardList().getSize() == 0) {
+                mUiController.closeCurrentTab();
+            }
+            return true;
+        }
+        return false;
     }
 
     private boolean isEstoreTypeUrl(String url) {

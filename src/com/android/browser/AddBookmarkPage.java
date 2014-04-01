@@ -201,7 +201,7 @@ public class AddBookmarkPage extends Activity
                 }
             }
             // Steal the key press; otherwise a newline will be added
-            return true;
+            // return true;
         }
         return false;
     }
