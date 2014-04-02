@@ -572,7 +572,17 @@ public class Controller
                                   null, null, null, view.isPrivateBrowsingEnabled(), 0);
                                 break;
                             case R.id.save_link_bookmark_context_menu_id:
-                                bookmarkCurrentPage();
+                                if(title == null || title == "")
+                                    title = url;
+
+                                Intent bookmarkIntent = new Intent(mActivity, AddBookmarkPage.class);
+                                //SWE TODO: No thumbnail support for the url obtained via
+                                //browser context menu as its not loaded in webview.
+                                if (bookmarkIntent != null) {
+                                    bookmarkIntent.putExtra(BrowserContract.Bookmarks.URL, url);
+                                    bookmarkIntent.putExtra(BrowserContract.Bookmarks.TITLE, title);
+                                    mActivity.startActivity(bookmarkIntent);
+                                }
                                 break;
                         }
                         break;
