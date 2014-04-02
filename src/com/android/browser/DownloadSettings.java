@@ -136,7 +136,7 @@ public class DownloadSettings extends Activity {
         }
 
         //Add special check for .apk files with octet-stream mimetype
-        if (mimetype.equals(OCTET_STREAM) && filenameExtension.equals(APK_TYPE)) {
+        if (filenameExtension.equals(APK_TYPE) && mimetype != null && mimetype.equals(OCTET_STREAM)) {
             mimetype =  "application/vnd.android.package-archive";
         }
 
