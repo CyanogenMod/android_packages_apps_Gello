@@ -28,7 +28,10 @@ import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.text.InputType;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
@@ -41,7 +44,6 @@ import com.android.browser.reflect.ReflectHelper;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
 import com.android.browser.search.SearchEngines;
-
 
 /**
  * url/search input view
@@ -96,6 +98,16 @@ public class UrlInputView extends AutoCompleteTextView
         // SWE_TODO : Needs Fix
         //this(context, attrs, R.attr.autoCompleteTextViewStyle);
         this(context, attrs, 0);
+    }
+
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        BrowserInputConnection browserInputConnection =
+          new BrowserInputConnection(this, false);
+        outAttrs.actionLabel = null;
+        outAttrs.inputType = InputType.TYPE_NULL;
+        outAttrs.imeOptions = EditorInfo.IME_ACTION_GO;
+        return browserInputConnection;
     }
 
     public UrlInputView(Context context) {
