@@ -72,6 +72,8 @@
 
     <!-- Displayed on the title bar while the page is loading -->
     <string name="title_bar_loading">Loading\u2026</string>
+    <!-- Message to be displayed if url character limit exceeds -->
+    <string name="max_url_character_limit_msg">Max URL limit reached</string>
 
     <!-- Menu item -->
     <string name="page_info">Page info</string>

@@ -21,10 +21,14 @@ import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputFilter.LengthFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +41,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.android.browser.SuggestionsAdapter.CompletionListener;
 import com.android.browser.SuggestionsAdapter.SuggestItem;
@@ -57,6 +62,7 @@ public class UrlInputView extends AutoCompleteTextView
     static final String SUGGESTED = "browser-suggest";
 
     static final int POST_DELAY = 100;
+    static final int URL_MAX_LENGTH = 2048;
 
     static interface StateListener {
         static final int STATE_NORMAL = 0;
@@ -73,6 +79,7 @@ public class UrlInputView extends AutoCompleteTextView
     private boolean mLandscape;
     private boolean mIncognitoMode;
     private boolean mNeedsUpdate;
+    private Context mContext;
 
     private int mState;
     private StateListener mStateListener;
@@ -127,6 +134,11 @@ public class UrlInputView extends AutoCompleteTextView
         addTextChangedListener(this);
 
         mState = StateListener.STATE_NORMAL;
+        mContext = ctx;
+
+        this.setFilters(new InputFilter[] {
+            new UrlLengthFilter(URL_MAX_LENGTH)
+        });
     }
 
     protected void onFocusChanged(boolean focused, int direction, Rect prevRect) {
@@ -370,5 +382,29 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void afterTextChanged(Editable s) { }
+
+    /**
+     * It will prompt the toast if the text length greater than the given length.
+     */
+    private class UrlLengthFilter extends LengthFilter {
+        public UrlLengthFilter(int max) {
+            super(max);
+        }
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest,
+                int dstart, int dend) {
+            CharSequence result = super.filter(source, start, end, dest, dstart, dend);
+            if (result != null) {
+                // If the result is not null, it means the text length is greater than
+                // the given length. We will prompt the toast to alert the user.
+                CharSequence alert = getResources().getString(R.string.max_url_character_limit_msg);
+                Toast t = Toast.makeText(mContext , alert, Toast.LENGTH_SHORT);
+                t.setGravity(Gravity.CENTER, 0, 0);
+                t.show();
+            }
+            return result;
+        }
+    }
 
 }
