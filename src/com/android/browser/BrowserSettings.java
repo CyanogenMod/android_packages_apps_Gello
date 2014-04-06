@@ -308,7 +308,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             if (!mPrefs.contains(PREF_DEFAULT_TEXT_ENCODING)) {
                 if (!"default".equals(browserRes)) {
                     mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING,
-                            "GBK").apply();
+                            "UTF-8").apply();
                 }
             }
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
