@@ -20,8 +20,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
-import org.codeaurora.swe.WebSettings;
-import org.codeaurora.swe.WebView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;

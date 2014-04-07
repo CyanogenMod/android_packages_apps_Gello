@@ -25,7 +25,7 @@ import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
-import org.codeaurora.swe.WebView;
+import android.webkit.WebView;
 import java.text.NumberFormat;
 
 public class AccessibilityPreferencesFragment extends PreferenceFragment

@@ -78,6 +78,11 @@ public class InvertedContrastPreview extends WebViewPreview {
     protected void updatePreview(boolean forceReload) {
         if (mWebView == null) return;
 
+    /* SWE: This class extends WebViewPreview, however, WebViewPreview has
+    * been modified to use the system webview.  Commenting out code for now
+    * which implements the preview as this class  requires refactoring
+    * regardless & is currently not in use.
+
         WebSettings ws = mWebView.getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setProperty(WebViewProperties.gfxInvertedScreen,
@@ -87,6 +92,8 @@ public class InvertedContrastPreview extends WebViewPreview {
         if (forceReload) {
             mWebView.loadData(mHtml, "text/html", null);
         }
+
+    */
     }
 
 }

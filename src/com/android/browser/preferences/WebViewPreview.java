@@ -24,7 +24,7 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import org.codeaurora.swe.WebView;
+import android.webkit.WebView;
 
 import com.android.browser.R;
 
