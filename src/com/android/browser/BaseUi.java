@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -635,10 +636,6 @@ public abstract class BaseUi implements UI {
         }
     }
 
-    @Override
-    public void onActionModeFinished(boolean inLoad) {
-    }
-
     // active tabs page
 
     public void showActiveTabsPage() {
@@ -872,5 +869,18 @@ public abstract class BaseUi implements UI {
 
     protected UiController getUiController() {
         return mUiController;
+    }
+
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
+        mFixedTitlebarContainer.setY(fixedTbarHeight);
+        setContentViewMarginTop(fixedTbarHeight);
+    }
+
+    @Override
+    public void onActionModeFinished(boolean inLoad) {
+        mFixedTitlebarContainer.setY(0);
+        setContentViewMarginTop(0);
     }
 }

@@ -234,16 +234,15 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
+        super.onActionModeStarted(mode);
         if (!isEditingUrl()) {
             hideTitleBar();
-        } else {
-            mTitleBar.animate().translationY(mActionBarHeight);
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        mTitleBar.animate().translationY(0);
+        super.onActionModeFinished(inLoad);
         if (inLoad) {
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);

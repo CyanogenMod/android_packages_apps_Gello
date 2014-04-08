@@ -115,7 +115,8 @@ public class TitleBar extends RelativeLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (mIsFixedTitleBar) {
             int margin = getMeasuredHeight() - calculateEmbeddedHeight();
-            mBaseUi.setContentViewMarginTop(-margin);
+            if (!isEditingUrl())
+                mBaseUi.setContentViewMarginTop(-margin);
         } else {
             mBaseUi.setContentViewMarginTop(0);
         }
