@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"JavaScript\'i etkinleştir"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Arka planda aç"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Eklentileri etkinleştir"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">Hay aksi, Oynat !</string>
+    <string name="browser_tab_crash_reload">Yeniden yükle</string>
+    <string name="browser_tab_crash_message">Web sayfası görüntülenirken beklenmeyen bir sorun oluştu. Lütfen yeniden yükleyin ya da başka bir sayfaya gidin.</string>
+    <string name="find_on_page">Şu sayfada bulunur:</string>
+    <string name="ssl_certificate">Güvenlik sertifikası</string>
+    <string name="ssl_certificate_is_valid">Bu sertifika geçerli.</string>
+    <string name="pref_memory_monitor">Bellek Monitörünü Etkinleştir</string>
+    <string name="password_prompt_title">Onayla</string>
+    <string name="password_prompt_message">Tarayıcının şifrenizi hatırlamasını istiyor musunuz?</string>
+    <string name="password_prompt_never">Hiçbir Zaman</string>
+    <string name="password_prompt_remember">Hatırla</string>
+    <string name="password_prompt_not_now">Şmd dğl</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Her zaman açık"</item>
     <item msgid="2484126708670016519">"İsteğe bağlı"</item>

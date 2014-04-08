@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,22 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Habilitar JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Abrir en segundo plano"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Habilitar complementos"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">¡Oh, no!</string>
+    <string name="browser_tab_crash_reload">Volver a cargar</string>
+    <string name="browser_tab_crash_message">Ha ocurrido algo inesperado al mostrar esta página web. Vuelve a cargarla o visita otra página.</string>
+    <string name="find_on_page">Buscar en la página</string>
+    <string name="ssl_certificate">Certificado de seguridad</string>
+    <string name="ssl_certificate_is_valid">Este certificado es válido.</string>
+    <string name="pref_memory_monitor">Activar Monitor de memoria</string>
+    <string name="password_prompt_title">Confirmar</string>
+    <string name="password_prompt_message">¿Deseas que el navegador recuerde esta contraseña?</string>
+    <string name="password_prompt_never">Nunca</string>
+    <string name="password_prompt_remember">Recordar</string>
+    <string name="password_prompt_not_now">Ahora no</string>
+
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Siempre activado"</item>
     <item msgid="2484126708670016519">"Bajo demanda"</item>

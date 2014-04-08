@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"เปิดการใช้งาน JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"เปิดในพื้นหลัง"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"เปิดการใช้งานปลั๊กอิน"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">อ๊ะ !</string>
+    <string name="browser_tab_crash_reload">โหลดใหม่</string>
+    <string name="browser_tab_crash_message">เกิดสิ่งที่ไม่คาดคิดขึ้นในการแสดงเว็บเพจนี้ โปรดโหลดใหม่ หรือไปที่หน้าอื่น</string>
+    <string name="find_on_page">ค้นหาในหน้า</string>
+    <string name="ssl_certificate">ใบรับรองความปลอดภัย</string>
+    <string name="ssl_certificate_is_valid">ใบรับรองนี้ถูกต้อง</string>
+    <string name="pref_memory_monitor">เปิดใช้งานอุปกรณ์ตรวจสอบหน่วยความจำ</string>
+    <string name="password_prompt_title">ยืนยัน</string>
+    <string name="password_prompt_message">คุณต้องการให้เบราเซอร์จดจำรหัสผ่านนี้หรือไม่</string>
+    <string name="password_prompt_never">ไม่ใช้</string>
+    <string name="password_prompt_remember">จดจำ</string>
+    <string name="password_prompt_not_now">ไม่ใช่ตอนนี้</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"เปิดใช้เสมอ"</item>
     <item msgid="2484126708670016519">"ตามคำขอ"</item>

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"JavaScript सक्षम करें"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"पृष्ठभूमि में खोलें"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"प्लग-इन सक्षम करें"</string>
+
+    <!-- Custom Translation -->
+    <string name="browser_tab_crash_snap">ओह !</string>
+    <string name="browser_tab_crash_reload">पुन: लोड करें</string>
+    <string name="browser_tab_crash_message">यह वेबपृष्ठ प्रदर्शित करते समय कुछ अनपेक्षित हुआ है. कृपया पुन: लोड करें या अन्य पृष्ठ पर जाएँ.</string>
+    <string name="find_on_page">पृष्ठ पर ढूँढ़ें</string>
+    <string name="ssl_certificate">सुरक्षा प्रमाणपत्र</string>
+    <string name="ssl_certificate_is_valid">यह प्रमाणपत्र मान्य है.</string>
+    <string name="pref_memory_monitor">मेमोरी मॉनीटर सक्षम करें</string>
+    <string name="password_prompt_title">पुष्टि करें</string>
+    <string name="password_prompt_message">क्‍या आप चाहते हैं कि ब्राउज़र यह पासवर्ड याद रखे?</string>
+    <string name="password_prompt_never">कभी नहीं</string>
+    <string name="password_prompt_remember">याद रखें</string>
+    <string name="password_prompt_not_now">अभी नहीं</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"हमेशा चालू"</item>
     <item msgid="2484126708670016519">"मांग पर"</item>

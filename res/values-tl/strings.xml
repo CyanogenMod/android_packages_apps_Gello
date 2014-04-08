@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Paganahin ang JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Buksan sa background"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Paganahin ang mga plug-in"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">Naku !</string>
+    <string name="browser_tab_crash_reload">I-reload</string>
+    <string name="browser_tab_crash_message">May nangyaring hindi inaasahan noong ipinapakita ang webpage na ito. Paki-reload o pumunta sa isa pang pahina.</string>
+    <string name="find_on_page">Hanapin sa pahina</string>
+    <string name="ssl_certificate">Certificate ng seguridad</string>
+    <string name="ssl_certificate_is_valid">May bisa ang certificate na ito.</string>
+    <string name="pref_memory_monitor">Paganahin ang Memory Monitor</string>
+    <string name="password_prompt_title">Kumpirmahin</string>
+    <string name="password_prompt_message">Gusto mo bang tandaan ng browser ang password na ito?</string>
+    <string name="password_prompt_never">Huwag Kailanman</string>
+    <string name="password_prompt_remember">Tandaan</string>
+    <string name="password_prompt_not_now">Hindi ngayon</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Palaging naka-on"</item>
     <item msgid="2484126708670016519">"Sa kahilingan"</item>

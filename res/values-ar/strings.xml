@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"تمكين جافا سكريبت"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"فتح في الخلفية"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"تمكين المكونات الإضافية"</string>
+
+    <!-- Custom Translation -->
+    <string name="browser_tab_crash_snap">ا للأسف!</string>
+    <string name="browser_tab_crash_reload">إعادة تحميل</string>
+    <string name="browser_tab_crash_message">حدث شيء غير متوقع عند عرض صفحة الويب هذه.يرجى إعادة التحميل أو الانتقال إلى صفحة أخرى.</string>
+    <string name="find_on_page">تحديد على الصفحة</string>
+    <string name="ssl_certificate">شهادة الأمان</string>
+    <string name="ssl_certificate_is_valid">هذه الشهادة صالحة.</string>
+    <string name="pref_memory_monitor"> تمكين مراقب الذاكرة </string>
+    <string name="password_prompt_title">تأكيد</string>
+    <string name="password_prompt_message">هل تريد من المتصفح تذكر كلمة المرور هذه؟</string>
+    <string name="password_prompt_never">مطلقًا</string>
+    <string name="password_prompt_remember">تذكر</string>
+    <string name="password_prompt_not_now">ليس الآن</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"تشغيل دومًا"</item>
     <item msgid="2484126708670016519">"عند الطلب"</item>

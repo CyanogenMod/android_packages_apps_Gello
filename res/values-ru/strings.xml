@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!--
+     Copyright (c) 2014 The Linux Foundation. All rights reserved.
+     Not a contribution.
+
+     Copyright (C) 2007 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -135,6 +139,21 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Разрешить JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Фоновые вкладки"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Разрешить плагины"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">Ой!</string>
+    <string name="browser_tab_crash_reload">Перезагрузите</string>
+    <string name="browser_tab_crash_message">При отображении этой веб-страницы произошло что-то непредвиденное. Перезагрузите эту страницу или перейдите на другую.</string>
+    <string name="find_on_page">Поиск на странице</string>
+    <string name="ssl_certificate">Сертификат безопасности</string>
+    <string name="ssl_certificate_is_valid">Данный сертификат действителен.</string>
+    <string name="pref_memory_monitor">Включить контроль памяти</string>
+    <string name="password_prompt_title">Подтвердить</string>
+    <string name="password_prompt_message">Хотите, чтобы браузер запомнил этот пароль?</string>
+    <string name="password_prompt_never">Никогда</string>
+    <string name="password_prompt_remember">Запомнить</string>
+    <string name="password_prompt_not_now">Не сейчас</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Да"</item>
     <item msgid="2484126708670016519">"По требованию"</item>
