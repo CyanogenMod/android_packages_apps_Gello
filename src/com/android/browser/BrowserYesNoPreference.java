@@ -32,7 +32,7 @@ class BrowserYesNoPreference extends DialogPreference {
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
 
-        if (positiveResult) {
+        if (callChangeListener(positiveResult)) {
             setEnabled(false);
 
             BrowserSettings settings = BrowserSettings.getInstance();
