@@ -136,21 +136,6 @@ do
         warning "using version ${VERSION}.. merge-base:\"${MERGE_BASE}\" branch: \"${BRANCH}\""
     fi
 
-    if (( ${ABOUT} ))
-    then
-        # collect diffs (just in case.  this will normally be NULL)
-        DIFFS=$(gclient recurse git diff)
-        DIFFS=${DIFFS//&/&amp;}
-        DIFFS=${DIFFS//</&lt;}
-        DIFFS=${DIFFS//$'\x5c'/$'\x5c'$'\x5c'} # \ -> \\
-        DIFFS=${DIFFS//$'\x27'/$'\x5c'$'\x27'} # ' -> \'
-        DIFFS=${DIFFS//$'\n'/$'\n'\\n}         # newline to newline\n
-        if [[ -n ${DIFFS} ]]
-        then
-            DIFFS="Diffs:\n<tt><font size=\"4\">${DIFFS}</font></tt>"
-            warning "including diffs in about box" >&2
-        fi
-    fi
     popd >/dev/null || error 1 "popd from $CHROME_SRC failed?"
     break
 done
@@ -176,7 +161,6 @@ Built: ${DATE}\n
 Host: ${HOSTNAME}\n
 User: ${USER}\n
 Hash: ${HASH} (${BRANCH})\n
-${DIFFS}
 </string>
 </resources>
 " > "${ABOUTFILE}" || error 1 "could not write to ${ABOUTFILE}"

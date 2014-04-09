@@ -135,6 +135,17 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"啟用 JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"在背景中開啟"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"啟用外掛程式"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">糟糕，突然中斷！</string>
+    <string name="browser_tab_crash_reload">重新載入</string>
+    <string name="browser_tab_crash_message">顯示網頁時發生未預期的錯誤。請重新載入或前往其他網頁。</string>
+    <string name="find_on_page">在網頁上尋找</string>
+    <string name="ssl_certificate">安全性憑證</string>
+    <string name="ssl_certificate_is_valid">此憑證有效。</string>
+    <string name="pref_memory_monitor">啟用記憶體監察器</string>
+
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"永遠開啟"</item>
     <item msgid="2484126708670016519">"隨選"</item>

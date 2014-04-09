@@ -148,11 +148,6 @@
     <string name="ssl_certificate">सुरक्षा प्रमाणपत्र</string>
     <string name="ssl_certificate_is_valid">यह प्रमाणपत्र मान्य है.</string>
     <string name="pref_memory_monitor">मेमोरी मॉनीटर सक्षम करें</string>
-    <string name="password_prompt_title">पुष्टि करें</string>
-    <string name="password_prompt_message">क्‍या आप चाहते हैं कि ब्राउज़र यह पासवर्ड याद रखे?</string>
-    <string name="password_prompt_never">कभी नहीं</string>
-    <string name="password_prompt_remember">याद रखें</string>
-    <string name="password_prompt_not_now">अभी नहीं</string>
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"हमेशा चालू"</item>

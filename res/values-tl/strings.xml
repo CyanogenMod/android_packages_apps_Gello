@@ -148,11 +148,7 @@
     <string name="ssl_certificate">Certificate ng seguridad</string>
     <string name="ssl_certificate_is_valid">May bisa ang certificate na ito.</string>
     <string name="pref_memory_monitor">Paganahin ang Memory Monitor</string>
-    <string name="password_prompt_title">Kumpirmahin</string>
-    <string name="password_prompt_message">Gusto mo bang tandaan ng browser ang password na ito?</string>
-    <string name="password_prompt_never">Huwag Kailanman</string>
-    <string name="password_prompt_remember">Tandaan</string>
-    <string name="password_prompt_not_now">Hindi ngayon</string>
+
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Palaging naka-on"</item>

@@ -148,11 +148,7 @@
     <string name="ssl_certificate">شهادة الأمان</string>
     <string name="ssl_certificate_is_valid">هذه الشهادة صالحة.</string>
     <string name="pref_memory_monitor"> تمكين مراقب الذاكرة </string>
-    <string name="password_prompt_title">تأكيد</string>
-    <string name="password_prompt_message">هل تريد من المتصفح تذكر كلمة المرور هذه؟</string>
-    <string name="password_prompt_never">مطلقًا</string>
-    <string name="password_prompt_remember">تذكر</string>
-    <string name="password_prompt_not_now">ليس الآن</string>
+
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"تشغيل دومًا"</item>

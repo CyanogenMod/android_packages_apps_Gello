@@ -135,6 +135,20 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"启用 JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"在后方打开"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"启用插件"</string>
+
+    <!-- Custom Translations -->
+    <string name="browser_tab_crash_snap">"喔唷，崩溃啦！"</string>
+    <string name="browser_tab_crash_reload">"重新加载"</string>
+    <string name="browser_tab_crash_message">"显示此网页时出现了某些错误。要继续，请按下“重新加载”或进入另一页。"</string>
+    <string name="find_on_page">"在网页上查找"</string>
+    <string name="ssl_certificate">"安全证书"</string>
+    <string name="ssl_certificate_is_valid">"该证书有效。"</string>
+    <string name="pref_memory_monitor">"开启内存监测"</string>
+    <string name="version">"版本"</string>
+    <string name="max_url_character_limit_msg">"抱歉，您输入的网址过长"</string>
+
+
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"始终启用（打开）"</item>
     <item msgid="2484126708670016519">"在需要时打开"</item>
