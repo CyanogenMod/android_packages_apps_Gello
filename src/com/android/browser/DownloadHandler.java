@@ -612,6 +612,7 @@ public class DownloadHandler {
         for (int i = 0; i < volumes.length; i++) {
             if (isRemovable(volumes[i]) && allowMassStorage(volumes[i])) {
                 sd = getPath(volumes[i]);
+                break;
             }
         }
         return sd;
