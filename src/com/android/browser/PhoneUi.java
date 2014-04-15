@@ -423,13 +423,51 @@ public class PhoneUi extends BaseUi {
                 fromBottom, toBottom);
         ObjectAnimator scale = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
                 1f, scaleFactor);
-        ObjectAnimator otheralpha = ObjectAnimator.ofFloat(mCustomViewContainer, "alpha", 1f, 0f);
-        otheralpha.setDuration(100);
         set2.playTogether(l, t, r, b, scale);
         set2.setDuration(200);
         AnimatorSet combo = new AnimatorSet();
-        combo.playSequentially(set1, set2, otheralpha);
+        combo.playSequentially(set1, set2);
         combo.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator anim) {
+                checkTabReady();
+            }
+        });
+        combo.start();
+    }
+
+    private void checkTabReady() {
+        boolean isready = true;
+        Tab tab = mUiController.getTabControl().getCurrentTab();
+        if (tab == null)
+            isready = false;
+        else {
+            BrowserWebView webview = (BrowserWebView)tab.getWebView();
+            if (webview == null)
+                isready = false;
+            else
+                isready = webview.isReady();
+        }
+        android.os.Handler handler = mCustomViewContainer.getHandler();
+        if (!isready) {
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    checkTabReady();
+                }
+            }, 17); //WebView is not ready.  check again in for next frame.
+            return;
+        }
+        handler.postDelayed(new Runnable() {
+                public void run() {
+                    fadeOutCustomViewContainer();
+                }
+            }, 33); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
+    }
+
+    private void fadeOutCustomViewContainer() {
+        ObjectAnimator otheralpha = ObjectAnimator.ofFloat(mCustomViewContainer, "alpha", 1f, 0f);
+        otheralpha.setDuration(100);
+        otheralpha.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {
                 mCustomViewContainer.removeView(mAnimScreen.mMain);
@@ -437,7 +475,7 @@ public class PhoneUi extends BaseUi {
                 mUiController.setBlockEvents(false);
             }
         });
-        combo.start();
+        otheralpha.start();
     }
 
     private void finishAnimateOut() {
