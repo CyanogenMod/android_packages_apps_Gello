@@ -161,12 +161,6 @@
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Fyll ut nettskjemaer med ett trykk"</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Tekst for automatisk utfylling"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Konfigurer tekst for automatisk utfylling i nettskjemaer"</string>
-    <string name="pref_autologin_title" msgid="4421187193809267096">"Automatisk Google-pålogging"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"Pålogging til Google-nettsteder ved hjelp av <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"Logg på som"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Logg på"</string>
-    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Skjul"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"Kunne ikke logge på"</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Skriv inn teksten du vil automatisk fylle inn i skjemaer."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Fullt navn:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-post:"</string>

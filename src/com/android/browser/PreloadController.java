@@ -256,16 +256,6 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public void showAutoLogin(Tab tab) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "showAutoLogin()");
-    }
-
-    @Override
-    public void hideAutoLogin(Tab tab) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "hideAutoLogin()");
-    }
-
-    @Override
     public boolean shouldCaptureThumbnails() {
         return false;
     }

@@ -180,12 +180,6 @@
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"Web formlarını tek bir dokunmayla doldurun"</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"Otomatik doldurma metni"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"Web formlarına otomatik girilecek metni ayarlayın"</string>
-    <string name="pref_autologin_title" msgid="4421187193809267096">"Google\'da otomatik oturum açma"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"<xliff:g id="ID_1">%s</xliff:g> kullanılarak Google sitelerinde oturum açılıyor"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"Farklı kullanıcı olarak oturum aç"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"Oturum aç"</string>
-    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"Gizle"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"Oturum açılamadı."</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"Web formlarına otomatik olarak girilmesini istediğiniz metni yazın."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"Tam ad:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"E-posta:"</string>

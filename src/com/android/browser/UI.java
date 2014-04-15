@@ -136,10 +136,6 @@ public interface UI {
 
     boolean dispatchKey(int code, KeyEvent event);
 
-    void showAutoLogin(Tab tab);
-
-    void hideAutoLogin(Tab tab);
-
     void setFullscreen(boolean enabled);
 
     void setUseQuickControls(boolean enabled);

@@ -298,7 +298,6 @@ public abstract class BaseUi implements UI {
         onTabDataChanged(tab);
         onProgressChanged(tab);
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
-        updateAutoLogin(tab, false);
         mBlockFocusAnimations = false;
     }
 
@@ -573,23 +572,9 @@ public abstract class BaseUi implements UI {
         return mCustomView == null;
     }
 
-    @Override
-    public void showAutoLogin(Tab tab) {
-        updateAutoLogin(tab, true);
-    }
-
-    @Override
-    public void hideAutoLogin(Tab tab) {
-        updateAutoLogin(tab, true);
-    }
-
     // -------------------------------------------------------------------------
 
     protected void updateNavigationState(Tab tab) {
-    }
-
-    protected void updateAutoLogin(Tab tab, boolean animate) {
-        mTitleBar.updateAutoLogin(tab, animate);
     }
 
     /**

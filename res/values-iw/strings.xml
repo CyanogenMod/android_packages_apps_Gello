@@ -161,12 +161,6 @@
     <string name="pref_autofill_enabled_summary" msgid="7659954073892471496">"מלא טופסי אינטרנט בנגיעה אחת"</string>
     <string name="pref_autofill_profile_editor" msgid="8934844472922113166">"מילוי אוטומטי של טקסט"</string>
     <string name="pref_autofill_profile_editor_summary" msgid="4864447251676856190">"הגדר מילוי אוטומטי של טקסט בטופסי אינטרנט"</string>
-    <string name="pref_autologin_title" msgid="4421187193809267096">"כניסה אוטומטית ל-Google"</string>
-    <string name="pref_autologin_progress" msgid="8333244467048833461">"נכנס אל Google Sites באמצעות <xliff:g id="ID_1">%s</xliff:g>"</string>
-    <string name="autologin_bar_text" msgid="3684581827167173371">"היכנס כ:"</string>
-    <string name="autologin_bar_login_text" msgid="3336615320510851879">"כניסה"</string>
-    <string name="autologin_bar_hide_text" msgid="3629355974385859580">"הסתר"</string>
-    <string name="autologin_bar_error" msgid="7470001207395920811">"לא ניתן להיכנס"</string>
     <string name="autofill_profile_editor_heading" msgid="4798644544927738078">"הקלד את הטקסט שברצונך למלא באופן אוטומטי בטופסי אינטרנט."</string>
     <string name="autofill_profile_editor_name" msgid="8566130291459685955">"שם מלא:"</string>
     <string name="autofill_profile_editor_email_address" msgid="7967585896612797173">"דוא\"ל:"</string>

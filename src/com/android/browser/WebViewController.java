@@ -116,9 +116,5 @@ public interface WebViewController {
 
     void bookmarkedStatusHasChanged(Tab tab);
 
-    void showAutoLogin(Tab tab);
-
-    void hideAutoLogin(Tab tab);
-
     boolean shouldCaptureThumbnails();
 }
