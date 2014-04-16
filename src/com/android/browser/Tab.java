@@ -1360,12 +1360,31 @@ class Tab implements PictureListener {
      * Destroy the tab's main WebView and subWindow if any
      */
     void destroy() {
+        if (mPostponeDestroy) {
+            mShouldDestroy = true;
+            return;
+        }
+        mShouldDestroy = false;
         if (mMainView != null) {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
             setWebView(null);
             webView.destroy();
+        }
+    }
+
+    private boolean mPostponeDestroy = false;
+    private boolean mShouldDestroy = false;
+
+    public void postponeDestroy() {
+        mPostponeDestroy = true;
+    }
+
+    public void performPostponedDestroy() {
+        mPostponeDestroy = false;
+        if (mShouldDestroy) {
+            destroy();
         }
     }
 
