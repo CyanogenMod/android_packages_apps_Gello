@@ -137,9 +137,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // add for carrier feature
     private static Context sResPackageCtx;
 
-    //Determine if WebView is Initialized or not
-    private boolean mWebViewInitialized;
-
     public static void initialize(final Context context) {
         sInstance = new BrowserSettings(context);
     }
@@ -164,7 +161,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             Log.e("Res_Update", "Create Res Apk Failed");
         }
         BackgroundHandler.execute(mSetup);
-        mWebViewInitialized = false;
     }
 
     public void setController(Controller controller) {
@@ -198,10 +194,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
-    public void initializeCookieSettings() {
-        CookieManager.getInstance().setAcceptCookie(acceptCookies());
-        mWebViewInitialized = true;
-    }
     private Runnable mSetup = new Runnable() {
 
         @Override
@@ -445,9 +437,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     private void syncSharedSettings() {
         mNeedsSharedSync = false;
-        if (mWebViewInitialized) {
-            CookieManager.getInstance().setAcceptCookie(acceptCookies());
-        }
+        CookieManager.getInstance().setAcceptCookie(acceptCookies());
+
         if (mController != null) {
             mController.setShouldShowErrorConsole(enableJavascriptConsole());
         }

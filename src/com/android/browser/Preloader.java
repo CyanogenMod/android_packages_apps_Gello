@@ -54,6 +54,10 @@ public class Preloader {
         mSession = null;
         mFactory = new BrowserWebViewFactory(context);
 
+        // Creating dummy Webview for browser to force loading of library;
+        // This will thereby prevent any singleton calls invoked directly
+        // even without the webview creation
+        (mFactory.instantiateWebView(null, android.R.attr.webViewStyle, false)).destroy();
     }
 
     private PreloaderSession getSession(String id) {

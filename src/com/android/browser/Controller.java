@@ -267,11 +267,6 @@ public class Controller
         mIntentHandler = new IntentHandler(mActivity, this);
         mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
 
-        // Creating dummy Webview for browser to force loading of library;
-        // in order for CookieManager calls to be invoked properly and
-        // awBrowserContext to be initialized
-        (mFactory.createWebView(false)).destroy();
-
         startHandler();
         mBookmarksObserver = new ContentObserver(mHandler) {
             @Override
@@ -319,7 +314,6 @@ public class Controller
         final long currentTabId =
                 mTabControl.canRestoreState(icicle, restoreIncognitoTabs);
 
-        mSettings.initializeCookieSettings();
         if (currentTabId == -1) {
             // Not able to restore so we go ahead and clear session cookies.  We
             // must do this before trying to login the user as we don't want to
