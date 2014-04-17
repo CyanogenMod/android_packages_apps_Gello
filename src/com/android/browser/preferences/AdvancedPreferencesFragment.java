@@ -55,14 +55,14 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
                 PreferenceKeys.PREF_WEBSITE_SETTINGS);
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
-        // SWE: Disable default zoom
-        /*Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
+
+        Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
                 getPreferenceScreen().getSharedPreferences()
-                .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)) );*/
+                .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)) );
 
-        Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING);
+        e = findPreference(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING);
         e.setOnPreferenceChangeListener(this);
 
         e = findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
@@ -174,12 +174,11 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
             Log.w("PageContentPreferencesFragment", "onPreferenceChange called from detached fragment!");
             return false;
         }
-        // SWE disable default Zoom.
-        /*if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
+
+        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
             pref.setSummary(getVisualDefaultZoomName((String) objValue));
             return true;
-        } else*/
-        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING)) {
             pref.setSummary((String) objValue);
             return true;
         } else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
