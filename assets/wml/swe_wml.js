@@ -516,6 +516,39 @@ function internal_executeOnpickTask(option)
 }
 
 //<go>
+function addQueryStringKeyValuePairsToForm(form)
+{
+    var href = form.dataset.wml_href;
+    var query;
+
+    // Seperate the query string from the href
+    var queryFragments = href.split("?");
+    if (queryFragments.length === 2) {
+        query = queryFragments[1];
+    } else {
+        queryFragments.shift();
+        query = queryFragments.join("?");
+    }
+
+    // Parse the query string for key/value pairs.  Add them to the form
+    // as hidden input elements.
+    // E.g., http://myserver/test.wml?p1=foo&p2=bar
+    // would add the following to the form:
+    //   <input type="hidden" name="p1" value="foo">
+    //   <input type="hidden" name="p2" value="bar">
+    query.replace(
+        new RegExp( "([^?=&]+)(?:=([^&]*))?", "g" ),
+            function(match, name, value) {
+                var param = document.createElement("input");
+                param.setAttribute("type","hidden")
+                param.setAttribute("name", name)
+                param.setAttribute("value",value)
+                form.appendChild(param)
+           }
+        );
+    return true;
+}
+
 function internal_executeGoTask(form)
 {
     var href = form.dataset.wml_href;
@@ -528,6 +561,7 @@ function internal_executeGoTask(form)
     }
     // Substitute variables in <postfield> 'value' attributes before form submission.
     updateVariableInPostfields();
+    addQueryStringKeyValuePairsToForm(form);
     form.submit();
     return false;
 }
