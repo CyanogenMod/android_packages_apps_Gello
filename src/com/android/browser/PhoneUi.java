@@ -336,6 +336,7 @@ public class PhoneUi extends BaseUi {
         });
         set1.playSequentially(inanim, blend1);
         set1.start();
+        mUiController.setBlockEvents(false);
     }
 
     private void finishAnimationIn() {

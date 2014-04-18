@@ -368,7 +368,6 @@ public class NavigationBarBase extends LinearLayout implements
         if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
             // catch back key in order to do slightly more cleanup than usual
             stopEditingUrl();
-            return true;
         }
         return super.dispatchKeyEventPreIme(evt);
     }
