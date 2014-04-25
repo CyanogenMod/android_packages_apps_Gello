@@ -145,8 +145,7 @@
     <string name="ssl_certificate_is_valid">"该证书有效。"</string>
     <string name="pref_memory_monitor">"开启内存监测"</string>
     <string name="version">"版本"</string>
-    <string name="max_url_character_limit_msg">"抱歉，您输入的网址过长"</string>
-
+    <string name="max_url_character_limit_msg">"达到最大输入长度"</string>
 
 
   <string-array name="pref_content_plugins_choices">
