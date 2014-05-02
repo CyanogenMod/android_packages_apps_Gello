@@ -268,7 +268,7 @@ public abstract class BaseUi implements UI {
     public void setActiveTab(final Tab tab) {
         if (tab == null) return;
         Tab tabToRemove = null;
-        BrowserWebView webViewToWaitFor = null;
+        Tab tabToWaitFor = null;
 
         // block unnecessary focus change animations during tab switch
         mBlockFocusAnimations = true;
@@ -294,7 +294,7 @@ public abstract class BaseUi implements UI {
                 web.setTitleBar(mTitleBar);
                 mTitleBar.onScrollChanged();
             }
-            webViewToWaitFor = web;
+            tabToWaitFor = mActiveTab;
         }
         mTitleBar.bringToFront();
         tab.getTopWindow().requestFocus();
@@ -304,62 +304,63 @@ public abstract class BaseUi implements UI {
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
         mBlockFocusAnimations = false;
 
-        scheduleRemoveTab(tabToRemove, webViewToWaitFor);
+        scheduleRemoveTab(tabToRemove, tabToWaitFor);
     }
 
     Tab mTabToRemove = null;
-    BrowserWebView mWebViewToWaitFor = null;
+    Tab mTabToWaitFor = null;
     int mNumRemoveTries = 0;
+    Runnable mRunnable = null;
 
-    protected void scheduleRemoveTab(Tab tab, BrowserWebView webview) {
+    protected void scheduleRemoveTab(Tab tabToRemove, Tab tabToWaitFor) {
+        android.os.Handler handler = mTitleBar.getHandler();
         //remove previously scehduled tab
         if (mTabToRemove != null) {
+            if (mRunnable != null)
+               handler.removeCallbacks(mRunnable);
             removeTabFromContentView(mTabToRemove);
             mTabToRemove.performPostponedDestroy();
+            mRunnable = null;
         }
-        mTabToRemove = tab;
-        mWebViewToWaitFor = webview;
+        mTabToRemove = tabToRemove;
+        mTabToWaitFor = tabToWaitFor;
         mNumRemoveTries = 0;
 
         if (mTabToRemove != null) {
             mTabToRemove.postponeDestroy();
-            android.os.Handler handler = mTitleBar.getHandler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    tryRemoveTab();
-                }
-            }, 33); /*we know at this point for sure that the new tab is not ready
-                      since it's just getting created.  It'll be at least 1 frame's
-                      time that the new tab will painting something, and another 1
-                      frame's time that we're sure the swap is done.  It is possible
-                      that the swap is finish right the way, but unless use use EGL
-                      fence we can never be sure.  So wait for 2 frames before trying
-                      to remove the tab.  It is possible that the tab is still not
-                      ready after 2 frames, but this is good enough.*/
+            tryRemoveTab();
         }
     }
 
     protected void tryRemoveTab() {
         mNumRemoveTries++;
-        if (mNumRemoveTries < 20 && mWebViewToWaitFor != null) {
-            if (!mWebViewToWaitFor.isReady()) {
-                android.os.Handler handler = mTitleBar.getHandler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        tryRemoveTab();
-                    }
-                }, 33); /*if the new tab is still not ready, wait another 2 frames
-                          before trying again.  1 frame for the tab to render the first
-                          frame, another 1 frame to make sure the swap is done*/
+        android.os.Handler handler = mTitleBar.getHandler();
+        // Ensure the webview is still valid
+        if (mNumRemoveTries < 20 && mTabToWaitFor.getWebView() != null) {
+            if (!mTabToWaitFor.getWebView().isReady()) {
+                if (mRunnable != null) {
+                    mRunnable = new Runnable() {
+                        public void run() {
+                            tryRemoveTab();
+                        }
+                    };
+                }
+                /*if the new tab is still not ready, wait another 2 frames
+                  before trying again.  1 frame for the tab to render the first
+                  frame, another 1 frame to make sure the swap is done*/
+                handler.postDelayed(mRunnable, 33);
                 return;
             }
         }
         if (mTabToRemove != null) {
+            if (mRunnable != null)
+                handler.removeCallbacks(mRunnable);
             removeTabFromContentView(mTabToRemove);
             mTabToRemove.performPostponedDestroy();
+            mRunnable = null;
         }
         mTabToRemove = null;
-        mWebViewToWaitFor = null;
+        mTabToWaitFor = null;
     }
 
     protected void updateUrlBarAutoShowManagerTarget() {
