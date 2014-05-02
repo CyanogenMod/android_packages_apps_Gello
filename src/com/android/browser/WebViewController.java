@@ -96,6 +96,9 @@ public interface WebViewController {
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture);
 
+    void showFileChooser(ValueCallback<String[]> uploadFilePaths, String acceptTypes,
+            boolean capture);
+
     void endActionMode();
 
     void attachSubWindow(Tab tab);

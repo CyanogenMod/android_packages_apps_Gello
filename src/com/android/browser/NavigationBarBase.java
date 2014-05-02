@@ -171,11 +171,9 @@ public class NavigationBarBase extends LinearLayout implements
         stopEditingUrl();
         if (UrlInputView.TYPED.equals(source)) {
             String url = null;
-            Object[] params  = {new String("persist.env.browser.wap2estore"),
-                                    Boolean.valueOf(false)};
-            Class[] type = new Class[] {String.class, boolean.class};
-            Boolean wap2estore = (Boolean) ReflectHelper.invokeMethod(
-                      "android.os.SystemProperties", "getBoolean", type, params);
+            String browserRes =
+                getContext().getResources().getString(R.string.config_carrier_resource);
+            boolean wap2estore = "ct".equals(browserRes);
             if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)
                 || isMakeCallTypeUrl(text)) {
                 url = text;
@@ -194,13 +192,15 @@ public class NavigationBarBase extends LinearLayout implements
 
             // add for carrier wap2estore feature
             if (url != null && t != null && wap2estore && isEstoreTypeUrl(url)) {
-                handleEstoreTypeUrl(url);
-                setDisplayTitle(text);
-                return;
+                if (handleEstoreTypeUrl(url)) {
+                    setDisplayTitle(text);
+                    return;
+                }
             }
             // add for rtsp scheme feature
             if (url != null && t != null && isRtspTypeUrl(url)) {
                 if (handleRtspTypeUrl(url)) {
+                    setDisplayTitle(text);
                     return;
                 }
             }
@@ -263,36 +263,27 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     private boolean isEstoreTypeUrl(String url) {
-        String utf8Url = null;
-        try {
-            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "err " + e);
-        }
-        if (utf8Url != null && utf8Url.startsWith("estore:")) {
+        if (url != null && url.startsWith("estore:")) {
             return true;
         }
         return false;
     }
 
-    private void handleEstoreTypeUrl(String url) {
-        String utf8Url = null, finalUrl = null;
-        try {
-            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "err " + e);
-        }
-        if (utf8Url != null) {
-            finalUrl = utf8Url;
-        } else {
-            finalUrl = url;
-        }
-        if (finalUrl.replaceFirst("estore:", "").length() > 256) {
+    private boolean handleEstoreTypeUrl(String url) {
+        if (url.getBytes().length > 256) {
             Toast.makeText(getContext(), R.string.estore_url_warning, Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(finalUrl));
+
+        Intent intent;
+        // perform generic parsing of the URI to turn it into an Intent.
+        try {
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+        } catch (URISyntaxException ex) {
+            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            return false;
+        }
+
         try {
             getContext().startActivity(intent);
         } catch (ActivityNotFoundException ex) {
@@ -300,6 +291,8 @@ public class NavigationBarBase extends LinearLayout implements
             mUiController.loadUrl(mBaseUi.getActiveTab(), downloadUrl);
             Toast.makeText(getContext(), R.string.download_estore_app, Toast.LENGTH_LONG).show();
         }
+
+        return true;
     }
 
     private boolean isRtspTypeUrl(String url) {

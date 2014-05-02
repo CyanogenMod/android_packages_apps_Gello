@@ -46,7 +46,7 @@ public class UrlHandler {
     /* package */ final static String SCHEME_WTAI_MC = "wtai://wp/mc;";
     /* package */ final static String SCHEME_WTAI_SD = "wtai://wp/sd;";
     /* package */ final static String SCHEME_WTAI_AP = "wtai://wp/ap;";
-
+    /* package */ final static String SCHEME_MAILTO = "mailto:";
     Controller mController;
     Activity mActivity;
 
@@ -103,14 +103,16 @@ public class UrlHandler {
             return true;
         }
 
-        // add for carrier wap2estore feature
-        Object[] params  = {new String("persist.env.browser.wap2estore"),
-                            Boolean.valueOf(false)};
-        Class[] type = new Class[] {String.class, boolean.class};
-        Boolean wap2estore = (Boolean)ReflectHelper.invokeMethod(
-                      "android.os.SystemProperties", "getBoolean", type, params);
-        if (wap2estore && isEstoreTypeUrl(url)) {
-            handleEstoreTypeUrl(url);
+        // add for carrier feature - recognize additional website format
+        // here add to support "mailto:" scheme
+        if (url.startsWith(SCHEME_MAILTO) && handleMailtoTypeUrl(url)) {
+            return true;
+        }
+
+        // add for carrier feature - wap2estore
+        String browserRes = mActivity.getResources().getString(R.string.config_carrier_resource);
+        boolean wap2estore = "ct".equals(browserRes);
+        if (wap2estore && isEstoreTypeUrl(url) && handleEstoreTypeUrl(url)) {
             return true;
         }
 
@@ -125,45 +127,53 @@ public class UrlHandler {
         return false;
     }
 
-    private boolean isEstoreTypeUrl(String url) {
-        String utf8Url = null;
+    private boolean handleMailtoTypeUrl(String url) {
+        Intent intent;
+        // perform generic parsing of the URI to turn it into an Intent.
         try {
-            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "err " + e);
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            mActivity.startActivity(intent);
+        } catch (URISyntaxException ex) {
+            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            return false;
+        } catch (ActivityNotFoundException ex) {
+            Log.w("Browser", "No Activity Found for " + url);
+            return false;
         }
-        if (utf8Url != null && utf8Url.startsWith("estore:")) {
+
+        return true;
+    }
+
+    private boolean isEstoreTypeUrl(String url) {
+        if (url != null && url.startsWith("estore:")) {
             return true;
         }
         return false;
     }
 
-    private void handleEstoreTypeUrl(String url) {
-        String utf8Url = null, finalUrl = null;
-        try {
-            utf8Url = new String(url.getBytes("UTF-8"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "err " + e);
-        }
-        if (utf8Url != null) {
-            finalUrl = utf8Url;
-        } else {
-            finalUrl = url;
-        }
-        if (finalUrl.replaceFirst("estore:", "").length() > 256) {
+    private boolean handleEstoreTypeUrl(String url) {
+        if (url.getBytes().length > 256) {
             Toast.makeText(mActivity, R.string.estore_url_warning, Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(finalUrl));
+
+        Intent intent;
+        // perform generic parsing of the URI to turn it into an Intent.
         try {
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             mActivity.startActivity(intent);
+        } catch (URISyntaxException ex) {
+            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            return false;
         } catch (ActivityNotFoundException ex) {
             String downloadUrl = mActivity.getResources().getString(R.string.estore_homepage);
             mController.loadUrl(mController.getCurrentTab(), downloadUrl);
             Toast.makeText(mActivity, R.string.download_estore_app, Toast.LENGTH_LONG).show();
         }
+
+        return true;
     }
+
 
     boolean startActivityForUrl(Tab tab, String url) {
       Intent intent;

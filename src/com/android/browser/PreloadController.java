@@ -208,6 +208,12 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
+    public void showFileChooser(ValueCallback<String[]> uploadFilePaths, String acceptTypes,
+            boolean capture) {
+        if (LOGD_ENABLED) Log.d(LOGTAG, "showFileChooser()");
+    }
+
+    @Override
     public void endActionMode() {
         if (LOGD_ENABLED) Log.d(LOGTAG, "endActionMode()");
     }

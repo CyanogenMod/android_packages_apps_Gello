@@ -129,14 +129,15 @@ public class Controller
         "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
     private static final String INCOGNITO_URI = "browser:incognito";
 
-
-    private static final String PROP_NETSWITCH = "persist.env.browser.netswitch";
-    private static final String INTENT_WIFI_SELECTION_DATA_CONNECTION =
-            "android.net.wifi.cmcc.WIFI_SELECTION_DATA_CONNECTION";
     private static final String OFFLINE_PAGE =
-            "content://com.android.browser.mynavigation/websites";
-    private static final String INTENT_PICK_NETWORK =
-            "android.net.wifi.cmcc.PICK_WIFI_NETWORK_AND_GPRS";
+        "content://com.android.browser.mynavigation/websites";
+
+    private static final String ACTION_WIFI_SELECTION_DATA_CONNECTION =
+             "android.net.wifi.cmcc.WIFI_SELECTION_DATA_CONNECTION";
+    // Remind switch to data connection if wifi is unavailable
+    private static final int NETWORK_SWITCH_TYPE_OK = 1;
+    private static final String WIFI_BROWSER_INTERACTION_REMIND_TYPE =
+             "wifi_browser_interaction_remind";
 
     public final static String EXTRA_SHARE_SCREENSHOT = "share_screenshot";
     public final static String EXTRA_SHARE_FAVICON = "share_favicon";
@@ -875,55 +876,30 @@ public class Controller
 
     private void handleNetworkNotify(WebView view) {
         ConnectivityManager conMgr = (ConnectivityManager) this.getContext().getSystemService(
-                Context.CONNECTIVITY_SERVICE);
-        WifiManager wifiMgr = (WifiManager) this.getContext()
-                .getSystemService(Context.WIFI_SERVICE);
-        int networkSwitchTypeOK = this.getContext().getResources()
-                .getInteger(R.integer.netswitch_type_remind);
+            Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
+        if (networkInfo == null
+            || (networkInfo != null && (networkInfo.getType() !=
+                ConnectivityManager.TYPE_WIFI))) {
+            int isReminder = Settings.System.getInt(
+                mActivity.getContentResolver(),
+                WIFI_BROWSER_INTERACTION_REMIND_TYPE,
+                NETWORK_SWITCH_TYPE_OK);
 
-        if (wifiMgr.isWifiEnabled()) {
-            NetworkInfo mNetworkInfo = conMgr.getActiveNetworkInfo();
-            if (mNetworkInfo == null
-                    || (mNetworkInfo != null && (mNetworkInfo.getType() !=
-                    ConnectivityManager.TYPE_WIFI))) {
-                List<ScanResult> list = wifiMgr.getScanResults();
-                if (list != null && list.size() == 0) {
-                    int isReminder = Settings.System.getInt(
-                            mActivity.getContentResolver(),
-                            this.getContext().getResources()
-                                    .getString(R.string.network_switch_remind_type),
-                            networkSwitchTypeOK);
-                    if (isReminder == networkSwitchTypeOK) {
-                        Intent intent = new Intent(
-                                INTENT_WIFI_SELECTION_DATA_CONNECTION);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        this.getContext().startActivity(intent);
-                    }
-                } else {
-                    if ((Boolean)ReflectHelper.invokeMethod(
-                             "android.app.ActivityManagerNative", "isSystemReady", null, null)) {
-                        try {
-                            Intent intent = new Intent(INTENT_PICK_NETWORK);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            this.getContext().startActivity(intent);
-                        } catch (Exception e) {
-                            String err_msg = this.getContext().getString(
-                                    R.string.acivity_not_found, INTENT_PICK_NETWORK);
-                            Toast.makeText(this.getContext(), err_msg, Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        Log.e(LOGTAG, "System is not ready!");
-                    }
+        if (isReminder == NETWORK_SWITCH_TYPE_OK) {
+            mNetworkShouldNotify = false;
+                Intent intent = new Intent(
+                    ACTION_WIFI_SELECTION_DATA_CONNECTION);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.getContext().startActivity(intent);
+            } else {
+                if (!mNetworkHandler.isNetworkUp()) {
+                    view.setNetworkAvailable(false);
                 }
-                mNetworkShouldNotify = false;
-            }
-        } else {
-            if (!mNetworkHandler.isNetworkUp()) {
-                view.setNetworkAvailable(false);
-                Log.v(LOGTAG, "handleNetworkNotify() Wlan is not enabled.");
             }
         }
     }
+
     // WebViewController
 
     @Override
@@ -938,28 +914,11 @@ public class Controller
 
         // reset sync timer to avoid sync starts during loading a page
         CookieSyncManager.getInstance().resetSync();
-        Object[] params  = {new String(PROP_NETSWITCH),
-                            new Boolean(false)};
-        Class[] type = new Class[] {String.class, boolean.class};
-        Boolean result = (Boolean) ReflectHelper.invokeMethod(
-                        "android.os.SystemProperties", "getBoolean",
-                        type, params);
-        if (result) {
-            if (!mNetworkHandler.isNetworkUp()) {
-                Log.d(LOGTAG, "onPageStarted() network unavailable");
-                if (mNetworkShouldNotify) {
-                    handleNetworkNotify(view);
-                } else {
-                    view.setNetworkAvailable(false);
-                }
-                mNetworkShouldNotify = false;
-            } else {
-                Log.d(LOGTAG, "onPageStarted() network available");
-                if (mNetworkShouldNotify) {
-                    handleNetworkNotify(view);
-                }
-                mNetworkShouldNotify = false;
-            }
+        WifiManager wifiMgr = (WifiManager) this.getContext()
+            .getSystemService(Context.WIFI_SERVICE);
+        String browserRes = mActivity.getResources().getString(R.string.config_carrier_resource);
+        if ("cmcc".equals(browserRes) && mNetworkShouldNotify && wifiMgr.isWifiEnabled()) {
+            handleNetworkNotify(view);
         } else {
             if (!mNetworkHandler.isNetworkUp()) {
                 view.setNetworkAvailable(false);
@@ -2421,6 +2380,13 @@ public class Controller
     public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
         mUploadHandler = new UploadHandler(this);
         mUploadHandler.openFileChooser(uploadMsg, acceptType, capture);
+    }
+
+    @Override
+    public void showFileChooser(ValueCallback<String[]> uploadFilePaths, String acceptTypes,
+                        boolean capture) {
+        mUploadHandler = new UploadHandler(this);
+        mUploadHandler.showFileChooser(uploadFilePaths, acceptTypes, capture);
     }
 
     // thumbnails
