@@ -797,6 +797,12 @@
     <!-- Do not translate.  Testing only -->
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
 
+    <!-- Intentional empty elements - used for overlay feature -->
+    <string name="def_wifi_browser_interaction_remind_type"></string>
+    <string name="def_action_wifi_selection_data_connections"></string>
+    <string name="def_landing_page"></string>
+    <string name="def_useragent"></string>
+
     <!-- The default homepage. -->
     <string name="homepage_base" translatable="false">
         https://www.google.com/webhp?client={CID}&amp;source=android-home</string>

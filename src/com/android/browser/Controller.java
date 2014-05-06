@@ -23,12 +23,10 @@ import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -129,15 +127,8 @@ public class Controller
         "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
     private static final String INCOGNITO_URI = "browser:incognito";
 
-    private static final String OFFLINE_PAGE =
-        "content://com.android.browser.mynavigation/websites";
-
-    private static final String ACTION_WIFI_SELECTION_DATA_CONNECTION =
-             "android.net.wifi.cmcc.WIFI_SELECTION_DATA_CONNECTION";
     // Remind switch to data connection if wifi is unavailable
     private static final int NETWORK_SWITCH_TYPE_OK = 1;
-    private static final String WIFI_BROWSER_INTERACTION_REMIND_TYPE =
-             "wifi_browser_interaction_remind";
 
     public final static String EXTRA_SHARE_SCREENSHOT = "share_screenshot";
     public final static String EXTRA_SHARE_FAVICON = "share_favicon";
@@ -203,6 +194,8 @@ public class Controller
 
     private boolean mShouldShowErrorConsole;
     private boolean mNetworkShouldNotify = true;
+
+    private boolean mJsInterfaceEnabled = false;
 
     private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
 
@@ -341,11 +334,10 @@ public class Controller
                 }
                 Tab t = null;
                 if (urlData.isEmpty()) {
-                    Resources res = mActivity.getResources();
-                    String browserRes = res.getString(R.string.config_carrier_resource);
-                    if (browserRes.equals(
-                            "cmcc")) {
-                        t = openTab(OFFLINE_PAGE, false, true, true);
+                    String landingPage = mActivity.getResources().getString(
+                                                   R.string.def_landing_page);
+                    if (!landingPage.isEmpty()) {
+                        t = openTab(landingPage, false, true, true);
                     } else {
                         t = openTabToHomePage();
                     }
@@ -875,27 +867,48 @@ public class Controller
     }
 
     private void handleNetworkNotify(WebView view) {
+        final String reminderType = getContext().getResources().getString(
+                R.string.def_wifi_browser_interaction_remind_type);
+        final String selectionConnnection = getContext().getResources().getString(
+                R.string.def_action_wifi_selection_data_connections);
+
+        if (reminderType.isEmpty() || selectionConnnection.isEmpty())
+            return;
+
         ConnectivityManager conMgr = (ConnectivityManager) this.getContext().getSystemService(
             Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
         if (networkInfo == null
             || (networkInfo != null && (networkInfo.getType() !=
                 ConnectivityManager.TYPE_WIFI))) {
-            int isReminder = Settings.System.getInt(
-                mActivity.getContentResolver(),
-                WIFI_BROWSER_INTERACTION_REMIND_TYPE,
-                NETWORK_SWITCH_TYPE_OK);
-
-        if (isReminder == NETWORK_SWITCH_TYPE_OK) {
-            mNetworkShouldNotify = false;
-                Intent intent = new Intent(
-                    ACTION_WIFI_SELECTION_DATA_CONNECTION);
+            int isReminder = Settings.System.getInt(mActivity.getContentResolver(),
+                                                    reminderType, NETWORK_SWITCH_TYPE_OK);
+            if (isReminder == NETWORK_SWITCH_TYPE_OK) {
+                mNetworkShouldNotify = false;
+                Intent intent = new Intent(selectionConnnection);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.getContext().startActivity(intent);
             } else {
-                if (!mNetworkHandler.isNetworkUp()) {
+                if (!mNetworkHandler.isNetworkUp())
                     view.setNetworkAvailable(false);
-                }
+            }
+        }
+    }
+
+    /***
+     * Add/remove a Javascript interface for a local default homepage only
+     */
+    private void handleJsInterface(WebView webview){
+        if (webview.getUrl() != null &&
+            webview.getUrl().equals(mActivity.getResources().getString(R.string.homepage_base)) &&
+            webview.getUrl().startsWith("file:///")) {
+                mJsInterfaceEnabled = true;
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.addJavascriptInterface(mActivity, "default_homepage");
+        } else {
+            if (mJsInterfaceEnabled) {
+                webview.removeJavascriptInterface("default_homepage");
+                mJsInterfaceEnabled = false;
             }
         }
     }
@@ -909,15 +922,15 @@ public class Controller
         // to save a screenshot then we will now take the new page and save
         // an incorrect screenshot. Therefore, remove any pending thumbnail
         // messages from the queue.
-        mHandler.removeMessages(Controller.UPDATE_BOOKMARK_THUMBNAIL,
-                tab);
+        mHandler.removeMessages(Controller.UPDATE_BOOKMARK_THUMBNAIL, tab);
 
         // reset sync timer to avoid sync starts during loading a page
         CookieSyncManager.getInstance().resetSync();
         WifiManager wifiMgr = (WifiManager) this.getContext()
             .getSystemService(Context.WIFI_SERVICE);
-        String browserRes = mActivity.getResources().getString(R.string.config_carrier_resource);
-        if ("cmcc".equals(browserRes) && mNetworkShouldNotify && wifiMgr.isWifiEnabled()) {
+        boolean networkNotifier =
+            mActivity.getApplicationContext().getResources().getBoolean(R.bool.network_notifier);
+        if (networkNotifier && mNetworkShouldNotify && wifiMgr.isWifiEnabled()) {
             handleNetworkNotify(view);
         } else {
             if (!mNetworkHandler.isNetworkUp()) {
@@ -968,6 +981,7 @@ public class Controller
         int newProgress = tab.getLoadProgress();
 
         if (newProgress == 100) {
+            handleJsInterface(tab.getWebView());
             CookieSyncManager.getInstance().sync();
             // onProgressChanged() may continue to be called after the main
             // frame has finished loading, as any remaining sub frames continue
@@ -1096,8 +1110,12 @@ public class Controller
 
     @Override
     public void doUpdateVisitedHistory(Tab tab, boolean isReload) {
-        // Don't save anything in private browsing mode
-        if (tab.isPrivateBrowsingEnabled()) return;
+        boolean disableHistoryWrites =
+                mActivity.getResources().getBoolean(R.bool.def_disable_history);
+
+        // Don't save anything in private browsing mode or when explicitly set
+        // not to write history via an overlay
+        if (tab.isPrivateBrowsingEnabled() || disableHistoryWrites) return;
         String url = tab.getOriginalUrl();
 
         if (TextUtils.isEmpty(url)

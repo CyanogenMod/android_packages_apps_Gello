@@ -64,15 +64,6 @@ public class BrowserWebViewFactory implements WebViewFactory {
                 || pm.hasSystemFeature(PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT);
         w.getSettings().setDisplayZoomControls(!supportsMultiTouch);
 
-        // add for carrier homepage feature
-        String browserRes = mContext.getResources().getString(R.string.config_carrier_resource);
-        if ("ct".equals(browserRes)) {
-            w.getSettings().setJavaScriptEnabled(true);
-            if (mContext instanceof BrowserActivity) {
-                w.addJavascriptInterface(mContext, "default_homepage");
-            }
-        }
-
         // Add this WebView to the settings observer list and update the
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();

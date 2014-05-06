@@ -148,23 +148,6 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>UTF-8</item>
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
-  <string-array name="cmcc_cn" translatable="false">
-    <item>&#x79FB;&#x52A8;&#x641C;&#x7D22;</item>
-    <item>s.139.com</item>
-    <item>http://s.139.com/favicon.ico</item>
-    <item>http://s.139.com/search.do?q={searchTerms}&amp;category=downloadable|web|browseable&amp;tid=2123,2124,2125,2126&amp;fr=portalcustom2</item>
-    <item>GB2312</item>
-    <item></item>
-  </string-array>
-
-  <string-array name="cmcc" translatable="false">
-    <item>139 Search</item>
-    <item>s.139.com</item>
-    <item>http://s.139.com/favicon.ico</item>
-    <item>http://s.139.com/search.do?q={searchTerms}&amp;category=downloadable|web|browseable&amp;tid=2123,2124,2125,2126&amp;fr=portalcustom2</item>
-    <item>UTF-8</item>
-    <item></item>
-  </string-array>
   <string-array name="yahoo_cn" translatable="false">
     <item>&#x4e2d;&#x56fd;&#x96c5;&#x864e;</item>
     <item>cn.yahoo.com</item>
@@ -772,6 +755,48 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://www.bing.com/search?setmkt=en-ZA&amp;q={searchTerms}</item>
     <item>UTF-8</item>
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
+  </string-array>
+
+  <!-- Custom search engines used from overlays -->
+  <string-array name="custom_search_engine_1" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_2" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_3" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_4" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_5" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_6" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_7" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_8" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_9" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_10" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_11" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_12" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_13" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_14" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_15" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_16" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_17" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_18" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_19" translatable="false">
+  </string-array>
+  <string-array name="custom_search_engine_20" translatable="false">
   </string-array>
 </resources>
 

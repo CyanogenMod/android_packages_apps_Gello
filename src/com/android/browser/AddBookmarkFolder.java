@@ -605,7 +605,6 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         mFakeTitle.setText(this.getString(R.string.new_folder));
 
         mTitle = (EditText) findViewById(R.id.title);
-        // add for cmcc test about waring limit of edit text
         BrowserUtils.maxLengthFilter(AddBookmarkFolder.this, mTitle, BrowserUtils.FILENAME_MAX_LENGTH);
 
         mTitle.setText(title);

@@ -119,10 +119,10 @@ public class UploadHandler {
         }
 
         // Add for carrier feature - prevent uploading DRM type files.
-        String browserRes = mController.getActivity().getResources().
-                getString(R.string.config_carrier_resource);
+        boolean drmUploadEnabled = mController.getContext().getResources().getBoolean(
+                                       R.bool.drm_uploads);
         boolean isDRMFileType = false;
-        if ("ct".equals(browserRes) && filePath != null
+        if (drmUploadEnabled && filePath != null
                 && (filePath.endsWith(".fl") || filePath.endsWith(".dm")
                 || filePath.endsWith(".dcf") || filePath.endsWith(".dr")
                 || filePath.endsWith(".dd"))) {

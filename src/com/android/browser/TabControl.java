@@ -410,22 +410,6 @@ class TabControl {
                     // sNextId to be set correctly.
                     continue;
                 }
-
-                // add for carrier homepage feature
-                // If the webview restore successfully, add javascript interface again.
-                WebView view = t.getWebView();
-                if (view != null) {
-                    String browserRes = mController.getActivity().getApplicationContext()
-                            .getResources().getString(R.string.config_carrier_resource);
-                    if ("ct".equals(browserRes)) {
-                        view.getSettings().setJavaScriptEnabled(true);
-                        if (mController.getActivity() instanceof BrowserActivity) {
-                            view.addJavascriptInterface(mController.getActivity(),
-                                    "default_homepage");
-                        }
-                    }
-                }
-
                 tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.

@@ -35,19 +35,11 @@ public class SearchEngines {
 
     public static List<SearchEngineInfo> getSearchEngineInfos(Context context) {
         ArrayList<SearchEngineInfo> searchEngineInfos = new ArrayList<SearchEngineInfo>();
-        Resources res = context.getResources();
-        String[] searchEngines = res.getStringArray(R.array.search_engines);
-        // add for carrier feature - preset search engine
-        String browserRes = res.getString(R.string.config_carrier_resource);
+        String[] searchEngines = context.getResources().getStringArray(R.array.search_engines);
         for (int i = 0; i < searchEngines.length; i++) {
             String name = searchEngines[i];
-            if ("cmcc".equals(browserRes)) {
-                SearchEngineInfo info = new SearchEngineInfo(context, name);
-                searchEngineInfos.add(info);
-            } else if (!name.startsWith("cmcc")) {
-                SearchEngineInfo info = new SearchEngineInfo(context, name);
-                searchEngineInfos.add(info);
-            }
+            SearchEngineInfo info = new SearchEngineInfo(context, name);
+            searchEngineInfos.add(info);
         }
         return searchEngineInfos;
     }

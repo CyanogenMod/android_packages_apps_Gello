@@ -35,12 +35,6 @@
                 '<(assets_dir)/wml/swe_wml.css',
               ],
         },
-        {
-              'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets',
-              'files': [
-                '<(assets_dir)/qrd_homepage/'
-              ],
-        },
       ],
       'includes': [ '../../build/java_apk.gypi' ],
     },

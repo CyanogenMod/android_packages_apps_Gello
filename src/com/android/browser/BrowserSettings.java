@@ -21,15 +21,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.AssetManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Browser;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
 import android.webkit.WebViewDatabase;
@@ -41,7 +40,6 @@ import com.android.browser.reflect.ReflectHelper;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -135,9 +133,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     private static String sFactoryResetUrl;
 
-    // add for carrier feature
-    private static Context sResPackageCtx;
-
     public static void initialize(final Context context) {
         sInstance = new BrowserSettings(context);
     }
@@ -152,15 +147,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
-
-        // add for carrier feature
-        try {
-            sResPackageCtx = context.createPackageContext(
-                "com.android.browser.res",
-                Context.CONTEXT_IGNORE_SECURITY);
-        } catch (Exception e) {
-            Log.e("Res_Update", "Create Res Apk Failed");
-        }
         BackgroundHandler.execute(mSetup);
     }
 
@@ -245,64 +231,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
 
             // add for carrier homepage feature
-            String browserRes = mContext.getResources().getString(R.string.config_carrier_resource);
-            if ("cu".equals(browserRes) || "cmcc".equals(browserRes)) {
-                int resID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_base", "string", "com.android.browser.res");
-                sFactoryResetUrl = sResPackageCtx.getResources().getString(resID);
-            } else if ("ct".equals(browserRes)) {
-                int resID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_base", "string", "com.android.browser.res");
-                sFactoryResetUrl = sResPackageCtx.getResources().getString(resID);
-
-                int pathID = sResPackageCtx.getResources().getIdentifier(
-                        "homepage_path", "string", "com.android.browser.res");
-                String path = sResPackageCtx.getResources().getString(pathID);
-                Locale locale = Locale.getDefault();
-                path = path.replace("%y", locale.getLanguage().toLowerCase());
-                path = path.replace("%z", '_'+locale.getCountry().toLowerCase());
-                boolean useCountry = true;
-                boolean useLanguage = true;
-                InputStream is = null;
-                AssetManager am = mContext.getAssets();
-                try {
-                    is = am.open(path);
-                } catch (Exception ignored) {
-                    useCountry = false;
-                    path = sResPackageCtx.getResources().getString(pathID);
-                    path = path.replace("%y", locale.getLanguage().toLowerCase());
-                    path = path.replace("%z", "");
-                    try {
-                        is = am.open(path);
-                    } catch (Exception ignoredlanguage) {
-                        useLanguage = false;
-                    }
-                } finally {
-                    if (is != null) {
-                        try {
-                            is.close();
-                        } catch (Exception ignored) {}
-                    }
-                }
-
-                if (!useCountry && !useLanguage) {
-                    sFactoryResetUrl = sFactoryResetUrl.replace("%y%z", "en");
-                } else {
-                    sFactoryResetUrl = sFactoryResetUrl.replace("%y",
-                            locale.getLanguage().toLowerCase());
-                    sFactoryResetUrl = sFactoryResetUrl.replace("%z", useCountry ?
-                            '_' + locale.getCountry().toLowerCase() : "");
-                }
-            } else {
-                sFactoryResetUrl = mContext.getResources().getString(R.string.homepage_base);
-            }
+            sFactoryResetUrl = mContext.getResources().getString(R.string.homepage_base);
 
             if (!mPrefs.contains(PREF_DEFAULT_TEXT_ENCODING)) {
-                if (!"default".equals(browserRes)) {
-                    mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING,
-                            "UTF-8").apply();
-                }
+                mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING, "UTF-8").apply();
             }
+
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
                 sFactoryResetUrl = sFactoryResetUrl.replace("{CID}",
                     BrowserProvider.getClientId(mContext.getContentResolver()));
@@ -347,23 +281,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setSavePassword(rememberPasswords());
         settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
-
-        // add for carrier useragent feature
-        String ua = null;
-        Object objUserAgentHandler = ReflectHelper.newObject(
-                "com.qrd.useragent.UserAgentHandler", null, null);
-        Object[] params = {mContext};
-        Class[] type = new Class[] {Context.class};
-        ua = (String) ReflectHelper.invokeMethod(objUserAgentHandler,"getUAString",
-                                type, params);
-        if (ua == null)
-            ua = mCustomUserAgents.get(settings);
-
-        if (ua != null){
-            settings.setUserAgentString(ua);
-        } else {
-            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
-        }
+        setUserAgent(settings);
 
         WebSettings settingsClassic = (WebSettings) settings;
         settingsClassic.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
@@ -386,6 +304,35 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
 
         settingsClassic.setLinkPrefetchEnabled(mLinkPrefetchAllowed);
+    }
+
+    private void setUserAgent(WebSettings settings){
+        String ua = mContext.getResources().getString(R.string.def_useragent);
+
+        if (!TextUtils.isEmpty(ua))
+            ua = constructUserAgent(ua);
+
+        if (TextUtils.isEmpty(ua))
+            ua = mCustomUserAgents.get(settings);
+
+        if (!TextUtils.isEmpty(ua)){
+            settings.setUserAgentString(ua);
+        } else {
+            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
+        }
+    }
+
+    private String constructUserAgent(String userAgent) {
+        try {
+            userAgent = userAgent.replaceAll("<%build_model>", Build.MODEL);
+            userAgent = userAgent.replaceAll("<%build_version>", Build.VERSION.RELEASE);
+            userAgent = userAgent.replaceAll("<%build_id>", Build.ID);
+            userAgent = userAgent.replaceAll("<%language>", Locale.getDefault().getLanguage());
+            userAgent = userAgent.replaceAll("<%country>", Locale.getDefault().getCountry());
+            return userAgent;
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     /**
@@ -687,7 +634,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         WebSettings settings = view.getSettings();
         if (mCustomUserAgents.get(settings) != null) {
             mCustomUserAgents.remove(settings);
-            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
+            setUserAgent(settings);
         } else {
             mCustomUserAgents.put(settings, DESKTOP_USERAGENT);
             settings.setUserAgentString(DESKTOP_USERAGENT);

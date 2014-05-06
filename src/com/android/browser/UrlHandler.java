@@ -28,9 +28,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.browser.R;
-import com.android.browser.reflect.ReflectHelper;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -110,8 +108,8 @@ public class UrlHandler {
         }
 
         // add for carrier feature - wap2estore
-        String browserRes = mActivity.getResources().getString(R.string.config_carrier_resource);
-        boolean wap2estore = "ct".equals(browserRes);
+        boolean wap2estore =
+                mActivity.getApplicationContext().getResources().getBoolean(R.bool.wap2estore);
         if (wap2estore && isEstoreTypeUrl(url) && handleEstoreTypeUrl(url)) {
             return true;
         }

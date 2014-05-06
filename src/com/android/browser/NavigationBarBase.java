@@ -37,7 +37,6 @@ import android.widget.Toast;
 
 import com.android.browser.R;
 import com.android.browser.UrlInputView.UrlInputListener;
-import com.android.browser.reflect.ReflectHelper;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -171,9 +170,7 @@ public class NavigationBarBase extends LinearLayout implements
         stopEditingUrl();
         if (UrlInputView.TYPED.equals(source)) {
             String url = null;
-            String browserRes =
-                getContext().getResources().getString(R.string.config_carrier_resource);
-            boolean wap2estore = "ct".equals(browserRes);
+            boolean wap2estore = getContext().getResources().getBoolean(R.bool.wap2estore);
             if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)
                 || isMakeCallTypeUrl(text)) {
                 url = text;
