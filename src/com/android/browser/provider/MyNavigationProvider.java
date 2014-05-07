@@ -260,7 +260,7 @@ public class MyNavigationProvider extends ContentProvider {
                 bm.compress(Bitmap.CompressFormat.PNG, 100, os);
                 ContentValues values = new ContentValues();
                 values.put(MyNavigationUtil.URL, "ae://" + (i + 1) + "add-fav");
-                values.put(MyNavigationUtil.TITLE, mContext.getString(R.string.my_navigation_add));
+                values.put(MyNavigationUtil.TITLE, "");
                 values.put(MyNavigationUtil.DATE_CREATED, 0 + "");
                 values.put(MyNavigationUtil.WEBSITE, 1 + "");
                 values.put(MyNavigationUtil.THUMBNAIL, os.toByteArray());
