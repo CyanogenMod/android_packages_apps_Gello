@@ -34,6 +34,8 @@ class BrowserYesNoPreference extends DialogPreference {
 
         if (callChangeListener(positiveResult)) {
             setEnabled(false);
+            if (!positiveResult)
+                return;
 
             BrowserSettings settings = BrowserSettings.getInstance();
             if (PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE.equals(getKey())) {
