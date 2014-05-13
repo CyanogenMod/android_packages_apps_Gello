@@ -22,11 +22,18 @@ import android.webkit.URLUtil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.HashSet;
+import java.util.Arrays;
 
 /**
  * Utility methods for Url manipulation
  */
 public class UrlUtils {
+    public static final String[] DOWNLOADABLE_SCHEMES_VALUES = new String[]
+        { "data", "filesystem", "http", "https" };
+
+    private static final HashSet<String> DOWNLOADABLE_SCHEMES =
+        new HashSet<String>(Arrays.asList(DOWNLOADABLE_SCHEMES_VALUES));
 
     static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" + // switch on case insensitive matching
@@ -87,6 +94,18 @@ public class UrlUtils {
      */
     public static String smartUrlFilter(String url) {
         return smartUrlFilter(url, true);
+    }
+
+    public static boolean isDownloadableScheme(Uri uri) {
+        return DOWNLOADABLE_SCHEMES.contains(uri.getScheme());
+    }
+
+    public static boolean isDownloadableScheme(String uri) {
+        try {
+            return isDownloadableScheme(Uri.parse(uri));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

@@ -1462,6 +1462,8 @@ public class Controller
             menu.setGroupVisible(R.id.ANCHOR_MENU,
                     type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                             || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
+            menu.findItem(R.id.save_link_context_menu_id).setEnabled(
+                UrlUtils.isDownloadableScheme(extra));
         }
         // Setup custom handling depending on the type
         switch (type) {

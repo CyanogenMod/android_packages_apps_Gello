@@ -124,9 +124,11 @@ class FetchUrlMimeType extends Thread {
                 }
             }
         } catch (IllegalArgumentException ex) {
-            request.abort();
+            if (request != null)
+                request.abort();
         } catch (IOException ex) {
-            request.abort();
+            if (request != null)
+                request.abort();
         } finally {
             client.close();
         }
