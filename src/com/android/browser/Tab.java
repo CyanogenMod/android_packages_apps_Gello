@@ -175,6 +175,8 @@ class Tab implements PictureListener {
     private String mAppId;
     // flag to indicate if tab should be closed on back
     private boolean mCloseOnBack;
+    // flag to indicate if the tab was opened from an intent
+    private boolean mDerivedFromIntent = false;
     // Keep the original url around to avoid killing the old WebView if the url
     // has not changed.
     // Error console for the tab
@@ -185,6 +187,8 @@ class Tab implements PictureListener {
     // Listener used to know when we move forward or back in the history list.
     private final WebBackForwardListClient mWebBackForwardListClient;
     private DataController mDataController;
+    //Indicates if a JS interface was created for a specific url
+    private boolean mJsInterfaceEnabled = false;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -193,6 +197,7 @@ class Tab implements PictureListener {
     private int mCaptureWidth;
     private int mCaptureHeight;
     private Bitmap mCapture;
+    private Bitmap mScreenShot;
     private Handler mHandler;
     private boolean mUpdateThumbnail;
     private Timestamp timestamp;
@@ -643,8 +648,10 @@ class Tab implements PictureListener {
         @Override
         public void onRendererCrash(WebView view, boolean crashedWhileOomProtected) {
             Log.e(LOGTAG, "Tab Crashed");
-            hasCrashed = true;
-            showCrashView();
+            if (mWebViewController.getTabControl().getCurrentTab() == Tab.this) {
+                hasCrashed = true;
+                showCrashView();
+            }
         }
 
         /**
@@ -1538,6 +1545,7 @@ class Tab implements PictureListener {
     }
 
     void pause() {
+        capture();
         if (mMainView != null) {
             mMainView.onPause();
             if (mSubView != null) {
@@ -1568,7 +1576,6 @@ class Tab implements PictureListener {
         if (!mInForeground) {
             return;
         }
-        capture();
         mInForeground = false;
         pause();
         mMainView.setOnCreateContextMenuListener(null);
@@ -1674,6 +1681,14 @@ class Tab implements PictureListener {
 
     void setCloseOnBack(boolean close) {
         mCloseOnBack = close;
+    }
+
+    boolean getDerivedFromIntent() {
+        return mDerivedFromIntent;
+    }
+
+    void setDerivedFromIntent(boolean derived) {
+        mDerivedFromIntent = derived;
     }
 
     String getUrl() {
@@ -1863,6 +1878,12 @@ class Tab implements PictureListener {
         }
     }
 
+    public Bitmap getFullScreenshot() {
+        synchronized (Tab.this) {
+            return mScreenShot;
+        }
+    }
+
     public boolean isSnapshot() {
         return false;
     }
@@ -1950,8 +1971,24 @@ class Tab implements PictureListener {
             mPageLoadProgress = INITIAL_PROGRESS;
             mInPageLoad = true;
             mCurrentState = new PageState(mContext, false, url, null);
+            handleJsInterface(mMainView, url);
             mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
+        }
+    }
+
+    public void handleJsInterface(WebView webview, String url){
+        if (url != null &&
+            url.equals(mContext.getResources().getString(R.string.homepage_base)) &&
+            url.startsWith("file:///")) {
+                mJsInterfaceEnabled = true;
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.addJavascriptInterface(mContext, "default_homepage");
+        } else {
+            if (mJsInterfaceEnabled) {
+                webview.removeJavascriptInterface("default_homepage");
+                mJsInterfaceEnabled = false;
+            }
         }
     }
 
@@ -1966,19 +2003,32 @@ class Tab implements PictureListener {
         }
         Canvas c = new Canvas(mCapture);
         int state = c.save();
+        float scale = 0;
         Bitmap screenShot = mMainView.getViewportBitmap();
+        mScreenShot = screenShot;
         if (screenShot != null) {
-           mCapture.eraseColor(Color.WHITE);
-           float scale = (float) mCaptureWidth / screenShot.getWidth();
-           c.scale(scale, scale);
-           c.drawBitmap(screenShot, 0, 0, null);
-         } else {
-             final int left = mMainView.getViewScrollX();
-             final int top = mMainView.getViewScrollY() +  mMainView.getVisibleTitleHeight();
-             c.translate(-left, -top);
-             float scale = mCaptureWidth / (float) mMainView.getWidth();
-             c.scale(scale, scale, left, top);
-             if (mMainView instanceof BrowserWebView) {
+            //scale based on device orientation
+            if (screenShot.getHeight() > screenShot.getWidth()){
+                scale = (float) mCaptureWidth / screenShot.getWidth();
+            } else {
+                scale = (float) mCaptureHeight / screenShot.getHeight();
+            }
+            mCapture.eraseColor(Color.WHITE);
+            c.scale(scale, scale);
+            c.drawBitmap(screenShot, 0, 0, null);
+        } else {
+            final int left = mMainView.getViewScrollX();
+            final int top = mMainView.getViewScrollY() +  mMainView.getVisibleTitleHeight();
+
+            if (mMainView.getHeight() > mMainView.getWidth()){
+                scale = mCaptureWidth / (float) mMainView.getWidth();
+            } else {
+                scale = mCaptureHeight / (float) mMainView.getHeight();
+            }
+
+            c.translate(-left, -top);
+            c.scale(scale, scale, left, top);
+            if (mMainView instanceof BrowserWebView) {
                 ((BrowserWebView)mMainView).drawContent(c);
              } else {
                 mMainView.draw(c);

@@ -68,14 +68,21 @@
                 android:id="@+id/dont_share_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:layout_width="0dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/geolocation_permissions_prompt_dont_share" />
+            <Button
+                android:id="@+id/share_for_limited_time_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/geolocation_permissions_prompt_share_for_limited_time"/>
             <Button
                 android:id="@+id/share_button"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1"
-                android:layout_width="0dip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/geolocation_permissions_prompt_share" />
         </LinearLayout>

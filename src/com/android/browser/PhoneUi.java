@@ -25,6 +25,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
@@ -56,6 +57,8 @@ public class PhoneUi extends BaseUi {
 
     boolean mAnimating;
     boolean mShowNav = false;
+
+    static final int POST_DELAY = 300;
 
     /**
      * @param browser
@@ -243,6 +246,14 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onActionModeFinished(boolean inLoad) {
         super.onActionModeFinished(inLoad);
+        mTitleBar.animate().translationY(0);
+        stopEditingUrl();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
+            }}, POST_DELAY);
+
         if (inLoad) {
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);
@@ -302,9 +313,6 @@ public class PhoneUi extends BaseUi {
         int toRight = toLeft + width;
         int toBottom = toTop + height;
         float scaleFactor = width / (float) mContentView.getWidth();
-        // SWE: Detaching the active tab results flashing screen with SWE.
-        // Not detaching the tab doesn't seem to have any issues.
-        //detachTab(mActiveTab);
         mContentView.setVisibility(View.GONE);
         AnimatorSet set1 = new AnimatorSet();
         AnimatorSet inanim = new AnimatorSet();
@@ -378,7 +386,7 @@ public class PhoneUi extends BaseUi {
         if (mAnimScreen == null) {
             mAnimScreen = new AnimScreen(mActivity);
         }
-        mAnimScreen.set(tab.getScreenshot());
+        mAnimScreen.set(tab.getFullScreenshot());
         if (mAnimScreen.mMain.getParent() == null) {
             mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         }
@@ -395,12 +403,12 @@ public class PhoneUi extends BaseUi {
             toTop = (tab.getWebView() != null) ? tab.getWebView().getVisibleTitleHeight() : 0;
         }
         int toRight = mContentView.getWidth();
-        int width = target.getDrawable().getIntrinsicWidth();
-        int height = target.getDrawable().getIntrinsicHeight();
+        int width = mContentView.getWidth();
+        int height = mContentView.getHeight();
         int fromLeft = tabview.getLeft() + target.getLeft() - mNavScreen.mScroller.getScrollX();
         int fromTop = tabview.getTop() + target.getTop() - mNavScreen.mScroller.getScrollY();
-        int fromRight = fromLeft + width;
-        int fromBottom = fromTop + height;
+        int fromRight = fromLeft + target.getDrawable().getIntrinsicWidth();
+        int fromBottom = fromTop + target.getDrawable().getIntrinsicHeight();
         float scaleFactor = mContentView.getWidth() / (float) width;
         int toBottom = toTop + (int) (height * scaleFactor);
         mAnimScreen.mContent.setLeft(fromLeft);
@@ -437,37 +445,50 @@ public class PhoneUi extends BaseUi {
         combo.start();
     }
 
+
+    private int mNumTries = 0;
     private void checkTabReady() {
         boolean isready = true;
         Tab tab = mUiController.getTabControl().getCurrentTab();
+        BrowserWebView webview = null;
         if (tab == null)
             isready = false;
         else {
-            BrowserWebView webview = (BrowserWebView)tab.getWebView();
-            if (webview == null)
+            webview = (BrowserWebView)tab.getWebView();
+            if (webview == null) {
                 isready = false;
-            else
+            }
+            else if (webview.hasCrashed()) {
+                webview.reload();
+                isready = true;
+            } else {
                 isready = webview.isReady();
+            }
         }
-        android.os.Handler handler = mCustomViewContainer.getHandler();
-        if (!isready) {
-            handler.postDelayed(new Runnable() {
+        // Post only when not ready and not crashed
+        if (!isready && mNumTries++ < 150) {
+            mCustomViewContainer.postDelayed(new Runnable() {
                 public void run() {
                     checkTabReady();
                 }
             }, 17); //WebView is not ready.  check again in for next frame.
             return;
         }
-        handler.postDelayed(new Runnable() {
+        mNumTries = 0;
+        final boolean hasCrashed = (webview == null) ? false : webview.hasCrashed();
+        mCustomViewContainer.postDelayed(new Runnable() {
                 public void run() {
-                    fadeOutCustomViewContainer();
+                    fadeOutCustomViewContainer(hasCrashed);
                 }
-            }, 33); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
+        }, 33); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
     }
 
-    private void fadeOutCustomViewContainer() {
+    private void fadeOutCustomViewContainer(boolean hasCrashed) {
         ObjectAnimator otheralpha = ObjectAnimator.ofFloat(mCustomViewContainer, "alpha", 1f, 0f);
-        otheralpha.setDuration(100);
+        if (hasCrashed)
+            otheralpha.setDuration(300);
+        else
+            otheralpha.setDuration(100);
         otheralpha.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {

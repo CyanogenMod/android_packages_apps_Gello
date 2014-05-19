@@ -109,6 +109,7 @@ public class IntentHandler {
             if (intent.getBooleanExtra(Browser.EXTRA_CREATE_NEW_TAB, false)
                   || urlData.isPreloaded()) {
                 Tab t = mController.openTab(urlData);
+                t.setDerivedFromIntent(true);
                 return;
             }
             /*
@@ -123,7 +124,8 @@ public class IntentHandler {
             if (!TextUtils.isEmpty(urlData.mUrl) &&
                     urlData.mUrl.startsWith("javascript:")) {
                 // Always open javascript: URIs in new tabs
-                mController.openTab(urlData);
+                Tab jsTab = mController.openTab(urlData);
+                jsTab.setDerivedFromIntent(true);
                 return;
             }
             if (Intent.ACTION_VIEW.equals(action)
@@ -165,6 +167,7 @@ public class IntentHandler {
                     Tab tab = mController.openTab(urlData);
                     if (tab != null) {
                         tab.setAppId(appId);
+                        tab.setDerivedFromIntent(true);
                         if ((intent.getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
                             tab.setCloseOnBack(true);
                         }

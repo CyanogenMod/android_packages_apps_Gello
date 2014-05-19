@@ -53,9 +53,11 @@ public class NavigationBarBase extends LinearLayout implements
     protected TitleBar mTitleBar;
     protected UiController mUiController;
     protected UrlInputView mUrlInput;
+    protected LocationButton mLocationButton;
 
     private ImageView mFavicon;
     private ImageView mLockIcon;
+
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -73,6 +75,7 @@ public class NavigationBarBase extends LinearLayout implements
     protected void onFinishInflate() {
         super.onFinishInflate();
         mLockIcon = (ImageView) findViewById(R.id.lock);
+        mLocationButton = (LocationButton) findViewById(R.id.location_button);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mUrlInput = (UrlInputView) findViewById(R.id.url);
         mUrlInput.setUrlInputListener(this);
@@ -394,6 +397,7 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void onTabDataChanged(Tab tab) {
+        mLocationButton.onTabDataChanged(tab);
     }
 
     public void onVoiceResult(String s) {

@@ -23,6 +23,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ import java.util.Set;
 
 import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebStorage;
+import org.json.JSONArray;
 
 /**
  * Manage the settings for an origin.
@@ -61,10 +64,14 @@ import org.codeaurora.swe.WebStorage;
 public class WebsiteSettingsFragment extends ListFragment implements OnClickListener {
 
     private static final String EXTRA_SITE = "site";
+    private static final long MILLIS_PER_DAY = 86400000;
     private String LOGTAG = "WebsiteSettingsActivity";
     private static String sMBStored = null;
     private SiteAdapter mAdapter = null;
     private Site mSite = null;
+
+    protected long geolocationPolicyExpiration;
+    protected boolean geolocationPolicyOriginAllowed;
 
     static class Site implements Parcelable {
         private String mOrigin;
@@ -601,22 +608,101 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                             .show();
                         break;
                     case Site.FEATURE_GEOLOCATION:
-                        new AlertDialog.Builder(getContext())
-                            .setMessage(R.string.geolocation_settings_page_dialog_message)
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        final String origin = mCurrentSite.getOrigin();
+                        final GeolocationPermissions geolocationPermissions
+                            = GeolocationPermissions.getInstance();
+
+                        DialogInterface.OnClickListener alertDialogListener =
+                                new AlertDialog.OnClickListener() {
+                            public void onClick(DialogInterface dlg, int which) {
+                                GeolocationPermissions geolocationPermissions =
+                                        GeolocationPermissions.getInstance();
+                                String origin = mCurrentSite.getOrigin();
+                                int selectedPosition = ((AlertDialog)dlg)
+                                        .getListView().getCheckedItemPosition();
+                                switch (selectedPosition) {
+                                    case 0: // Deny forever
+                                        geolocationPermissions.deny(origin);
+                                        break;
+                                    case 1: // Allow for 24 hours
+                                        // encode the expiration time and origin as a JSON string
+                                        JSONArray jsonArray = new JSONArray();
+                                        jsonArray.put(System.currentTimeMillis() + MILLIS_PER_DAY);
+                                        jsonArray.put(origin);
+                                        geolocationPermissions.allow(jsonArray.toString());
+                                        break;
+                                    case 2: // Allow forever
+                                        geolocationPermissions.allow(origin);
+                                        break;
+                                    case 3: // Always ask
+                                        geolocationPermissions.clear(origin);
+                                        mCurrentSite.removeFeature(Site.FEATURE_GEOLOCATION);
+                                        if (mCurrentSite.getFeatureCount() == 0) {
+                                            finish();
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                askForOrigins();
+                                notifyDataSetChanged();
+                            }};
+
+                        builder.setTitle(String.format(getResources()
+                                .getString(R.string.geolocation_settings_page_dialog_title),
+                                    "http".equals(Uri.parse(mCurrentSite.getOrigin()).getScheme()) ?
+                                            origin.substring(7) : origin ))
                             .setPositiveButton(R.string.geolocation_settings_page_dialog_ok_button,
-                                               new AlertDialog.OnClickListener() {
-                                public void onClick(DialogInterface dlg, int which) {
-                                    GeolocationPermissions.getInstance().clear(mCurrentSite.getOrigin());
-                                    mCurrentSite.removeFeature(Site.FEATURE_GEOLOCATION);
-                                    if (mCurrentSite.getFeatureCount() == 0) {
-                                        finish();
+                                               alertDialogListener)
+                            .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null);
+
+                        final ValueCallback<Long> getExpirationCallback =
+                                new ValueCallback<Long>() {
+                            public void onReceiveValue(Long expirationTime) {
+                                if (expirationTime != null) {
+                                    geolocationPolicyExpiration = expirationTime.longValue();
+                                    // Set radio button and location icon
+                                    if (!geolocationPolicyOriginAllowed) {
+                                        // 0: Deny forever
+                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 0, null);
+                                    } else {
+                                        if (geolocationPolicyExpiration
+                                                != GeolocationPermissions.DO_NOT_EXPIRE) {
+                                        // 1: Allow for 24 hours
+                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 1, null);
+                                        } else {
+                                        // 2: Allow forever
+                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 2, null);
+                                        }
                                     }
-                                    askForOrigins();
-                                    notifyDataSetChanged();
-                                }})
-                            .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null)
-                            .setIconAttribute(android.R.attr.alertDialogIcon)
-                            .show();
+                                }
+                                builder.show();
+                            }
+                        };
+
+                        final ValueCallback<Boolean> getAllowedCallback =
+                                new ValueCallback<Boolean>() {
+                            public void onReceiveValue(Boolean allowed) {
+                                if (allowed != null) {
+                                    geolocationPolicyOriginAllowed = allowed.booleanValue();
+                                    //Get the policy expiration time
+                                    geolocationPermissions.getExpirationTime(origin,
+                                            getExpirationCallback);
+                                }
+                            }
+                        };
+
+                        geolocationPermissions.hasOrigin(origin,
+                                new ValueCallback<Boolean>() {
+                            public void onReceiveValue(Boolean hasOrigin) {
+                                if (hasOrigin != null && hasOrigin.booleanValue()) {
+                                    //Get whether origin is allowed or denied
+                                    geolocationPermissions.getAllowed(origin,
+                                            getAllowedCallback);
+                                }
+                            }
+                        });
                         break;
                 }
             } else {
@@ -691,6 +777,9 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                 public void onClick(DialogInterface dlg, int which) {
                                     WebStorage.getInstance().deleteAllData();
                                     GeolocationPermissions.getInstance().clearAll();
+                                    if (GeolocationPermissions.isIncognitoCreated()) {
+                                        GeolocationPermissions.getIncognitoInstance().clearAll();
+                                    }
                                     WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
                                     mAdapter.askForOrigins();
                                     finish();

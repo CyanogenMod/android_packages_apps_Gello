@@ -71,6 +71,7 @@ public class UrlInputView extends AutoCompleteTextView
 
     static final int POST_DELAY = 100;
     static final int URL_MAX_LENGTH = 2048;
+    static final int POST_DELAY_FOCUS = 300;
 
     static interface StateListener {
         static final int STATE_NORMAL = 0;
@@ -181,11 +182,11 @@ public class UrlInputView extends AutoCompleteTextView
             state = StateListener.STATE_NORMAL;
         }
         final int s = state;
-        post(new Runnable() {
+        postDelayed(new Runnable() {
             public void run() {
                 changeState(s);
             }
-        });
+        }, POST_DELAY_FOCUS);
     }
 
     @Override

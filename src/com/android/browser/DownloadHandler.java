@@ -41,6 +41,9 @@ import com.android.browser.R;
 import com.android.browser.platformsupport.WebAddress;
 import com.android.browser.reflect.ReflectHelper;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.io.File;
 /**
  * Handle download requests
@@ -184,7 +187,8 @@ public class DownloadHandler {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.parse(url), mimetype);
                         try {
-                            String title = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                            String trimmedcontentDisposition = trimContentDisposition(contentDisposition);
+                            String title = URLUtil.guessFileName(url, trimmedcontentDisposition, mimetype);
                             intent.putExtra(Intent.EXTRA_TITLE, title);
                             activity.startActivity(intent);
                         } catch (ActivityNotFoundException ex) {
@@ -278,6 +282,9 @@ public class DownloadHandler {
             String mimetype, String referer, boolean privateBrowsing, long contentLength) {
 
         initStorageDefaultPath(activity);
+
+        contentDisposition = trimContentDisposition(contentDisposition);
+
         String filename = URLUtil.guessFileName(url,
                 contentDisposition, mimetype);
 
@@ -315,6 +322,27 @@ public class DownloadHandler {
                     privateBrowsing, contentLength, filename);
         }
 
+    }
+
+    static String trimContentDisposition(String contentDisposition) {
+        final Pattern CONTENT_DISPOSITION_PATTERN =
+            Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*;",
+                Pattern.CASE_INSENSITIVE);
+
+        if (contentDisposition != null) {
+
+            try {
+                Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
+                if (m.find()) {
+                    return m.group();
+                } else {
+                    return contentDisposition;
+                }
+            } catch (IllegalStateException ex) {
+                // This function is defined as returning null when it can't parse the header
+            }
+        }
+        return null;
     }
 
     public static void initStorageDefaultPath(Context context) {

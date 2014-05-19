@@ -19,6 +19,7 @@ package com.android.browser;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebView;
 
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ class TabControl {
     private int mCurrentTab = -1;
     // the main browser controller
     private final Controller mController;
+    // number of incognito tabs
+    private int mNumIncognito = 0;
 
     private OnThumbnailUpdatedListener mOnThumbnailUpdatedListener;
 
@@ -204,6 +207,9 @@ class TabControl {
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mController, w, state);
         mTabs.add(t);
+        if (privateBrowsing) {
+            mNumIncognito += 1;
+        }
         // Initially put the tab in the background.
         t.putInBackground();
         return t;
@@ -247,6 +253,14 @@ class TabControl {
 
         // Remove t from our list of tabs.
         mTabs.remove(t);
+
+        //Clear incognito geolocation state if this is the last incognito tab.
+        if (t.isPrivateBrowsingEnabled()) {
+            mNumIncognito -= 1;
+            if (mNumIncognito == 0) {
+                GeolocationPermissions.onIncognitoTabsRemoved();
+            }
+        }
 
         // Put the tab in the background only if it is the current one.
         if (current == t) {
@@ -410,6 +424,9 @@ class TabControl {
                     // sNextId to be set correctly.
                     continue;
                 }
+                //handle restored pages that may require a JS interface
+                t.handleJsInterface(t.getWebView(), t.getUrl());
+
                 tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.

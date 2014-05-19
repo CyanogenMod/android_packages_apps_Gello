@@ -18,14 +18,17 @@ package com.android.browser;
 
 import com.android.browser.R;
 
+import org.codeaurora.swe.GeolocationPermissions;
+import org.json.JSONArray;
+
 import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.webkit.GeolocationPermissions;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +36,13 @@ import android.widget.Toast;
 public class GeolocationPermissionsPrompt extends RelativeLayout {
     private TextView mMessage;
     private Button mShareButton;
+    private Button mShareForLimitedTimeButton;
     private Button mDontShareButton;
     private CheckBox mRemember;
-    private GeolocationPermissions.Callback mCallback;
+    private android.webkit.GeolocationPermissions.Callback mCallback;
     private String mOrigin;
+
+    private static final long MILLIS_PER_DAY = 86400000;
 
     public GeolocationPermissionsPrompt(Context context) {
         this(context, null);
@@ -55,17 +61,30 @@ public class GeolocationPermissionsPrompt extends RelativeLayout {
     private void init() {
         mMessage = (TextView) findViewById(R.id.message);
         mShareButton = (Button) findViewById(R.id.share_button);
+        mShareForLimitedTimeButton = (Button)
+                findViewById(R.id.share_for_limited_time_button);
         mDontShareButton = (Button) findViewById(R.id.dont_share_button);
         mRemember = (CheckBox) findViewById(R.id.remember);
 
+        mRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mShareForLimitedTimeButton.setEnabled(isChecked);
+            }
+        });
+
         mShareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                handleButtonClick(true);
+                handleButtonClick(true, GeolocationPermissions.DO_NOT_EXPIRE);
+            }
+        });
+        mShareForLimitedTimeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                handleButtonClick(true, System.currentTimeMillis() + MILLIS_PER_DAY);
             }
         });
         mDontShareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                handleButtonClick(false);
+                handleButtonClick(false, GeolocationPermissions.DO_NOT_EXPIRE);
             }
         });
     }
@@ -74,7 +93,8 @@ public class GeolocationPermissionsPrompt extends RelativeLayout {
      * Shows the prompt for the given origin. When the user clicks on one of
      * the buttons, the supplied callback is be called.
      */
-    public void show(String origin, GeolocationPermissions.Callback callback) {
+    public void show(String origin,
+            android.webkit.GeolocationPermissions.Callback callback) {
         mOrigin = origin;
         mCallback = callback;
         Uri uri = Uri.parse(mOrigin);
@@ -94,7 +114,7 @@ public class GeolocationPermissionsPrompt extends RelativeLayout {
     /**
      * Handles a click on one the buttons by invoking the callback.
      */
-    private void handleButtonClick(boolean allow) {
+    private void handleButtonClick(boolean allow, long expirationTime) {
         hide();
 
         boolean remember = mRemember.isChecked();
@@ -108,7 +128,11 @@ public class GeolocationPermissionsPrompt extends RelativeLayout {
             toast.show();
         }
 
-        mCallback.invoke(mOrigin, allow, remember);
+        // Encode the expirationTime and origin as a JSON string.
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(expirationTime);
+        jsonArray.put(mOrigin);
+        mCallback.invoke(jsonArray.toString(), allow, remember);
     }
 
     /**

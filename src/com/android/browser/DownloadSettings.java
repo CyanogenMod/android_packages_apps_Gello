@@ -126,7 +126,9 @@ public class DownloadSettings extends Activity {
 
         String filenameExtension = DownloadHandler.getFilenameExtension(filename);
 
-        if (mimetype == null  || mimetype.isEmpty()) {
+        // introspect for octet stream mimetype what type of file extension it has
+        // and reassign mimetype
+        if (mimetype == null  || mimetype.isEmpty()  || mimetype.equals(OCTET_STREAM)) {
 
             String updatedFileName = filenameBase + "." + filenameExtension;
             Object[] params = {updatedFileName};

@@ -77,11 +77,7 @@ public class AddMyNavigationPage extends Activity {
 
     private View.OnClickListener mOKListener = new View.OnClickListener() {
         public void onClick(View v) {
-            if (save()) {
-                AddMyNavigationPage.this.setResult(Activity.RESULT_OK,
-                        (new Intent()).putExtra("need_refresh", true));
-                finish();
-            }
+            save();
         }
     };
 
@@ -181,6 +177,8 @@ public class AddMyNavigationPage extends Activity {
                     Uri uri = ContentUris.withAppendedId(MyNavigationUtil.MY_NAVIGATION_URI,
                             cursor.getLong(0));
                     cr.update(uri, values, null, null);
+                    AddMyNavigationPage.this.setResult(Activity.RESULT_OK,
+                        (new Intent()).putExtra("need_refresh", true));
                 } else {
                     Log.e(LOGTAG, "this item does not exist!");
                 }
@@ -189,6 +187,7 @@ public class AddMyNavigationPage extends Activity {
             } finally {
                 if (null != cursor) {
                     cursor.close();
+                    AddMyNavigationPage.this.finish();
                 }
             }
         }

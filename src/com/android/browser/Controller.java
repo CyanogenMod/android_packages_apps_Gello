@@ -195,10 +195,6 @@ public class Controller
     private boolean mShouldShowErrorConsole;
     private boolean mNetworkShouldNotify = true;
 
-    private boolean mJsInterfaceEnabled = false;
-
-    private SystemAllowGeolocationOrigins mSystemAllowGeolocationOrigins;
-
     // FIXME, temp address onPrepareMenu performance problem.
     // When we move everything out of view, we should rewrite this.
     private int mCurrentMenuState = 0;
@@ -276,11 +272,6 @@ public class Controller
                 BrowserContract.Bookmarks.CONTENT_URI, true, mBookmarksObserver);
 
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
-        // Start watching the default geolocation permissions
-        mSystemAllowGeolocationOrigins =
-                new SystemAllowGeolocationOrigins(mActivity.getApplicationContext());
-        mSystemAllowGeolocationOrigins.start();
-
         openIconDatabase();
     }
 
@@ -343,6 +334,7 @@ public class Controller
                     }
                 } else {
                     t = openTab(urlData);
+                    t.setDerivedFromIntent(true);
                 }
                 if (t != null) {
                     t.setAppId(intent.getStringExtra(Browser.EXTRA_APPLICATION_ID));
@@ -363,6 +355,9 @@ public class Controller
             ArrayList<Long> restoredTabs = new ArrayList<Long>(tabs.size());
             for (Tab t : tabs) {
                 restoredTabs.add(t.getId());
+                if (t != mTabControl.getCurrentTab()) {
+                    t.pause();
+                }
             }
             BackgroundHandler.execute(new PruneThumbnails(mActivity, restoredTabs));
             if (tabs.size() == 0) {
@@ -818,9 +813,6 @@ public class Controller
         // Destroy all the tabs
         mTabControl.destroy();
         WebIconDatabase.getInstance().close();
-        // Stop watching the default geolocation permissions
-        mSystemAllowGeolocationOrigins.stop();
-        mSystemAllowGeolocationOrigins = null;
     }
 
     protected boolean isActivityPaused() {
@@ -871,45 +863,42 @@ public class Controller
                 R.string.def_wifi_browser_interaction_remind_type);
         final String selectionConnnection = getContext().getResources().getString(
                 R.string.def_action_wifi_selection_data_connections);
+        final String wifiSelection = getContext().getResources().getString(
+                R.string.def_intent_pick_network);
 
-        if (reminderType.isEmpty() || selectionConnnection.isEmpty())
+        if (reminderType.isEmpty() || selectionConnnection.isEmpty() ||
+                wifiSelection.isEmpty())
             return;
 
         ConnectivityManager conMgr = (ConnectivityManager) this.getContext().getSystemService(
             Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
+        WifiManager wifiMgr = (WifiManager) this.getContext()
+                .getSystemService(Context.WIFI_SERVICE);
         if (networkInfo == null
             || (networkInfo != null && (networkInfo.getType() !=
                 ConnectivityManager.TYPE_WIFI))) {
             int isReminder = Settings.System.getInt(mActivity.getContentResolver(),
                                                     reminderType, NETWORK_SWITCH_TYPE_OK);
-            if (isReminder == NETWORK_SWITCH_TYPE_OK) {
-                mNetworkShouldNotify = false;
+            List<ScanResult> list = wifiMgr.getScanResults();
+            // Have no AP's for Wifi's fall back to data
+            if (list != null && list.size() == 0 && isReminder == NETWORK_SWITCH_TYPE_OK) {
                 Intent intent = new Intent(selectionConnnection);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.getContext().startActivity(intent);
             } else {
-                if (!mNetworkHandler.isNetworkUp())
-                    view.setNetworkAvailable(false);
+                // Request to select Wifi AP
+                try {
+                    Intent intent = new Intent(wifiSelection);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    this.getContext().startActivity(intent);
+                } catch (Exception e) {
+                    String err_msg = this.getContext().getString(
+                                R.string.acivity_not_found, wifiSelection);
+                    Toast.makeText(this.getContext(), err_msg, Toast.LENGTH_LONG).show();
+                }
             }
-        }
-    }
-
-    /***
-     * Add/remove a Javascript interface for a local default homepage only
-     */
-    private void handleJsInterface(WebView webview){
-        if (webview.getUrl() != null &&
-            webview.getUrl().equals(mActivity.getResources().getString(R.string.homepage_base)) &&
-            webview.getUrl().startsWith("file:///")) {
-                mJsInterfaceEnabled = true;
-                webview.getSettings().setJavaScriptEnabled(true);
-                webview.addJavascriptInterface(mActivity, "default_homepage");
-        } else {
-            if (mJsInterfaceEnabled) {
-                webview.removeJavascriptInterface("default_homepage");
-                mJsInterfaceEnabled = false;
-            }
+            mNetworkShouldNotify = false;
         }
     }
 
@@ -927,10 +916,10 @@ public class Controller
         // reset sync timer to avoid sync starts during loading a page
         CookieSyncManager.getInstance().resetSync();
         WifiManager wifiMgr = (WifiManager) this.getContext()
-            .getSystemService(Context.WIFI_SERVICE);
+                .getSystemService(Context.WIFI_SERVICE);
         boolean networkNotifier =
             mActivity.getApplicationContext().getResources().getBoolean(R.bool.network_notifier);
-        if (networkNotifier && mNetworkShouldNotify && wifiMgr.isWifiEnabled()) {
+        if (networkNotifier && mNetworkShouldNotify && wifiMgr.isWifiEnabled()){
             handleNetworkNotify(view);
         } else {
             if (!mNetworkHandler.isNetworkUp()) {
@@ -981,7 +970,6 @@ public class Controller
         int newProgress = tab.getLoadProgress();
 
         if (newProgress == 100) {
-            handleJsInterface(tab.getWebView());
             CookieSyncManager.getInstance().sync();
             // onProgressChanged() may continue to be called after the main
             // frame has finished loading, as any remaining sub frames continue
@@ -1188,7 +1176,10 @@ public class Controller
             // file. Remove it.
             if (tab == mTabControl.getCurrentTab()) {
                 // In this case, the Tab is still on top.
-                goBackOnePageOrQuit();
+                if (tab.getDerivedFromIntent())
+                    closeTab(tab);
+                else
+                    goBackOnePageOrQuit();
             } else {
                 // In this case, it is not.
                 closeTab(tab);
@@ -2709,6 +2700,8 @@ public class Controller
             // the tab is guaranteed to have a webview after setCurrentTab
             mUi.setActiveTab(tab);
             tab.setTimeStamp();
+            //Purge active tabs
+            MemoryMonitor.purgeActiveTabs(mActivity.getApplicationContext(), this, mSettings);
         }
     }
 
@@ -2854,23 +2847,13 @@ public class Controller
     private Tab createNewTab(boolean incognito, boolean setActive,
             boolean useCurrent) {
         Tab tab = null;
-        MemoryMonitor memMonitor = null;
         if (mTabControl.canCreateNewTab()) {
-            if (mSettings.enableMemoryMonitor()) {
-                Log.d(LOGTAG, " Memory Monitor Enabled .");
-                memMonitor = MemoryMonitor.getInstance(mActivity.getApplicationContext(),this);
-                if (memMonitor != null) {
-                    //Remove webview associated with the oldest tab
-                    memMonitor.destroyLeastRecentlyActiveTab();
-                }
-            } else {
-                Log.d(LOGTAG, " Memory Monitor disabled .");
-            }
             tab = mTabControl.createNewTab(incognito);
             addTab(tab);
-            tab.setTimeStamp();
             if (setActive) {
                 setActiveTab(tab);
+            } else {
+                tab.pause();
             }
         } else {
             if (useCurrent) {

@@ -313,11 +313,10 @@ public abstract class BaseUi implements UI {
     Runnable mRunnable = null;
 
     protected void scheduleRemoveTab(Tab tabToRemove, Tab tabToWaitFor) {
-        android.os.Handler handler = mTitleBar.getHandler();
         //remove previously scehduled tab
         if (mTabToRemove != null) {
             if (mRunnable != null)
-               handler.removeCallbacks(mRunnable);
+               mTitleBar.removeCallbacks(mRunnable);
             removeTabFromContentView(mTabToRemove);
             mTabToRemove.performPostponedDestroy();
             mRunnable = null;
@@ -334,11 +333,10 @@ public abstract class BaseUi implements UI {
 
     protected void tryRemoveTab() {
         mNumRemoveTries++;
-        android.os.Handler handler = mTitleBar.getHandler();
         // Ensure the webview is still valid
         if (mNumRemoveTries < 20 && mTabToWaitFor.getWebView() != null) {
             if (!mTabToWaitFor.getWebView().isReady()) {
-                if (mRunnable != null) {
+                if (mRunnable == null) {
                     mRunnable = new Runnable() {
                         public void run() {
                             tryRemoveTab();
@@ -348,13 +346,13 @@ public abstract class BaseUi implements UI {
                 /*if the new tab is still not ready, wait another 2 frames
                   before trying again.  1 frame for the tab to render the first
                   frame, another 1 frame to make sure the swap is done*/
-                handler.postDelayed(mRunnable, 33);
+                mTitleBar.postDelayed(mRunnable, 33);
                 return;
             }
         }
         if (mTabToRemove != null) {
             if (mRunnable != null)
-                handler.removeCallbacks(mRunnable);
+                mTitleBar.removeCallbacks(mRunnable);
             removeTabFromContentView(mTabToRemove);
             mTabToRemove.performPostponedDestroy();
             mRunnable = null;

@@ -78,7 +78,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mMagnify = (ImageView) findViewById(R.id.magnify);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
-        mMore = findViewById(R.id.more);
+        mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
         mComboIcon = findViewById(R.id.iconcombo);
         mComboIcon.setOnClickListener(this);

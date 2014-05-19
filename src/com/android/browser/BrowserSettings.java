@@ -957,6 +957,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getBoolean(PREF_SHOW_SECURITY_WARNINGS, true);
     }
 
+    public boolean doNotTrack() {
+        return mPrefs.getBoolean(PREF_DO_NOT_TRACK, true);
+    }
+
     public boolean acceptCookies() {
         return mPrefs.getBoolean(PREF_ACCEPT_COOKIES, true);
     }

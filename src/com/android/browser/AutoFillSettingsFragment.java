@@ -56,6 +56,7 @@ public class AutoFillSettingsFragment extends Fragment {
     private EditText mPhoneEdit;
 
     private MenuItem mSaveMenuItem;
+    private MenuItem mDeleteMenuItem;
 
     private boolean mInitialised;
 
@@ -92,6 +93,7 @@ public class AutoFillSettingsFragment extends Fragment {
             }
 
             updateSaveMenuItemState();
+            updateDeleteMenuItemState();
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,6 +106,7 @@ public class AutoFillSettingsFragment extends Fragment {
     private class FieldChangedListener implements TextWatcher {
         public void afterTextChanged(Editable s) {
             updateSaveMenuItemState();
+            updateDeleteMenuItemState();
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -152,7 +155,9 @@ public class AutoFillSettingsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.autofill_profile_editor, menu);
         mSaveMenuItem = menu.findItem(R.id.autofill_profile_editor_save_profile_menu_id);
+        mDeleteMenuItem = menu.findItem(R.id.autofill_profile_editor_delete_profile_menu_id);
         updateSaveMenuItemState();
+        updateDeleteMenuItemState();
     }
 
     @Override
@@ -176,6 +181,7 @@ public class AutoFillSettingsFragment extends Fragment {
             mSettings.updateAutoFillProfile(null);
 
             updateSaveMenuItemState();
+            updateDeleteMenuItemState();
             return true;
 
         case R.id.autofill_profile_editor_save_profile_menu_id:
@@ -248,8 +254,36 @@ public class AutoFillSettingsFragment extends Fragment {
         mInitialised = true;
 
         updateSaveMenuItemState();
+        updateDeleteMenuItemState();
 
         return v;
+    }
+
+    private void updateDeleteMenuItemState() {
+        if (mDeleteMenuItem == null) {
+            return;
+        }
+
+        if (!mInitialised) {
+            mDeleteMenuItem.setEnabled(false);
+            return;
+        }
+
+        boolean currentState = mDeleteMenuItem.isEnabled();
+        boolean newState = (mFullNameEdit.getText().toString().length() > 0 ||
+            mEmailEdit.getText().toString().length() > 0 ||
+            mCompanyEdit.getText().toString().length() > 0 ||
+            mAddressLine1Edit.getText().toString().length() > 0 ||
+            mAddressLine2Edit.getText().toString().length() > 0 ||
+            mCityEdit.getText().toString().length() > 0 ||
+            mStateEdit.getText().toString().length() > 0 ||
+            mZipEdit.getText().toString().length() > 0 ||
+            mCountryEdit.getText().toString().length() > 0) &&
+            mPhoneEdit.getError() == null;
+
+        if (currentState != newState) {
+            mDeleteMenuItem.setEnabled(newState);
+        }
     }
 
     private void updateSaveMenuItemState() {

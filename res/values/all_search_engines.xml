@@ -36,6 +36,14 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
 -->
 
 <resources>
+  <string-array name="DuckDuckGo" translatable="false">
+    <item>DuckDuckGo</item>
+    <item>duckduckgo.com</item>
+    <item>http://duckduckgo.com/favicon.ico</item>
+    <item>https://duckduckgo.com/?q={searchTerms}</item>
+    <item>UTF-8</item>
+    <item></item>
+  </string-array>
   <string-array name="yahoo_uk" translatable="false">
     <item>Yahoo! UK &amp; Ireland</item>
     <item>uk.yahoo.com</item>
@@ -151,9 +159,9 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
   <string-array name="yahoo_cn" translatable="false">
     <item>&#x4e2d;&#x56fd;&#x96c5;&#x864e;</item>
     <item>cn.yahoo.com</item>
-    <item>http://search.cn.yahoo.com/favicon.ico</item>
-    <item>http://search.cn.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
-    <item>GB2312</item>
+    <item>http://search.yahoo.com/favicon.ico</item>
+    <item>http://search.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
+    <item>UTF-8</item>
     <item></item>
   </string-array>
   <string-array name="onet" translatable="false">

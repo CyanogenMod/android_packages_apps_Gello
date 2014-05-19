@@ -309,7 +309,8 @@
         <provider
             android:name=".provider.MyNavigationProvider"
             android:authorities="com.android.browser.mynavigation"
-            android:exported="false" />
+            android:exported="false"
+            android:grantUriPermissions="true"/>
 
         <service android:name="org.chromium.content.app.SandboxedProcessService0"
                  android:process=":sandboxed_process0"

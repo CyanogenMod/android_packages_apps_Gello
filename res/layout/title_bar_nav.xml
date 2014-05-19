@@ -42,6 +42,12 @@
             android:paddingLeft="4dip"
             android:visibility="gone"
             android:src="@drawable/ic_incognito_holo_dark" />
+        <com.android.browser.LocationButton
+            android:id="@+id/location_button"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:visibility="gone"
+            style="@style/HoloButton"/>
         <FrameLayout
             android:id="@+id/iconcombo"
             android:layout_width="44dip"
@@ -116,7 +122,7 @@
         android:src="@drawable/ic_windows_holo_dark"
         style="@style/HoloButton" />
     <ImageButton
-        android:id="@+id/more"
+        android:id="@+id/more_browser_settings"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         style="@style/HoloButton"

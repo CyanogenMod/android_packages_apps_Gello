@@ -32,85 +32,48 @@ package com.android.browser;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.util.Log;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MemoryMonitor {
-
-    //This number is used with device memory class to calculate max number
-    //of active tabs.
-    private static int sMaxActiveTabs = 0;
-    private static MemoryMonitor sMemoryMonitor;
-    private TabControl mTabControl;
-    private final static String LOGTAG = "MemoryMonitor";
-
-    // Should be called only once
-
-    public static MemoryMonitor getInstance(Context context,
-                                            Controller controller) {
-        if (sMemoryMonitor == null) {
-            sMemoryMonitor = new MemoryMonitor(context,controller);
-        }
-        return sMemoryMonitor;
-    }
-
-    MemoryMonitor(Context context,Controller controller) {
-        mTabControl = controller.getTabControl();
-        sMaxActiveTabs = getMaxActiveTabs(context);
-        Log.d(LOGTAG,"Max Active Tabs: "+ sMaxActiveTabs);
-    }
-
-    private int getActiveTabs() {
-        int numNativeActiveTab = 0;
-        int size = mTabControl.getTabCount();
-
-        for (int i = 0; i < size; i++) {
-           Tab tab =  mTabControl.getTab(i);
-           if (((Tab)tab).isNativeActive()){
-                numNativeActiveTab++;
-           }
-        }
-        return numNativeActiveTab;
-    }
 
     /**
       * if number of tabs whose native tab is active, is greater
       * than MAX_ACTIVE_TABS destroy the nativetab of oldest used Tab
       */
+    public static void purgeActiveTabs(Context context,
+                                       Controller controller,
+                                       BrowserSettings settings) {
+        if(!settings.enableMemoryMonitor())
+            return;
 
-    public void destroyLeastRecentlyActiveTab() {
-        int numActiveTabs = getActiveTabs();
-        int numActiveTabsToRelease = numActiveTabs - sMaxActiveTabs;
+        int maxActiveTabs = getMaxActiveTabs(context);
+        TabControl tabControl  = controller.getTabControl();
 
-        // The most common case will be that we need to delete one
-        // NativeTab to make room for a new one.  So, find the most-stale.
-        if (numActiveTabsToRelease == 1) {
-            Tab mostStaleTab = null;
-            for (Tab t : mTabControl.getTabs()) {
-                if (t.isNativeActive() && !(t.inForeground())) {
-                    if (mostStaleTab == null){
-                        mostStaleTab = t;
-                    }
-                    else {
-                        if (t.getTimestamp().compareTo(mostStaleTab.
-                            getTimestamp()) < 0) {
-                            mostStaleTab = t;
-                        }
-                    }
-                }
+        ArrayList<Tab> activeTabList = new ArrayList<Tab>();
+
+        for (int i = 0; i < tabControl.getTabCount(); i++) {
+            Tab tab = tabControl.getTab(i);
+            if(tab.isNativeActive())
+                activeTabList.add(tab);
+        }
+
+        int numActiveTabsToRelease = activeTabList.size() - maxActiveTabs;
+
+        if(numActiveTabsToRelease < 1)
+            return;
+        // sort tabs in order of LRU first
+        Collections.sort(activeTabList, new Comparator<Tab>() {
+            @Override
+            public int compare(Tab tab1, Tab tab2) {
+                return tab1.getTimestamp().compareTo(tab2.getTimestamp());
             }
-            if (mostStaleTab != null) {
-                mostStaleTab.destroy();
-           }
-        } else if (numActiveTabsToRelease > 1) {
-            // Since there is more than 1 "extra" tab, just release all
-            // NativeTabs in the background. This would be true when
-            // tracking was turned on after multiple tabs already exists
-            for (Tab t : mTabControl.getTabs()) {
-                if (t.isNativeActive() && !(t.inForeground())) {
-                    t.destroy();
-                }
-            }
+        });
+
+        for(int i = 0; i < numActiveTabsToRelease; i++) {
+            activeTabList.get(i).destroy();
         }
     }
 
@@ -118,7 +81,7 @@ public class MemoryMonitor {
       * Returns the default max number of active tabs based on device's
       * memory class.
       */
-    static int getMaxActiveTabs(Context context) {
+    private static int getMaxActiveTabs(Context context) {
         // We use device memory class to decide number of active tabs
         // (minimum memory class is 16).
         ActivityManager am =(ActivityManager)context.

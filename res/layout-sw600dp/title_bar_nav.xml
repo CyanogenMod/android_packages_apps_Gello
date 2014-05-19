@@ -53,6 +53,13 @@
         android:layout_weight="1.0"
         android:orientation="horizontal"
         android:background="@drawable/url_background">
+        <com.android.browser.LocationButton
+            android:id="@+id/location_button"
+            android:layout_width="32dip"
+            android:layout_height="20dip"
+            android:visibility="gone"
+            style="@style/HoloButton"
+            android:layout_gravity="center" />
         <ImageView
             android:id="@+id/url_icon"
             android:layout_width="32dip"
