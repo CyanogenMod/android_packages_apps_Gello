@@ -30,6 +30,8 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.util.Pair;
 import android.provider.SyncStateContract;
+
+import com.android.browser.BrowserConfig;
 /**
  * <p>
  * The contract between the browser provider and applications. Contains the definition
@@ -44,7 +46,7 @@ import android.provider.SyncStateContract;
  */
 public class BrowserContract {
     /** The authority for the browser provider */
-    public static final String AUTHORITY = "com.android.browser";
+    public static final String AUTHORITY = BrowserConfig.AUTHORITY;
 
     /** A content:// style uri to the authority for the browser provider */
     public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);

@@ -35,6 +35,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.android.browser.BrowserActivity;
+import com.android.browser.BrowserConfig;
 import com.android.browser.R;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
@@ -49,7 +50,7 @@ import java.util.regex.Pattern;
 public class BookmarkThumbnailWidgetService extends RemoteViewsService {
 
     static final String TAG = "BookmarkThumbnailWidgetService";
-    static final String ACTION_CHANGE_FOLDER = "com.android.browser.widget.CHANGE_FOLDER";
+    static final String ACTION_CHANGE_FOLDER = BrowserConfig.AUTHORITY+ ".widget.CHANGE_FOLDER";
     static final String STATE_CURRENT_FOLDER = "current_folder";
     static final String STATE_ROOT_FOLDER = "root_folder";
 

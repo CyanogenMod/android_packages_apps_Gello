@@ -19,6 +19,8 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
+    <!-- The name of standalone application. -->
+    <string name="application_name_swe">SWE Android Browser</string>
     <!-- Displayed with a file picker to choose a file to upload -->
     <string name="choose_upload">Choose file for upload</string>
     <!-- Toast to show the user after they try to open the file picker but no apps on the

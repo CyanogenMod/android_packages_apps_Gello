@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
+import com.android.browser.BrowserConfig;
 import com.android.browser.platformsupport.BrowserContract;
 
 import android.text.TextUtils;
@@ -55,7 +56,7 @@ public class SnapshotProvider extends ContentProvider {
         public static final String VIEWSTATE_SIZE = "viewstate_size";
     }
 
-    public static final String AUTHORITY = "com.android.browser.snapshots";
+    public static final String AUTHORITY = BrowserConfig.AUTHORITY + ".snapshots";
     public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
     static final String TABLE_SNAPSHOTS = "snapshots";

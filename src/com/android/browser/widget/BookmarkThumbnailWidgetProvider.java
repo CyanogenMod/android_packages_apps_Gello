@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.android.browser.BrowserActivity;
+import com.android.browser.BrowserConfig;
 import com.android.browser.R;
 
 /**
@@ -33,7 +34,7 @@ import com.android.browser.R;
  */
 public class BookmarkThumbnailWidgetProvider extends AppWidgetProvider {
     public static final String ACTION_BOOKMARK_APPWIDGET_UPDATE =
-        "com.android.browser.BOOKMARK_APPWIDGET_UPDATE";
+        BrowserConfig.AUTHORITY +".BOOKMARK_APPWIDGET_UPDATE";
 
     @Override
     public void onReceive(Context context, Intent intent) {

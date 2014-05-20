@@ -6,7 +6,9 @@
       'dependencies': [
         'swe_engine_java',
         'android-support-v13',
+        'fast_webview_java',
         '<@(libnetxt_dependencies)',
+        '<@(libsweadrenoext_dependencies)',
       ],
       'variables': {
         'apk_name': 'SWE_AndroidBrowser',
@@ -18,7 +20,10 @@
         'assets_dir': '../../swe/browser/assets',
         'native_lib_target': 'libswewebviewchromium',
         'additional_input_paths': ['<(PRODUCT_DIR)/android_webview_apk/assets/webviewchromium.pak'],
-        'additional_native_libs': ['<@(libnetxt_native_libs)']
+        'additional_native_libs': ['<@(libnetxt_native_libs)', '<@(libsweadrenoext_native_libs)'],
+        'override_package_name': 'com.android.swe.browser',
+        'android_manifest_path': '../../swe/browser/AndroidManifest.xml',
+        'additional_src_dirs': ['<(DEPTH)/swe/browser/src_standalone/com/android/browser'],
       },
       'copies': [
         {
@@ -37,6 +42,14 @@
         },
       ],
       'includes': [ '../../build/java_apk.gypi' ],
+    },
+    {
+      'target_name': 'swe_android_browser_apk_java',
+      'type': 'none',
+      'dependencies': [
+        'swe_android_browser_apk',
+      ],
+      'includes': [ '../../build/apk_fake_jar.gypi' ],
     },
   ],
 }

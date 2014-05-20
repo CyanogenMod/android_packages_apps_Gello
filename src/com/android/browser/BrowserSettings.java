@@ -541,13 +541,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
         }
         if (settings != null) {
-            settings.clearPasswords();
+            //settings.clearPasswords();
         }
-
-        // Clear passwords in WebView database
-        WebViewDatabase db = WebViewDatabase.getInstance(mContext);
-        db.clearUsernamePassword();
-        db.clearHttpAuthUsernamePassword();
     }
 
     public void clearDatabases() {

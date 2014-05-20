@@ -37,6 +37,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.android.browser.BrowserConfig;
+
 public class MyNavigationUtil {
 
     public static final String ID = "_id";
@@ -48,10 +50,9 @@ public class MyNavigationUtil {
     public static final String THUMBNAIL = "thumbnail";
     public static final int WEBSITE_NUMBER = 12;
 
-    public static final String AUTHORITY = "com.android.browser.mynavigation";
+    public static final String AUTHORITY = BrowserConfig.AUTHORITY + ".mynavigation";
     public static final String MY_NAVIGATION = "content://" + AUTHORITY + "/" + "websites";
-    public static final Uri MY_NAVIGATION_URI = Uri
-            .parse("content://com.android.browser.mynavigation/websites");
+    public static final Uri MY_NAVIGATION_URI = Uri.parse(MY_NAVIGATION);
     public static final String DEFAULT_THUMB = "default_thumb";
     public static final String LOGTAG = "MyNavigationUtil";
 
