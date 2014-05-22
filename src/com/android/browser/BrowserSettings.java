@@ -541,7 +541,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
         }
         if (settings != null) {
-            //settings.clearPasswords();
+            settings.clearPasswords();
         }
     }
 
