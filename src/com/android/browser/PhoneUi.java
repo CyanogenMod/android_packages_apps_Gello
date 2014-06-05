@@ -386,7 +386,12 @@ public class PhoneUi extends BaseUi {
         if (mAnimScreen == null) {
             mAnimScreen = new AnimScreen(mActivity);
         }
-        mAnimScreen.set(tab.getFullScreenshot());
+        int width = mContentView.getWidth();
+        int height = mContentView.getHeight();
+        Bitmap bm = tab.getFullScreenshot();
+        if (bm == null)
+            bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        mAnimScreen.set(bm);
         if (mAnimScreen.mMain.getParent() == null) {
             mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         }
@@ -403,8 +408,6 @@ public class PhoneUi extends BaseUi {
             toTop = (tab.getWebView() != null) ? tab.getWebView().getVisibleTitleHeight() : 0;
         }
         int toRight = mContentView.getWidth();
-        int width = mContentView.getWidth();
-        int height = mContentView.getHeight();
         int fromLeft = tabview.getLeft() + target.getLeft() - mNavScreen.mScroller.getScrollX();
         int fromTop = tabview.getTop() + target.getTop() - mNavScreen.mScroller.getScrollY();
         int fromRight = fromLeft + target.getDrawable().getIntrinsicWidth();

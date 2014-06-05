@@ -173,14 +173,8 @@ public class NavScreen extends RelativeLayout
         if (tab != null) {
             mUiController.setBlockEvents(true);
             final int tix = mUi.mTabControl.getTabPosition(tab);
-            mScroller.setOnLayoutListener(new OnLayoutListener() {
-
-                @Override
-                public void onLayout(int l, int t, int r, int b) {
-                    mUi.hideNavScreen(tix, true);
-                    switchToTab(tab);
-                }
-            });
+            switchToTab(tab);
+            mUi.hideNavScreen(tix, true);
             mScroller.handleDataChanged(tix);
             mUiController.setBlockEvents(false);
         }
