@@ -64,9 +64,6 @@ public class AutoFillSettingsFragment extends Fragment {
     private Handler mHandler;
     private BrowserSettings mSettings;
 
-    private final static int PROFILE_SAVED_MSG = 100;
-    private final static int PROFILE_DELETED_MSG = 101;
-
     // For now we support just one profile so it's safe to hardcode the
     // id to 1 here. In the future this unique identifier will be set
     // dynamically.
@@ -119,31 +116,6 @@ public class AutoFillSettingsFragment extends Fragment {
 
     private TextWatcher mFieldChangedListener = new FieldChangedListener();
 
-    public AutoFillSettingsFragment() {
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                Context c = getActivity();
-                switch (msg.what) {
-                case PROFILE_SAVED_MSG:
-                    if (c != null) {
-                        Toast.makeText(c, R.string.autofill_profile_successful_save,
-                                Toast.LENGTH_SHORT).show();
-                        closeEditor();
-                    }
-                    break;
-
-                case PROFILE_DELETED_MSG:
-                    if (c != null) {
-                        Toast.makeText(c, R.string.autofill_profile_successful_delete,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                }
-            }
-        };
-    }
-
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
@@ -182,6 +154,8 @@ public class AutoFillSettingsFragment extends Fragment {
 
             updateSaveMenuItemState();
             updateDeleteMenuItemState();
+             Toast.makeText(getActivity(), R.string.autofill_profile_successful_delete,
+                Toast.LENGTH_SHORT).show();
             return true;
 
         case R.id.autofill_profile_editor_save_profile_menu_id:
@@ -199,6 +173,9 @@ public class AutoFillSettingsFragment extends Fragment {
                     mPhoneEdit.getText().toString());
 
             mSettings.updateAutoFillProfile(newProfile);
+            Toast.makeText(getActivity(), R.string.autofill_profile_successful_save,
+                Toast.LENGTH_SHORT).show();
+            closeEditor();
 
             return true;
 
