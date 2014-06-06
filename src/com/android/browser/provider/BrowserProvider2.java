@@ -692,9 +692,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     String thumbFileName = preloads[i+1];
 
                     int favIconId = res.getIdentifier(faviconFileName, "raw",
-                                                      getContext().getPackageName());
+                                                      R.class.getPackage().getName());
                     int thumbId = res.getIdentifier(thumbFileName, "raw",
-                                                    getContext().getPackageName());
+                                                      R.class.getPackage().getName());
 
                     byte[] thumb = null, favicon = null;
 
