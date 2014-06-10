@@ -330,7 +330,7 @@ public class DownloadHandler {
 
     static String trimContentDisposition(String contentDisposition) {
         final Pattern CONTENT_DISPOSITION_PATTERN =
-            Pattern.compile("attachment;\\s*filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*;",
+            Pattern.compile("filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*;?",
                 Pattern.CASE_INSENSITIVE);
 
         if (contentDisposition != null) {
@@ -338,10 +338,10 @@ public class DownloadHandler {
             try {
                 Matcher m = CONTENT_DISPOSITION_PATTERN.matcher(contentDisposition);
                 if (m.find()) {
-                    return m.group();
-                } else {
-                    return contentDisposition;
+                    contentDisposition = "attachment; filename="+m.group(2);
                 }
+
+                return contentDisposition;
             } catch (IllegalStateException ex) {
                 // This function is defined as returning null when it can't parse the header
             }
