@@ -138,7 +138,8 @@ public class BrowserActivity extends Activity {
     }
 
     @VisibleForTesting
-    Controller getController() {
+    //public to facilitate testing
+    public Controller getController() {
         return (Controller) mController;
     }
 
