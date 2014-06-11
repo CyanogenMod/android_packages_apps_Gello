@@ -188,16 +188,25 @@ public class UrlHandler {
       if (mActivity.getPackageManager().resolveActivity(intent, 0) == null) {
           String packagename = intent.getPackage();
           if (packagename != null) {
-              intent = new Intent(Intent.ACTION_VIEW, Uri
-                      .parse("market://search?q=pname:" + packagename));
-              intent.addCategory(Intent.CATEGORY_BROWSABLE);
-              mActivity.startActivity(intent);
-              // before leaving BrowserActivity, close the empty child tab.
-              // If a new tab is created through JavaScript open to load this
-              // url, we would like to close it as we will load this url in a
-              // different Activity.
-              mController.closeEmptyTab();
-              return true;
+              try {
+                intent = new Intent(Intent.ACTION_VIEW, Uri
+                        .parse("market://search?q=pname:" + packagename));
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                mActivity.startActivity(intent);
+                // before leaving BrowserActivity, close the empty child tab.
+                // If a new tab is created through JavaScript open to load this
+                // url, we would like to close it as we will load this url in a
+                // different Activity.
+                mController.closeEmptyTab();
+                return true;
+              } catch (ActivityNotFoundException e) {
+                Log.w(TAG, "Play store not found while searching for : " + packagename);
+                CharSequence alert = mActivity.getResources().getString(
+                    R.string.msg_no_google_play);
+                Toast t = Toast.makeText(mActivity , alert, Toast.LENGTH_SHORT);
+                t.show();
+                return false;
+              }
           } else {
               return false;
           }

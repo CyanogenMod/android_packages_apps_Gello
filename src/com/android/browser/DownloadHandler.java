@@ -112,7 +112,11 @@ public class DownloadHandler {
                 .getSystemService(Context.DOWNLOAD_SERVICE);
         new Thread("Browser download") {
             public void run() {
-                manager.enqueue(request);
+                try {
+                    manager.enqueue(request);
+                } catch (Exception e) {
+                     Log.w("DLHandler", "Could not enqueue the download", e);
+                }
             }
         }.start();
         showStartDownloadToast(activity, privateBrowsing);

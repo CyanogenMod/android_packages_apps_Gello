@@ -76,6 +76,8 @@
     <string name="title_bar_loading">Loading\u2026</string>
     <!-- Message to be displayed if url character limit exceeds -->
     <string name="max_url_character_limit_msg">Max URL limit reached</string>
+    <!-- Message to be displayed when google play store does not exist on the device -->
+    <string name="msg_no_google_play">Sorry, Google Play store app does not exist.</string>
 
     <!-- Menu item -->
     <string name="page_info">Page info</string>
