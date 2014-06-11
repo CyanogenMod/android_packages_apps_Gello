@@ -24,6 +24,8 @@ import android.os.Process;
 
 import org.codeaurora.swe.CookieSyncManager;
 
+import com.android.browser.BrowserConfig;
+
 public class Browser extends Application {
 
     private final static String LOGTAG = "browser";
@@ -43,13 +45,14 @@ public class Browser extends Application {
 
         // SWE: Avoid initializing databases for sandboxed processes.
         // Must have INITIALIZE_DATABASE permission in AndroidManifest.xml only for browser process
-        final String INITIALIZE_DATABASE="com.android.browser.permission.INITIALIZE_DATABASE";
+        final String INITIALIZE_DATABASE= BrowserConfig.AUTHORITY +
+                                            ".permission.INITIALIZE_DATABASE";
         final Context context = getApplicationContext();
         if (context.checkPermission(INITIALIZE_DATABASE,
               Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED) {
 
                 // create CookieSyncManager with current Context
-                CookieSyncManager.createInstance(this);                
+                CookieSyncManager.createInstance(this);
                 BrowserSettings.initialize(getApplicationContext());
                 Preloader.initialize(getApplicationContext());
         }
