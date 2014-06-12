@@ -1132,6 +1132,9 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             }
 
             case HOMEPAGE: {
+                if (BrowserSettings.getInstance() == null) {
+                    BrowserSettings.initialize(getContext());
+                }
                 String homepage = BrowserSettings.getInstance().getHomePage();
                 Log.d(TAG,"get home page for DM");
                 if (null == homepage) {
