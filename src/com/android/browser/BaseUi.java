@@ -115,6 +115,7 @@ public abstract class BaseUi implements UI {
     private NavigationBarBase mNavigationBar;
     protected PieControl mPieControl;
     private boolean mBlockFocusAnimations;
+    private boolean mFullScreen;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -145,6 +146,7 @@ public abstract class BaseUi implements UI {
         mTitleBar.setProgress(100);
         mNavigationBar = mTitleBar.getNavigationBar();
         mUrlBarAutoShowManager = new UrlBarAutoShowManager(this);
+        mFullScreen = false;
     }
 
     private void cancelStopToast() {
@@ -192,6 +194,9 @@ public abstract class BaseUi implements UI {
     public boolean onBackKey() {
         if (mCustomView != null) {
             mUiController.hideCustomView();
+            return true;
+        } else if (mFullScreen) {
+            setTabFullscreen(false);
             return true;
         }
         return false;
@@ -804,7 +809,9 @@ public abstract class BaseUi implements UI {
         final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (enabled) {
             winParams.flags |=  bits;
+            mFullScreen = true;
         } else {
+            mFullScreen = false;
             winParams.flags &= ~bits;
             if (mCustomView != null) {
                 mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -813,6 +820,25 @@ public abstract class BaseUi implements UI {
             }
         }
         win.setAttributes(winParams);
+    }
+
+    public boolean isTabFullScreen() {
+        return mFullScreen;
+    }
+
+    public void setTabFullscreen(boolean enabled) {
+        setFullscreen(enabled);
+        FrameLayout main = (FrameLayout) mActivity.getWindow()
+            .getDecorView().findViewById(android.R.id.content);
+
+        LinearLayout titleBarParent = (LinearLayout) main.findViewById(R.id.vertical_layout);
+        if (titleBarParent != null) {
+            if (enabled) {
+                titleBarParent.removeView(mFixedTitlebarContainer);
+            } else {
+                titleBarParent.addView(mFixedTitlebarContainer, 1);
+            }
+        }
     }
 
     public Drawable getFaviconDrawable(Bitmap icon) {

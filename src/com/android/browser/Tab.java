@@ -746,6 +746,24 @@ class Tab implements PictureListener {
         }
 
         @Override
+        public void toggleFullscreenModeForTab(boolean enterFullscreen) {
+            if (mWebViewController instanceof Controller) {
+                Controller controller = (Controller)mWebViewController;
+                controller.getUi().setTabFullscreen(enterFullscreen);
+            }
+        }
+
+        @Override
+        public boolean isTabFullScreen() {
+            if (mWebViewController instanceof Controller) {
+                Controller controller = (Controller)mWebViewController;
+                return controller.getUi().isTabFullScreen();
+            } else {
+                return false;
+            }
+        }
+
+        @Override
         public boolean onCreateWindow(WebView view, final boolean dialog,
                 final boolean userGesture, final Message resultMsg) {
             // only allow new window or sub window for the foreground case

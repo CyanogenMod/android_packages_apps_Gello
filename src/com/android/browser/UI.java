@@ -138,6 +138,10 @@ public interface UI {
 
     void setFullscreen(boolean enabled);
 
+    void setTabFullscreen(boolean enabled);
+
+    boolean isTabFullScreen();
+
     void setUseQuickControls(boolean enabled);
 
     public boolean shouldCaptureThumbnails();
