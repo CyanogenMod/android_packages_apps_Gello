@@ -2049,6 +2049,23 @@ public class Controller
                 }
                 break;
 
+            case R.id.about_menu_id:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.about);
+                builder.setCancelable(true);
+                String ua = "";
+                final WebView currentWebView = getCurrentWebView();
+                if (currentWebView != null) {
+                    final WebSettings s = currentWebView.getSettings();
+                    if (s != null) {
+                        ua = s.getUserAgentString();
+                    }
+                }
+                builder.setMessage("Agent:" + ua);
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.create().show();
+                break;
+
             default:
                 return false;
         }

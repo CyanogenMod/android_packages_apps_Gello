@@ -268,22 +268,6 @@ public class BrowserActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (!mController.onOptionsItemSelected(item)) {
-            if (item.getItemId() == R.id.about_menu_id) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.about);
-                builder.setCancelable(true);
-                String ua = "";
-                final WebView current = getController().getCurrentWebView();
-                if (current != null) {
-                    final WebSettings s = current.getSettings();
-                    if (s != null) {
-                        ua = s.getUserAgentString();
-                    }
-                }
-                builder.setMessage("Agent:" + ua);
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.create().show();
-            }
             return super.onOptionsItemSelected(item);
         }
         return true;
