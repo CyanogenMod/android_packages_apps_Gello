@@ -17,20 +17,16 @@
 package com.android.browser.preferences;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.AttributeSet;
-import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 
+import org.codeaurora.swe.WebSettings;
+
 public class FontSizePreview extends WebViewPreview {
 
-    static final String HTML_FORMAT = "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"><style type=\"text/css\">p { margin: 2px auto;}</style><body><p style=\"font-size: 4pt\">%s</p><p style=\"font-size: 8pt\">%s</p><p style=\"font-size: 10pt\">%s</p><p style=\"font-size: 14pt\">%s</p><p style=\"font-size: 18pt\">%s</p></body></html>";
-
-    String mHtml;
+    //default size for normal sized preview text
+    static final int DEFAULT_FONT_PREVIEW_SIZE = 13;
 
     public FontSizePreview(
             Context context, AttributeSet attrs, int defStyle) {
@@ -46,28 +42,15 @@ public class FontSizePreview extends WebViewPreview {
     }
 
     @Override
-    protected void init(Context context) {
-        super.init(context);
-        Resources res = context.getResources();
-        Object[] visualNames = res.getStringArray(R.array.pref_text_size_choices);
-        mHtml = String.format(HTML_FORMAT, visualNames);
-    }
-
-    @Override
     protected void updatePreview(boolean forceReload) {
-        if (mWebView == null) return;
+        if (mWebView == null || mTextView == null)
+            return;
 
         WebSettings ws = mWebView.getSettings();
         BrowserSettings bs = BrowserSettings.getInstance();
         ws.setMinimumFontSize(bs.getMinimumFontSize());
         ws.setTextZoom(bs.getTextZoom());
-        mWebView.loadDataWithBaseURL(null, mHtml, "text/html", "utf-8", null);
+        mTextView.setText(R.string.pref_sample_font_size);
+        mTextView.setTextSize(DEFAULT_FONT_PREVIEW_SIZE * bs.getTextZoom() / 100);
     }
-
-    @Override
-    protected void setupWebView(WebView view) {
-        super.setupWebView(view);
-        view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-    }
-
 }

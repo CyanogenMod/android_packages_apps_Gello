@@ -529,6 +529,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
     }
 
+    public WebView getTopWebView(){
+        if (mController!= null)
+            return mController.getCurrentTopWebView();
+
+        return null;
+    }
+
     public void clearPasswords() {
         // Clear password store maintained by SWE engine
         WebSettings settings = null;

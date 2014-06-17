@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:minWidth="@*android:dimen/preference_icon_minWidth"
         android:orientation="horizontal">
         <ImageView
             android:id="@android:id/icon"
@@ -72,13 +71,15 @@
             android:gravity="center"
             android:orientation="vertical" />
 
-        <android.webkit.WebView
-            android:id="@+id/webview"
+        <TextView
+            android:id="@+id/text_size_preview"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_below="@android:id/summary"
             android:layout_toRightOf="@android:id/widget_frame"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black"
+            android:background="@color/white"/>
 
     </RelativeLayout>
 

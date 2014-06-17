@@ -24,17 +24,18 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-
+import android.widget.TextView;
+import com.android.browser.BrowserSettings;
 import com.android.browser.R;
+import org.codeaurora.swe.WebView;
 
 public abstract class WebViewPreview extends Preference
         implements OnSharedPreferenceChangeListener {
 
+    protected TextView mTextView;
     protected WebView mWebView;
 
-    public WebViewPreview(
-            Context context, AttributeSet attrs, int defStyle) {
+    public WebViewPreview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
@@ -51,32 +52,23 @@ public abstract class WebViewPreview extends Preference
 
     protected void init(Context context) {
         setLayoutResource(R.layout.webview_preview);
+        BrowserSettings bs = BrowserSettings.getInstance();
+        mWebView = bs.getTopWebView();
     }
 
     protected abstract void updatePreview(boolean forceReload);
 
-    protected void setupWebView(WebView view) {}
-
-    @Override
-    protected View onCreateView(ViewGroup parent) {
-        View root = super.onCreateView(parent);
-        WebView webView = (WebView) root.findViewById(R.id.webview);
-        // Tell WebView to really, truly ignore all touch events. No, seriously,
-        // ignore them all. And don't show scrollbars.
-        webView.setFocusable(false);
-        webView.setFocusableInTouchMode(false);
-        webView.setClickable(false);
-        webView.setLongClickable(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.setVerticalScrollBarEnabled(false);
-        setupWebView(webView);
-        return root;
-    }
-
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        mWebView = (WebView) view.findViewById(R.id.webview);
+        mTextView = (TextView) view.findViewById(R.id.text_size_preview);
+        // Ignore all touch events & don't show scrollbars
+        mTextView.setFocusable(false);
+        mTextView.setFocusableInTouchMode(false);
+        mTextView.setClickable(false);
+        mTextView.setLongClickable(false);
+        mTextView.setHorizontalScrollBarEnabled(false);
+        mTextView.setVerticalScrollBarEnabled(false);
         updatePreview(true);
     }
 
@@ -93,8 +85,8 @@ public abstract class WebViewPreview extends Preference
     }
 
     @Override
-    public void onSharedPreferenceChanged(
-            SharedPreferences sharedPreferences, String key) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                          String key) {
         updatePreview(false);
     }
 

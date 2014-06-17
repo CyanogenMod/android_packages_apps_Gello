@@ -502,14 +502,8 @@
     <string name="pref_security_accept_cookies">Accept cookies</string>
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read cookie data</string>
-    <!-- Settings text size options; appear in Text size dialog box [CHAR LIMIT=30] -->
-    <string-array name="pref_text_size_choices">
-        <item>Tiny</item>
-        <item>Small</item>
-        <item>Normal</item>
-        <item>Large</item>
-        <item>Huge</item>
-    </string-array>
+    <!-- Settings text size options - displays sample font size in settings -->
+    <string name="pref_sample_font_size">Drag the slider to adjust the font size to set the desired comfortable reading size.</string>
     <!-- Label for minimum font size [CHAR LIMIT=30] -->
     <string name="pref_min_font_size">Minimum font size</string>
     <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
