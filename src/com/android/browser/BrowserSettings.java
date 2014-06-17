@@ -131,8 +131,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     private static String sFactoryResetUrl;
 
-    public static void initialize(final Context context) {
-        sInstance = new BrowserSettings(context);
+    public static synchronized void initialize(final Context context) {
+        if (sInstance == null)
+            sInstance = new BrowserSettings(context);
     }
 
     public static BrowserSettings getInstance() {
