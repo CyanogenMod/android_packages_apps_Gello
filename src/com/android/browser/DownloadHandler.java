@@ -330,7 +330,7 @@ public class DownloadHandler {
 
     static String trimContentDisposition(String contentDisposition) {
         final Pattern CONTENT_DISPOSITION_PATTERN =
-            Pattern.compile("filename\\s*=\\s*(\"?)([^\"]*)\\1\\s*;?",
+            Pattern.compile("filename\\s*=\\s*(\"?)([^\";]*)\\1\\s*",
                 Pattern.CASE_INSENSITIVE);
 
         if (contentDisposition != null) {
