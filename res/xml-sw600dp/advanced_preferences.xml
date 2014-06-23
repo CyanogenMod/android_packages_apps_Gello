@@ -41,14 +41,6 @@
             android:defaultValue="true"
             android:title="@string/pref_memory_monitor" />
 
-    <ListPreference
-            android:key="plugin_state"
-            android:title="@string/pref_content_plugins"
-            android:defaultValue="ON"
-            android:entries="@array/pref_content_plugins_choices"
-            android:entryValues="@array/pref_content_plugins_values"
-            android:dialogTitle="@string/pref_content_plugins" />
-
     <PreferenceScreen
             android:key="website_settings"
             android:title="@string/pref_extras_website_settings"

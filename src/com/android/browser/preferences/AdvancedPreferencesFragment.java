@@ -72,8 +72,6 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         e.setOnPreferenceChangeListener(this);
         updateListPreferenceSummary((ListPreference) e);
 
-        e = findPreference(PreferenceKeys.PREF_PLUGIN_STATE);
-        e.setOnPreferenceChangeListener(this);
         updateListPreferenceSummary((ListPreference) e);
         onInitdownloadSettingsPreference();
     }
@@ -194,8 +192,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                         getActivity(), BrowserActivity.class));
                 return true;
             }
-        } else if (pref.getKey().equals(PreferenceKeys.PREF_PLUGIN_STATE)
-                || pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
+        } else if (pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
             ListPreference lp = (ListPreference) pref;
             lp.setValue((String) objValue);
             updateListPreferenceSummary(lp);

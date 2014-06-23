@@ -271,7 +271,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setDefaultZoom(getDefaultZoom());
         settings.setMinimumFontSize(getMinimumFontSize());
         settings.setMinimumLogicalFontSize(getMinimumFontSize());
-        settings.setPluginState(getPluginState());
         settings.setTextZoom(getTextZoom());
         settings.setLayoutAlgorithm(getLayoutAlgorithm());
         settings.setJavaScriptCanOpenWindowsAutomatically(!blockPopupWindows());
@@ -773,12 +772,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean enableMemoryMonitor() {
         return mPrefs.getBoolean(PREF_ENABLE_MEMORY_MONITOR, true);
-    }
-
-    // TODO: Cache
-    public PluginState getPluginState() {
-        String state = mPrefs.getString(PREF_PLUGIN_STATE, "ON");
-        return PluginState.valueOf(state);
     }
 
     // TODO: Cache
