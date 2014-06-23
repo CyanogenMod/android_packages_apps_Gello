@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2014, Linux Foundation. All rights reserved.
  * Copyright (C) 2006 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,6 +60,8 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import org.codeaurora.net.NetworkServices;
 
 interface BookmarksPageCallbacks {
     // Return true if handled
@@ -432,6 +435,9 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Start the loaders
         LoaderManager lm = getLoaderManager();
         lm.restartLoader(LOADER_ACCOUNTS, null, this);
+
+        //Notify about anticipated network activity
+        NetworkServices.HintUpcomingUserActivity();
 
         return mRoot;
     }
