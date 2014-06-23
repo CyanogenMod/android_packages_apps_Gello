@@ -281,6 +281,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setSavePassword(rememberPasswords());
         settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
+        settings.setDoNotTrack(doNotTrack());
         setUserAgent(settings);
 
         WebSettings settingsClassic = (WebSettings) settings;
