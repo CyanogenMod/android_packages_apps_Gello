@@ -23,11 +23,11 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.provider.Browser;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.android.browser.R;
+import com.android.browser.platformsupport.Browser;
 
 import java.net.URISyntaxException;
 import java.util.List;

@@ -21,8 +21,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.util.Log;
+
+import com.android.browser.platformsupport.Browser;
 
 import java.util.HashMap;
 import java.util.Iterator;

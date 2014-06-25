@@ -26,10 +26,10 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.reflect.ReflectHelper;
 
 public class DefaultSearchEngine implements SearchEngine {

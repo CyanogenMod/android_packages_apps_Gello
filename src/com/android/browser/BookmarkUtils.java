@@ -38,9 +38,9 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PaintDrawable;
 import android.net.Uri;
 import android.os.Message;
-import android.provider.Browser;
 
 import com.android.browser.R;
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
 

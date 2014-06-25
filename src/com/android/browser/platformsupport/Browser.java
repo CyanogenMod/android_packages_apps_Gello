@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package android.provider;
+package com.android.browser.platformsupport;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -25,12 +25,14 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.BrowserContract.Bookmarks;
-import android.provider.BrowserContract.Combined;
-import android.provider.BrowserContract.History;
-import android.provider.BrowserContract.Searches;
 import android.util.Log;
 import android.webkit.WebIconDatabase;
+
+import com.android.browser.R;
+import com.android.browser.platformsupport.BrowserContract.Bookmarks;
+import com.android.browser.platformsupport.BrowserContract.Combined;
+import com.android.browser.platformsupport.BrowserContract.History;
+import com.android.browser.platformsupport.BrowserContract.Searches;
 
 public class Browser {
     private static final String LOGTAG = "browser";
@@ -195,7 +197,7 @@ public class Browser {
      * @param string the string to send
      */
     public static final void sendString(Context context, String string) {
-        sendString(context, string, context.getString(com.android.internal.R.string.sendText));
+        sendString(context, string, context.getString(R.string.sendText));
     }
 
     /**
@@ -554,7 +556,7 @@ public class Browser {
             Log.e(LOGTAG, "clearSearches", e);
         }
     }
-    
+
     /**
      *  Request all icons from the database.  This call must either be called
      *  in the main thread or have had Looper.prepare() invoked in the calling
@@ -568,14 +570,39 @@ public class Browser {
      */
     public static final void requestAllIcons(ContentResolver cr, String where,
             WebIconDatabase.IconListener listener) {
-        WebIconDatabase.getInstance().bulkRequestIconForPageUrl(cr, where, listener);
+        try {
+            final Cursor c = cr.query(BOOKMARKS_URI, HISTORY_PROJECTION,
+                                      where, null, null);
+            if (c.moveToFirst()) {
+                final WebIconDatabase db = WebIconDatabase.getInstance();
+                do {
+                    db.requestIconForPageUrl(c.getString(HISTORY_PROJECTION_URL_INDEX),
+                                             listener);
+                } while (c.moveToNext());
+            }
+            c.deactivate();
+        } catch (IllegalStateException e) {
+            Log.e(LOGTAG, "requestAllIcons", e);
+        }
     }
 
     /**
      * Column definitions for the mixed bookmark and history items available
      * at {@link #BOOKMARKS_URI}.
      */
-    public static class BookmarkColumns implements BaseColumns {
+    public static class BookmarkColumns{
+        /**
+         * The unique ID for a row.
+         * <P>Type: INTEGER (long)</P>
+         */
+         public static final String _ID = "_id";
+
+         /**
+          * The count of rows in a directory.
+          * <P>Type: INTEGER</P>
+          */
+         public static final String _COUNT = "_count";
+
         /**
          * The URL of the bookmark or history item.
          * <p>Type: TEXT (URL)</p>
@@ -638,7 +665,19 @@ public class Browser {
     /**
      * Column definitions for the search history table, available at {@link #SEARCHES_URI}.
      */
-    public static class SearchColumns implements BaseColumns {
+    public static class SearchColumns{
+        /**
+         * The unique ID for a row.
+         * <P>Type: INTEGER (long)</P>
+         */
+         public static final String _ID = "_id";
+
+         /**
+          * The count of rows in a directory.
+          * <P>Type: INTEGER</P>
+          */
+         public static final String _COUNT = "_count";
+
         /**
          * @deprecated Not used.
          */

@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.History;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
@@ -253,7 +254,7 @@ public class DataController {
                     cr.update(ContentUris.withAppendedId(History.CONTENT_URI, c.getLong(0)),
                             values, null, null);
                 } else {
-                    android.provider.Browser.truncateHistory(cr);
+                    Browser.truncateHistory(cr);
                     ContentValues values = new ContentValues();
                     values.put(History.URL, url);
                     values.put(History.VISITS, 1);

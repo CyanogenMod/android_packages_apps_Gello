@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
- 
 package com.android.browser;
 
-import com.android.browser.R;
-
 import android.content.Context;
-import android.provider.Browser;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.android.browser.R;
+import com.android.browser.platformsupport.Browser;
 /**
  *  Layout representing a history item in the classic history viewer.
  */

@@ -36,14 +36,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import android.provider.Browser;
-import android.provider.Browser.BookmarkColumns;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.R;
+import com.android.browser.platformsupport.Browser;
+import com.android.browser.platformsupport.Browser.BookmarkColumns;
 import com.android.browser.search.SearchEngine;
 
 import java.io.File;

@@ -25,7 +25,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.provider.Browser;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -35,8 +34,8 @@ import android.webkit.WebViewDatabase;
 
 import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.provider.BrowserProvider;
-import com.android.browser.reflect.ReflectHelper;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 

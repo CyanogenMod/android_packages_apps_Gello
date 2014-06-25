@@ -18,7 +18,6 @@ package com.android.browser.search;
 import com.android.browser.R;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
@@ -35,9 +34,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.AndroidHttpClient;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.browser.platformsupport.Browser;
 
 import java.io.IOException;
 

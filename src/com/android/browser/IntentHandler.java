@@ -26,12 +26,12 @@ import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Patterns;
 
 import com.android.browser.UI.ComboViews;
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.search.SearchEngine;
 
 import java.util.HashMap;

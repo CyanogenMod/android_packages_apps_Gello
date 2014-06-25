@@ -57,7 +57,6 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceActivity;
-import android.provider.Browser;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Settings;
@@ -94,6 +93,7 @@ import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
 import com.android.browser.mynavigation.AddMyNavigationPage;
 import com.android.browser.mynavigation.MyNavigationUtil;
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.WebAddress;
 import com.android.browser.platformsupport.BrowserContract.Images;
@@ -1121,11 +1121,7 @@ public class Controller
                 new AsyncTask<Void, Void, String[]>() {
             @Override
             public String[] doInBackground(Void... unused) {
-                Object[] params  = {mActivity.getContentResolver()};
-                Class[] type = new Class[] {ContentResolver.class};
-                return (String[])ReflectHelper.invokeMethod(
-                    "android.provider.Browser","getVisitedHistory",
-                    type, params);
+                return (String[]) Browser.getVisitedHistory(mActivity.getContentResolver());
             }
             @Override
             public void onPostExecute(String[] result) {

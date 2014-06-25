@@ -37,7 +37,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Browser;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -60,6 +59,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.browser.R;
+import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.Combined;
 import com.android.browser.reflect.ReflectHelper;
@@ -415,14 +415,8 @@ public class BrowserHistoryPage extends Fragment
                 }
                 return true;
             case R.id.share_link_context_menu_id:
-                Object[] params  = {activity,
-                            url,
-                            activity.getText(R.string.choosertitle_sharevia).toString()};
-                Class[] type = new Class[] { android.content.Context.class,
-                                             String.class,
-                                             String.class};
-                ReflectHelper.invokeMethod("android.provider.Browser","sendString",
-                                           type, params);
+                Browser.sendString(activity, url,
+                            activity.getText(R.string.choosertitle_sharevia).toString());
                 return true;
             case R.id.copy_url_context_menu_id:
                 copy(url);

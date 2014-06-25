@@ -38,7 +38,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Browser;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
