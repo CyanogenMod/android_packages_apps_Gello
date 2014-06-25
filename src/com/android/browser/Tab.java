@@ -1223,6 +1223,7 @@ class Tab implements PictureListener {
         mDataController = DataController.getInstance(mContext);
         mCurrentState = new PageState(mContext, w != null
                 ? w.isPrivateBrowsingEnabled() : false);
+        setTimeStamp();
         mInPageLoad = false;
         mInForeground = false;
 
