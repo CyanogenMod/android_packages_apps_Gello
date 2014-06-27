@@ -129,7 +129,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
     void setDisplayTitle(String title) {
         mUrlInput.setTag(title);
         if (!isEditingUrl()) {
-            if (title == null) {
+           // add for carrier requirement - show title from native instead of url
+            Tab currentTab = mUiController.getTabControl().getCurrentTab();
+            if (currentTab != null && currentTab.getTitle() != null) {
+                mUrlInput.setText(currentTab.getTitle(), false);
+            } else if (title == null) {
                 mUrlInput.setText(R.string.new_tab);
             } else {
                 mUrlInput.setText(UrlUtils.stripUrl(title), false);
