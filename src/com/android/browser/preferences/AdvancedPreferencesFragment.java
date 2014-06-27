@@ -116,6 +116,12 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         if (requestCode == DOWNLOAD_PATH_RESULT_CODE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String downloadPath = data.getStringExtra("result_dir_sel");
+                // Fallback logic to stock browser
+                if (downloadPath == null) {
+                    Uri uri = data.getData();
+                    if(uri != null)
+                        downloadPath = uri.getPath();
+                }
                 if (downloadPath != null) {
                     PreferenceScreen downloadPathPreset =
                             (PreferenceScreen) findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);

@@ -246,6 +246,12 @@ public class DownloadSettings extends Activity {
         if (DOWNLOAD_PATH == requestCode) {
             if (resultCode == Activity.RESULT_OK && intent != null) {
                 downloadPath = intent.getStringExtra("result_dir_sel");
+                // Fallback logic to stock browser
+                if (downloadPath == null) {
+                    Uri uri = intent.getData();
+                    if(uri != null)
+                        downloadPath = uri.getPath();
+                }
                 if (downloadPath != null) {
                     String rawEmulatedStorageTarget = System.getenv(ENV_EMULATED_STORAGE_TARGET);
                     if (!TextUtils.isEmpty(rawEmulatedStorageTarget)) {
