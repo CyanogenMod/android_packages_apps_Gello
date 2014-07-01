@@ -88,6 +88,7 @@ import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
 
+import com.android.browser.AppAdapter;
 import com.android.browser.R;
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
@@ -130,8 +131,6 @@ public class Controller
     // Remind switch to data connection if wifi is unavailable
     private static final int NETWORK_SWITCH_TYPE_OK = 1;
 
-    public final static String EXTRA_SHARE_SCREENSHOT = "share_screenshot";
-    public final static String EXTRA_SHARE_FAVICON = "share_favicon";
     // public message ids
     public final static int LOAD_URL = 1001;
     public final static int STOP_LOAD = 1002;
@@ -626,18 +625,11 @@ public class Controller
      */
     static final void sharePage(Context c, String title, String url,
             Bitmap favicon, Bitmap screenshot) {
-        Intent send = new Intent(Intent.ACTION_SEND);
-        send.setType("text/plain");
-        send.putExtra(Intent.EXTRA_TEXT, url);
-        send.putExtra(Intent.EXTRA_SUBJECT, title);
-        send.putExtra(EXTRA_SHARE_FAVICON, favicon);
-        send.putExtra(EXTRA_SHARE_SCREENSHOT, screenshot);
-        try {
-            c.startActivity(Intent.createChooser(send, c.getString(
-                    R.string.choosertitle_sharevia)));
-        } catch(android.content.ActivityNotFoundException ex) {
-            // if no app handles it, do nothing
-        }
+
+        ShareDialog sDialog = new ShareDialog((Activity)c, title, url, favicon, screenshot);
+        final AppAdapter adapter = new AppAdapter(c, c.getPackageManager(),
+                                        R.layout.app_row, sDialog.getApps());
+        sDialog.loadView(adapter);
     }
 
     private void copy(CharSequence text) {
