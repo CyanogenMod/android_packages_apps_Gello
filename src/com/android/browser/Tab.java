@@ -1396,6 +1396,14 @@ class Tab implements PictureListener {
      * Destroy the tab's main WebView and subWindow if any
      */
     void destroy() {
+        if (mScreenShot != null) {
+            mScreenShot.recycle();
+            mScreenShot = null;
+        }
+        if (mCapture != null ) {
+            mCapture.recycle();
+            mCapture = null;
+        }
         if (mPostponeDestroy) {
             mShouldDestroy = true;
             return;
@@ -2024,6 +2032,10 @@ class Tab implements PictureListener {
         int state = c.save();
         float scale = 0;
         Bitmap screenShot = mMainView.getViewportBitmap();
+        if (mScreenShot != null) {
+            mScreenShot.recycle();
+            mScreenShot = null;
+        }
         mScreenShot = screenShot;
         if (screenShot != null) {
             //scale based on device orientation

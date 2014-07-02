@@ -572,6 +572,10 @@ public class PhoneUi extends BaseUi {
             mTitle.setImageBitmap(mTitleBarBitmap);
             mTitle.setVisibility(View.VISIBLE);
             // SWE: WebView.draw() wouldn't draw anything if SurfaceView is enabled.
+            if (mContentBitmap != null) {
+                mContentBitmap.recycle();
+                mContentBitmap = null;
+            }
             mContentBitmap = web.getViewportBitmap();
             if (mContentBitmap == null) {
                 int h = web.getHeight() - embTbarHeight;

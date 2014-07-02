@@ -2465,7 +2465,10 @@ public class Controller
 
         Canvas canvas = new Canvas(sThumbnailBitmap);
         canvas.drawBitmap(viewportBitmap, srcRect, dstRect, new Paint(Paint.FILTER_BITMAP_FLAG));
-
+        if (viewportBitmap != null) {
+            viewportBitmap.recycle();
+            viewportBitmap = null;
+        }
         return sThumbnailBitmap;
     }
 
