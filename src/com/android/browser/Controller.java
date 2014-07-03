@@ -2445,7 +2445,7 @@ public class Controller
 
         //modify the size to attain the same aspect ratio of desired thumbnail size
         if (viewportHeight > viewportWidth) {
-            viewportHeight= (int)Math.round(viewportWidth * aspectRatio);
+            viewportHeight= (int)Math.round(viewportWidth * (1/aspectRatio));
         } else {
             viewportWidth = (int)Math.round(viewportHeight * aspectRatio);
         }
