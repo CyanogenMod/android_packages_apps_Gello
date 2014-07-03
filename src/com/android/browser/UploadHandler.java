@@ -18,8 +18,14 @@ package com.android.browser;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
@@ -32,6 +38,8 @@ import com.android.browser.R;
 import com.android.browser.reflect.ReflectHelper;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -60,12 +68,18 @@ public class UploadHandler {
         return mCameraFilePath;
     }
 
-    boolean handled() {
+    protected boolean handled() {
         return mHandled;
     }
 
-    void onResult(int resultCode, Intent intent) {
+    protected void setHandled(boolean handled) {
+        mHandled = handled;
+        mCaughtActivityNotFoundException = false;
+        if (!mHandled)
+            mUploadFilePaths.onReceiveValue(null);
+    }
 
+    void onResult(int resultCode, Intent intent) {
         if (resultCode == Activity.RESULT_CANCELED && mCaughtActivityNotFoundException) {
             // Couldn't resolve an activity, we are going to try again so skip
             // this result.
@@ -102,19 +116,8 @@ public class UploadHandler {
                 filePath = result.getPath();
                 hasGoodFilePath = filePath != null && !filePath.isEmpty();
             } else if ("content".equals(scheme)) {
-                ContentResolver cr = mController.getActivity().getContentResolver();
-                String[] projection = {"_data"};
-                Cursor c = cr.query(result, projection, null, null, null);
-                try {
-                    if (c != null && c.moveToFirst()) {
-                        filePath = c.getString(0);
-                        hasGoodFilePath = filePath != null && !filePath.isEmpty();
-                    }
-                } finally {
-                    if (c != null) {
-                        c.close();
-                    }
-                }
+                filePath = getFilePath(mController.getContext(), result);
+                hasGoodFilePath = filePath != null && !filePath.isEmpty();
             }
         }
 
@@ -132,6 +135,7 @@ public class UploadHandler {
         }
 
         if (mUploadMessage != null) {
+
             if (!isDRMFileType) {
                 mUploadMessage.onReceiveValue(result);
             } else {
@@ -151,6 +155,124 @@ public class UploadHandler {
         mHandled = true;
         mCaughtActivityNotFoundException = false;
     }
+
+
+    public String getDocumentId(final Uri uri) {
+        String id = null;
+        try {
+            Object[] params  = {(android.net.Uri)uri};
+            Class[] type = new Class[] {Class.forName("android.net.Uri") };
+            id = (String) ReflectHelper.invokeMethod(
+                "android.provider.DocumentsContract","getDocumentId",
+                type, params);
+
+        } catch(java.lang.ClassNotFoundException e) {
+
+        }
+        return id;
+    }
+
+
+    public String getFilePath(final Context context, final Uri uri) {
+       String id =  getDocumentId(uri);
+
+        // DocumentProvider is new API exposed in Kitkat
+        // Its a way of exposing unified file explorer
+        if (id != null) {
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                final String docId = id;
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+                return getDataColumn(context, contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                final String docId = id;
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] {
+                        split[1]
+                };
+
+                return getDataColumn(context, contentUri, selection, selectionArgs);
+            }
+        }
+        // MediaStore (and general)
+        else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        }
+
+        return null;
+    }
+
+    /**
+    * Get the value of the data column for this Uri. This is useful for
+    * MediaStore Uris, and other file-based ContentProviders.
+    * @return The value of the _data column, which is typically a file path.
+    */
+    private String getDataColumn(Context context, Uri uri, String selection,
+        String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = { column };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+    /**
+    * @return Whether the Uri authority is ExternalStorageProvider.
+    */
+    private boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+    * @return Whether the Uri authority is DownloadsProvider.
+    */
+    private boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+    * @return Whether the Uri authority is MediaProvider.
+    */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
 
@@ -273,6 +395,7 @@ public class UploadHandler {
 
         // Ensure it is not still set from a previous upload.
         mCameraFilePath = null;
+        List<Intent> intentList = new ArrayList<Intent>();
 
         if (mimeType.equals(imageMimeType)) {
             if (capture) {
@@ -284,9 +407,8 @@ public class UploadHandler {
                 // Specified just 'image/*', capture=false, or no capture value.
                 // In all these cases we show a traditional picker filetered on accept type
                 // so launch an intent for both the Camera and image/* OPENABLE.
-                Intent chooser = createChooserIntent(createCameraIntent());
-                chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(imageMimeType));
-                startActivity(chooser);
+                intentList.add(createCameraIntent());
+                createUploadDialog(imageMimeType, intentList);
                 return;
             }
         } else if (mimeType.equals(videoMimeType)) {
@@ -299,9 +421,8 @@ public class UploadHandler {
                 // Specified just 'video/*', capture=false, or no capture value.
                 // In all these cases we show an intent for the traditional file picker, filtered
                 // on accept type so launch an intent for both camcorder and video/* OPENABLE.
-                Intent chooser = createChooserIntent(createCamcorderIntent());
-                chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(videoMimeType));
-                startActivity(chooser);
+                intentList.add(createCamcorderIntent());
+                createUploadDialog(videoMimeType, intentList);
                 return;
             }
         } else if (mimeType.equals(audioMimeType)) {
@@ -314,16 +435,15 @@ public class UploadHandler {
                 // Specified just 'audio/*',  capture=false, or no capture value.
                 // In all these cases so go ahead and launch an intent for both the sound
                 // recorder and audio/* OPENABLE.
-                Intent chooser = createChooserIntent(createSoundRecorderIntent());
-                chooser.putExtra(Intent.EXTRA_INTENT, createOpenableIntent(audioMimeType));
-                startActivity(chooser);
+                intentList.add(createSoundRecorderIntent());
+                createUploadDialog(audioMimeType, intentList);
                 return;
             }
         }
 
         // No special handling based on the accept type was necessary, so trigger the default
         // file upload chooser.
-        startActivity(createDefaultOpenableIntent());
+        createUploadDialog("*/*", null);
     }
 
 
@@ -356,7 +476,45 @@ public class UploadHandler {
         Intent chooser = createChooserIntent(createCameraIntent(), createCamcorderIntent(),
                 createSoundRecorderIntent());
         chooser.putExtra(Intent.EXTRA_INTENT, i);
+
         return chooser;
+    }
+
+
+    private void createUploadDialog(String openableMimeType, List<Intent> intentList) {
+
+        Intent openable = new Intent(Intent.ACTION_GET_CONTENT);
+        openable.addCategory(Intent.CATEGORY_OPENABLE);
+        openable.setType(openableMimeType);
+
+        if (openableMimeType.equals("*/*") && intentList == null) {
+            intentList = new ArrayList<Intent>();
+            intentList.add(createCameraIntent());
+            intentList.add(createCamcorderIntent());
+            intentList.add(createSoundRecorderIntent());
+        }
+
+        // get all openable apps list and create corresponading intents
+        PackageManager pm = mController.getActivity().getPackageManager();
+        List<ResolveInfo> openableAppsList = pm.queryIntentActivities(openable, 0);
+        for (int j = 0, n = openableAppsList.size(); j < n; j++ ) {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.setType(openableMimeType);
+                ActivityInfo activityInfo = openableAppsList.get(j).activityInfo;
+                ComponentName name = new ComponentName(activityInfo.applicationInfo.packageName,
+                                            activityInfo.name);
+                i.setComponent(name);
+                intentList.add(i);
+        }
+
+
+        UploadDialog upDialog = new UploadDialog(mController.getActivity());
+        upDialog.getUploadableApps(intentList);
+        upDialog.loadView(this);
+    }
+
+    public void initiateActivity(Intent intent) {
+        startActivity(intent);
     }
 
     private Intent createChooserIntent(Intent... intents) {
