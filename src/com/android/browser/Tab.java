@@ -1396,14 +1396,7 @@ class Tab implements PictureListener {
      * Destroy the tab's main WebView and subWindow if any
      */
     void destroy() {
-        if (mScreenShot != null) {
-            mScreenShot.recycle();
-            mScreenShot = null;
-        }
-        if (mCapture != null ) {
-            mCapture.recycle();
-            mCapture = null;
-        }
+
         if (mPostponeDestroy) {
             mShouldDestroy = true;
             return;
@@ -1445,6 +1438,14 @@ class Tab implements PictureListener {
         // remove itself from the parent list
         if (mParent != null) {
             mParent.mChildren.remove(this);
+        }
+        if (mScreenShot != null) {
+            mScreenShot.recycle();
+            mScreenShot = null;
+        }
+        if (mCapture != null ) {
+            mCapture.recycle();
+            mCapture = null;
         }
         deleteThumbnail();
     }
