@@ -30,7 +30,6 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
-import android.webkit.WebViewDatabase;
 
 import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
@@ -54,7 +53,7 @@ import org.codeaurora.swe.WebSettings.TextSize;
 import org.codeaurora.swe.WebSettings.ZoomDensity;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
-
+import org.codeaurora.swe.WebViewDatabase;
 /**
  * Class for managing settings
  */
@@ -549,6 +548,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (settings != null) {
             settings.clearPasswords();
         }
+
+        // Clear passwords in WebView database
+        WebViewDatabase db = WebViewDatabase.getInstance(mContext);
+        db.clearHttpAuthUsernamePassword();
     }
 
     public void clearDatabases() {
