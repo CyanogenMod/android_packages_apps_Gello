@@ -46,6 +46,7 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
     private int mSize;
     private boolean mHasCursor;
     private long mGeneration;
+    private HandlerThread mThread;
 
     private class LoadContainer {
         WeakReference<View> view;
@@ -89,10 +90,10 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
 
         };
         mSize = mCursorAdapter.getCount();
-        HandlerThread thread = new HandlerThread("threaded_adapter_" + this,
+        mThread = new HandlerThread("threaded_adapter_" + this,
                 Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        mLoadHandler = new Handler(thread.getLooper()) {
+        mThread.start();
+        mLoadHandler = new Handler(mThread.getLooper()) {
             @SuppressWarnings("unchecked")
             @Override
             public void handleMessage(Message msg) {
@@ -201,6 +202,14 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
         synchronized (mCursorLock) {
             mHasCursor = (cursor != null);
             mCursorAdapter.changeCursor(cursor);
+        }
+    }
+
+    public void quitThread() {
+        if (mThread != null) {
+            HandlerThread thread = mThread;
+            mThread = null;
+            thread.quitSafely();
         }
     }
 
