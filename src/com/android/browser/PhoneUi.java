@@ -25,7 +25,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
@@ -57,8 +56,6 @@ public class PhoneUi extends BaseUi {
 
     boolean mAnimating;
     boolean mShowNav = false;
-
-    static final int POST_DELAY = 300;
 
     /**
      * @param browser
@@ -240,20 +237,15 @@ public class PhoneUi extends BaseUi {
         super.onActionModeStarted(mode);
         if (!isEditingUrl()) {
             hideTitleBar();
+        } else {
+            mTitleBar.setTranslationY(mActionBarHeight);
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
         super.onActionModeFinished(inLoad);
-        mTitleBar.animate().translationY(0);
-        stopEditingUrl();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
-            }}, POST_DELAY);
-
+        mTitleBar.setTranslationY(0);
         if (inLoad) {
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);

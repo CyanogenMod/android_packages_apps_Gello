@@ -830,14 +830,40 @@ public abstract class BaseUi implements UI {
         setFullscreen(enabled);
         FrameLayout main = (FrameLayout) mActivity.getWindow()
             .getDecorView().findViewById(android.R.id.content);
-
+        boolean hide_title_on_scroll =
+            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
         LinearLayout titleBarParent = (LinearLayout) main.findViewById(R.id.vertical_layout);
         if (titleBarParent != null) {
             if (enabled) {
-                titleBarParent.removeView(mFixedTitlebarContainer);
+                if (!hide_title_on_scroll) {
+                    titleBarParent.removeView(mFixedTitlebarContainer);
+                }
+                else {
+                    mContentView.removeView(mTitleBar);
+                }
             } else {
-                titleBarParent.addView(mFixedTitlebarContainer, 1);
+                if (!hide_title_on_scroll) {
+                    titleBarParent.addView(mFixedTitlebarContainer, 1);
+                }
+                else {
+                    mContentView.addView(mTitleBar,
+                        new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                }
             }
+        }
+    }
+
+    public void transalateTitleBar(float topControlsOffsetYPix) {
+        if (mTitleBar != null) {
+            mTitleBar.bringToFront();
+            if (topControlsOffsetYPix != 0.0) {
+                mTitleBar.setEnabled(false);
+            } else {
+                mTitleBar.setEnabled(true);
+            }
+            mTitleBar.setTranslationY(topControlsOffsetYPix);
+
         }
     }
 
@@ -944,14 +970,22 @@ public abstract class BaseUi implements UI {
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
-        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
-        mFixedTitlebarContainer.setY(fixedTbarHeight);
-        setContentViewMarginTop(fixedTbarHeight);
+        boolean hide_title_on_scroll =
+            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
+        if (!hide_title_on_scroll) {
+            int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
+            mFixedTitlebarContainer.setY(fixedTbarHeight);
+            setContentViewMarginTop(fixedTbarHeight);
+        }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        mFixedTitlebarContainer.setY(0);
-        setContentViewMarginTop(0);
+        boolean hide_title_on_scroll =
+            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
+        if (!hide_title_on_scroll) {
+            mFixedTitlebarContainer.setY(0);
+            setContentViewMarginTop(0);
+        }
     }
 }

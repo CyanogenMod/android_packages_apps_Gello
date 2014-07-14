@@ -144,6 +144,8 @@ public interface UI {
 
     void setUseQuickControls(boolean enabled);
 
+    void transalateTitleBar(float topControlsOffsetYPix);
+
     public boolean shouldCaptureThumbnails();
 
     boolean blockFocusAnimations();

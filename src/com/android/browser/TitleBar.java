@@ -102,7 +102,9 @@ public class TitleBar extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (mIsFixedTitleBar) {
+        boolean hide_title_on_scroll =
+          getContext().getResources().getBoolean(R.bool.hide_title_on_scroll);
+        if (mIsFixedTitleBar && !hide_title_on_scroll) {
             int margin = getMeasuredHeight() - calculateEmbeddedHeight();
             if (!isEditingUrl())
                 mBaseUi.setContentViewMarginTop(-margin);
@@ -114,6 +116,8 @@ public class TitleBar extends RelativeLayout {
     private void setFixedTitleBar() {
         boolean isFixed = !mUseQuickControls
                 && !getContext().getResources().getBoolean(R.bool.hide_title);
+        boolean hide_title_on_scroll =
+            getContext().getResources().getBoolean(R.bool.hide_title_on_scroll);
         isFixed |= mAccessibilityManager.isEnabled();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
@@ -125,7 +129,7 @@ public class TitleBar extends RelativeLayout {
         if (parent != null) {
             parent.removeView(this);
         }
-        if (mIsFixedTitleBar) {
+        if (mIsFixedTitleBar && !hide_title_on_scroll) {
             mBaseUi.addFixedTitleBar(this);
         } else {
             mContentView.addView(this, makeLayoutParams());

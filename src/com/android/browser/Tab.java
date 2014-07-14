@@ -754,6 +754,18 @@ class Tab implements PictureListener {
         }
 
         @Override
+        public void onOffsetsForFullscreenChanged(
+            float topControlsOffsetYPix, float contentOffsetYPix, float overdrawBottomHeightPix) {
+            boolean hide_title_on_scroll =
+                mContext.getResources().getBoolean(R.bool.hide_title_on_scroll);
+            if (mWebViewController instanceof Controller && hide_title_on_scroll) {
+                Controller controller = (Controller)mWebViewController;
+                mMainView.setTranslationY(contentOffsetYPix);
+                controller.getUi().transalateTitleBar(topControlsOffsetYPix);
+            }
+        }
+
+        @Override
         public boolean isTabFullScreen() {
             if (mWebViewController instanceof Controller) {
                 Controller controller = (Controller)mWebViewController;
