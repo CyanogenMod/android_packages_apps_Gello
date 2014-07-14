@@ -2000,7 +2000,6 @@ class Tab implements PictureListener {
             mInPageLoad = true;
             mCurrentState = new PageState(mContext, false, url, null);
             handleJsInterface(mMainView, url);
-            mWebViewController.onPageStarted(this, mMainView, null);
             mMainView.loadUrl(url, headers);
         }
     }
