@@ -41,6 +41,11 @@
             android:defaultValue="true"
             android:title="@string/pref_memory_monitor" />
 
+    <CheckBoxPreference
+            android:key="allow_media_downloads"
+            android:defaultValue="false"
+            android:title="@string/pref_allow_media_downloads" />
+
     <PreferenceScreen
             android:key="website_settings"
             android:title="@string/pref_extras_website_settings"

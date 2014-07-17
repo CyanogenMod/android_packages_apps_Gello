@@ -42,6 +42,10 @@
             android:title="@string/pref_memory_monitor" />
 
     <CheckBoxPreference
+            android:key="allow_media_downloads"
+            android:title="@string/pref_allow_media_downloads" />
+
+    <CheckBoxPreference
             android:key="allow_apptabs"
             android:defaultValue="false"
             android:title="@string/pref_allow_apptabs" />

@@ -708,10 +708,6 @@ public class Controller
 
         WebView.disablePlatformNotifications();
         NfcHandler.unregister(mActivity);
-        if (sThumbnailBitmap != null) {
-            sThumbnailBitmap.recycle();
-            sThumbnailBitmap = null;
-        }
     }
 
     @Override
@@ -969,6 +965,8 @@ public class Controller
         if (false) {
             Performance.onPageFinished(tab.getUrl());
          }
+
+        tab.onPageFinished();
 
         Performance.tracePageFinished();
     }
@@ -1838,11 +1836,17 @@ public class Controller
         boolean canGoForward = false;
         boolean isDesktopUa = false;
         boolean isLive = false;
+        // Following flag is used to identify schemes for which the LIVE_MENU
+        // items defined in res/menu/browser.xml should be enabled
+        boolean isLiveScheme = false;
+        boolean isPageFinished = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
             isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
             isLive = !tab.isSnapshot();
+            isLiveScheme = UrlUtils.isLiveScheme(tab.getWebView().getUrl());
+            isPageFinished = tab.getPageFinishedStatus();
         }
         final MenuItem back = menu.findItem(R.id.back_menu_id);
         back.setEnabled(canGoBack);
@@ -1877,8 +1881,9 @@ public class Controller
         boolean showDebugSettings = mSettings.isDebugEnabled();
         final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
         uaSwitcher.setChecked(isDesktopUa);
-        menu.setGroupVisible(R.id.LIVE_MENU, isLive);
+        menu.setGroupVisible(R.id.LIVE_MENU, isLive && isLiveScheme);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
+        menu.setGroupEnabled(R.id.OFFLINE_READING, isLive && isLiveScheme && isPageFinished);
         // history and snapshots item are the members of COMBO menu group,
         // so if show history item, only make snapshots item invisible.
         menu.findItem(R.id.snapshots_menu_id).setVisible(false);
@@ -2143,7 +2148,7 @@ public class Controller
     public void toggleUserAgent() {
         WebView web = getCurrentWebView();
         mSettings.toggleDesktopUseragent(web);
-        web.loadUrl(web.getOriginalUrl());
+        web.reload();
     }
 
     @Override
@@ -2180,7 +2185,11 @@ public class Controller
 
     private void goLive() {
         SnapshotTab t = (SnapshotTab) getCurrentTab();
-        t.loadUrl(t.getLiveUrl(), null);
+        String url = t.getLiveUrl();
+        // destroy the old snapshot tab
+        closeCurrentTab();
+        Tab liveTab =  createNewTab(false, true, false);
+        loadUrl(liveTab, url);
     }
 
     private void showExitDialog(final Activity activity) {
@@ -2480,11 +2489,6 @@ public class Controller
 
         if (sThumbnailBitmap == null || sThumbnailBitmap.getWidth() != width
                    || sThumbnailBitmap.getHeight() != height) {
-            if (sThumbnailBitmap != null) {
-                sThumbnailBitmap.recycle();
-                sThumbnailBitmap = null;
-            }
-
             sThumbnailBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         }
 
@@ -2509,8 +2513,6 @@ public class Controller
             new ValueCallback<Bitmap>() {
                 @Override
                 public void onReceiveValue(Bitmap bitmap) {
-                    Log.e("sudheer", "screensot bitmap: w: " + bitmap.getWidth()
-                          + " h: " + bitmap.getHeight());
                     if (bitmap != null)
                         bitmap = bitmap.copy(Bitmap.Config.RGB_565, false);
                     cb.onReceiveValue(bitmap);

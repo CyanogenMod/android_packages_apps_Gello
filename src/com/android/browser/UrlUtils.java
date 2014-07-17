@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.HashSet;
 import java.util.Arrays;
+import java.net.URI;
 
 /**
  * Utility methods for Url manipulation
@@ -34,6 +35,14 @@ public class UrlUtils {
 
     private static final HashSet<String> DOWNLOADABLE_SCHEMES =
         new HashSet<String>(Arrays.asList(DOWNLOADABLE_SCHEMES_VALUES));
+
+    // Schemes for which the LIVE_MENU items defined in res/menu/browser.xml
+    // should be enabled
+    public static final String[] LIVE_SCHEMES_VALUES = new String[]
+        { "http", "https" };
+
+    private static final HashSet<String> LIVE_SCHEMES =
+        new HashSet<String>(Arrays.asList(LIVE_SCHEMES_VALUES));
 
     static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" + // switch on case insensitive matching
@@ -102,7 +111,20 @@ public class UrlUtils {
 
     public static boolean isDownloadableScheme(String uri) {
         try {
-            return isDownloadableScheme(Uri.parse(uri));
+            URI uriObj = new URI(uri);
+            return isDownloadableScheme(Uri.parse(uriObj.toString()));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isLiveScheme(Uri uri) {
+        return LIVE_SCHEMES.contains(uri.getScheme());
+    }
+
+    public static boolean isLiveScheme(String uri) {
+        try {
+            return isLiveScheme(Uri.parse(uri));
         } catch (Exception e) {
             return false;
         }

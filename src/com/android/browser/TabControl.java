@@ -318,8 +318,7 @@ class TabControl {
         int i = 0;
         for (Tab tab : mTabs) {
             Bundle tabState = tab.saveState();
-            if (tabState != null && tab.getWebView() != null
-                && tab.getWebView().isPrivateBrowsingEnabled() == false) {
+            if (tabState != null && tab.isPrivateBrowsingEnabled() == false) {
                 ids[i++] = tab.getId();
                 String key = Long.toString(tab.getId());
                 if (outState.containsKey(key)) {

@@ -75,8 +75,7 @@ public class NavigationBarBase extends LinearLayout implements
     protected void onFinishInflate() {
         super.onFinishInflate();
         mLockIcon = (ImageView) findViewById(R.id.lock);
-        //SWE-FIXME
-        //mLocationButton = (LocationButton) findViewById(R.id.location_button);
+        mLocationButton = (LocationButton) findViewById(R.id.location_button);
         mFavicon = (ImageView) findViewById(R.id.favicon);
         mUrlInput = (UrlInputView) findViewById(R.id.url);
         mUrlInput.setUrlInputListener(this);
@@ -398,8 +397,7 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void onTabDataChanged(Tab tab) {
-        //SWE-FIXME
-        //mLocationButton.onTabDataChanged(tab);
+        mLocationButton.onTabDataChanged(tab);
     }
 
     public void onVoiceResult(String s) {

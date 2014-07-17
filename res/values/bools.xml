@@ -13,9 +13,12 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <bool name="isTablet">false</bool>
-    <!--  hide the title bar -->
-    <bool name="hide_title">false</bool>
-    <bool name="hide_title_on_scroll">false</bool>
+    <!-- hide the title bar
+      When set to false to enable fixed title bar, the command line switch
+      "enable-top-controls-position-calculation" must be turned off by
+      commenting out the relevant code in the Java code
+    -->
+    <bool name="hide_title">true</bool>
     <bool name="hide_nav_buttons">true</bool>
     <!-- Browser menu toggles -->
     <bool name="menu_show_navigation">true</bool>
@@ -25,4 +28,5 @@
     <bool name="drm_uploads">false</bool>
     <bool name="network_notifier">false</bool>
     <bool name="def_disable_history">false</bool>
+    <bool name="def_enable_media_downloads">false</bool>
 </resources>

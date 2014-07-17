@@ -114,8 +114,7 @@ public class TitleBar extends RelativeLayout {
     private void setFixedTitleBar() {
         boolean isFixed = !mUseQuickControls
                 && !getContext().getResources().getBoolean(R.bool.hide_title);
-        boolean hide_title_on_scroll =
-            getContext().getResources().getBoolean(R.bool.hide_title_on_scroll);
+
         isFixed |= mAccessibilityManager.isEnabled();
         // If getParent() returns null, we are initializing
         ViewGroup parent = (ViewGroup)getParent();
@@ -127,7 +126,7 @@ public class TitleBar extends RelativeLayout {
         if (parent != null) {
             parent.removeView(this);
         }
-        if (mIsFixedTitleBar && !hide_title_on_scroll) {
+        if (mIsFixedTitleBar) {
             mBaseUi.addFixedTitleBar(this);
         } else {
             mContentView.addView(this, makeLayoutParams());
@@ -148,8 +147,10 @@ public class TitleBar extends RelativeLayout {
         setFixedTitleBar();
         if (use) {
             this.setVisibility(View.GONE);
+            hideTopControls();
         } else {
             this.setVisibility(View.VISIBLE);
+            enableTopControls();
         }
     }
 
@@ -173,12 +174,15 @@ public class TitleBar extends RelativeLayout {
         animator.setDuration(duration);
     }
 
+    //Disable stock autohide behavior in favor of top controls
+    private static final  boolean bOldStyleAutoHideDisabled = true;
     void show() {
         cancelTitleBarAnimation(false);
         if (mUseQuickControls || mSkipTitleBarAnimations) {
             this.setVisibility(View.VISIBLE);
             this.setTranslationY(0);
-        } else {
+            hideTopControls();
+        } else if (!bOldStyleAutoHideDisabled) {
             int visibleHeight = getVisibleTitleHeight();
             float startPos = (-getEmbeddedHeight() + visibleHeight);
             if (getTranslationY() != 0) {
@@ -190,14 +194,16 @@ public class TitleBar extends RelativeLayout {
             setupTitleBarAnimator(mTitleBarAnimator);
             mTitleBarAnimator.start();
         }
+
         mShowing = true;
     }
 
     void hide() {
         if (mUseQuickControls) {
             this.setVisibility(View.GONE);
+            hideTopControls();
         } else {
-            if (mIsFixedTitleBar) return;
+            if (mIsFixedTitleBar || bOldStyleAutoHideDisabled) return;
             if (!mSkipTitleBarAnimations) {
                 cancelTitleBarAnimation(false);
                 int visibleHeight = getVisibleTitleHeight();
@@ -255,10 +261,35 @@ public class TitleBar extends RelativeLayout {
         return webview != null ? webview.getVisibleTitleHeight() : 0;
     }
 
+    private void hideTopControls() {
+        Tab tab = mBaseUi.getActiveTab();
+        WebView view = tab != null ? tab.getWebView() : null;
+        if (view != null)
+            view.updateTopControls(true, false, true);
+    }
+
+    private void showTopControls() {
+        Tab tab = mBaseUi.getActiveTab();
+        WebView view = tab != null ? tab.getWebView() : null;
+        if (view != null)
+            view.updateTopControls(false, true, true);
+    }
+
+    private void enableTopControls() {
+        Tab tab = mBaseUi.getActiveTab();
+        WebView view = tab != null ? tab.getWebView() : null;
+        if (view != null)
+            view.updateTopControls(true, true, true);
+    }
+
+
     /**
      * Update the progress, from 0 to 100.
      */
     public void setProgress(int newProgress) {
+        Tab tab = mBaseUi.getActiveTab();
+        WebView view = tab != null ? tab.getWebView() : null;
+
         if (newProgress >= PROGRESS_MAX) {
             mProgress.setProgress(PageProgressView.MAX_PROGRESS);
             mProgress.setVisibility(View.GONE);
@@ -272,11 +303,26 @@ public class TitleBar extends RelativeLayout {
                     mBaseUi.showTitleBarForDuration();
                 }
             }
+
+            //onPageFinished
+            if (mUseQuickControls) {
+                hideTopControls();
+            } else {
+                enableTopControls();
+            }
+
         } else {
             if (!mInLoad) {
                 mProgress.setVisibility(View.VISIBLE);
                 mInLoad = true;
                 mNavBar.onProgressStarted();
+
+                //onPageStarted
+                if (mUseQuickControls) {
+                    hideTopControls();
+                } else {
+                    showTopControls();
+                }
             }
             mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);

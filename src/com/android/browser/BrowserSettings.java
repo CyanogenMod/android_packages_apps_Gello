@@ -281,6 +281,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setUseWideViewPort(isWideViewport());
         settings.setDoNotTrack(doNotTrack());
         setUserAgent(settings);
+        settings.setMediaPlaybackRequiresUserGesture(false);
+        settings.setAllowMediaDownloads(allowMediaDownloads());
+        setExtraHTTPRequestHeaders(settings);
 
         WebSettings settingsClassic = (WebSettings) settings;
         settingsClassic.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
@@ -318,6 +321,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             settings.setUserAgentString(ua);
         } else {
             settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
+        }
+    }
+
+    private void setExtraHTTPRequestHeaders(WebSettings settings){
+        String headers = mContext.getResources().getString(R.string.def_extra_http_headers);
+        if (!TextUtils.isEmpty(headers)){
+            settings.setHTTPRequestHeaders(headers);
         }
     }
 
@@ -776,6 +786,21 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean enableMemoryMonitor() {
         return mPrefs.getBoolean(PREF_ENABLE_MEMORY_MONITOR, true);
+    }
+
+    public boolean allowMediaDownloads() {
+        boolean enableMediaDownloads = mController.getContext().getResources().getBoolean(
+                                       R.bool.def_enable_media_downloads);
+        boolean shouldAllowMediaDownloads = mPrefs.getBoolean(
+                                        PREF_ALLOW_MEDIA_DOWNLOADS, enableMediaDownloads);
+
+        if(!mPrefs.contains(PREF_ALLOW_MEDIA_DOWNLOADS)){
+            Editor edit = mPrefs.edit();
+            edit.putBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, shouldAllowMediaDownloads);
+            edit.apply();
+        }
+
+        return shouldAllowMediaDownloads;
     }
 
     // TODO: Cache

@@ -39,15 +39,9 @@ public class Browser extends Application {
     // Set to true to enable extra debug logging.
     final static boolean LOGD_ENABLED = true;
 
-    private static final String[] MP_MANDATORY_PAKS = new String[] {
-        "webviewchromium.pak",
-        "icudtl.dat"
-    };
-
     @Override
     public void onCreate() {
         super.onCreate();
-        initializeApplicationParameters();
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
@@ -56,6 +50,8 @@ public class Browser extends Application {
         final String INITIALIZE_DATABASE = BrowserConfig.AUTHORITY +
                                             ".permission.INITIALIZE_DATABASE";
         final Context context = getApplicationContext();
+        //Chromium specific initialization.
+        Engine.initializeApplicationParameters();
         boolean isActivityContext = (context.checkPermission(INITIALIZE_DATABASE,
               Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED);
         if (isActivityContext) {
@@ -65,11 +61,6 @@ public class Browser extends Application {
             Preloader.initialize(context);
        }
 
-    }
-
-    public static void initializeApplicationParameters() {
-        ResourceExtractor.setMandatoryPaksToExtract(MP_MANDATORY_PAKS);
-        PathUtils.setPrivateDataDirectorySuffix("android_browser");
     }
 }
 

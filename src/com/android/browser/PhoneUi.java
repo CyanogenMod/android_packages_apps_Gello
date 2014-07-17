@@ -201,6 +201,7 @@ public class PhoneUi extends BaseUi {
         }
         if (showingNavScreen()) {
             menu.setGroupVisible(R.id.LIVE_MENU, false);
+            menu.setGroupVisible(R.id.OFFLINE_READING, false);
             menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
             menu.setGroupVisible(R.id.NAV_MENU, false);
             menu.setGroupVisible(R.id.COMBO_MENU, true);
@@ -236,20 +237,12 @@ public class PhoneUi extends BaseUi {
         super.onActionModeStarted(mode);
         if (!isEditingUrl()) {
             hideTitleBar();
-        } else {
-            TypedValue heightValue = new TypedValue();
-            mBrowser.getTheme().resolveAttribute(
-                android.R.attr.actionBarSize, heightValue, true);
-            int actionBarHeight = TypedValue.complexToDimensionPixelSize(heightValue.data,
-                mBrowser.getResources().getDisplayMetrics());
-            mTitleBar.setTranslationY(actionBarHeight);
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
         super.onActionModeFinished(inLoad);
-        mTitleBar.setTranslationY(0);
         if (inLoad) {
             if (mUseQuickControls) {
                 mTitleBar.setShowProgressOnly(true);
@@ -313,8 +306,7 @@ public class PhoneUi extends BaseUi {
         int fromLeft = 0;
         int fromTop = getTitleBar().getHeight();
         int fromRight = mContentView.getWidth();
-        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
-        int fromBottom = mContentView.getHeight() + fixedTbarHeight;
+        int fromBottom = mContentView.getHeight();
         int width = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_width);
         int height = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_height);
         int ntth = mActivity.getResources().getDimensionPixelSize(R.dimen.nav_tab_titleheight);
@@ -396,8 +388,9 @@ public class PhoneUi extends BaseUi {
         if (mAnimScreen == null) {
             mAnimScreen = new AnimScreen(mActivity);
         }
-        int width = mContentView.getWidth();
-        int height = mContentView.getHeight();
+        ImageView target = tabview.mImage;
+        int width = target.getDrawable().getIntrinsicWidth();
+        int height = target.getDrawable().getIntrinsicHeight();
         Bitmap bm = tab.getScreenshot();
         if (bm == null)
             bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -405,23 +398,16 @@ public class PhoneUi extends BaseUi {
         if (mAnimScreen.mMain.getParent() == null) {
             mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         }
-        int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
         mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
-                mContentView.getHeight()  + fixedTbarHeight);
+                mContentView.getHeight());
         mNavScreen.mScroller.finishScroller();
-        ImageView target = tabview.mImage;
         int toLeft = 0;
-        int toTop = 0;
-        if (mTitleBar.isFixed()) {
-            toTop = fixedTbarHeight;
-        } else {
-            toTop = (tab.getWebView() != null) ? tab.getWebView().getVisibleTitleHeight() : 0;
-        }
+        int toTop = mTitleBar.calculateEmbeddedHeight();
         int toRight = mContentView.getWidth();
         int fromLeft = tabview.getLeft() + target.getLeft() - mNavScreen.mScroller.getScrollX();
         int fromTop = tabview.getTop() + target.getTop() - mNavScreen.mScroller.getScrollY();
-        int fromRight = fromLeft + target.getDrawable().getIntrinsicWidth();
-        int fromBottom = fromTop + target.getDrawable().getIntrinsicHeight();
+        int fromRight = fromLeft + width;
+        int fromBottom = fromTop + height;
         float scaleFactor = mContentView.getWidth() / (float) width;
         int toBottom = toTop + (int) (height * scaleFactor);
         mAnimScreen.mContent.setLeft(fromLeft);
@@ -546,7 +532,6 @@ public class PhoneUi extends BaseUi {
         private ImageView mContent;
         private float mScale;
         private Bitmap mTitleBarBitmap;
-        private Bitmap mContentBitmap;
 
         public AnimScreen(Context ctx) {
             mMain = LayoutInflater.from(ctx).inflate(R.layout.anim_screen,

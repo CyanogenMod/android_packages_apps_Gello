@@ -66,11 +66,14 @@
             <item
                 android:id="@+id/find_menu_id"
                 android:title="@string/find_on_page"/>
-            <item
+         <item
                 android:id="@+id/ua_desktop_menu_id"
                 android:checkable="true"
                 android:title="@string/ua_switcher_desktop" />
-            <item
+        </group>
+        <group
+           android:id="@+id/OFFLINE_READING">
+          <item
                 android:id="@+id/save_snapshot_menu_id"
                 android:title="@string/menu_save_snapshot" />
         </group>

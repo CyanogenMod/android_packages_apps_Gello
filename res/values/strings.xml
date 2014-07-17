@@ -321,6 +321,8 @@
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
     <string name="pref_memory_monitor">Enable Memory Monitor</string>
+     <!-- Settings label -->
+    <string name="pref_allow_media_downloads">Allow Media Downloads</string>
     <!-- Settings label -->
     <string name="pref_content_open_in_background">Open in background</string>
     <!-- Settings label -->
@@ -807,6 +809,7 @@
     <string name="def_intent_pick_network"></string>
     <string name="def_landing_page"></string>
     <string name="def_useragent"></string>
+    <string name="def_extra_http_headers"></string>
 
     <!-- The default homepage. -->
     <string name="homepage_base" translatable="false">

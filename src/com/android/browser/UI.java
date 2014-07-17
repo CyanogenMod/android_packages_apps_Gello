@@ -140,7 +140,7 @@ public interface UI {
 
     void setUseQuickControls(boolean enabled);
 
-    void transalateTitleBar(float topControlsOffsetYPix);
+    void translateTitleBar(float topControlsOffsetYPix);
 
     public boolean shouldCaptureThumbnails();
 

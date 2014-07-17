@@ -27,6 +27,8 @@ import android.webkit.MimeTypeMap;
 import com.android.browser.reflect.ReflectHelper;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
@@ -89,7 +91,17 @@ class FetchUrlMimeType extends Thread {
             client.close();
             return;
         }
-        HttpHead request = new HttpHead(mUri);
+
+        HttpHead request;
+        try {
+            URI uriObj = new URI(mUri);
+            request = new HttpHead(uriObj.toString());
+        } catch (URISyntaxException e) {
+            Log.e(LOGTAG,"Encode URI failed: " + e);
+            client.close();
+            return;
+        }
+
         String cookies = CookieManager.getInstance().getCookie(mUri, mPrivateBrowsing);
         if (cookies != null && cookies.length() > 0) {
             request.addHeader("Cookie", cookies);

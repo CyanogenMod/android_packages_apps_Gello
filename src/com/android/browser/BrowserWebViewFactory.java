@@ -68,6 +68,8 @@ public class BrowserWebViewFactory implements WebViewFactory {
         // settings
         final BrowserSettings s = BrowserSettings.getInstance();
         s.startManagingSettings(w.getSettings());
+        if (s.useQuickControls())
+            w.updateTopControls(true, false, false);
     }
 
 }

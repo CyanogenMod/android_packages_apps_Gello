@@ -166,6 +166,7 @@ class Tab implements PictureListener {
     // If true, the tab is in page loading state (after onPageStarted,
     // before onPageFinsihed)
     private boolean mInPageLoad;
+    private boolean mPageFinished;
     private boolean mDisableOverrideUrlLoading;
     // The last reported progress of the current page
     private int mPageLoadProgress;
@@ -198,7 +199,6 @@ class Tab implements PictureListener {
     private int mCaptureWidth;
     private int mCaptureHeight;
     private Bitmap mCapture;
-    private Bitmap mScreenShot;
     private Handler mHandler;
     private boolean mUpdateThumbnail;
     private Timestamp timestamp;
@@ -382,6 +382,7 @@ class Tab implements PictureListener {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
+            mPageFinished = false;
             mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext,
@@ -726,11 +727,25 @@ class Tab implements PictureListener {
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
 
+
+    public boolean isTabFullScreen() {
+        return mFullScreen;
+    }
+
     protected void setTabFullscreen(boolean fullScreen) {
-        if (mMainView != null) {
-            mFullScreen = fullScreen;
-            mMainView.setFullScreen(fullScreen);
+        Controller controller = (Controller)mWebViewController;
+
+        if (!mSettings.useFullscreen())
+            controller.getUi().setFullscreen(fullScreen);
+
+        if (getWebView() != null) {
+            if (fullScreen)
+                getWebView().updateTopControls(true, false, true);
+            else if (!mSettings.useQuickControls())
+                getWebView().updateTopControls(true, true, true);
         }
+
+        mFullScreen = fullScreen;
     }
 
     // -------------------------------------------------------------------------
@@ -757,20 +772,17 @@ class Tab implements PictureListener {
         @Override
         public void toggleFullscreenModeForTab(boolean enterFullscreen) {
             if (mWebViewController instanceof Controller) {
-                Controller controller = (Controller)mWebViewController;
-                controller.getUi().setFullscreen(enterFullscreen);
                 setTabFullscreen(enterFullscreen);
             }
         }
 
         @Override
-        public void onOffsetsForFullscreenChanged(
-            float topControlsOffsetYPix, float contentOffsetYPix, float overdrawBottomHeightPix) {
-            boolean hide_title_on_scroll =
-                mContext.getResources().getBoolean(R.bool.hide_title_on_scroll);
-            if (mWebViewController instanceof Controller && hide_title_on_scroll) {
+        public void onOffsetsForFullscreenChanged(float topControlsOffsetYPix,
+                                                  float contentOffsetYPix,
+                                                  float overdrawBottomHeightPix) {
+            if (mWebViewController instanceof Controller) {
                 Controller controller = (Controller)mWebViewController;
-                controller.getUi().transalateTitleBar(topControlsOffsetYPix);
+                controller.getUi().translateTitleBar(topControlsOffsetYPix);
             }
         }
 
@@ -1408,10 +1420,6 @@ class Tab implements PictureListener {
         }
     }
 
-    public boolean isTabFullScreen() {
-        return mFullScreen;
-    }
-
     /**
      * Destroy the tab's main WebView and subWindow if any
      */
@@ -1459,14 +1467,8 @@ class Tab implements PictureListener {
         if (mParent != null) {
             mParent.mChildren.remove(this);
         }
-        if (mScreenShot != null) {
-            mScreenShot.recycle();
-            mScreenShot = null;
-        }
-        if (mCapture != null ) {
-            mCapture.recycle();
-            mCapture = null;
-        }
+
+        mCapture = null;
         deleteThumbnail();
     }
 
@@ -1593,7 +1595,6 @@ class Tab implements PictureListener {
     }
 
     void pause() {
-        capture();
         if (mMainView != null) {
             mMainView.onPause();
             if (mSubView != null) {
@@ -1741,6 +1742,15 @@ class Tab implements PictureListener {
 
     String getUrl() {
         return UrlUtils.filteredUrl(mCurrentState.mUrl);
+    }
+
+
+    protected void onPageFinished() {
+        mPageFinished = true;
+    }
+
+    public boolean getPageFinishedStatus() {
+        return mPageFinished;
     }
 
     String getOriginalUrl() {
@@ -1926,12 +1936,6 @@ class Tab implements PictureListener {
         }
     }
 
-    public Bitmap getFullScreenshot() {
-        synchronized (Tab.this) {
-            return mScreenShot;
-        }
-    }
-
     public boolean isSnapshot() {
         return false;
     }
@@ -1966,9 +1970,10 @@ class Tab implements PictureListener {
         values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
-        Bitmap screenshot = getScreenshot();
-        if (screenshot != null)
-            values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
+        Bitmap screenshot = Controller.createScreenshot(web,
+                Controller.getDesiredThumbnailWidth(mWebViewController.getActivity()),
+                Controller.getDesiredThumbnailHeight(mWebViewController.getActivity()));
+        values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
         return values;
     }
 
@@ -1996,7 +2001,13 @@ class Tab implements PictureListener {
             }
             return false;
         }
+
         String path = callback.getPath();
+        // could be that saving of file failed
+        if (path == null) {
+            return false;
+        }
+
         File savedFile = new File(path);
         if (!savedFile.exists()) {
            return false;

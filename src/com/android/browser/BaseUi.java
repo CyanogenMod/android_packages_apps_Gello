@@ -50,7 +50,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import android.content.res.TypedArray;
 import com.android.browser.R;
 import com.android.browser.Tab.SecurityState;
 
@@ -819,7 +819,7 @@ public abstract class BaseUi implements UI {
         win.setAttributes(winParams);
     }
 
-    public void transalateTitleBar(float topControlsOffsetYPix) {
+    public void translateTitleBar(float topControlsOffsetYPix) {
         if (mTitleBar != null && !mInActionMode) {
             mTitleBar.bringToFront();
             if (topControlsOffsetYPix != 0.0) {
@@ -827,7 +827,9 @@ public abstract class BaseUi implements UI {
             } else {
                 mTitleBar.setEnabled(true);
             }
-            mTitleBar.setTranslationY(topControlsOffsetYPix);
+
+            if (!mUseQuickControls)
+                mTitleBar.setTranslationY(topControlsOffsetYPix);
         }
     }
 
@@ -933,27 +935,36 @@ public abstract class BaseUi implements UI {
     }
 
     boolean mInActionMode = false;
+    private float getActionModeHeight() {
+        TypedArray actionBarSizeTypedArray = mActivity.obtainStyledAttributes(
+                    new int[] { android.R.attr.actionBarSize });
+        float size = actionBarSizeTypedArray.getDimension(0, 0f);
+        actionBarSizeTypedArray.recycle();
+        return size;
+    }
+
 
     @Override
     public void onActionModeStarted(ActionMode mode) {
         mInActionMode = true;
-        boolean hide_title_on_scroll =
-            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
-        if (!hide_title_on_scroll) {
-            int fixedTbarHeight = mTitleBar.isFixed() ? mTitleBar.calculateEmbeddedHeight() : 0;
+
+        if (mTitleBar.isFixed()) {
+            int fixedTbarHeight = mTitleBar.calculateEmbeddedHeight();
             mFixedTitlebarContainer.setY(fixedTbarHeight);
             setContentViewMarginTop(fixedTbarHeight);
+        } else {
+            mTitleBar.setTranslationY(getActionModeHeight());
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
         mInActionMode = false;
-        boolean hide_title_on_scroll =
-            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
-        if (!hide_title_on_scroll) {
+        if (mTitleBar.isFixed()) {
             mFixedTitlebarContainer.setY(0);
             setContentViewMarginTop(0);
+        } else {
+            mTitleBar.setTranslationY(0);
         }
     }
 }
