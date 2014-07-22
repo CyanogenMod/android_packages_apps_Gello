@@ -267,6 +267,7 @@ public class PhoneUi extends BaseUi {
 
     void showNavScreen() {
         mShowNav = true;
+        dismissIME();
         mUiController.setBlockEvents(true);
         if (mNavScreen == null) {
             mNavScreen = new NavScreen(mActivity, mUiController, this);
