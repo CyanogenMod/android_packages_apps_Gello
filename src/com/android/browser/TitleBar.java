@@ -102,9 +102,7 @@ public class TitleBar extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        boolean hide_title_on_scroll =
-          getContext().getResources().getBoolean(R.bool.hide_title_on_scroll);
-        if (mIsFixedTitleBar && !hide_title_on_scroll) {
+        if (mIsFixedTitleBar) {
             int margin = getMeasuredHeight() - calculateEmbeddedHeight();
             if (!isEditingUrl())
                 mBaseUi.setContentViewMarginTop(-margin);

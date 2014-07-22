@@ -52,10 +52,11 @@ public class PhoneUi extends BaseUi {
     private NavScreen mNavScreen;
     private AnimScreen mAnimScreen;
     private NavigationBarPhone mNavigationBar;
-    private int mActionBarHeight;
+    private Activity mBrowser;
 
     boolean mAnimating;
     boolean mShowNav = false;
+
 
     /**
      * @param browser
@@ -65,11 +66,7 @@ public class PhoneUi extends BaseUi {
         super(browser, controller);
         setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
         mNavigationBar = (NavigationBarPhone) mTitleBar.getNavigationBar();
-        TypedValue heightValue = new TypedValue();
-        browser.getTheme().resolveAttribute(
-                android.R.attr.actionBarSize, heightValue, true);
-        mActionBarHeight = TypedValue.complexToDimensionPixelSize(heightValue.data,
-                browser.getResources().getDisplayMetrics());
+        mBrowser = browser;
     }
 
     @Override
@@ -238,7 +235,12 @@ public class PhoneUi extends BaseUi {
         if (!isEditingUrl()) {
             hideTitleBar();
         } else {
-            mTitleBar.setTranslationY(mActionBarHeight);
+            TypedValue heightValue = new TypedValue();
+            mBrowser.getTheme().resolveAttribute(
+                android.R.attr.actionBarSize, heightValue, true);
+            int actionBarHeight = TypedValue.complexToDimensionPixelSize(heightValue.data,
+                mBrowser.getResources().getDisplayMetrics());
+            mTitleBar.setTranslationY(actionBarHeight);
         }
     }
 

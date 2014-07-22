@@ -855,7 +855,7 @@ public abstract class BaseUi implements UI {
     }
 
     public void transalateTitleBar(float topControlsOffsetYPix) {
-        if (mTitleBar != null) {
+        if (mTitleBar != null && !mInActionMode) {
             mTitleBar.bringToFront();
             if (topControlsOffsetYPix != 0.0) {
                 mTitleBar.setEnabled(false);
@@ -863,7 +863,6 @@ public abstract class BaseUi implements UI {
                 mTitleBar.setEnabled(true);
             }
             mTitleBar.setTranslationY(topControlsOffsetYPix);
-
         }
     }
 
@@ -968,8 +967,11 @@ public abstract class BaseUi implements UI {
         return mUiController;
     }
 
+    boolean mInActionMode = false;
+
     @Override
     public void onActionModeStarted(ActionMode mode) {
+        mInActionMode = true;
         boolean hide_title_on_scroll =
             mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
         if (!hide_title_on_scroll) {
@@ -981,6 +983,7 @@ public abstract class BaseUi implements UI {
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
+        mInActionMode = false;
         boolean hide_title_on_scroll =
             mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
         if (!hide_title_on_scroll) {
