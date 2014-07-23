@@ -2838,7 +2838,11 @@ public class Controller
             boolean useCurrent, Tab parent) {
         Tab tab = createNewTab(incognito, setActive, useCurrent);
         if (tab != null) {
-            if (parent != null && parent != tab) {
+            if (parent instanceof SnapshotTab) {
+                addTab(tab);
+                if (setActive)
+                    setActiveTab(tab);
+            }else if (parent != null && parent != tab) {
                 parent.addChildTab(tab);
             }
             if (url != null) {
