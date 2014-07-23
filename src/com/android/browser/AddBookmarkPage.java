@@ -68,7 +68,9 @@ import com.android.browser.platformsupport.BrowserContract.Accounts;
 import com.android.browser.reflect.ReflectHelper;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.URISyntaxException;
+import java.io.UnsupportedEncodingException;
 
 public class AddBookmarkPage extends Activity
         implements View.OnClickListener, TextView.OnEditorActionListener,
@@ -955,7 +957,8 @@ public class AddBookmarkPage extends Activity
                 // fail URI parsing, so don't try it if that's the kind of bookmark we have.
 
                 if (!url.toLowerCase().startsWith("javascript:")) {
-                    URI uriObj = new URI(url);
+                    String encodedUrl = URLEncoder.encode(url, "UTF-8");
+                    URI uriObj = new URI(encodedUrl);
                     String scheme = uriObj.getScheme();
                     if (!Bookmarks.urlHasAcceptableScheme(url)) {
                         // If the scheme was non-null, let the user know that we
@@ -978,6 +981,9 @@ public class AddBookmarkPage extends Activity
                     }
                 }
             } catch (URISyntaxException e) {
+                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
+                return false;
+            } catch (UnsupportedEncodingException e) {
                 mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
             }
