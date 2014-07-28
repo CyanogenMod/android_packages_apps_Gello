@@ -201,6 +201,7 @@ class Tab implements PictureListener {
     private Handler mHandler;
     private boolean mUpdateThumbnail;
     private Timestamp timestamp;
+    private boolean mFullScreen = false;
 
     /**
      * See {@link #clearBackStackWhenItemAdded(String)}.
@@ -724,6 +725,13 @@ class Tab implements PictureListener {
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
 
+    protected void setTabFullscreen(boolean fullScreen) {
+        if (mMainView != null) {
+            mFullScreen = fullScreen;
+            mMainView.setFullScreen(fullScreen);
+        }
+    }
+
     // -------------------------------------------------------------------------
     // WebChromeClient implementation for the main WebView
     // -------------------------------------------------------------------------
@@ -749,7 +757,8 @@ class Tab implements PictureListener {
         public void toggleFullscreenModeForTab(boolean enterFullscreen) {
             if (mWebViewController instanceof Controller) {
                 Controller controller = (Controller)mWebViewController;
-                controller.getUi().setTabFullscreen(enterFullscreen);
+                controller.getUi().setFullscreen(enterFullscreen);
+                setTabFullscreen(enterFullscreen);
             }
         }
 
@@ -760,19 +769,13 @@ class Tab implements PictureListener {
                 mContext.getResources().getBoolean(R.bool.hide_title_on_scroll);
             if (mWebViewController instanceof Controller && hide_title_on_scroll) {
                 Controller controller = (Controller)mWebViewController;
-                mMainView.setTranslationY(contentOffsetYPix);
                 controller.getUi().transalateTitleBar(topControlsOffsetYPix);
             }
         }
 
         @Override
         public boolean isTabFullScreen() {
-            if (mWebViewController instanceof Controller) {
-                Controller controller = (Controller)mWebViewController;
-                return controller.getUi().isTabFullScreen();
-            } else {
-                return false;
-            }
+          return mFullScreen;
         }
 
         @Override
@@ -1402,6 +1405,10 @@ class Tab implements PictureListener {
                 mSavedState = null;
             }
         }
+    }
+
+    public boolean isTabFullScreen() {
+        return mFullScreen;
     }
 
     /**

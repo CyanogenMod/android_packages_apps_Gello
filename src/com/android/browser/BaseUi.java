@@ -115,7 +115,6 @@ public abstract class BaseUi implements UI {
     private NavigationBarBase mNavigationBar;
     protected PieControl mPieControl;
     private boolean mBlockFocusAnimations;
-    private boolean mFullScreen;
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -146,7 +145,6 @@ public abstract class BaseUi implements UI {
         mTitleBar.setProgress(100);
         mNavigationBar = mTitleBar.getNavigationBar();
         mUrlBarAutoShowManager = new UrlBarAutoShowManager(this);
-        mFullScreen = false;
     }
 
     private void cancelStopToast() {
@@ -195,8 +193,9 @@ public abstract class BaseUi implements UI {
         if (mCustomView != null) {
             mUiController.hideCustomView();
             return true;
-        } else if (mFullScreen) {
-            setTabFullscreen(false);
+        } else if ((mTabControl.getCurrentTab() != null) &&
+                (mTabControl.getCurrentTab().isTabFullScreen())) {
+            mTabControl.getCurrentTab().setTabFullscreen(false);
             return true;
         }
         return false;
@@ -809,9 +808,7 @@ public abstract class BaseUi implements UI {
         final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         if (enabled) {
             winParams.flags |=  bits;
-            mFullScreen = true;
         } else {
-            mFullScreen = false;
             winParams.flags &= ~bits;
             if (mCustomView != null) {
                 mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -820,38 +817,6 @@ public abstract class BaseUi implements UI {
             }
         }
         win.setAttributes(winParams);
-    }
-
-    public boolean isTabFullScreen() {
-        return mFullScreen;
-    }
-
-    public void setTabFullscreen(boolean enabled) {
-        setFullscreen(enabled);
-        FrameLayout main = (FrameLayout) mActivity.getWindow()
-            .getDecorView().findViewById(android.R.id.content);
-        boolean hide_title_on_scroll =
-            mActivity.getResources().getBoolean(R.bool.hide_title_on_scroll);
-        LinearLayout titleBarParent = (LinearLayout) main.findViewById(R.id.vertical_layout);
-        if (titleBarParent != null) {
-            if (enabled) {
-                if (!hide_title_on_scroll) {
-                    titleBarParent.removeView(mFixedTitlebarContainer);
-                }
-                else {
-                    mContentView.removeView(mTitleBar);
-                }
-            } else {
-                if (!hide_title_on_scroll) {
-                    titleBarParent.addView(mFixedTitlebarContainer, 1);
-                }
-                else {
-                    mContentView.addView(mTitleBar,
-                        new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                        LayoutParams.WRAP_CONTENT));
-                }
-            }
-        }
     }
 
     public void transalateTitleBar(float topControlsOffsetYPix) {
