@@ -2016,7 +2016,6 @@ class Tab implements PictureListener {
     public void loadUrl(String url, Map<String, String> headers) {
         if (mMainView != null) {
             mPageLoadProgress = INITIAL_PROGRESS;
-            mInPageLoad = true;
             mCurrentState = new PageState(mContext, false, url, null);
             handleJsInterface(mMainView, url);
             mMainView.loadUrl(url, headers);
