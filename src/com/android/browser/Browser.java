@@ -22,7 +22,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.os.Process;
 
-import org.codeaurora.swe.CookieSyncManager;
+import org.codeaurora.swe.Engine;
 
 import com.android.browser.BrowserConfig;
 
@@ -45,16 +45,16 @@ public class Browser extends Application {
 
         // SWE: Avoid initializing databases for sandboxed processes.
         // Must have INITIALIZE_DATABASE permission in AndroidManifest.xml only for browser process
-        final String INITIALIZE_DATABASE= BrowserConfig.AUTHORITY +
+        final String INITIALIZE_DATABASE = BrowserConfig.AUTHORITY +
                                             ".permission.INITIALIZE_DATABASE";
         final Context context = getApplicationContext();
-        if (context.checkPermission(INITIALIZE_DATABASE,
-              Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED) {
-
-                // create CookieSyncManager with current Context
-                CookieSyncManager.createInstance(this);
-                BrowserSettings.initialize(getApplicationContext());
-                Preloader.initialize(getApplicationContext());
+        boolean isActivityContext = (context.checkPermission(INITIALIZE_DATABASE,
+              Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED);
+        if (isActivityContext) {
+            // Initialize the SWE engine.
+            Engine.initialize(context);
+            BrowserSettings.initialize(context);
+            Preloader.initialize(context);
         }
     }
 }
