@@ -228,6 +228,9 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTitleContainer.setBackgroundDrawable(null);
             mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
+            if (mUiController != null) {
+                mUiController.setWindowDimming(0f);
+            }
             break;
         case StateListener.STATE_HIGHLIGHTED:
             mComboIcon.setVisibility(View.GONE);
@@ -240,10 +243,15 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+
             if (!mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
                 // only change text if different
                 mUrlInput.setText((String) mUrlInput.getTag(), false);
                 mUrlInput.selectAll();
+            }
+
+            if (mUiController != null) {
+                mUiController.setWindowDimming(0.75f);
             }
             break;
         case StateListener.STATE_EDITED:

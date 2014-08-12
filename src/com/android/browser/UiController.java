@@ -113,4 +113,6 @@ public interface UiController {
 
     void startVoiceRecognizer();
 
+    void setWindowDimming(float level);
+
 }

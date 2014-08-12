@@ -75,6 +75,7 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
@@ -3312,6 +3313,17 @@ public class Controller
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         voice.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
         mActivity.startActivityForResult(voice, VOICE_RESULT);
+    }
+
+    public void setWindowDimming(float level) {
+        if (level != 0) {
+            WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
+            lp.dimAmount = level;
+            mActivity.getWindow().setAttributes(lp);
+            mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        } else {
+            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        }
     }
 
     @Override
