@@ -78,8 +78,8 @@ import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebHistoryItem;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebView.PictureListener;
+import org.codeaurora.swe.WebView.CreateWindowParams;
 import org.codeaurora.swe.WebViewClient;
-
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -755,6 +755,10 @@ class Tab implements PictureListener {
     private final WebChromeClient mWebChromeClient = new WebChromeClient() {
         // Helper method to create a new tab or sub window.
         private void createWindow(final boolean dialog, final Message msg) {
+            this.createWindow(dialog, msg, null);
+        }
+
+        private void createWindow(final boolean dialog, final Message msg, final String url) {
             WebView.WebViewTransport transport =
                     (WebView.WebViewTransport) msg.obj;
             if (dialog) {
@@ -762,7 +766,7 @@ class Tab implements PictureListener {
                 mWebViewController.attachSubWindow(Tab.this);
                 transport.setWebView(mSubView);
             } else {
-                final Tab newTab = mWebViewController.openTab(null,
+                final Tab newTab = mWebViewController.openTab(url,
                         Tab.this, true, true);
                 transport.setWebView(newTab.getWebView());
             }
@@ -819,7 +823,12 @@ class Tab implements PictureListener {
 
             // Short-circuit if this was a user gesture.
             if (userGesture || !mSettings.blockPopupWindows()) {
-                createWindow(dialog, resultMsg);
+                CreateWindowParams windowParams = view.getCreateWindowParams();
+                String url = null;
+                if (windowParams.mOpenerSuppressed) {
+                    url = windowParams.mURL;
+                }
+                createWindow(dialog, resultMsg, url);
                 return true;
             }
 
