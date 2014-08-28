@@ -25,6 +25,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.os.Message;
 import android.util.Log;
 import android.util.TypedValue;
@@ -35,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.webkit.ValueCallback;
 import org.codeaurora.swe.WebView;
 import android.widget.ImageView;
 
@@ -122,7 +124,7 @@ public class PhoneUi extends BaseUi {
             if (mAnimScreen == null) {
                 mAnimScreen = new AnimScreen(mActivity);
                 // initialize bitmaps
-                mAnimScreen.set(getTitleBar(), getWebView());
+                //mAnimScreen.set(getTitleBar(), getWebView());
             }
         }
     }
@@ -271,6 +273,19 @@ public class PhoneUi extends BaseUi {
         mShowNav = true;
         dismissIME();
         mUiController.setBlockEvents(true);
+
+        getWebView()
+            .getContentBitmapAsync(1.0f,
+                new Rect(),
+                new ValueCallback<Bitmap>() {
+                    @Override
+                    public void onReceiveValue(Bitmap bitmap) {
+                        onShowNavScreenContinue(bitmap);
+                    }});
+    }
+
+    void onShowNavScreenContinue(Bitmap viewportBitmap) {
+
         if (mNavScreen == null) {
             mNavScreen = new NavScreen(mActivity, mUiController, this);
             mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
@@ -287,7 +302,7 @@ public class PhoneUi extends BaseUi {
             mAnimScreen.mTitle.setAlpha(1f);
             mAnimScreen.setScaleFactor(1f);
         }
-        mAnimScreen.set(getTitleBar(), getWebView());
+        mAnimScreen.set(getTitleBar(), viewportBitmap);
         if (mAnimScreen.mMain.getParent() == null) {
             mCustomViewContainer.addView(mAnimScreen.mMain, COVER_SCREEN_PARAMS);
         }
@@ -383,7 +398,7 @@ public class PhoneUi extends BaseUi {
         }
         int width = mContentView.getWidth();
         int height = mContentView.getHeight();
-        Bitmap bm = tab.getFullScreenshot();
+        Bitmap bm = tab.getScreenshot();
         if (bm == null)
             bm = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
         mAnimScreen.set(bm);
@@ -503,6 +518,7 @@ public class PhoneUi extends BaseUi {
         mNavScreen.setVisibility(View.GONE);
         mCustomViewContainer.setAlpha(1f);
         mCustomViewContainer.setVisibility(View.GONE);
+        mAnimScreen.set(null);
     }
 
     @Override
@@ -543,8 +559,8 @@ public class PhoneUi extends BaseUi {
             setScaleFactor(getScaleFactor());
         }
 
-        public void set(TitleBar tbar, WebView web) {
-            if (tbar == null || web == null) {
+        public void set(TitleBar tbar, Bitmap viewportBitmap) {
+            if (tbar == null) {
                 return;
             }
             int embTbarHeight = tbar.getEmbeddedHeight();
@@ -566,29 +582,8 @@ public class PhoneUi extends BaseUi {
             }
             mTitle.setImageBitmap(mTitleBarBitmap);
             mTitle.setVisibility(View.VISIBLE);
-            // SWE: WebView.draw() wouldn't draw anything if SurfaceView is enabled.
-            if (mContentBitmap != null) {
-                mContentBitmap.recycle();
-                mContentBitmap = null;
-            }
-            mContentBitmap = web.getViewportBitmap();
-            if (mContentBitmap == null) {
-                int h = web.getHeight() - embTbarHeight;
-                if (mContentBitmap == null
-                        || mContentBitmap.getWidth() != web.getWidth()
-                        || mContentBitmap.getHeight() != h) {
-                    mContentBitmap = safeCreateBitmap(web.getWidth(), h);
-                }
-                if (mContentBitmap != null) {
-                        Canvas c = new Canvas(mContentBitmap);
-                        int tx = web.getScrollX();
-                        int ty = web.getScrollY();
-                        c.translate(-tx, -ty - embTbarHeight);
-                        web.draw(c);
-                        c.setBitmap(null);
-                }
-            }
-            mContent.setImageBitmap(mContentBitmap);
+
+            mContent.setImageBitmap(viewportBitmap);
         }
 
         private Bitmap safeCreateBitmap(int width, int height) {

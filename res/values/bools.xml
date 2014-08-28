@@ -15,7 +15,7 @@
     <bool name="isTablet">false</bool>
     <!--  hide the title bar -->
     <bool name="hide_title">false</bool>
-    <bool name="hide_title_on_scroll">true</bool>
+    <bool name="hide_title_on_scroll">false</bool>
     <bool name="hide_nav_buttons">true</bool>
     <!-- Browser menu toggles -->
     <bool name="menu_show_navigation">true</bool>

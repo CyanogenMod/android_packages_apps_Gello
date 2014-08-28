@@ -6,9 +6,6 @@
       'dependencies': [
         'swe_engine_java',
         'android-support-v13',
-        'fast_webview_java',
-        '<@(libnetxt_dependencies)',
-        '<@(libsweadrenoext_dependencies)',
       ],
       'variables': {
         'apk_name': 'SWE_AndroidBrowser',
@@ -20,7 +17,13 @@
         'assets_dir': '../../swe/browser/assets',
         'native_lib_target': 'libswewebviewchromium',
         'additional_input_paths': ['<(PRODUCT_DIR)/android_webview_apk/assets/webviewchromium.pak'],
-        'additional_native_libs': ['<@(libnetxt_native_libs)', '<@(libsweadrenoext_native_libs)'],
+        'conditions': [
+          ['icu_use_data_file_flag==1', {
+            'additional_input_paths': [
+              '<(PRODUCT_DIR)/icudtl.dat',
+            ],
+          }],
+        ],
         'override_package_name': 'com.android.swe.browser',
         'android_manifest_path': '../../swe/browser/AndroidManifest.xml',
         'additional_src_dirs': ['<(DEPTH)/swe/browser/src_standalone/com/android/browser'],
@@ -30,6 +33,13 @@
               'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/',
               'files': [
                 '<(PRODUCT_DIR)/android_webview_apk/assets/webviewchromium.pak'
+              ],
+              'conditions': [
+                ['icu_use_data_file_flag==1', {
+                  'files': [
+                    '<(PRODUCT_DIR)/icudtl.dat',
+                ],
+                }],
               ],
         },
         {

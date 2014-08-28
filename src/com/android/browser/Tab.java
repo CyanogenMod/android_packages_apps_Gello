@@ -33,6 +33,7 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -1965,8 +1966,9 @@ class Tab implements PictureListener {
         values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
-        Bitmap screenshot = web.getViewportBitmap();
-        values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
+        Bitmap screenshot = getScreenshot();
+        if (screenshot != null)
+            values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
         return values;
     }
 
@@ -2046,44 +2048,26 @@ class Tab implements PictureListener {
         if (mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0) {
             return;
         }
+
+        mMainView
+            .getContentBitmapAsync(
+                 (float) mCaptureWidth / mMainView.getWidth(),
+                 new Rect(),
+                 new ValueCallback<Bitmap>() {
+                     @Override
+                     public void onReceiveValue(Bitmap bitmap) {
+                         onCaptureCallback(bitmap);
+                     }});
+    }
+
+    private void onCaptureCallback(Bitmap bitmap) {
+        if (mCapture == null || bitmap == null)
+            return;
+
         Canvas c = new Canvas(mCapture);
-        int state = c.save();
-        float scale = 0;
-        Bitmap screenShot = mMainView.getViewportBitmap();
-        if (mScreenShot != null) {
-            mScreenShot.recycle();
-            mScreenShot = null;
-        }
-        mScreenShot = screenShot;
-        if (screenShot != null) {
-            //scale based on device orientation
-            if (screenShot.getHeight() > screenShot.getWidth()){
-                scale = (float) mCaptureWidth / screenShot.getWidth();
-            } else {
-                scale = (float) mCaptureHeight / screenShot.getHeight();
-            }
-            mCapture.eraseColor(Color.WHITE);
-            c.scale(scale, scale);
-            c.drawBitmap(screenShot, 0, 0, null);
-        } else {
-            final int left = mMainView.getViewScrollX();
-            final int top = mMainView.getViewScrollY() +  mMainView.getVisibleTitleHeight();
+        mCapture.eraseColor(Color.WHITE);
+        c.drawBitmap(bitmap, 0, 0, null);
 
-            if (mMainView.getHeight() > mMainView.getWidth()){
-                scale = mCaptureWidth / (float) mMainView.getWidth();
-            } else {
-                scale = mCaptureHeight / (float) mMainView.getHeight();
-            }
-
-            c.translate(-left, -top);
-            c.scale(scale, scale, left, top);
-            if (mMainView instanceof BrowserWebView) {
-                ((BrowserWebView)mMainView).drawContent(c);
-             } else {
-                mMainView.draw(c);
-             }
-        }
-        c.restoreToCount(state);
         // manually anti-alias the edges for the tilt
         c.drawRect(0, 0, 1, mCapture.getHeight(), sAlphaPaint);
         c.drawRect(mCapture.getWidth() - 1, 0, mCapture.getWidth(),

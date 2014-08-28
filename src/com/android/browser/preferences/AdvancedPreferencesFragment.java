@@ -160,14 +160,15 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                 }
             }
         });
-        GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
+        //SWE-FIXME : Uncomment when geolocation is working.
+        /*GeolocationPermissions.getInstance().getOrigins(new ValueCallback<Set<String> >() {
             @Override
             public void onReceiveValue(Set<String> geolocationOrigins) {
                 if ((geolocationOrigins != null) && !geolocationOrigins.isEmpty()) {
                     websiteSettings.setEnabled(true);
                 }
             }
-        });
+        });*/
     }
 
     @Override

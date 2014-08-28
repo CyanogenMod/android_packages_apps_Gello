@@ -61,7 +61,6 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import org.codeaurora.net.NetworkServices;
 
 interface BookmarksPageCallbacks {
     // Return true if handled
@@ -435,9 +434,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Start the loaders
         LoaderManager lm = getLoaderManager();
         lm.restartLoader(LOADER_ACCOUNTS, null, this);
-
-        //Notify about anticipated network activity
-        NetworkServices.HintUpcomingUserActivity();
 
         return mRoot;
     }

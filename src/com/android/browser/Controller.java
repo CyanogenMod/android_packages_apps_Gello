@@ -601,13 +601,29 @@ public class Controller
     }
 
     private void shareCurrentPage(Tab tab) {
-        if (tab != null) {
-            sharePage(mActivity, tab.getTitle(),
-                    tab.getUrl(), tab.getFavicon(),
-                    createScreenshot(tab.getWebView(),
-                            getDesiredThumbnailWidth(mActivity),
-                            getDesiredThumbnailHeight(mActivity)));
-        }
+        if (tab == null || tab.getWebView() == null)
+            return;
+
+        final Tab mytab = tab;
+        final ValueCallback<Bitmap> onScreenshot =  new ValueCallback<Bitmap>() {
+            @Override
+            public void onReceiveValue(Bitmap bitmap) {
+                sharePage(mActivity, mytab.getTitle(), mytab.getUrl(),
+                          mytab.getFavicon(), bitmap);
+            }
+        };
+
+        createScreenshotAsync(
+            tab.getWebView(),
+            getDesiredThumbnailWidth(mActivity),
+            getDesiredThumbnailHeight(mActivity),
+            new ValueCallback<Bitmap>() {
+                @Override
+                public void onReceiveValue(Bitmap bitmap) {
+                    sharePage(mActivity, mytab.getTitle(), mytab.getUrl(),
+                          mytab.getFavicon(), bitmap);
+                }
+            });
     }
 
     /**
@@ -2145,10 +2161,21 @@ public class Controller
 
     @Override
     public void bookmarkCurrentPage() {
-        Intent bookmarkIntent = createBookmarkCurrentPageIntent(false);
-        if (bookmarkIntent != null) {
-            mActivity.startActivity(bookmarkIntent);
-        }
+        WebView w = getCurrentTopWebView();
+        if (w == null)
+            return;
+
+        final Intent i = createBookmarkCurrentPageIntent(false);
+        createScreenshotAsync(
+            w, getDesiredThumbnailWidth(mActivity),
+            getDesiredThumbnailHeight(mActivity),
+            new ValueCallback<Bitmap>() {
+                @Override
+                    public void onReceiveValue(Bitmap bitmap) {
+                    i.putExtra(BrowserContract.Bookmarks.THUMBNAIL, bitmap);
+                    mActivity.startActivity(i);
+                }
+            });
     }
 
     private void goLive() {
@@ -2378,9 +2405,7 @@ public class Controller
                         settings.getUserAgentString());
             }
         }
-        i.putExtra(BrowserContract.Bookmarks.THUMBNAIL,
-                createScreenshot(w, getDesiredThumbnailWidth(mActivity),
-                getDesiredThumbnailHeight(mActivity)));
+        //SWE: Thumbnail will need to be set asynchronously
         i.putExtra(BrowserContract.Bookmarks.FAVICON, w.getFavicon());
         if (editExisting) {
             i.putExtra(AddBookmarkPage.CHECK_FOR_DUPE, true);
@@ -2471,6 +2496,27 @@ public class Controller
         }
         return sThumbnailBitmap;
     }
+
+    static void createScreenshotAsync(WebView view, int width, int height,
+                                        final ValueCallback<Bitmap> cb) {
+        if (view == null || width == 0 || height == 0) {
+            return;
+        }
+
+        view.getContentBitmapAsync(
+            (float) width / view.getWidth(),
+            new Rect(),
+            new ValueCallback<Bitmap>() {
+                @Override
+                public void onReceiveValue(Bitmap bitmap) {
+                    Log.e("sudheer", "screensot bitmap: w: " + bitmap.getWidth()
+                          + " h: " + bitmap.getHeight());
+                    if (bitmap != null)
+                        bitmap = bitmap.copy(Bitmap.Config.RGB_565, false);
+                    cb.onReceiveValue(bitmap);
+                }});
+    }
+
 
     private void updateScreenshot(Tab tab) {
         // If this is a bookmarked site, add a screenshot to the database.

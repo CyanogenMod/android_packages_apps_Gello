@@ -22,6 +22,9 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.os.Process;
 
+import org.chromium.content.browser.ResourceExtractor;
+import org.chromium.base.PathUtils;
+
 import org.codeaurora.swe.Engine;
 
 import com.android.browser.BrowserConfig;
@@ -36,10 +39,15 @@ public class Browser extends Application {
     // Set to true to enable extra debug logging.
     final static boolean LOGD_ENABLED = true;
 
+    private static final String[] MP_MANDATORY_PAKS = new String[] {
+        "webviewchromium.pak",
+        "icudtl.dat"
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        initializeApplicationParameters();
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
@@ -55,7 +63,13 @@ public class Browser extends Application {
             Engine.initialize(context);
             BrowserSettings.initialize(context);
             Preloader.initialize(context);
-        }
+       }
+
+    }
+
+    public static void initializeApplicationParameters() {
+        ResourceExtractor.setMandatoryPaksToExtract(MP_MANDATORY_PAKS);
+        PathUtils.setPrivateDataDirectorySuffix("android_browser");
     }
 }
 

@@ -71,7 +71,8 @@ public class LocationButton extends ImageButton
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        init();
+        //SWE-FIXME : Enable once SWE geolocation api works.
+        //init();
     }
 
     private void init() {
