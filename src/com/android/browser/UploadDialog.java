@@ -41,7 +41,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UploadDialog extends AppItem {
@@ -55,21 +54,8 @@ public class UploadDialog extends AppItem {
         this.apps = null;
     }
 
-    public void getUploadableApps(List<Intent> intents) {
-
-        ArrayList<ResolveInfo> uploadApps = new ArrayList<ResolveInfo>();
-
-        PackageManager pm = activity.getPackageManager();
-
-        for (Intent currentIntent: intents) {
-            List<ResolveInfo> appsList = pm.queryIntentActivities(currentIntent,
-                PackageManager.MATCH_DEFAULT_ONLY);
-            for (ResolveInfo res : appsList) {
-                uploadApps.add(res);
-            }
-        }
-
-        this.apps = uploadApps;
+    public void getUploadableApps(List<ResolveInfo> apps, List<Intent> intents) {
+        this.apps = apps;
         this.uploadIntents = intents;
     }
 
@@ -77,7 +63,6 @@ public class UploadDialog extends AppItem {
 
         final AppAdapter adapter = new AppAdapter(activity, activity.getPackageManager(),
                                     R.layout.app_row, this.apps);
-
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
         builderSingle.setIcon(R.mipmap.ic_launcher_browser_swe);
@@ -87,11 +72,9 @@ public class UploadDialog extends AppItem {
             @Override
             public void onClick(DialogInterface dialog, int position) {
                 dialog.dismiss();
-                Intent chooserIntent = Intent.createChooser(uploadIntents.get(position), "Upload Via");
-                uploadHandler.initiateActivity(chooserIntent);
+                uploadHandler.initiateActivity(uploadIntents.get(position));
             }
         });
-
 
         builderSingle.setOnCancelListener(new DialogInterface.OnCancelListener()
             {
@@ -104,6 +87,5 @@ public class UploadDialog extends AppItem {
         });
 
         builderSingle.show();
-
     }
 }

@@ -40,7 +40,6 @@ import com.android.browser.reflect.ReflectHelper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Handle the file upload callbacks from WebView here
@@ -494,22 +493,34 @@ public class UploadHandler {
             intentList.add(createSoundRecorderIntent());
         }
 
-        // get all openable apps list and create corresponading intents
         PackageManager pm = mController.getActivity().getPackageManager();
-        List<ResolveInfo> openableAppsList = pm.queryIntentActivities(openable, 0);
-        for (int j = 0, n = openableAppsList.size(); j < n; j++ ) {
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.setType(openableMimeType);
-                ActivityInfo activityInfo = openableAppsList.get(j).activityInfo;
-                ComponentName name = new ComponentName(activityInfo.applicationInfo.packageName,
-                                            activityInfo.name);
-                i.setComponent(name);
-                intentList.add(i);
+        ArrayList<ResolveInfo> uploadApps = new ArrayList<ResolveInfo>();
+
+        //Step 1:- resolve all apps for IntentList passed
+        for (Intent i: intentList) {
+            List<ResolveInfo> intentAppsList = pm.queryIntentActivities(i,
+                                                    PackageManager.MATCH_DEFAULT_ONLY);
+            // limit only to first activity
+            uploadApps.add(intentAppsList.get(0));
         }
 
+        // Step 2:- get all openable apps list and create corresponding intents
+        List<ResolveInfo> openableAppsList = pm.queryIntentActivities(openable,
+                                                PackageManager.MATCH_DEFAULT_ONLY);
+        // limit only to first activity
+        ResolveInfo topOpenableApp = openableAppsList.get(0);
+        uploadApps.add(topOpenableApp);
+        ActivityInfo activityInfo = topOpenableApp.activityInfo;
+        ComponentName name = new ComponentName(activityInfo.applicationInfo.packageName,
+                                    activityInfo.name);
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.setType(openableMimeType);
+        i.setComponent(name);
+        intentList.add(i);
 
+        // Step 3: Pass all the apps and their corresponding intents to uploaddialog
         UploadDialog upDialog = new UploadDialog(mController.getActivity());
-        upDialog.getUploadableApps(intentList);
+        upDialog.getUploadableApps(uploadApps, intentList);
         upDialog.loadView(this);
     }
 
