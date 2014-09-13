@@ -189,8 +189,6 @@ class Tab implements PictureListener {
     // Listener used to know when we move forward or back in the history list.
     private final WebBackForwardListClient mWebBackForwardListClient;
     private DataController mDataController;
-    //Indicates if a JS interface was created for a specific url
-    private boolean mJsInterfaceEnabled = false;
 
     // AsyncTask for downloading touch icons
     DownloadTouchIcon mTouchIconLoader;
@@ -900,7 +898,6 @@ class Tab implements PictureListener {
         public void onProgressChanged(WebView view, int newProgress) {
             mPageLoadProgress = newProgress;
             if (newProgress == 100) {
-                Log.i(CONSOLE_LOGTAG, "SWE Pageload Progress = 100");
                 mInPageLoad = false;
             }
             mWebViewController.onProgressChanged(Tab.this);
@@ -2055,23 +2052,7 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext, false, url, null);
-            handleJsInterface(mMainView, url);
             mMainView.loadUrl(url, headers);
-        }
-    }
-
-    public void handleJsInterface(WebView webview, String url){
-        if (url != null &&
-            url.equals(mContext.getResources().getString(R.string.homepage_base)) &&
-            url.startsWith("file:///")) {
-                mJsInterfaceEnabled = true;
-                webview.getSettings().setJavaScriptEnabled(true);
-                webview.addJavascriptInterface(mContext, "default_homepage");
-        } else {
-            if (mJsInterfaceEnabled) {
-                webview.removeJavascriptInterface("default_homepage");
-                mJsInterfaceEnabled = false;
-            }
         }
     }
 

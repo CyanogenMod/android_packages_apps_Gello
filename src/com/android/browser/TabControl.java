@@ -423,9 +423,6 @@ class TabControl {
                     // sNextId to be set correctly.
                     continue;
                 }
-                //handle restored pages that may require a JS interface
-                t.handleJsInterface(t.getWebView(), t.getUrl());
-
                 tabMap.put(id, t);
                 // Me must set the current tab before restoring the state
                 // so that all the client classes are set.

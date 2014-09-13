@@ -35,11 +35,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.webkit.JavascriptInterface;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.android.browser.R;
-import com.android.browser.UI.ComboViews;
 import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
@@ -357,29 +355,4 @@ public class BrowserActivity extends Activity {
                 super.dispatchGenericMotionEvent(ev);
     }
 
-    // add for carrier homepage feature
-    @JavascriptInterface
-    public void loadBookmarks() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mController instanceof Controller) {
-                    ((Controller)mController).bookmarksOrHistoryPicker(ComboViews.Bookmarks);
-                }
-            }
-        });
-    }
-
-    // add for carrier homepage feature
-    @JavascriptInterface
-    public void loadHistory() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mController instanceof Controller) {
-                    ((Controller)mController).bookmarksOrHistoryPicker(ComboViews.History);
-                }
-            }
-        });
-    }
 }

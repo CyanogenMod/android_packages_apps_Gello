@@ -86,6 +86,8 @@ import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebBackForwardList;
+import org.codeaurora.swe.WebHistoryItem;
 
 import com.android.browser.AppAdapter;
 import com.android.browser.R;
@@ -176,7 +178,8 @@ public class Controller
 
     private Activity mActivity;
     private UI mUi;
-    private TabControl mTabControl;
+    private HomepageHandler mHomepageHandler;
+    protected TabControl mTabControl;
     private BrowserSettings mSettings;
     private WebViewFactory mFactory;
 
@@ -270,6 +273,7 @@ public class Controller
                 BrowserContract.Bookmarks.CONTENT_URI, true, mBookmarksObserver);
 
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
+        mHomepageHandler = new HomepageHandler(browser, this);
     }
 
     @Override
@@ -341,7 +345,18 @@ public class Controller
                     mUi.needsRestoreAllTabs());
             List<Tab> tabs = mTabControl.getTabs();
             ArrayList<Long> restoredTabs = new ArrayList<Long>(tabs.size());
+
             for (Tab t : tabs) {
+                //handle restored pages that may require a JS interface
+                if (t.getWebView() != null) {
+                    WebBackForwardList backForwardList = t.getWebView().copyBackForwardList();
+                    if (backForwardList != null) {
+                        for (int i = 0; i <  backForwardList.getSize(); i++) {
+                            WebHistoryItem item = backForwardList.getItemAtIndex(i);
+                            mHomepageHandler.registerJsInterface( t.getWebView(), item.getUrl());
+                        }
+                    }
+                }
                 restoredTabs.add(t.getId());
                 if (t != mTabControl.getCurrentTab()) {
                     t.pause();
@@ -2989,6 +3004,7 @@ public class Controller
     protected void loadUrl(Tab tab, String url, Map<String, String> headers) {
         if (tab != null) {
             dismissSubWindow(tab);
+            mHomepageHandler.registerJsInterface(tab.getWebView(), url);
             tab.loadUrl(url, headers);
             if (tab.hasCrashed) {
                 tab.replaceCrashView(tab.getWebView(), tab.getViewContainer());
