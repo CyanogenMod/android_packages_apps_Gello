@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -336,15 +336,22 @@
     <string name="webstorage_origin_summary_mb_stored" msgid="1985885826292236210">"您手機的儲存空間使用量 (MB)"</string>
     <string name="loading_video" msgid="7886324933131962321">"正在載入影片..."</string>
     <string name="geolocation_permissions_prompt_message" msgid="356796102004052471">"<xliff:g id="WEBSITE_ORIGIN">%s</xliff:g> 想取得您的位置資訊"</string>
-    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"分享位置資訊"</string>
+    <string name="geolocation_permissions_prompt_share" msgid="9084486342048347976">"允許"</string>
+    <string name="geolocation_permissions_prompt_share_for_limited_time">"24小時內允許"</string>
     <string name="geolocation_permissions_prompt_dont_share" msgid="6303025160237860300">"拒絕"</string>
     <string name="geolocation_permissions_prompt_remember" msgid="3118526300707348308">"記住偏好設定"</string>
     <string name="geolocation_permissions_prompt_toast_allowed" msgid="7201417941112726112">"這個網站可以存取您的位置資訊，您可以前往 [設定] &gt; [進階] &gt; [網站] 畫面更改這項設定。"</string>
     <string name="geolocation_permissions_prompt_toast_disallowed" msgid="156443445797377409">"這個網站無法存取您的位置資訊，您可以前往 [設定] -&gt; [進階] -&gt; [網站] 畫面更改這項設定。"</string>
-    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"清除位置資訊存取權"</string>
+    <string name="geolocation_settings_page_title" msgid="1745477985097536528">"編輯位置選項"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此網站目前可以存取您的位置資訊"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"這個網站目前無法存取您的位置資訊"</string>
-    <string name="geolocation_settings_page_dialog_message" msgid="8772923416296868537">"清除這個網站的位置資訊存取權？"</string>
+    <string name="geolocation_settings_page_dialog_title">編輯 <xliff:g id="website origin" example="maps.google.com">%s</xliff:g> 的位置策略</string>
+    <string-array name="geolocation_settings_choices">
+        <item>總是拒絕</item>
+        <item>24小時內允許</item>
+        <item>總是允許</item>
+        <item>總是詢問</item>
+    </string-array>
     <string name="geolocation_settings_page_dialog_ok_button" msgid="2113465477131017852">"確定"</string>
     <string name="geolocation_settings_page_dialog_cancel_button" msgid="7941036504673409747">"取消"</string>
     <string name="website_settings_clear_all" msgid="8739804325997655980">"全部清除"</string>
