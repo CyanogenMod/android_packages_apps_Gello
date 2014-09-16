@@ -107,6 +107,7 @@ window.onload = function()
     replaceVariablesInTextContentBySpan();
     fixTextContentInAnchorTasks();
     initializeSelectElements();
+    parseFormatAttributeInInputtElements();
     scheduleTimerTaskIfNeeded(currentActiveCard);
     handleOnNavigationIntrinsicEvent();
 };
@@ -405,6 +406,80 @@ function refreshVariablesInControlElements()
     for(var i=0, l=selectElements.length; i<l; i++) {
         var select = selectElements[i];
         refreshVariableInSelectElement(selectElements[i]);
+    }
+}
+
+var validateInputValue = function(event) {
+    var input = event.target;
+    var pattern = new RegExp(input.dataset.wml_pattern, "g");
+    var value = input.value;
+    if (!pattern.test(value)) {
+        input.value = input.dataset.old_value;
+    } else {
+        input.dataset.old_value = input.value;
+    }
+}
+
+function parseFormatAttributeInInputtElements() {
+
+    var regex = /(^(([\*]{1})|([0-9]*))([NnXxAa]{1})$)/g;
+    var symbols = "\!\"\#\$\%\&\'\(\)\*\+\,\\.\/\:\;\<\=\>\?\@\\\^\_\`\{\|\}\~\\-\\\\[\\]";
+
+    var inputElements = document.getElementsByClassName('wml_input');
+    for(var i=0, l=inputElements.length; i<l; i++) {
+        var input = inputElements[i];
+        var format = input.dataset.wml_format;
+        var res = regex.test(format);
+        regex.lastIndex = 0;
+
+        if (res) {
+            var pattern = "";
+            var fl = format.length;
+            var count = format.slice(0, fl-1);
+            switch(format.charAt(fl-1)) {
+                case 'A':
+                    // WML-1.3: Entry of any uppercase letter, symbol, or punctuation character. Numeric characters are excluded.
+                    // RegEx: Everthing else except lowercase letters and nummeric characters.
+                    pattern = "[^a-z^0-9]";
+                    break;
+                case 'a':
+                    // WML-1.3: Entry of any lowercase letter, symbol, or punctuation character. Numeric characters are excluded.
+                    // RegEx: Everthing else except uppercase letters and nummeric characters.
+                    pattern = "[^A-Z^0-9]";
+                    break;
+                case 'N':
+                    // WML-1.3: entry of any numeric character.
+                    pattern = "[0-9]";
+                    input.inputmode = "numeric";
+                    break;
+                case 'n':
+                    // WML-1.3: entry of any numeric, symbol, or punctuation character.
+                    pattern = "[0-9" + symbols + "]";
+                    break;
+                case 'X':
+                    // WML-1.3: entry of any uppercase letter, numeric character, symbol, or punctuation character.
+                    pattern = "[^a-z]";
+                    input.inputmode = "verbatim";
+                    break;
+                case 'x':
+                    // WML-1.3: entry of any lowercase letter, numeric character, symbol, or punctuation character.
+                    pattern = "[^A-Z]";
+                    input.inputmode = "verbatim";
+                    break;
+            }
+
+            if (count == "*") {
+                pattern = "^(" + pattern + "*)$";
+            } else {
+                input.maxLength = count;
+                input.pattern = ".{" + count + "}";
+                pattern = "^(" + pattern + "{0," + count + "})$";
+            }
+            input.dataset.wml_pattern = pattern;
+            input.setAttribute("required", "");
+            input.addEventListener("input", validateInputValue);
+            console.log("WML input format = " + format + ", equivalent pattern = " + pattern);
+        }
     }
 }
 

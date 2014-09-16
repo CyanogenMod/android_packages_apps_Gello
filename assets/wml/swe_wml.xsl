@@ -323,6 +323,10 @@
         </xsl:choose>
         <xsl:choose><xsl:when test="@name"><xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute></xsl:when></xsl:choose>
         <xsl:choose><xsl:when test="@value"><xsl:attribute name="value"><xsl:value-of select="@value"/></xsl:attribute></xsl:when></xsl:choose>
+        <xsl:choose><xsl:when test="@maxlength"><xsl:attribute name="maxLength"><xsl:value-of select="@maxlength"/></xsl:attribute></xsl:when></xsl:choose>
+        <xsl:choose><xsl:when test="@format"><xsl:attribute name="data-wml_format"><xsl:value-of select="@format"/></xsl:attribute></xsl:when></xsl:choose>
+        <xsl:choose><xsl:when test="@emptyok = 'false'"><xsl:attribute name="required"></xsl:attribute></xsl:when></xsl:choose>
+        <xsl:attribute name="data-old_value"></xsl:attribute>
         </input>
     </xsl:template>
 
