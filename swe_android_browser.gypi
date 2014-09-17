@@ -6,6 +6,8 @@
       'dependencies': [
         'swe_engine_java',
         'android-support-v13',
+        '<@(libnetxt_dependencies)',
+        '<@(libsweadrenoext_dependencies)',
       ],
       'variables': {
         'apk_name': 'SWE_AndroidBrowser',
@@ -16,6 +18,9 @@
         'resource_dir': '../../swe/browser/res',
         'assets_dir': '../../swe/browser/assets',
         'native_lib_target': 'libswewebviewchromium',
+        'additional_native_libs': [
+          '<@(libnetxt_native_libs)',
+          '<@(libsweadrenoext_native_libs)'],
         'additional_input_paths': ['<(PRODUCT_DIR)/android_webview_apk/assets/webviewchromium.pak'],
         'conditions': [
           ['icu_use_data_file_flag==1', {
