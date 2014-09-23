@@ -755,10 +755,11 @@ class Tab implements PictureListener {
     private final WebChromeClient mWebChromeClient = new WebChromeClient() {
         // Helper method to create a new tab or sub window.
         private void createWindow(final boolean dialog, final Message msg) {
-            this.createWindow(dialog, msg, null);
+            this.createWindow(dialog, msg, null, false);
         }
 
-        private void createWindow(final boolean dialog, final Message msg, final String url) {
+        private void createWindow(final boolean dialog, final Message msg, final String url,
+                                  final boolean opener_suppressed) {
             WebView.WebViewTransport transport =
                     (WebView.WebViewTransport) msg.obj;
             if (dialog) {
@@ -768,7 +769,14 @@ class Tab implements PictureListener {
             } else {
                 final Tab newTab = mWebViewController.openTab(url,
                         Tab.this, true, true);
-                transport.setWebView(newTab.getWebView());
+                // This is special case for rendering links on a webpage in
+                // a new tab. If opener is suppressed, the WebContents created
+                // by the content layer are not fully initialized. This check
+                // will prevent content layer from overriding WebContents
+                // created by new tab with the uninitialized instance.
+                if (!opener_suppressed) {
+                    transport.setWebView(newTab.getWebView());
+                }
             }
             msg.sendToTarget();
         }
@@ -824,11 +832,17 @@ class Tab implements PictureListener {
             // Short-circuit if this was a user gesture.
             if (userGesture || !mSettings.blockPopupWindows()) {
                 CreateWindowParams windowParams = view.getCreateWindowParams();
-                String url = null;
                 if (windowParams.mOpenerSuppressed) {
-                    url = windowParams.mURL;
+                    createWindow(dialog, resultMsg, windowParams.mURL, true);
+                    // This is special case for rendering links on a webpage in
+                    // a new tab. If opener is suppressed, the WebContents created
+                    // by the content layer are not fully initialized. Returning false
+                    // will prevent content layer from overriding WebContents
+                    // created by new tab with the uninitialized instance.
+                    return false;
                 }
-                createWindow(dialog, resultMsg, url);
+
+                createWindow(dialog, resultMsg);
                 return true;
             }
 
