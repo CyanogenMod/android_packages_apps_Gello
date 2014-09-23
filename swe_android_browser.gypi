@@ -9,6 +9,7 @@
         'android-support-v13',
         '<@(libnetxt_dependencies)',
         '<@(libsweadrenoext_dependencies)',
+        'fast_webview_java',
       ],
       'variables': {
         'apk_name': 'SWE_AndroidBrowser',
