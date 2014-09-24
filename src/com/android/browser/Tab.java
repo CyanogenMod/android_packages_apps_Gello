@@ -1585,6 +1585,11 @@ class Tab implements PictureListener {
 
     void resume() {
         if (mMainView != null) {
+            if (mMainView.hasCrashed()) {
+                // Reload if render process has crashed. This is done here so that
+                // setFocus call sends wasShown message to correct render process.
+                mMainView.reload();
+            }
             setupHwAcceleration(mMainView);
             mMainView.onResume();
             if (mSubView != null) {
