@@ -209,7 +209,7 @@ public abstract class ThreadedCursorAdapter<T> extends BaseAdapter {
         if (mThread != null) {
             HandlerThread thread = mThread;
             mThread = null;
-            thread.quitSafely();
+            thread.quit();
         }
     }
 
