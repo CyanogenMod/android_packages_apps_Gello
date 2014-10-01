@@ -145,6 +145,7 @@
     <string name="ssl_certificate">安全性憑證</string>
     <string name="ssl_certificate_is_valid">此憑證有效。</string>
     <string name="pref_memory_monitor">啟用記憶體監察器</string>
+    <string name="pref_allow_media_downloads">"允許多媒體下載"</string>
 
 
   <string-array name="pref_content_plugins_choices">
