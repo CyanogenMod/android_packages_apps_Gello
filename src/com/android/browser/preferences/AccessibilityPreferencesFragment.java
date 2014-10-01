@@ -45,9 +45,11 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
+        /* SWE: Comment out double tap zoom feature
         e = findPreference(PreferenceKeys.PREF_DOUBLE_TAP_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateDoubleTapZoomSummary(e, settings.getDoubleTapZoom());
+        */
         /*
          * SWE_TODO: Commented out functionality for inverted rendering
          * (as well as corresponding sections below)

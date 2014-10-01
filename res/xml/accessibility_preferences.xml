@@ -31,12 +31,13 @@
             android:defaultValue="10"
             android:max="30" />
 
+        <!-- SWE - remove double tap zoom from settings.
         <com.android.browser.preferences.SeekBarSummaryPreference
             android:key="double_tap_zoom"
             android:title="@string/pref_zoom_on_double_tap"
             android:defaultValue="5"
             android:max="10" />
-
+        -->
         <com.android.browser.preferences.SeekBarSummaryPreference
             android:key="min_font_size"
             android:title="@string/pref_min_font_size"
