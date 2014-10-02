@@ -209,8 +209,7 @@ public abstract class BaseUi implements UI {
             mUiController.hideCustomView();
             return true;
         } else if ((mTabControl.getCurrentTab() != null) &&
-                (mTabControl.getCurrentTab().isTabFullScreen())) {
-            mTabControl.getCurrentTab().setTabFullscreen(false);
+                (mTabControl.getCurrentTab().exitFullscreen())) {
             return true;
         }
         return false;
@@ -810,6 +809,29 @@ public abstract class BaseUi implements UI {
         }
         win.setAttributes(winParams);
     }
+
+    //make full screen bu showing/hiding topbar and system status bar
+    public void showFullscreen(boolean fullScreen) {
+        //Hide/show system ui bar as needed
+        if (!BrowserSettings.getInstance().useFullscreen())
+            setFullscreen(fullScreen);
+
+        //Hide/show topbar as needed
+        if (getWebView() != null) {
+            if (fullScreen) {
+                //hide topbar
+                getWebView().updateTopControls(true, false, false);
+            } else {
+                //show the topbar
+                getWebView().updateTopControls(false, true, true);
+                //enable for auto-hide
+                if (!mTitleBar.isFixed())
+                    getWebView().updateTopControls(true, true, false);
+            }
+        }
+    }
+
+
 
     public void translateTitleBar(float topControlsOffsetYPix) {
         if (mTitleBar != null && !mInActionMode) {

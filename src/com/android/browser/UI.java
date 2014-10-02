@@ -137,6 +137,7 @@ public interface UI {
     boolean dispatchKey(int code, KeyEvent event);
 
     void setFullscreen(boolean enabled);
+    void showFullscreen(boolean show);
 
     void translateTitleBar(float topControlsOffsetYPix);
 

@@ -61,7 +61,6 @@ import android.widget.Toast;
 import android.widget.FrameLayout;
 import android.widget.Button;
 
-import com.android.browser.R;
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.mynavigation.MyNavigationUtil;
@@ -732,19 +731,24 @@ class Tab implements PictureListener {
 
     protected void setTabFullscreen(boolean fullScreen) {
         Controller controller = (Controller)mWebViewController;
-
-        if (!mSettings.useFullscreen())
-            controller.getUi().setFullscreen(fullScreen);
-
-        if (getWebView() != null) {
-            if (fullScreen)
-                getWebView().updateTopControls(true, false, true);
-            else
-                getWebView().updateTopControls(true, true, true);
-        }
-
+        controller.getUi().showFullscreen(fullScreen);
         mFullScreen = fullScreen;
     }
+
+    public boolean exitFullscreen() {
+        if (mFullScreen) {
+            Controller controller = (Controller)mWebViewController;
+            controller.getUi().showFullscreen(false);
+            if (getWebView() != null)
+                getWebView().exitFullscreen();
+            mFullScreen = false;
+            return true;
+        }
+        return false;
+    }
+
+
+
 
     // -------------------------------------------------------------------------
     // WebChromeClient implementation for the main WebView

@@ -374,6 +374,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // origin policy for file access
         settings.setAllowUniversalAccessFromFileURLs(false);
         settings.setAllowFileAccessFromFileURLs(false);
+        settings.setFullscreenSupported(true);
 
         //if (!(settings instanceof WebSettingsClassic)) return;
         /*
