@@ -95,6 +95,8 @@ public class BrowserActivity extends Activity {
         }
         super.onCreate(icicle);
 
+        Thread.setDefaultUncaughtExceptionHandler(new CrashLogExceptionHandler(this));
+
         if (shouldIgnoreIntents()) {
             finish();
             return;
