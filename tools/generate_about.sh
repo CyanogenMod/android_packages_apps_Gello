@@ -151,8 +151,6 @@ team at <a href=\"mailto:${SWE_APK_SUPPORT}\">${SWE_APK_SUPPORT}</a>\n"
 
     printf %s "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <resources xmlns:xliff=\"urn:oasis:names:tc:xliff:document:1.2\">
-   <!-- Menu item to display browser information -->
-   <string name=\"about\">About</string>
    <!-- Text to display in about dialog -->
    <string name=\"about_text\" formatted=\"false\">
 ${CONTACT}
