@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"새 탭을 열려면 탭 하나를 닫아야 합니다."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"팝업이 이미 열려 있음"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"한 번에 한 개의 팝업만 열 수 있습니다."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD 카드 없음"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 USB 저장소가 필요합니다."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g>을(를) 다운로드하려면 SD 카드가 필요합니다."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB 저장소를 사용할 수 없음"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD 카드를 사용할 수 없음"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 저장소가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 사용 안함\'을 터치하세요."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 카드가 사용 중입니다. 다운로드를 허용하려면 알림에서 \'USB 저장소 끄기\'를 터치하세요."</string>
     <string name="cannot_download" msgid="8150552478556798780">"\'http\' 또는 \'https\' URL만 다운로드할 수 있습니다."</string>
     <string name="download_pending" msgid="2599683668575349559">"다운로드 시작 중..."</string>

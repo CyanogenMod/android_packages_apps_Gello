@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"您必須關閉一個分頁，才能開啟新分頁。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"已開啟快顯視窗"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"一次只能開啟一個彈出式視窗。"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"沒有可用的 USB 儲存裝置"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"沒有 SD 卡"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"必須掛接 USB 儲存裝置才能下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。"</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"沒有可用的 USB 儲存裝置"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"無法使用 SD 卡"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB 儲存裝置忙碌中。如要允許下載，請輕觸通知中的 [關閉 USB 儲存裝置]。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD 卡忙碌中。如要允許下載，請輕觸通知中的 [關閉 USB 儲存裝置]。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"僅可下載「http」或「https」網址的檔案。"</string>
     <string name="download_pending" msgid="2599683668575349559">"正在開始下載…"</string>

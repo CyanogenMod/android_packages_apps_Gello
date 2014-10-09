@@ -323,13 +323,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"जब तक आप एक टैब बंद न कर दें तब तक नया टैब नहीं खोल सकता."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"पॉप-अप पहले से खुला है"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"एक समय में केवल एक पॉप-अप ही खोला जा सकता है."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB संग्रहण अनुपलब्ध"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"कोई SD कार्ड नहीं"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">" <xliff:g id="FILENAME">%s</xliff:g> डाउनलोड करने के लिए USB संग्रहण की आवश्यकता है."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g> डाउनलोड करने के लिए एक SD कार्ड की आवश्यकता है."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB संग्रहण अनुपलब्ध"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD कार्ड अनुपलब्ध"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB संग्रहण व्यस्त है. डाउनलोड की अनुमति देने के लिए, सूचना में USB संग्रहण बंद करें को स्पर्श करें."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD कार्ड व्यस्त है. डाउनलोड की अनुमति देने के लिए, सूचना में USB संग्रहण बंद करें स्पर्श करें."</string>
     <string name="cannot_download" msgid="8150552478556798780">"केवल \"http\" या \"https\" URL डाउनलोड कर सकता है."</string>
     <string name="download_pending" msgid="2599683668575349559">"डाउनलोड प्रारंभ कर रहा है…"</string>

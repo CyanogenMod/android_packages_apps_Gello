@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Zamknij jedną z kart, aby móc otworzyć nową."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Okienko wyskakujące jest już otwarte"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Można otworzyć tylko jedno wyskakujące okienko naraz."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Nośnik USB niedostępny"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Brak karty SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> wymagany jest nośnik USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> potrzebna jest karta SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Nośnik USB niedostępny"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Karta SD jest niedostępna"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Nośnik USB jest zajęty. Aby umożliwić pobieranie, w powiadomieniu dotknij Wyłącz nośnik USB."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Karta SD jest zajęta. Aby umożliwić pobieranie, w powiadomieniu dotknij Wyłącz nośnik USB."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Pobieranie jest możliwe tylko z adresów „http” lub „https”."</string>
     <string name="download_pending" msgid="2599683668575349559">"Rozpoczynanie pobierania"</string>

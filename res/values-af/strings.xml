@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Kan nie \'n nuwe oortjie oopmaak voor jy een toemaak nie."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Opspringer alreeds oop"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Net een opspringer kan op \'n slag oop wees."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-berging nie beskikbaar nie"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Geen SD-kaart nie"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB-berging word vereis om <xliff:g id="FILENAME">%s</xliff:g> af te laai."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"\'n SD-kaart is nodig om <xliff:g id="FILENAME">%s</xliff:g> af te laai."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-berging nie beskikbaar nie"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kaart onbeskikbaar"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Die USB-berging is besig. Om aflaaisels toe te laat, raak \"Skakel USB-berging af\" in die kennisgewing."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Die SD-kaart is besig. Om aflaaisels toe te laat, raak \"Skakel USB-berging af\" in die kennisgewing."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Kan net URL\'e met \"http\" of \"https\" aflaai."</string>
     <string name="download_pending" msgid="2599683668575349559">"Begin aflaai…"</string>

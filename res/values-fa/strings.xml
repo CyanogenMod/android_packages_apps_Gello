@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"تا یک برگه را نبندید نمی‌توانید برگه جدیدی باز کنید."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"پنجره بازشو از قبل باز است"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"هر بار فقط یک پنجره بازشو می‌تواند باز شود."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"حافظهٔ USB در دسترس نیست"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"کارت SD موجود نیست"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"برای دانلود <xliff:g id="FILENAME">%s</xliff:g> به حافظهٔ USB احتیاج دارید."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"یک کارت SD برای دانلود <xliff:g id="FILENAME">%s</xliff:g> لازم است."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"حافظهٔ USB در دسترس نیست"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"کارت SD موجود نیست"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"حافظهٔ USB مشغول است. برای انجام دانلودها، خاموش کردن حافظهٔ USB را در اعلان لمس کنید."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"کارت SD مشغول است. برای انجام دانلودها، خاموش کردن حافظهٔ USB را در اعلان لمس کنید."</string>
     <string name="cannot_download" msgid="8150552478556798780">"فقط می‌تواند URL های \"http\" یا \"https\" را دانلود کند."</string>
     <string name="download_pending" msgid="2599683668575349559">"شروع دانلود..."</string>

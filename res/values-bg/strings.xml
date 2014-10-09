@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Не можете да отворите нов раздел, докато не затворите един."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Изскачащият прозорец вече е отворен"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"В даден момент може да бъде отворен само един изскачащ прозорец."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Не е налице USB хранилище"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Няма SD карта"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"За изтеглянето на <xliff:g id="FILENAME">%s</xliff:g> се изисква USB хранилище."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Изисква се SD карта за изтеглянето на <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Не е налице USB хранилище"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Няма SD карта"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB хранилището е заето. За да разрешите изтегляния, докоснете „Изключване на USB хранилището“ в известието."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD картата е заета. За да разрешите изтегляния, докоснете „Изключване на USB хранилището“ в известието."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Могат да се изтеглят само URL адреси от тип „http“ или „https“."</string>
     <string name="download_pending" msgid="2599683668575349559">"Изтеглянето се стартира…"</string>

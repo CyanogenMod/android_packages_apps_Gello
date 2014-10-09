@@ -323,13 +323,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"ไม่สามารถเปิดแท็บใหม่จนกว่าคุณจะปิดแท็บหนึ่งก่อน"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ป๊อปอัปเปิดอยู่แล้ว"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"เปิดได้ครั้งละหนึ่งป๊อปอัปเท่านั้น"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"ที่เก็บข้อมูล USB ใช้งานไม่ได้"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ไม่มีการ์ด SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"จำเป็นต้องใช้ที่เก็บข้อมูล USB ในการดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g>"</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"ต้องมีการ์ด SD เพื่อดาวน์โหลด <xliff:g id="FILENAME">%s</xliff:g>"</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"ที่เก็บข้อมูล USB ใช้งานไม่ได้"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"การ์ด SD ใช้งานไม่ได้"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"ที่จัดเก็บข้อมูล USB ถูกใช้งานอยู่ หากต้องการอนุญาตให้ดาวน์โหลด ให้แตะ \"ปิดที่จัดเก็บข้อมูล USB\" ในการแจ้งเตือน"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"การ์ด SD ถูกใช้งานอยู่ หากต้องการอนุญาตให้ดาวน์โหลด ให้แตะ \"ปิดที่จัดเก็บข้อมูล USB\" ในการแจ้งเตือน"</string>
     <string name="cannot_download" msgid="8150552478556798780">"ดาวน์โหลดได้เฉพาะ URL \"http\" หรือ \"https\""</string>
     <string name="download_pending" msgid="2599683668575349559">"เริ่มต้นดาวน์โหลด…"</string>

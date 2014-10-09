@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"新しいタブを開くには1つ閉じる必要があります。"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ポップアップが既に開いています"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"同時に開くことのできるポップアップは1つのみです。"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USBストレージ使用不可"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SDカードがありません"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"<xliff:g id="FILENAME">%s</xliff:g>をダウンロードするにはUSBストレージが必要です。"</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g>をダウンロードするにはSDカードが必要です。"</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USBストレージ使用不可"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SDカードは利用できません"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USBストレージが使用中です。ダウンロードするには通知の[USBストレージをOFFにする]をタップしてください。"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SDカードは使用中です。[USBストレージをOFFにする]をタップしてからダウンロードしてください。"</string>
     <string name="cannot_download" msgid="8150552478556798780">"ダウンロードできるのは「http」または「https」のURLのみです。"</string>
     <string name="download_pending" msgid="2599683668575349559">"ダウンロードを開始します..."</string>

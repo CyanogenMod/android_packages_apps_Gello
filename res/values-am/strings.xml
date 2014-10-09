@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"ሌላ እስከምትዘጋ ድረስ ሌላ ትር መክፈት አይቻልም።"</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"ብቅ ባይ አስቀድሞ ተከፍቷል"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"አንድ ብቅ-ባይ ብቻ በአንድ ጊዜ ሊከፈት ይችላል።"</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"የUSB ማከማቻ የለም"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"ምንም SD ካርድ የለም"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"የUSB ማከማቻ <xliff:g id="FILENAME">%s</xliff:g> ለማውረድ ይጠየቃል።"</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"<xliff:g id="FILENAME">%s</xliff:g> ለማውረድ የSD ካርድ ይጠየቃል።"</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"የUSB ማከማቻ የለም"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD ካር ድ የለም"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"የ USB ማከማቻው ስራ ላይ ነው። ማውረድ ለመፍቀድ፣ በማሳወቂያ ውስጥ \"የUSB ማከማቻ ያጥፉ።"</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"የ SD ካርዱ ስራ ላይ ነው። ማውረድ ለመፍቀድ፣ በማሳወቂያ ውስጥ \"የUSB ማከማቻ ያጥፉ።"</string>
     <string name="cannot_download" msgid="8150552478556798780">" \"http\" ወይም \"https\" URL ብቻ ማውረድ ይችላል።"</string>
     <string name="download_pending" msgid="2599683668575349559">"አውርድ በማስጀመር ላይ..."</string>

@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Novou kartu bude možné otevřít až poté, co některou stávající zavřete."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Vyskakovací okno je již otevřené"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Otevřené může být vždy pouze jedno vyskakovací okno."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Úložiště USB nedostupné"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Žádná karta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Ke stažení souboru <xliff:g id="FILENAME">%s</xliff:g> je potřeba úložiště USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Na kartu SD je třeba stáhnout soubor <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Úložiště USB nedostupné"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Karta SD není dostupná"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Úložiště USB je zaneprázdněno. Chcete-li povolit stahování, dotkněte se v oznámení možnosti Vypnout úložiště USB."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Karta SD je zaneprázdněna. Chcete-li povolit stahování, dotkněte se v oznámení možnosti Vypnout úložiště USB."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Lze stahovat pouze adresy URL začínající jako http nebo https."</string>
     <string name="download_pending" msgid="2599683668575349559">"Zahájení stahování..."</string>

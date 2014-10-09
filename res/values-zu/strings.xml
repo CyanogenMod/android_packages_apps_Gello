@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Yehlulekile ukuvula ithebhu entsha ngaphambili kokuthi uvale eyodwa."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Okuzivulekayo sekuvuliwe kakade"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Kungavulwa okuthushukayo okukodwa ngesikhathi."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Isitoreji se-USB asitholakali"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Alikho ikhadi le-SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Isitoreji se-USB siyadingeka ukuze ulande i-<xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Ikhadi le-SD liyadingeka ukuze kulayishwe <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Isitoreji se-USB asitholakali"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Ikhadi le-SD alitholakali"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Ukulondolozwa kwe-USB simatasa. Ukuvumela ukulanda, khetha \"Vala isitoreji se-USB\' kwisaziso."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Ikhadi le-SD limatasa. Ukuvumela ukulanda, khetha \"Vala ukulondoloza nge-USB\" kwisaziso."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Ingalayisha kuphela ama-URL e-\"http\" noma ama-\"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iqalisa ukulayisha..."</string>

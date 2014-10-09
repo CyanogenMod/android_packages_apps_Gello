@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Kan geen nieuw tabblad openen totdat u er een sluit."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up is al geopend."</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Er kan slechts één pop-upvenster tegelijk worden geopend."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-opslag niet beschikb."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Geen SD-kaart"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB-opslag vereist om \'<xliff:g id="FILENAME">%s</xliff:g>\' te downloaden."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Een SD-kaart is vereist om <xliff:g id="FILENAME">%s</xliff:g> te kunnen downloaden."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-opslag niet beschikb."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kaart niet beschikbaar"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"De USB-opslag is in gebruik. Als u downloads wilt toestaan, raakt u \'USB-opslag uitschakelen\' in de melding aan."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"De SD-kaart is in gebruik. Als u downloads wilt toestaan, raakt u \'USB-opslag uitschakelen\' in de melding aan."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Kan alleen URL\'s met \'http\' of \'https\' downloaden."</string>
     <string name="download_pending" msgid="2599683668575349559">"Downloaden starten..."</string>

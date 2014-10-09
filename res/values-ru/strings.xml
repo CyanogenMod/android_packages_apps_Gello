@@ -323,13 +323,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Невозможно открыть новую вкладку: закройте хотя бы одну."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Всплывающее окно уже открыто"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Можно открыть только одно всплывающее окно."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-накопитель недоступен"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-карта отсутствует"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Для загрузки файла <xliff:g id="FILENAME">%s</xliff:g> требуется USB-накопитель."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Для загрузки <xliff:g id="FILENAME">%s</xliff:g> необходима SD-карта."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-накопитель недоступен"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-карта недоступна"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB-накопитель занят. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-карта занята. Чтобы разрешить загрузки, выберите \"Отключить USB-накопитель\" в уведомлении."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Загрузка возможна только с URL, начинающихся с \"http\" или \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Начинается загрузка…"</string>

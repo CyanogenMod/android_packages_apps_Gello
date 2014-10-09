@@ -323,13 +323,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Không thể mở tab mới cho đến khi bạn đóng một tab."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Cửa sổ bật lên đã mở"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Chỉ có thể mở một cửa sổ bật lên mỗi lần."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Bộ nhớ USB không khả dụng"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Không có thẻ SD nào"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Cần bộ nhớ USB để tải xuống <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Cần thẻ SD để tải xuống <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Bộ nhớ USB không khả dụng"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Thẻ SD không khả dụng"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Bộ nhớ USB đang bận. Để cho phép tải xuống, hãy chạm vào Tắt bộ nhớ USB trong thông báo."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Thẻ SD đang bận. Để cho phép tải xuống, hãy chạm vào Tắt bộ nhớ USB trong thông báo."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Chỉ có thể tải xuống URL \"http\" hoặc \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Đang bắt đầu tải xuống..."</string>

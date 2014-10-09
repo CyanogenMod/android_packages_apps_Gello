@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Novú kartu môžete otvoriť až po zatvorení jednej z kariet."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Kontextové okno je už otvorené"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"V jednej chvíli môže byť otvorené len jedno kontextové okno."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Ukl. priestor USB nedostup."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Žiadna karta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Na prevzatie súboru <xliff:g id="FILENAME">%s</xliff:g> je potrebný ukladací priestor USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Na kartu SD je potrebné prevziať súbor <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Ukl. priestor USB nedostup."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Karta SD nie je dostupná"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Ukladací priestor USB je zaneprázdnený. Ak chcete povoliť preberanie, dotknite sa v upozornení možnosti Vypnúť ukladací priestor USB."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Karta SD je zaneprázdnená. Ak chcete povoliť preberanie, dotknite sa v upozornení možnosti Vypnúť ukladací priestor USB."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Môžete prevziať len adresy URL začínajúce na „http“ alebo „https“."</string>
     <string name="download_pending" msgid="2599683668575349559">"Prebieha spustenie preberania..."</string>

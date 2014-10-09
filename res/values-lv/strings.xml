@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Nevar atvērt jaunu cilni, kamēr nav aizvērta kāda no atvērtajām."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Uznirstošais logs jau ir atvērts."</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Vienlaikus var atvērt tikai vienu uznirstošo logu."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmiņa nav pieejama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nav SD kartes"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB atmiņā nepieciešams lejupielādēt failu <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Lai lejupielādētu failu <xliff:g id="FILENAME">%s</xliff:g>, nepieciešama SD karte."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB atmiņa nav pieejama"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD karte nav pieejama"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB atmiņa ir aizņemta. Lai atļautu lejupielādes, paziņojumā pieskarieties iespējai Izslēgt USB atmiņu."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD karte ir aizņemta. Lai atļautu lejupielādes, paziņojumā pieskarieties iespējai Izslēgt USB atmiņu."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Var lejupielādēt tikai tādus vietrāžus URL, kuri sākas ar “http” vai “https”."</string>
     <string name="download_pending" msgid="2599683668575349559">"Notiek lejupielādes sākšana..."</string>

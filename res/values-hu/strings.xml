@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Nem nyithat meg új fület, amíg be nem zár egy másikat."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Már van egy nyitott előugró ablak"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Egyszerre csak egy felugró ablak lehet nyitva."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Az USB-tár nem érhető el"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Hiányzó SD-kártya"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"USB-tár kell <xliff:g id="FILENAME">%s</xliff:g> fájl letöltéséhez."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"A(z) <xliff:g id="FILENAME">%s</xliff:g> letöltéséhez SD-kártya szükséges."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Az USB-tár nem érhető el"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Az SD-kártya nem érhető el"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Az USB-tár dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Az SD-kártya dolgozik. A letöltések engedélyezéséhez válassza az \"USB-tár kikapcsolása\" lehetőséget."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Csak \"http\" vagy \"https\" URL-ek letöltése lehetséges."</string>
     <string name="download_pending" msgid="2599683668575349559">"Letöltés megkezdése..."</string>

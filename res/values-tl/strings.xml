@@ -324,13 +324,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Hindi makakapagbukas ng bagong tab hanggang sa isara mo ang isa."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Bukas na ang pop-up"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Isang pop-up lamang ang mabubuksan sa isang pagkakataon."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Di available USB storage"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Walang SD card"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Kinakailangan ang imbakan na USB upang i-download ang <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Kinakailangan ang isang SD card upang i-download ang <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Di available USB storage"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Hindi available ang SD card."</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Busy ang SD card. Upang bigyang-daan ang mga pag-download, pindutin ang I-Off ang USB Storage sa notification."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Busy ang SD card. Upang bigyang-daan ang mga pag-download, pindutin ang I-Off ang USB Storage sa notification."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Maaari lang mag-download ng mga URL ng \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Sinisimulan ang pag-download..."</string>

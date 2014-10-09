@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Não é possível abrir uma nova guia até que outra seja fechada."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Pop-up já aberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Apenas um pop-up pode ser aberto por vez."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Armaz. USB não disponível"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nenhum cartão SD disponível"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Para fazer o download de <xliff:g id="FILENAME">%s</xliff:g>, é preciso conectar o armazenamento USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Um cartão SD é solicitado para fazer download do <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Armaz. USB não disponível"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Cartão SD não disponível"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"O armazenamento USB está ocupado. Para permitir downloads, toque em Desativar o armazenamento USB na notificação."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"O cartão SD está ocupado. Para permitir downloads, toque em Desativar armazenamento USB na notificação."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Somente é possível fazer download de URLs \"http\" ou \"https\""</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando download…"</string>

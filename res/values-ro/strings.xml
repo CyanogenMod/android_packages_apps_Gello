@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Nu puteţi deschide o filă nouă decât după ce aţi închis una."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Fereastră de tip pop-up deja deschisă"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Doar o fereastră de tip pop-up poate fi deschisă la un moment dat."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Stocare USB nedisponibilă"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Niciun card SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Pentru a descărca <xliff:g id="FILENAME">%s</xliff:g> este necesară stocarea USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Este necesar un card SD pentru a se descărca fişierul <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Stocare USB nedisponibilă"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Card SD nedisponibil"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Stocarea USB este ocupată. Pentru a permite descărcări, atingeţi în notificare opţiunea „Dezactivaţi stocarea USB”."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Cardul SD este ocupat. Pentru a permite descărcări, atingeţi în notificare opţiunea „Dezactivaţi stocarea USB”."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Puteţi descărca numai de la adrese URL care încep cu „http” sau „https”."</string>
     <string name="download_pending" msgid="2599683668575349559">"Se începe descărcarea..."</string>

@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"No pots obrir una pestanya nova fins que no en tanquis una altra."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"La finestra emergent ja és oberta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Només es pot obrir una finestra emergent cada vegada."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Emmag. USB no dispon."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hi ha cap targeta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Cal l\'emmagatzematge USB per baixar <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Es necessita una targeta SD per baixar <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Emmag. USB no dispon."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"La targeta SD no està disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"L\'emmagatzematge USB està ocupat. Per permetre les baixades, toca Desactiva l\'emmagatzematge USB a la notificació."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La targeta SD està ocupada. Per permetre les baixades, toca Desactiva l\'emmagatzematge d\'USB a la notificació."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Només pot baixar URL \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"S\'està iniciant la baixada…"</string>

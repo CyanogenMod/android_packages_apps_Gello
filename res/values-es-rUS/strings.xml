@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"No se puede abrir una nueva pestaña hasta que cierres una."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Ventana emergente ya abierta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Solo se puede abrir una ventana emergente a la vez."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Almacenamiento USB no disponible"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"No hay tarjeta SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Se requiere el almacenamiento USB para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Es necesario tener una tarjeta SD para descargar <xliff:g id="FILENAME">%s</xliff:g>."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Almacenamiento USB no disponible"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Tarjeta SD no disponible"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"El almacenamiento USB está ocupado. Para permitir descargas, toca \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La tarjeta SD está ocupada. Para permitir descargas, selecciona \"Desactivar almacenamiento USB\" en la notificación."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Solo se pueden descargar URL de \"http\" o de \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Iniciando descarga..."</string>

@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Неможливо відкрити нову вкладку, доки ви не закриєте одну з наявних."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Сплив. вікно вже відкр."</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Одночасно можна відкрити лише одне спливаюче вікно."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Носій USB недоступний"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Немає карти SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Щоб завантажити <xliff:g id="FILENAME">%s</xliff:g>, потрібен носій USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Щоб завантажити <xliff:g id="FILENAME">%s</xliff:g>, потрібна карта SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Носій USB недоступний"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Карта SD недоступна"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"Носій USB зайнятий. Щоб дозволити завантаження, торкніться в сповіщенні опції \"Вимкнути носій USB\"."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"Карта SD зайнята. Щоб дозволити завантаження, торкніться в сповіщенні опції \"Вимкнути носій USB\"."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Можна завантажувати лише URL-адреси \"http\" або \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Початок завант-ня..."</string>

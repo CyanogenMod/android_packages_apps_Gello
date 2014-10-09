@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Negalima atidaryti naujo skirtuko, kol neuždarysite bent vieno."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Iššokantysis langas jau atidarytas"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Vienu metu gali būti atidarytas tik vienas iššokantysis langas."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB atmintinė nepasiekiama"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nėra SD kortelės"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Į USB atmintinę reikia atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Norint atsisiųsti <xliff:g id="FILENAME">%s</xliff:g>, reikalinga SD kortelė."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB atmintinė nepasiekiama"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD kortelė negalima"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB atmintinė užimta. Jei norite leisti atsisiuntimus, pranešime palieskite „Išjungti USB atmintinę“."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD kortelė užimta. Jei norite leisti atsisiuntimus, pranešime palieskite „Išjungti USB atmintinę“."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Galima atsisiųsti tik „http“ ar „https“ prasidedančius URL."</string>
     <string name="download_pending" msgid="2599683668575349559">"Pradedamas atsisiuntimas..."</string>

@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Uut vahekaarti ei saa avada seni, kuni te ühe sulgete."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Hüpik on juba avatud"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"Korraga saab avada ainult ühe hüpiku."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"USB-seade pole saadaval"</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"SD-kaart puudub"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Faili <xliff:g id="FILENAME">%s</xliff:g> allalaadimiseks on vajalik USB-mäluseade."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Faili <xliff:g id="FILENAME">%s</xliff:g> allalaadimiseks on vajalik SD-kaart."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"USB-seade pole saadaval"</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"SD-kaart pole saadaval"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"USB-mäluseade on hõivatud. Allalaadimiste lubamiseks puudutage teatises käsku „Lülita USB-mäluseade välja”."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"SD-kaart on hõivatud. Allalaadimiste lubamiseks valige teatises käsk „Lülita USB-mäluseade välja”."</string>
     <string name="cannot_download" msgid="8150552478556798780">"Alla laadida saab ainult protokolli „http” või „https” sisaldavaid URL-e."</string>
     <string name="download_pending" msgid="2599683668575349559">"Allalaadimise alustamine ..."</string>

@@ -309,13 +309,9 @@
     <string name="too_many_windows_dialog_message" msgid="3644234634638290304">"Impossibile aprire una nuova scheda finché non se ne chiude una."</string>
     <string name="too_many_subwindows_dialog_title" msgid="3805453941587725944">"Finestra pop-up già aperta"</string>
     <string name="too_many_subwindows_dialog_message" msgid="2164725447981195556">"È possibile aprire solo un popup alla volta."</string>
-    <string name="download_no_sdcard_dlg_title" product="nosdcard" msgid="56777245081568508">"Archivio USB non dispon."</string>
     <string name="download_no_sdcard_dlg_title" product="default" msgid="605904452159416792">"Nessuna scheda SD"</string>
-    <string name="download_no_sdcard_dlg_msg" product="nosdcard" msgid="3144652102051031721">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> è necessario un archivio USB."</string>
     <string name="download_no_sdcard_dlg_msg" product="default" msgid="2616399456116301518">"Per scaricare <xliff:g id="FILENAME">%s</xliff:g> occorre una scheda SD."</string>
-    <string name="download_sdcard_busy_dlg_title" product="nosdcard" msgid="8081445664689818973">"Archivio USB non dispon."</string>
     <string name="download_sdcard_busy_dlg_title" product="default" msgid="6877712666046917741">"Scheda SD non disponibile"</string>
-    <string name="download_sdcard_busy_dlg_msg" product="nosdcard" msgid="8412543086906716875">"L\'archivio USB è già in uso. Per consentire i download, tocca Disattiva archivio USB nella notifica."</string>
     <string name="download_sdcard_busy_dlg_msg" product="default" msgid="2629425950473358591">"La scheda SD è già in uso. Per consentire i download, tocca Disattiva archivio USB nella notifica."</string>
     <string name="cannot_download" msgid="8150552478556798780">"È possibile scaricare soltanto URL \"http\" o \"https\"."</string>
     <string name="download_pending" msgid="2599683668575349559">"Avvio download..."</string>
