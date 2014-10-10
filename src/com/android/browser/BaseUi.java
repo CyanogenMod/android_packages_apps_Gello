@@ -91,7 +91,6 @@ public abstract class BaseUi implements UI {
 
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
-    protected FrameLayout mFullscreenContainer;
     private FrameLayout mFixedTitlebarContainer;
 
     private View mCustomView;
@@ -585,11 +584,9 @@ public abstract class BaseUi implements UI {
 
         mOriginalOrientation = mActivity.getRequestedOrientation();
         FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
-        mFullscreenContainer = new FullscreenHolder(mActivity);
-        mFullscreenContainer.addView(view, COVER_SCREEN_PARAMS);
-        decor.addView(mFullscreenContainer, COVER_SCREEN_PARAMS);
+        decor.addView(view, COVER_SCREEN_PARAMS);
         mCustomView = view;
-        setFullscreen(true);
+        showFullscreen(true);
         ((BrowserWebView) getWebView()).setVisibility(View.INVISIBLE);
         mCustomViewCallback = callback;
         mActivity.setRequestedOrientation(requestedOrientation);
@@ -600,10 +597,9 @@ public abstract class BaseUi implements UI {
         ((BrowserWebView) getWebView()).setVisibility(View.VISIBLE);
         if (mCustomView == null)
             return;
-        setFullscreen(false);
+        showFullscreen(false);
         FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
-        decor.removeView(mFullscreenContainer);
-        mFullscreenContainer = null;
+        decor.removeView(mCustomView);
         mCustomView = null;
         mCustomViewCallback.onCustomViewHidden();
         // Show the content view.
@@ -810,7 +806,7 @@ public abstract class BaseUi implements UI {
         win.setAttributes(winParams);
     }
 
-    //make full screen bu showing/hiding topbar and system status bar
+    //make full screen by showing/hiding topbar and system status bar
     public void showFullscreen(boolean fullScreen) {
         //Hide/show system ui bar as needed
         if (!BrowserSettings.getInstance().useFullscreen())
@@ -904,20 +900,6 @@ public abstract class BaseUi implements UI {
     @Override
     public void showWeb(boolean animate) {
         mUiController.hideCustomView();
-    }
-
-    static class FullscreenHolder extends FrameLayout {
-
-        public FullscreenHolder(Context ctx) {
-            super(ctx);
-            setBackgroundColor(ctx.getResources().getColor(R.color.black));
-        }
-
-        @Override
-        public boolean onTouchEvent(MotionEvent evt) {
-            return true;
-        }
-
     }
 
     public void setContentViewMarginTop(int margin) {
