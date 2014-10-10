@@ -16,14 +16,10 @@
 
 package com.android.browser;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.inputmethodservice.InputMethodService;
-import android.provider.Settings.Secure;
-import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -36,12 +32,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodSubtype;
-import android.text.InputType;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
@@ -56,7 +47,6 @@ import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngineInfo;
 import com.android.browser.search.SearchEngines;
 
-import java.util.List;
 /**
  * url/search input view
  * handling suggestions
@@ -113,34 +103,6 @@ public class UrlInputView extends AutoCompleteTextView
         // SWE_TODO : Needs Fix
         //this(context, attrs, R.attr.autoCompleteTextViewStyle);
         this(context, attrs, 0);
-    }
-
-    private String getCurrentImeInfo(){
-        InputMethodManager imm =
-          (InputMethodManager) mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
-        List<InputMethodInfo> mInputMethodProperties = imm.getEnabledInputMethodList();
-
-        final int n = mInputMethodProperties.size();
-        for (int i = 0; i < n; i++) {
-            InputMethodInfo imeInfo = mInputMethodProperties.get(i);
-            if (imeInfo.getId().equals(Secure.getString(mContext.getContentResolver(),
-                    Secure.DEFAULT_INPUT_METHOD))) {
-                return imeInfo.getPackageName();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        String imeInfo = getCurrentImeInfo();
-        if(imeInfo != null && imeInfo.equals(LATIN_INPUTMETHOD_PACKAGE_NAME)
-            && (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2)) {
-            outAttrs.imeOptions = EditorInfo.IME_ACTION_GO;
-            return new BrowserInputConnection(this, false);
-        }
-        else
-            return super.onCreateInputConnection(outAttrs);
     }
 
     public UrlInputView(Context context) {

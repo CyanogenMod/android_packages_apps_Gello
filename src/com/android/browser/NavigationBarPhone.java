@@ -210,14 +210,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
-        if (view == mUrlInput) {
-            if (hasFocus && !mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
-                // only change text if different
-                mUrlInput.setText((String) mUrlInput.getTag(), false);
-                mUrlInput.selectAll();
-            } else {
-                setDisplayTitle(mUrlInput.getText().toString());
-            }
+        if (view == mUrlInput && !hasFocus) {
+            setDisplayTitle(mUrlInput.getText().toString());
         }
         super.onFocusChange(view, hasFocus);
     }
@@ -246,6 +240,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcher.setVisibility(View.GONE);
             mMore.setVisibility(View.GONE);
             mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+            if (!mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
+                // only change text if different
+                mUrlInput.setText((String) mUrlInput.getTag(), false);
+                mUrlInput.selectAll();
+            }
             break;
         case StateListener.STATE_EDITED:
             mComboIcon.setVisibility(View.GONE);
