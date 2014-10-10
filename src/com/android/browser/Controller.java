@@ -1730,15 +1730,8 @@ public class Controller
         return name;
     }
 
-    private void updateMyNavigationThumbnail(final String itemUrl, WebView webView) {
-        int width = mActivity.getResources().getDimensionPixelOffset(
-                R.dimen.myNavigationThumbnailWidth);
-        int height = mActivity.getResources().getDimensionPixelOffset(
-                R.dimen.myNavigationThumbnailHeight);
-
-        final Bitmap bm = createScreenshot(webView, width, height);
-
-        if (bm == null) {
+    private void updateMyNavigationThumbnail(final String itemUrl, final Bitmap bitmap) {
+        if (bitmap == null) {
             Log.e(LOGTAG, "updateMyNavigationThumbnail bm is null!");
             return;
         }
@@ -1758,7 +1751,7 @@ public class Controller
                             }, null);
                     if (null != cursor && cursor.moveToFirst()) {
                         final ByteArrayOutputStream os = new ByteArrayOutputStream();
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
 
                         ContentValues values = new ContentValues();
                         values.put(MyNavigationUtil.THUMBNAIL, os.toByteArray());
@@ -1996,7 +1989,16 @@ public class Controller
             case R.id.save_snapshot_menu_id:
                 final Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
-                new SaveSnapshotTask(source).execute();
+                createScreenshotAsync(
+                    source.getWebView(),
+                    getDesiredThumbnailWidth(mActivity),
+                    getDesiredThumbnailHeight(mActivity),
+                    new ValueCallback<Bitmap>() {
+                        @Override
+                        public void onReceiveValue(Bitmap bitmap) {
+                           new SaveSnapshotTask(source, bitmap).execute();
+                        }
+                    });
                 break;
 
             case R.id.page_info_menu_id:
@@ -2087,9 +2089,11 @@ public class Controller
         private Tab mTab;
         private Dialog mProgressDialog;
         private ContentValues mValues;
+        private Bitmap mBitmap;
 
-        private SaveSnapshotTask(Tab tab) {
+        private SaveSnapshotTask(Tab tab, Bitmap bm) {
             mTab = tab;
+            mBitmap = bm;
         }
 
         @Override
@@ -2097,7 +2101,7 @@ public class Controller
             CharSequence message = mActivity.getText(R.string.saving_snapshot);
             mProgressDialog = ProgressDialog.show(mActivity, null, message,
                     true, true, this);
-            mValues = mTab.createSnapshotValues();
+            mValues = mTab.createSnapshotValues(mBitmap);
         }
 
         @Override
@@ -2169,7 +2173,6 @@ public class Controller
         WebView w = getCurrentTopWebView();
         if (w == null)
             return;
-
         final Intent i = createBookmarkCurrentPageIntent(false);
         createScreenshotAsync(
             w, getDesiredThumbnailWidth(mActivity),
@@ -2463,44 +2466,6 @@ public class Controller
                 R.dimen.bookmarkThumbnailHeight);
     }
 
-    static Bitmap createScreenshot(WebView view, int width, int height) {
-        if (view == null || width == 0 || height == 0) {
-            return null;
-        }
-
-        Bitmap viewportBitmap = view.getViewportBitmap();
-        if (viewportBitmap == null) {
-            return null;
-        }
-
-        float aspectRatio = (float) width/height;
-        int viewportWidth = viewportBitmap.getWidth();
-        int viewportHeight = viewportBitmap.getHeight();
-
-        //modify the size to attain the same aspect ratio of desired thumbnail size
-        if (viewportHeight > viewportWidth) {
-            viewportHeight= (int)Math.round(viewportWidth * (1/aspectRatio));
-        } else {
-            viewportWidth = (int)Math.round(viewportHeight * aspectRatio);
-        }
-
-        Rect srcRect = new Rect(0, 0, viewportWidth, viewportHeight);
-        Rect dstRect = new Rect(0, 0, width, height);
-
-        if (sThumbnailBitmap == null || sThumbnailBitmap.getWidth() != width
-                   || sThumbnailBitmap.getHeight() != height) {
-            sThumbnailBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        }
-
-        Canvas canvas = new Canvas(sThumbnailBitmap);
-        canvas.drawBitmap(viewportBitmap, srcRect, dstRect, new Paint(Paint.FILTER_BITMAP_FLAG));
-        if (viewportBitmap != null) {
-            viewportBitmap.recycle();
-            viewportBitmap = null;
-        }
-        return sThumbnailBitmap;
-    }
-
     static void createScreenshotAsync(WebView view, int width, int height,
                                         final ValueCallback<Bitmap> cb) {
         if (view == null || width == 0 || height == 0) {
@@ -2519,8 +2484,20 @@ public class Controller
                 }});
     }
 
+    private void updateScreenshot(final Tab tab) {
+        createScreenshotAsync(
+            tab.getWebView(),
+            getDesiredThumbnailWidth(mActivity),
+            getDesiredThumbnailHeight(mActivity),
+            new ValueCallback<Bitmap>() {
+                @Override
+                public void onReceiveValue(Bitmap bitmap) {
+                   updateScreenshot(tab, bitmap);
+                }
+            });
+    }
 
-    private void updateScreenshot(Tab tab) {
+    private void updateScreenshot(Tab tab, final Bitmap bm) {
         // If this is a bookmarked site, add a screenshot to the database.
         // FIXME: Would like to make sure there is actually something to
         // draw, but the API for that (WebViewCore.pictureReady()) is not
@@ -2541,7 +2518,7 @@ public class Controller
         //update My Navigation Thumbnails
         boolean isMyNavigationUrl = MyNavigationUtil.isMyNavigationUrl(mActivity, url);
         if (isMyNavigationUrl) {
-            updateMyNavigationThumbnail(url, view);
+            updateMyNavigationThumbnail(url, bm);
         }
         // Only update thumbnails for web urls (http(s)://), not for
         // about:, javascript:, data:, etc...
@@ -2568,8 +2545,6 @@ public class Controller
                 return;
             }
         }
-        final Bitmap bm = createScreenshot(view, getDesiredThumbnailWidth(mActivity),
-                getDesiredThumbnailHeight(mActivity));
         if (bm == null) {
             if (!mHandler.hasMessages(UPDATE_BOOKMARK_THUMBNAIL, tab)) {
                 mHandler.sendMessageDelayed(mHandler.obtainMessage(

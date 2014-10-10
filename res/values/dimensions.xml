@@ -22,8 +22,6 @@
     <dimen name="bookmarkThumbnailWidth">90dip</dimen>
     <dimen name="bookmarkThumbnailHeight">80dip</dimen>
     <!--Add for Navigation Feature -->
-    <dimen name="myNavigationThumbnailWidth">90dip</dimen>
-    <dimen name="myNavigationThumbnailHeight">80dip</dimen>
     <dimen name="mynav_item_width">80px</dimen>
     <dimen name="mynav_item_width_portrait">80px</dimen>
     <dimen name="mynav_max_width">480px</dimen>

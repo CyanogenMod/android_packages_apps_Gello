@@ -20,6 +20,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -103,9 +104,9 @@ public class SnapshotTab extends Tab {
     }
 
     @Override
-    public ContentValues createSnapshotValues() {
+    public ContentValues createSnapshotValues(Bitmap bm) {
         if (mIsLive) {
-            return super.createSnapshotValues();
+            return super.createSnapshotValues(bm);
         }
         return null;
     }

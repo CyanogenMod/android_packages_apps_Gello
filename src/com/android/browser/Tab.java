@@ -1989,7 +1989,7 @@ class Tab implements PictureListener {
     /**
      * Must be called on the UI thread
      */
-    public ContentValues createSnapshotValues() {
+    public ContentValues createSnapshotValues(Bitmap bm) {
         WebView web = getWebView();
         if (web == null) return null;
         ContentValues values = new ContentValues();
@@ -1998,10 +1998,7 @@ class Tab implements PictureListener {
         values.put(Snapshots.BACKGROUND, web.getPageBackgroundColor());
         values.put(Snapshots.DATE_CREATED, System.currentTimeMillis());
         values.put(Snapshots.FAVICON, compressBitmap(getFavicon()));
-        Bitmap screenshot = Controller.createScreenshot(web,
-                Controller.getDesiredThumbnailWidth(mWebViewController.getActivity()),
-                Controller.getDesiredThumbnailHeight(mWebViewController.getActivity()));
-        values.put(Snapshots.THUMBNAIL, compressBitmap(screenshot));
+        values.put(Snapshots.THUMBNAIL, compressBitmap(bm));
         return values;
     }
 
