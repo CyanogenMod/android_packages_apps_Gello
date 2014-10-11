@@ -112,8 +112,8 @@ do
         REPLY=${REPLY// /}
         [[ ${REPLY:0:1} == "(" ]] && continue
         REPLY=${REPLY%->*}
-        git log -1 --oneline ${REPLY} | grep ${HASH} >/dev/null 2>/dev/null && BRANCH=${REPLY} && break;
-    done < <(git branch -a | grep -v ^\*)
+        git log -1 --oneline ${REPLY} | awk '/${HASH}/ {}'  >/dev/null 2>/dev/null && BRANCH=${REPLY} && break;
+    done < <(git branch -a | awk '!/^\*/{}')
 
     if [[ ${BRANCH//(/} == ${BRANCH} ]]
     then
