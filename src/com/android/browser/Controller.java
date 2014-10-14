@@ -280,15 +280,6 @@ public class Controller
     }
 
     void doStart(final Bundle icicle, final Intent intent) {
-        // Unless the last browser usage was within 24 hours, destroy any
-        // remaining incognito tabs.
-
-        Calendar lastActiveDate = icicle != null ?
-                (Calendar) icicle.getSerializable("lastActiveDate") : null;
-        Calendar today = Calendar.getInstance();
-        Calendar yesterday = Calendar.getInstance();
-        yesterday.add(Calendar.DATE, -1);
-
         // we dont want to ever recover incognito tabs
         final boolean restoreIncognitoTabs = false;
 
@@ -713,10 +704,6 @@ public class Controller
     /* package */ Bundle createSaveState() {
         Bundle saveState = new Bundle();
         mTabControl.saveState(saveState);
-        if (!saveState.isEmpty()) {
-            // Save time so that we know how old incognito tabs (if any) are.
-            saveState.putSerializable("lastActiveDate", Calendar.getInstance());
-        }
         return saveState;
     }
 
