@@ -16,18 +16,14 @@
 
 package com.android.browser;
 
+import android.Manifest;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.os.Process;
-
-import org.chromium.content.browser.ResourceExtractor;
-import org.chromium.base.PathUtils;
+import android.util.Log;
 
 import org.codeaurora.swe.Engine;
-
-import com.android.browser.BrowserConfig;
 
 public class Browser extends Application {
 
@@ -42,24 +38,24 @@ public class Browser extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         if (LOGV_ENABLED)
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
 
-        // SWE: Avoid initializing databases for sandboxed processes.
-        // Must have INITIALIZE_DATABASE permission in AndroidManifest.xml only for browser process
-        final String INITIALIZE_DATABASE = BrowserConfig.AUTHORITY +
-                                            ".permission.INITIALIZE_DATABASE";
-        final Context context = getApplicationContext();
-        //Chromium specific initialization.
+        // Chromium specific initialization.
         Engine.initializeApplicationParameters();
-        boolean isActivityContext = (context.checkPermission(INITIALIZE_DATABASE,
-              Process.myPid(), Process.myUid()) == PackageManager.PERMISSION_GRANTED);
-        if (isActivityContext) {
+
+        final boolean isSandboxContext = checkPermission(Manifest.permission.INTERNET,
+                Process.myPid(), Process.myUid()) != PackageManager.PERMISSION_GRANTED;
+
+        if (isSandboxContext) {
+            // SWE: Avoid initializing the engine for sandboxed processes.
+        } else {
             // Initialize the SWE engine.
-            Engine.initialize(context);
-            BrowserSettings.initialize(context);
-            Preloader.initialize(context);
-       }
+            Engine.initialize((Context) this);
+            BrowserSettings.initialize((Context) this);
+            Preloader.initialize((Context) this);
+        }
 
     }
 }
