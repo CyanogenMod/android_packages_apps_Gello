@@ -39,6 +39,16 @@
       },
       'copies': [
         {
+          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/',
+          'conditions': [
+            ['icu_use_data_file_flag==1', {
+              'files': [
+                '<(PRODUCT_DIR)/icudtl.dat',
+              ],
+            }],
+          ],
+        },
+        {
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/wml',
           'files': [
             '<(assets_dir)/wml/swe_wml.xsl',
