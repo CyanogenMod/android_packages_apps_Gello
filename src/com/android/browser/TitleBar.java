@@ -22,6 +22,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -386,6 +387,12 @@ public class TitleBar extends RelativeLayout {
     private ViewGroup.LayoutParams makeLayoutParams() {
         return new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
+    }
+
+    @Override
+    public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
+        return mBaseUi.isCustomViewShowing() ? false :
+            super.requestFocus(direction, previouslyFocusedRect);
     }
 
     @Override
