@@ -55,6 +55,8 @@ public class Browser extends Application {
             Engine.initialize((Context) this);
             BrowserSettings.initialize((Context) this);
             Preloader.initialize((Context) this);
+            //Enable remote debugging by default
+            Engine.setWebContentsDebuggingEnabled(true);
         }
 
     }

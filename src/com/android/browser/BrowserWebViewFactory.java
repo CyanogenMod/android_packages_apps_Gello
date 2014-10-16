@@ -69,8 +69,6 @@ public class BrowserWebViewFactory implements WebViewFactory {
         final BrowserSettings s = BrowserSettings.getInstance();
         s.startManagingSettings(w.getSettings());
 
-        //Enable remote debugging by default
-        WebView.setWebContentsDebuggingEnabled(true);
     }
 
 }
