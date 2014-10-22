@@ -34,7 +34,6 @@ import com.android.browser.platformsupport.BrowserContract.Images;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.WebIconDatabase;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -118,7 +117,6 @@ public class Bookmarks {
             }
 
             // Remove from bookmarks
-            WebIconDatabase.getInstance().releaseIconForPageUrl(url);
             uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI,
                     cursor.getLong(0));
             cr.delete(uri, null, null);

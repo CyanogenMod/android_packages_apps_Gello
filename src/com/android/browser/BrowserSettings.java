@@ -28,7 +28,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.webkit.WebIconDatabase;
 import android.webkit.WebStorage;
 
 import com.android.browser.R;
@@ -504,7 +503,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void clearCache() {
-        WebIconDatabase.getInstance().removeAllIcons();
         if (mController != null) {
             WebView current = mController.getCurrentWebView();
             if (current != null) {

@@ -78,7 +78,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
-import android.webkit.WebIconDatabase;
 import android.widget.Toast;
 
 import org.codeaurora.swe.CookieManager;
@@ -271,7 +270,6 @@ public class Controller
                 BrowserContract.Bookmarks.CONTENT_URI, true, mBookmarksObserver);
 
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
-        openIconDatabase();
     }
 
     @Override
@@ -478,19 +476,6 @@ public class Controller
     @Override
     public List<Tab> getTabs() {
         return mTabControl.getTabs();
-    }
-
-    // Open the icon database.
-    private void openIconDatabase() {
-        // We have to call getInstance on the UI thread
-        final WebIconDatabase instance = WebIconDatabase.getInstance();
-        BackgroundHandler.execute(new Runnable() {
-
-            @Override
-            public void run() {
-                instance.open(mActivity.getDir("icons", 0).getPath());
-            }
-        });
     }
 
     private void startHandler() {
@@ -816,7 +801,6 @@ public class Controller
         mActivity.getContentResolver().unregisterContentObserver(mBookmarksObserver);
         // Destroy all the tabs
         mTabControl.destroy();
-        WebIconDatabase.getInstance().close();
     }
 
     protected boolean isActivityPaused() {
