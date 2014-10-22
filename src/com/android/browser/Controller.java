@@ -2175,9 +2175,18 @@ public class Controller
     private void goLive() {
         SnapshotTab t = (SnapshotTab) getCurrentTab();
         String url = t.getLiveUrl();
-        // destroy the old snapshot tab
-        closeCurrentTab();
+        boolean onlySingleTabRemaining = false;
+        if (mTabControl.getTabCount() > 1) {
+            // destroy the old snapshot tab
+            closeCurrentTab();
+        } else {
+            onlySingleTabRemaining = true;
+        }
         Tab liveTab =  createNewTab(false, true, false);
+        if (onlySingleTabRemaining) {
+            closeTab(t);
+        }
+
         loadUrl(liveTab, url);
     }
 
