@@ -392,6 +392,12 @@ class Tab implements PictureListener {
                 mTouchIconLoader = null;
             }
 
+            // Loading a new page voids any ongoing Geolocation permission
+            // requests.
+            if (mGeolocationPermissionsPrompt != null) {
+                mGeolocationPermissionsPrompt.dismiss();
+            }
+
             // finally update the UI in the activity if it is in the foreground
             mWebViewController.onPageStarted(Tab.this, view, favicon);
 
@@ -1731,6 +1737,7 @@ class Tab implements PictureListener {
                     .findViewById(R.id.geolocation_permissions_prompt);
             mGeolocationPermissionsPrompt = (GeolocationPermissionsPrompt) stub
                     .inflate();
+            mGeolocationPermissionsPrompt.init(mCurrentState.mIncognito);
         }
         return mGeolocationPermissionsPrompt;
     }

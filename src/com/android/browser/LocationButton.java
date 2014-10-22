@@ -31,7 +31,8 @@
 package com.android.browser;
 
 import org.codeaurora.swe.GeolocationPermissions;
-import org.codeaurora.swe.GeolocationPermissions.OnGeolocationPolicyModifiedListener;
+import org.codeaurora.swe.GeolocationPermissions.GeolocationPolicyChange;
+import org.codeaurora.swe.GeolocationPermissions.GeolocationPolicyListener;
 import org.json.JSONArray;
 
 import android.app.AlertDialog;
@@ -43,8 +44,7 @@ import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.ImageButton;
 
-public class LocationButton extends ImageButton
-        implements OnGeolocationPolicyModifiedListener {
+public class LocationButton extends ImageButton implements GeolocationPolicyListener {
     private GeolocationPermissions mGeolocationPermissions;
     private long mCurrentTabId;
     private String mCurrentOrigin;
@@ -78,7 +78,8 @@ public class LocationButton extends ImageButton
         mGeolocationPermissions = mCurrentIncognito ?
                                     GeolocationPermissions.getIncognitoInstance() :
                                     GeolocationPermissions.getInstance();
-        mGeolocationPermissions.registerOnGeolocationPolicyModifiedListener(this);
+
+        mGeolocationPermissions.addListener(this);
     }
 
     // TODO: Perform this initilalization only after the engine initialization is complete.
@@ -185,18 +186,31 @@ public class LocationButton extends ImageButton
         if (mCurrentTabId != tabId) {
             mCurrentTabId = tabId;
             mCurrentOrigin = origin;
+            // Switch GeolocationPermissions if we went from a regular to an
+            // incognito tab or vice versa
+            if (mCurrentIncognito != incognito) {
+                mCurrentIncognito = incognito;
+                mGeolocationPermissions = mCurrentIncognito ?
+                        GeolocationPermissions.getIncognitoInstance() :
+                        GeolocationPermissions.getInstance();
+                mGeolocationPermissions.addListener(this);
+            }
             update();
         }
-        // Update icon if we are in the same tab and origin has changed
-          else if (!((mCurrentOrigin == null && origin == null) ||
+        // Update icon if we are in the same Tab and origin has changed
+        else if (!((mCurrentOrigin == null && origin == null) ||
                 (mCurrentOrigin != null && origin != null
-                    && mCurrentOrigin.equals(origin)))) {
+                        && mCurrentOrigin.equals(origin)))) {
             mCurrentOrigin = origin;
             update();
         }
     }
 
-    public void update() {
+    /**
+     * This method is called when we navigate away from an origin on the same Tab or
+     * when a new Tab is created.
+     */
+    private void update() {
         if (mCurrentOrigin != null) {
             updateGeolocationPermissions();
             mGeolocationPermissions.hasOrigin(mCurrentOrigin,
@@ -227,25 +241,30 @@ public class LocationButton extends ImageButton
         }
     }
 
-    @Override
-    public void onGeolocationPolicyAdded(String origin, boolean allow) {
-        if (mCurrentOrigin != null && mCurrentOrigin.equals(origin)) {
-            this.setImageResource(allow ? R.drawable.ic_action_gps_on :
-                R.drawable.ic_action_gps_off);
-            this.setVisibility(VISIBLE);
+    public void onGeolocationPolicyChanged(GeolocationPolicyChange change) {
+        if (mCurrentOrigin != null) {
+            int action = change.getAction();
+
+            if (action == GeolocationPermissions.ALL_POLICIES_REMOVED) {
+                this.setVisibility(GONE);
+                return;
+            } else if (change.getOrigin() != null && mCurrentOrigin.equals(change.getOrigin())) {
+                switch (action) {
+                    case GeolocationPermissions.ORIGIN_ALLOWED:
+                        this.setImageResource(R.drawable.ic_action_gps_on);
+                        this.setVisibility(VISIBLE);
+                        break;
+                    case GeolocationPermissions.ORIGIN_DENIED:
+                        this.setImageResource(R.drawable.ic_action_gps_off);
+                        this.setVisibility(VISIBLE);
+                        break;
+                    case GeolocationPermissions.ORIGIN_POLICY_REMOVED:
+                        this.setVisibility(GONE);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
-
-    @Override
-    public void onGeolocationPolicyCleared(String origin) {
-        if (mCurrentOrigin != null && mCurrentOrigin.equals(origin)) {
-            this.setVisibility(GONE);
-        }
-    }
-
-    @Override
-    public void onGeolocationPolicyClearedAll() {
-        this.setVisibility(GONE);
-    }
-
 }

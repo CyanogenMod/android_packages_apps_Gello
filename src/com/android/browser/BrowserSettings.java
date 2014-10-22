@@ -516,6 +516,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void clearLocationAccess() {
         GeolocationPermissions.getInstance().clearAll();
+        if (GeolocationPermissions.isIncognitoCreated()) {
+            GeolocationPermissions.getIncognitoInstance().clearAll();
+        }
     }
 
     public void resetDefaultPreferences() {
