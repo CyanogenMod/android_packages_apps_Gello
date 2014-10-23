@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Nastavitve za osebe s posebnimi potrebami"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Velikost besedila"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratoriji"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Hitri kontrolniki"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Povlecite od levega ali desnega roba, da odprete hitre kontrolnike in skrijete vrstice s programi in URL-ji"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Dinamično iskanje"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Če uporabljate Google Dinamično iskanje, se rezultati prikazujejo že med tipkanjem, kar lahko poveča porabo podatkov."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Celozaslonsko"</string>

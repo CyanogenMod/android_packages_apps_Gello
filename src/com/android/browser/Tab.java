@@ -741,7 +741,7 @@ class Tab implements PictureListener {
         if (getWebView() != null) {
             if (fullScreen)
                 getWebView().updateTopControls(true, false, true);
-            else if (!mSettings.useQuickControls())
+            else
                 getWebView().updateTopControls(true, true, true);
         }
 

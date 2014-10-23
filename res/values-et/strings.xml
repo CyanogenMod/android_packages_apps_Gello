@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Juurdepääsetavus"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Teksti suurus"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laborid"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Kiirnupud"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Kiirn. avamiseks, rak. ja URL-riba peitmiseks libistage pöidlaga v või p serval."</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Kui kasutate Google Searchi, siis kasutage ka Google Instanti tulemuste nägemiseks tippimise ajal (see võib suurendada andmemahtu)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Täisekraan"</string>

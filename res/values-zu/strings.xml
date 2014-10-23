@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Ukufinyeleleka"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Usayizi wombhalo"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Amalebhu"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Izilawuli ezisheshayo"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Habisa isithupha sisuke echosheni langakwesokunxele noma elesokudla ukuvula izilawuli bese ufihla insiza kanye naabhazi e-URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Sebenzisa i-Google Instant uma usebenzisa Usesho lwe-Google, ukubonisa imiphumelo njengoba uthayipha (lokhu kungakhuphula ukusetshenziswa kwedatha)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Isikrini esigcwele"</string>

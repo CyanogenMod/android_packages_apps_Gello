@@ -138,8 +138,6 @@ public interface UI {
 
     void setFullscreen(boolean enabled);
 
-    void setUseQuickControls(boolean enabled);
-
     void translateTitleBar(float topControlsOffsetYPix);
 
     public boolean shouldCaptureThumbnails();

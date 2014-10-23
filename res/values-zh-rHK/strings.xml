@@ -275,8 +275,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"協助工具"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"文字大小"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"實驗室"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"快速控制介面"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"由左側或右側邊緣滑動姆指，即可開啟快速控制介面並隱藏應用程式和網址列"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 互動智慧搜尋"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"使用「Google 搜尋」時啟用「Google 互動智慧搜尋」功能，您輸入查詢時可以即時獲得顯示搜尋結果 (這會增加資料傳輸量)。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全螢幕"</string>

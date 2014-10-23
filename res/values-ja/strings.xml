@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"ユーザー補助"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"文字サイズ"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"クイックコントロール"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"クイックコントロールを開くには左端または右端から親指をスライドさせます"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Googleインスタント検索"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google検索時にGoogleインスタント検索を使用すると、入力中に結果が表示されます（データの使用量が増えることがあります）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全画面"</string>

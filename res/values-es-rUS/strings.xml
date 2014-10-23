@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Accesibilidad"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Tamaño de la letra"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Controles rápidos"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Desliza el dedo a la izquierda o la derecha para abrir controles rápidos y ocultar barras de aplicaciones y URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Usa Google Instant con Búsq. de Google para que los resultados aparezcan mientras tipeas (esto puede aumentar el uso de datos)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pantalla completa"</string>

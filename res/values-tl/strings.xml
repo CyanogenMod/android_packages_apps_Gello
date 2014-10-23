@@ -279,8 +279,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Pagiging Naa-access"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Laki ng teksto"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Mga Lab"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Mga mabilis na pagkontrol"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"I-slide ang hinlalaki mula sa kaliwa o kanang gilid upang buksan ang mga mabilisang kontrol at itago ang app at mga URL bar"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gamit Google Instant pag gumamit ka Google Search, para magpakita resulta habang type ka (mapataas nito paggamit data)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Fullscreen"</string>

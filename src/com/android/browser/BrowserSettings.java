@@ -427,10 +427,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             if (mController != null && mController.getUi() != null) {
                 mController.getUi().setFullscreen(useFullscreen());
             }
-        } else if (PREF_ENABLE_QUICK_CONTROLS.equals(key)) {
-            if (mController != null && mController.getUi() != null) {
-                mController.getUi().setUseQuickControls(sharedPreferences.getBoolean(key, false));
-            }
         } else if (PREF_LINK_PREFETCH.equals(key)) {
             updateConnectionType();
         }
@@ -957,10 +953,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // -----------------------------
     // getter/setters for lab_preferences.xml
     // -----------------------------
-
-    public boolean useQuickControls() {
-        return mPrefs.getBoolean(PREF_ENABLE_QUICK_CONTROLS, false);
-    }
 
     public boolean useMostVisitedHomepage() {
         return HomeProvider.MOST_VISITED.equals(getHomePage());

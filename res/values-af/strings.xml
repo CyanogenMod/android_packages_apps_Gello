@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Toeganklikheid"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Teksgrootte"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Vinnige kontroles"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Gly duim van linker- of regterrand om die kitskontroles vinnig oop te maak en program- en URL-balke te versteek"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Gebruik Google Instant tydens Google-soektogte om resultate te wys terwyl jy tik (dit kan dataverbruik verhoog)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Volskerm"</string>

@@ -86,7 +86,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private int mTabOverlap;
     private int mAddTabOverlap;
     private int mTabSliceWidth;
-    private boolean mUseQuickControls;
 
     public TabBar(Activity activity, UiController controller, XLargeUi ui) {
         super(activity);
@@ -135,12 +134,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
         mTabs.updateLayout();
     }
 
-    void setUseQuickControls(boolean useQuickControls) {
-        mUseQuickControls = useQuickControls;
-        mNewTab.setVisibility(mUseQuickControls ? View.GONE
-                : View.VISIBLE);
-    }
-
     int getTabCount() {
         return mTabMap.size();
     }
@@ -160,9 +153,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         super.onMeasure(hspec, vspec);
         int w = getMeasuredWidth();
         // adjust for new tab overlap
-        if (!mUseQuickControls) {
-            w -= mAddTabOverlap;
-        }
+        w -= mAddTabOverlap;
         setMeasuredDimension(w, getMeasuredHeight());
     }
 
@@ -173,35 +164,22 @@ public class TabBar extends LinearLayout implements OnClickListener {
         int pt = getPaddingTop();
         int sw = mTabs.getMeasuredWidth();
         int w = right - left - pl;
-        if (mUseQuickControls) {
-            mButtonWidth = 0;
-        } else {
-            mButtonWidth = mNewTab.getMeasuredWidth() - mAddTabOverlap;
-            if (w-sw < mButtonWidth) {
-                sw = w - mButtonWidth;
-            }
+        mButtonWidth = mNewTab.getMeasuredWidth() - mAddTabOverlap;
+        if (w-sw < mButtonWidth) {
+            sw = w - mButtonWidth;
         }
         mTabs.layout(pl, pt, pl + sw, bottom - top);
         // adjust for overlap
-        if (!mUseQuickControls) {
-            mNewTab.layout(pl + sw - mAddTabOverlap, pt,
-                    pl + sw + mButtonWidth - mAddTabOverlap, bottom - top);
-        }
+        mNewTab.layout(pl + sw - mAddTabOverlap, pt,
+                pl + sw + mButtonWidth - mAddTabOverlap, bottom - top);
+
     }
 
     public void onClick(View view) {
         if (mNewTab == view) {
             mUiController.openTabToHomePage();
         } else if (mTabs.getSelectedTab() == view) {
-            if (mUseQuickControls) {
-                if (mUi.isTitleBarShowing() && !isLoading()) {
-                    mUi.stopEditingUrl();
-                    mUi.hideTitleBar();
-                } else {
-                    mUi.stopWebViewScrolling();
-                    mUi.editUrl(false, false);
-                }
-            } else if (mUi.isTitleBarShowing() && !isLoading()) {
+            if (mUi.isTitleBarShowing() && !isLoading()) {
                 mUi.stopEditingUrl();
                 mUi.hideTitleBar();
             } else {

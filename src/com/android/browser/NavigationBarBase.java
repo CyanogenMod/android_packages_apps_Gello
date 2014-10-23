@@ -372,9 +372,6 @@ public class NavigationBarBase extends LinearLayout implements
     void startEditingUrl(boolean clearInput, boolean forceIME) {
         // editing takes preference of progress
         setVisibility(View.VISIBLE);
-        if (mTitleBar.useQuickControls()) {
-            mTitleBar.getProgressView().setVisibility(View.GONE);
-        }
         if (!mUrlInput.hasFocus()) {
             mUrlInput.requestFocus();
         }

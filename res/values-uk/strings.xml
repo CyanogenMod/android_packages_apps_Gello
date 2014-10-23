@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Доступність"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Розмір тексту"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Лабораторії"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Швидкі елементи керування"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Гортайте зліва чи справа, щоб відкр. швидкі елем.керування і схов. панелі програми й URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Миттєвий пошук Google"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Використовуйте Миттєвий пошук у пошуку Google для відображ. результ. під час введення (може збільшитись викорис. даних)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Повноекранний режим"</string>

@@ -229,11 +229,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
                 showNavButtons();
             }
             showHideStar(mUiController.getCurrentTab());
-            if (mTitleBar.useQuickControls()) {
-                mSearchButton.setVisibility(View.GONE);
-            } else {
-                mSearchButton.setVisibility(View.VISIBLE);
-            }
+            mSearchButton.setVisibility(View.VISIBLE);
             updateUrlIcon();
         }
         mUrlContainer.setBackgroundDrawable(focus

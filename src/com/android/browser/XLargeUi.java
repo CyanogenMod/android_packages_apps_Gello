@@ -64,7 +64,6 @@ public class XLargeUi extends BaseUi {
         mTabBar = new TabBar(mActivity, mUiController, this);
         mActionBar = mActivity.getActionBar();
         setupActionBar();
-        setUseQuickControls(BrowserSettings.getInstance().useQuickControls());
     }
 
     private void setupActionBar() {
@@ -75,33 +74,9 @@ public class XLargeUi extends BaseUi {
 
     public void showComboView(ComboViews startWith, Bundle extras) {
         super.showComboView(startWith, extras);
-        if (mUseQuickControls) {
-            mActionBar.show();
-        }
-    }
-
-    @Override
-    public void setUseQuickControls(boolean useQuickControls) {
-        super.setUseQuickControls(useQuickControls);
-        checkHideActionBar();
-        if (!useQuickControls) {
-            mActionBar.show();
-        }
-        mTabBar.setUseQuickControls(mUseQuickControls);
-        // We need to update the tabs with this change
-        for (Tab t : mTabControl.getTabs()) {
-            t.updateShouldCaptureThumbnails();
-        }
     }
 
     private void checkHideActionBar() {
-        if (mUseQuickControls) {
-            mHandler.post(new Runnable() {
-                public void run() {
-                    mActionBar.hide();
-                }
-            });
-        }
     }
 
     @Override
@@ -189,9 +164,6 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void editUrl(boolean clearInput, boolean forceIME) {
-        if (mUseQuickControls) {
-            mTitleBar.setShowProgressOnly(false);
-        }
         super.editUrl(clearInput, forceIME);
     }
 
@@ -211,9 +183,6 @@ public class XLargeUi extends BaseUi {
         if (inLoad) {
             // the titlebar was removed when the CAB was shown
             // if the page is loading, show it again
-            if (mUseQuickControls) {
-                mTitleBar.setShowProgressOnly(true);
-            }
             showTitleBar();
         }
     }
@@ -276,7 +245,7 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public boolean shouldCaptureThumbnails() {
-        return mUseQuickControls;
+        return false;
     }
 
     private Drawable getFaviconBackground() {

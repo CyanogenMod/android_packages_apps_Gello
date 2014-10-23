@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"נגישות"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"גודל טקסט"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Google Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"פקדים מהירים"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"החלק אצבע מהקצה הימני או השמאלי כדי לפתוח במהירות פקדים ולהסתיר סרגלי יישום וכתובת אתר"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google Instant"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"השתמש ב-Google Instant כאשר אתה משתמש בחיפוש Google, כדי להציג תוצאות בעת ההקלדה (פעולה זו יכולה להגדיל שימוש בנתונים)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"מסך מלא"</string>

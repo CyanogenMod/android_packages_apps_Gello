@@ -278,8 +278,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"การเข้าถึง"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"ขนาดข้อความ"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"ห้องทดลอง"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"การควบคุมอย่างรวดเร็ว"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"เลื่อนนิ้วจากขอบซ้ายหรือขวาเพื่อเปิดการควบคุมอย่างรวดเร็วและซ่อนแถบแอปฯ และ URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google ค้นหาทันใจ"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"ใช้ Google ค้นหาทันใจเมื่อคุณใช้ Google Search เพื่อแสดงผลการค้นหาในขณะที่คุณพิมพ์ (ซึ่งสามารถเพิ่มการใช้งานข้อมูล)"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"เต็มหน้าจอ"</string>

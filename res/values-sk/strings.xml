@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Zjednodušenie"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Veľkosť písma"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Labs"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Rýchle ovládacie prvky"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Posunutím prsta od ľavého alebo pravého okraja zobrazíte rýchle ovládacie prvky a skryjete panely aplikácií a adries URL"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Dynamické vyhľadávanie Google"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Ak chcete zobrazovať výsl. počas zadávania textu, použite Dynamické vyhľ. Google (môže sa zvýšiť spotr. údajov)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Celá obrazovka"</string>

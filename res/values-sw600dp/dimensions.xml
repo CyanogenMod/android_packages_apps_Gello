@@ -25,16 +25,8 @@
     <!-- For the combined Bookmarks History view -->
     <dimen name="combo_paddingTop">50dip</dimen>
     <dimen name="combo_horizontalSpacing">8dip</dimen>
-    <dimen name="qc_radius_start">75dip</dimen>
-    <dimen name="qc_radius_increment">90dip</dimen>
-    <dimen name="qc_slop">15dip</dimen>
-    <dimen name="qc_touch_offset">15dip</dimen>
-    <dimen name="qc_tab_title_height">30dip</dimen>
-    <dimen name="qc_thumb_width">240dip</dimen>
-    <dimen name="qc_thumb_height">160dip</dimen>
-    <dimen name="qc_item_size">48dip</dimen>
     <dimen name="suggest_item_padding">8dp</dimen>
     <dimen name="toolbar_height">48dip</dimen>
-    <dimen name="tab_thumbnail_width">@dimen/qc_thumb_width</dimen>
-    <dimen name="tab_thumbnail_height">@dimen/qc_thumb_height</dimen>
+    <dimen name="tab_thumbnail_width">240dip</dimen>
+    <dimen name="tab_thumbnail_height">160dip</dimen>
 </resources>

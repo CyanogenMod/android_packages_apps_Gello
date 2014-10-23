@@ -278,8 +278,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"पहुंच-योग्यता"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"पाठ का आकार"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"लैब"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"त्‍वरित नियंत्रण"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"त्‍वरित नियंत्रण खोलने हेतु अंगूठे को बाएं या दाएं किनारे की ओर स्‍लाइड करें और एप्‍लि. और URL बार छुपाएं"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google झटपट"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Google खोज का उपयोग करते समय आपके लिखते ही परिणाम प्रदर्शित करने के लिए Google झटपट का उपयोग करें (इससे उपयोग किए गए डेटा की मात्रा बढ़ सकती है)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"फ़ुलस्‍क्रीन"</string>

@@ -264,8 +264,6 @@
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Pieejamība"</string>
     <string name="pref_font_size_category" msgid="6683754355084218254">"Teksta lielums"</string>
     <string name="pref_lab_title" msgid="5571091610359629423">"Laboratorijas"</string>
-    <string name="pref_lab_quick_controls" msgid="3267606522082281367">"Ātrās piekļuves vadīklas"</string>
-    <string name="pref_lab_quick_controls_summary" msgid="3149664132600968775">"Velciet ar īkšķi no kreisās vai labās malas, lai atvērtu ātrās vadīklas un paslēptu lietotņu un URL joslas"</string>
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google dinamiskā meklēšana"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"Izmantojiet Google dinamisko meklēšanu, kad lietojat Google meklēšanu, lai redzētu rezultātus rakstīšanas laikā (var tikt izmantots vairāk datu)."</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"Pilnekrāna režīms"</string>

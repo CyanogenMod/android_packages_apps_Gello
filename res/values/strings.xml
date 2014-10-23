@@ -642,11 +642,6 @@
     <string name="pref_font_size_category">Text size</string>
     <!-- Title for lab settings [CHAR LIMIT=25] -->
     <string name="pref_lab_title">Labs</string>
-    <!-- Title for lab quick controls feature [CHAR LIMIT=40] -->
-    <string name="pref_lab_quick_controls">Quick controls</string>
-    <!-- Summary for lab quick controls feature [CHAR LIMIT=120] -->
-    <string name="pref_lab_quick_controls_summary">
-        Slide thumb from the left or right edge to open quick controls and hide app and URL bars</string>
     <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
     <string name="pref_use_instant_search">Google Instant</string>
     <!-- Summary for the "Instant search" lab feature [CHAR LIMIT=120] -->
