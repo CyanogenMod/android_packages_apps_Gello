@@ -87,7 +87,7 @@ public abstract class BaseUi implements UI {
 
     private Drawable mLockIconSecure;
     private Drawable mLockIconMixed;
-    protected Drawable mGenericFavicon;
+    private Drawable mGenericFavicon;
 
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
@@ -121,8 +121,6 @@ public abstract class BaseUi implements UI {
         Resources res = mActivity.getResources();
         mInputManager = (InputMethodManager)
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        mLockIconSecure = res.getDrawable(R.drawable.ic_secure_holo_dark);
-        mLockIconMixed = res.getDrawable(R.drawable.ic_secure_partial_holo_dark);
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
@@ -136,8 +134,6 @@ public abstract class BaseUi implements UI {
         mErrorConsoleContainer = (LinearLayout) frameLayout
                 .findViewById(R.id.error_console);
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
-        mGenericFavicon = res.getDrawable(
-                R.drawable.app_web_browser_sm);
         mTitleBar = new TitleBar(mActivity, mUiController, this,
                 mContentView);
         mTitleBar.setProgress(100);
@@ -150,6 +146,27 @@ public abstract class BaseUi implements UI {
             mStopToast.cancel();
             mStopToast = null;
         }
+    }
+
+    private Drawable getLockIconSecure() {
+        if (mLockIconSecure == null) {
+            mLockIconSecure = mActivity.getResources().getDrawable(R.drawable.ic_secure_holo_dark);
+        }
+        return mLockIconSecure;
+    }
+
+    private Drawable getLockIconMixed() {
+        if (mLockIconMixed == null) {
+            mLockIconMixed = mActivity.getResources().getDrawable(R.drawable.ic_secure_partial_holo_dark);
+        }
+        return mLockIconMixed;
+    }
+
+    protected Drawable getGenericFavicon() {
+        if (mGenericFavicon == null) {
+            mGenericFavicon = mActivity.getResources().getDrawable(R.drawable.app_web_browser_sm);
+        }
+        return mGenericFavicon;
     }
 
     // lifecycle
@@ -631,12 +648,12 @@ public abstract class BaseUi implements UI {
     private void updateLockIconImage(SecurityState securityState) {
         Drawable d = null;
         if (securityState == SecurityState.SECURITY_STATE_SECURE) {
-            d = mLockIconSecure;
+            d = getLockIconSecure();
         } else if (securityState == SecurityState.SECURITY_STATE_MIXED
                 || securityState == SecurityState.SECURITY_STATE_BAD_CERTIFICATE) {
             // TODO: It would be good to have different icons for insecure vs mixed content.
             // See http://b/5403800
-            d = mLockIconMixed;
+            d = getLockIconMixed();
         }
         mNavigationBar.setLock(d);
     }
@@ -813,7 +830,7 @@ public abstract class BaseUi implements UI {
         PaintDrawable p = new PaintDrawable(Color.WHITE);
         array[1] = p;
         if (icon == null) {
-            array[2] = mGenericFavicon;
+            array[2] = getGenericFavicon();
         } else {
             array[2] = new BitmapDrawable(icon);
         }

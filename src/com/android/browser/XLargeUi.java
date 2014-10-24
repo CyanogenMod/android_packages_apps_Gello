@@ -265,7 +265,7 @@ public class XLargeUi extends BaseUi {
         Drawable[] array = new Drawable[2];
         array[0] = getFaviconBackground();
         if (icon == null) {
-            array[1] = mGenericFavicon;
+            array[1] = getGenericFavicon();
         } else {
             array[1] = new BitmapDrawable(mActivity.getResources(), icon);
         }
