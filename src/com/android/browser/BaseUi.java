@@ -819,8 +819,8 @@ public abstract class BaseUi implements UI {
             } else {
                 mTitleBar.setEnabled(true);
             }
-
-            mTitleBar.setTranslationY(topControlsOffsetYPix);
+            if (!mTitleBar.isFixed() && !isLoading())
+                mTitleBar.setTranslationY(topControlsOffsetYPix);
         }
     }
 
@@ -896,10 +896,6 @@ public abstract class BaseUi implements UI {
             return true;
         }
 
-    }
-
-    public void addFixedTitleBar(View view) {
-        mFixedTitlebarContainer.addView(view);
     }
 
     public void setContentViewMarginTop(int margin) {

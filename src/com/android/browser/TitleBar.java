@@ -102,13 +102,7 @@ public class TitleBar extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (mIsFixedTitleBar) {
-            int margin = getMeasuredHeight() - calculateEmbeddedHeight();
-            if (!isEditingUrl())
-                mBaseUi.setContentViewMarginTop(-margin);
-        } else {
-            mBaseUi.setContentViewMarginTop(0);
-        }
+        mBaseUi.setContentViewMarginTop(0);
     }
 
     private void setFixedTitleBar() {
@@ -125,12 +119,8 @@ public class TitleBar extends RelativeLayout {
         if (parent != null) {
             parent.removeView(this);
         }
-        if (mIsFixedTitleBar) {
-            mBaseUi.addFixedTitleBar(this);
-        } else {
-            mContentView.addView(this, makeLayoutParams());
-            mBaseUi.setContentViewMarginTop(0);
-        }
+        mContentView.addView(this, makeLayoutParams());
+        mBaseUi.setContentViewMarginTop(0);
     }
 
     public BaseUi getUi() {
@@ -168,7 +158,11 @@ public class TitleBar extends RelativeLayout {
         if (mSkipTitleBarAnimations) {
             this.setVisibility(View.VISIBLE);
             this.setTranslationY(0);
-            hideTopControls();
+            // reaffirm top-controls
+            if (isFixed() || isInLoad())
+                showTopControls();
+            else
+                enableTopControls();
         } else if (!bOldStyleAutoHideDisabled) {
             int visibleHeight = getVisibleTitleHeight();
             float startPos = (-getEmbeddedHeight() + visibleHeight);
@@ -283,7 +277,10 @@ public class TitleBar extends RelativeLayout {
             }
 
             //onPageFinished
-            enableTopControls();
+            if (isFixed())
+                showTopControls();
+            else
+                enableTopControls();
 
         } else {
             if (!mInLoad) {
