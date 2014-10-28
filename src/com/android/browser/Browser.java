@@ -17,11 +17,13 @@
 package com.android.browser;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Process;
+import android.os.Bundle;
 import android.util.Log;
+import android.os.Process;
 
 import org.codeaurora.swe.Engine;
 
@@ -39,8 +41,63 @@ public class Browser extends Application {
     public void onCreate() {
         super.onCreate();
 
-        if (LOGV_ENABLED)
+        if (LOGV_ENABLED) {
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);
+        }
+
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityCreated: activity=" + activity);
+                }
+                if (!(activity instanceof BrowserActivity) && !(activity instanceof BrowserLauncher) ) {
+                    EngineInitializer.getInstance().initializeSync((Context) Browser.this);
+                }
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityDestroyed: activity=" + activity);
+                }
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityPaused: activity=" + activity);
+                }
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityResumed: activity=" + activity);
+                }
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivitySaveInstanceState: activity=" + activity);
+                }
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityStarted: activity=" + activity);
+                }
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                if (LOGV_ENABLED) {
+                    Log.v(LOGTAG, "Browser.onActivityStopped: activity=" + activity);
+                }
+            }
+        });
 
         // Chromium specific initialization.
         Engine.initializeApplicationParameters();
@@ -48,15 +105,10 @@ public class Browser extends Application {
         final boolean isSandboxContext = checkPermission(Manifest.permission.INTERNET,
                 Process.myPid(), Process.myUid()) != PackageManager.PERMISSION_GRANTED;
 
-        if (isSandboxContext) {
-            // SWE: Avoid initializing the engine for sandboxed processes.
-        } else {
-            // Initialize the SWE engine.
-            Engine.initialize((Context) this);
+        // SWE: Avoid initializing the engine for sandboxed processes.
+        if (!isSandboxContext) {
             BrowserSettings.initialize((Context) this);
             Preloader.initialize((Context) this);
-            //Enable remote debugging by default
-            Engine.setWebContentsDebuggingEnabled(true);
         }
 
     }

@@ -77,6 +77,19 @@
                     android:readPermission="com.android.swe.browser.permission.READ_HOMEPAGE"
                     android:writePermission="com.android.swe.browser.permission.WRITE_HOMEPAGE" />
         </provider>
+
+        <activity android:name="BrowserLauncher"
+                  android:theme="@android:style/Theme.NoDisplay" >
+            <!-- We are the main entry point of the browser. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="BrowserActivity"
                   android:label="@string/application_name_swe"
                   android:launchMode="singleTask"
@@ -84,6 +97,7 @@
                   android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
                   android:theme="@style/BrowserTheme"
                   android:windowSoftInputMode="adjustResize" >
+
             <intent-filter>
                 <action android:name="android.speech.action.VOICE_SEARCH_RESULTS" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -129,14 +143,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-            </intent-filter>
-            <!-- We are also the main entry point of the browser. -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
             <!-- The maps app is a much better experience, so it's not
                  worth having this at all... especially for a demo!

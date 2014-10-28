@@ -114,4 +114,8 @@ public class PageProgressView extends ImageView {
         d.draw(canvas);
     }
 
+    public void onProgressStarted() {
+        mCurrentProgress = 0;
+        mTargetProgress = 0;
+    }
 }

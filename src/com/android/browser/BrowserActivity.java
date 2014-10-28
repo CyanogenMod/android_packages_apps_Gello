@@ -17,7 +17,6 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +33,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -42,11 +43,9 @@ import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
 
-import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
-import org.chromium.content.browser.TracingControllerAndroid;
 
-public class BrowserActivity extends Activity {
+public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreDrawListener {
 
     public static final String ACTION_SHOW_BOOKMARKS = "show_bookmarks";
     public static final String ACTION_SHOW_BROWSER = "show_browser";
@@ -59,8 +58,6 @@ public class BrowserActivity extends Activity {
     private final static boolean LOGV_ENABLED = Browser.LOGV_ENABLED;
 
     private ActivityController mController = NullController.INSTANCE;
-    private TracingControllerAndroid mTracingController;
-
 
     private Handler mHandler = new Handler();
 
@@ -78,12 +75,8 @@ public class BrowserActivity extends Activity {
         }
     };
 
-    private TracingControllerAndroid getTracingController() {
-        if (mTracingController == null) {
-            mTracingController = new TracingControllerAndroid(this);
-        }
-        return mTracingController;
-    }
+    private Bundle mSavedInstanceState;
+    private EngineInitializer mEngineInitializer;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -92,8 +85,6 @@ public class BrowserActivity extends Activity {
                     + (icicle == null ? "false" : "true"));
         }
         super.onCreate(icicle);
-
-        Thread.setDefaultUncaughtExceptionHandler(new CrashLogExceptionHandler(this));
 
         if (shouldIgnoreIntents()) {
             finish();
@@ -110,11 +101,36 @@ public class BrowserActivity extends Activity {
             return;
         }
         */
+
+        mEngineInitializer = EngineInitializer.getInstance();
+        mEngineInitializer.onActivityCreate(BrowserActivity.this);
+
+        Thread.setDefaultUncaughtExceptionHandler(new CrashLogExceptionHandler(this));
+
+        mSavedInstanceState = icicle;
+        // Create the initial UI views
         mController = createController();
 
-        Intent intent = (icicle == null) ? getIntent() : null;
-        mController.start(intent);
+        // Workaround for the black screen flicker on SurfaceView creation
+        ViewGroup topLayout = (ViewGroup) findViewById(R.id.main_content);
+        topLayout.requestTransparentRegion(topLayout);
+
+        // Add pre-draw listener to start the controller after engine initialization.
+        final ViewTreeObserver observer = getWindow().getDecorView().getViewTreeObserver();
+        observer.addOnPreDrawListener(this);
+
+        mEngineInitializer.initializeResourceExtractor(this);
     }
+
+    @Override
+    public boolean onPreDraw()
+    {
+        final ViewTreeObserver observer = getWindow().getDecorView().getViewTreeObserver();
+        observer.removeOnPreDrawListener(this);
+        mEngineInitializer.onPreDraw();
+        return true;
+    }
+
 
     public static boolean isTablet(Context context) {
         return context.getResources().getBoolean(R.bool.isTablet);
@@ -137,6 +153,11 @@ public class BrowserActivity extends Activity {
         return controller;
     }
 
+    public void onEngineInitializationComplete() {
+        Intent intent = (mSavedInstanceState == null) ? getIntent() : null;
+        mController.start(intent);
+    }
+
     @VisibleForTesting
     //public to facilitate testing
     public Controller getController() {
@@ -146,6 +167,12 @@ public class BrowserActivity extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         if (shouldIgnoreIntents()) return;
+        mEngineInitializer.onNewIntent(intent);
+        // Note: Do not add any more application logic in this method.
+        //       Move any additional app logic into handleOnNewIntent().
+    }
+
+    protected void handleOnNewIntent(Intent intent) {
         if (ACTION_RESTART.equals(intent.getAction())) {
             Bundle outState = new Bundle();
             mController.onSaveInstanceState(outState);
@@ -179,14 +206,24 @@ public class BrowserActivity extends Activity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mEngineInitializer.onActivityStart();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
-        mController.onResume();
+        mEngineInitializer.onActivityResume();
+        // Note: Do not add any more application logic in this method.
+        //       Move any additional app logic into handleOnResume().
+    }
 
-        getTracingController().registerReceiver(this);
+    protected void handleOnResume() {
+        mController.onResume();
     }
 
     @Override
@@ -223,9 +260,14 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onPause() {
-        mController.onPause();
+        mEngineInitializer.onActivityPause();
         super.onPause();
-        getTracingController().unregisterReceiver(this);
+        // Note: Do not add any more application logic in this method.
+        //       Move any additional app logic into handleOnPause().
+    }
+
+    protected void handleOnPause() {
+        mController.onPause();
     }
 
     @Override
@@ -234,6 +276,7 @@ public class BrowserActivity extends Activity {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
+        mEngineInitializer.onActivityDestroy();
         mController.onDestroy();
         mController = NullController.INSTANCE;
     }
@@ -315,8 +358,12 @@ public class BrowserActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-            Intent intent) {
+    protected void onActivityResult (int requestCode, int resultCode,
+                                     Intent intent) {
+        mEngineInitializer.onActivityResult(requestCode, resultCode, intent);
+    }
+
+    protected void handleOnActivityResult (int requestCode, int resultCode, Intent intent) {
         mController.onActivityResult(requestCode, resultCode, intent);
     }
 

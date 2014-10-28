@@ -130,6 +130,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     private static String sFactoryResetUrl;
 
+    private boolean mEngineInitialized = false;
+    private boolean mSyncManagedSettings = false;
+
     public static synchronized void initialize(final Context context) {
         if (sInstance == null)
             sInstance = new BrowserSettings(context);
@@ -142,7 +145,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private BrowserSettings(Context context) {
         mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mAutofillHandler = new AutofillHandler(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
         mCustomUserAgents = new WeakHashMap<WebSettings, String>();
         BackgroundHandler.execute(mSetup);
@@ -150,7 +152,16 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setController(Controller controller) {
         mController = controller;
-        if (sInitialized) {
+        mNeedsSharedSync = true;
+    }
+
+    public void onEngineInitializationComplete() {
+        mEngineInitialized = true;
+        mAutofillHandler = new AutofillHandler(mContext);
+        if (mSyncManagedSettings) {
+            syncManagedSettings();
+        }
+        if (mNeedsSharedSync) {
             syncSharedSettings();
         }
     }
@@ -402,6 +413,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     private void syncManagedSettings() {
+        if (!mEngineInitialized) {
+            mSyncManagedSettings = true;
+            return;
+        }
+        mSyncManagedSettings = false;
         syncSharedSettings();
         synchronized (mManagedSettings) {
             Iterator<WeakReference<WebSettings>> iter = mManagedSettings.iterator();

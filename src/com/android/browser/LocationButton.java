@@ -74,9 +74,15 @@ public class LocationButton extends ImageButton
         init();
     }
 
-    private void init() {
-        mGeolocationPermissions = GeolocationPermissions.getInstance();
+    private void updateGeolocationPermissions() {
+        mGeolocationPermissions = mCurrentIncognito ?
+                                    GeolocationPermissions.getIncognitoInstance() :
+                                    GeolocationPermissions.getInstance();
         mGeolocationPermissions.registerOnGeolocationPolicyModifiedListener(this);
+    }
+
+    // TODO: Perform this initilalization only after the engine initialization is complete.
+    private void init() {
         mCurrentTabId = -1;
         mCurrentOrigin = null;
         mCurrentIncognito = false;
@@ -86,11 +92,8 @@ public class LocationButton extends ImageButton
             public void onClick(View v) {
                 if (!mCurrentOrigin.isEmpty()) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    final GeolocationPermissions geolocationPermissions =
-                            (mCurrentIncognito ?
-                                    GeolocationPermissions.getIncognitoInstance() :
-                                    GeolocationPermissions.getInstance());
-
+                    updateGeolocationPermissions();
+                    final GeolocationPermissions geolocationPermissions = mGeolocationPermissions;
                     DialogInterface.OnClickListener alertDialogListener =
                             new AlertDialog.OnClickListener() {
                         public void onClick(DialogInterface dlg, int which) {
@@ -182,16 +185,6 @@ public class LocationButton extends ImageButton
         if (mCurrentTabId != tabId) {
             mCurrentTabId = tabId;
             mCurrentOrigin = origin;
-
-            // Switch GeolocationPermissions if we went from a regular to an
-            // incognito tab or vice versa
-            if (mCurrentIncognito != incognito) {
-                mCurrentIncognito = incognito;
-                mGeolocationPermissions = mCurrentIncognito ?
-                        GeolocationPermissions.getIncognitoInstance() :
-                            GeolocationPermissions.getInstance();
-                mGeolocationPermissions.registerOnGeolocationPolicyModifiedListener(this);
-            }
             update();
         }
         // Update icon if we are in the same tab and origin has changed
@@ -205,6 +198,7 @@ public class LocationButton extends ImageButton
 
     public void update() {
         if (mCurrentOrigin != null) {
+            updateGeolocationPermissions();
             mGeolocationPermissions.hasOrigin(mCurrentOrigin,
                     new ValueCallback<Boolean>() {
                 public void onReceiveValue(Boolean hasOrigin) {

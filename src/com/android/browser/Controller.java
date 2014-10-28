@@ -200,7 +200,7 @@ public class Controller
     // FIXME, temp address onPrepareMenu performance problem.
     // When we move everything out of view, we should rewrite this.
     private int mCurrentMenuState = 0;
-    private int mMenuState = R.id.MAIN_MENU;
+    private int mMenuState = EMPTY_MENU;
     private int mOldMenuState = EMPTY_MENU;
     private Menu mCachedMenu;
 
@@ -279,6 +279,7 @@ public class Controller
 
     @Override
     public void start(final Intent intent) {
+        mMenuState = R.id.MAIN_MENU;
         WebView.setShouldMonitorWebCoreThread();
         // mCrashRecoverHandler has any previously saved state.
         mCrashRecoveryHandler.startRecovery(intent);

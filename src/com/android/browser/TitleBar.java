@@ -263,9 +263,6 @@ public class TitleBar extends RelativeLayout {
      * Update the progress, from 0 to 100.
      */
     public void setProgress(int newProgress) {
-        Tab tab = mBaseUi.getActiveTab();
-        WebView view = tab != null ? tab.getWebView() : null;
-
         if (newProgress >= PROGRESS_MAX) {
             mProgress.setProgress(PageProgressView.MAX_PROGRESS);
             mProgress.setVisibility(View.GONE);
@@ -287,7 +284,7 @@ public class TitleBar extends RelativeLayout {
                 mProgress.setVisibility(View.VISIBLE);
                 mInLoad = true;
                 mNavBar.onProgressStarted();
-
+                mProgress.onProgressStarted();
                 //onPageStarted
                 showTopControls();
             }

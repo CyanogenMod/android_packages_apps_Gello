@@ -251,18 +251,21 @@ public class PhoneUi extends BaseUi {
     }
 
     void showNavScreen() {
-        mShowNav = true;
-        dismissIME();
-        mUiController.setBlockEvents(true);
+        WebView webView = getWebView();
+        if (webView != null) {
+            mShowNav = true;
+            dismissIME();
+            mUiController.setBlockEvents(true);
 
-        getWebView()
-            .getContentBitmapAsync(1.0f,
-                new Rect(),
-                new ValueCallback<Bitmap>() {
-                    @Override
-                    public void onReceiveValue(Bitmap bitmap) {
-                        onShowNavScreenContinue(bitmap);
-                    }});
+            webView.getContentBitmapAsync(1.0f,
+                            new Rect(),
+                            new ValueCallback<Bitmap>() {
+                                @Override
+                                public void onReceiveValue(Bitmap bitmap) {
+                                    onShowNavScreenContinue(bitmap);
+                                }
+                            });
+        }
     }
 
     void onShowNavScreenContinue(Bitmap viewportBitmap) {

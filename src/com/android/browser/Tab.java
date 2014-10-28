@@ -1793,9 +1793,6 @@ class Tab implements PictureListener {
      * Get the title of this tab.
      */
     String getTitle() {
-        if (mCurrentState.mTitle == null && mInPageLoad) {
-            return mContext.getString(R.string.title_bar_loading);
-        }
         return mCurrentState.mTitle;
     }
 
