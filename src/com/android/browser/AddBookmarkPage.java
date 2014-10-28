@@ -97,6 +97,8 @@ public class AddBookmarkPage extends Activity
     private final int LOADER_ID_FOLDER_CONTENTS = 1;
     private final int LOADER_ID_EDIT_INFO = 2;
 
+    final static int MAX_TITLE_LENGTH = 80;
+
     private EditText    mTitle;
     private EditText    mAddress;
     private TextView    mButton;
@@ -658,8 +660,13 @@ public class AddBookmarkPage extends Activity
         }
 
         mTitle = (EditText) findViewById(R.id.title);
+
+        if (title.length() > MAX_TITLE_LENGTH) {
+            title = title.substring(0, MAX_TITLE_LENGTH);
+        }
+
         mTitle.setText(title);
-        BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mTitle, BrowserUtils.FILENAME_MAX_LENGTH);
+        BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mTitle, MAX_TITLE_LENGTH);
 
         mAddress = (EditText) findViewById(R.id.address);
         mAddress.setText(url);
