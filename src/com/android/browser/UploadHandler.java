@@ -106,11 +106,11 @@ public class UploadHandler {
             }
         }
 
-        // try to get local file path from uri
         boolean hasGoodFilePath = false;
         String filePath = null;
         if (result != null) {
             String scheme = result.getScheme();
+            // try to get local file path from uri
             if ("file".equals(scheme)) {
                 filePath = result.getPath();
                 hasGoodFilePath = filePath != null && !filePath.isEmpty();
@@ -118,6 +118,10 @@ public class UploadHandler {
                 filePath = getFilePath(mController.getContext(), result);
                 hasGoodFilePath = filePath != null && !filePath.isEmpty();
             }
+
+            // The native layer only accepts path based on file scheme
+            // and skips anything else passed to it
+            filePath = "file://"+filePath;
         }
 
         // Add for carrier feature - prevent uploading DRM type files.
@@ -134,7 +138,6 @@ public class UploadHandler {
         }
 
         if (mUploadMessage != null) {
-
             if (!isDRMFileType) {
                 mUploadMessage.onReceiveValue(result);
             } else {
@@ -145,6 +148,7 @@ public class UploadHandler {
         if (mUploadFilePaths != null) {
             if (hasGoodFilePath && !isDRMFileType) {
                 Log.d(TAG, "upload file path:" + filePath);
+
                 mUploadFilePaths.onReceiveValue(new String[]{filePath});
             } else {
                 mUploadFilePaths.onReceiveValue(null);
