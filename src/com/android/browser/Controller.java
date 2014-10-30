@@ -1821,6 +1821,7 @@ public class Controller
         // items defined in res/menu/browser.xml should be enabled
         boolean isLiveScheme = false;
         boolean isPageFinished = false;
+        boolean isSavable = false;
         if (tab != null) {
             canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
@@ -1828,6 +1829,7 @@ public class Controller
             isLive = !tab.isSnapshot();
             isLiveScheme = UrlUtils.isLiveScheme(tab.getWebView().getUrl());
             isPageFinished = tab.getPageFinishedStatus();
+            isSavable = tab.getWebView().isSavable();
         }
         final MenuItem back = menu.findItem(R.id.back_menu_id);
         back.setEnabled(canGoBack);
@@ -1864,7 +1866,7 @@ public class Controller
         uaSwitcher.setChecked(isDesktopUa);
         menu.setGroupVisible(R.id.LIVE_MENU, isLive && isLiveScheme);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
-        menu.setGroupEnabled(R.id.OFFLINE_READING, isLive && isLiveScheme && isPageFinished);
+        menu.setGroupEnabled(R.id.OFFLINE_READING, isLive && isLiveScheme && isPageFinished && isSavable);
         // history and snapshots item are the members of COMBO menu group,
         // so if show history item, only make snapshots item invisible.
         menu.findItem(R.id.snapshots_menu_id).setVisible(false);
