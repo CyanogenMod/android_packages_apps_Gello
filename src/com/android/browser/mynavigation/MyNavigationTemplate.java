@@ -259,7 +259,6 @@ public class MyNavigationTemplate {
     private static String replaceConsts(Context context, String template) {
         final Pattern pattern = Pattern.compile("<%@\\s*(\\w+/\\w+)\\s*%>");
         final Resources res = context.getResources();
-        final String packageName = R.class.getPackage().getName();
         Matcher m = pattern.matcher(template);
         StringBuffer sb = new StringBuffer();
         while (m.find()) {
@@ -267,7 +266,11 @@ public class MyNavigationTemplate {
             if (name.startsWith("drawable/")) {
                 m.appendReplacement(sb, "res/" + name);
             } else {
+                final String packageName = R.class.getPackage().getName();
                 int id = res.getIdentifier(name, null, packageName);
+                if(id == 0) {
+                    id = res.getIdentifier(name, null, context.getPackageName());
+                }
                 if (id != 0) {
                     TypedValue value = new TypedValue();
                     res.getValue(id, value, true);

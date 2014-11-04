@@ -354,6 +354,7 @@ public class PageDialogsHandler {
             SslError error) {
         View certificateView = inflateCertificateView(certificate, mContext);
         Resources res = Resources.getSystem();
+        // load 'android.R.placeholder' via introspection, since it's not a public resource ID
         int placeholder_id = res.getIdentifier("placeholder", "id", "android");
         final LinearLayout placeholder =
                 (LinearLayout)certificateView.findViewById(placeholder_id);

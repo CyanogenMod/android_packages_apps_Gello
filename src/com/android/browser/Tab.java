@@ -202,7 +202,7 @@ class Tab implements PictureListener {
     private boolean mFullScreen = false;
 
     /**
-     * See {@link #clearBackStackWhenItemAdded(String)}.
+     * See {@link #clearBackStackWhenItemAdded(java.util.regex.Pattern)}.
      */
     private Pattern mClearHistoryUrlPattern;
 

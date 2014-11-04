@@ -61,10 +61,13 @@ public class SearchEngineInfo {
      */
     public SearchEngineInfo(Context context, String name) throws IllegalArgumentException {
         mName = name;
-        Resources res = context.getResources();
 
+        final Resources res = context.getResources();
         String packageName = R.class.getPackage().getName();
         int id_data = res.getIdentifier(name, "array", packageName);
+        if(id_data == 0) {
+            id_data = res.getIdentifier(name, "array", context.getPackageName());
+        }
         if (id_data == 0) {
             throw new IllegalArgumentException("No resources found for " + name);
         }
