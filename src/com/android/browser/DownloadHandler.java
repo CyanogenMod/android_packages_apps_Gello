@@ -285,8 +285,6 @@ public class DownloadHandler {
             String url, String userAgent, String contentDisposition,
             String mimetype, String referer, boolean privateBrowsing, long contentLength) {
 
-        initStorageDefaultPath(activity);
-
         contentDisposition = trimContentDisposition(contentDisposition);
 
         String filename = URLUtil.guessFileName(url,
@@ -372,6 +370,11 @@ public class DownloadHandler {
         fileInfo.putBoolean("privateBrowsing", privateBrowsing);
         fileInfo.putString("filename", filename);
         Intent intent = new Intent("android.intent.action.BROWSERDOWNLOAD");
+
+        // Since there could be multiple browsers capable of handling
+        //  the same intent we assure that the same package handles it
+        intent.setPackage(activity.getPackageName());
+
         intent.putExtras(fileInfo);
         activity.startActivity(intent);
     }
@@ -483,6 +486,12 @@ public class DownloadHandler {
                     .setPositiveButton(R.string.ok, null)
                     .show();
             return false;
+        }
+
+        // assure that internal storage is initialized before
+        // comparing it with download path
+        if (mInternalStorage == null) {
+            initStorageDefaultPath(activity);
         }
 
         if (!(isPhoneStorageSupported() && downloadPath.contains(mInternalStorage))) {
