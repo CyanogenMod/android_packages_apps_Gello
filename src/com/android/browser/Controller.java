@@ -1158,6 +1158,7 @@ public class Controller
             String contentDisposition, String mimetype, String referer,
             long contentLength) {
         WebView w = tab.getWebView();
+        if ( w == null) return;
         boolean ret = DownloadHandler.onDownloadStart(mActivity, url, userAgent,
                 contentDisposition, mimetype, referer, w.isPrivateBrowsingEnabled(), contentLength);
         if (ret == false && w.copyBackForwardList().getSize() == 0) {
