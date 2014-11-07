@@ -793,16 +793,25 @@ public abstract class BaseUi implements UI {
         Window win = mActivity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        if (enabled) {
-            winParams.flags |=  bits;
+        final int fullscreenImmersiveSetting =
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                        View.SYSTEM_UI_FLAG_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+
+        if (mCustomView != null) {
+            mCustomView.setSystemUiVisibility(enabled ?
+                    fullscreenImmersiveSetting : View.SYSTEM_UI_FLAG_VISIBLE);
         } else {
-            winParams.flags &= ~bits;
-            if (mCustomView != null) {
-                mCustomView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-            } else {
-                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-            }
+            mContentView.setSystemUiVisibility(enabled ?
+                    View.SYSTEM_UI_FLAG_LOW_PROFILE : View.SYSTEM_UI_FLAG_VISIBLE);
         }
+        if (enabled)
+            winParams.flags |=  bits;
+        else
+            winParams.flags &= ~bits;
+
         win.setAttributes(winParams);
     }
 
