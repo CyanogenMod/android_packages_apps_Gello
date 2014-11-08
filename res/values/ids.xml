@@ -22,4 +22,5 @@
     <item type="id" name="tab_view" />
     <item type="id" name="position" />
     <item type="id" name="load_object" />
+    <item type="id" name="menu_item_enter_anim_id" />
 </resources>

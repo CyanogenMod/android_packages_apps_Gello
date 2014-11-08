@@ -13,26 +13,55 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/combo_paddingTop">
-    <com.android.browser.view.BookmarkExpandableView
-        android:id="@+id/grid"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:childDivider="@android:color/transparent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="90"
+        android:paddingTop="@dimen/combo_paddingTop">
+        <com.android.browser.view.BookmarkExpandableView
+            android:id="@+id/grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:childDivider="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/empty_bookmarks_folder"
+            android:visibility="gone" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_bookmarks_folder"
-        android:visibility="gone" />
-</FrameLayout>
+        android:layout_weight="10"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/add_bookmark_button"
+            android:text="@string/add_new_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+        <Button
+            android:id="@+id/new_bmfolder_button"
+            android:text="@string/new_folder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+</LinearLayout>

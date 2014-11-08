@@ -31,4 +31,5 @@
     <!-- The duration of the titlebar animation in millisecs -->
     <integer name="titlebar_animation_duration">200</integer>
     <integer name="netswitch_type_remind">1</integer>
+    <item type="fraction" format="fraction" name="menu_animation_pivot_x">95%</item>
 </resources>

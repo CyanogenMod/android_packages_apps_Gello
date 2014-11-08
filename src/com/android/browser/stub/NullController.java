@@ -149,4 +149,6 @@ public class NullController implements ActivityController {
         return false;
     }
 
+    public void invalidateOptionsMenu() {}
+
 }

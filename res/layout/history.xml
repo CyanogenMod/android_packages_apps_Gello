@@ -14,23 +14,44 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:orientation="vertical" >
 
-    <ExpandableListView
-        android:id="@+id/history"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_weight="90"
+        android:layout_height="match_parent" >
 
-    <TextView android:id="@android:id/empty"
-        android:layout_width="wrap_content"
+        <ExpandableListView
+            android:id="@+id/history"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+
+        <TextView android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/empty_history"
+            android:visibility="gone"
+        />
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_history"
-        android:visibility="gone"
-    />
+        android:layout_weight="10"
+        android:layout_alignParentBottom="true" >
 
-</FrameLayout>
+        <Button
+            android:id="@+id/clear_history_button"
+            android:text="@string/clear_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+</LinearLayout>

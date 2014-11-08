@@ -14,23 +14,26 @@
         android:id="@+id/button_one"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="32"
         android:background="?android:attr/listChoiceBackgroundIndicator"
-        android:scaleType="center" />
+        android:scaleType="center"
+        />
 
     <ImageButton
         android:id="@+id/button_two"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="32"
         android:background="?android:attr/listChoiceBackgroundIndicator"
-        android:scaleType="center" />
+        android:scaleType="center"
+        />
 
     <ImageButton
         android:id="@+id/button_three"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="32"
         android:background="?android:attr/listChoiceBackgroundIndicator"
-        android:scaleType="center" />
+        android:scaleType="center"
+        />
 </LinearLayout>

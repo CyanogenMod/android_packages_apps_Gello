@@ -45,6 +45,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
@@ -167,31 +168,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             BrowserBookmarksAdapter adapter = mBookmarkAdapters.get(loader.getId());
             adapter.changeCursor(null);
         }
-    }
-
-    //add for carrier feature which adds new bookmark/folder function.
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.bookmark, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final Activity activity = getActivity();
-        if (item.getItemId() == R.id.add_bookmark_menu_id) {
-            Intent intent = new Intent(activity, AddBookmarkPage.class);
-            intent.putExtra(BrowserContract.Bookmarks.URL, "http://");
-            intent.putExtra(BrowserContract.Bookmarks.TITLE, "");
-            intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
-            activity.startActivity(intent);
-        }
-        if (item.getItemId() == R.id.new_bmfolder_menu_id) {
-            Intent intent = new Intent(activity, AddBookmarkFolder.class);
-            intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
-            activity.startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -373,7 +349,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         Bundle args = getArguments();
         mDisableNewWindow = args == null ? false : args.getBoolean(EXTRA_DISABLE_WINDOW, false);
-        setHasOptionsMenu(true);
         if (mCallbacks == null && getActivity() instanceof CombinedBookmarksCallbacks) {
             mCallbacks = new CombinedBookmarksCallbackWrapper(
                     (CombinedBookmarksCallbacks) getActivity());
@@ -423,6 +398,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        final Activity activity = getActivity();
         mRoot = inflater.inflate(R.layout.bookmarks, container, false);
         mEmptyView = mRoot.findViewById(android.R.id.empty);
 
@@ -431,6 +407,28 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mGrid.setColumnWidthFromLayout(R.layout.bookmark_thumbnail);
         mGrid.setBreadcrumbController(this);
         setEnableContextMenu(mEnableContextMenu);
+
+        Button btn = (Button) mRoot.findViewById(R.id.add_bookmark_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, AddBookmarkPage.class);
+                intent.putExtra(BrowserContract.Bookmarks.URL, "http://");
+                intent.putExtra(BrowserContract.Bookmarks.TITLE, "");
+                intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+                activity.startActivity(intent);
+            }
+        });
+
+        btn = (Button) mRoot.findViewById(R.id.new_bmfolder_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, AddBookmarkFolder.class);
+                intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+                activity.startActivity(intent);
+            }
+        });
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
@@ -604,7 +602,6 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         mGrid.setColumnWidthFromLayout(R.layout.bookmark_thumbnail);
         int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
         mRoot.setPadding(0, paddingTop, 0, 0);
-        getActivity().invalidateOptionsMenu();
     }
 
     /**

@@ -58,7 +58,7 @@
     <!-- Preference widget area width (to the left of the text) -->
     <dimen name="preference_widget_width">56dp</dimen>
     <dimen name="nav_tab_spacing">8dp</dimen>
-    <dimen name="menu_width">240dip</dimen>
+    <dimen name="menu_width">258dp</dimen>
     <dimen name="menu_height">32dip</dimen>
     <dimen name="toolbar_height">52dip</dimen>
     <dimen name="tab_thumbnail_width">240dip</dimen>
@@ -70,4 +70,16 @@
     <dimen name="nav_tab_text_small">14sp</dimen>
     <dimen name="suggest_item_padding">8dp</dimen>
     <dimen name="progress_bar_margin">-11dip</dimen>
+
+    <!-- Custom Menu dimensions -->
+    <dimen name="menu_negative_software_vertical_offset">0dp</dimen>
+    <!-- The amount to fade the edges of the menu to indicate more content is available
+         via scrolling. -->
+    <dimen name="menu_vertical_fade_distance">15dp</dimen>
+
+    <!-- Menu button dragging related dimensions -->
+    <dimen name="auto_scroll_full_velocity">500dp</dimen>
+    <dimen name="edge_swipe_in_slop">25dp</dimen>
+    <dimen name="edge_swipe_in_additional_slop">50dp</dimen>
+    <dimen name="edge_swipe_out_slop">18dp</dimen>
 </resources>

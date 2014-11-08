@@ -51,6 +51,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -196,8 +197,6 @@ public class BrowserHistoryPage extends Fragment
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        setHasOptionsMenu(true);
-
         Bundle args = getArguments();
         mDisableNewWindow = args.getBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, false);
         int mvlimit = getResources().getInteger(R.integer.most_visits_limit);
@@ -216,6 +215,13 @@ public class BrowserHistoryPage extends Fragment
         } else {
             inflateSinglePane();
         }
+        Button btn = (Button) mRoot.findViewById(R.id.clear_history_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promptToClearHistory();
+            }
+        });
 
         // Start the loaders
         getLoaderManager().restartLoader(LOADER_HISTORY, null, this);
@@ -285,12 +291,6 @@ public class BrowserHistoryPage extends Fragment
         getLoaderManager().destroyLoader(LOADER_MOST_VISITED);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.history, menu);
-    }
-
     void promptToClearHistory() {
         final ContentResolver resolver = getActivity().getContentResolver();
         final ClearHistoryTask clear = new ClearHistoryTask(resolver);
@@ -308,15 +308,6 @@ public class BrowserHistoryPage extends Fragment
                 });
         final Dialog dialog = builder.create();
         dialog.show();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.clear_history_menu_id) {
-            promptToClearHistory();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     static class ClearHistoryTask extends Thread {

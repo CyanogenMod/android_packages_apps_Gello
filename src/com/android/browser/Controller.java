@@ -79,6 +79,8 @@ import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.codeaurora.swe.CookieManager;
@@ -103,6 +105,8 @@ import com.android.browser.platformsupport.BrowserContract.Images;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.browser.reflect.ReflectHelper;
+import com.android.browser.appmenu.AppMenuHandler;
+import com.android.browser.appmenu.AppMenuPropertiesDelegate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -123,7 +127,8 @@ import java.util.Map;
  * Controller for browser
  */
 public class Controller
-        implements WebViewController, UiController, ActivityController {
+        implements WebViewController, UiController, ActivityController,
+        AppMenuPropertiesDelegate {
 
     private static final String LOGTAG = "Controller";
     private static final String SEND_APP_ID_EXTRA =
@@ -206,6 +211,9 @@ public class Controller
 
     private boolean mMenuIsDown;
 
+    private boolean mWasInPageLoad = false;
+    private AppMenuHandler mAppMenuHandler;
+
     // For select and find, we keep track of the ActionMode so that
     // finish() can be called as desired.
     private ActionMode mActionMode;
@@ -275,6 +283,7 @@ public class Controller
 
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
         mHomepageHandler = new HomepageHandler(browser, this);
+        mAppMenuHandler = new AppMenuHandler(browser, this, R.menu.browser);
     }
 
     @Override
@@ -654,6 +663,7 @@ public class Controller
         mConfigChanged = true;
         // update the menu in case of a locale change
         mActivity.invalidateOptionsMenu();
+        mAppMenuHandler.hideAppMenu();
         if (mOptionsMenuOpen) {
             mActivity.closeOptionsMenu();
             mHandler.sendMessageDelayed(mHandler.obtainMessage(OPEN_MENU), 100);
@@ -973,8 +983,14 @@ public class Controller
             // any sub frames so calls to onProgressChanges may continue after
             // onPageFinished has executed)
             if (tab.inPageLoad()) {
+                mWasInPageLoad = true;
                 updateInLoadMenuItems(mCachedMenu, tab);
-            } else if (mActivityPaused && pauseWebViewTimers(tab)) {
+            } else if (mWasInPageLoad) {
+                mWasInPageLoad = false;
+                updateInLoadMenuItems(mCachedMenu, tab);
+            }
+
+            if (mActivityPaused && pauseWebViewTimers(tab)) {
                 // pause the WebView timer and release the wake lock if it is
                 // finished while BrowserActivity is in pause state.
                 releaseWakeLock();
@@ -1001,7 +1017,10 @@ public class Controller
                 // still loading
                 // updating the progress and
                 // update the menu items.
+                mWasInPageLoad = false;
                 updateInLoadMenuItems(mCachedMenu, tab);
+            } else {
+                mWasInPageLoad = true;
             }
         }
         mUi.onProgressChanged(tab);
@@ -1780,10 +1799,22 @@ public class Controller
             dest.setIcon(src.getIcon());
             dest.setTitle(src.getTitle());
         }
+        mActivity.invalidateOptionsMenu();
+    }
+
+    public void invalidateOptionsMenu() {
+        mAppMenuHandler.invalidateAppMenu();
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        // Software menu key (toolbar key)
+        mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.more_browser_settings), false, false);
+        return true;
+    }
+
+    @Override
+    public void prepareMenu(Menu menu) {
         updateInLoadMenuItems(menu, getCurrentTab());
         // hold on to the menu reference here; it is used by the page callbacks
         // to update the menu based on loading state
@@ -1809,12 +1840,53 @@ public class Controller
                 break;
         }
         mCurrentMenuState = mMenuState;
-        return mUi.onPrepareOptionsMenu(menu);
+        mUi.onPrepareOptionsMenu(menu);
+    }
+
+    private void setMenuItemVisibility(Menu menu, int id,
+                                       boolean visibility) {
+        MenuItem item = menu.findItem(id);
+        if (item != null) {
+            item.setVisible(visibility);
+        }
+    }
+
+    private int lookupBookmark(String title, String url) {
+        final ContentResolver cr = getActivity().getContentResolver();
+
+        Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                BookmarksLoader.PROJECTION,
+                "title = ? OR url = ?",
+                new String[] {
+                        title, url
+                },
+                null);
+
+        if (cursor == null) {
+            return 0;
+        }
+
+        return cursor.getCount();
+    }
+
+    private void resetMenuItems(Menu menu) {
+        setMenuItemVisibility(menu, R.id.history_menu_id, true);
+        setMenuItemVisibility(menu, R.id.find_menu_id, true);
+
+        WebView w = getCurrentTopWebView();
+        MenuItem bookmark_icon = menu.findItem(R.id.bookmark_this_page_id);
+
+        String title = w.getTitle();
+        String url = w.getUrl();
+        if (title != null && url != null && lookupBookmark(title, url) > 0) {
+            bookmark_icon.setChecked(true);
+        } else {
+            bookmark_icon.setChecked(false);
+        }
     }
 
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
-        boolean canGoBack = false;
         boolean canGoForward = false;
         boolean isDesktopUa = false;
         boolean isLive = false;
@@ -1822,32 +1894,19 @@ public class Controller
         // items defined in res/menu/browser.xml should be enabled
         boolean isLiveScheme = false;
         boolean isPageFinished = false;
-        boolean isSavable = false;
+
+        resetMenuItems(menu);
+
         if (tab != null) {
-            canGoBack = tab.canGoBack();
             canGoForward = tab.canGoForward();
             isDesktopUa = mSettings.hasDesktopUseragent(tab.getWebView());
             isLive = !tab.isSnapshot();
             isLiveScheme = UrlUtils.isLiveScheme(tab.getWebView().getUrl());
-            isPageFinished = tab.getPageFinishedStatus();
-            isSavable = tab.getWebView().isSavable();
+            isPageFinished = (tab.getPageFinishedStatus() || !tab.inPageLoad());
         }
-        final MenuItem back = menu.findItem(R.id.back_menu_id);
-        back.setEnabled(canGoBack);
-
-        final MenuItem home = menu.findItem(R.id.homepage_menu_id);
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
         forward.setEnabled(canGoForward);
-
-        final MenuItem source = menu.findItem(isInLoad() ? R.id.stop_menu_id
-                : R.id.reload_menu_id);
-        final MenuItem dest = menu.findItem(R.id.stop_reload_menu_id);
-        if (source != null && dest != null) {
-            dest.setTitle(source.getTitle());
-            dest.setIcon(source.getIcon());
-        }
-        menu.setGroupVisible(R.id.NAV_MENU, isLive);
 
         // decide whether to show the share link option
         PackageManager pm = mActivity.getPackageManager();
@@ -1866,8 +1925,13 @@ public class Controller
         final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
         uaSwitcher.setChecked(isDesktopUa);
         menu.setGroupVisible(R.id.LIVE_MENU, isLive && isLiveScheme);
+        menu.setGroupVisible(R.id.NAV_MENU, isLive && isLiveScheme);
+        setMenuItemVisibility(menu, R.id.find_menu_id, isLive && isLiveScheme);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
-        menu.setGroupEnabled(R.id.OFFLINE_READING, isLive && isLiveScheme && isPageFinished && isSavable);
+        setMenuItemVisibility(menu, R.id.add_to_homescreen,
+                isLive && isLiveScheme && isPageFinished);
+        setMenuItemVisibility(menu, R.id.save_snapshot_menu_id,
+                isLive && isLiveScheme && isPageFinished);
         // history and snapshots item are the members of COMBO menu group,
         // so if show history item, only make snapshots item invisible.
         menu.findItem(R.id.snapshots_menu_id).setVisible(false);
@@ -1901,10 +1965,6 @@ public class Controller
                 openIncognitoTab();
                 break;
 
-            case R.id.close_other_tabs_id:
-                closeOtherTabs();
-                break;
-
             case R.id.goto_menu_id:
                 editUrl();
                 break;
@@ -1921,7 +1981,7 @@ public class Controller
                 bookmarksOrHistoryPicker(ComboViews.Snapshots);
                 break;
 
-            case R.id.add_bookmark_menu_id:
+            case R.id.bookmark_this_page_id:
                 bookmarkCurrentPage();
                 break;
 
@@ -1936,10 +1996,6 @@ public class Controller
                     }
                     getCurrentTopWebView().reload();
                 }
-                break;
-
-            case R.id.back_menu_id:
-                getCurrentTab().goBack();
                 break;
 
             case R.id.forward_menu_id:
@@ -2066,6 +2122,34 @@ public class Controller
                 builder.setMessage("Agent:" + ua);
                 builder.setPositiveButton(android.R.string.ok, null);
                 builder.create().show();
+                break;
+
+            case R.id.add_to_homescreen:
+                final WebView w = getCurrentTopWebView();
+                final EditText input = new EditText(getContext());
+                input.setText(w.getTitle());
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Add to homescreen")
+                        .setMessage("Title")
+                        .setView(input)
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                mActivity.sendBroadcast(BookmarkUtils.createAddToHomeIntent(
+                                        getContext(),
+                                        w.getUrl(),
+                                        input.getText().toString(),
+                                        w.getViewportBitmap(),
+                                        w.getFavicon()));
+
+                                mActivity.startActivity(new Intent(Intent.ACTION_MAIN)
+                                        .addCategory(Intent.CATEGORY_HOME));
+                            }})
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Do nothing.
+                            }
+                        })
+                        .show();
                 break;
 
             default:
@@ -3130,6 +3214,13 @@ public class Controller
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
+            // Hardware menu key
+            mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.more_browser_settings),
+                    true, false);
+            return true;
+        }
+
         boolean noModifiers = event.hasNoModifiers();
         // Even if MENU is already held down, we need to call to super to open
         // the IME on long press.
@@ -3359,4 +3450,13 @@ public class Controller
         return mBlockEvents;
     }
 
+    @Override
+    public boolean shouldShowAppMenu() {
+        return true;
+    }
+
+    @Override
+    public int getMenuThemeResourceId() {
+        return R.style.OverflowMenuTheme;
+    }
 }

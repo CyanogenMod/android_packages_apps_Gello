@@ -2,13 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package com.android.browser.appmenu;
 
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-
-import org.chromium.chrome.browser.UmaBridge;
 
 /**
  * A helper class for a menu button to decide when to show the app menu and forward touch
@@ -46,10 +44,6 @@ public class AppMenuButtonHelper implements OnTouchListener {
     private boolean showAppMenu(boolean startDragging) {
         if (!mMenuHandler.isAppMenuShowing() &&
                 mMenuHandler.showAppMenu(mMenuButton, false, startDragging)) {
-            // Initial start dragging can be canceled in case if it was just single tap.
-            // So we only record non-dragging here, and will deal with those dragging cases in
-            // AppMenuDragHelper class.
-            if (!startDragging) UmaBridge.usingMenu(false, false);
 
             if (mOnAppMenuShownListener != null) {
                 mOnAppMenuShownListener.run();
@@ -94,13 +88,6 @@ public class AppMenuButtonHelper implements OnTouchListener {
             default:
         }
 
-        // If user starts to drag on this menu button, ACTION_DOWN and all the subsequent touch
-        // events are received here. We need to forward this event to the app menu to handle
-        // dragging correctly.
-        AppMenuDragHelper dragHelper = mMenuHandler.getAppMenuDragHelper();
-        if (dragHelper != null) {
-            isTouchEventConsumed |= dragHelper.handleDragging(event);
-        }
         return isTouchEventConsumed;
     }
 }

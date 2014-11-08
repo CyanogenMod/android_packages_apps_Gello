@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package com.android.browser.appmenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -26,7 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
 import org.chromium.base.SysUtils;
-import org.chromium.chrome.R;
+import com.android.browser.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,13 +112,7 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         // drawable here even though our style says @null we should use this padding instead...
         Drawable originalBgDrawable = mPopup.getBackground();
 
-        // Need to explicitly set the background here.  Relying on it being set in the style caused
-        // an incorrectly drawn background.
-        if (isByHardwareButton) {
-            mPopup.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.menu_bg));
-        } else {
-            mPopup.setBackgroundDrawable(
-                    context.getResources().getDrawable(R.drawable.edge_menu_bg));
+        if (!isByHardwareButton) {
             mPopup.setAnimationStyle(R.style.OverflowMenuAnim);
         }
 
@@ -189,6 +183,30 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         }
     }
 
+    public void invalidate(Context context, Menu menu) {
+        assert(mMenu == menu);
+        // Extract visible items from the Menu.
+        int numItems = mMenu.size();
+        List<MenuItem> menuItems = new ArrayList<MenuItem>();
+        for (int i = 0; i < numItems; ++i) {
+            MenuItem item = mMenu.getItem(i);
+            if (item.isVisible()) {
+                menuItems.add(item);
+            }
+        }
+
+        boolean showMenuButton = !mIsByHardwareButton;
+        if (!SHOW_SW_MENU_BUTTON) showMenuButton = false;
+
+        mAdapter = new AppMenuAdapter(
+                this, menuItems, LayoutInflater.from(context), showMenuButton);
+        mPopup.setAdapter(mAdapter);
+
+        mPopup.show();
+        mPopup.getListView().setItemsCanFocus(true);
+        mPopup.getListView().setOnKeyListener(this);
+    }
+
     private void setPopupOffset(
             ListPopupWindow popup, int screenRotation, Rect appRect, Rect padding) {
         int[] anchorLocation = new int[2];
@@ -202,10 +220,10 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
             switch (screenRotation) {
                 case Surface.ROTATION_0:
                 case Surface.ROTATION_180:
-                    horizontalOffset += (appRect.width() - mPopup.getWidth()) / 2;
+                    horizontalOffset += (appRect.width() - popup.getWidth()) / 2;
                     break;
                 case Surface.ROTATION_90:
-                    horizontalOffset += appRect.width() - mPopup.getWidth();
+                    horizontalOffset += appRect.width() - popup.getWidth();
                     break;
                 case Surface.ROTATION_270:
                     break;
@@ -216,7 +234,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
             popup.setHorizontalOffset(horizontalOffset);
             // The menu is displayed above the anchored view, so shift the menu up by the bottom
             // padding of the background.
-            popup.setVerticalOffset(-padding.bottom);
+            int verticalOffset = appRect.height() - popup.getHeight() + padding.bottom;
+            popup.setVerticalOffset(verticalOffset);
         } else {
             // The menu is displayed over and below the anchored view, so shift the menu up by the
             // height of the anchor view.
@@ -321,7 +340,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                         padding.top + padding.bottom);
             }
         } else {
-            mPopup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            mPopup.setHeight(numMenuItems * (mItemRowHeight + mItemDividerHeight) +
+                        padding.top + padding.bottom);
         }
     }
 

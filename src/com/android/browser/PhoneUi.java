@@ -160,42 +160,32 @@ public class PhoneUi extends BaseUi {
         return true;
     }
 
+    private void setMenuItemVisibility(Menu menu, int id,
+                                       boolean visibility) {
+        MenuItem item = menu.findItem(id);
+        if (item != null) {
+            item.setVisible(visibility);
+        }
+    }
+
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
         if (bm != null) {
             bm.setVisible(!showingNavScreen());
         }
-        MenuItem abm = menu.findItem(R.id.add_bookmark_menu_id);
-        if (abm != null) {
-            abm.setVisible((tab != null) && !tab.isSnapshot() && !showingNavScreen());
-        }
         MenuItem info = menu.findItem(R.id.page_info_menu_id);
         if (info != null) {
             info.setVisible(false);
         }
-        MenuItem newtab = menu.findItem(R.id.new_tab_menu_id);
-        if (newtab != null) {
-            newtab.setVisible(false);
-        }
-        MenuItem incognito = menu.findItem(R.id.incognito_menu_id);
-        if (incognito != null) {
-            incognito.setVisible(showingNavScreen());
-        }
-        MenuItem closeOthers = menu.findItem(R.id.close_other_tabs_id);
-        if (closeOthers != null) {
-            boolean isLastTab = true;
-            if (tab != null) {
-                isLastTab = (mTabControl.getTabCount() <= 1);
-            }
-            closeOthers.setEnabled(!isLastTab);
-        }
+
         if (showingNavScreen()) {
+            setMenuItemVisibility(menu, R.id.history_menu_id, false);
+            setMenuItemVisibility(menu, R.id.find_menu_id, false);
             menu.setGroupVisible(R.id.LIVE_MENU, false);
-            menu.setGroupVisible(R.id.OFFLINE_READING, false);
+            setMenuItemVisibility(menu, R.id.save_snapshot_menu_id, false);
             menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
             menu.setGroupVisible(R.id.NAV_MENU, false);
-            menu.setGroupVisible(R.id.COMBO_MENU, true);
         }
     }
 

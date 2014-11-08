@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package com.android.browser.appmenu;
 
 import android.animation.TimeAnimator;
 import android.annotation.SuppressLint;
@@ -18,8 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 
-import org.chromium.chrome.R;
-import org.chromium.chrome.browser.UmaBridge;
+import com.android.browser.R;
 
 import java.util.ArrayList;
 
@@ -158,7 +157,6 @@ class AppMenuDragHelper {
         if (!mIsSingleTapUpHappened) {
             mGestureSingleTapDetector.onTouchEvent(event);
             if (mIsSingleTapUpHappened) {
-                UmaBridge.usingMenu(false, false);
                 finishDragging();
             }
         }
@@ -182,7 +180,6 @@ class AppMenuDragHelper {
         didPerformClick = menuItemAction(roundedRawX, roundedRawY, itemAction);
 
         if (eventActionMasked == MotionEvent.ACTION_UP && !didPerformClick) {
-            UmaBridge.usingMenu(false, true);
             mAppMenu.dismiss();
         } else if (eventActionMasked == MotionEvent.ACTION_MOVE) {
             // Auto scrolling on the top or the bottom of the listView.
@@ -245,7 +242,6 @@ class AppMenuDragHelper {
                     break;
                 case ITEM_ACTION_PERFORM:
                     if (shouldPerform) {
-                        UmaBridge.usingMenu(false, true);
                         itemView.performClick();
                         didPerformClick = true;
                     }

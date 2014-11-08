@@ -71,4 +71,5 @@ public interface ActivityController {
 
     boolean dispatchGenericMotionEvent(MotionEvent ev);
 
+    void invalidateOptionsMenu();
 }

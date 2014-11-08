@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package com.android.browser.appmenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -22,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.chromium.base.ApiCompatibilityUtils;
-import org.chromium.chrome.R;
+import com.android.browser.R;
 import org.chromium.ui.base.LocalizationUtils;
 import org.chromium.ui.interpolators.BakedBezierInterpolator;
 
@@ -32,7 +33,7 @@ import java.util.List;
  * ListAdapter to customize the view of items in the list.
  */
 class AppMenuAdapter extends BaseAdapter {
-    private static final int VIEW_TYPE_COUNT = 5;
+    private static final int VIEW_TYPE_COUNT = 9;
 
     /**
      * Regular Android menu item that contains a title and an icon if icon is specified.
@@ -44,18 +45,34 @@ class AppMenuAdapter extends BaseAdapter {
      */
     private static final int TITLE_BUTTON_MENU_ITEM = 1;
     /**
+     * Menu item that has one button plus menu button. Every one of these buttons is displayed as an icon.
+     */
+    private static final int ONE_BUTTON_PLUS_MENU_ITEM = 2;
+    /**
+     * Menu item that has two buttons. Every one of these buttons is displayed as an icon.
+     */
+    private static final int TWO_BUTTON_MENU_ITEM = 3;
+    /**
+     * Menu item that has two buttons plus menu. Every one of these buttons is displayed as an icon.
+     */
+    private static final int TWO_BUTTON_PLUS_MENU_ITEM = 4;
+    /**
      * Menu item that has three buttons. Every one of these buttons is displayed as an icon.
      */
-    private static final int THREE_BUTTON_MENU_ITEM = 2;
+    private static final int THREE_BUTTON_MENU_ITEM = 5;
+    /**
+     * Menu item that has three buttons plus menu. Every one of these buttons is displayed as an icon.
+     */
+    private static final int THREE_BUTTON_PLUS_MENU_ITEM = 6;
     /**
      * Menu item that has four buttons. Every one of these buttons is displayed as an icon.
      */
-    private static final int FOUR_BUTTON_MENU_ITEM = 3;
+    private static final int FOUR_BUTTON_MENU_ITEM = 7;
     /**
      * Menu item that has two buttons, the first one is a title and the second is a menu icon.
      * This is similar to {@link #TITLE_BUTTON_MENU_ITEM} but has some slight layout differences.
      */
-    private static final int MENU_BUTTON_MENU_ITEM = 4;
+    private static final int MENU_BUTTON_MENU_ITEM = 8;
 
     /** MenuItem Animation Constants */
     private static final int ENTER_ITEM_DURATION_MS = 350;
@@ -100,14 +117,21 @@ class AppMenuAdapter extends BaseAdapter {
         MenuItem item = getItem(position);
         boolean hasMenuButton = mShowMenuButton && position == 0;
         int viewCount = item.hasSubMenu() ? item.getSubMenu().size() : 1;
-        if (hasMenuButton) viewCount++;
 
         if (viewCount == 4) {
             return FOUR_BUTTON_MENU_ITEM;
         } else if (viewCount == 3) {
+            if (hasMenuButton) {
+                return THREE_BUTTON_PLUS_MENU_ITEM;
+            }
             return THREE_BUTTON_MENU_ITEM;
         } else if (viewCount == 2) {
-            return hasMenuButton ? MENU_BUTTON_MENU_ITEM : TITLE_BUTTON_MENU_ITEM;
+            if (hasMenuButton) {
+                return TWO_BUTTON_PLUS_MENU_ITEM;
+            }
+            return TWO_BUTTON_MENU_ITEM;
+        } else if (hasMenuButton) {
+            return ONE_BUTTON_PLUS_MENU_ITEM;
         }
         return STANDARD_MENU_ITEM;
     }
@@ -137,6 +161,7 @@ class AppMenuAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.menu_item, parent, false);
                     holder.text = (TextView) convertView.findViewById(R.id.menu_item_text);
                     holder.image = (AppMenuItemIcon) convertView.findViewById(R.id.menu_item_icon);
+                    holder.checkbox = (CheckBox) convertView.findViewById(R.id.menu_item_checkbox);
                     convertView.setTag(holder);
                     convertView.setTag(R.id.menu_item_enter_anim_id,
                             buildStandardItemEnterAnimator(convertView, position));
@@ -154,7 +179,15 @@ class AppMenuAdapter extends BaseAdapter {
                 Drawable icon = item.getIcon();
                 holder.image.setImageDrawable(icon);
                 holder.image.setVisibility(icon == null ? View.GONE : View.VISIBLE);
-                holder.image.setChecked(item.isChecked());
+
+                holder.checkbox.setVisibility(item.isCheckable() ? View.VISIBLE : View.GONE);
+                holder.checkbox.setChecked(item.isChecked());
+                holder.checkbox.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAppMenu.onItemClick(item);
+                    }
+                });
 
                 holder.text.setText(item.getTitle());
                 boolean isEnabled = item.isEnabled();
@@ -162,6 +195,65 @@ class AppMenuAdapter extends BaseAdapter {
                 holder.text.setEnabled(isEnabled);
                 // This will ensure that the item is not highlighted when selected.
                 convertView.setEnabled(isEnabled);
+                break;
+            }
+            case ONE_BUTTON_PLUS_MENU_ITEM: {
+                TwoButtonMenuItemViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new TwoButtonMenuItemViewHolder();
+                    convertView = mInflater.inflate(R.layout.one_button_plus_menu_item, parent, false);
+                    holder.buttons[0] = (ImageButton) convertView.findViewById(R.id.button_one);
+                    holder.buttons[1] = (ImageButton) convertView.findViewById(R.id.button_two);
+                    convertView.setTag(holder);
+                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                            buildIconItemEnterAnimator(holder.buttons, hasMenuButton));
+                } else {
+                    holder = (TwoButtonMenuItemViewHolder) convertView.getTag();
+                }
+                setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
+                setupMenuButton(holder.buttons[1]);
+                convertView.setFocusable(false);
+                convertView.setEnabled(false);
+                break;
+            }
+            case TWO_BUTTON_MENU_ITEM: {
+                TwoButtonMenuItemViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new TwoButtonMenuItemViewHolder();
+                    convertView = mInflater.inflate(R.layout.two_button_menu_item, parent, false);
+                    holder.buttons[0] = (ImageButton) convertView.findViewById(R.id.button_one);
+                    holder.buttons[1] = (ImageButton) convertView.findViewById(R.id.button_two);
+                    convertView.setTag(holder);
+                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                            buildIconItemEnterAnimator(holder.buttons, hasMenuButton));
+                } else {
+                    holder = (TwoButtonMenuItemViewHolder) convertView.getTag();
+                }
+                setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
+                setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
+                convertView.setFocusable(false);
+                convertView.setEnabled(false);
+                break;
+            }
+            case TWO_BUTTON_PLUS_MENU_ITEM: {
+                ThreeButtonMenuItemViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new ThreeButtonMenuItemViewHolder();
+                    convertView = mInflater.inflate(R.layout.two_button_plus_menu_item, parent, false);
+                    holder.buttons[0] = (ImageButton) convertView.findViewById(R.id.button_one);
+                    holder.buttons[1] = (ImageButton) convertView.findViewById(R.id.button_two);
+                    holder.buttons[2] = (ImageButton) convertView.findViewById(R.id.button_three);
+                    convertView.setTag(holder);
+                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                            buildIconItemEnterAnimator(holder.buttons, hasMenuButton));
+                } else {
+                    holder = (ThreeButtonMenuItemViewHolder) convertView.getTag();
+                }
+                setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
+                setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
+                setupMenuButton(holder.buttons[2]);
+                convertView.setFocusable(false);
+                convertView.setEnabled(false);
                 break;
             }
             case THREE_BUTTON_MENU_ITEM: {
@@ -180,12 +272,31 @@ class AppMenuAdapter extends BaseAdapter {
                 }
                 setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
                 setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
-                if (hasMenuButton) {
-                    setupMenuButton(holder.buttons[3]);
+                setupImageButton(holder.buttons[2], item.getSubMenu().getItem(2));
+                convertView.setFocusable(false);
+                convertView.setEnabled(false);
+                break;
+            }
+            case THREE_BUTTON_PLUS_MENU_ITEM: {
+                FourButtonMenuItemViewHolder holder = null;
+                if (convertView == null) {
+                    holder = new FourButtonMenuItemViewHolder();
+                    convertView = mInflater.inflate(R.layout.three_button_plus_menu_item, parent, false);
+                    holder.buttons[0] = (ImageButton) convertView.findViewById(R.id.button_one);
+                    holder.buttons[1] = (ImageButton) convertView.findViewById(R.id.button_two);
+                    holder.buttons[2] = (ImageButton) convertView.findViewById(R.id.button_three);
+                    holder.buttons[3] = (ImageButton) convertView.findViewById(R.id.button_four);
+                    convertView.setTag(holder);
+                    convertView.setTag(R.id.menu_item_enter_anim_id,
+                            buildIconItemEnterAnimator(holder.buttons, hasMenuButton));
                 } else {
-                    setupImageButton(holder.buttons[2], item.getSubMenu().getItem(2));
+                    holder = (FourButtonMenuItemViewHolder) convertView.getTag();
                 }
 
+                setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
+                setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
+                setupImageButton(holder.buttons[2], item.getSubMenu().getItem(2));
+                setupMenuButton(holder.buttons[3]);
                 convertView.setFocusable(false);
                 convertView.setEnabled(false);
                 break;
@@ -208,11 +319,7 @@ class AppMenuAdapter extends BaseAdapter {
                 setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
                 setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
                 setupImageButton(holder.buttons[2], item.getSubMenu().getItem(2));
-                if (hasMenuButton) {
-                    setupMenuButton(holder.buttons[3]);
-                } else {
-                    setupImageButton(holder.buttons[3], item.getSubMenu().getItem(3));
-                }
+                setupImageButton(holder.buttons[3], item.getSubMenu().getItem(3));
                 convertView.setFocusable(false);
                 convertView.setEnabled(false);
                 break;
@@ -274,6 +381,7 @@ class AppMenuAdapter extends BaseAdapter {
         button.setContentDescription(item.getTitle());
         button.setEnabled(item.isEnabled());
         button.setFocusable(item.isEnabled());
+        button.setSelected(item.isChecked());
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,8 +391,7 @@ class AppMenuAdapter extends BaseAdapter {
     }
 
     private void setupMenuButton(ImageButton button) {
-        button.setImageResource(R.drawable.btn_menu_pressed);
-        button.setContentDescription(button.getResources().getString(R.string.menu_dismiss_btn));
+        button.setImageResource(R.drawable.ic_menu_overflow);
         button.setEnabled(true);
         button.setFocusable(true);
         button.setOnClickListener(new OnClickListener() {
@@ -294,10 +401,6 @@ class AppMenuAdapter extends BaseAdapter {
             }
         });
 
-        // Set the button layout to make it properly line up with any underlying menu button
-        ApiCompatibilityUtils.setPaddingRelative(
-                button, (int) (MENU_BUTTON_START_PADDING_DP * mDpToPx), 0, 0, 0);
-        button.getLayoutParams().width = (int) (MENU_BUTTON_WIDTH_DP * mDpToPx);
         button.setScaleType(ScaleType.CENTER);
     }
 
@@ -339,7 +442,7 @@ class AppMenuAdapter extends BaseAdapter {
      * @return             The {@link Animator}.
      */
     private Animator buildIconItemEnterAnimator(final ImageView[] views, boolean skipLastItem) {
-        final boolean rtl = LocalizationUtils.isLayoutRtl();
+        final boolean rtl = false; //LocalizationUtils.isLayoutRtl();
         final float offsetXPx = ENTER_STANDARD_ITEM_OFFSET_X_DP * mDpToPx * (rtl ? -1.f : 1.f);
         final int maxViewsToAnimate = views.length - (skipLastItem ? 1 : 0);
 
@@ -379,6 +482,11 @@ class AppMenuAdapter extends BaseAdapter {
     static class StandardMenuItemViewHolder {
         public TextView text;
         public AppMenuItemIcon image;
+        public CheckBox checkbox;
+    }
+
+    static class TwoButtonMenuItemViewHolder {
+        public ImageButton[] buttons = new ImageButton[2];
     }
 
     static class ThreeButtonMenuItemViewHolder {

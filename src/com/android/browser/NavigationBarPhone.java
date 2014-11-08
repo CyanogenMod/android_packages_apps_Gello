@@ -192,7 +192,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
         Menu menu = mPopupMenu.getMenu();
         if (activity.onPrepareOptionsMenu(menu)) {
             mOverflowMenuShowing = true;
-            mPopupMenu.show();
         }
     }
 

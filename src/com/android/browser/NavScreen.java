@@ -80,12 +80,13 @@ public class NavScreen extends RelativeLayout
     }
 
     protected void showMenu() {
-        PopupMenu popup = new PopupMenu(getContext(), mMore);
-        Menu menu = popup.getMenu();
-        popup.getMenuInflater().inflate(R.menu.browser, menu);
-        mUiController.updateMenuState(mUiController.getCurrentTab(), menu);
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
+        if (mUiController instanceof Controller) {
+            PopupMenu popup = new PopupMenu(getContext(), mMore);
+            Menu menu = popup.getMenu();
+
+            Controller controller = (Controller) mUiController;
+            controller.onPrepareOptionsMenu(menu);
+        }
     }
 
     @Override

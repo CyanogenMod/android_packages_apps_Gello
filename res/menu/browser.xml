@@ -17,96 +17,101 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
         android:id="@+id/MAIN_MENU">
-        <item
-            android:id="@+id/homepage_menu_id"
-            android:title="@string/go_home"
-            android:alphabeticShortcut="&#32;" />
+
         <group
             android:id="@+id/NAV_MENU"
             android:visible="@bool/menu_show_navigation">
-            <item
-                android:id="@+id/stop_reload_menu_id"
-                android:alphabeticShortcut="r" />
-            <item
-                android:id="@+id/forward_menu_id"
-                android:title="@string/forward"
-                android:icon="@drawable/ic_menu_forward" />
+            <item>
+                <menu>
+                    <item
+                        android:id="@+id/forward_menu_id"
+                        android:icon="@drawable/ic_action_history_forward"
+                        android:title="@string/forward"/>
+                    <item
+                        android:id="@+id/bookmark_this_page_id"
+                        android:icon="@drawable/ic_action_bookmark"
+                        android:title="@string/save_to_bookmarks"/>
+                    <item
+                        android:id="@+id/stop_reload_menu_id"
+                        android:icon="@drawable/ic_action_stop"
+                        android:title="@string/stop"
+                        android:visible="false"/>
+                </menu>
+            </item>
         </group>
-        <item
-            android:id="@+id/back_menu_id"
-            android:title="@string/back" />
-        <item
-            android:id="@+id/new_tab_menu_id"
-            android:title="@string/new_tab"
-            android:icon="@drawable/ic_new_window_holo_dark"
-            android:showAsAction="never"
-            android:alphabeticShortcut="n" />
-        <item
-            android:id="@+id/incognito_menu_id"
-            android:title="@string/new_incognito_tab"
-            android:icon="@drawable/ic_new_incognito_holo_dark" />
+
+        <item>
+            <menu>
+                <item
+                    android:id="@+id/new_tab_menu_id"
+                    android:title="@string/new_tab"
+                    android:icon="@drawable/ic_action_add_tab" />
+                <item
+                    android:id="@+id/incognito_menu_id"
+                    android:title="@string/new_incognito_tab"
+                    android:icon="@drawable/ic_action_add_incognito" />
+
+<!--
+                <item
+                    android:id="@+id/close_other_tabs_id"
+                    android:title="@string/close_other_tabs"
+                    android:icon="@drawable/ic_tab_close" />
+-->
+            </menu>
+        </item>
+
         <item
             android:id="@+id/bookmarks_menu_id"
             android:title="@string/bookmarks"
-            android:icon="@drawable/ic_bookmarks_holo_dark"
             android:showAsAction="never" />
         <item
-            android:id="@+id/add_bookmark_menu_id"
-            android:title="@string/save_to_bookmarks"
-            android:icon="@drawable/ic_bookmark_on_holo_dark"
-            android:alphabeticShortcut="d"
-            android:visible="@bool/menu_show_bookmarks" />
+            android:id="@+id/history_menu_id"
+            android:title="@string/tab_history" />
+        <item
+            android:id="@+id/snapshots_menu_id"
+            android:title="@string/tab_snapshots"
+            android:visible="false" />
+        <item
+            android:id="@+id/find_menu_id"
+            android:title="@string/find_on_page"/>
+
         <group
             android:id="@+id/LIVE_MENU">
             <item
-                android:id="@+id/share_page_menu_id"
-                android:title="@string/share_page"
-                android:icon="@drawable/ic_share_holo_dark"
-                android:alphabeticShortcut="s" />
-            <item
-                android:id="@+id/find_menu_id"
-                android:title="@string/find_on_page"/>
-         <item
                 android:id="@+id/ua_desktop_menu_id"
                 android:checkable="true"
                 android:title="@string/ua_switcher_desktop" />
-        </group>
-        <group
-           android:id="@+id/OFFLINE_READING">
-          <item
+            <item
                 android:id="@+id/save_snapshot_menu_id"
                 android:title="@string/menu_save_snapshot" />
+            <item
+                android:id="@+id/add_to_homescreen"
+                android:title="@string/add_to_homescreen" />
+            <item
+                android:id="@+id/share_page_menu_id"
+                android:title="@string/share_page" />
         </group>
+
         <group
-            android:id="@+id/SNAPSHOT_MENU">
+            android:id="@+id/SNAPSHOT_MENU"
+            android:visible="false">
             <item
                 android:id="@+id/snapshot_go_live"
                 android:title="@string/snapshot_go_live" />
         </group>
-        <group
-            android:id="@+id/COMBO_MENU">
-            <item
-                android:id="@+id/close_other_tabs_id"
-                android:title="@string/close_other_tabs" />
-            <item
-                android:id="@+id/history_menu_id"
-                android:title="@string/tab_history"
-                android:alphabeticShortcut="h" />
-            <item
-                android:id="@+id/snapshots_menu_id"
-                android:title="@string/tab_snapshots" />
-        </group>
-        <item
-            android:id="@+id/page_info_menu_id"
-            android:title="@string/page_info" />
         <item
             android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
-            android:icon="@drawable/ic_settings_holo_dark"
             android:alphabeticShortcut="p" />
-        <item
-            android:id="@+id/exit_menu_id"
-            android:title="@string/exit" />
+
+        <group
+            android:id="@+id/QRD_MENU"
+            android:visible="false">
+            <item
+                android:id="@+id/exit_menu_id"
+                android:title="@string/exit" />
+        </group>
+
         <item
             android:id="@+id/about_menu_id"
             android:title="@string/about" />
@@ -141,7 +146,9 @@
             android:alphabeticShortcut="7" />
         <item android:id="@+id/window_eight_menu_id"
             android:alphabeticShortcut="8" />
+<!--
         <item android:id="@+id/back_menu_id" />
+-->
         <item android:id="@+id/goto_menu_id"
             android:alphabeticShortcut="l" />
         <item android:id="@+id/close_menu_id"
@@ -156,11 +163,11 @@
     <!-- these items are toggled in and out of @+id/stop_reload_menu_id -->
     <item android:id="@+id/stop_menu_id"
         android:title="@string/stop"
-        android:icon="@drawable/ic_menu_stop"
+        android:icon="@drawable/ic_action_stop"
         android:visible="false" />
     <item android:id="@+id/reload_menu_id"
         android:title="@string/reload"
-        android:icon="@drawable/ic_menu_refresh"
+        android:icon="@drawable/ic_action_reload"
         android:visible="false" />
 </menu>
 

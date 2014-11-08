@@ -13,20 +13,30 @@
     android:background="?android:attr/listChoiceBackgroundIndicator">
     <TextView
         android:id="@+id/menu_item_text"
-        android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
+        android:textAppearance="?android:attr/textAppearanceSmallPopupMenu"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:paddingEnd="9dp" />
+        android:paddingLeft="16dp"
+        android:paddingEnd="9dp"
+         />
     <view
-        class="org.chromium.chrome.browser.appmenu.AppMenuItemIcon"
+        class="com.android.browser.appmenu.AppMenuItemIcon"
         android:id="@+id/menu_item_icon"
         android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+         />
+    <CheckBox
+        android:id="@+id/menu_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:tint="@color/black"
+        android:visible="false"
+        android:clickable="true" />
 </LinearLayout>

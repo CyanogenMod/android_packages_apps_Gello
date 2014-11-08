@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package org.chromium.chrome.browser.appmenu;
+package com.android.browser.appmenu;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import com.google.common.annotations.VisibleForTesting;
-
-import org.chromium.chrome.browser.UmaBridge;
 
 import java.util.ArrayList;
 
@@ -34,6 +32,7 @@ public class AppMenuHandler {
 
     private final AppMenuPropertiesDelegate mDelegate;
     private final Activity mActivity;
+    private boolean mInvalidateInProgress = false;
 
     /**
      * Constructs an AppMenuHandler object.
@@ -107,13 +106,27 @@ public class AppMenuHandler {
         Point pt = new Point();
         mActivity.getWindowManager().getDefaultDisplay().getSize(pt);
         mAppMenu.show(wrapper, anchorView, isByHardwareButton, rotation, appRect, pt.y);
-        mAppMenuDragHelper.onShow(startDragging);
-        UmaBridge.menuShow();
         return true;
     }
 
+    public void invalidateAppMenu() {
+        if (!isAppMenuShowing()) return;
+        if (mInvalidateInProgress) return;
+
+        mInvalidateInProgress = true;
+
+        assert(mMenu != null);
+        assert(mAppMenu != null);
+        mDelegate.prepareMenu(mMenu);
+
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity,
+                mDelegate.getMenuThemeResourceId());
+
+        mAppMenu.invalidate(wrapper, mMenu);
+        mInvalidateInProgress = false;
+    }
+
     void appMenuDismissed() {
-        mAppMenuDragHelper.finishDragging();
     }
 
     /**
@@ -132,7 +145,7 @@ public class AppMenuHandler {
     }
 
     AppMenuDragHelper getAppMenuDragHelper() {
-        return mAppMenuDragHelper;
+        return null;
     }
 
     /**
