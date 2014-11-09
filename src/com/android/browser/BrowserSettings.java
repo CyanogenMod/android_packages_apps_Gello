@@ -53,6 +53,7 @@ import org.codeaurora.swe.WebSettings.ZoomDensity;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebViewDatabase;
+
 /**
  * Class for managing settings
  */
@@ -116,7 +117,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private static boolean sInitialized = false;
     private boolean mNeedsSharedSync = true;
     private float mFontSizeMult = 1.0f;
-    private boolean enableWideViewport = true;
 
     // Current state of network-dependent settings
     private boolean mLinkPrefetchAllowed = true;
@@ -801,13 +801,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // TODO: Cache
     public ZoomDensity getDefaultZoom() {
         String zoom = mPrefs.getString(PREF_DEFAULT_ZOOM, "MEDIUM");
-        ZoomDensity zoomDensity = ZoomDensity.valueOf(zoom);
-        //SWE: If zoomDensity is not MEDIUM, set enableWideViewport to false.
-        if(zoomDensity != ZoomDensity.MEDIUM)
-            enableWideViewport = false;
-        else
-            enableWideViewport = true;
-        return zoomDensity;
+        return ZoomDensity.valueOf(zoom);
     }
 
     public boolean loadPageInOverviewMode() {
@@ -909,9 +903,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public boolean isWideViewport() {
         if (!isDebugEnabled()) {
-            return enableWideViewport;
+            return true;
         }
-        return mPrefs.getBoolean(PREF_WIDE_VIEWPORT, enableWideViewport);
+        return mPrefs.getBoolean(PREF_WIDE_VIEWPORT, true);
     }
 
     public boolean isNormalLayout() {
