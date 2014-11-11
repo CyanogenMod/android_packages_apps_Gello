@@ -174,6 +174,9 @@ public abstract class BaseUi implements UI {
         if (isCustomViewShowing()) {
             onHideCustomView();
         }
+        if (mTabControl.getCurrentTab() != null) {
+            mTabControl.getCurrentTab().exitFullscreen();
+        }
         cancelStopToast();
         mActivityPaused = true;
     }
