@@ -200,6 +200,7 @@ class Tab implements PictureListener {
     private boolean mUpdateThumbnail;
     private Timestamp timestamp;
     private boolean mFullScreen = false;
+    private boolean mReceivedError;
 
     /**
      * See {@link #clearBackStackWhenItemAdded(java.util.regex.Pattern)}.
@@ -380,6 +381,7 @@ class Tab implements PictureListener {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
             mPageFinished = false;
+            mReceivedError = false;
             mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext,
@@ -459,6 +461,10 @@ class Tab implements PictureListener {
         @Override
         public void onReceivedError(WebView view, int errorCode,
                 String description, String failingUrl) {
+            // Used for the syncCurrentState to use
+            // the failing url instead of using webview url
+            mReceivedError = true;
+
             if (errorCode != WebViewClient.ERROR_HOST_LOOKUP &&
                     errorCode != WebViewClient.ERROR_CONNECT &&
                     errorCode != WebViewClient.ERROR_BAD_URL &&
@@ -708,13 +714,22 @@ class Tab implements PictureListener {
 
     private void syncCurrentState(WebView view, String url) {
         // Sync state (in case of stop/timeout)
-        mCurrentState.mUrl = view.getUrl();
+
+        if (mReceivedError) {
+            mCurrentState.mUrl =  url;
+            mCurrentState.mOriginalUrl = url;
+        } else {
+             mCurrentState.mUrl =  view.getUrl();
+             mCurrentState.mOriginalUrl = view.getOriginalUrl();
+             mCurrentState.mFavicon = view.getFavicon();
+        }
+
         if (mCurrentState.mUrl == null) {
             mCurrentState.mUrl = "";
         }
-        mCurrentState.mOriginalUrl = view.getOriginalUrl();
         mCurrentState.mTitle = view.getTitle();
-        mCurrentState.mFavicon = view.getFavicon();
+
+
         if (!URLUtil.isHttpsUrl(mCurrentState.mUrl)) {
             // In case we stop when loading an HTTPS page from an HTTP page
             // but before a provisional load occurred

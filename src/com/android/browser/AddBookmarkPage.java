@@ -632,7 +632,6 @@ public class AddBookmarkPage extends Activity
         String url = null;
 
         mFakeTitle = (TextView) findViewById(R.id.fake_title);
-
         if (mMap != null) {
             Bundle b = mMap.getBundle(EXTRA_EDIT_BOOKMARK);
             if (b != null) {
@@ -657,14 +656,13 @@ public class AddBookmarkPage extends Activity
             url = mOriginalUrl = mMap.getString(BrowserContract.Bookmarks.URL);
             mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
+
+            if (title.length() > MAX_TITLE_LENGTH) {
+                title = title.substring(0, MAX_TITLE_LENGTH);
+            }
         }
 
         mTitle = (EditText) findViewById(R.id.title);
-
-        if (title.length() > MAX_TITLE_LENGTH) {
-            title = title.substring(0, MAX_TITLE_LENGTH);
-        }
-
         mTitle.setText(title);
         BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mTitle, MAX_TITLE_LENGTH);
 
