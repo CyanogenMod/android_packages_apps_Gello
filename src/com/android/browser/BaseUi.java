@@ -849,8 +849,9 @@ public abstract class BaseUi implements UI {
             } else {
                 mTitleBar.setEnabled(true);
             }
-            if (!mTitleBar.isFixed() && !isLoading())
+            if (!mTitleBar.isFixed()) {
                 mTitleBar.setTranslationY(topControlsOffsetYPix);
+            }
         }
     }
 
