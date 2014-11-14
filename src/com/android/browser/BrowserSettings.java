@@ -40,7 +40,6 @@ import com.android.browser.search.SearchEngines;
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.WeakHashMap;
 
 import org.codeaurora.swe.AutoFillProfile;
@@ -59,35 +58,6 @@ import org.codeaurora.swe.WebViewDatabase;
  */
 public class BrowserSettings implements OnSharedPreferenceChangeListener,
         PreferenceKeys {
-
-    // TODO: Do something with this UserAgent stuff
-    private static final String DESKTOP_USERAGENT = "Mozilla/5.0 (X11; " +
-        "Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) " +
-        "Chrome/11.0.696.34 Safari/534.24";
-
-    private static final String IPHONE_USERAGENT = "Mozilla/5.0 (iPhone; U; " +
-        "CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 " +
-        "(KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7";
-
-    private static final String IPAD_USERAGENT = "Mozilla/5.0 (iPad; U; " +
-        "CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 " +
-        "(KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10";
-
-    private static final String FROYO_USERAGENT = "Mozilla/5.0 (Linux; U; " +
-        "Android 2.2; en-us; Nexus One Build/FRF91) AppleWebKit/533.1 " +
-        "(KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-
-    private static final String HONEYCOMB_USERAGENT = "Mozilla/5.0 (Linux; U; " +
-        "Android 3.1; en-us; Xoom Build/HMJ25) AppleWebKit/534.13 " +
-        "(KHTML, like Gecko) Version/4.0 Safari/534.13";
-
-    private static final String USER_AGENTS[] = { null,
-            DESKTOP_USERAGENT,
-            IPHONE_USERAGENT,
-            IPAD_USERAGENT,
-            FROYO_USERAGENT,
-            HONEYCOMB_USERAGENT,
-    };
 
     private static final String TAG = "BrowserSettings";
     // The minimum min font size
@@ -113,7 +83,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private Controller mController;
     private WebStorageSizeManager mWebStorageSizeManager;
     private AutofillHandler mAutofillHandler;
-    private WeakHashMap<WebSettings, String> mCustomUserAgents;
     private static boolean sInitialized = false;
     private boolean mNeedsSharedSync = true;
     private float mFontSizeMult = 1.0f;
@@ -146,7 +115,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mContext = context.getApplicationContext();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         mManagedSettings = new LinkedList<WeakReference<WebSettings>>();
-        mCustomUserAgents = new WeakHashMap<WebSettings, String>();
         BackgroundHandler.execute(mSetup);
     }
 
@@ -290,7 +258,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
         settings.setDoNotTrack(doNotTrack());
-        setUserAgent(settings);
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setAllowMediaDownloads(allowMediaDownloads());
         setExtraHTTPRequestHeaders(settings);
@@ -318,39 +285,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settingsClassic.setLinkPrefetchEnabled(mLinkPrefetchAllowed);
     }
 
-    private void setUserAgent(WebSettings settings){
-        String ua = mContext.getResources().getString(R.string.def_useragent);
-
-        if (!TextUtils.isEmpty(ua))
-            ua = constructUserAgent(ua);
-
-        if (TextUtils.isEmpty(ua))
-            ua = mCustomUserAgents.get(settings);
-
-        if (!TextUtils.isEmpty(ua)){
-            settings.setUserAgentString(ua);
-        } else {
-            settings.setUserAgentString(USER_AGENTS[getUserAgent()]);
-        }
-    }
-
     private void setExtraHTTPRequestHeaders(WebSettings settings){
         String headers = mContext.getResources().getString(R.string.def_extra_http_headers);
         if (!TextUtils.isEmpty(headers)){
             settings.setHTTPRequestHeaders(headers);
-        }
-    }
-
-    private String constructUserAgent(String userAgent) {
-        try {
-            userAgent = userAgent.replaceAll("<%build_model>", Build.MODEL);
-            userAgent = userAgent.replaceAll("<%build_version>", Build.VERSION.RELEASE);
-            userAgent = userAgent.replaceAll("<%build_id>", Build.ID);
-            userAgent = userAgent.replaceAll("<%language>", Locale.getDefault().getLanguage());
-            userAgent = userAgent.replaceAll("<%country>", Locale.getDefault().getCountry());
-            return userAgent;
-        } catch (Exception ex) {
-            return null;
         }
     }
 
@@ -650,21 +588,17 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean hasDesktopUseragent(WebView view) {
-        return view != null && mCustomUserAgents.get(view.getSettings()) != null;
+        return view != null && view.getUseDesktopUserAgent();
     }
 
     public void toggleDesktopUseragent(WebView view) {
         if (view == null) {
             return;
         }
-        WebSettings settings = view.getSettings();
-        if (mCustomUserAgents.get(settings) != null) {
-            mCustomUserAgents.remove(settings);
-            setUserAgent(settings);
-        } else {
-            mCustomUserAgents.put(settings, DESKTOP_USERAGENT);
-            settings.setUserAgentString(DESKTOP_USERAGENT);
-        }
+        if (hasDesktopUseragent(view))
+            view.setUseDesktopUserAgent(false, true);
+        else
+            view.setUseDesktopUserAgent(true, true);
     }
 
     public static int getAdjustedMinimumFontSize(int rawValue) {
@@ -876,13 +810,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             return false;
         }
         return mPrefs.getBoolean(PREF_ENABLE_HARDWARE_ACCEL_SKIA, false);
-    }
-
-    public int getUserAgent() {
-        if (!isDebugEnabled()) {
-            return 0;
-        }
-        return Integer.parseInt(mPrefs.getString(PREF_USER_AGENT, "0"));
     }
 
     // -----------------------------

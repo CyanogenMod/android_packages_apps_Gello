@@ -30,24 +30,55 @@
 
 package com.android.browser;
 
+import com.android.browser.R;
+
+import java.util.Locale;
+
+import android.os.Build;
 import android.content.Context;
+import android.text.TextUtils;
 
-public class BrowserConfig extends BrowserConfigBase {
+import org.codeaurora.swe.BrowserCommandLine;
 
-    public final static String AUTHORITY = "com.android.browser";
+abstract class BrowserConfigBase {
 
-    private static BrowserConfig sBrowserConfig;
+    private static final String OVERRIDE_USER_AGENT = "user-agent";
+    private Context mContext;
 
-    private BrowserConfig(Context context) {
-        super(context);
+    public BrowserConfigBase(Context context) {
+        mContext = context;
     }
 
-    public static BrowserConfig getInstance(Context context) {
-        if (sBrowserConfig == null) {
-            sBrowserConfig = new BrowserConfig(context);
+    public void overrideUserAgent() {
+        BrowserCommandLine bcl = BrowserCommandLine.getInstance();
+        // Check if the UA is already present using command line file
+        if (bcl.hasSwitch(OVERRIDE_USER_AGENT)) {
+            return;
         }
-        return sBrowserConfig;
+
+        String ua = mContext.getResources().getString(R.string.def_useragent);
+
+        if (TextUtils.isEmpty(ua))
+            return;
+
+        ua = constructUserAgent(ua);
+
+        if (!TextUtils.isEmpty(ua)){
+            bcl.appendSwitchWithValue(OVERRIDE_USER_AGENT, ua);
+        }
     }
 
+    private String constructUserAgent(String userAgent) {
+        try {
+            userAgent = userAgent.replaceAll("<%build_model>", Build.MODEL);
+            userAgent = userAgent.replaceAll("<%build_version>", Build.VERSION.RELEASE);
+            userAgent = userAgent.replaceAll("<%build_id>", Build.ID);
+            userAgent = userAgent.replaceAll("<%language>", Locale.getDefault().getLanguage());
+            userAgent = userAgent.replaceAll("<%country>", Locale.getDefault().getCountry());
+            return userAgent;
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 }
 

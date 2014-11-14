@@ -31,10 +31,25 @@
 
 package com.android.browser;
 
-public class BrowserConfig {
+import android.content.Context;
+
+public class BrowserConfig extends BrowserConfigBase {
 
     //Authority string used by different providers
     public final static String AUTHORITY = "com.android.swe.browser";
+
+    private static BrowserConfig sBrowserConfig;
+
+    private BrowserConfig(Context context) {
+        super(context);
+    }
+
+    public static BrowserConfig getInstance(Context context) {
+        if (sBrowserConfig == null) {
+            sBrowserConfig = new BrowserConfig(context);
+        }
+        return sBrowserConfig;
+    }
 
 }
 

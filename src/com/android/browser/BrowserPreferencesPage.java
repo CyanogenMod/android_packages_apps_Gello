@@ -111,6 +111,7 @@ public class BrowserPreferencesPage extends PreferenceActivity {
         "com.android.browser.preferences.LabPreferencesFragment",
         "com.android.browser.preferences.AboutPreferencesFragment",
         "com.android.browser.AutoFillSettingsFragment",
+        "com.android.browser.preferences.DebugPreferencesFragment",
         "com.android.browser.preferences.WebsiteSettingsFragment"));
 
     @Override

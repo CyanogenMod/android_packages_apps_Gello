@@ -82,7 +82,7 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
 
     public CrashLogExceptionHandler(Context ctx) {
         mAppContext = ctx;
-        BrowserCommandLine cl = new BrowserCommandLine();
+        BrowserCommandLine cl = BrowserCommandLine.getInstance();
         if (cl.hasSwitch(CRASH_LOG_SERVER_CMD)) {
             mLogServer = cl.getSwitchValue(CRASH_LOG_SERVER_CMD);
             if (mLogServer != null) {

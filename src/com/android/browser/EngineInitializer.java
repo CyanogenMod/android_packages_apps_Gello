@@ -202,6 +202,8 @@ public class EngineInitializer {
         if (!mInitializationCompleted) {
             // TODO: Evaluate the benefit of async Engine.initialize()
             Engine.initialize(ctx);
+            // Add the UA override
+            BrowserConfig.getInstance(ctx).overrideUserAgent();
             //Enable remote debugging by default
             Engine.setWebContentsDebuggingEnabled(true);
             mInitializationCompleted = true;
