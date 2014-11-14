@@ -919,8 +919,8 @@ public class Controller
         CookieSyncManager.getInstance().resetSync();
         WifiManager wifiMgr = (WifiManager) this.getContext()
                 .getSystemService(Context.WIFI_SERVICE);
-        boolean networkNotifier =
-            mActivity.getApplicationContext().getResources().getBoolean(R.bool.network_notifier);
+        boolean networkNotifier = BrowserConfig.getInstance(getContext())
+                .hasFeature(BrowserConfig.Feature.NETWORK_NOTIFIER);
         if (networkNotifier && mNetworkShouldNotify && wifiMgr.isWifiEnabled()){
             handleNetworkNotify(view);
         } else {
@@ -1111,12 +1111,12 @@ public class Controller
 
     @Override
     public void doUpdateVisitedHistory(Tab tab, boolean isReload) {
-        boolean disableHistoryWrites =
-                mActivity.getResources().getBoolean(R.bool.def_disable_history);
+        // Don't save anything in private browsing mode or when disabling history
+        // for regular tabs is enabled
+        if (tab.isPrivateBrowsingEnabled() || BrowserConfig.getInstance(getContext())
+                        .hasFeature(BrowserConfig.Feature.DISABLE_HISTORY))
+            return;
 
-        // Don't save anything in private browsing mode or when explicitly set
-        // not to write history via an overlay
-        if (tab.isPrivateBrowsingEnabled() || disableHistoryWrites) return;
         String url = tab.getOriginalUrl();
 
         if (TextUtils.isEmpty(url)
@@ -2018,7 +2018,9 @@ public class Controller
                              "android.os.SystemProperties","get", type, params);
                 if (ret != null && ret.equals("enable"))
                     break;
-                showExitDialog(mActivity);
+                if (BrowserConfig.getInstance(getContext())
+                        .hasFeature(BrowserConfig.Feature.EXIT_DIALOG))
+                    showExitDialog(mActivity);
                 return true;
             case R.id.homepage_menu_id:
                 Tab current = mTabControl.getCurrentTab();
@@ -3138,14 +3140,18 @@ public class Controller
     void goBackOnePageOrQuit() {
         Tab current = mTabControl.getCurrentTab();
         if (current == null) {
-            /*
-             * Instead of finishing the activity, simply push this to the back
-             * of the stack and let ActivityManager to choose the foreground
-             * activity. As BrowserActivity is singleTask, it will be always the
-             * root of the task. So we can use either true or false for
-             * moveTaskToBack().
-             */
-            showExitDialog(mActivity);
+            if (BrowserConfig.getInstance(getContext()).hasFeature(BrowserConfig.Feature.EXIT_DIALOG)) {
+                showExitDialog(mActivity);
+            } else {
+                /*
+                 * Instead of finishing the activity, simply push this to the back
+                 * of the stack and let ActivityManager to choose the foreground
+                 * activity. As BrowserActivity is singleTask, it will be always the
+                 * root of the task. So we can use either true or false for
+                 * moveTaskToBack().
+                 */
+                mActivity.moveTaskToBack(true);
+            }
             return;
         }
         if (current.canGoBack()) {
@@ -3158,7 +3164,13 @@ public class Controller
                 switchToTab(parent);
                 // Now we close the other tab
                 closeTab(current);
+            } else if (BrowserConfig.getInstance(getContext())
+                    .hasFeature(BrowserConfig.Feature.EXIT_DIALOG)) {
+                showExitDialog(mActivity);
             } else {
+                if ((current.getAppId() != null) || current.closeOnBack()) {
+                    closeCurrentTab(true);
+                }
                 /*
                  * Instead of finishing the activity, simply push this to the back
                  * of the stack and let ActivityManager to choose the foreground
@@ -3166,7 +3178,7 @@ public class Controller
                  * root of the task. So we can use either true or false for
                  * moveTaskToBack().
                  */
-                showExitDialog(mActivity);
+                mActivity.moveTaskToBack(true);
             }
         }
     }

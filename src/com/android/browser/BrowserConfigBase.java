@@ -90,5 +90,39 @@ abstract class BrowserConfigBase {
             return null;
         }
     }
+
+    public static enum Feature {
+        WAP2ESTORE, /* Launch custom app when URL scheme is 'estore:' */
+        DRM_UPLOADS, /* Prevent uploading files with DRM filename extensions */
+        NETWORK_NOTIFIER, /* Prompt user to select WiFi access point or otherwise enable WLAN */
+        EXIT_DIALOG, /* Add 'Exit' menu item and show 'Minimize or quit' dialog */
+        TITLE_IN_URL_BAR, /* Display page title instead of url in URL bar */
+        CUSTOM_DOWNLOAD_PATH, /* Allow users to provide custom download path */
+        ALLOW_MEDIA_DOWNLOADS, /* Add 'Allow media downloads' menu item */
+        DISABLE_HISTORY /* Allow disabling saving history for non-incognito tabs */
+    }
+
+    public boolean hasFeature(Feature feature) {
+        switch (feature) {
+            case WAP2ESTORE:
+                return mContext.getResources().getBoolean(R.bool.feature_wap2estore);
+            case DRM_UPLOADS:
+                return mContext.getResources().getBoolean(R.bool.feature_drm_uploads);
+            case NETWORK_NOTIFIER:
+                return mContext.getResources().getBoolean(R.bool.feature_network_notifier);
+            case EXIT_DIALOG:
+                return mContext.getResources().getBoolean(R.bool.feature_exit_dialog);
+            case TITLE_IN_URL_BAR:
+                return mContext.getResources().getBoolean(R.bool.feature_title_in_URL_bar);
+            case CUSTOM_DOWNLOAD_PATH:
+                return mContext.getResources().getBoolean(R.bool.feature_custom_download_path);
+            case ALLOW_MEDIA_DOWNLOADS:
+                return mContext.getResources().getBoolean(R.bool.feature_allow_media_downloads);
+            case DISABLE_HISTORY:
+                return mContext.getResources().getBoolean(R.bool.feature_disable_history);
+            default:
+                return false;
+        }
+    }
 }
 

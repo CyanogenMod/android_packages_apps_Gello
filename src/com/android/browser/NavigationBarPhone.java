@@ -145,7 +145,9 @@ public class NavigationBarPhone extends NavigationBarBase implements
         if (!isEditingUrl()) {
            // add for carrier requirement - show title from native instead of url
             Tab currentTab = mUiController.getTabControl().getCurrentTab();
-            if (currentTab != null && currentTab.getTitle() != null) {
+            if (BrowserConfig.getInstance(getContext())
+                    .hasFeature(BrowserConfig.Feature.TITLE_IN_URL_BAR) &&
+                    currentTab != null && currentTab.getTitle() != null) {
                 mUrlInput.setText(currentTab.getTitle(), false);
             } else if (title == null) {
                 mUrlInput.setText(R.string.new_tab);

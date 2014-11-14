@@ -108,8 +108,8 @@ public class UrlHandler {
         }
 
         // add for carrier feature - wap2estore
-        boolean wap2estore =
-                mActivity.getApplicationContext().getResources().getBoolean(R.bool.wap2estore);
+        boolean wap2estore = BrowserConfig.getInstance(mController.getContext())
+                .hasFeature(BrowserConfig.Feature.WAP2ESTORE);
         if (wap2estore && isEstoreTypeUrl(url) && handleEstoreTypeUrl(url)) {
             return true;
         }

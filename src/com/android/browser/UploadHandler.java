@@ -124,9 +124,11 @@ public class UploadHandler {
             filePath = "file://"+filePath;
         }
 
-        // Add for carrier feature - prevent uploading DRM type files.
-        boolean drmUploadEnabled = mController.getContext().getResources().getBoolean(
-                                       R.bool.drm_uploads);
+        // Add for carrier feature - prevent uploading DRM type files based on file extension. This
+        // is not a secure implementation since malicious users can trivially modify the filename.
+        // DRM files can be securely detected by inspecting their integrity protected content.
+        boolean drmUploadEnabled = BrowserConfig.getInstance(mController.getContext())
+                .hasFeature(BrowserConfig.Feature.DRM_UPLOADS);
         boolean isDRMFileType = false;
         if (drmUploadEnabled && filePath != null
                 && (filePath.endsWith(".fl") || filePath.endsWith(".dm")

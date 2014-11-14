@@ -34,6 +34,7 @@ import android.webkit.ValueCallback;
 import android.widget.Toast;
 
 import com.android.browser.BrowserActivity;
+import com.android.browser.BrowserConfig;
 import com.android.browser.BrowserSettings;
 import com.android.browser.DownloadHandler;
 import com.android.browser.PreferenceKeys;
@@ -77,21 +78,30 @@ public class AdvancedPreferencesFragment
         e = mFragment.findPreference("accessibility_menu");
         e.setOnPreferenceClickListener(this);
 
+        // Below are preferences for carrier specific features
+        PreferenceScreen contentSettingsPrefScreen =
+                (PreferenceScreen) mFragment.findPreference("content_settings");
+        if (!BrowserConfig.getInstance(mFragment.getActivity().getApplicationContext())
+                .hasFeature(BrowserConfig.Feature.ALLOW_MEDIA_DOWNLOADS))
+            contentSettingsPrefScreen.removePreference(contentSettingsPrefScreen
+                    .findPreference(PreferenceKeys.PREF_ALLOW_MEDIA_DOWNLOADS));
 
-        onInitdownloadSettingsPreference();
-    }
+        if (!BrowserConfig.getInstance(mFragment.getActivity().getApplicationContext())
+                .hasFeature(BrowserConfig.Feature.CUSTOM_DOWNLOAD_PATH)) {
+            contentSettingsPrefScreen.removePreference(contentSettingsPrefScreen
+                    .findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH));
+        } else {
+            PreferenceScreen downloadPathPreset =
+                    (PreferenceScreen) mFragment.findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
+            downloadPathPreset.setOnPreferenceClickListener(onClickDownloadPathSettings());
 
-    private void onInitdownloadSettingsPreference() {
-        PreferenceScreen downloadPathPreset =
-                (PreferenceScreen) mFragment.findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
-        downloadPathPreset.setOnPreferenceClickListener(onClickDownloadPathSettings());
-
-        String downloadPath = downloadPathPreset.getSharedPreferences().
-                getString(PreferenceKeys.PREF_DOWNLOAD_PATH,
-                        BrowserSettings.getInstance().getDownloadPath());
-        String downloadPathForUser = DownloadHandler.getDownloadPathForUser(mFragment.getActivity(),
-                downloadPath);
-        downloadPathPreset.setSummary(downloadPathForUser);
+            String downloadPath = downloadPathPreset.getSharedPreferences().
+                    getString(PreferenceKeys.PREF_DOWNLOAD_PATH,
+                            BrowserSettings.getInstance().getDownloadPath());
+            String downloadPathForUser = DownloadHandler.getDownloadPathForUser(mFragment.getActivity(),
+                    downloadPath);
+            downloadPathPreset.setSummary(downloadPathForUser);
+        }
     }
 
     private Preference.OnPreferenceClickListener onClickDownloadPathSettings() {

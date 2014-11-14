@@ -142,7 +142,8 @@
             android:title="@string/pref_accessibility_title" />
 
 
-        <PreferenceScreen android:title="@string/pref_content_title">
+        <PreferenceScreen android:title="@string/pref_content_title"
+            android:key="content_settings">
             <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="block_popup_windows"

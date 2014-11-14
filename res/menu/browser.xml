@@ -102,15 +102,10 @@
             android:id="@+id/preferences_menu_id"
             android:title="@string/menu_preferences"
             android:alphabeticShortcut="p" />
-
-        <group
-            android:id="@+id/QRD_MENU"
-            android:visible="false">
-            <item
-                android:id="@+id/exit_menu_id"
-                android:title="@string/exit" />
-        </group>
-
+        <item
+            android:id="@+id/exit_menu_id"
+            android:visible="@bool/feature_exit_dialog"
+            android:title="@string/exit" />
         <item
             android:id="@+id/about_menu_id"
             android:title="@string/about" />

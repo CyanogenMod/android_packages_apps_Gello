@@ -734,18 +734,23 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean allowMediaDownloads() {
-        boolean enableMediaDownloads = mController.getContext().getResources().getBoolean(
-                                       R.bool.def_enable_media_downloads);
-        boolean shouldAllowMediaDownloads = mPrefs.getBoolean(
-                                        PREF_ALLOW_MEDIA_DOWNLOADS, enableMediaDownloads);
+        // Return false if preference is not exposed to user
+        if (!BrowserConfig.getInstance(mContext)
+                .hasFeature(BrowserConfig.Feature.ALLOW_MEDIA_DOWNLOADS))
+            return false;
 
-        if(!mPrefs.contains(PREF_ALLOW_MEDIA_DOWNLOADS)){
+        // Otherwise, look at default value
+        boolean defaultAllowMediaDownloadsValue = mController.getContext()
+                .getResources().getBoolean(R.bool.def_allow_media_downloads);
+
+        // If preference is not saved, save default value
+        if (!mPrefs.contains(PREF_ALLOW_MEDIA_DOWNLOADS)){
             Editor edit = mPrefs.edit();
-            edit.putBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, shouldAllowMediaDownloads);
+            edit.putBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, defaultAllowMediaDownloadsValue);
             edit.apply();
         }
 
-        return shouldAllowMediaDownloads;
+        return mPrefs.getBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, defaultAllowMediaDownloadsValue);
     }
 
     // TODO: Cache

@@ -210,7 +210,8 @@ public class NavigationBarBase extends LinearLayout implements
         stopEditingUrl();
         if (UrlInputView.TYPED.equals(source)) {
             String url = null;
-            boolean wap2estore = getContext().getResources().getBoolean(R.bool.wap2estore);
+            boolean wap2estore = BrowserConfig.getInstance(getContext())
+                    .hasFeature(BrowserConfig.Feature.WAP2ESTORE);
             if ((wap2estore && isEstoreTypeUrl(text)) || isRtspTypeUrl(text)
                 || isMakeCallTypeUrl(text)) {
                 url = text;
