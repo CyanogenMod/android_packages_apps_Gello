@@ -30,10 +30,5 @@
 
     <ImageButton
         android:id="@+id/button_three"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:background="?android:attr/listChoiceBackgroundIndicator"
-        android:scaleType="center"
-        />
+        style="@style/OverflowButton" />
 </LinearLayout>

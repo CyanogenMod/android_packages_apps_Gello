@@ -27,20 +27,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.android.browser.R;
-import com.android.browser.NavTabScroller.OnLayoutListener;
 import com.android.browser.NavTabScroller.OnRemoveListener;
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
-import com.android.browser.UI.ComboViews;
 
 import java.util.HashMap;
 
@@ -50,19 +44,12 @@ public class NavScreen extends RelativeLayout
 
     UiController mUiController;
     PhoneUi mUi;
-    Tab mTab;
     Activity mActivity;
 
-    ImageButton mRefresh;
-    ImageButton mForward;
-    ImageButton mBookmarks;
+    View mToolbarLayout;
     ImageButton mMore;
     ImageButton mNewTab;
-    FrameLayout mHolder;
-
-    TextView mTitle;
-    ImageView mFavicon;
-    ImageButton mCloseTab;
+    ImageButton mNewIncognitoTab;
 
     NavTabScroller mScroller;
     TabAdapter mAdapter;
@@ -94,10 +81,6 @@ public class NavScreen extends RelativeLayout
         return mUiController.onOptionsItemSelected(item);
     }
 
-    protected float getToolbarHeight() {
-        return mActivity.getResources().getDimension(R.dimen.toolbar_height);
-    }
-
     @Override
     protected void onConfigurationChanged(Configuration newconfig) {
         if (newconfig.orientation != mOrientation) {
@@ -119,10 +102,11 @@ public class NavScreen extends RelativeLayout
         LayoutInflater.from(getContext()).inflate(R.layout.nav_screen, this);
         setContentDescription(getContext().getResources().getString(
                 R.string.accessibility_transition_navscreen));
-        mBookmarks = (ImageButton) findViewById(R.id.bookmarks);
+        mToolbarLayout = findViewById(R.id.nav_toolbar_animate);
+        mNewIncognitoTab = (ImageButton) findViewById(R.id.newincognitotab);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mMore = (ImageButton) findViewById(R.id.more);
-        mBookmarks.setOnClickListener(this);
+        mNewIncognitoTab.setOnClickListener(this);
         mNewTab.setOnClickListener(this);
         mMore.setOnClickListener(this);
         mScroller = (NavTabScroller) findViewById(R.id.scroller);
@@ -148,10 +132,10 @@ public class NavScreen extends RelativeLayout
 
     @Override
     public void onClick(View v) {
-        if (mBookmarks == v) {
-            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
-        } else if (mNewTab == v) {
+        if (mNewTab == v) {
             openNewTab();
+        } else if (mNewIncognitoTab == v) {
+            openNewIncognitoTab();
         } else if (mMore == v) {
             showMenu();
         }
@@ -165,6 +149,18 @@ public class NavScreen extends RelativeLayout
                 mUiController.closeTab(tab);
             }
             mTabViews.remove(tab);
+        }
+    }
+
+    private void openNewIncognitoTab() {
+        final Tab tab = mUiController.openIncognitoTab();
+        if (tab != null) {
+            mUiController.setBlockEvents(true);
+            final int tix = mUi.mTabControl.getTabPosition(tab);
+            switchToTab(tab);
+            mUi.hideNavScreen(tix, true);
+            mScroller.handleDataChanged(tix);
+            mUiController.setBlockEvents(false);
         }
     }
 

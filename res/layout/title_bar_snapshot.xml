@@ -18,10 +18,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/bg_urlbar">
+    android:orientation="horizontal" >
     <ImageView
-        android:src="@drawable/ic_search_category_history"
+        android:src="@drawable/ic_suggest_history_normal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingLeft="8dip" />
@@ -52,19 +51,31 @@
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </FrameLayout>
-    <ImageButton
-        android:id="@+id/tab_switcher"
-        android:layout_width="wrap_content"
+
+    <FrameLayout
         android:layout_height="match_parent"
-        android:src="@drawable/ic_windows_holo_dark"
-        android:contentDescription="@string/accessibility_button_navscreen"
-        style="@style/HoloButton" />
+        android:layout_width="wrap_content">
+
+        <ImageButton
+            android:id="@+id/tab_switcher"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_navscreen"
+            android:src="@drawable/ic_action_tabswitcher" />
+
+        <TextView
+            android:id="@+id/tab_switcher_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingRight="2dp"
+            android:clickable="false"
+            android:text="0" >
+        </TextView>
+    </FrameLayout>
+
     <ImageButton
         android:id="@+id/more"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        style="@style/HoloButton"
-        android:gravity="center_vertical"
-        android:src="@drawable/ic_menu_moreoverflow_normal_holo_dark"
-        android:contentDescription="@string/accessibility_button_more" />
+        style="@style/OverflowButton" />
 </com.android.browser.SnapshotBar>

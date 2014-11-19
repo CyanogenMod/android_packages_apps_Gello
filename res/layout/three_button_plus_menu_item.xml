@@ -45,12 +45,5 @@
 
     <ImageButton
         android:id="@+id/button_four"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:paddingStart="11dp"
-        android:paddingEnd="11dp"
-        android:background="?android:attr/listChoiceBackgroundIndicator"
-        android:scaleType="center"
-        android:tint="@color/black" />
+        style="@style/OverflowButton" />
 </LinearLayout>

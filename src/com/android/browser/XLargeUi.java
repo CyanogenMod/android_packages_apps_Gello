@@ -104,6 +104,9 @@ public class XLargeUi extends BaseUi {
         if (bm != null) {
             bm.setVisible(false);
         }
+
+        menu.setGroupVisible(R.id.NAV_MENU, false);
+
         return true;
     }
 
@@ -262,16 +265,19 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public Drawable getFaviconDrawable(Bitmap icon) {
-        Drawable[] array = new Drawable[2];
-        array[0] = getFaviconBackground();
-        if (icon == null) {
-            array[1] = getGenericFavicon();
-        } else {
-            array[1] = new BitmapDrawable(mActivity.getResources(), icon);
+        if (ENABLE_BORDER_AROUND_FAVICON) {
+            Drawable[] array = new Drawable[2];
+            array[0] = getFaviconBackground();
+            if (icon == null) {
+                array[1] = getGenericFavicon();
+            } else {
+                array[1] = new BitmapDrawable(mActivity.getResources(), icon);
+            }
+            LayerDrawable d = new LayerDrawable(array);
+            d.setLayerInset(1, 2, 2, 2, 2);
+            return d;
         }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 2, 2, 2, 2);
-        return d;
+        return icon == null ? getGenericFavicon() : new BitmapDrawable(mActivity.getResources(), icon);
     }
 
 }

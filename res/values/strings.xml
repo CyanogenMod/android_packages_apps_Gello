@@ -20,7 +20,7 @@
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
     <!-- The name of standalone application. -->
-    <string name="application_name_swe">SWE Android Browser</string>
+    <string name="application_name_swe">Browser</string>
     <!-- Displayed with a file picker to choose a file to upload -->
     <string name="choose_upload">Choose file for upload</string>
     <!-- Toast to show the user after they try to open the file picker but no apps on the
@@ -1095,7 +1095,7 @@
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>
     <string name="acivity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
-    <!-- SWE Android Browser -->
+    <!-- Snapdragon Browser Additions -->
     <string name="ssl_certificate">Security certificate</string>
     <string name="ssl_certificate_is_valid">This certificate is valid.</string>
     <string name="version">Version</string>

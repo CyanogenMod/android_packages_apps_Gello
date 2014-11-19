@@ -208,10 +208,10 @@ public class LocationButton extends ImageButton
                             public void onReceiveValue(Boolean allowed) {
                                 if (allowed != null) {
                                     if (allowed.booleanValue()) {
-                                        LocationButton.this.setImageResource(R.drawable.ic_gps_on_holo_dark);
+                                        LocationButton.this.setImageResource(R.drawable.ic_action_gps_on);
                                         LocationButton.this.setVisibility(VISIBLE);
                                     } else {
-                                        LocationButton.this.setImageResource(R.drawable.ic_gps_denied_holo_dark);
+                                        LocationButton.this.setImageResource(R.drawable.ic_action_gps_off);
                                         LocationButton.this.setVisibility(VISIBLE);
                                     }
                                 }
@@ -230,8 +230,8 @@ public class LocationButton extends ImageButton
     @Override
     public void onGeolocationPolicyAdded(String origin, boolean allow) {
         if (mCurrentOrigin != null && mCurrentOrigin.equals(origin)) {
-            this.setImageResource(allow ? R.drawable.ic_gps_on_holo_dark :
-                R.drawable.ic_gps_denied_holo_dark);
+            this.setImageResource(allow ? R.drawable.ic_action_gps_on :
+                R.drawable.ic_action_gps_off);
             this.setVisibility(VISIBLE);
         }
     }

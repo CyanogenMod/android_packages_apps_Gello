@@ -135,7 +135,7 @@ public class NavTabScroller extends ScrollerView {
     }
 
     private void calcPadding() {
-        if (mAdapter.getCount() > 0) {
+        if (mAdapter != null && mAdapter.getCount() > 0) {
             View v = mContentView.getChildAt(0);
             if (mHorizontal) {
                 int pad = (getMeasuredWidth() - v.getMeasuredWidth()) / 2 + 2;

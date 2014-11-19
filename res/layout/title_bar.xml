@@ -22,23 +22,39 @@
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <include
-        layout="@layout/title_bar_nav"
-        android:id="@+id/taburlbar"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height" />
-    <ViewStub
-        android:id="@+id/snapshotbar_stub"
-        android:layout="@layout/title_bar_snapshot"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height" />
+        android:layout_height="@dimen/toolbar_height">
+
+        <include
+            layout="@layout/title_bar_nav"
+            android:id="@+id/taburlbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height" />
+
+        <ViewStub
+            android:id="@+id/snapshotbar_stub"
+            android:layout="@layout/title_bar_snapshot"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height" />
+
+        <!-- Cosmetic separator -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/NavigationBarUnderline" />
+    </FrameLayout>
+
+    <!-- the main Progress view -->
     <com.android.browser.PageProgressView
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
         android:layout_gravity="bottom"
-        android:src="@drawable/progress"
+        android:src="@drawable/deco_progress_bar"
         android:layout_marginTop="@dimen/progress_bar_margin"
         android:visibility="gone" />
 </LinearLayout>

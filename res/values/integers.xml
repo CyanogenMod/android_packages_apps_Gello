@@ -12,6 +12,8 @@
 -->
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- use vertical tabs navigation -->
+    <integer name="nav_tab_orientation">1</integer>
     <!-- The number of lines in the suggestions dropdown in landscape -->
     <integer name="max_suggest_lines_landscape">5</integer>
     <!-- The number of lines in the suggestions dropdown in portrait -->

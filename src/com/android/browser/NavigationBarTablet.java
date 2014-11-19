@@ -31,7 +31,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.android.browser.R;
 import com.android.browser.UI.ComboViews;
 import com.android.browser.UrlInputView.StateListener;
 
@@ -53,8 +52,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     private View mClearButton;
     private View mVoiceButton;
     private View mNavButtons;
-    private Drawable mFocusDrawable;
-    private Drawable mUnfocusDrawable;
     private boolean mHideNavButtons;
     private Drawable mFaviconDrawable;
 
@@ -75,14 +72,10 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     private void init(Context context) {
         Resources resources = context.getResources();
-        mStopDrawable = resources.getDrawable(R.drawable.ic_stop_holo_dark);
-        mReloadDrawable = resources.getDrawable(R.drawable.ic_refresh_holo_dark);
+        mStopDrawable = resources.getDrawable(R.drawable.ic_action_stop);
+        mReloadDrawable = resources.getDrawable(R.drawable.ic_action_reload);
         mStopDescription = resources.getString(R.string.accessibility_button_stop);
         mRefreshDescription = resources.getString(R.string.accessibility_button_refresh);
-        mFocusDrawable = resources.getDrawable(
-                R.drawable.textfield_active_holo_dark);
-        mUnfocusDrawable = resources.getDrawable(
-                R.drawable.textfield_default_holo_dark);
         mHideNavButtons = resources.getBoolean(R.bool.hide_nav_buttons);
     }
 
@@ -140,12 +133,8 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     void updateNavigationState(Tab tab) {
         if (tab != null) {
-            mBackButton.setImageResource(tab.canGoBack()
-                    ? R.drawable.ic_back_holo_dark
-                    : R.drawable.ic_back_disabled_holo_dark);
-            mForwardButton.setImageResource(tab.canGoForward()
-                    ? R.drawable.ic_forward_holo_dark
-                    : R.drawable.ic_forward_disabled_holo_dark);
+            mBackButton.setEnabled(tab.canGoBack());
+            mForwardButton.setEnabled(tab.canGoBack());
         }
         updateUrlIcon();
     }
@@ -205,7 +194,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     void updateUrlIcon() {
         if (mUrlInput.hasFocus()) {
-            mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
+            mUrlIcon.setImageResource(R.drawable.ic_action_search_normal);
         } else {
             if (mFaviconDrawable == null) {
                 mFaviconDrawable = mBaseUi.getFaviconDrawable(null);
@@ -223,7 +212,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             }
             mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
-            mUrlIcon.setImageResource(R.drawable.ic_search_holo_dark);
+            mUrlIcon.setImageResource(R.drawable.ic_action_search_normal);
         } else {
             if (mHideNavButtons) {
                 showNavButtons();
@@ -232,8 +221,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             mSearchButton.setVisibility(View.VISIBLE);
             updateUrlIcon();
         }
-        mUrlContainer.setBackgroundDrawable(focus
-                ? mFocusDrawable : mUnfocusDrawable);
     }
 
     private void stopOrRefresh() {
@@ -324,6 +311,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     @Override
     public void onStateChanged(int state) {
+        super.onStateChanged(state);
         mVoiceButton.setVisibility(View.GONE);
         switch(state) {
         case STATE_NORMAL:

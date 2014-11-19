@@ -15,26 +15,22 @@
  */
 package com.android.browser;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewConfiguration;
 import org.codeaurora.swe.WebView;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnDismissListener;
-import android.widget.PopupMenu.OnMenuItemClickListener;
+import org.codeaurora.swe.util.Activator;
+import org.codeaurora.swe.util.Observable;
 
-import com.android.browser.R;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.android.browser.UrlInputView.StateListener;
 
 public class NavigationBarPhone extends NavigationBarBase implements
-        StateListener, OnMenuItemClickListener, OnDismissListener {
+        StateListener {
 
     private ImageView mStopButton;
     private ImageView mMagnify;
@@ -45,14 +41,12 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private String mStopDescription;
     private String mRefreshDescription;
     private View mTabSwitcher;
+    private TextView mTabText;
     private View mComboIcon;
-    private View mTitleContainer;
-    private View mMore;
-    private Drawable mTextfieldBgDrawable;
-    private PopupMenu mPopupMenu;
-    private boolean mOverflowMenuShowing;
-    private boolean mNeedsMenu;
     private View mIncognitoIcon;
+    private float mTabSwitcherInitialTextSize = 0;
+    private float mTabSwitcherCompressedTextSize = 0;
+
 
     public NavigationBarPhone(Context context) {
         super(context);
@@ -78,22 +72,42 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mMagnify = (ImageView) findViewById(R.id.magnify);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
-        mMore = findViewById(R.id.more_browser_settings);
-        mMore.setOnClickListener(this);
+        mTabText = (TextView) findViewById(R.id.tab_switcher_text);
         mComboIcon = findViewById(R.id.iconcombo);
         mComboIcon.setOnClickListener(this);
-        mTitleContainer = findViewById(R.id.title_bg);
         setFocusState(false);
         Resources res = getContext().getResources();
-        mStopDrawable = res.getDrawable(R.drawable.ic_stop_holo_dark);
-        mRefreshDrawable = res.getDrawable(R.drawable.ic_refresh_holo_dark);
+        mStopDrawable = res.getDrawable(R.drawable.ic_action_stop);
+        mRefreshDrawable = res.getDrawable(R.drawable.ic_action_reload);
         mStopDescription = res.getString(R.string.accessibility_button_stop);
         mRefreshDescription = res.getString(R.string.accessibility_button_refresh);
-        mTextfieldBgDrawable = res.getDrawable(R.drawable.textfield_active_holo_dark);
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
-        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
         mIncognitoIcon = findViewById(R.id.incognito_icon);
+
+        if (mTabSwitcherInitialTextSize == 0) {
+            mTabSwitcherInitialTextSize = mTabText.getTextSize();
+            mTabSwitcherCompressedTextSize = (float) (mTabSwitcherInitialTextSize / 1.2);
+        }
+    }
+
+    @Override
+    public void setTitleBar(TitleBar titleBar) {
+        super.setTitleBar(titleBar);
+        Activator.activate(
+                new Observable.Observer() {
+                    @Override
+                    public void onChange(Object... params) {
+                        if ((Integer)params[0] > 9) {
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherCompressedTextSize);
+                        } else {
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherInitialTextSize);
+                        }
+
+                        mTabText.setText(Integer.toString((Integer) params[0]));
+                    }
+                },
+                mUiController.getTabControl().getTabCountObservable());
     }
 
     @Override
@@ -160,8 +174,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             }
         } else if (v == mTabSwitcher) {
             ((PhoneUi) mBaseUi).toggleNavScreen();
-        } else if (mMore == v) {
-            showMenu(mMore);
         } else if (mClearButton == v) {
             mUrlInput.setText("");
         } else if (mComboIcon == v) {
@@ -174,40 +186,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     @Override
-    public boolean isMenuShowing() {
-        return super.isMenuShowing() || mOverflowMenuShowing;
-    }
-
-    void showMenu(View anchor) {
-        Activity activity = mUiController.getActivity();
-        if (mPopupMenu == null) {
-            mPopupMenu = new PopupMenu(getContext(), anchor);
-            mPopupMenu.setOnMenuItemClickListener(this);
-            mPopupMenu.setOnDismissListener(this);
-            if (!activity.onCreateOptionsMenu(mPopupMenu.getMenu())) {
-                mPopupMenu = null;
-                return;
-            }
-        }
-        Menu menu = mPopupMenu.getMenu();
-        if (activity.onPrepareOptionsMenu(menu)) {
-            mOverflowMenuShowing = true;
-        }
-    }
-
-    @Override
-    public void onDismiss(PopupMenu menu) {
-        if (menu == mPopupMenu) {
-            onMenuHidden();
-        }
-    }
-
-    private void onMenuHidden() {
-        mOverflowMenuShowing = false;
-        mBaseUi.showTitleBarForDuration();
-    }
-
-    @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (view == mUrlInput && !hasFocus) {
             setDisplayTitle(mUrlInput.getText().toString());
@@ -217,6 +195,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     @Override
     public void onStateChanged(int state) {
+        super.onStateChanged(state);
         mVoiceButton.setVisibility(View.GONE);
         switch(state) {
         case StateListener.STATE_NORMAL:
@@ -225,8 +204,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mClearButton.setVisibility(View.GONE);
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.VISIBLE);
-            mTitleContainer.setBackgroundDrawable(null);
-            mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
+            mTabText.setVisibility(View.VISIBLE);
             if (mUiController != null) {
                 mUiController.setWindowDimming(0f);
             }
@@ -240,8 +218,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             }
             mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.GONE);
-            mMore.setVisibility(View.GONE);
-            mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+            mTabText.setVisibility(View.GONE);
 
             if (!mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
                 // only change text if different
@@ -259,8 +236,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mClearButton.setVisibility(View.VISIBLE);
             mMagnify.setVisibility(View.VISIBLE);
             mTabSwitcher.setVisibility(View.GONE);
-            mMore.setVisibility(View.GONE);
-            mTitleContainer.setBackgroundDrawable(mTextfieldBgDrawable);
+            mTabText.setVisibility(View.GONE);
             break;
         }
     }
@@ -271,10 +247,4 @@ public class NavigationBarPhone extends NavigationBarBase implements
         mIncognitoIcon.setVisibility(tab.isPrivateBrowsingEnabled()
                 ? View.VISIBLE : View.GONE);
     }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        return mUiController.onOptionsItemSelected(item);
-    }
-
 }

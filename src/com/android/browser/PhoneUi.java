@@ -23,12 +23,10 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Message;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -36,11 +34,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.ValueCallback;
 import org.codeaurora.swe.WebView;
 import android.widget.ImageView;
 
-import com.android.browser.R;
 import com.android.browser.UrlInputView.StateListener;
 
 /**
@@ -160,14 +158,6 @@ public class PhoneUi extends BaseUi {
         return true;
     }
 
-    private void setMenuItemVisibility(Menu menu, int id,
-                                       boolean visibility) {
-        MenuItem item = menu.findItem(id);
-        if (item != null) {
-            item.setVisible(visibility);
-        }
-    }
-
     @Override
     public void updateMenuState(Tab tab, Menu menu) {
         MenuItem bm = menu.findItem(R.id.bookmarks_menu_id);
@@ -273,7 +263,6 @@ public class PhoneUi extends BaseUi {
             mAnimScreen = new AnimScreen(mActivity);
         } else {
             mAnimScreen.mMain.setAlpha(1f);
-            mAnimScreen.mTitle.setAlpha(1f);
             mAnimScreen.setScaleFactor(1f);
         }
         mAnimScreen.set(getTitleBar(), viewportBitmap);
@@ -295,29 +284,32 @@ public class PhoneUi extends BaseUi {
         int toTop = ((fromBottom - (ntth + height)) / 2 + ntth);
         int toRight = toLeft + width;
         int toBottom = toTop + height;
-        float scaleFactor = width / (float) mContentView.getWidth();
-        mContentView.setVisibility(View.GONE);
-        AnimatorSet set1 = new AnimatorSet();
-        AnimatorSet inanim = new AnimatorSet();
-        ObjectAnimator tx = ObjectAnimator.ofInt(mAnimScreen.mContent, "left",
-                fromLeft, toLeft);
-        ObjectAnimator ty = ObjectAnimator.ofInt(mAnimScreen.mContent, "top",
-                fromTop, toTop);
-        ObjectAnimator tr = ObjectAnimator.ofInt(mAnimScreen.mContent, "right",
-                fromRight, toRight);
-        ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
-                fromBottom, toBottom);
-        ObjectAnimator title = ObjectAnimator.ofFloat(mAnimScreen.mTitle, "alpha",
-                1f, 0f);
-        ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
-                1f, scaleFactor);
-        ObjectAnimator blend1 = ObjectAnimator.ofFloat(mAnimScreen.mMain,
-                "alpha", 1f, 0f);
-        blend1.setDuration(100);
+        float toScaleFactor = width / (float) mContentView.getWidth();
+        ObjectAnimator tx = ObjectAnimator.ofInt(mAnimScreen.mContent, "left", fromLeft, toLeft);
+        ObjectAnimator ty = ObjectAnimator.ofInt(mAnimScreen.mContent, "top", fromTop, toTop);
+        ObjectAnimator tr = ObjectAnimator.ofInt(mAnimScreen.mContent, "right", fromRight, toRight);
+        ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom", fromBottom, toBottom);
+        ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor", 1f, toScaleFactor);
+        ObjectAnimator navTabsIn = ObjectAnimator.ofFloat(mNavScreen.mToolbarLayout, "translationY",
+                -mNavScreen.getResources().getDimensionPixelSize(R.dimen.toolbar_height), 0f);
+        mAnimScreen.mContent.layout(fromLeft, fromTop, fromRight, fromBottom);
+        mAnimScreen.setScaleFactor(1f);
 
-        inanim.playTogether(tx, ty, tr, tb, sx, title);
+        AnimatorSet inanim = new AnimatorSet();
+        inanim.playTogether(tx, ty, tr, tb, sx, navTabsIn);
+        inanim.setInterpolator(new DecelerateInterpolator());
         inanim.setDuration(200);
+
+        ObjectAnimator disappear = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 1f, 0f);
+        disappear.setInterpolator(new DecelerateInterpolator());
+        disappear.setDuration(100);
+
+        AnimatorSet set1 = new AnimatorSet();
         set1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mContentView.setVisibility(View.GONE);
+            }
             @Override
             public void onAnimationEnd(Animator anim) {
                 mCustomViewContainer.removeView(mAnimScreen.mMain);
@@ -325,7 +317,7 @@ public class PhoneUi extends BaseUi {
                 mUiController.setBlockEvents(false);
             }
         });
-        set1.playSequentially(inanim, blend1);
+        set1.playSequentially(inanim, disappear);
         set1.start();
         mUiController.setBlockEvents(false);
     }
@@ -396,39 +388,33 @@ public class PhoneUi extends BaseUi {
         mAnimScreen.mContent.setRight(fromRight);
         mAnimScreen.mContent.setBottom(fromBottom);
         mAnimScreen.setScaleFactor(1f);
-        AnimatorSet set1 = new AnimatorSet();
-        ObjectAnimator fade2 = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 0f, 1f);
-        ObjectAnimator fade1 = ObjectAnimator.ofFloat(mNavScreen, "alpha", 1f, 0f);
-        set1.playTogether(fade1, fade2);
-        set1.setDuration(100);
-        AnimatorSet set2 = new AnimatorSet();
-        ObjectAnimator l = ObjectAnimator.ofInt(mAnimScreen.mContent, "left",
-                fromLeft, toLeft);
-        ObjectAnimator t = ObjectAnimator.ofInt(mAnimScreen.mContent, "top",
-                fromTop, toTop);
-        ObjectAnimator r = ObjectAnimator.ofInt(mAnimScreen.mContent, "right",
-                fromRight, toRight);
-        ObjectAnimator b = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
-                fromBottom, toBottom);
-        ObjectAnimator scale = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor",
-                1f, scaleFactor);
-        set2.playTogether(l, t, r, b, scale);
-        set2.setDuration(200);
-        AnimatorSet combo = new AnimatorSet();
-        combo.playSequentially(set1, set2);
-        combo.addListener(new AnimatorListenerAdapter() {
+        //ObjectAnimator fade2 = ObjectAnimator.ofFloat(mNavScreen, "alpha", 1f, 0f);
+        //fade2.setDuration(100);
+        AnimatorSet set = new AnimatorSet();
+        ObjectAnimator animAppear = ObjectAnimator.ofFloat(mAnimScreen.mMain, "alpha", 0f, 1f);
+        animAppear.setDuration(100);
+        ObjectAnimator l = ObjectAnimator.ofInt(mAnimScreen.mContent, "left", fromLeft, toLeft);
+        ObjectAnimator t = ObjectAnimator.ofInt(mAnimScreen.mContent, "top", fromTop, toTop);
+        ObjectAnimator r = ObjectAnimator.ofInt(mAnimScreen.mContent, "right", fromRight, toRight);
+        ObjectAnimator b = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom", fromBottom, toBottom);
+        ObjectAnimator scale = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor", 1f, scaleFactor);
+        set.playTogether(animAppear, l, t, r, b, scale);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.setDuration(200);
+        set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {
                 checkTabReady();
             }
         });
-        combo.start();
+        set.start();
     }
 
 
     private int mNumTries = 0;
     private void checkTabReady() {
         boolean isready = true;
+        boolean zeroTries = mNumTries == 0;
         Tab tab = mUiController.getTabControl().getCurrentTab();
         BrowserWebView webview = null;
         if (tab == null)
@@ -456,11 +442,16 @@ public class PhoneUi extends BaseUi {
         }
         mNumTries = 0;
         final boolean hasCrashed = (webview == null) ? false : webview.hasCrashed();
+        // fast path: don't wait if we've been ready for a while
+        if (zeroTries) {
+            fadeOutCustomViewContainer(hasCrashed);
+            return;
+        }
         mCustomViewContainer.postDelayed(new Runnable() {
-                public void run() {
-                    fadeOutCustomViewContainer(hasCrashed);
-                }
-        }, 33); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
+            public void run() {
+                fadeOutCustomViewContainer(hasCrashed);
+            }
+        }, 32); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
     }
 
     private void fadeOutCustomViewContainer(boolean hasCrashed) {
@@ -477,6 +468,7 @@ public class PhoneUi extends BaseUi {
                 mUiController.setBlockEvents(false);
             }
         });
+        otheralpha.setInterpolator(new DecelerateInterpolator());
         otheralpha.start();
     }
 
@@ -509,16 +501,18 @@ public class PhoneUi extends BaseUi {
     static class AnimScreen {
 
         private View mMain;
-        private ImageView mTitle;
         private ImageView mContent;
         private float mScale;
-        private Bitmap mTitleBarBitmap;
 
         public AnimScreen(Context ctx) {
-            mMain = LayoutInflater.from(ctx).inflate(R.layout.anim_screen,
-                    null);
-            mTitle = (ImageView) mMain.findViewById(R.id.title);
-            mContent = (ImageView) mMain.findViewById(R.id.content);
+            mMain = LayoutInflater.from(ctx).inflate(R.layout.anim_screen, null);
+            mMain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // just eat clicks when this view is visible
+                }
+            });
+            mContent = (ImageView) mMain.findViewById(R.id.anim_screen_content);
             mContent.setScaleType(ImageView.ScaleType.MATRIX);
             mContent.setImageMatrix(new Matrix());
             mScale = 1.0f;
@@ -529,47 +523,26 @@ public class PhoneUi extends BaseUi {
             if (tbar == null) {
                 return;
             }
-            int embTbarHeight = tbar.getEmbeddedHeight();
-            int tbarHeight = tbar.isFixed() ? tbar.calculateEmbeddedHeight() : embTbarHeight;
-            if (tbar.getWidth() > 0 && tbarHeight > 0) {
-                if (mTitleBarBitmap == null
-                        || mTitleBarBitmap.getWidth() != tbar.getWidth()
-                        || mTitleBarBitmap.getHeight() != tbarHeight) {
-                    mTitleBarBitmap = safeCreateBitmap(tbar.getWidth(),
-                            tbarHeight);
-                }
-                if (mTitleBarBitmap != null) {
-                    Canvas c = new Canvas(mTitleBarBitmap);
-                    tbar.draw(c);
-                    c.setBitmap(null);
-                }
-            } else {
-                mTitleBarBitmap = null;
-            }
-            mTitle.setImageBitmap(mTitleBarBitmap);
-            mTitle.setVisibility(View.VISIBLE);
-
             mContent.setImageBitmap(viewportBitmap);
         }
 
-        private Bitmap safeCreateBitmap(int width, int height) {
+        /*private Bitmap safeCreateBitmap(int width, int height) {
             if (width <= 0 || height <= 0) {
                 Log.w(LOGTAG, "safeCreateBitmap failed! width: " + width
                         + ", height: " + height);
                 return null;
             }
             return Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        }
+        }*/
 
         public void set(Bitmap image) {
-            mTitle.setVisibility(View.GONE);
             mContent.setImageBitmap(image);
         }
 
         private void setScaleFactor(float sf) {
             mScale = sf;
             Matrix m = new Matrix();
-            m.postScale(sf,sf);
+            m.postScale(sf, sf);
             mContent.setImageMatrix(m);
         }
 

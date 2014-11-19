@@ -25,12 +25,10 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,8 +42,6 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.android.browser.R;
 
 /**
  * tabbed title bar for xlarge screen browser
@@ -71,8 +67,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private int mCurrentTextureWidth = 0;
     private int mCurrentTextureHeight = 0;
 
-    private Drawable mActiveDrawable;
-    private Drawable mInactiveDrawable;
+    ///private Drawable mActiveDrawable;
+    ///private Drawable mInactiveDrawable;
 
     private final Paint mActiveShaderPaint = new Paint();
     private final Paint mInactiveShaderPaint = new Paint();
@@ -80,8 +76,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private final Matrix mActiveMatrix = new Matrix();
     private final Matrix mInactiveMatrix = new Matrix();
 
-    private BitmapShader mActiveShader;
-    private BitmapShader mInactiveShader;
+    ///private BitmapShader mActiveShader;
+    ///private BitmapShader mInactiveShader;
 
     private int mTabOverlap;
     private int mAddTabOverlap;
@@ -95,8 +91,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
         mUi = ui;
         Resources res = activity.getResources();
         mTabWidth = (int) res.getDimension(R.dimen.tab_width);
-        mActiveDrawable = res.getDrawable(R.drawable.bg_urlbar);
-        mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
+        ///mActiveDrawable = res.getDrawable(R.drawable.bg_urlbar);
+        ///mInactiveDrawable = res.getDrawable(R.drawable.browsertab_inactive);
 
         mTabMap = new HashMap<Tab, TabView>();
         LayoutInflater factory = LayoutInflater.from(activity);
@@ -226,7 +222,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         TextView mTitle;
         View mIncognito;
         View mSnapshot;
-        ImageView mIconView;
+        ImageView mFaviconView;
         ImageView mLock;
         ImageView mClose;
         boolean mSelected;
@@ -250,7 +246,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             mTabContent = inflater.inflate(R.layout.tab_title, this, true);
             mTitle = (TextView) mTabContent.findViewById(R.id.title);
-            mIconView = (ImageView) mTabContent.findViewById(R.id.favicon);
+            mFaviconView = (ImageView) mTabContent.findViewById(R.id.favicon);
             mLock = (ImageView) mTabContent.findViewById(R.id.lock);
             mClose = (ImageView) mTabContent.findViewById(R.id.close);
             mClose.setOnClickListener(this);
@@ -292,7 +288,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
-            mIconView.setVisibility(mSelected ? View.GONE : View.VISIBLE);
+            mFaviconView.setVisibility(mSelected ? View.GONE : View.VISIBLE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);
@@ -314,7 +310,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
         }
 
         void setFavicon(Drawable d) {
-            mIconView.setImageDrawable(d);
+            mFaviconView.setImageDrawable(d);
         }
 
         void setLock(Drawable d) {
@@ -341,7 +337,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             setFocusPath(mFocusPath, 0, 0, r - l, b - t);
         }
 
-        @Override
+        /*@Override
         protected void dispatchDraw(Canvas canvas) {
             if (mCurrentTextureWidth != mUi.getContentWidth() ||
                     mCurrentTextureHeight != getHeight()) {
@@ -383,7 +379,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             if (isFocused()) {
                 canvas.drawPath(mFocusPath, mFocusPaint);
             }
-        }
+        }*/
 
         private void setTabPath(Path path, int l, int t, int r, int b) {
             path.reset();

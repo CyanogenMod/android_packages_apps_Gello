@@ -18,43 +18,44 @@
 
 <com.android.browser.GeolocationPermissionsPrompt
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/TabPassiveMessageBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/geolocation_permissions_prompt_background"
-    android:visibility="gone">
+    android:orientation="vertical">
+
+    <!-- Cosmetic separator -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/TabPassiveMessageLine" />
 
     <!-- 'google.com wants to know your location' -->
     <TextView android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:scrollHorizontally="true"
-        android:padding="6dip"
+        android:paddingBottom="4dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <CheckBox android:id="@+id/remember"
-        android:layout_width="wrap_content"
+    <CheckBox
+        android:id="@+id/remember"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/message"
-        android:layout_alignLeft="@id/message" />
-    <TextView
-        android:paddingLeft="4dip"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/geolocation_permissions_prompt_remember"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_alignBaseline="@id/remember"
-        android:layout_toRightOf="@id/remember" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/remember"
         android:orientation="vertical"
         android:divider="?android:attr/dividerHorizontal"
         android:showDividers="beginning"
-        android:dividerPadding="16dip"
-        android:background="@null">
+        android:layout_marginTop="8dp"
+        android:dividerPadding="16dip" >
         <LinearLayout
             style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"

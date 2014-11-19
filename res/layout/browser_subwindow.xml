@@ -23,15 +23,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/NavigationBarBackground"
         android:layout_gravity="right"
         android:gravity="right" >
-        <ImageButton android:id="@+id/subwindow_close"
-            style="@style/HoloButton"
-            android:focusable="true"
+        <ImageButton
+            android:id="@+id/subwindow_close"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_close_window_holo_dark" />
+            android:focusable="true"
+            android:src="@drawable/ic_action_stop" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/inner_container"

@@ -2281,7 +2281,7 @@ public class Controller
     private void showExitDialog(final Activity activity) {
         new AlertDialog.Builder(activity)
                 .setTitle(R.string.exit_browser_title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                /* disabled, was worrying people: .setIcon(android.R.drawable.ic_dialog_alert) */
                 .setMessage(R.string.exit_browser_msg)
                 .setNegativeButton(R.string.exit_minimize, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -2295,7 +2295,6 @@ public class Controller
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                // TODO Auto-generated method stub
                                 mCrashRecoveryHandler.clearState(true);
                                 int pid = android.os.Process.myPid();
                                 android.os.Process.killProcess(pid);
@@ -3216,7 +3215,7 @@ public class Controller
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
             // Hardware menu key
-            mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.more_browser_settings),
+            mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.taburlbar),
                     true, false);
             return true;
         }

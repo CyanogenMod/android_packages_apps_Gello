@@ -292,7 +292,6 @@ class AppMenuAdapter extends BaseAdapter {
                 } else {
                     holder = (FourButtonMenuItemViewHolder) convertView.getTag();
                 }
-
                 setupImageButton(holder.buttons[0], item.getSubMenu().getItem(0));
                 setupImageButton(holder.buttons[1], item.getSubMenu().getItem(1));
                 setupImageButton(holder.buttons[2], item.getSubMenu().getItem(2));
@@ -391,17 +390,13 @@ class AppMenuAdapter extends BaseAdapter {
     }
 
     private void setupMenuButton(ImageButton button) {
-        button.setImageResource(R.drawable.ic_menu_overflow);
-        button.setEnabled(true);
-        button.setFocusable(true);
+        button.setSelected(true);
         button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAppMenu.dismiss();
             }
         });
-
-        button.setScaleType(ScaleType.CENTER);
     }
 
     /**

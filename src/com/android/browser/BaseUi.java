@@ -63,7 +63,7 @@ import java.util.List;
  */
 public abstract class BaseUi implements UI {
 
-    private static final String LOGTAG = "BaseUi";
+    protected static final boolean ENABLE_BORDER_AROUND_FAVICON = false;
 
     protected static final FrameLayout.LayoutParams COVER_SCREEN_PARAMS =
         new FrameLayout.LayoutParams(
@@ -117,9 +117,10 @@ public abstract class BaseUi implements UI {
         mActivity = browser;
         mUiController = controller;
         mTabControl = controller.getTabControl();
-        Resources res = mActivity.getResources();
         mInputManager = (InputMethodManager)
                 browser.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        // This assumes that the top-level root of our layout has the 'android.R.id.content' id
+        // it's used in place of setContentView because we're attaching a <merge> here.
         FrameLayout frameLayout = (FrameLayout) mActivity.getWindow()
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
@@ -856,19 +857,22 @@ public abstract class BaseUi implements UI {
     }
 
     public Drawable getFaviconDrawable(Bitmap icon) {
-        Drawable[] array = new Drawable[3];
-        array[0] = new PaintDrawable(Color.BLACK);
-        PaintDrawable p = new PaintDrawable(Color.WHITE);
-        array[1] = p;
-        if (icon == null) {
-            array[2] = getGenericFavicon();
-        } else {
-            array[2] = new BitmapDrawable(icon);
+        if (ENABLE_BORDER_AROUND_FAVICON) {
+            Drawable[] array = new Drawable[3];
+            array[0] = new PaintDrawable(Color.BLACK);
+            PaintDrawable p = new PaintDrawable(Color.WHITE);
+            array[1] = p;
+            if (icon == null) {
+                array[2] = getGenericFavicon();
+            } else {
+                array[2] = new BitmapDrawable(mActivity.getResources(), icon);
+            }
+            LayerDrawable d = new LayerDrawable(array);
+            d.setLayerInset(1, 1, 1, 1, 1);
+            d.setLayerInset(2, 2, 2, 2, 2);
+            return d;
         }
-        LayerDrawable d = new LayerDrawable(array);
-        d.setLayerInset(1, 1, 1, 1, 1);
-        d.setLayerInset(2, 2, 2, 2, 2);
-        return d;
+        return icon == null ? getGenericFavicon() : new BitmapDrawable(mActivity.getResources(), icon);
     }
 
     public boolean isLoading() {
@@ -895,6 +899,14 @@ public abstract class BaseUi implements UI {
         showTitleBar();
         Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
         mHandler.sendMessageDelayed(msg, duration);
+    }
+
+    protected void setMenuItemVisibility(Menu menu, int id,
+                                         boolean visibility) {
+        MenuItem item = menu.findItem(id);
+        if (item != null) {
+            item.setVisible(visibility);
+        }
     }
 
     protected Handler mHandler = new Handler() {

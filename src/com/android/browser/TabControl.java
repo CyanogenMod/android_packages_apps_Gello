@@ -21,6 +21,7 @@ import android.util.Log;
 
 import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.util.Observable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,8 @@ class TabControl {
 
     private OnThumbnailUpdatedListener mOnThumbnailUpdatedListener;
 
+    private Observable mTabCountObservable;
+
     /**
      * Construct a new TabControl object
      */
@@ -64,10 +67,16 @@ class TabControl {
         mMaxTabs = mController.getMaxTabs();
         mTabs = new ArrayList<Tab>(mMaxTabs);
         mTabQueue = new ArrayList<Tab>(mMaxTabs);
+        mTabCountObservable = new Observable();
+        mTabCountObservable.set(0);
     }
 
     synchronized static long getNextId() {
         return sNextId++;
+    }
+
+    Observable getTabCountObservable() {
+        return mTabCountObservable;
     }
 
     /**
@@ -181,6 +190,7 @@ class TabControl {
             }
         }
         mTabs.add(tab);
+        mTabCountObservable.set(mTabs.size());
         tab.setController(mController);
         mController.onSetWebView(tab, tab.getWebView());
         tab.putInBackground();
@@ -207,6 +217,7 @@ class TabControl {
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mController, w, state);
         mTabs.add(t);
+        mTabCountObservable.set(mTabs.size());
         if (privateBrowsing) {
             mNumIncognito += 1;
         }
@@ -226,6 +237,7 @@ class TabControl {
     SnapshotTab createSnapshotTab(long snapshotId) {
         SnapshotTab t = new SnapshotTab(mController, snapshotId);
         mTabs.add(t);
+        mTabCountObservable.set(mTabs.size());
         return t;
     }
 
@@ -253,6 +265,7 @@ class TabControl {
 
         // Remove t from our list of tabs.
         mTabs.remove(t);
+        mTabCountObservable.set(mTabs.size());
 
         //Clear incognito geolocation state if this is the last incognito tab.
         if (t.isPrivateBrowsingEnabled()) {
@@ -435,6 +448,7 @@ class TabControl {
                 Tab t = new Tab(mController, state);
                 tabMap.put(id, t);
                 mTabs.add(t);
+                mTabCountObservable.set(mTabs.size());
                 // added the tab to the front as they are not current
                 mTabQueue.add(0, t);
             }

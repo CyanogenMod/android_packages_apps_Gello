@@ -305,7 +305,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        return mController.onPrepareOptionsMenu(menu);
+        return false;
     }
 
     @Override

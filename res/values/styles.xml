@@ -18,65 +18,93 @@
  */
 -->
 <resources>
-    <style name="BrowserTheme" parent="@android:Theme.Holo">
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:colorBackground">#FFFFFFFF</item>
+
+    <!-- parents that change depending on version -->
+    <style name="BrowserBase" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.Light.DialogWhenLarge" >
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:displayOptions"></item>
+    </style>
+    <style name="PopupMenuStyle" parent="@android:style/Widget.Holo.Light.PopupMenu">
+    </style>
+    <style name="Suggestions" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
+        <item name="android:popupBackground">@color/NavigationBarBackground</item>
+        <item name="android:dropDownHorizontalOffset">0dip</item>
+        <item name="android:dropDownVerticalOffset">0dip</item>
+    </style>
+    <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Holo.Medium" />
+    <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Holo.Small" />
+
+
+    <!-- common theme elements -->
+
+    <style name="BrowserTheme" parent="@style/BrowserBase">
+        <item name="android:windowBackground">@color/browser_window_background</item>
+
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+        <item name="android:actionBarSize">56dip</item>
+        <item name="android:popupMenuStyle">@style/PopupMenuStyle</item>
     </style>
-    <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.DialogWhenLarge" >
-        <item name="android:windowActionBar">false</item>
-    </style>
-    <style name="BookmarkTheme" parent="@android:Theme.Holo">
+
+    <style name="BookmarkTheme" parent="@style/BrowserBase">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowFrame">@null</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">@drawable/bg_urlbar</item>
-        <item name="android:displayOptions"></item>
+
+    <style name="ShortcutTheme" parent="@style/BrowserBase">
     </style>
-    <style name="Suggestions" parent="@android:style/Widget.Holo.AutoCompleteTextView">
-        <item name="android:popupBackground">#D0000000</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
+
+
+    <style name="NavButton">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">8dip</item>
+        <item name="android:paddingRight">8dip</item>
     </style>
-    <style name="SuggestionLineMedium"
-            parent="@android:style/TextAppearance.Holo.Medium">
+    <style name="NavButtonWide" parent="@style/NavButton">
+        <item name="android:layout_width">96dp</item>
+    </style>
+
+    <style name="OverflowButton" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="SuggestionLineMedium" parent="@style/TextAppearance.Medium">
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="SuggestionLineSmall"
-            parent="@android:style/TextAppearance.Holo.Small">
+    <style name="SuggestionLineSmall" parent="@style/TextAppearance.Small">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="ActionBar" parent="@android:style/Widget.ActionBar">
-        <item name="android:background">@color/black</item>
+
+    <style name="HoloIcon">
+        <item name="android:layout_marginLeft">16dip</item>
     </style>
-    <style name="ShortcutTheme" parent="@android:Theme.Holo.DialogWhenLarge">
-    </style>
+
     <style name="TitleBar">
         <item name="android:windowEnterAnimation">@anim/title_bar_enter</item>
         <item name="android:windowExitAnimation">@anim/title_bar_exit</item>
     </style>
-    <style name="HoloIcon">
-        <item name="android:layout_marginLeft">16dip</item>
-    </style>
-    <style name="HoloButton">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:paddingLeft">8dip</item>
-        <item name="android:paddingRight">8dip</item>
-    </style>
-    <style name="TabTitleSelected" parent="@android:style/TextAppearance.Small">
+
+    <style name="TabTitleSelected" parent="@style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="TabTitleUnselected" parent="@android:style/TextAppearance.Small">
+    <style name="TabTitleUnselected" parent="@style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -93,15 +121,16 @@
         <item name="android:imeOptions">flagNoExtractUi|actionNext</item>
         <item name="android:singleLine">true</item>
     </style>
-    <style name="OverflowMenuThemeBase" parent="BrowserTheme">
-        <item name="android:popupBackground">@null</item>
+
+    <style name="OverflowMenuThemeBase" parent="@style/BrowserTheme">
+        <item name="android:background">@color/PopupBackground</item>
         <item name="android:listDivider">@null</item>
         <item name="android:listPreferredItemHeightSmall">48dp</item>
         <item name="android:listPreferredItemPaddingStart">16dp</item>
         <item name="android:listPreferredItemPaddingEnd">16dp</item>
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="OverflowMenuTheme" parent="OverflowMenuThemeBase" />
+    <style name="OverflowMenuTheme" parent="@style/OverflowMenuThemeBase" />
     <style name="OverflowMenuAnim">
         <item name="android:windowEnterAnimation">@anim/menu_enter</item>
         <item name="android:windowExitAnimation">@anim/menu_exit</item>

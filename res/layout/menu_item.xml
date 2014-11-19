@@ -20,8 +20,6 @@
         android:layout_gravity="start"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:paddingLeft="16dp"
-        android:paddingEnd="9dp"
          />
     <view
         class="com.android.browser.appmenu.AppMenuItemIcon"
@@ -37,6 +35,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:tint="@color/black"
-        android:visible="false"
+        android:visibility="gone"
         android:clickable="true" />
 </LinearLayout>

@@ -20,6 +20,23 @@
 <!-- FIXME: Change the name of this file!  It is now being used generically
     for the browser -->
 <resources>
+
+    <!-- fundamental colors -->
+    <color name="primary">#ffffff</color>
+    <color name="navigation_bars">#101828</color>
+    <color name="accent">#008aa1</color>
+    <color name="browser_window_background">#ffffff</color>
+
+    <!-- derived colors -->
+    <color name="NavigationBarBackground">#ffffff</color> <!-- reference: f2f2f2 -->
+    <color name="NavigationBarUnderline">#b3b3b3</color>
+    <color name="PopupBackground">#ffffff</color>
+    <color name="TabNavBackgroundColor">#757575</color>
+    <color name="TabPassiveMessageBackground">#f2f2f2</color>
+    <color name="TabPassiveMessageLine">#b3b3b3</color>
+
+
+    <!-- legacy colors -->
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     

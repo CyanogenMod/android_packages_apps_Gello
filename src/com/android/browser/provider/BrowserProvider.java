@@ -608,16 +608,16 @@ public class BrowserProvider extends ContentProvider {
                         if (type == 1) {
                             if (mHistoryCursor.getInt(3) == 1) {
                                 return Integer.valueOf(
-                                        R.drawable.ic_search_category_bookmark)
+                                        R.drawable.ic_suggest_bookmark_normal)
                                         .toString();
                             } else {
                                 return Integer.valueOf(
-                                        R.drawable.ic_search_category_history)
+                                        R.drawable.ic_suggest_history_normal)
                                         .toString();
                             }
                         } else {
                             return Integer.valueOf(
-                                    R.drawable.ic_search_category_suggest)
+                                    R.drawable.ic_suggest_search_normal)
                                     .toString();
                         }
 

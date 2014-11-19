@@ -18,7 +18,7 @@
      is actually used to enter Uri's to load and display. -->
      
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@drawable/ic_search_category_browser"
+    android:icon="@drawable/ic_suggest_browser_normal"
     android:label="@string/search_label"
     android:hint="@string/search_hint"
     android:searchButtonText="@string/search_button_text"

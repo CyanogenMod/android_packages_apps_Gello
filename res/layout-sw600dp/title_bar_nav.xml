@@ -14,119 +14,127 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<com.android.browser.NavigationBarTablet
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:background="@drawable/bg_urlbar">
+<com.android.browser.NavigationBarTablet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/NavigationBarBackground"
+    android:orientation="horizontal">
+
     <LinearLayout
         android:id="@+id/navbuttons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/back"
-            android:src="@drawable/ic_back_holo_dark"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_back"
-            style="@style/HoloButton" />
+            android:src="@drawable/ic_action_history_backward" />
+
         <ImageButton
             android:id="@+id/forward"
-            android:src="@drawable/ic_forward_holo_dark"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_forward"
-            style="@style/HoloButton" />
+            android:src="@drawable/ic_action_history_forward" />
+
+        <!-- Stop/Refresh button -->
         <ImageButton
             android:id="@+id/stop"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/HoloButton"
-            android:gravity="center_vertical"
             android:contentDescription="@string/accessibility_button_stop"
-            android:src="@drawable/ic_stop_holo_dark" />
+            android:gravity="center_vertical" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/urlbar_focused"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        android:orientation="horizontal"
-        android:background="@drawable/url_background">
+        android:orientation="horizontal">
+
         <com.android.browser.LocationButton
             android:id="@+id/location_button"
-            android:layout_width="32dip"
-            android:layout_height="20dip"
-            android:visibility="gone"
-            style="@style/HoloButton"
-            android:layout_gravity="center" />
+            style="@style/NavButton"
+            android:layout_width="48dp"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/url_icon"
             android:layout_width="32dip"
             android:layout_height="20dip"
-            android:src="@drawable/ic_web_holo_dark"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:src="@drawable/ic_web_holo_dark" />
+
         <ImageView
             android:id="@+id/lock"
+            style="@style/HoloIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="0dip"
-            style="@style/HoloIcon"
             android:visibility="gone" />
+
         <com.android.browser.UrlInputView
             android:id="@+id/url"
+            style="@style/Suggestions"
             android:layout_width="0dip"
-            android:layout_weight="1.0"
             android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
+            android:inputType="textUri"
+            android:lines="1"
             android:paddingLeft="4dip"
             android:paddingRight="0dip"
-            android:background="@null"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:hint="@string/search_hint"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:lines="1"
             android:scrollHorizontally="true"
-            android:inputType="textUri"
-            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
-            style="@style/Suggestions" />
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <ImageButton
             android:id="@+id/star"
-            android:src="@drawable/btn_imageview_star"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_addbookmark"
-            style="@style/HoloButton" />
+            android:src="@drawable/ic_action_bookmark" />
+
         <ImageButton
             android:id="@+id/clear"
-            android:src="@drawable/ic_stop_holo_dark"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_clear"
-            style="@style/HoloButton" />
+            android:src="@drawable/ic_action_stop" />
+
         <ImageButton
             android:id="@+id/voice"
-            android:src="@drawable/ic_voice_search_holo_dark"
+            style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:contentDescription="@string/accessibility_button_voice"
-            style="@style/HoloButton" />
-        </LinearLayout>
+            android:src="@drawable/ic_voice_search_holo_dark" />
+    </LinearLayout>
+
     <ImageButton
         android:id="@+id/search"
-        android:src="@drawable/ic_search_holo_dark"
+        style="@style/NavButton"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:contentDescription="@string/accessibility_button_search"
         android:gravity="center_vertical"
-            android:contentDescription="@string/accessibility_button_search"
-        style="@style/HoloButton" />
+        android:src="@drawable/ic_action_search_normal" />
+
     <ImageButton
         android:id="@+id/all_btn"
+        style="@style/NavButton"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="center"
-        style="@style/HoloButton"
         android:contentDescription="@string/accessibility_button_bookmarks"
+        android:scaleType="center"
         android:src="@drawable/ic_bookmarks_history_holo_dark" />
+
+    <ImageButton
+        android:id="@+id/more_browser_settings"
+        style="@style/OverflowButton" />
 </com.android.browser.NavigationBarTablet>

@@ -34,8 +34,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import org.codeaurora.swe.WebView;
 
-import com.android.browser.R;
-
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 

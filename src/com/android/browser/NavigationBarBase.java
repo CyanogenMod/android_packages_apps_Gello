@@ -15,6 +15,7 @@
  */
 package com.android.browser;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -28,11 +29,15 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.android.browser.R;
@@ -45,7 +50,8 @@ import org.codeaurora.swe.WebView;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
-        TextWatcher {
+        TextWatcher, UrlInputView.StateListener,
+        PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
 
     private final static String TAG = "NavigationBarBase";
 
@@ -58,6 +64,10 @@ public class NavigationBarBase extends LinearLayout implements
     private ImageView mFavicon;
     private ImageView mLockIcon;
 
+    private View mMore;
+    private PopupMenu mPopupMenu;
+    private boolean mOverflowMenuShowing;
+    private boolean mNeedsMenu;
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -82,6 +92,9 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.setOnFocusChangeListener(this);
         mUrlInput.setSelectAllOnFocus(true);
         mUrlInput.addTextChangedListener(this);
+        mMore = findViewById(R.id.more_browser_settings);
+        mMore.setOnClickListener(this);
+        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
     }
 
     public void setTitleBar(TitleBar titleBar) {
@@ -108,6 +121,30 @@ public class NavigationBarBase extends LinearLayout implements
 
     @Override
     public void onClick(View v) {
+        if (mMore == v) {
+            showMenu(mMore);
+        }
+    }
+
+    void showMenu(View anchor) {
+        Activity activity = mUiController.getActivity();
+        if (mPopupMenu == null) {
+            mPopupMenu = new PopupMenu(getContext(), anchor);
+            mPopupMenu.setOnMenuItemClickListener(this);
+            mPopupMenu.setOnDismissListener(this);
+            if (!activity.onCreateOptionsMenu(mPopupMenu.getMenu())) {
+                mPopupMenu = null;
+                return;
+            }
+        }
+        Menu menu = mPopupMenu.getMenu();
+
+        if (mUiController instanceof Controller) {
+            Controller controller = (Controller) mUiController;
+            if (controller.onPrepareOptionsMenu(menu)) {
+                mOverflowMenuShowing = true;
+            }
+        }
     }
 
     @Override
@@ -389,10 +426,6 @@ public class NavigationBarBase extends LinearLayout implements
     public void onProgressStopped() {
     }
 
-    public boolean isMenuShowing() {
-        return false;
-    }
-
     public void onTabDataChanged(Tab tab) {
         mLocationButton.onTabDataChanged(tab);
     }
@@ -411,4 +444,41 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public void afterTextChanged(Editable s) { }
 
+    @Override
+    public void onStateChanged(int state) {
+        switch(state) {
+            case STATE_NORMAL:
+                mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
+                break;
+            case STATE_HIGHLIGHTED:
+                mMore.setVisibility(View.GONE);
+                break;
+            case STATE_EDITED:
+                mMore.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    public boolean isMenuShowing() {
+        return mOverflowMenuShowing;
+    }
+
+
+    @Override
+    public void onDismiss(PopupMenu popupMenu) {
+        if (popupMenu == mPopupMenu) {
+            onMenuHidden();
+        }
+    }
+
+    private void onMenuHidden() {
+        mOverflowMenuShowing = false;
+        mBaseUi.showTitleBarForDuration();
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return mUiController.onOptionsItemSelected(item);
+    }
 }

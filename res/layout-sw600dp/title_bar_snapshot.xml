@@ -18,11 +18,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@drawable/bg_urlbar">
+    android:orientation="horizontal" >
     <ImageView
         android:id="@+id/date_icon"
-        android:src="@drawable/ic_search_category_history"
+        android:src="@drawable/ic_suggest_history_normal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingLeft="16dip" />
@@ -43,13 +42,13 @@
         android:singleLine="true"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <ImageButton
         android:id="@+id/all_btn"
+        style="@style/NavButton"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scaleType="center"
+        android:contentDescription="@string/accessibility_button_bookmarks"
         android:paddingRight="16dip"
-        style="@style/HoloButton"
-        android:src="@drawable/ic_bookmarks_history_holo_dark"
-        android:contentDescription="@string/accessibility_button_bookmarks" />
+        android:scaleType="center"
+        android:src="@drawable/ic_bookmarks_history_holo_dark" />
 </com.android.browser.SnapshotBar>

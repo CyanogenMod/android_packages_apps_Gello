@@ -178,16 +178,16 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         switch (item.type) {
             case TYPE_SUGGEST:
             case TYPE_SEARCH:
-                id = R.drawable.ic_search_category_suggest;
+                id = R.drawable.ic_suggest_search_normal;
                 break;
             case TYPE_BOOKMARK:
-                id = R.drawable.ic_search_category_bookmark;
+                id = R.drawable.ic_suggest_bookmark_normal;
                 break;
             case TYPE_HISTORY:
-                id = R.drawable.ic_search_category_history;
+                id = R.drawable.ic_suggest_history_normal;
                 break;
             case TYPE_SUGGEST_URL:
-                id = R.drawable.ic_search_category_browser;
+                id = R.drawable.ic_suggest_browser_normal;
                 break;
             default:
                 id = -1;

@@ -16,8 +16,6 @@
 
 package com.android.browser;
 
-import com.android.browser.R;
-
 import org.codeaurora.swe.GeolocationPermissions;
 import org.json.JSONArray;
 
@@ -29,11 +27,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GeolocationPermissionsPrompt extends RelativeLayout {
+public class GeolocationPermissionsPrompt extends LinearLayout {
     private TextView mMessage;
     private Button mShareButton;
     private Button mShareForLimitedTimeButton;

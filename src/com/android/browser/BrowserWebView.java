@@ -30,6 +30,7 @@ import java.util.Map;
  * Manage WebView scroll events
  */
 public class BrowserWebView extends WebView implements WebView.TitleBarDelegate {
+    private static final boolean ENABLE_ROOTVIEW_BACKREMOVAL_OPTIMIZATION = true;
 
     public interface OnScrollChangedListener {
         void onScrollChanged(int l, int t, int oldl, int oldt);
@@ -121,13 +122,17 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
     @Override
     public void onDraw(Canvas c) {
         super.onDraw(c);
-        if (!mBackgroundRemoved && getRootView().getBackground() != null) {
-            mBackgroundRemoved = true;
-            post(new Runnable() {
-                public void run() {
-                    getRootView().setBackgroundDrawable(null);
-                }
-            });
+
+        // if enabled, removes the background from the main view (assumes coverage with opaqueness)
+        if (ENABLE_ROOTVIEW_BACKREMOVAL_OPTIMIZATION) {
+            if (!mBackgroundRemoved && getRootView().getBackground() != null) {
+                mBackgroundRemoved = true;
+                post(new Runnable() {
+                    public void run() {
+                        getRootView().setBackgroundDrawable(null);
+                    }
+                });
+            }
         }
     }
 
@@ -137,6 +142,7 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
 
     @Override
     public void onScrollChanged(int l, int t, int oldl, int oldt) {
+        // NOTE: this function seems to not be called when the WebView is scrolled (it may be fine)
         super.onScrollChanged(l, t, oldl, oldt);
         if (mTitleBar != null) {
             mTitleBar.onScrollChanged();

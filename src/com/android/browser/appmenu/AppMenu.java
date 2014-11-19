@@ -235,6 +235,9 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
             // The menu is displayed above the anchored view, so shift the menu up by the bottom
             // padding of the background.
             int verticalOffset = appRect.height() - popup.getHeight() + padding.bottom;
+            if (anchorLocation[1] > 0) {
+                verticalOffset -= anchorHeight;
+            }
             popup.setVerticalOffset(verticalOffset);
         } else {
             // The menu is displayed over and below the anchored view, so shift the menu up by the
