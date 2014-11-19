@@ -20,39 +20,38 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 
-public class PrivacySecurityPreferencesFragment extends PreferenceFragment
+public class PrivacySecurityPreferencesFragment
         implements Preference.OnPreferenceChangeListener {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    PreferenceFragment mFragment;
 
-        // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.privacy_security_preferences);
+    PrivacySecurityPreferencesFragment(PreferenceFragment fragment) {
+        mFragment = fragment;
 
-        Preference e = findPreference(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY);
+        Preference e = mFragment.findPreference(PreferenceKeys.PREF_CLEAR_SELECTED_DATA);
         e.setOnPreferenceChangeListener(this);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        if (pref.getKey().equals(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY)
-                && ((Boolean) objValue).booleanValue() == true) {
-            // Need to tell the browser to remove the parent/child relationship
-            // between tabs
-            getActivity().setResult(Activity.RESULT_OK, (new Intent()).putExtra(Intent.EXTRA_TEXT,
-                    pref.getKey()));
-            return true;
+        if (pref.getKey().equals(PreferenceKeys.PREF_CLEAR_SELECTED_DATA)) {
+            if (pref.getPreferenceManager().getDefaultSharedPreferences(
+                    (Context)mFragment.getActivity()).getBoolean(
+                    PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY, false)) {
+                // Need to tell the browser to remove the parent/child relationship
+                // between tabs
+                mFragment.getActivity().setResult(Activity.RESULT_OK,
+                        (new Intent()).putExtra(Intent.EXTRA_TEXT,
+                                pref.getKey()));
+                return true;
+            }
         }
 
         return false;

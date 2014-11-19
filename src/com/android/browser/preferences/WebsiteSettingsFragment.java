@@ -16,7 +16,11 @@
 
 package com.android.browser.preferences;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -707,12 +711,19 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                 }
             } else {
                 Site site = (Site) view.getTag();
-                PreferenceActivity activity = (PreferenceActivity) getActivity();
+                Activity activity = getActivity();
                 if (activity != null) {
                     Bundle args = new Bundle();
                     args.putParcelable(EXTRA_SITE, site);
-                    activity.startPreferencePanel(WebsiteSettingsFragment.class.getName(), args, 0,
-                            site.getPrettyTitle(), null, 0);
+
+                    FragmentManager fragmentManager = activity.getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    Fragment newFragment = new WebsiteSettingsFragment();
+                    newFragment.setArguments(args);
+                    fragmentTransaction.replace(getId(), newFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             }
         }
@@ -759,9 +770,9 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
     }
 
     private void finish() {
-        PreferenceActivity activity = (PreferenceActivity) getActivity();
+        Activity activity = getActivity();
         if (activity != null) {
-            activity.finishPreferencePanel(this, 0, null);
+            getActivity().getFragmentManager().popBackStack();
         }
     }
 

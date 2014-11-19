@@ -16,108 +16,20 @@
 
 package com.android.browser;
 
-import android.app.ActionBar;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-import android.view.MenuItem;
 
-import com.android.browser.R;
-import com.android.browser.preferences.BandwidthPreferencesFragment;
-import com.android.browser.preferences.DebugPreferencesFragment;
+import com.android.browser.preferences.GeneralPreferencesFragment;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-public class BrowserPreferencesPage extends PreferenceActivity {
+public class BrowserPreferencesPage extends Activity {
 
     public static final String CURRENT_PAGE = "currentPage";
-    private List<Header> mHeaders;
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayOptions(
-                    ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-        }
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new GeneralPreferencesFragment()).commit();
     }
-
-    /**
-     * Populate the activity with the top-level headers.
-     */
-    @Override
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.preference_headers, target);
-
-        if (BrowserSettings.getInstance().isDebugEnabled()) {
-            Header debug = new Header();
-            debug.title = getText(R.string.pref_development_title);
-            debug.fragment = DebugPreferencesFragment.class.getName();
-            target.add(debug);
-        }
-        mHeaders = target;
-    }
-
-    @Override
-    public Header onGetInitialHeader() {
-        String action = getIntent().getAction();
-        if (Intent.ACTION_MANAGE_NETWORK_USAGE.equals(action)) {
-            String fragName = BandwidthPreferencesFragment.class.getName();
-            for (Header h : mHeaders) {
-                if (fragName.equals(h.fragment)) {
-                    return h;
-                }
-            }
-        }
-        return super.onGetInitialHeader();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                if (getFragmentManager().getBackStackEntryCount() > 0) {
-                    getFragmentManager().popBackStack();
-                } else {
-                    finish();
-                }
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public Intent onBuildStartFragmentIntent(String fragmentName, Bundle args,
-            int titleRes, int shortTitleRes) {
-        Intent intent = super.onBuildStartFragmentIntent(fragmentName, args,
-                titleRes, shortTitleRes);
-        String url = getIntent().getStringExtra(CURRENT_PAGE);
-        intent.putExtra(CURRENT_PAGE, url);
-        return intent;
-    }
-
-    private static final Set<String> sKnownFragments = new HashSet<String>(Arrays.asList(
-        "com.android.browser.preferences.GeneralPreferencesFragment",
-        "com.android.browser.preferences.PrivacySecurityPreferencesFragment",
-        "com.android.browser.preferences.AccessibilityPreferencesFragment",
-        "com.android.browser.preferences.AdvancedPreferencesFragment",
-        "com.android.browser.preferences.BandwidthPreferencesFragment",
-        "com.android.browser.preferences.LabPreferencesFragment",
-        "com.android.browser.preferences.AboutPreferencesFragment",
-        "com.android.browser.AutoFillSettingsFragment",
-        "com.android.browser.preferences.DebugPreferencesFragment",
-        "com.android.browser.preferences.WebsiteSettingsFragment"));
-
-    @Override
-    protected boolean isValidFragment(String fragmentName) {
-        return sKnownFragments.contains(fragmentName);
-    }
-
-
 }

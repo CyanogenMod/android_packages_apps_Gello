@@ -17,13 +17,16 @@
 package com.android.browser.preferences;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
-import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.util.Log;
@@ -41,51 +44,56 @@ import java.util.Set;
 import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebStorage;
 
-public class AdvancedPreferencesFragment extends PreferenceFragment
-        implements Preference.OnPreferenceChangeListener {
+public class AdvancedPreferencesFragment
+        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final int DOWNLOAD_PATH_RESULT_CODE = 1;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        // Load the XML preferences file
-        addPreferencesFromResource(R.xml.advanced_preferences);
+    PreferenceFragment mFragment = null;
 
-        PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
+    AdvancedPreferencesFragment(PreferenceFragment fragment) {
+        mFragment = fragment;
+
+        PreferenceScreen websiteSettings = (PreferenceScreen) mFragment.findPreference(
                 PreferenceKeys.PREF_WEBSITE_SETTINGS);
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
+        websiteSettings.setOnPreferenceClickListener(this);
 
-        Preference e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
+        Preference e = mFragment.findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         e.setSummary(getVisualDefaultZoomName(
-                getPreferenceScreen().getSharedPreferences()
-                .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)) );
+                mFragment.getPreferenceScreen().getSharedPreferences()
+                        .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)));
 
-        e = findPreference(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING);
+        e = mFragment.findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
         e.setOnPreferenceChangeListener(this);
 
-        e = findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
-        e.setOnPreferenceChangeListener(this);
-
-        e = findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
+        e = mFragment.findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
         e.setOnPreferenceChangeListener(this);
         updateListPreferenceSummary((ListPreference) e);
 
-        updateListPreferenceSummary((ListPreference) e);
+        e = mFragment.findPreference(PreferenceKeys.PREF_DEBUG_MENU);
+        if (!BrowserSettings.getInstance().isDebugEnabled()) {
+            PreferenceCategory category = (PreferenceCategory) mFragment.findPreference("advanced");
+            category.removePreference(e);
+        } else {
+            e.setOnPreferenceClickListener(this);
+        }
+
+
+
         onInitdownloadSettingsPreference();
     }
 
     private void onInitdownloadSettingsPreference() {
-        addPreferencesFromResource(R.xml.download_settings_preferences);
         PreferenceScreen downloadPathPreset =
-                (PreferenceScreen) findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
+                (PreferenceScreen) mFragment.findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
         downloadPathPreset.setOnPreferenceClickListener(onClickDownloadPathSettings());
 
         String downloadPath = downloadPathPreset.getSharedPreferences().
                 getString(PreferenceKeys.PREF_DOWNLOAD_PATH,
                         BrowserSettings.getInstance().getDownloadPath());
-        String downloadPathForUser = DownloadHandler.getDownloadPathForUser(this.getActivity(),
+        String downloadPathForUser = DownloadHandler.getDownloadPathForUser(mFragment.getActivity(),
                 downloadPath);
         downloadPathPreset.setSummary(downloadPathForUser);
     }
@@ -95,22 +103,19 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
             public boolean onPreferenceClick(Preference preference) {
                 try {
                     Intent i = new Intent("com.android.fileexplorer.action.DIR_SEL");
-                    AdvancedPreferencesFragment.this.startActivityForResult(i,
+                    mFragment.startActivityForResult(i,
                             DOWNLOAD_PATH_RESULT_CODE);
                 } catch (Exception e) {
-                    String err_msg = getResources().getString(R.string.activity_not_found,
+                    String err_msg = mFragment.getResources().getString(R.string.activity_not_found,
                             "com.android.fileexplorer.action.DIR_SEL");
-                    Toast.makeText(getActivity(), err_msg, Toast.LENGTH_LONG).show();
+                    Toast.makeText(mFragment.getActivity(), err_msg, Toast.LENGTH_LONG).show();
                 }
                 return true;
             }
         };
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == DOWNLOAD_PATH_RESULT_CODE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 String downloadPath = data.getStringExtra("result_dir_sel");
@@ -122,12 +127,13 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
                 }
                 if (downloadPath != null) {
                     PreferenceScreen downloadPathPreset =
-                            (PreferenceScreen) findPreference(PreferenceKeys.PREF_DOWNLOAD_PATH);
+                            (PreferenceScreen) mFragment.findPreference(
+                                    PreferenceKeys.PREF_DOWNLOAD_PATH);
                     Editor editor = downloadPathPreset.getEditor();
                     editor.putString(PreferenceKeys.PREF_DOWNLOAD_PATH, downloadPath);
                     editor.apply();
                     String downloadPathForUser = DownloadHandler.getDownloadPathForUser(
-                            this.getActivity(), downloadPath);
+                            mFragment.getActivity(), downloadPath);
                     downloadPathPreset.setSummary(downloadPathForUser);
                 }
 
@@ -146,10 +152,8 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
      * origins with active features (WebStorage, Geolocation etc) could have
      * changed after calling the WebsiteSettingsActivity.
      */
-    @Override
     public void onResume() {
-        super.onResume();
-        final PreferenceScreen websiteSettings = (PreferenceScreen) findPreference(
+        final PreferenceScreen websiteSettings = (PreferenceScreen) mFragment.findPreference(
                 PreferenceKeys.PREF_WEBSITE_SETTINGS);
         websiteSettings.setEnabled(false);
         WebStorage.getInstance().getOrigins(new ValueCallback<Map>() {
@@ -172,7 +176,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        if (getActivity() == null) {
+        if (mFragment.getActivity() == null) {
             // We aren't attached, so don't accept preferences changes from the
             // invisible UI.
             Log.w("PageContentPreferencesFragment", "onPreferenceChange called from detached fragment!");
@@ -182,14 +186,11 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
             pref.setSummary(getVisualDefaultZoomName((String) objValue));
             return true;
-        } else if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_TEXT_ENCODING)) {
-            pref.setSummary((String) objValue);
-            return true;
         } else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
-                startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
-                        getActivity(), BrowserActivity.class));
+                mFragment.startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
+                        mFragment.getActivity(), BrowserActivity.class));
                 return true;
             }
         } else if (pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
@@ -202,7 +203,7 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
     }
 
     private CharSequence getVisualDefaultZoomName(String enumName) {
-        Resources res = getActivity().getResources();
+        Resources res = mFragment.getActivity().getResources();
         CharSequence[] visualNames = res.getTextArray(R.array.pref_default_zoom_choices);
         CharSequence[] enumNames = res.getTextArray(R.array.pref_default_zoom_values);
 
@@ -219,5 +220,30 @@ public class AdvancedPreferencesFragment extends PreferenceFragment
         }
 
         return "";
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        FragmentManager fragmentManager = mFragment.getFragmentManager();
+
+        if (preference.getKey().equals(PreferenceKeys.PREF_WEBSITE_SETTINGS)) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment newFragment = new WebsiteSettingsFragment();
+            fragmentTransaction.replace(mFragment.getId(), newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            return true;
+        } else if (preference.getKey().equals(PreferenceKeys.PREF_DEBUG_MENU)) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment newFragment = new DebugPreferencesFragment();
+            fragmentTransaction.replace(mFragment.getId(), newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            return true;
+        }
+
+        return false;
     }
 }

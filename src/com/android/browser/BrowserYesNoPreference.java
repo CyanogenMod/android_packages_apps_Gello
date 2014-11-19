@@ -16,16 +16,73 @@
 
 package com.android.browser;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.preference.DialogPreference;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 
 class BrowserYesNoPreference extends DialogPreference {
+    private SharedPreferences mPrefs;
+    private Context mContext;
 
     // This is the constructor called by the inflater
     public BrowserYesNoPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mContext = context;
+    }
+
+    @Override
+    protected View onCreateDialogView() {
+        if (PreferenceKeys.PREF_CLEAR_SELECTED_DATA.equals(getKey())) {
+            String dialogMessage = mContext.getString(R.string.pref_privacy_clear_selected_dlg);
+            boolean itemSelected = false;
+
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE, false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_cache));
+                itemSelected = true;
+            }
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_COOKIES, false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_cookies));
+                itemSelected = true;
+            }
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY, false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_history));
+                itemSelected = true;
+            }
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_FORM_DATA, false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_form_data));
+                itemSelected = true;
+            }
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_PASSWORDS, false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_passwords));
+                itemSelected = true;
+            }
+            if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_GEOLOCATION_ACCESS,
+                    false)) {
+                dialogMessage = dialogMessage.concat("\n\t" +
+                        mContext.getString(R.string.pref_privacy_clear_geolocation_access));
+                itemSelected = true;
+            }
+
+            if (!itemSelected) {
+                setDialogMessage(R.string.pref_select_items);
+            } else {
+                setDialogMessage(dialogMessage);
+            }
+        }
+
+        return super.onCreateDialogView();
     }
 
     @Override
@@ -37,24 +94,33 @@ class BrowserYesNoPreference extends DialogPreference {
                 return;
             setEnabled(false);
             BrowserSettings settings = BrowserSettings.getInstance();
-            if (PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE.equals(getKey())) {
-                settings.clearCache();
-                settings.clearDatabases();
-            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_COOKIES.equals(getKey())) {
-                settings.clearCookies();
-            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY.equals(getKey())) {
-                settings.clearHistory();
-            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_FORM_DATA.equals(getKey())) {
-                settings.clearFormData();
-            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_PASSWORDS.equals(getKey())) {
-                settings.clearPasswords();
+            if (PreferenceKeys.PREF_CLEAR_SELECTED_DATA.equals(getKey())) {
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE, false)) {
+                    settings.clearCache();
+                    settings.clearDatabases();
+                }
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_COOKIES, false)) {
+                    settings.clearCookies();
+                }
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY, false)) {
+                    settings.clearHistory();
+                }
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_FORM_DATA, false)) {
+                    settings.clearFormData();
+                }
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_PASSWORDS, false)) {
+                    settings.clearPasswords();
+                }
+                if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_GEOLOCATION_ACCESS,
+                        false)) {
+                    settings.clearLocationAccess();
+                }
+
+                setEnabled(true);
             } else if (PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES.equals(
                     getKey())) {
                 settings.resetDefaultPreferences();
                 setEnabled(true);
-            } else if (PreferenceKeys.PREF_PRIVACY_CLEAR_GEOLOCATION_ACCESS.equals(
-                    getKey())) {
-                settings.clearLocationAccess();
             }
         }
     }

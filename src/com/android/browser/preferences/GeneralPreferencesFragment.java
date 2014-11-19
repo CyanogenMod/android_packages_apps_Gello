@@ -20,8 +20,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -38,6 +41,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.android.browser.AutoFillSettingsFragment;
 import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
@@ -46,7 +50,7 @@ import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
 
 public class GeneralPreferencesFragment extends PreferenceFragment
-        implements Preference.OnPreferenceChangeListener {
+        implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     static final String TAG = "PersonalPreferencesFragment";
 
@@ -61,6 +65,10 @@ public class GeneralPreferencesFragment extends PreferenceFragment
 
     String[] mChoices, mValues;
     String mCurrentPage;
+
+    AdvancedPreferencesFragment mAdvFrag = null;
+    AccessibilityPreferencesFragment mAccessFrag = null;
+    PrivacySecurityPreferencesFragment mPrivFrag = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,14 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         pref.setPersistent(false);
         pref.setValue(getHomepageValue());
         pref.setOnPreferenceChangeListener(this);
+
+        PreferenceScreen autofill = (PreferenceScreen) findPreference(
+                PreferenceKeys.PREF_AUTOFILL_PROFILE);
+        autofill.setOnPreferenceClickListener(this);
+
+        mAdvFrag = new AdvancedPreferencesFragment(this);
+        mAccessFrag = new AccessibilityPreferencesFragment(this);
+        mPrivFrag = new PrivacySecurityPreferencesFragment(this);
     }
 
     @Override
@@ -168,13 +184,35 @@ public class GeneralPreferencesFragment extends PreferenceFragment
     public void onResume() {
         super.onResume();
 
+        mAdvFrag.onResume();
         refreshUi();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mAdvFrag.onActivityResult(requestCode,resultCode, data);
     }
 
     void refreshUi() {
         PreferenceScreen autoFillSettings =
                 (PreferenceScreen)findPreference(PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autoFillSettings.setDependency(PreferenceKeys.PREF_AUTOFILL_ENABLED);
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference.getKey().equals(PreferenceKeys.PREF_AUTOFILL_PROFILE)) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment newFragment = new AutoFillSettingsFragment();
+            fragmentTransaction.replace(getId(), newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            return true;
+        }
+        return false;
     }
 
     /*

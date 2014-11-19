@@ -87,6 +87,7 @@ public interface PreferenceKeys {
     // ----------------------
     // Keys for privacy_security_preferences.xml
     // ----------------------
+    static final String PREF_CLEAR_SELECTED_DATA = "privacy_clear_selected";
     static final String PREF_ACCEPT_COOKIES = "accept_cookies";
     static final String PREF_ENABLE_GEOLOCATION = "enable_geolocation";
     static final String PREF_PRIVACY_CLEAR_CACHE = "privacy_clear_cache";

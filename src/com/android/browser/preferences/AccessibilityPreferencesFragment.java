@@ -27,22 +27,21 @@ import com.android.browser.R;
 
 import java.text.NumberFormat;
 
-public class AccessibilityPreferencesFragment extends PreferenceFragment
+public class AccessibilityPreferencesFragment
         implements Preference.OnPreferenceChangeListener {
 
     NumberFormat mFormat;
+    PreferenceFragment mFragment;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.accessibility_preferences);
+    AccessibilityPreferencesFragment(PreferenceFragment fragment) {
+        mFragment = fragment;
         BrowserSettings settings = BrowserSettings.getInstance();
         mFormat = NumberFormat.getPercentInstance();
 
-        Preference e = findPreference(PreferenceKeys.PREF_MIN_FONT_SIZE);
+        Preference e = mFragment.findPreference(PreferenceKeys.PREF_MIN_FONT_SIZE);
         e.setOnPreferenceChangeListener(this);
         updateMinFontSummary(e, settings.getMinimumFontSize());
-        e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
+        e = mFragment.findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
         /* SWE: Comment out double tap zoom feature
@@ -60,7 +59,7 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
     }
 
     void updateMinFontSummary(Preference pref, int minFontSize) {
-        Context c = getActivity();
+        Context c = mFragment.getActivity();
         pref.setSummary(c.getString(R.string.pref_min_font_size_value, minFontSize));
     }
 
@@ -80,7 +79,7 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        if (getActivity() == null) {
+        if (mFragment.getActivity() == null) {
             // We aren't attached, so don't accept preferences changes from the
             // invisible UI.
             return false;
