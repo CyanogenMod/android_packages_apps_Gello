@@ -290,8 +290,7 @@ public class PhoneUi extends BaseUi {
         ObjectAnimator tr = ObjectAnimator.ofInt(mAnimScreen.mContent, "right", fromRight, toRight);
         ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom", fromBottom, toBottom);
         ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor", 1f, toScaleFactor);
-        ObjectAnimator navTabsIn = ObjectAnimator.ofFloat(mNavScreen.mToolbarLayout, "translationY",
-                -mNavScreen.getResources().getDimensionPixelSize(R.dimen.toolbar_height), 0f);
+        ObjectAnimator navTabsIn = mNavScreen.createToolbarInAnimator();
         mAnimScreen.mContent.layout(fromLeft, fromTop, fromRight, fromBottom);
         mAnimScreen.setScaleFactor(1f);
 
@@ -373,12 +372,12 @@ public class PhoneUi extends BaseUi {
         }
         mAnimScreen.mMain.layout(0, 0, mContentView.getWidth(),
                 mContentView.getHeight());
-        mNavScreen.mScroller.finishScroller();
+        mNavScreen.getScroller().finishScroller();
         int toLeft = 0;
         int toTop = mTitleBar.calculateEmbeddedHeight();
         int toRight = mContentView.getWidth();
-        int fromLeft = tabview.getLeft() + target.getLeft() - mNavScreen.mScroller.getScrollX();
-        int fromTop = tabview.getTop() + target.getTop() - mNavScreen.mScroller.getScrollY();
+        int fromLeft = tabview.getLeft() + target.getLeft() - mNavScreen.getScroller().getScrollX();
+        int fromTop = tabview.getTop() + target.getTop() - mNavScreen.getScroller().getScrollY();
         int fromRight = fromLeft + width;
         int fromBottom = fromTop + height;
         float scaleFactor = mContentView.getWidth() / (float) width;

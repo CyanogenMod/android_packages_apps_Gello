@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.browser.view.ScrollerView;
@@ -126,6 +127,17 @@ public class NavTabScroller extends ScrollerView {
                     new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         }
         super.setOrientation(orientation);
+
+        // update the layout parameters of existing views (to not destroy/recreate all)
+        final int childCount = mContentView.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            final View view = mContentView.getChildAt(i);
+            final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            lp.gravity = (mHorizontal ? Gravity.CENTER_VERTICAL : Gravity.CENTER_HORIZONTAL);
+            view.setLayoutParams(lp);
+            if (mGapPosition > INVALID_POSITION)
+                adjustViewGap(view, i);
+        }
     }
 
     @Override
@@ -188,6 +200,10 @@ public class NavTabScroller extends ScrollerView {
 
     protected void handleDataChanged() {
         handleDataChanged(INVALID_POSITION);
+    }
+
+    void setScrollOnNextLayout() {
+        mNeedsScroll = true;
     }
 
     void handleDataChanged(int newscroll) {
@@ -381,8 +397,10 @@ public class NavTabScroller extends ScrollerView {
                 || (mGap > 0 && pos < mGapPosition)) {
             if (mHorizontal) {
                 view.setTranslationX(mGap);
+                view.setTranslationY(0);
             } else {
                 view.setTranslationY(mGap);
+                view.setTranslationX(0);
             }
         }
     }

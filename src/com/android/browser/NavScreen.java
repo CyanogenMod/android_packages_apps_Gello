@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -42,20 +43,19 @@ public class NavScreen extends RelativeLayout
         implements OnClickListener, OnMenuItemClickListener, OnThumbnailUpdatedListener {
 
 
-    UiController mUiController;
-    PhoneUi mUi;
-    Activity mActivity;
+    private final UiController mUiController;
+    private final PhoneUi mUi;
+    private final Activity mActivity;
 
-    View mToolbarLayout;
-    ImageButton mMore;
-    ImageButton mNewTab;
-    ImageButton mNewIncognitoTab;
+    private View mToolbarLayout;
+    private ImageButton mMore;
+    private ImageButton mNewTab;
+    private ImageButton mNewIncognitoTab;
 
-    NavTabScroller mScroller;
-    TabAdapter mAdapter;
-    int mOrientation;
-    boolean mNeedsMenu;
-    HashMap<Tab, View> mTabViews;
+    private NavTabScroller mScroller;
+    private TabAdapter mAdapter;
+    private int mOrientation;
+    private HashMap<Tab, View> mTabViews;
 
     public NavScreen(Activity activity, UiController ctl, PhoneUi ui) {
         super(activity);
@@ -66,7 +66,7 @@ public class NavScreen extends RelativeLayout
         init();
     }
 
-    protected void showMenu() {
+    protected void showPopupMenu() {
         if (mUiController instanceof Controller) {
             PopupMenu popup = new PopupMenu(getContext(), mMore);
             Menu menu = popup.getMenu();
@@ -74,6 +74,15 @@ public class NavScreen extends RelativeLayout
             Controller controller = (Controller) mUiController;
             controller.onPrepareOptionsMenu(menu);
         }
+    }
+
+    public NavTabScroller getScroller() {
+        return mScroller;
+    }
+
+    public ObjectAnimator createToolbarInAnimator() {
+        return ObjectAnimator.ofFloat(mToolbarLayout, "translationY",
+                -getResources().getDimensionPixelSize(R.dimen.toolbar_height), 0f);
     }
 
     @Override
@@ -84,12 +93,13 @@ public class NavScreen extends RelativeLayout
     @Override
     protected void onConfigurationChanged(Configuration newconfig) {
         if (newconfig.orientation != mOrientation) {
-            int sv = mScroller.getScrollValue();
-            removeAllViews();
             mOrientation = newconfig.orientation;
-            init();
-            mScroller.setScrollValue(sv);
-            mAdapter.notifyDataSetChanged();
+
+            // the only thing we need to change is the orientation. see nav_screen.xml
+            //final int prevScroll = mScroller.getScrollValue();
+            mScroller.setOrientation(mOrientation == Configuration.ORIENTATION_LANDSCAPE
+                    ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
+            mScroller.setScrollOnNextLayout();
         }
     }
 
@@ -124,8 +134,8 @@ public class NavScreen extends RelativeLayout
                 onCloseTab(tab);
             }
         });
-        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
-        if (!mNeedsMenu) {
+        boolean needsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
+        if (!needsMenu) {
             mMore.setVisibility(View.GONE);
         }
     }
@@ -137,7 +147,7 @@ public class NavScreen extends RelativeLayout
         } else if (mNewIncognitoTab == v) {
             openNewIncognitoTab();
         } else if (mMore == v) {
-            showMenu();
+            showPopupMenu();
         }
     }
 
