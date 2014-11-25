@@ -2143,7 +2143,6 @@ public class Controller
     public void toggleUserAgent() {
         WebView web = getCurrentWebView();
         mSettings.toggleDesktopUseragent(web);
-        web.reload();
     }
 
     @Override
