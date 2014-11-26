@@ -26,7 +26,7 @@
     <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.Light.DialogWhenLarge" >
         <item name="android:windowActionBar">false</item>
     </style>
-    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:displayOptions"></item>
     </style>
     <style name="PopupMenuStyle" parent="@android:style/Widget.Holo.Light.PopupMenu">

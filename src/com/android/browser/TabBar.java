@@ -25,10 +25,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -76,8 +78,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
     private final Matrix mActiveMatrix = new Matrix();
     private final Matrix mInactiveMatrix = new Matrix();
 
-    ///private BitmapShader mActiveShader;
-    ///private BitmapShader mInactiveShader;
+    private BitmapShader mActiveShader;
+    private BitmapShader mInactiveShader;
 
     private int mTabOverlap;
     private int mAddTabOverlap;
@@ -337,7 +339,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             setFocusPath(mFocusPath, 0, 0, r - l, b - t);
         }
 
-        /*@Override
+        @Override
         protected void dispatchDraw(Canvas canvas) {
             if (mCurrentTextureWidth != mUi.getContentWidth() ||
                     mCurrentTextureHeight != getHeight()) {
@@ -345,10 +347,14 @@ public class TabBar extends LinearLayout implements OnClickListener {
                 mCurrentTextureHeight = getHeight();
 
                 if (mCurrentTextureWidth > 0 && mCurrentTextureHeight > 0) {
-                    Bitmap activeTexture = getDrawableAsBitmap(mActiveDrawable,
-                            mCurrentTextureWidth, mCurrentTextureHeight);
-                    Bitmap inactiveTexture = getDrawableAsBitmap(mInactiveDrawable,
-                            mCurrentTextureWidth, mCurrentTextureHeight);
+                    Bitmap activeTexture = Bitmap.createBitmap(
+                            mCurrentTextureWidth, mCurrentTextureHeight, Bitmap.Config.ARGB_8888);
+                    activeTexture.eraseColor(getResources().
+                            getColor(R.color.NavigationBarBackground));
+                    Bitmap inactiveTexture = Bitmap.createBitmap(
+                            mCurrentTextureWidth, mCurrentTextureHeight, Bitmap.Config.ARGB_8888);
+                    inactiveTexture.eraseColor(getResources().
+                            getColor(R.color.TabNavBackgroundColor));
 
                     mActiveShader = new BitmapShader(activeTexture,
                             Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -379,7 +385,7 @@ public class TabBar extends LinearLayout implements OnClickListener {
             if (isFocused()) {
                 canvas.drawPath(mFocusPath, mFocusPaint);
             }
-        }*/
+        }
 
         private void setTabPath(Path path, int l, int t, int r, int b) {
             path.reset();

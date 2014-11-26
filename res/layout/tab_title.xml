@@ -62,5 +62,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_button_closetab"
-        android:src="@drawable/ic_tab_close" />
+        android:src="@drawable/ic_action_stop" />
 </merge>
