@@ -50,9 +50,8 @@ abstract class BrowserConfigBase {
     }
 
     public void overrideUserAgent() {
-        BrowserCommandLine bcl = BrowserCommandLine.getInstance();
         // Check if the UA is already present using command line file
-        if (bcl.hasSwitch(OVERRIDE_USER_AGENT)) {
+        if (BrowserCommandLine.hasSwitch(OVERRIDE_USER_AGENT)) {
             return;
         }
 
@@ -64,8 +63,19 @@ abstract class BrowserConfigBase {
         ua = constructUserAgent(ua);
 
         if (!TextUtils.isEmpty(ua)){
-            bcl.appendSwitchWithValue(OVERRIDE_USER_AGENT, ua);
+            BrowserCommandLine.appendSwitchWithValue(OVERRIDE_USER_AGENT, ua);
         }
+    }
+
+    public void initCommandLineSwitches() {
+        //SWE-hide-title-bar - enable following flags
+        BrowserCommandLine.appendSwitch("enable-top-controls-position-calculation");
+        BrowserCommandLine.appendSwitchWithValue("top-controls-height", "52");
+        BrowserCommandLine.appendSwitchWithValue("top-controls-show-threshold", "0.5");
+        BrowserCommandLine.appendSwitchWithValue("top-controls-hide-threshold", "0.5");
+
+        // Allow to override UserAgent
+        overrideUserAgent();
     }
 
     private String constructUserAgent(String userAgent) {

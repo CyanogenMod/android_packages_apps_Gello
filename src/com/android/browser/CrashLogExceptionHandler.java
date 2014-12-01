@@ -82,9 +82,8 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
 
     public CrashLogExceptionHandler(Context ctx) {
         mAppContext = ctx;
-        BrowserCommandLine cl = BrowserCommandLine.getInstance();
-        if (cl.hasSwitch(CRASH_LOG_SERVER_CMD)) {
-            mLogServer = cl.getSwitchValue(CRASH_LOG_SERVER_CMD);
+        if (BrowserCommandLine.hasSwitch(CRASH_LOG_SERVER_CMD)) {
+            mLogServer = BrowserCommandLine.getSwitchValue(CRASH_LOG_SERVER_CMD);
             if (mLogServer != null) {
                 uploadPastCrashLog();
                 mOverrideHandler = true;
@@ -92,8 +91,9 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
         }
 
         try {
-            int size = Integer.parseInt(cl.getSwitchValue(CRASH_LOG_MAX_FILE_SIZE_CMD,
-                                                      Integer.toString(mMaxLogFileSize)));
+            int size = Integer.parseInt(
+                                BrowserCommandLine.getSwitchValue(CRASH_LOG_MAX_FILE_SIZE_CMD,
+                                Integer.toString(mMaxLogFileSize)));
             mMaxLogFileSize = size;
         } catch (NumberFormatException nfe) {
             Log.e(LOGTAG,"Max log file size is not configured properly. Using default: "
