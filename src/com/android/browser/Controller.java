@@ -2953,7 +2953,7 @@ public class Controller
             boolean useCurrent) {
         Tab tab = null;
         if (mTabControl.canCreateNewTab()) {
-            tab = mTabControl.createNewTab(incognito);
+            tab = mTabControl.createNewTab(incognito, !setActive);
             addTab(tab);
             if (setActive) {
                 setActiveTab(tab);

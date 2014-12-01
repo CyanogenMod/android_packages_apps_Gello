@@ -60,6 +60,16 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
      * @param defStyle
      */
     public BrowserWebView(
+            Context context, AttributeSet attrs, int defStyle, boolean privateBrowsing, boolean backgroundTab) {
+        super(context, attrs, defStyle, privateBrowsing, backgroundTab);
+    }
+
+    /**
+     * @param context
+     * @param attrs
+     * @param defStyle
+     */
+    public BrowserWebView(
             Context context, AttributeSet attrs, int defStyle, boolean privateBrowsing) {
         super(context, attrs, defStyle, privateBrowsing);
     }

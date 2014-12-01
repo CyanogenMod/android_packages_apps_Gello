@@ -25,6 +25,8 @@ public interface WebViewFactory {
 
     public WebView createWebView(boolean privateBrowsing);
 
+    public WebView createWebView(boolean privateBrowsing, boolean backgroundTab);
+
     public WebView createSubWebView(boolean privateBrowsing);
 
 }

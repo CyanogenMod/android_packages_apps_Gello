@@ -202,17 +202,25 @@ class TabControl {
      *         number of open tabs.
      */
     Tab createNewTab(boolean privateBrowsing) {
-        return createNewTab(null, privateBrowsing);
+        return createNewTab(null, privateBrowsing, false);
+    }
+
+    Tab createNewTab(boolean privateBrowsing, boolean backgroundTab) {
+        return createNewTab(null, privateBrowsing, backgroundTab);
     }
 
     Tab createNewTab(Bundle state, boolean privateBrowsing) {
+        return createNewTab(null, privateBrowsing, false);
+    }
+
+    Tab createNewTab(Bundle state, boolean privateBrowsing, boolean backgroundTab) {
         int size = mTabs.size();
         // Return false if we have maxed out on tabs
         if (!canCreateNewTab()) {
             return null;
         }
 
-        final WebView w = createNewWebView(privateBrowsing);
+        final WebView w = createNewWebView(privateBrowsing, backgroundTab);
 
         // Create a new tab and add it to the tab list
         Tab t = new Tab(mController, w, state);
@@ -661,7 +669,11 @@ class TabControl {
      *        WebView.
      */
     private WebView createNewWebView(boolean privateBrowsing) {
-        return mController.getWebViewFactory().createWebView(privateBrowsing);
+        return createNewWebView(privateBrowsing, false);
+    }
+
+    private WebView createNewWebView(boolean privateBrowsing, boolean backgroundTab) {
+        return mController.getWebViewFactory().createWebView(privateBrowsing, backgroundTab);
     }
 
     /**

@@ -36,8 +36,8 @@ public class BrowserWebViewFactory implements WebViewFactory {
     }
 
     protected WebView instantiateWebView(AttributeSet attrs, int defStyle,
-            boolean privateBrowsing) {
-        return new BrowserWebView(mContext, attrs, defStyle, privateBrowsing);
+            boolean privateBrowsing, boolean backgroundTab) {
+        return new BrowserWebView(mContext, attrs, defStyle, privateBrowsing, backgroundTab);
     }
 
     @Override
@@ -47,7 +47,12 @@ public class BrowserWebViewFactory implements WebViewFactory {
 
     @Override
     public WebView createWebView(boolean privateBrowsing) {
-        WebView w = instantiateWebView(null, android.R.attr.webViewStyle, privateBrowsing);
+        return createWebView(privateBrowsing, false);
+    }
+
+    @Override
+    public WebView createWebView(boolean privateBrowsing, boolean backgroundTab) {
+        WebView w = instantiateWebView(null, android.R.attr.webViewStyle, privateBrowsing, backgroundTab);
         initWebViewSettings(w);
         return w;
     }
