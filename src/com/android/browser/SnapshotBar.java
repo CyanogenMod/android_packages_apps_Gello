@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,9 @@ import android.widget.TextView;
 
 import com.android.browser.R;
 import com.android.browser.UI.ComboViews;
+
+import org.codeaurora.swe.util.Activator;
+import org.codeaurora.swe.util.Observable;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -48,11 +52,14 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     private View mBookmarks;
     private TitleBar mTitleBar;
     private View mTabSwitcher;
+    private TextView mTabText;
     private View mOverflowMenu;
     private View mToggleContainer;
     private boolean mIsAnimating;
     private ViewPropertyAnimator mTitleAnimator, mDateAnimator;
     private float mAnimRadius = 20f;
+    private float mTabSwitcherInitialTextSize = 0;
+    private float mTabSwitcherCompressedTextSize = 0;
 
     public SnapshotBar(Context context) {
         super(context);
@@ -69,6 +76,20 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     public void setTitleBar(TitleBar titleBar) {
         mTitleBar = titleBar;
         setFavicon(null);
+        Activator.activate(
+                new Observable.Observer() {
+                    @Override
+                    public void onChange(Object... params) {
+                        if ((Integer) params[0] > 9) {
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherCompressedTextSize);
+                        } else {
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherInitialTextSize);
+                        }
+
+                        mTabText.setText(Integer.toString((Integer) params[0]));
+                    }
+                },
+                mTitleBar.getUiController().getTabControl().getTabCountObservable());
     }
 
     private Handler mHandler = new Handler() {
@@ -90,6 +111,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         mTitle = (TextView) findViewById(R.id.title);
         mBookmarks = findViewById(R.id.all_btn);
         mTabSwitcher = findViewById(R.id.tab_switcher);
+        mTabText = (TextView) findViewById(R.id.tab_switcher_text);
         mOverflowMenu = findViewById(R.id.more);
         mToggleContainer = findViewById(R.id.toggle_container);
 
@@ -108,6 +130,11 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         if (mToggleContainer != null) {
             mToggleContainer.setOnClickListener(this);
             resetAnimation();
+        }
+
+        if (mTabSwitcherInitialTextSize == 0) {
+            mTabSwitcherInitialTextSize = mTabText.getTextSize();
+            mTabSwitcherCompressedTextSize = (float) (mTabSwitcherInitialTextSize / 1.2);
         }
     }
 
