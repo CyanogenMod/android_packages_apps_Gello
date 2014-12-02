@@ -27,21 +27,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import org.codeaurora.swe.WebView;
 
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-
 
 /**
  * Base class for a title bar used by the browser.
  */
-public class TitleBar extends RelativeLayout {
+public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawListener {
 
     private static final int PROGRESS_MAX = 100;
     private static final float ANIM_TITLEBAR_DECELERATE = 2.5f;
@@ -61,6 +57,8 @@ public class TitleBar extends RelativeLayout {
     private boolean mSkipTitleBarAnimations;
     private Animator mTitleBarAnimator;
     private boolean mIsFixedTitleBar;
+    private float mCurrentTranslationY;
+    private boolean mUpdateTranslationY = false;
 
     public TitleBar(Context context, UiController controller, BaseUi ui,
             FrameLayout contentView) {
@@ -101,6 +99,31 @@ public class TitleBar extends RelativeLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mBaseUi.setContentViewMarginTop(0);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        mCurrentTranslationY = this.getTranslationY();
+        if (mCurrentTranslationY < 0) {
+            mUpdateTranslationY = true;
+            this.setTranslationY(0);
+
+            final ViewTreeObserver observer = this.getViewTreeObserver();
+            observer.addOnPreDrawListener(this);
+        }
+    }
+
+    @Override
+    public boolean onPreDraw() {
+        if (mUpdateTranslationY) {
+            this.setTranslationY(mCurrentTranslationY);
+            mUpdateTranslationY = false;
+        }
+        final ViewTreeObserver observer = this.getViewTreeObserver();
+        observer.removeOnPreDrawListener(this);
+        return true;
     }
 
     private void setFixedTitleBar() {

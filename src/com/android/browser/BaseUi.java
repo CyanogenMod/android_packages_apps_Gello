@@ -844,7 +844,6 @@ public abstract class BaseUi implements UI {
 
     public void translateTitleBar(float topControlsOffsetYPix) {
         if (mTitleBar != null && !mInActionMode) {
-            mTitleBar.bringToFront();
             if (topControlsOffsetYPix != 0.0) {
                 mTitleBar.setEnabled(false);
             } else {
