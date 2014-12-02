@@ -103,6 +103,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下載"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"複製網頁網址"</string>
     <string name="share_page" msgid="593756995297268343">"分享網頁"</string>
+    <string name="add_to_homescreen">"添加到主屏幕"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"儲存頁面以供離線閱讀"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"儲存中…"</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"無法儲存網頁以供離線閱讀。"</string>
@@ -127,7 +128,7 @@
     <string name="replace" msgid="4843033491070384047">"取代"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"書籤"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"設定"</string>
-    <string name="pref_content_title" msgid="3834107397725342174">"網頁內容"</string>
+    <string name="pref_content_title" msgid="3834107397725342174">"內容設置"</string>
     <string name="pref_allow_apptabs" msgid="1325989799080202871">"允許單一應用程式開啟多個分頁"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"載入圖片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"顯示網頁上的圖片"</string>
@@ -183,27 +184,31 @@
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"您隨時可以前往 [瀏覽器] &gt; [設定] &gt; [一般] 畫面設定自動填入文字。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"停用自動填入功能"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"隱私權與安全性"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除快取"</string>
+    <string name="pref_select_items">"選擇項目被清除"</string>
+    <string name="pref_privacy_clear_selected">"清除所選項目"</string>
+    <string name="pref_privacy_clear_selected_summary">"在列表中清除所選項目"</string>
+    <string name="pref_privacy_clear_selected_dlg">"清除以下項目？"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除本機快取內容與資料庫"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"刪除本機快取內容和資料庫？"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookie"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"清除所有 Cookie"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"清除瀏覽器中所有 Cookie"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"刪除所有 Cookie？"</string>
-    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除記錄"</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"歷史"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除瀏覽記錄"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"刪除瀏覽器的瀏覽記錄？"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"表單資料"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表單資料"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"表單資料"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"清除所有已儲存的表單資料"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"刪除所有已儲存的表單資料？"</string>
-    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密碼"</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"密碼"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"清除所有已儲存密碼"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"刪除所有已儲存的密碼？"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"位置"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"啟用定位功能"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允許網站向您要求位置資訊存取權"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"清除位置資訊存取權"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"位置訪問"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"清除所有網站的位置資訊存取權"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"清除網站的位置資訊存取權？"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"密碼"</string>

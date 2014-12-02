@@ -103,6 +103,7 @@
     <string name="menu_view_download" msgid="2124570321712995120">"下载内容"</string>
     <string name="copy_page_url" msgid="1188679152608889555">"复制网页网址"</string>
     <string name="share_page" msgid="593756995297268343">"分享网页"</string>
+    <string name="add_to_homescreen">"添加到主屏幕"</string>
     <string name="menu_save_snapshot" msgid="6935080344031126139">"保存以供离线阅读"</string>
     <string name="saving_snapshot" msgid="1693789062351182809">"正在保存..."</string>
     <string name="snapshot_failed" msgid="4584580873565876033">"无法保存以供离线阅读。"</string>
@@ -127,7 +128,7 @@
     <string name="replace" msgid="4843033491070384047">"替换"</string>
     <string name="browser_bookmarks_page_bookmarks_text" msgid="6787605028726162673">"书签"</string>
     <string name="menu_preferences" msgid="6709237687234102240">"设置"</string>
-    <string name="pref_content_title" msgid="3834107397725342174">"网页内容"</string>
+    <string name="pref_content_title" msgid="3834107397725342174">"内容设置"</string>
     <string name="pref_allow_apptabs" msgid="1325989799080202871">"允许一个应用使用多个标签页"</string>
     <string name="pref_content_load_images" msgid="2125616852957377561">"加载图片"</string>
     <string name="pref_content_load_images_summary" msgid="5055874125248398584">"显示网页上的图片"</string>
@@ -199,27 +200,31 @@
     <string name="autofill_setup_dialog_negative_toast" msgid="3288881675232206984">"您可以随时通过“浏览器”&gt;“设置”&gt;“常规”屏幕设置自动填充文本。"</string>
     <string name="disable_autofill" msgid="8305901059849400354">"停用自动填充"</string>
     <string name="pref_privacy_security_title" msgid="3480313968942160914">"隐私和安全"</string>
-    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"清除缓存"</string>
+    <string name="pref_select_items">"选择项目被清除"</string>
+    <string name="pref_privacy_clear_selected">"清除所选项目"</string>
+    <string name="pref_privacy_clear_selected_summary">"在列表中清除所选项目"</string>
+    <string name="pref_privacy_clear_selected_dlg">"清除以下项目？"</string>
+    <string name="pref_privacy_clear_cache" msgid="3380316479925886998">"缓存"</string>
     <string name="pref_privacy_clear_cache_summary" msgid="2216463577207991454">"清除存储在本地缓存中的内容和数据库"</string>
     <string name="pref_privacy_clear_cache_dlg" msgid="4344512581716422465">"要删除本地缓存的内容和数据库吗？"</string>
     <string name="pref_privacy_cookies_title" msgid="6763274282214830526">"Cookie"</string>
     <string name="pref_privacy_clear_cookies" msgid="3095583579133780331">"清除所有 Cookie 数据"</string>
     <string name="pref_privacy_clear_cookies_summary" msgid="6962742063990677520">"清除所有浏览器 Cookie"</string>
     <string name="pref_privacy_clear_cookies_dlg" msgid="1493252163164621278">"要删除所有 Cookie 吗？"</string>
-    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"清除历史记录"</string>
+    <string name="pref_privacy_clear_history" msgid="8723795508825198477">"历史"</string>
     <string name="pref_privacy_clear_history_summary" msgid="6868501330708940734">"清除浏览器导航历史记录"</string>
     <string name="pref_privacy_clear_history_dlg" msgid="6934317391642846227">"要删除浏览器导航历史记录吗？"</string>
     <string name="pref_privacy_formdata_title" msgid="6549813837982050424">"表单数据"</string>
-    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"清除表单数据"</string>
+    <string name="pref_privacy_clear_form_data" msgid="4232668196344383987">"表单数据"</string>
     <string name="pref_privacy_clear_form_data_summary" msgid="7702091143640546200">"清除所有保存的表单数据"</string>
     <string name="pref_privacy_clear_form_data_dlg" msgid="8205626042241338983">"要删除所有保存的表单数据吗？"</string>
-    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"清除密码"</string>
+    <string name="pref_privacy_clear_passwords" msgid="4750234112289277480">"密码"</string>
     <string name="pref_privacy_clear_passwords_summary" msgid="8856782718942903335">"清除所有保存的密码"</string>
     <string name="pref_privacy_clear_passwords_dlg" msgid="5836576259947160045">"要删除所有保存的密码吗？"</string>
     <string name="pref_privacy_location_title" msgid="7458378016606081067">"位置"</string>
     <string name="pref_privacy_enable_geolocation" msgid="1395040170290765686">"启用位置信息功能"</string>
     <string name="pref_privacy_enable_geolocation_summary" msgid="8437020934664306205">"允许网站请求获取您的位置信息"</string>
-    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"取消获取位置信息的权限"</string>
+    <string name="pref_privacy_clear_geolocation_access" msgid="6649680770030042980">"位置访问"</string>
     <string name="pref_privacy_clear_geolocation_access_summary" msgid="7750143359497314679">"取消所有网站获取您位置信息的权限"</string>
     <string name="pref_privacy_clear_geolocation_access_dlg" msgid="3190928760598034346">"要清除网站获取位置信息的权限吗？"</string>
     <string name="pref_security_passwords_title" msgid="5734190542383756711">"密码"</string>
