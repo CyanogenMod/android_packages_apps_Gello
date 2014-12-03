@@ -832,7 +832,7 @@ public abstract class BaseUi implements UI {
                 getWebView().updateTopControls(true, false, false);
             } else {
                 //show the topbar
-                getWebView().updateTopControls(false, true, true);
+                getWebView().updateTopControls(false, true, false);
                 //enable for auto-hide
                 if (!mTitleBar.isFixed())
                     getWebView().updateTopControls(true, true, false);
@@ -850,6 +850,14 @@ public abstract class BaseUi implements UI {
                 mTitleBar.setEnabled(true);
             }
             if (!mTitleBar.isFixed()) {
+                float currentY = mTitleBar.getTranslationY();
+                float height = mTitleBar.getHeight();
+                if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
+                    mTitleBar.requestLayout();
+                } else if ((height + topControlsOffsetYPix) <= 0) {
+                    topControlsOffsetYPix -= 1;
+                    mTitleBar.getParent().requestTransparentRegion(mTitleBar);
+                }
                 mTitleBar.setTranslationY(topControlsOffsetYPix);
             }
         }
