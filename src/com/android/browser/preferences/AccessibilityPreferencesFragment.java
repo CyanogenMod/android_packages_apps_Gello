@@ -17,9 +17,11 @@
 package com.android.browser.preferences;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.util.Log;
 
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
@@ -27,23 +29,31 @@ import com.android.browser.R;
 
 import java.text.NumberFormat;
 
-public class AccessibilityPreferencesFragment
+public class AccessibilityPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     NumberFormat mFormat;
-    PreferenceFragment mFragment;
 
-    AccessibilityPreferencesFragment(PreferenceFragment fragment) {
-        mFragment = fragment;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.accessibility_preferences);
         BrowserSettings settings = BrowserSettings.getInstance();
         mFormat = NumberFormat.getPercentInstance();
 
-        Preference e = mFragment.findPreference(PreferenceKeys.PREF_MIN_FONT_SIZE);
+        Preference e = findPreference(PreferenceKeys.PREF_MIN_FONT_SIZE);
         e.setOnPreferenceChangeListener(this);
         updateMinFontSummary(e, settings.getMinimumFontSize());
-        e = mFragment.findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
+        e = findPreference(PreferenceKeys.PREF_TEXT_ZOOM);
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
+
+        e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
+        e.setOnPreferenceChangeListener(this);
+        e.setSummary(getVisualDefaultZoomName(
+                getPreferenceScreen().getSharedPreferences()
+                        .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)));
+
         /* SWE: Comment out double tap zoom feature
         e = findPreference(PreferenceKeys.PREF_DOUBLE_TAP_ZOOM);
         e.setOnPreferenceChangeListener(this);
@@ -58,8 +68,28 @@ public class AccessibilityPreferencesFragment
         */
     }
 
+    private CharSequence getVisualDefaultZoomName(String enumName) {
+        Resources res = getActivity().getResources();
+        CharSequence[] visualNames = res.getTextArray(R.array.pref_default_zoom_choices);
+        CharSequence[] enumNames = res.getTextArray(R.array.pref_default_zoom_values);
+
+        // Sanity check
+        if (visualNames.length != enumNames.length) {
+            return "";
+        }
+
+        int length = enumNames.length;
+        for (int i = 0; i < length; i++) {
+            if (enumNames[i].equals(enumName)) {
+                return visualNames[i];
+            }
+        }
+
+        return "";
+    }
+
     void updateMinFontSummary(Preference pref, int minFontSize) {
-        Context c = mFragment.getActivity();
+        Context c = getActivity();
         pref.setSummary(c.getString(R.string.pref_min_font_size_value, minFontSize));
     }
 
@@ -79,13 +109,18 @@ public class AccessibilityPreferencesFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        if (mFragment.getActivity() == null) {
+        if (getActivity() == null) {
             // We aren't attached, so don't accept preferences changes from the
             // invisible UI.
+            Log.d("AccessibilityPref", "Activity is null");
             return false;
         }
+        Log.d("AccessibilityPref", "User clicked on " + pref.getKey());
 
-        if (PreferenceKeys.PREF_MIN_FONT_SIZE.equals(pref.getKey())) {
+        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
+            pref.setSummary(getVisualDefaultZoomName((String) objValue));
+            return true;
+        } else if (PreferenceKeys.PREF_MIN_FONT_SIZE.equals(pref.getKey())) {
             updateMinFontSummary(pref, BrowserSettings
                     .getAdjustedMinimumFontSize((Integer) objValue));
         }

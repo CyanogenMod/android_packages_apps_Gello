@@ -67,7 +67,6 @@ public class GeneralPreferencesFragment extends PreferenceFragment
     String mCurrentPage;
 
     AdvancedPreferencesFragment mAdvFrag = null;
-    AccessibilityPreferencesFragment mAccessFrag = null;
     PrivacySecurityPreferencesFragment mPrivFrag = null;
 
     @Override
@@ -93,7 +92,6 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         autofill.setOnPreferenceClickListener(this);
 
         mAdvFrag = new AdvancedPreferencesFragment(this);
-        mAccessFrag = new AccessibilityPreferencesFragment(this);
         mPrivFrag = new PrivacySecurityPreferencesFragment(this);
     }
 

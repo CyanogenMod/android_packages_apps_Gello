@@ -59,13 +59,7 @@ public class AdvancedPreferencesFragment
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
         websiteSettings.setOnPreferenceClickListener(this);
 
-        Preference e = mFragment.findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
-        e.setOnPreferenceChangeListener(this);
-        e.setSummary(getVisualDefaultZoomName(
-                mFragment.getPreferenceScreen().getSharedPreferences()
-                        .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)));
-
-        e = mFragment.findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
+        Preference e = mFragment.findPreference(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES);
         e.setOnPreferenceChangeListener(this);
 
         e = mFragment.findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
@@ -80,6 +74,8 @@ public class AdvancedPreferencesFragment
             e.setOnPreferenceClickListener(this);
         }
 
+        e = mFragment.findPreference("accessibility_menu");
+        e.setOnPreferenceClickListener(this);
 
 
         onInitdownloadSettingsPreference();
@@ -183,10 +179,7 @@ public class AdvancedPreferencesFragment
             return false;
         }
 
-        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
-            pref.setSummary(getVisualDefaultZoomName((String) objValue));
-            return true;
-        } else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
+        if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
                 mFragment.startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
@@ -200,26 +193,6 @@ public class AdvancedPreferencesFragment
             return false;
         }
         return false;
-    }
-
-    private CharSequence getVisualDefaultZoomName(String enumName) {
-        Resources res = mFragment.getActivity().getResources();
-        CharSequence[] visualNames = res.getTextArray(R.array.pref_default_zoom_choices);
-        CharSequence[] enumNames = res.getTextArray(R.array.pref_default_zoom_values);
-
-        // Sanity check
-        if (visualNames.length != enumNames.length) {
-            return "";
-        }
-
-        int length = enumNames.length;
-        for (int i = 0; i < length; i++) {
-            if (enumNames[i].equals(enumName)) {
-                return visualNames[i];
-            }
-        }
-
-        return "";
     }
 
     @Override
@@ -238,6 +211,14 @@ public class AdvancedPreferencesFragment
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             Fragment newFragment = new DebugPreferencesFragment();
+            fragmentTransaction.replace(mFragment.getId(), newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+            return true;
+        } else if (preference.getKey().equals("accessibility_menu")) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment newFragment = new AccessibilityPreferencesFragment();
             fragmentTransaction.replace(mFragment.getId(), newFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
