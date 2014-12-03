@@ -223,7 +223,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             mResource = rsc;
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mDefaultIcon = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.app_web_browser_sm);
+                    R.drawable.ic_deco_favicon_normal);
             mUsageEmptyIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_list_data_off);
             mUsageLowIcon = BitmapFactory.decodeResource(getResources(),

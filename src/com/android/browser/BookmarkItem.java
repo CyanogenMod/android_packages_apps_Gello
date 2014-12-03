@@ -93,7 +93,7 @@ class BookmarkItem extends HorizontalScrollView {
         if (b != null) {
             mImageView.setImageBitmap(b);
         } else {
-            mImageView.setImageResource(R.drawable.app_web_browser_sm);
+            mImageView.setImageResource(R.drawable.ic_deco_favicon_normal);
         }
     }
 

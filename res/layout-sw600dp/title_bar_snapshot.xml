@@ -50,5 +50,5 @@
         android:contentDescription="@string/accessibility_button_bookmarks"
         android:paddingRight="16dip"
         android:scaleType="center"
-        android:src="@drawable/ic_bookmarks_history_holo_dark" />
+        android:src="@drawable/ic_deco_bookmarks_normal" />
 </com.android.browser.SnapshotBar>

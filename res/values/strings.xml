@@ -39,7 +39,7 @@
     </string>
     <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
-    <string name="new_incognito_tab">New incognito tab</string>
+    <string name="new_incognito_tab">Private Browsing</string>
     <!-- Name of tab containing bookmarks -->
     <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
@@ -80,7 +80,7 @@
     <string name="msg_no_google_play">Sorry, Google Play store app does not exist.</string>
 
     <!-- Menu item -->
-    <string name="page_info">Page info</string>
+    <string name="page_info">Page information</string>
     <!-- Label for a button on an SSL error dialog that allows the user to see
         Page info screen for the current page -->
     <string name="page_info_view">View page info</string>

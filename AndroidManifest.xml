@@ -183,7 +183,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences">
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
+            android:parentActivityName=".BrowserActivity"
+            android:theme="@style/SettingsTheme">
             <intent-filter>
                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
                <category android:name="android.intent.category.DEFAULT" />

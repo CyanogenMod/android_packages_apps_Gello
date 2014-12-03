@@ -62,7 +62,8 @@
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="true"
-                   android:taskAffinity="android.task.browser" >
+                   android:taskAffinity="android.task.browser"
+                   android:theme="@style/BrowserBase" >
 
         <uses-library android:name="com.qrd.useragent"
                       android:required="false" />
@@ -178,7 +179,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences">
+        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
+            android:parentActivityName=".BrowserActivity"
+            android:theme="@style/SettingsTheme">
             <intent-filter>
                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
                <category android:name="android.intent.category.DEFAULT" />
@@ -255,7 +258,7 @@
             android:name=".widget.BookmarkWidgetProxy"
             android:exported="false" />
         <activity android:name=".widget.BookmarkWidgetConfigure"
-            android:theme="@android:style/Theme.Holo.DialogWhenLarge">
+            android:theme="@style/DialogWhenLarge">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>

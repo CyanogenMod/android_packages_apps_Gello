@@ -66,6 +66,9 @@
     <style name="ShortcutTheme" parent="@style/BrowserBase">
     </style>
 
+    <style name="SettingsTheme" parent="@style/BrowserBase">
+    </style>
+
 
     <style name="NavButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>
@@ -79,8 +82,9 @@
 
     <style name="OverflowButton" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
-        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_width">44dp</item>
         <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">4dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 

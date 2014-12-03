@@ -58,7 +58,7 @@ public class NavTabView extends LinearLayout {
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.nav_tab_view, this);
-        mContent = (ViewGroup) findViewById(R.id.main);
+        mContent = (ViewGroup) findViewById(R.id.nav_tab);
         mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
         mTitleBar = findViewById(R.id.titlebar);
@@ -89,9 +89,12 @@ public class NavTabView extends LinearLayout {
             mTitle.setText(txt);
         }
         if (mTab.isSnapshot()) {
-            setTitleIcon(R.drawable.ic_history_holo_dark);
+            setTitleIcon(R.drawable.ic_suggest_history_normal);
         } else if (mTab.isPrivateBrowsingEnabled()) {
-            setTitleIcon(R.drawable.ic_incognito_holo_dark);
+            mContent.setBackgroundResource(R.drawable.nav_tab_title_incognito);
+            mTitle.setTextColor(getResources().getColor(R.color.white));
+            mClose.setImageResource(R.drawable.ic_action_close_inverted);
+            setTitleIcon(R.drawable.ic_deco_incognito_normal);
         } else {
             setTitleIcon(0);
         }

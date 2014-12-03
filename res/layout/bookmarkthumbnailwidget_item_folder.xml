@@ -37,7 +37,7 @@
         android:layout_marginBottom="2dip">
         <ImageView
             android:id="@+id/favicon"
-            android:src="@drawable/app_web_browser_sm"
+            android:src="@drawable/ic_deco_favicon_normal"
             android:layout_width="@dimen/favicon_size"
             android:layout_height="@dimen/favicon_size"
             android:layout_gravity="center_vertical"

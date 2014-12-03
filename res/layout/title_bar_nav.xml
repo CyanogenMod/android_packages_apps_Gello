@@ -29,15 +29,18 @@
 
         <ImageView
             android:id="@+id/incognito_icon"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_incognito_holo_dark"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_deco_incognito_normal"
             android:visibility="gone" />
 
         <com.android.browser.LocationButton
             android:id="@+id/location_button"
             style="@style/NavButton"
             android:layout_width="wrap_content"
+            android:paddingRight="2dp"
             android:visibility="gone" />
 
         <ImageView
@@ -61,7 +64,8 @@
                 android:layout_height="32dip"
                 android:layout_gravity="center"
                 android:paddingLeft="6dip"
-                android:paddingRight="6dip" />
+                android:paddingRight="6dip"
+                android:scaleType="fitCenter" />
 
             <ImageView
                 android:id="@+id/lock"
@@ -100,6 +104,7 @@
             android:paddingRight="6dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageView
@@ -108,7 +113,7 @@
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_voice"
             android:paddingRight="4dip"
-            android:src="@drawable/ic_voice_search_holo_dark"
+            android:src="@drawable/ic_action_microphone_normal"
             android:visibility="gone" />
 
         <ImageButton
@@ -136,11 +141,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:clickable="false"
             android:paddingBottom="3dp"
             android:paddingRight="2dp"
-            android:clickable="false"
-            android:text="0" >
-        </TextView>
+            android:textColor="#333"
+            android:textSize="13dp"
+            android:textStyle="bold" />
     </FrameLayout>
 
     <ImageButton

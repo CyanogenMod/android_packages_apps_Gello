@@ -42,7 +42,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.android.browser.AutoFillSettingsFragment;
-import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
@@ -53,6 +52,8 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     static final String TAG = "PersonalPreferencesFragment";
+
+    public static final String EXTRA_CURRENT_PAGE = "currentPage";
 
     static final String BLANK_URL = "about:blank";
     static final String CURRENT = "current";
@@ -75,8 +76,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         Resources res = getActivity().getResources();
         mChoices = res.getStringArray(R.array.pref_homepage_choices);
         mValues = res.getStringArray(R.array.pref_homepage_values);
-        mCurrentPage = getActivity().getIntent()
-                .getStringExtra(BrowserPreferencesPage.CURRENT_PAGE);
+        mCurrentPage = getActivity().getIntent().getStringExtra(EXTRA_CURRENT_PAGE);
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.general_preferences);

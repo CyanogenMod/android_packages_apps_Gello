@@ -15,10 +15,10 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/add_bookmark_menu_id"
-        android:title="@string/add_new_bookmark"
-        android:icon="@drawable/ic_add_string"/>
-    <item android:id="@+id/new_bmfolder_menu_id"
-        android:title="@string/new_folder"
-        android:icon="@drawable/ic_add_string"/>
+    <item
+        android:id="@+id/add_bookmark_menu_id"
+        android:title="@string/add_new_bookmark" />
+    <item
+        android:id="@+id/new_bmfolder_menu_id"
+        android:title="@string/new_folder" />
 </menu>

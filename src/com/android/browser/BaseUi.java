@@ -164,7 +164,7 @@ public abstract class BaseUi implements UI {
 
     protected Drawable getGenericFavicon() {
         if (mGenericFavicon == null) {
-            mGenericFavicon = mActivity.getResources().getDrawable(R.drawable.app_web_browser_sm);
+            mGenericFavicon = mActivity.getResources().getDrawable(R.drawable.ic_deco_favicon_normal);
         }
         return mGenericFavicon;
     }

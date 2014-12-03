@@ -130,8 +130,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             qualifyColumn(TABLE_HISTORY, History.URL),
             bookmarkOrHistoryColumn(Combined.TITLE),
             bookmarkOrHistoryLiteral(Combined.URL,
-                    Integer.toString(R.drawable.ic_bookmark_off_holo_dark),
-                    Integer.toString(R.drawable.ic_history_holo_dark)),
+                    Integer.toString(R.drawable.ic_action_bookmark_normal),
+                    Integer.toString(R.drawable.ic_suggest_history_normal)),
             qualifyColumn(TABLE_HISTORY, History.DATE_LAST_VISITED)};
 
     private static final String SUGGEST_SELECTION =

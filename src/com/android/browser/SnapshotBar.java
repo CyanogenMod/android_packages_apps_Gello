@@ -226,8 +226,8 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     }
 
     public void setFavicon(Bitmap icon) {
-        if (mFavicon == null) return;
-        mFavicon.setImageDrawable(mTitleBar.getUi().getFaviconDrawable(icon));
+        if (mFavicon != null)
+            mFavicon.setImageDrawable(mTitleBar.getUi().getFaviconDrawable(icon));
     }
 
     public boolean isAnimating() {

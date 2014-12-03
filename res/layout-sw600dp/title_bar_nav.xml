@@ -67,7 +67,7 @@
             android:layout_width="32dip"
             android:layout_height="20dip"
             android:layout_gravity="center"
-            android:src="@drawable/ic_web_holo_dark" />
+            android:src="@drawable/ic_deco_favicon_normal" />
 
         <ImageView
             android:id="@+id/lock"
@@ -115,7 +115,7 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_voice"
-            android:src="@drawable/ic_voice_search_holo_dark" />
+            android:src="@drawable/ic_action_microphone_normal" />
     </LinearLayout>
 
     <ImageButton
@@ -132,7 +132,7 @@
         android:layout_width="wrap_content"
         android:contentDescription="@string/accessibility_button_bookmarks"
         android:scaleType="center"
-        android:src="@drawable/ic_bookmarks_history_holo_dark" />
+        android:src="@drawable/ic_deco_bookmarks_normal" />
 
     <ImageButton
         android:id="@+id/more_browser_settings"

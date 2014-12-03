@@ -321,7 +321,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         if (isFolder) {
             item.setUrl(null);
             Bitmap bitmap =
-                BitmapFactory.decodeResource(getResources(), R.drawable.ic_folder_holo_dark);
+                BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_folder_normal);
             item.setFavicon(bitmap);
             new LookupBookmarkCount(getActivity(), item)
                     .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));

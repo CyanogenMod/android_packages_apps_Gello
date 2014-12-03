@@ -28,7 +28,8 @@
     <color name="browser_window_background">#ffffff</color>
 
     <!-- derived colors -->
-    <color name="NavigationBarBackground">#ffffff</color> <!-- reference: f2f2f2 -->
+    <color name="NavigationBarBackground">#ffffff</color>
+    <color name="NavigationBarBackgroundIncognito">#cccccc</color>
     <color name="NavigationBarUnderline">#b3b3b3</color>
     <color name="PopupBackground">#ffffff</color>
     <color name="TabNavBackgroundColor">#757575</color>

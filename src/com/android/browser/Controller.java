@@ -2236,10 +2236,7 @@ public class Controller
 
     @Override
     public void openPreferences() {
-        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
-        intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE,
-                getCurrentTopWebView().getUrl());
-        mActivity.startActivityForResult(intent, PREFERENCES_PAGE);
+        BrowserPreferencesPage.startPreferencesForResult(mActivity, getCurrentTopWebView().getUrl(), PREFERENCES_PAGE);
     }
 
     @Override
@@ -3373,11 +3370,9 @@ public class Controller
         // Open the settings activity at the AutoFill profile fragment so that
         // the user can create a new profile. When they return, we will dispatch
         // the message so that we can autofill the form using their new profile.
-        Intent intent = new Intent(mActivity, BrowserPreferencesPage.class);
-        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT,
-                AutoFillSettingsFragment.class.getName());
         mAutoFillSetupMessage = message;
-        mActivity.startActivityForResult(intent, AUTOFILL_SETUP);
+        BrowserPreferencesPage.startPreferenceFragmentForResult(mActivity,
+                AutoFillSettingsFragment.class.getName(), AUTOFILL_SETUP);
     }
 
     @Override

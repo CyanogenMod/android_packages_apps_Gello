@@ -266,7 +266,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
                         R.drawable.thumb_bookmark_widget_folder_holo);
                 }
                 views.setImageViewResource(R.id.favicon,
-                    R.drawable.ic_bookmark_widget_bookmark_holo_dark);
+                    R.drawable.ic_deco_bookmarks_normal);
                 // SWE_TODO : Fix Me
                 //views.setDrawableParameters(R.id.thumb, true, 0, -1, null, -1);
             } else {
@@ -292,7 +292,7 @@ public class BookmarkThumbnailWidgetService extends RemoteViewsService {
                     views.setImageViewBitmap(R.id.favicon, favicon);
                 } else {
                     views.setImageViewResource(R.id.favicon,
-                            R.drawable.app_web_browser_sm);
+                            R.drawable.ic_deco_favicon_normal);
                 }
             }
             Intent fillin;

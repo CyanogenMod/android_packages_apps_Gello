@@ -17,17 +17,39 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
 import com.android.browser.preferences.GeneralPreferencesFragment;
 
 public class BrowserPreferencesPage extends Activity {
 
-    public static final String CURRENT_PAGE = "currentPage";
+    public static void startPreferencesForResult(Activity callerActivity, String url, int requestCode) {
+        final Intent intent = new Intent(callerActivity, BrowserPreferencesPage.class);
+        intent.putExtra(GeneralPreferencesFragment.EXTRA_CURRENT_PAGE, url);
+        callerActivity.startActivityForResult(intent, requestCode);
+    }
+
+    public static void startPreferenceFragmentForResult(Activity callerActivity, String fragmentName, int requestCode) {
+        final Intent intent = new Intent(callerActivity, BrowserPreferencesPage.class);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, fragmentName);
+        callerActivity.startActivityForResult(intent, requestCode);
+    }
+
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String action = intent.getAction();
+            // check if this page was invoked by 'App Data Usage' on the global data monitor
+            if ("android.intent.action.MANAGE_NETWORK_USAGE".equals(action)) {
+                // TODO: switch to the Network fragment here?
+            }
+        }
 
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new GeneralPreferencesFragment()).commit();

@@ -28,7 +28,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.browser.R;
 import com.android.browser.UI.ComboViews;
 
 import java.util.ArrayList;
@@ -143,9 +142,7 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
             return true;
         } else if (item.getItemId() == R.id.preferences_menu_id) {
             String url = getIntent().getStringExtra(EXTRA_CURRENT_URL);
-            Intent intent = new Intent(this, BrowserPreferencesPage.class);
-            intent.putExtra(BrowserPreferencesPage.CURRENT_PAGE, url);
-            startActivityForResult(intent, Controller.PREFERENCES_PAGE);
+            BrowserPreferencesPage.startPreferencesForResult(this, url, Controller.PREFERENCES_PAGE);
             return true;
         }
         return super.onOptionsItemSelected(item);

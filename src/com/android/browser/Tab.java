@@ -210,7 +210,7 @@ class Tab implements PictureListener {
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
             sDefaultFavicon = BitmapFactory.decodeResource(
-                    context.getResources(), R.drawable.app_web_browser_sm);
+                    context.getResources(), R.drawable.ic_deco_favicon_normal);
         }
         return sDefaultFavicon;
     }

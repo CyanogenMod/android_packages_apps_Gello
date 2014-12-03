@@ -244,7 +244,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     public void onTabDataChanged(Tab tab) {
         super.onTabDataChanged(tab);
-        mIncognitoIcon.setVisibility(tab.isPrivateBrowsingEnabled()
-                ? View.VISIBLE : View.GONE);
+        boolean isPrivate = tab.isPrivateBrowsingEnabled();
+        mIncognitoIcon.setVisibility(isPrivate ? View.VISIBLE : View.GONE);
+        // change the background to a darker tone to reflect the 'incognito' state
+        setBackgroundColor(getResources().getColor(isPrivate ?
+                R.color.NavigationBarBackgroundIncognito : R.color.NavigationBarBackground));
+
     }
 }

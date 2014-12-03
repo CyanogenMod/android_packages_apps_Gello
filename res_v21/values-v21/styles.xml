@@ -55,4 +55,14 @@
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Material.Small" />
 
+    <!-- level 2 parents -->
+
+    <!-- common theme elements -->
+
+    <style name="SettingsTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+        <item name="android:colorPrimary">@color/accent</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:colorEdgeEffect">@color/accent</item>
+    </style>
+
 </resources>

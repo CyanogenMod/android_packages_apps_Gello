@@ -276,7 +276,10 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
-        mEngineInitializer.onActivityDestroy();
+        // mEngineInitializer can be null if onCreate is not called before onDestroy
+        // it happens when starting the activity with an intent while the screen is locked.
+        if (mEngineInitializer != null)
+            mEngineInitializer.onActivityDestroy();
         mController.onDestroy();
         mController = NullController.INSTANCE;
     }

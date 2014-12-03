@@ -50,12 +50,11 @@
                     android:id="@+id/incognito_menu_id"
                     android:title="@string/new_incognito_tab"
                     android:icon="@drawable/ic_action_add_incognito" />
-
 <!--
                 <item
                     android:id="@+id/close_other_tabs_id"
                     android:title="@string/close_other_tabs"
-                    android:icon="@drawable/ic_tab_close" />
+                    android:icon="@drawable/ic_action_close" />
 -->
             </menu>
         </item>
