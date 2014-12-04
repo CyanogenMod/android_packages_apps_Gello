@@ -340,6 +340,7 @@ class Tab implements PictureListener {
             wrapper.addView(view);
             hasCrashed = false;
         }
+        mMainView.reload();
     }
 
     protected void showCrashView() {
@@ -357,7 +358,6 @@ class Tab implements PictureListener {
                 @Override
                 public void onClick(View arg0) {
                     replaceCrashView(mMainView, mContainer);
-                    mMainView.reload();
                 }
             });
         }

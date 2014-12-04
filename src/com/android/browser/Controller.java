@@ -758,7 +758,7 @@ public class Controller
             mVoiceResult = null;
         }
         if (current != null && current.hasCrashed) {
-            current.showCrashView();
+            current.replaceCrashView(current.getWebView(), current.getViewContainer());
         }
     }
 

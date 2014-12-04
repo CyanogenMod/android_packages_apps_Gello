@@ -265,6 +265,7 @@ public class EngineInitializer {
         mOnResumePending = false;
         if (mActivityReady) {
             Engine.pauseTracing(mActivity.getApplicationContext());
+            mActivity.handleOnPause();
         }
     }
 
