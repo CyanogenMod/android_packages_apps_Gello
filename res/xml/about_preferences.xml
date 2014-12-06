@@ -30,8 +30,30 @@
     */
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory>
-        <Preference android:key="about_preference"/>
-    </PreferenceCategory>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="about"
+    android:title="@string/about" >
+    <Preference
+        android:key="version"
+        android:title="@string/version" />
+
+    <Preference
+        android:key="built"
+        android:title="@string/build_date" />
+
+    <Preference
+        android:key="hash"
+        android:title="@string/build_hash" />
+
+    <Preference
+        android:key="user_agent"
+        android:title="@string/user_agent" />
+
+    <Preference
+        android:key="help_about"
+        android:title="@string/help" />
+
+    <Preference
+        android:key="feedback"
+        android:title="@string/feedback" />
 </PreferenceScreen>

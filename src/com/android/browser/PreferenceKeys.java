@@ -121,4 +121,15 @@ public interface PreferenceKeys {
      * Key for whether or not the last run was paused.
      */
     static final String KEY_LAST_RUN_PAUSED = "last_paused";
+
+    // ----------------------
+    // Keys for about_preferences.xml
+    // ----------------------
+    static final String PREF_ABOUT = "about";
+    static final String PREF_VERSION = "version";
+    static final String PREF_BUILD_DATE = "built";
+    static final String PREF_BUILD_HASH = "hash";
+    static final String PREF_USER_AGENT = "user_agent";
+    static final String PREF_HELP = "help_about";
+    static final String PREF_FEEDBACK = "feedback";
 }

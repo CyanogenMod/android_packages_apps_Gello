@@ -17,11 +17,16 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+import com.android.browser.preferences.AboutPreferencesFragment;
 import com.android.browser.preferences.GeneralPreferencesFragment;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class BrowserPreferencesPage extends Activity {
 
@@ -37,6 +42,16 @@ public class BrowserPreferencesPage extends Activity {
         callerActivity.startActivityForResult(intent, requestCode);
     }
 
+    public static void startPreferenceFragmentExtraForResult(Activity callerActivity,
+                                                             String fragmentName,
+                                                             Bundle bundle,
+                                                             int requestCode) {
+        final Intent intent = new Intent(callerActivity, BrowserPreferencesPage.class);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, fragmentName);
+        intent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT_ARGUMENTS, bundle);
+        callerActivity.startActivityForResult(intent, requestCode);
+    }
+
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -48,6 +63,35 @@ public class BrowserPreferencesPage extends Activity {
             // check if this page was invoked by 'App Data Usage' on the global data monitor
             if ("android.intent.action.MANAGE_NETWORK_USAGE".equals(action)) {
                 // TODO: switch to the Network fragment here?
+            }
+
+            Bundle extras = intent.getExtras();
+            String fragment = (String) extras.getCharSequence(PreferenceActivity.EXTRA_SHOW_FRAGMENT);
+            if (fragment != null) {
+                try {
+                    Class<?> cls = Class.forName(fragment);
+                    Constructor<?> ctor = cls.getConstructor();
+                    Object obj = ctor.newInstance();
+
+                    if (obj instanceof Fragment) {
+                        Fragment frag = (Fragment) obj;
+
+                        Bundle bundle = extras.getBundle(PreferenceActivity.EXTRA_SHOW_FRAGMENT_ARGUMENTS);
+                        if (bundle != null) {
+                            frag.setArguments(bundle);
+                        }
+
+                        getFragmentManager().beginTransaction().replace(
+                                android.R.id.content,
+                                (Fragment) obj).commit();
+                    }
+                } catch (ClassNotFoundException e) {
+                } catch (NoSuchMethodException e) {
+                } catch (InvocationTargetException e) {
+                } catch (InstantiationException e) {
+                } catch (IllegalAccessException e) {
+                }
+                return;
             }
         }
 

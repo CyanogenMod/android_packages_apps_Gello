@@ -491,4 +491,10 @@
     <string name="activity_not_found">没有找到处理 Intent <xliff:g id="NOACTIVITY">%s</xliff:g> 的Activity.</string>
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">收到来自: <xliff:g id="FROM">%s</xliff:g> 的一条消息.</string>
+
+    <string name="build_date">"版本日期"</string>
+    <string name="build_hash">"版本哈希值"</string>
+    <string name="user_agent">"浏览器UA标识"</string>
+    <string name="help">"帮助"</string>
+    <string name="feedback">"反馈"</string>
 </resources>

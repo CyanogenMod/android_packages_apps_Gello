@@ -40,8 +40,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -56,7 +54,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceActivity;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.Intents.Insert;
 import android.provider.Settings;
@@ -79,12 +76,12 @@ import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.CookieSyncManager;
+import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebSettings;
@@ -102,6 +99,7 @@ import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.WebAddress;
 import com.android.browser.platformsupport.BrowserContract.Images;
+import com.android.browser.preferences.AboutPreferencesFragment;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 import com.android.browser.reflect.ReflectHelper;
@@ -116,7 +114,6 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -2110,20 +2107,12 @@ public class Controller
                 break;
 
             case R.id.about_menu_id:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(R.string.about);
-                builder.setCancelable(true);
-                String ua = "";
-                final WebView currentWebView = getCurrentWebView();
-                if (currentWebView != null) {
-                    final WebSettings s = currentWebView.getSettings();
-                    if (s != null) {
-                        ua = s.getUserAgentString();
-                    }
-                }
-                builder.setMessage("Agent:" + ua);
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.create().show();
+                Bundle bundle = new Bundle();
+                bundle.putCharSequence("UA", Engine.getDefaultUserAgent());
+                bundle.putCharSequence("TabTitle", mTabControl.getCurrentTab().getTitle());
+                bundle.putCharSequence("TabURL", mTabControl.getCurrentTab().getUrl());
+                BrowserPreferencesPage.startPreferenceFragmentExtraForResult(mActivity,
+                        AboutPreferencesFragment.class.getName(), bundle, 0);
                 break;
 
             case R.id.add_to_homescreen:
