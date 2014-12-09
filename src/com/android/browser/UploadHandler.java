@@ -39,6 +39,7 @@ import com.android.browser.reflect.ReflectHelper;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -503,11 +504,18 @@ public class UploadHandler {
         ArrayList<ResolveInfo> uploadApps = new ArrayList<ResolveInfo>();
 
         //Step 1:- resolve all apps for IntentList passed
-        for (Intent i: intentList) {
-            List<ResolveInfo> intentAppsList = pm.queryIntentActivities(i,
+        for (Iterator<Intent> iterator = intentList.iterator(); iterator.hasNext();) {
+            List<ResolveInfo> intentAppsList = pm.queryIntentActivities(iterator.next(),
                                                     PackageManager.MATCH_DEFAULT_ONLY);
-            // limit only to first activity
-            uploadApps.add(intentAppsList.get(0));
+
+            // Check whether any apps are available
+            if (intentAppsList!= null && intentAppsList.size() > 0){
+                // limit only to first activity
+                uploadApps.add(intentAppsList.get(0));
+            } else {
+                iterator.remove();
+            }
+
         }
 
         // Step 2:- get all openable apps list and create corresponding intents
