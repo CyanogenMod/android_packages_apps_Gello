@@ -602,6 +602,8 @@
     <string name="pref_development_reset_prelogin" translatable="false">Reset prelogin</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
+    <!--SWE TODO: localize this for all languages -->
+    <string name="pref_default_text_encoding_default_value" translatable="false">Auto detect</string>
     <!-- Options in the Default encoding dialog box -->
     <string-array name="pref_default_text_encoding_choices">
         <item>Latin-1 (ISO-8859-1)</item>
@@ -613,6 +615,7 @@
         <item>Japanese (EUC-JP)</item>
         <!-- No need to translate a EUC-KR part, and there is no string length limits. -->
         <item>Korean (EUC-KR)</item>
+        <item>@string/pref_default_text_encoding_default_value</item>
         <!-- TODO: We should add a lot more encodings.  -->
     </string-array>
     <!-- Dialog box title -->
@@ -627,8 +630,9 @@
         <item>SHIFT_JIS</item>
         <item>EUC-JP</item>
         <item>EUC-KR</item>
+        <item>auto</item>
     </string-array>
-    <string name="pref_default_text_encoding_default" translatable="false">UTF-8</string>
+    <string name="pref_default_text_encoding_default">UTF-8</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->

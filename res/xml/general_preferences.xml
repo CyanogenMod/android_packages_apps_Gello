@@ -167,6 +167,15 @@
             <PreferenceScreen
                 android:key="download_path_setting_screen"
                 android:title="@string/pref_download_path_setting_screen_title"/>
+
+            <ListPreference
+                android:defaultValue="@string/pref_default_text_encoding_default"
+                android:dialogTitle="@string/pref_default_text_encoding_dialogtitle"
+                android:entries="@array/pref_default_text_encoding_choices"
+                android:entryValues="@array/pref_default_text_encoding_values"
+                android:key="default_text_encoding"
+                android:title="@string/pref_default_text_encoding" />
+
         </PreferenceScreen>
 
 

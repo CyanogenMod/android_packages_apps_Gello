@@ -273,6 +273,7 @@
     <item msgid="5589150448475151241">"Tiếng Nhật (SHIFT_JIS)"</item>
     <item msgid="7356792686950371843">"Tiếng Nhật (EUC-JP)"</item>
     <item msgid="2193955365569270096">"Tiếng Hàn (EUC-KR)"</item>
+    <item>@string/pref_default_text_encoding_default_value</item>
   </string-array>
     <string name="pref_default_text_encoding_dialogtitle" msgid="5508255018084978547">"Mã hóa văn bản"</string>
     <string name="pref_accessibility_title" msgid="5127836981587423215">"Hỗ trợ truy cập"</string>

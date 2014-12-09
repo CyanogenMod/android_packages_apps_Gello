@@ -211,7 +211,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             sFactoryResetUrl = mContext.getResources().getString(R.string.homepage_base);
 
             if (!mPrefs.contains(PREF_DEFAULT_TEXT_ENCODING)) {
-                mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING, "UTF-8").apply();
+                mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING, "auto").apply();
             }
 
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
@@ -776,7 +776,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public String getDefaultTextEncoding() {
-        return mPrefs.getString(PREF_DEFAULT_TEXT_ENCODING, null);
+        String autoDetect = mPrefs.getString(PREF_DEFAULT_TEXT_ENCODING, "auto");
+        if(autoDetect.equalsIgnoreCase("auto")) {
+            return mContext.getResources().getString(R.string.pref_default_text_encoding_default);
+        }
+        return autoDetect;
     }
 
     // -----------------------------
