@@ -72,7 +72,6 @@ import org.codeaurora.swe.ClientCertRequestHandler;
 import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebBackForwardList;
-import org.codeaurora.swe.WebBackForwardListClient;
 import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebHistoryItem;
 import org.codeaurora.swe.WebView;
@@ -181,8 +180,6 @@ class Tab implements PictureListener {
     // The listener that gets invoked when a download is started from the
     // mMainView
     private final BrowserDownloadListener mDownloadListener;
-    // Listener used to know when we move forward or back in the history list.
-    private final WebBackForwardListClient mWebBackForwardListClient;
     private DataController mDataController;
 
     // AsyncTask for downloading touch icons
@@ -198,10 +195,6 @@ class Tab implements PictureListener {
     private boolean mFullScreen = false;
     private boolean mReceivedError;
 
-    /**
-     * See {@link #clearBackStackWhenItemAdded(java.util.regex.Pattern)}.
-     */
-    private Pattern mClearHistoryUrlPattern;
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -1290,26 +1283,6 @@ class Tab implements PictureListener {
                         mimetype, referer, contentLength);
             }
         };
-        mWebBackForwardListClient = new WebBackForwardListClient() {
-            @Override
-            public void onNewHistoryItem(WebHistoryItem item) {
-                if (mClearHistoryUrlPattern != null) {
-                    boolean match =
-                        mClearHistoryUrlPattern.matcher(item.getOriginalUrl()).matches();
-                    if (LOGD_ENABLED) {
-                        Log.d(LOGTAG, "onNewHistoryItem: match=" + match + "\n\t"
-                                + item.getUrl() + "\n\t"
-                                + mClearHistoryUrlPattern);
-                    }
-                    if (match) {
-                        if (mMainView != null) {
-                            mMainView.clearHistory();
-                        }
-                    }
-                    mClearHistoryUrlPattern = null;
-                }
-            }
-        };
 
         mCaptureWidth = mContext.getResources().getDimensionPixelSize(
                 R.dimen.tab_thumbnail_width);
@@ -1429,7 +1402,6 @@ class Tab implements PictureListener {
             // does a redirect after a period of time. The user could have
             // switched to another tab while waiting for the download to start.
             mMainView.setDownloadListener(mDownloadListener);
-            getWebView().setWebBackForwardListClient(mWebBackForwardListClient);
             TabControl tc = mWebViewController.getTabControl();
             if (tc != null /*&& tc.getOnThumbnailUpdatedListener() != null*/) {
                 mMainView.setPictureListener(this);
@@ -2125,17 +2097,6 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             mMainView.goForward();
         }
-    }
-
-    /**
-     * Causes the tab back/forward stack to be cleared once, if the given URL is the next URL
-     * to be added to the stack.
-     *
-     * This is used to ensure that preloaded URLs that are not subsequently seen by the user do
-     * not appear in the back stack.
-     */
-    public void clearBackStackWhenItemAdded(Pattern urlPattern) {
-        mClearHistoryUrlPattern = urlPattern;
     }
 
     protected void persistThumbnail() {
