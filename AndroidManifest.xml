@@ -23,7 +23,7 @@
         android:protectionLevel="signatureOrSystem" />
     <permission android:name="com.android.swe.browser.permission.INITIALIZE_DATABASE"
         android:protectionLevel="signatureOrSystem" />
-    <permission android:name="org.chromium.content_shell.permission.SANDBOX"
+    <permission android:name="org.chromium.swe.browser.permission.SANDBOX"
         android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
