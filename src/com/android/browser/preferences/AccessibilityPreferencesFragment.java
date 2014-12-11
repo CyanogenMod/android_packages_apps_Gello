@@ -16,6 +16,7 @@
 
 package com.android.browser.preferences;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -66,6 +67,16 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e.setOnPreferenceChangeListener(this);
         updateInvertedContrastSummary(e, (int) (settings.getInvertedContrast() * 100));
         */
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setTitle(R.string.pref_accessibility_title);
+            bar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     private CharSequence getVisualDefaultZoomName(String enumName) {

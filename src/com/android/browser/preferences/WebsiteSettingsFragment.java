@@ -16,6 +16,7 @@
 
 package com.android.browser.preferences;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -767,6 +768,11 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
     public void onResume() {
         super.onResume();
         mAdapter.askForOrigins();
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setTitle(R.string.pref_extras_website_settings);
+            bar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     private void finish() {

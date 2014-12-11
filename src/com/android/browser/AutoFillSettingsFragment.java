@@ -20,6 +20,7 @@ import org.codeaurora.swe.AutoFillProfile;
 
 import com.android.browser.R;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -121,6 +122,16 @@ public class AutoFillSettingsFragment extends Fragment {
         super.onCreate(savedState);
         setHasOptionsMenu(true);
         mSettings = BrowserSettings.getInstance();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setTitle(R.string.pref_general_autofill_title);
+            bar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 
     @Override

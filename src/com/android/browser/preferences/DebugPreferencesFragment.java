@@ -16,6 +16,7 @@
 
 package com.android.browser.preferences;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -38,5 +39,15 @@ public class DebugPreferencesFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceClick(Preference preference) {
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setTitle(R.string.pref_development_title);
+            bar.setDisplayHomeAsUpEnabled(false);
+        }
     }
 }

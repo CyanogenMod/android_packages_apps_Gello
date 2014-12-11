@@ -16,6 +16,7 @@
 
 package com.android.browser.preferences;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -193,6 +194,12 @@ public class GeneralPreferencesFragment extends PreferenceFragment
     }
 
     void refreshUi() {
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setTitle(R.string.menu_preferences);
+            bar.setDisplayHomeAsUpEnabled(true);
+        }
+
         PreferenceScreen autoFillSettings =
                 (PreferenceScreen)findPreference(PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autoFillSettings.setDependency(PreferenceKeys.PREF_AUTOFILL_ENABLED);
