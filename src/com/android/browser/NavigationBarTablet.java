@@ -134,7 +134,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     void updateNavigationState(Tab tab) {
         if (tab != null) {
             mBackButton.setEnabled(tab.canGoBack());
-            mForwardButton.setEnabled(tab.canGoBack());
+            mForwardButton.setEnabled(tab.canGoForward());
         }
         updateUrlIcon();
     }
