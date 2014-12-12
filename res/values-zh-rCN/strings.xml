@@ -290,7 +290,7 @@
     <string name="pref_use_instant_search" msgid="1119176077760723740">"Google 即搜即得"</string>
     <string name="pref_use_instant_search_summary" msgid="839320474961917522">"借助 Google 即搜即得，您可以在使用 Google 搜索时一边键入内容一边查看结果（此功能可能会增加数据使用量）。"</string>
     <string name="pref_lab_fullscreen" msgid="8173609016657987973">"全屏"</string>
-    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"使用全屏模式可隐藏状态栏"</string>
+    <string name="pref_lab_fullscreen_summary" msgid="7694738112219376740">"使用全屏模式</string>
     <string name="pref_data_title" msgid="7255058703417796578">"带宽管理"</string>
     <string name="pref_data_preload_title" msgid="4479320472980292873">"搜索结果预加载"</string>
   <string-array name="pref_data_preload_choices">

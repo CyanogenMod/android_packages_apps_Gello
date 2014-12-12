@@ -646,10 +646,10 @@
       Use Google Instant when you use Google Search, to show results as you
       type (this can increase data use).</string>
     <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
-    <string name="pref_lab_fullscreen">Fullscreen</string>
+    <string name="pref_lab_fullscreen">Immersive</string>
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
-      Use fullscreen mode to hide the status bar</string>
+      Make the browser fullscreen</string>
     <!-- Title for bandwidth management preference [CHAR LIMIT=25] -->
     <string name="pref_data_title">Bandwidth management</string>
     <!-- Title for search preloading [CHAR LIMIT=40] -->

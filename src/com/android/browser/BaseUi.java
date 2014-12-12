@@ -28,6 +28,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -108,6 +109,8 @@ public abstract class BaseUi implements UI {
     // the video progress view
     private View mVideoProgressView;
 
+    private final View mDecorView;
+
     private boolean mActivityPaused;
     protected TitleBar mTitleBar;
     private NavigationBarBase mNavigationBar;
@@ -139,7 +142,21 @@ public abstract class BaseUi implements UI {
         mTitleBar.setProgress(100);
         mNavigationBar = mTitleBar.getNavigationBar();
         mUrlBarAutoShowManager = new UrlBarAutoShowManager(this);
+
+        // install system ui visibility listeners
+        mDecorView = mActivity.getWindow().getDecorView();
+        mDecorView.setOnSystemUiVisibilityChangeListener(mSystemUiVisibilityChangeListener);
     }
+
+    private View.OnSystemUiVisibilityChangeListener mSystemUiVisibilityChangeListener =
+            new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visFlags) {
+                    final boolean lostFullscreen = (visFlags & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0;
+                    if (lostFullscreen)
+                        setFullscreen(BrowserSettings.getInstance().useFullscreen());
+                }
+            };
 
     private void cancelStopToast() {
         if (mStopToast != null) {
@@ -186,6 +203,7 @@ public abstract class BaseUi implements UI {
         mActivityPaused = false;
         // check if we exited without setting active tab
         // b: 5188145
+        setFullscreen(BrowserSettings.getInstance().useFullscreen());
         final Tab ct = mTabControl.getCurrentTab();
         if (ct != null) {
             setActiveTab(ct);
@@ -807,9 +825,12 @@ public abstract class BaseUi implements UI {
         if (mCustomView != null) {
             mCustomView.setSystemUiVisibility(enabled ?
                     fullscreenImmersiveSetting : View.SYSTEM_UI_FLAG_VISIBLE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            mContentView.setSystemUiVisibility(enabled ?
+                    fullscreenImmersiveSetting  : View.SYSTEM_UI_FLAG_VISIBLE);
         } else {
             mContentView.setSystemUiVisibility(enabled ?
-                    View.SYSTEM_UI_FLAG_LOW_PROFILE : View.SYSTEM_UI_FLAG_VISIBLE);
+                    View.SYSTEM_UI_FLAG_LOW_PROFILE  : View.SYSTEM_UI_FLAG_VISIBLE);
         }
         if (enabled)
             winParams.flags |=  bits;
