@@ -14,24 +14,43 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:orientation="vertical">
 
-    <ViewStub
-        android:id="@+id/pref_stub"
-        android:layout_height="match_parent"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:inflatedId="@+id/history" />
+        android:layout_height="match_parent"
+        android:layout_weight="90">
 
-    <TextView android:id="@android:id/empty"
-        android:layout_width="wrap_content"
+        <ViewStub
+            android:id="@+id/pref_stub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inflatedId="@+id/history" />
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_history"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/empty_history"
-        android:visibility="gone"
-    />
+        android:layout_alignParentBottom="true"
+        android:layout_weight="10">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/clear_history_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_history" />
+    </LinearLayout>
+</LinearLayout>
