@@ -92,13 +92,10 @@ public abstract class BaseUi implements UI {
 
     protected FrameLayout mContentView;
     protected FrameLayout mCustomViewContainer;
-    private FrameLayout mFixedTitlebarContainer;
 
     private View mCustomView;
     private CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
-
-    private LinearLayout mErrorConsoleContainer = null;
 
     private UrlBarAutoShowManager mUrlBarAutoShowManager;
 
@@ -128,14 +125,10 @@ public abstract class BaseUi implements UI {
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
                 .inflate(R.layout.custom_screen, frameLayout);
-        mFixedTitlebarContainer = (FrameLayout) frameLayout.findViewById(
-                R.id.fixed_titlebar_container);
         mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
         mCustomViewContainer = (FrameLayout) frameLayout.findViewById(
                 R.id.fullscreen_custom_content);
-        mErrorConsoleContainer = (LinearLayout) frameLayout
-                .findViewById(R.id.error_console);
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
         mTitleBar = new TitleBar(mActivity, mUiController, this,
                 mContentView);
@@ -316,7 +309,6 @@ public abstract class BaseUi implements UI {
         }
         mTitleBar.bringToFront();
         tab.getTopWindow().requestFocus();
-        setShouldShowErrorConsole(tab, mUiController.shouldShowErrorConsole());
         onTabDataChanged(tab);
         onProgressChanged(tab);
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
@@ -456,10 +448,6 @@ public abstract class BaseUi implements UI {
         mContentView.removeView(container);
         mUiController.endActionMode();
         mUiController.removeSubWindow(tab);
-        ErrorConsoleView errorConsole = tab.getErrorConsole(false);
-        if (errorConsole != null) {
-            mErrorConsoleContainer.removeView(errorConsole);
-        }
     }
 
     @Override
@@ -603,7 +591,6 @@ public abstract class BaseUi implements UI {
             callback.onCustomViewHidden();
             return;
         }
-
         mOriginalOrientation = mActivity.getRequestedOrientation();
         FrameLayout decor = (FrameLayout) mActivity.getWindow().getDecorView();
         decor.addView(view, COVER_SCREEN_PARAMS);
@@ -745,33 +732,6 @@ public abstract class BaseUi implements UI {
     public void onContextMenuClosed(Menu menu, boolean inLoad) {
     }
 
-    // error console
-
-    @Override
-    public void setShouldShowErrorConsole(Tab tab, boolean flag) {
-        if (tab == null) return;
-        ErrorConsoleView errorConsole = tab.getErrorConsole(true);
-        if (flag) {
-            // Setting the show state of the console will cause it's the layout
-            // to be inflated.
-            if (errorConsole.numberOfErrors() > 0) {
-                errorConsole.showConsole(ErrorConsoleView.SHOW_MINIMIZED);
-            } else {
-                errorConsole.showConsole(ErrorConsoleView.SHOW_NONE);
-            }
-            if (errorConsole.getParent() != null) {
-                mErrorConsoleContainer.removeView(errorConsole);
-            }
-            // Now we can add it to the main view.
-            mErrorConsoleContainer.addView(errorConsole,
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
-        } else {
-            mErrorConsoleContainer.removeView(errorConsole);
-        }
-    }
-
     // -------------------------------------------------------------------------
     // Helper function for WebChromeClient
     // -------------------------------------------------------------------------
@@ -860,8 +820,6 @@ public abstract class BaseUi implements UI {
             }
         }
     }
-
-
 
     public void translateTitleBar(float topControlsOffsetYPix) {
         if (mTitleBar != null && !mInActionMode) {
@@ -958,8 +916,8 @@ public abstract class BaseUi implements UI {
     }
 
     public void setContentViewMarginTop(int margin) {
-        LinearLayout.LayoutParams params =
-                (LinearLayout.LayoutParams) mContentView.getLayoutParams();
+        FrameLayout.LayoutParams params =
+                (FrameLayout.LayoutParams) mContentView.getLayoutParams();
         if (params.topMargin != margin) {
             params.topMargin = margin;
             mContentView.setLayoutParams(params);
@@ -996,7 +954,6 @@ public abstract class BaseUi implements UI {
 
         if (mTitleBar.isFixed()) {
             int fixedTbarHeight = mTitleBar.calculateEmbeddedHeight();
-            mFixedTitlebarContainer.setY(fixedTbarHeight);
             setContentViewMarginTop(fixedTbarHeight);
         } else {
             mTitleBar.setTranslationY(getActionModeHeight());
@@ -1007,7 +964,6 @@ public abstract class BaseUi implements UI {
     public void onActionModeFinished(boolean inLoad) {
         mInActionMode = false;
         if (mTitleBar.isFixed()) {
-            mFixedTitlebarContainer.setY(0);
             setContentViewMarginTop(0);
         } else {
             mTitleBar.setTranslationY(0);

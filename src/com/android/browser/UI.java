@@ -115,8 +115,6 @@ public interface UI {
 
     public void onActionModeFinished(boolean inLoad);
 
-    public void setShouldShowErrorConsole(Tab tab, boolean show);
-
     // returns if the web page is clear of any overlays (not including sub windows)
     public boolean isWebShowing();
 

@@ -197,7 +197,6 @@ public class Controller
 
     private Message mAutoFillSetupMessage;
 
-    private boolean mShouldShowErrorConsole;
     private boolean mNetworkShouldNotify = true;
 
     // FIXME, temp address onPrepareMenu performance problem.
@@ -853,25 +852,6 @@ public class Controller
     @Override
     public void onLowMemory() {
         mTabControl.freeMemory();
-    }
-
-    @Override
-    public boolean shouldShowErrorConsole() {
-        return mShouldShowErrorConsole;
-    }
-
-    protected void setShouldShowErrorConsole(boolean show) {
-        if (show == mShouldShowErrorConsole) {
-            // Nothing to do.
-            return;
-        }
-        mShouldShowErrorConsole = show;
-        Tab t = mTabControl.getCurrentTab();
-        if (t == null) {
-            // There is no current tab so we cannot toggle the error console
-            return;
-        }
-        mUi.setShouldShowErrorConsole(t, show);
     }
 
     @Override

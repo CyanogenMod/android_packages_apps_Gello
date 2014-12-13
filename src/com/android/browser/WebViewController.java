@@ -90,8 +90,6 @@ public interface WebViewController {
 
     void onUserCanceledSsl(Tab tab);
 
-    boolean shouldShowErrorConsole();
-
     void onUpdatedSecurityState(Tab tab);
 
     void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture);

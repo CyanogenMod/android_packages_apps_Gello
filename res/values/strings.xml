@@ -596,8 +596,6 @@
     <string name="js_engine_flags" translatable="false">Set JS flags</string>
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_error_console" translatable="false">Show JavaScript Console</string>
     <!-- Do not translate. Development option to reset the prologin time [CHAR LIMIT=20] -->
     <string name="pref_development_reset_prelogin" translatable="false">Reset prelogin</string>
     <!-- Settings screen, setting option name -->
@@ -893,11 +891,6 @@
 
     <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
     <string name="progress_dialog_setting_wallpaper">Setting wallpaper\u2026</string>
-
-    <string name="error_console_header_text_minimized" translatable="false">Show JavaScript console</string>
-    <string name="error_console_header_text_maximized" translatable="false">JavaScript console</string>
-    <string name="error_console_eval_text_hint" translatable="false">Evaluate JavaScript</string>
-    <string name="error_console_eval_button_text" translatable="false">Evaluate</string>
 
     <!-- The default state to the "up to parent folder" button in the bookmarks UI. This
          is displayed when the user is at the highest level and cannot go up [CHAR LIMIT=16] -->

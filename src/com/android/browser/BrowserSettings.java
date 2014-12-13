@@ -344,10 +344,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private void syncSharedSettings() {
         mNeedsSharedSync = false;
         CookieManager.getInstance().setAcceptCookie(acceptCookies());
-
-        if (mController != null) {
-            mController.setShouldShowErrorConsole(enableJavascriptConsole());
-        }
     }
 
     private void syncManagedSettings() {
@@ -837,13 +833,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             return false;
         }
         return mPrefs.getBoolean(PREF_ENABLE_CPU_UPLOAD_PATH, false);
-    }
-
-    public boolean enableJavascriptConsole() {
-        if (!isDebugEnabled()) {
-            return false;
-        }
-        return mPrefs.getBoolean(PREF_JAVASCRIPT_CONSOLE, true);
     }
 
     public boolean isSmallScreen() {

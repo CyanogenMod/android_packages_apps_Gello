@@ -192,12 +192,6 @@ public class PreloadController implements WebViewController {
     }
 
     @Override
-    public boolean shouldShowErrorConsole() {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "shouldShowErrorConsole()");
-        return false;
-    }
-
-    @Override
     public void onUpdatedSecurityState(Tab tab) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onUpdatedSecurityState()");
     }

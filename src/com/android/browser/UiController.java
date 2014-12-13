@@ -73,8 +73,6 @@ public interface UiController {
 
     void handleNewIntent(Intent intent);
 
-    boolean shouldShowErrorConsole();
-
     void hideCustomView();
 
     void attachSubWindow(Tab tab);
