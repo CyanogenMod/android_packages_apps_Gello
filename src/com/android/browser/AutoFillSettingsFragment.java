@@ -131,6 +131,7 @@ public class AutoFillSettingsFragment extends Fragment {
         if (bar != null) {
             bar.setTitle(R.string.pref_general_autofill_title);
             bar.setDisplayHomeAsUpEnabled(false);
+            bar.setHomeButtonEnabled(false);
         }
     }
 

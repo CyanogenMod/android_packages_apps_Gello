@@ -76,6 +76,7 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         if (bar != null) {
             bar.setTitle(R.string.pref_accessibility_title);
             bar.setDisplayHomeAsUpEnabled(false);
+            bar.setHomeButtonEnabled(false);
         }
     }
 

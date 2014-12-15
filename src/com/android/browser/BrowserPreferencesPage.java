@@ -21,6 +21,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.MenuItem;
 
 import com.android.browser.preferences.AboutPreferencesFragment;
 import com.android.browser.preferences.GeneralPreferencesFragment;
@@ -97,5 +98,19 @@ public class BrowserPreferencesPage extends Activity {
 
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new GeneralPreferencesFragment()).commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    finish();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

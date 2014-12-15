@@ -772,6 +772,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         if (bar != null) {
             bar.setTitle(R.string.pref_extras_website_settings);
             bar.setDisplayHomeAsUpEnabled(false);
+            bar.setHomeButtonEnabled(false);
         }
     }
 

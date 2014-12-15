@@ -48,6 +48,7 @@ public class DebugPreferencesFragment extends PreferenceFragment
         if (bar != null) {
             bar.setTitle(R.string.pref_development_title);
             bar.setDisplayHomeAsUpEnabled(false);
+            bar.setHomeButtonEnabled(false);
         }
     }
 }
