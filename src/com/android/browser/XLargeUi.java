@@ -31,6 +31,9 @@ import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebChromeClient;
+
 import org.codeaurora.swe.WebView;
 
 import com.android.browser.R;
@@ -154,6 +157,14 @@ public class XLargeUi extends BaseUi {
         mTitleBar.setSkipTitleBarAnimations(false);
     }
 
+    @Override
+    public void showCustomView(View view, int requestedOrientation,
+                               WebChromeClient.CustomViewCallback callback) {
+        super.showCustomView(view, requestedOrientation, callback);
+        if (mActionBar != null)
+            mActionBar.hide();
+    }
+
     protected void onRemoveTabCompleted(Tab tab) {
         checkHideActionBar();
     }
@@ -212,6 +223,8 @@ public class XLargeUi extends BaseUi {
     public void onHideCustomView() {
         super.onHideCustomView();
         checkHideActionBar();
+        if (mActionBar != null)
+            mActionBar.show();
     }
 
     @Override

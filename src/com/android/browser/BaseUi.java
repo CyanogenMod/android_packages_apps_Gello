@@ -879,8 +879,10 @@ public abstract class BaseUi implements UI {
                     topControlsOffsetYPix -= 1;
                     mTitleBar.getParent().requestTransparentRegion(mTitleBar);
                 }
-                mTitleBar.setTranslationY(topControlsOffsetYPix);
             }
+            // This was done to get HTML5 fullscreen API to work with fixed mode since
+            // topcontrols are used to implement HTML5 fullscreen
+            mTitleBar.setTranslationY(topControlsOffsetYPix);
         }
     }
 
