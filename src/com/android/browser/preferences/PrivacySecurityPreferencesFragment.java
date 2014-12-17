@@ -54,7 +54,7 @@ public class PrivacySecurityPreferencesFragment
             }
         }
 
-        return false;
+        return true;
     }
 
 }
