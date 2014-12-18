@@ -3128,9 +3128,9 @@ public class Controller
     @Override
     public void onUserCanceledSsl(Tab tab) {
         // TODO: Figure out the "right" behavior
-        if (tab.canGoBack()) {
-            tab.goBack();
-        } else {
+        //In case of tab can go back (aka tab has navigation entry) do nothing
+        //else just load homepage in current tab.
+        if (!tab.canGoBack()) {
             tab.loadUrl(mSettings.getHomePage(), null);
         }
     }
