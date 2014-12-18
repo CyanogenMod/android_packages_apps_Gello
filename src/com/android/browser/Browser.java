@@ -40,9 +40,17 @@ public class Browser extends ChromiumApplication {
     // Set to true to enable extra debug logging.
     final static boolean LOGD_ENABLED = true;
 
+    private static Context mContext;
+
+    public static Context getContext() {
+        return mContext;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mContext = this;
 
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "Browser.onCreate: this=" + this);

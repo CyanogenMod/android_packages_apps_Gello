@@ -48,11 +48,12 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.SearchEngineRestriction;
 
 public class GeneralPreferencesFragment extends PreferenceFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
-    static final String TAG = "PersonalPreferencesFragment";
+    static final String TAG = "GeneralPreferencesFragment";
 
     public static final String EXTRA_CURRENT_PAGE = "currentPage";
 
@@ -91,6 +92,11 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         PreferenceScreen autofill = (PreferenceScreen) findPreference(
                 PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autofill.setOnPreferenceClickListener(this);
+
+        //Disable set search engine preference if SEARCH_ENGINE restriction is enabled
+        if (SearchEngineRestriction.getInstance().isEnabled()) {
+            findPreference("search_engine").setEnabled(false);
+        }
 
         mAdvFrag = new AdvancedPreferencesFragment(this);
         mPrivFrag = new PrivacySecurityPreferencesFragment(this);

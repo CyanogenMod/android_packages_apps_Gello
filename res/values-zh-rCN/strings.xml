@@ -498,4 +498,7 @@
     <string name="user_agent">"浏览器UA标识"</string>
     <string name="help">"帮助"</string>
     <string name="feedback">"反馈"</string>
+
+    <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+    <string name="mdm_managed_alert">被管理员禁用</string>
 </resources>

@@ -16,6 +16,7 @@
 package com.android.browser.search;
 
 import com.android.browser.R;
+import com.android.browser.mdm.SearchEngineRestriction;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
@@ -26,6 +27,8 @@ import android.content.res.Resources;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,16 +49,41 @@ class SearchEnginePreference extends ListPreference {
             entryValues.add(defaultSearchEngineName);
             entries.add(defaultSearchEngine.getLabel());
         }
-        for (SearchEngineInfo searchEngineInfo : SearchEngines.getSearchEngineInfos(context)) {
-            String name = searchEngineInfo.getName();
-            // Skip entry with same name as default provider
-            if (!name.equals(defaultSearchEngineName)) {
-                entryValues.add(name);
-                entries.add(searchEngineInfo.getLabel());
+
+        SearchEngineInfo managedSearchEngineInfo = SearchEngineRestriction.getInstance()
+                .getSearchEngineInfo();
+
+        if (managedSearchEngineInfo != null) {
+            // Add managed searched engine to the list if SEARCH_ENGINE restriction is enabled
+            entryValues.add(managedSearchEngineInfo.getName());
+            entries.add(managedSearchEngineInfo.getLabel());
+        } else {
+            for (SearchEngineInfo searchEngineInfo : SearchEngines.getSearchEngineInfos(context)) {
+                String name = searchEngineInfo.getName();
+                // Skip entry if name is same as the default or the managed
+                if (!name.equals(defaultSearchEngineName)) {
+                    entryValues.add(name);
+                    entries.add(searchEngineInfo.getLabel());
+                }
             }
         }
 
         setEntryValues(entryValues.toArray(new CharSequence[entryValues.size()]));
         setEntries(entries.toArray(new CharSequence[entries.size()]));
+    }
+
+    @Override
+    protected void onBindView(View view) {
+        super.onBindView(view);
+
+        if (!isEnabled()) {
+            view.setEnabled(true);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

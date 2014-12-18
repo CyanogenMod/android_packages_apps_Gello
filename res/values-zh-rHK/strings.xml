@@ -417,4 +417,5 @@
     <string name="user_agent">"瀏覽器UA標識"</string>
     <string name="help">"幫助"</string>
     <string name="feedback">"反饋"</string>
+    <string name="mdm_managed_alert">被管理員禁用</string>
 </resources>

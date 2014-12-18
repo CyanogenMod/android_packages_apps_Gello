@@ -1109,4 +1109,7 @@
     <string name="user_agent">User Agent</string>
     <string name="help">Help</string>
     <string name="feedback">Feedback</string>
+
+    <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+    <string name="mdm_managed_alert">Managed by your administrator</string>
 </resources>

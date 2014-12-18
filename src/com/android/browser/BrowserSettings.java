@@ -32,6 +32,7 @@ import android.webkit.WebStorage;
 
 import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.SearchEngineRestriction;
 import com.android.browser.platformsupport.Browser;
 import com.android.browser.provider.BrowserProvider;
 import com.android.browser.search.SearchEngine;
@@ -701,6 +702,10 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // -----------------------------
 
     public String getSearchEngineName() {
+        // The following is a NOP if the SEARCH_ENGINE restriction has already been created. Otherwise,
+        // it creates the restriction and if enabled it sets the <default_search_engine_value>.
+        SearchEngineRestriction.getInstance();
+
         String defaultSearchEngineValue = mContext.getString(R.string.default_search_engine_value);
         if (defaultSearchEngineValue == null) {
             defaultSearchEngineValue = SearchEngine.GOOGLE;
