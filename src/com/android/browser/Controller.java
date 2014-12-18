@@ -250,6 +250,7 @@ public class Controller
     private String mVoiceResult;
     private boolean mUpdateMyNavThumbnail;
     private String mUpdateMyNavThumbnailUrl;
+    private float mLevel = 0.0f;
 
     public Controller(Activity browser) {
         mActivity = browser;
@@ -3413,7 +3414,10 @@ public class Controller
     }
 
     public void setWindowDimming(float level) {
-        if (level != 0) {
+        if (mLevel == level)
+            return;
+        mLevel = level;
+        if (level != 0.0f) {
             WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
             lp.dimAmount = level;
             mActivity.getWindow().setAttributes(lp);

@@ -208,7 +208,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTabText.setVisibility(View.VISIBLE);
             if (mUiController != null) {
-                mUiController.setWindowDimming(0f);
+                mUiController.setWindowDimming(0.0f);
             }
             break;
         case StateListener.STATE_HIGHLIGHTED:

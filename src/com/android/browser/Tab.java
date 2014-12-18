@@ -432,6 +432,11 @@ class Tab implements PictureListener {
             }
         }
 
+        @Override
+        public boolean shouldDownloadFavicon(WebView view, String url) {
+            return true;
+        }
+
         /**
          * Updates the security state. This method is called when we discover
          * another resource to be loaded for this page (for example,
