@@ -42,7 +42,7 @@ import org.codeaurora.swe.util.Observable;
  */
 public abstract class Restriction {
 
-    private static boolean mEnabled = false;
+    private boolean mEnabled = false;
 
     public Restriction() {
         // Register observer for restrictions

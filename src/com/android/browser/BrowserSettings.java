@@ -32,6 +32,7 @@ import android.webkit.WebStorage;
 
 import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.ProxyRestriction;
 import com.android.browser.mdm.SearchEngineRestriction;
 import com.android.browser.platformsupport.Browser;
 import com.android.browser.provider.BrowserProvider;
@@ -133,6 +134,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (mNeedsSharedSync) {
             syncSharedSettings();
         }
+        // Instantiate ProxyRestriction after engine initialization
+        // to ensure ProxyChangeListener is already created.
+        ProxyRestriction.getInstance();
     }
 
     public void startManagingSettings(final WebSettings settings) {
