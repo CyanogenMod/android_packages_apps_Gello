@@ -46,6 +46,7 @@ import com.android.browser.UrlInputView.UrlInputListener;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 
+import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.WebView;
 
 public class NavigationBarBase extends LinearLayout implements
@@ -154,6 +155,7 @@ public class NavigationBarBase extends LinearLayout implements
             setFocusState(hasFocus);
         }
         if (hasFocus) {
+            Engine.warmUpChildProcessAsync(mUiController.getActivity().getApplicationContext());
             mBaseUi.showTitleBar();
         } else if (!mUrlInput.needsUpdate()) {
             mUrlInput.dismissDropDown();
