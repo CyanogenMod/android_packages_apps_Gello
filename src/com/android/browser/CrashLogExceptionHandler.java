@@ -213,28 +213,43 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
 
         try {
             Calendar calendar = Calendar.getInstance();
-            JSONObject jsonStackObj = new JSONObject();
+            JSONObject jsonBackTraceObj = new JSONObject();
             String date = calendar.getTime().toString();
             String aboutSWE = mAppContext.getResources().getString(R.string.about_text);
-            String sweVer = aboutSWE.substring(aboutSWE.indexOf("Hash"),
-                                               aboutSWE.length());
+            String sweVer = findValueFromAboutText(aboutSWE, "Version:");
+            String sweHash = findValueFromAboutText(aboutSWE, "Hash:");
+            String sweBuildDate = findValueFromAboutText(aboutSWE, "Built:");
 
-            jsonStackObj.put("date", date);
-            jsonStackObj.put("device", android.os.Build.MODEL);
-            jsonStackObj.put("android-ver", android.os.Build.VERSION.RELEASE);
-            jsonStackObj.put("browser-ver", sweVer);
-            jsonStackObj.put("thread", t.toString());
-            jsonStackObj.put("cause", e.getCause());
+            jsonBackTraceObj.put("date", date);
+            jsonBackTraceObj.put("device", android.os.Build.MODEL);
+            jsonBackTraceObj.put("android-ver", android.os.Build.VERSION.RELEASE);
+            jsonBackTraceObj.put("browser-ver", sweVer);
+            jsonBackTraceObj.put("browser-hash", sweHash);
+            jsonBackTraceObj.put("browser-build-date", sweBuildDate);
+            jsonBackTraceObj.put("thread", t.toString());
 
-            Throwable cause = e.getCause();
-            if(cause != null) {
-                StackTraceElement[] arr = cause.getStackTrace();
+            JSONArray jsonStackArray = new JSONArray();
+
+            Throwable throwable = e;
+            String stackTag = "Exception thrown while running";
+            while (throwable != null) {
+                JSONObject jsonStackObj = new JSONObject();
+                StackTraceElement[] arr = throwable.getStackTrace();
                 JSONArray jsonStack = new JSONArray(arr);
-                jsonStackObj.put("stack", jsonStack);
+
+                jsonStackObj.put("cause", throwable.getCause());
+                jsonStackObj.put("message", throwable.getMessage());
+                jsonStackObj.put(stackTag, jsonStack);
+
+                jsonStackArray.put(jsonStackObj);
+
+                stackTag = "stack";
+                throwable = throwable.getCause();
             }
+            jsonBackTraceObj.put("exceptions", jsonStackArray);
 
             JSONObject jsonMainObj = new JSONObject();
-            jsonMainObj.put("backtraces", jsonStackObj);
+            jsonMainObj.put("backtraces", jsonBackTraceObj);
 
             Log.e(LOGTAG, "Exception: " + jsonMainObj.toString(4));
             crashLog = jsonMainObj.toString();
@@ -249,4 +264,17 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
 
         mDefaultHandler.uncaughtException(t, e);
     }
+
+    private String findValueFromAboutText(String aboutText, String aboutKey) {
+        int start = aboutText.indexOf(aboutKey);
+        int end = aboutText.indexOf("\n", start);
+        String value = "";
+
+        if (start != -1 && end != -1) {
+            start += aboutKey.length();
+            value = aboutText.substring(start, end);
+        }
+        return value;
+    }
+
 }
