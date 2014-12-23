@@ -21,18 +21,19 @@ import com.android.browser.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  *  Custom layout for an item representing a bookmark in the browser.
  */
-class BookmarkItem extends HorizontalScrollView {
+class BookmarkItem extends ScrollView {
 
     final static int MAX_TEXTVIEW_LEN = 80;
 
@@ -132,8 +133,28 @@ class BookmarkItem extends HorizontalScrollView {
         mUrl = url;
 
         url = UrlUtils.stripUrl(url);
+
+        /*
+        * Since there are more than 80 characters
+        * in the URL this is formatting the url
+        * to a vertical Scroll View.
+        */
         if (url.length() > MAX_TEXTVIEW_LEN) {
-            url = url.substring(0, MAX_TEXTVIEW_LEN);
+
+            // url cannot exceed max length
+            if (url.length() > UrlInputView.URL_MAX_LENGTH) {
+                url = url.substring(0, UrlInputView.URL_MAX_LENGTH);
+            }
+
+            mUrlText.setHorizontallyScrolling(false);
+            mUrlText.setSingleLine(false);
+            mUrlText.setVerticalScrollBarEnabled(true);
+            /*
+            * Only the first 3 lines of the URL will be visible
+            * Rest of it will be scrollable.
+            */
+            mUrlText.setMaxLines(3);
+            mUrlText.setMovementMethod(new ScrollingMovementMethod());
         }
 
         mUrlText.setText(url);
