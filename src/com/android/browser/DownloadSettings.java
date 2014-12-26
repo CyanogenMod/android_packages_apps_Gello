@@ -242,9 +242,8 @@ public class DownloadSettings extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
         if (DOWNLOAD_PATH == requestCode) {
-            if (resultCode == Activity.RESULT_OK && intent != null) {
+            if (resultCode != Activity.RESULT_CANCELED && intent != null) {
                 downloadPath = intent.getStringExtra("result_dir_sel");
                 // Fallback logic to stock browser
                 if (downloadPath == null) {
