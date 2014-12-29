@@ -26,7 +26,6 @@
     <dimen name="combo_paddingTop">50dip</dimen>
     <dimen name="combo_horizontalSpacing">8dip</dimen>
     <dimen name="suggest_item_padding">8dp</dimen>
-    <dimen name="toolbar_height">48dip</dimen>
     <dimen name="tab_thumbnail_width">240dip</dimen>
     <dimen name="tab_thumbnail_height">160dip</dimen>
 </resources>
