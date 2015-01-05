@@ -38,7 +38,6 @@ public interface PreferenceKeys {
     static final String PREF_AUTOFIT_PAGES = "autofit_pages";
     static final String PREF_BLOCK_POPUP_WINDOWS = "block_popup_windows";
     static final String PREF_DEFAULT_TEXT_ENCODING = "default_text_encoding";
-    static final String PREF_DEFAULT_ZOOM = "default_zoom";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
     static final String PREF_ENABLE_MEMORY_MONITOR = "enable_memory_monitor";
     static final String PREF_ALLOW_MEDIA_DOWNLOADS = "allow_media_downloads";

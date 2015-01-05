@@ -36,15 +36,6 @@
             android:key="force_userscalable"
             android:summary="@string/pref_force_userscalable_summary"
             android:title="@string/pref_force_userscalable" />
-
-        <ListPreference
-            android:defaultValue="MEDIUM"
-            android:dialogTitle="@string/pref_default_zoom_dialogtitle"
-            android:entries="@array/pref_default_zoom_choices"
-            android:entryValues="@array/pref_default_zoom_values"
-            android:key="default_zoom"
-            android:title="@string/pref_default_zoom" />
-
     </PreferenceCategory>
 
     <!-- // SWE_TODO: Commenting out inverted rendering settings

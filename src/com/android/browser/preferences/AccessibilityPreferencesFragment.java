@@ -49,12 +49,6 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         e.setOnPreferenceChangeListener(this);
         updateTextZoomSummary(e, settings.getTextZoom());
 
-        e = findPreference(PreferenceKeys.PREF_DEFAULT_ZOOM);
-        e.setOnPreferenceChangeListener(this);
-        e.setSummary(getVisualDefaultZoomName(
-                getPreferenceScreen().getSharedPreferences()
-                        .getString(PreferenceKeys.PREF_DEFAULT_ZOOM, null)));
-
         /* SWE: Comment out double tap zoom feature
         e = findPreference(PreferenceKeys.PREF_DOUBLE_TAP_ZOOM);
         e.setOnPreferenceChangeListener(this);
@@ -78,26 +72,6 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
             bar.setDisplayHomeAsUpEnabled(false);
             bar.setHomeButtonEnabled(false);
         }
-    }
-
-    private CharSequence getVisualDefaultZoomName(String enumName) {
-        Resources res = getActivity().getResources();
-        CharSequence[] visualNames = res.getTextArray(R.array.pref_default_zoom_choices);
-        CharSequence[] enumNames = res.getTextArray(R.array.pref_default_zoom_values);
-
-        // Sanity check
-        if (visualNames.length != enumNames.length) {
-            return "";
-        }
-
-        int length = enumNames.length;
-        for (int i = 0; i < length; i++) {
-            if (enumNames[i].equals(enumName)) {
-                return visualNames[i];
-            }
-        }
-
-        return "";
     }
 
     void updateMinFontSummary(Preference pref, int minFontSize) {
@@ -129,10 +103,7 @@ public class AccessibilityPreferencesFragment extends PreferenceFragment
         }
         Log.d("AccessibilityPref", "User clicked on " + pref.getKey());
 
-        if (pref.getKey().equals(PreferenceKeys.PREF_DEFAULT_ZOOM)) {
-            pref.setSummary(getVisualDefaultZoomName((String) objValue));
-            return true;
-        } else if (PreferenceKeys.PREF_MIN_FONT_SIZE.equals(pref.getKey())) {
+        if (PreferenceKeys.PREF_MIN_FONT_SIZE.equals(pref.getKey())) {
             updateMinFontSummary(pref, BrowserSettings
                     .getAdjustedMinimumFontSize((Integer) objValue));
         }

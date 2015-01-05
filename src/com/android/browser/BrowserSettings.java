@@ -246,7 +246,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setLightTouchEnabled(enableLightTouch());
         settings.setNavDump(enableNavDump());
         settings.setDefaultTextEncodingName(getDefaultTextEncoding());
-        settings.setDefaultZoom(getDefaultZoom());
         settings.setMinimumFontSize(getMinimumFontSize());
         settings.setMinimumLogicalFontSize(getMinimumFontSize());
         settings.setTextZoom(getTextZoom());
@@ -750,12 +749,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         }
 
         return mPrefs.getBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, defaultAllowMediaDownloadsValue);
-    }
-
-    // TODO: Cache
-    public ZoomDensity getDefaultZoom() {
-        String zoom = mPrefs.getString(PREF_DEFAULT_ZOOM, "MEDIUM");
-        return ZoomDensity.valueOf(zoom);
     }
 
     public boolean loadPageInOverviewMode() {
