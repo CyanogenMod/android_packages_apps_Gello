@@ -264,14 +264,20 @@ public class EngineInitializer {
     public void onActivityPause() {
         mOnResumePending = false;
         if (mActivityReady) {
-            Engine.pauseTracing(mActivity.getApplicationContext());
             mActivity.handleOnPause();
+        }
+    }
+
+    public void onActivityStop() {
+        mActivityStartPending = false;
+        if (mActivityReady) {
+            Engine.pauseTracing(mActivity.getApplicationContext());
+            mActivity.handleOnStop();
         }
     }
 
     public void onActivityResume() {
         if (mActivityReady) {
-            Engine.resumeTracing(mActivity.getApplicationContext());
             mActivity.handleOnResume();
             return;
         }
@@ -280,6 +286,8 @@ public class EngineInitializer {
 
     public void onActivityStart() {
         if (mActivityReady) {
+            Engine.resumeTracing(mActivity.getApplicationContext());
+            mActivity.handleOnStart();
             // TODO: We have no reliable mechanism to know when the app goes background.
             //ChildProcessLauncher.onBroughtToForeground();
             return;

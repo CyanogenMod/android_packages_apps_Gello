@@ -223,7 +223,19 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     }
 
     protected void handleOnResume() {
+        // Note: Intentionally left blank.
+    }
+
+    protected void handleOnStart() {
         mController.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        mEngineInitializer.onActivityStop();
+        super.onStop();
+        // Note: Do not add any more application logic in this method.
+        //       Move any additional app logic into handleOnStop().
     }
 
     @Override
@@ -267,6 +279,10 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     }
 
     protected void handleOnPause() {
+        // Note: Intentionally left blank
+    }
+
+    protected void handleOnStop() {
         mController.onPause();
     }
 
