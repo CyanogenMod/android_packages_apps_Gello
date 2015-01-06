@@ -142,6 +142,7 @@ public class Controller
     // Message Ids
     private static final int FOCUS_NODE_HREF = 102;
     private static final int RELEASE_WAKELOCK = 107;
+    private static final int UNKNOWN_TYPE_MSG = 109;
 
     static final int UPDATE_BOOKMARK_THUMBNAIL = 108;
 
@@ -251,6 +252,7 @@ public class Controller
     private boolean mUpdateMyNavThumbnail;
     private String mUpdateMyNavThumbnailUrl;
     private float mLevel = 0.0f;
+    private WebView.HitTestResult mResult;
 
     public Controller(Activity browser) {
         mActivity = browser;
@@ -502,6 +504,35 @@ public class Controller
                     case OPEN_BOOKMARKS:
                         bookmarksOrHistoryPicker(ComboViews.Bookmarks);
                         break;
+                    case UNKNOWN_TYPE_MSG:
+                        HashMap unknownTypeMap = (HashMap) msg.obj;
+                        WebView viewForUnknownType = (WebView) unknownTypeMap.get("webview");
+                        /*
+                        *  When the context menu is shown to the user
+                        *  we need to assure that its happening on the current webview
+                        *  and its the current webview only which had sent the UNKNOWN_TYPE_MSG
+                        */
+                        if (getCurrentWebView() != viewForUnknownType)
+                            break;
+
+                        String unknown_type_src = (String)msg.getData().get("src");
+                        WebView.HitTestResult result = new WebView.HitTestResult();
+
+                        //setting the HitTestResult with new RESULT TYPE
+                        if (!TextUtils.isEmpty(unknown_type_src)) {
+                            result.setType(WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
+                            result.setExtra(unknown_type_src);
+                        } else {
+                            result.setType(WebView.HitTestResult.SRC_ANCHOR_TYPE);
+                            result.setExtra("about:blank");
+                        }
+
+                        mResult = result;
+                        openContextMenu(viewForUnknownType);
+                        mResult = null;
+
+                        break;
+
                     case FOCUS_NODE_HREF:
                     {
                         String url = (String) msg.getData().get("url");
@@ -1426,13 +1457,35 @@ public class Controller
             return;
         }
         final WebView webview = (WebView) v;
-        WebView.HitTestResult result = webview.getHitTestResult();
+        WebView.HitTestResult result;
+
+        /*  Determine whether the ContextMenu got triggered because
+         *  of user action of long click or because of  the UNKNOWN_TYPE_MSG
+         *  received. The mResult acts as a flag to identify, how it got trigerred
+         */
+        if (mResult == null){
+            result = webview.getHitTestResult();
+        } else {
+            result = mResult;
+        }
+
         if (result == null) {
             return;
         }
 
         int type = result.getType();
         if (type == WebView.HitTestResult.UNKNOWN_TYPE) {
+
+            HashMap<String, Object> unknownTypeMap = new HashMap<String, Object>();
+            unknownTypeMap.put("webview", webview);
+            final Message msg = mHandler.obtainMessage(
+                                    UNKNOWN_TYPE_MSG, unknownTypeMap);
+            /* As defined in android developers guide
+            *  when UNKNOWN_TYPE is received as a result of HitTest
+            *  you need to determing the type by invoking requestFocusNodeHref
+            */
+            webview.requestFocusNodeHref(msg);
+
             Log.w(LOGTAG,
                     "We should not show context menu when nothing is touched");
             return;
