@@ -792,6 +792,8 @@
     <string name="dump_nav" translatable="false">Dump navigation cache</string>
 
     <!-- Intentional empty elements - used for overlay feature -->
+    <string name="def_intent_file_manager"></string>
+    <string name="def_file_manager_result_dir"></string>
     <string name="def_wifi_browser_interaction_remind_type"></string>
     <string name="def_action_wifi_selection_data_connections"></string>
     <string name="def_intent_pick_network"></string>

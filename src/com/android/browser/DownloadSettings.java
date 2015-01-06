@@ -156,14 +156,20 @@ public class DownloadSettings extends Activity {
         @Override
         public void onClick(View v) {
 
-            // start filemanager for getting download path
-            try {
-                Intent downloadPathIntent = new Intent("com.android.fileexplorer.action.DIR_SEL");
-                DownloadSettings.this.startActivityForResult(downloadPathIntent, DOWNLOAD_PATH);
-            } catch (Exception e) {
-                String err_msg = getString(R.string.activity_not_found,
-                        "com.android.fileexplorer.action.DIR_SEL");
-                Toast.makeText(DownloadSettings.this, err_msg, Toast.LENGTH_LONG).show();
+            final String filemanagerIntent =
+                getResources().getString(R.string.def_intent_file_manager);
+            if (!TextUtils.isEmpty(filemanagerIntent)) {
+                // start filemanager for getting download path
+                try {
+                    Intent downloadPathIntent = new Intent(filemanagerIntent);
+                    DownloadSettings.this.startActivityForResult(downloadPathIntent, DOWNLOAD_PATH);
+                } catch (Exception e) {
+                    String err_msg = getString(R.string.activity_not_found,
+                            filemanagerIntent);
+                    Toast.makeText(DownloadSettings.this, err_msg, Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Log.e(LOGTAG, "File Manager intent not defined !!");
             }
 
         }
@@ -242,9 +248,12 @@ public class DownloadSettings extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
         if (DOWNLOAD_PATH == requestCode) {
-            if (resultCode != Activity.RESULT_CANCELED && intent != null) {
-                downloadPath = intent.getStringExtra("result_dir_sel");
+            if (resultCode == Activity.RESULT_OK && intent != null) {
+                final String result_dir_sel =
+                    getResources().getString(R.string.def_file_manager_result_dir);
+                downloadPath = intent.getStringExtra(result_dir_sel);
                 // Fallback logic to stock browser
                 if (downloadPath == null) {
                     Uri uri = intent.getData();

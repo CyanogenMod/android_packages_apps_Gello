@@ -123,7 +123,7 @@ public class AdvancedPreferencesFragment
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == DOWNLOAD_PATH_RESULT_CODE) {
-            if ( resultCode != Activity.RESULT_CANCELED && data != null) {
+            if ( resultCode == Activity.RESULT_OK && data != null) {
                 String downloadPath = data.getStringExtra("result_dir_sel");
                 // Fallback logic to stock browser
                 if (downloadPath == null) {
