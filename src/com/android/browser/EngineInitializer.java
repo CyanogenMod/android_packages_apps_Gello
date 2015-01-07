@@ -35,8 +35,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.util.Log;
 
+import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.Engine;
 
 import java.util.ArrayList;
@@ -87,6 +89,9 @@ public class EngineInitializer {
     }
 
     private static long sDelayForTesting = 0;
+
+    //Command line flag for strict mode
+    private static final String STRICT_MODE = "enable-strict-mode";
 
     @VisibleForTesting
     public static void setDelayForTesting(long delay)
@@ -204,6 +209,24 @@ public class EngineInitializer {
             Engine.initialize(ctx);
             // Add the browser commandline options
             BrowserConfig.getInstance(ctx).initCommandLineSwitches();
+
+            //Note: Only enable this for debugging.
+            if (BrowserCommandLine.hasSwitch(STRICT_MODE)) {
+                Log.v(LOGTAG, "StrictMode enabled");
+                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                        .detectDiskReads()
+                        .detectDiskWrites()
+                        .detectNetwork()
+                        .penaltyLog()
+                        .build());
+                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                        .detectLeakedSqlLiteObjects()
+                        .detectLeakedClosableObjects()
+                        .penaltyLog()
+                        .penaltyDeath()
+                        .build());
+            }
+
             //Enable remote debugging by default
             Engine.setWebContentsDebuggingEnabled(true);
             mInitializationCompleted = true;
