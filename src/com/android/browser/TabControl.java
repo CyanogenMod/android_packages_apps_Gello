@@ -210,7 +210,7 @@ class TabControl {
     }
 
     Tab createNewTab(Bundle state, boolean privateBrowsing) {
-        return createNewTab(null, privateBrowsing, false);
+        return createNewTab(state, privateBrowsing, false);
     }
 
     Tab createNewTab(Bundle state, boolean privateBrowsing, boolean backgroundTab) {
