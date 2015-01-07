@@ -123,7 +123,7 @@ public class PageDialogsHandler {
                                             String username,
                                             String password) {
         WebView w = mController.getCurrentTopWebView();
-        if (w != null) {
+        if (w != null && BrowserSettings.getInstance().rememberPasswords()) {
             w.setHttpAuthUsernamePassword(host, realm, username, password);
         }
     }
