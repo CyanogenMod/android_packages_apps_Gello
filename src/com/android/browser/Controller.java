@@ -1850,20 +1850,28 @@ public class Controller
 
     private int lookupBookmark(String title, String url) {
         final ContentResolver cr = getActivity().getContentResolver();
-
-        Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
-                BookmarksLoader.PROJECTION,
-                "title = ? OR url = ?",
-                new String[] {
+        int count = 0;
+        Cursor cursor = null;
+        try {
+            cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                    BookmarksLoader.PROJECTION,
+                    "title = ? OR url = ?",
+                    new String[] {
                         title, url
-                },
-                null);
+                    },
+                    null);
 
-        if (cursor == null) {
-            return 0;
+            if (cursor != null)
+                count = cursor.getCount();
+
+        } catch (IllegalStateException e) {
+            Log.e(LOGTAG, "lookupBookmark ", e);
+        } finally {
+            if (null != cursor) {
+                cursor.close();
+            }
         }
-
-        return cursor.getCount();
+        return count;
     }
 
     private void resetMenuItems(Menu menu) {
