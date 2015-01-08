@@ -1737,15 +1737,14 @@ public class Controller
     }
 
     private void updateMyNavigationThumbnail(final String itemUrl, final Bitmap bitmap) {
-        if (bitmap == null) {
-            Log.e(LOGTAG, "updateMyNavigationThumbnail bm is null!");
-            return;
-        }
-
         final ContentResolver cr = mActivity.getContentResolver();
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... unused) {
+                boolean isMyNavigationUrl = MyNavigationUtil.isMyNavigationUrl(mActivity, itemUrl);
+                if(!isMyNavigationUrl)
+                    return null;
+
                 ContentResolver cr = mActivity.getContentResolver();
                 Cursor cursor = null;
                 try {
@@ -2595,8 +2594,7 @@ public class Controller
         }
 
         //update My Navigation Thumbnails
-        boolean isMyNavigationUrl = MyNavigationUtil.isMyNavigationUrl(mActivity, url);
-        if (isMyNavigationUrl) {
+        if (bm != null) {
             updateMyNavigationThumbnail(url, bm);
         }
         // Only update thumbnails for web urls (http(s)://), not for
