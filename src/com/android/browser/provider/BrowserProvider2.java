@@ -1106,6 +1106,12 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                 if ((match == LEGACY || match == LEGACY_ID)
                         && projection == null) {
                     projection = Browser.HISTORY_PROJECTION;
+                    /* do not allow the id with val =1
+                     * since all the columns at id 1 are null
+                     * and do not represent any information to the user
+                     */
+                    selection = DatabaseUtils.concatenateWhere(
+                        selection,  "_id > 1");
                 }
                 String[] args = createCombinedQuery(uri, projection, qb);
                 if (selectionArgs == null) {
@@ -1246,7 +1252,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             boolean callerIsSyncAdapter) {
         //TODO cascade deletes down from folders
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        if (callerIsSyncAdapter) {
+       if (callerIsSyncAdapter || android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
             return db.delete(TABLE_BOOKMARKS, selection, selectionArgs);
         }
         ContentValues values = new ContentValues();
