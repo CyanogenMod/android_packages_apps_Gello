@@ -502,6 +502,26 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
         @Override
         public SuggestItem getItem() {
             if (mCursor != null) {
+
+                String[] colIndexList = {
+                    SearchManager.SUGGEST_COLUMN_TEXT_1,
+                    SearchManager.SUGGEST_COLUMN_TEXT_2,
+                    SearchManager.SUGGEST_COLUMN_TEXT_2_URL,
+                    SearchManager.SUGGEST_COLUMN_INTENT_DATA,
+                    SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA
+                };
+
+                for (String currentColIndex: colIndexList) {
+                    /*
+                     * As defined in documentation getColumnIndex can return
+                     * a value of -1,
+                     * if the column does not exists, so we need to return back
+                     */
+                    if (mCursor.getColumnIndex(currentColIndex) == -1) {
+                        return null;
+                    }
+                }
+
                 String title = mCursor.getString(
                         mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1));
                 String text2 = mCursor.getString(
@@ -510,11 +530,13 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                         mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_2_URL));
                 String uri = mCursor.getString(
                         mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_INTENT_DATA));
+
                 int type = (TextUtils.isEmpty(url)) ? TYPE_SUGGEST : TYPE_SUGGEST_URL;
                 SuggestItem item = new SuggestItem(title, url, type);
                 item.extra = mCursor.getString(
                         mCursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_INTENT_EXTRA_DATA));
                 return item;
+
             }
             return null;
         }
