@@ -71,6 +71,8 @@ public class PhoneUi extends BaseUi {
     @Override
     public void onDestroy() {
         hideTitleBar();
+        // Free the allocated memory for GC to clear it from the heap.
+        mAnimScreen = null;
     }
 
     @Override
