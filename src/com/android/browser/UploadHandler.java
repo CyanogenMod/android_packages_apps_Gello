@@ -75,8 +75,11 @@ public class UploadHandler {
     protected void setHandled(boolean handled) {
         mHandled = handled;
         mCaughtActivityNotFoundException = false;
-        if (!mHandled)
+        // If  upload dialog shown to the user got dismissed
+        if (!mHandled) {
             mUploadFilePaths.onReceiveValue(null);
+        }
+        mUploadFilePaths = null;
     }
 
     void onResult(int resultCode, Intent intent) {
@@ -151,15 +154,13 @@ public class UploadHandler {
         if (mUploadFilePaths != null) {
             if (hasGoodFilePath && !isDRMFileType) {
                 Log.d(TAG, "upload file path:" + filePath);
-
                 mUploadFilePaths.onReceiveValue(new String[]{filePath});
             } else {
                 mUploadFilePaths.onReceiveValue(null);
             }
         }
 
-        mHandled = true;
-        mCaughtActivityNotFoundException = false;
+        setHandled(true);
     }
 
 
