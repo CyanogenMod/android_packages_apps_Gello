@@ -43,6 +43,7 @@ import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
 
+import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.WebView;
 
 public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreDrawListener {
@@ -283,6 +284,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     }
 
     protected void handleOnStop() {
+        CookieManager.getInstance().flushCookieStore();
         mController.onPause();
     }
 
