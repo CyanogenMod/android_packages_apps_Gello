@@ -342,6 +342,7 @@ public class EngineInitializer {
     }
 
     public void onActivityDestroy() {
+        Engine.releaseSpareChildProcess();
         mActivityDestroyed = true;
     }
 
