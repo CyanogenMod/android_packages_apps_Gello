@@ -32,6 +32,7 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.webkit.ValueCallback;
 import android.widget.Toast;
+import android.text.TextUtils;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserConfig;
@@ -49,6 +50,7 @@ public class AdvancedPreferencesFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     private static final int DOWNLOAD_PATH_RESULT_CODE = 1;
+    private final static String LOGTAG = "AdvancedPreferencesFragment";
 
     PreferenceFragment mFragment = null;
 
@@ -107,27 +109,37 @@ public class AdvancedPreferencesFragment
     private Preference.OnPreferenceClickListener onClickDownloadPathSettings() {
         return new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
-                try {
-                    Intent i = new Intent("com.android.fileexplorer.action.DIR_SEL");
-                    mFragment.startActivityForResult(i,
-                            DOWNLOAD_PATH_RESULT_CODE);
-                } catch (Exception e) {
-                    String err_msg = mFragment.getResources().getString(R.string.activity_not_found,
-                            "com.android.fileexplorer.action.DIR_SEL");
-                    Toast.makeText(mFragment.getActivity(), err_msg, Toast.LENGTH_LONG).show();
+                final String filemanagerIntent =
+                        mFragment.getResources().getString(R.string.def_intent_file_manager);
+                if (!TextUtils.isEmpty(filemanagerIntent)) {
+                    try {
+                        Intent i = new Intent(filemanagerIntent);
+                        mFragment.startActivityForResult(i,
+                                DOWNLOAD_PATH_RESULT_CODE);
+                    } catch (Exception e) {
+                        String err_msg = mFragment.getResources().getString(
+                                R.string.activity_not_found,
+                                filemanagerIntent);
+                        Toast.makeText(mFragment.getActivity(), err_msg, Toast.LENGTH_LONG).show();
+                    }
+                    return true;
+                } else {
+                    Log.e(LOGTAG, "File Manager intent not defined !!");
+                    return true;
                 }
-                return true;
             }
         };
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == DOWNLOAD_PATH_RESULT_CODE) {
-            if ( resultCode == Activity.RESULT_OK && data != null) {
-                String downloadPath = data.getStringExtra("result_dir_sel");
+            if ( resultCode == Activity.RESULT_OK && intent != null) {
+                final String result_dir_sel =
+                    mFragment.getResources().getString(R.string.def_file_manager_result_dir);
+                String downloadPath = intent.getStringExtra(result_dir_sel);
                 // Fallback logic to stock browser
                 if (downloadPath == null) {
-                    Uri uri = data.getData();
+                    Uri uri = intent.getData();
                     if(uri != null)
                         downloadPath = uri.getPath();
                 }
