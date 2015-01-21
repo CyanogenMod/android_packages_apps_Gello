@@ -30,6 +30,7 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION;
@@ -216,17 +217,20 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
             JSONObject jsonBackTraceObj = new JSONObject();
             String date = calendar.getTime().toString();
             String aboutSWE = mAppContext.getResources().getString(R.string.about_text);
-            String sweVer = findValueFromAboutText(aboutSWE, "Version:");
-            String sweHash = findValueFromAboutText(aboutSWE, "Hash:");
-            String sweBuildDate = findValueFromAboutText(aboutSWE, "Built:");
+            String sweVer = findValueFromAboutText(aboutSWE, "Version: ");
+            String sweHash = findValueFromAboutText(aboutSWE, "Hash: ");
+            String sweBuildDate = findValueFromAboutText(aboutSWE, "Built: ");
 
             jsonBackTraceObj.put("date", date);
-            jsonBackTraceObj.put("device", android.os.Build.MODEL);
+            jsonBackTraceObj.put("android-model", android.os.Build.MODEL);
+            jsonBackTraceObj.put("android-device", android.os.Build.DEVICE);
             jsonBackTraceObj.put("android-ver", android.os.Build.VERSION.RELEASE);
             jsonBackTraceObj.put("browser-ver", sweVer);
             jsonBackTraceObj.put("browser-hash", sweHash);
             jsonBackTraceObj.put("browser-build-date", sweBuildDate);
             jsonBackTraceObj.put("thread", t.toString());
+            jsonBackTraceObj.put("format", "crashmon-1");
+            jsonBackTraceObj.put("monkey-test", ActivityManager.isUserAMonkey());
 
             JSONArray jsonStackArray = new JSONArray();
 
