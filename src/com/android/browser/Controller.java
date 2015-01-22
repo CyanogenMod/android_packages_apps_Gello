@@ -41,6 +41,7 @@ import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -48,6 +49,7 @@ import android.net.http.SslError;
 import android.net.wifi.WifiManager;
 import android.net.wifi.ScanResult;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -1112,9 +1114,38 @@ public class Controller
         return false;
     }
 
+    private void handleMediaKeyEvent(KeyEvent event) {
+
+        int keyCode = event.getKeyCode();
+        // send media key events to audio manager
+        if (Build.VERSION.SDK_INT >= 19) {
+
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                case KeyEvent.KEYCODE_MEDIA_STOP:
+                case KeyEvent.KEYCODE_MEDIA_NEXT:
+                case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+                case KeyEvent.KEYCODE_MEDIA_REWIND:
+                case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
+                case KeyEvent.KEYCODE_MUTE:
+                case KeyEvent.KEYCODE_MEDIA_PLAY:
+                case KeyEvent.KEYCODE_MEDIA_PAUSE:
+                case KeyEvent.META_SHIFT_RIGHT_ON:
+                case KeyEvent.KEYCODE_MEDIA_EJECT:
+                case KeyEvent.KEYCODE_MEDIA_RECORD:
+                case KeyEvent.KEYCODE_MEDIA_AUDIO_TRACK:
+
+                    AudioManager audioManager = (AudioManager) mActivity.getApplicationContext()
+                            .getSystemService(Context.AUDIO_SERVICE);
+                    audioManager.dispatchMediaKeyEvent(event);
+            }
+        }
+    }
+
     @Override
     public boolean onUnhandledKeyEvent(KeyEvent event) {
         if (!isActivityPaused()) {
+            handleMediaKeyEvent(event);
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
                 return mActivity.onKeyDown(event.getKeyCode(), event);
             } else {
