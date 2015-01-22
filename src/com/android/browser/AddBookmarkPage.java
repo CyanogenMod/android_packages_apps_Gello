@@ -657,8 +657,11 @@ public class AddBookmarkPage extends Activity
             mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
 
-            if (title.length() > MAX_TITLE_LENGTH) {
-                title = title.substring(0, MAX_TITLE_LENGTH);
+            // Check if  title is not empty to prevent NPE
+            if (!TextUtils.isEmpty(title)) {
+                if (title.length() > MAX_TITLE_LENGTH) {
+                    title = title.substring(0, MAX_TITLE_LENGTH);
+                }
             }
         }
 

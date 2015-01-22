@@ -67,6 +67,9 @@ public class BrowserPreferencesPage extends Activity {
             }
 
             Bundle extras = intent.getExtras();
+            if (extras == null)
+                return;
+
             String fragment = (String) extras.getCharSequence(PreferenceActivity.EXTRA_SHOW_FRAGMENT);
             if (fragment != null) {
                 try {
