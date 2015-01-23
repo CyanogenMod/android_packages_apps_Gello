@@ -515,7 +515,13 @@ public class Controller
                             break;
 
                         String unknown_type_src = (String)msg.getData().get("src");
+                        String unknown_type_url = (String)msg.getData().get("url");
                         WebView.HitTestResult result = new WebView.HitTestResult();
+
+                        // Prevent unnecessary calls to context menu
+                        // if url and image src are null
+                        if (unknown_type_src == null && unknown_type_url == null)
+                            break;
 
                         //setting the HitTestResult with new RESULT TYPE
                         if (!TextUtils.isEmpty(unknown_type_src)) {
