@@ -41,26 +41,44 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/empty_bookmarks_folder"
             android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shadow_top" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="top"
+            android:background="@drawable/shadow_bottom" />
+
     </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_weight="10"
-        android:layout_alignParentBottom="true" >
+        android:background="@color/primary"
+        style="?android:attr/buttonBarStyle" >
 
         <Button
             android:id="@+id/add_bookmark_button"
             android:text="@string/add_new_bookmark"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             />
         <Button
             android:id="@+id/new_bmfolder_button"
             android:text="@string/new_folder"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             />
     </LinearLayout>
 

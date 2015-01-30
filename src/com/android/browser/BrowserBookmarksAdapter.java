@@ -23,7 +23,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
@@ -31,6 +30,7 @@ import com.android.browser.R;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
 import com.android.browser.util.ThreadedCursorAdapter;
 import com.android.browser.view.BookmarkContainer;
+import com.android.browser.view.BookmarkThumbImageView;
 
 public class BrowserBookmarksAdapter extends
         ThreadedCursorAdapter<BrowserBookmarksAdapterItem> {
@@ -83,7 +83,7 @@ public class BrowserBookmarksAdapter extends
                 .getDimensionPixelSize(R.dimen.combo_horizontalSpacing);
         view.setPadding(padding, view.getPaddingTop(),
                 padding, view.getPaddingBottom());
-        ImageView thumb = (ImageView) view.findViewById(R.id.thumb);
+        BookmarkThumbImageView thumb = (BookmarkThumbImageView) view.findViewById(R.id.thumb_image);
         TextView tv = (TextView) view.findViewById(R.id.label);
 
         tv.setText(item.title);
@@ -93,13 +93,12 @@ public class BrowserBookmarksAdapter extends
             thumb.setScaleType(ScaleType.FIT_END);
             thumb.setBackground(null);
         } else {
-            thumb.setScaleType(ScaleType.CENTER_CROP);
             if (item.thumbnail == null || !item.has_thumbnail) {
+                thumb.setScaleType(ScaleType.CENTER_CROP);
                 thumb.setImageResource(R.drawable.browser_thumbnail);
             } else {
                 thumb.setImageDrawable(item.thumbnail);
             }
-            thumb.setBackgroundResource(R.drawable.border_thumb_bookmarks_widget_holo);
         }
     }
 

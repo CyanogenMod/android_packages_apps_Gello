@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/combo_horizontalSpacing">
+    android:padding="@dimen/combo_snapshot_item_padding">
     <ImageView
         android:id="@+id/thumb"
         android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
@@ -49,12 +49,12 @@
         android:layout_below="@+id/thumb"
         android:layout_alignLeft="@+id/thumb"
         android:layout_alignRight="@+id/thumb"
-        android:layout_marginTop="6dip"
+        android:layout_marginTop="5dip"
         android:paddingLeft="8dip"
         android:gravity="center_vertical"
-        android:typeface="sans"
+        android:textColor="@color/black"
         android:textSize="12sp"
-        android:textColor="#AAAAAA"
+        android:fontFamily="sans-serif-light"
         android:lines="2" />
     <ImageView
         android:id="@+id/divider"

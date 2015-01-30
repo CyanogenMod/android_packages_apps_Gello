@@ -24,7 +24,7 @@
     <!-- fundamental colors -->
     <color name="primary">#ffffff</color>
     <color name="navigation_bars">#101828</color>
-    <color name="accent">#008aa1</color>
+    <color name="accent">#FF1AACA2</color>
     <color name="browser_window_background">#ffffff</color>
 
     <!-- derived colors -->
@@ -47,6 +47,8 @@
     <color name="bookmarkWidgetFolderBackground">#A0383847</color>
     <color name="bookmarkWidgetFaviconBackground">#23ffffff</color>
     <color name="bookmarkListFaviconBackground">#23ffffff</color>
+    <color name="bookmarkLabelColor">#555555</color>
+    <color name="comboViewActionBarColor">#ffffff</color>
     <color name="tabFaviconBackground">#FF555555</color>
     <color name="tabFocusHighlight">#FF99CC00</color>
     <color name="tabViewTitleBackground">#D0000000</color>

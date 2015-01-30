@@ -24,9 +24,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
-public class BookmarkContainer extends RelativeLayout implements OnClickListener {
+public class BookmarkContainer extends LinearLayout implements OnClickListener {
 
     private OnClickListener mClickListener;
     private boolean mIgnoreRequestLayout = false;

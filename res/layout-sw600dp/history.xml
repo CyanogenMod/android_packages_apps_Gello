@@ -39,18 +39,32 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="gone" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shadow_top" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="top"
+            android:background="@drawable/shadow_bottom" />
+
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        style="?android:attr/buttonBarStyle"
+        android:background="@color/primary"
         android:layout_weight="10">
 
         <Button
             android:id="@+id/clear_history_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
             android:text="@string/clear_history" />
     </LinearLayout>
 </LinearLayout>

@@ -109,7 +109,8 @@ public class BookmarkExpandableView extends ExpandableListView
         LayoutInflater infalter = LayoutInflater.from(mContext);
         View v = infalter.inflate(layout, this, false);
         v.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-        mColumnWidth = v.getMeasuredWidth();
+        int margin = getResources().getDimensionPixelSize(R.dimen.combo_bookmark_thumbnail_margin);
+        mColumnWidth = v.getMeasuredWidth() + (margin * 2);
     }
 
     public void clearAccounts() {
@@ -402,6 +403,16 @@ public class BookmarkExpandableView extends ExpandableListView
             if (view == null) {
                 view = mInflater.inflate(R.layout.bookmark_group_view, parent, false);
                 view.setOnClickListener(mGroupOnClickListener);
+                if (getGroupCount() == 1 && isExpanded) {
+                    // Hide the group view if we have only one group in this expandable list.
+                    ViewGroup.LayoutParams lp = view.getLayoutParams();
+                    lp.height = 0;
+                    view.setLayoutParams(lp);
+                    view.setVisibility(View.INVISIBLE);
+                    if (parent instanceof ExpandableListView) {
+                        ((ExpandableListView) parent).setGroupIndicator(null);
+                    }
+                }
             }
             view.setTag(R.id.group_position, groupPosition);
             FrameLayout crumbHolder = (FrameLayout) view.findViewById(R.id.crumb_holder);

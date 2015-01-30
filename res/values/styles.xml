@@ -69,6 +69,16 @@
     <style name="SettingsTheme" parent="@style/BrowserBase">
     </style>
 
+    <style name="ComboViewActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/comboViewActionBarColor</item>
+    </style>
+    <style name="ComboViewActionBarTabBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabBar">
+        <item name="android:background">@color/comboViewActionBarColor</item>
+    </style>
+    <style name="ComboViewTheme" parent="@style/BrowserBase">
+        <item name="android:actionBarStyle">@style/ComboViewActionBarStyle</item>
+        <item name="android:actionBarTabBarStyle">@style/ComboViewActionBarTabBarStyle</item>
+    </style>
 
     <style name="NavButton">
         <item name="android:background">?android:attr/selectableItemBackground</item>

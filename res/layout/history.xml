@@ -39,18 +39,34 @@
             android:visibility="gone"
         />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shadow_top" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/combo_shadow_height"
+            android:layout_gravity="top"
+            android:background="@drawable/shadow_bottom" />
+
     </FrameLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:layout_alignParentBottom="true" >
+        android:background="@color/primary"
+        style="?android:attr/buttonBarStyle" >
 
         <Button
             android:id="@+id/clear_history_button"
             android:text="@string/clear_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
             />
     </LinearLayout>
 

@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="@dimen/combo_horizontalSpacing">
+    android:padding="@dimen/combo_snapshot_item_padding">
     <ImageView
         android:id="@+id/thumb"
         android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
@@ -51,7 +51,7 @@
         android:layout_below="@+id/thumb"
         android:layout_alignLeft="@+id/thumb"
         android:scaleType="fitXY"
-        android:layout_marginTop="12dip" />
+        android:layout_marginTop="6dip" />
     <TextView android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

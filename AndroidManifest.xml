@@ -237,7 +237,8 @@
                   </intent-filter>
         </activity>
 
-        <activity android:name="ComboViewActivity">
+        <activity android:name="ComboViewActivity"
+                  android:theme="@style/ComboViewTheme">
         </activity>
 
         <!-- Bookmark thumbnail homescreen widget -->

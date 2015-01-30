@@ -25,4 +25,7 @@
         <item name="android:actionBarSize">56dip</item>
     </style>
 
+    <style name="ComboViewTheme" parent="@style/BrowserBase">
+    </style>
+
 </resources>
