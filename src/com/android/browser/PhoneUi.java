@@ -23,7 +23,9 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Message;
 import android.util.Log;
@@ -252,26 +254,41 @@ public class PhoneUi extends BaseUi {
         if (webView != null) {
             blockEvents();
             mNavScreenRequested = true;
-            webView.getContentBitmapAsync(1.0f,
-                            new Rect(),
-                            new ValueCallback<Bitmap>() {
-                                @Override
-                                public void onReceiveValue(Bitmap bitmap) {
 
-                                    // If something interrupted the NavScreen request, discard
-                                    // the callback
-                                    if (mNavScreenRequested) {
-                                        onShowNavScreenContinue(bitmap);
-                                    } else {
-                                        unblockEvents();
-                                    }
+            //To conserve memory, get a scaled down version of the screen and
+            //scale back up to full size
+            //0.25 uses 16 times less memory than the full size
+            final float downscaleRatio = 0.25f;
+            final float upscaleRatio = 1/downscaleRatio;
+            webView.getContentBitmapAsync(
+                    downscaleRatio,
+                    new Rect(),
+                    new ValueCallback<Bitmap>() {
+                        @Override
+                        public void onReceiveValue(Bitmap bm) {
+                            // Discard the callback if the req is interrupted
+                            if (!mNavScreenRequested) {
+                                unblockEvents();
+                                return;
+                            }
 
-                                }
-                            });
+                            Bitmap sbm = bm;
+                            if (bm != null) {
+                                //Upscale the low-res bitmap to the needed size
+                                sbm = Bitmap.createBitmap((int) upscaleRatio * bm.getWidth(),
+                                        (int) upscaleRatio * bm.getHeight(), Bitmap.Config.RGB_565);
+                                Canvas canvas = new Canvas(sbm);
+                                Matrix m = new Matrix();
+                                m.setScale(upscaleRatio, upscaleRatio, 0.0f, 0.0f);
+                                canvas.drawBitmap(bm, m, new Paint(Paint.FILTER_BITMAP_FLAG));
+                            }
+
+                            onShowNavScreenContinue(sbm);
+                        }
+                    }
+            );
         }
     }
-
-
 
     void onShowNavScreenContinue(Bitmap viewportBitmap) {
         dismissIME();
