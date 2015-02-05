@@ -531,6 +531,7 @@ public class UploadHandler {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.setType(openableMimeType);
         i.setComponent(name);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
         intentList.add(i);
 
         // Step 3: Pass all the apps and their corresponding intents to uploaddialog
