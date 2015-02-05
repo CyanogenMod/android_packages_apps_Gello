@@ -58,6 +58,10 @@ public class BrowserPreferencesPage extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        if (icicle != null) {
+            return;
+        }
+
         Intent intent = getIntent();
         if (intent != null) {
             String action = intent.getAction();
