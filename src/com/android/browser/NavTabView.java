@@ -62,7 +62,7 @@ public class NavTabView extends LinearLayout {
         mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
         mTitleBar = findViewById(R.id.titlebar);
-        mImage = (ImageView) findViewById(R.id.tab_view);
+        mImage = (ImageView) findViewById(R.id.tab_preview);
     }
 
     protected boolean isClose(View v) {

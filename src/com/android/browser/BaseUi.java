@@ -589,6 +589,10 @@ public abstract class BaseUi implements UI {
     }
 
     @Override
+    public void hideComboView() {
+    }
+
+    @Override
     public void showCustomView(View view, int requestedOrientation,
             CustomViewCallback callback) {
         // if a view already exists then immediately terminate the new one
@@ -635,6 +639,11 @@ public abstract class BaseUi implements UI {
     @Override
     public boolean isWebShowing() {
         return mCustomView == null;
+    }
+
+    @Override
+    public boolean isComboViewShowing() {
+        return false;
     }
 
     // -------------------------------------------------------------------------

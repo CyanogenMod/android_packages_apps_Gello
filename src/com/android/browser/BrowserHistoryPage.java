@@ -201,7 +201,14 @@ public class BrowserHistoryPage extends Fragment
         mDisableNewWindow = args.getBoolean(BrowserBookmarksPage.EXTRA_DISABLE_WINDOW, false);
         int mvlimit = getResources().getInteger(R.integer.most_visits_limit);
         mMostVisitsLimit = Integer.toString(mvlimit);
-        mCallback = (CombinedBookmarksCallbacks) getActivity();
+        if (mCallback == null && getActivity() instanceof CombinedBookmarksCallbacks) {
+            mCallback = (CombinedBookmarksCallbacks) getActivity();
+        } else {
+            View cb = getActivity().getWindow().getDecorView().findViewById(R.id.combo_view_container);
+            if (cb != null && cb instanceof CombinedBookmarksCallbacks) {
+                mCallback = (CombinedBookmarksCallbacks) cb;
+            }
+        }
     }
 
     @Override

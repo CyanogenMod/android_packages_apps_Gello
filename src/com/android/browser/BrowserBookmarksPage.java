@@ -353,6 +353,13 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             mCallbacks = new CombinedBookmarksCallbackWrapper(
                     (CombinedBookmarksCallbacks) getActivity());
         }
+        if (mCallbacks == null) {
+            View cb = getActivity().getWindow().getDecorView().findViewById(R.id.combo_view_container);
+            if (cb != null && cb instanceof CombinedBookmarksCallbacks) {
+                mCallbacks = new CombinedBookmarksCallbackWrapper(
+                        (CombinedBookmarksCallbacks) cb);
+            }
+        }
     }
 
     @Override

@@ -85,7 +85,14 @@ public class BrowserSnapshotPage extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCallback = (CombinedBookmarksCallbacks) getActivity();
+        if (mCallback == null && getActivity() instanceof CombinedBookmarksCallbacks) {
+            mCallback = (CombinedBookmarksCallbacks) getActivity();
+        } else {
+            View cb = getActivity().getWindow().getDecorView().findViewById(R.id.combo_view_container);
+            if (cb != null && cb instanceof CombinedBookmarksCallbacks) {
+                mCallback = (CombinedBookmarksCallbacks) cb;
+            }
+        }
         mAnimateId = getArguments().getLong(EXTRA_ANIMATE_ID);
     }
 

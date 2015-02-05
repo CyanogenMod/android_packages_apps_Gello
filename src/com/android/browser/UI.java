@@ -88,6 +88,8 @@ public interface UI {
 
     public void showComboView(ComboViews startingView, Bundle extra);
 
+    public void hideComboView();
+
     public void showCustomView(View view, int requestedOrientation,
             CustomViewCallback callback);
 
@@ -119,6 +121,8 @@ public interface UI {
 
     // returns if the web page is clear of any overlays (not including sub windows)
     public boolean isWebShowing();
+
+    public boolean isComboViewShowing();
 
     public void showWeb(boolean animate);
 

@@ -54,7 +54,7 @@
 
     <!-- Preview Image -->
     <ImageView
-        android:id="@+id/tab_view"
+        android:id="@+id/tab_preview"
         android:layout_width="@dimen/nav_tab_width"
         android:layout_height="@dimen/nav_tab_height"
         android:paddingStart="2dip"

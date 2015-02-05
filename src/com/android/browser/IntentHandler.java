@@ -63,6 +63,13 @@ public class IntentHandler {
     }
 
     void onNewIntent(Intent intent) {
+        int requestCode = intent.getIntExtra(Controller.EXTRA_REQUEST_CODE, -1);
+        if (requestCode >= Controller.COMBO_VIEW && requestCode <= Controller.MY_NAVIGATION) {
+            int resultCode = intent.getIntExtra(Controller.EXTRA_RESULT_CODE, Activity.RESULT_OK);
+            mController.onActivityResult(requestCode, resultCode, intent);
+            return;
+        }
+
         Tab current = mTabControl.getCurrentTab();
         // When a tab is closed on exit, the current tab index is set to -1.
         // Reset before proceed as Browser requires the current tab to be set.

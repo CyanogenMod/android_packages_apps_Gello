@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -96,6 +97,11 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         if (shouldIgnoreIntents()) {
             finish();
             return;
+        }
+
+        if (!isTablet(this)) {
+            final ActionBar bar = getActionBar();
+            bar.hide();
         }
 
         // If this was a web search request, pass it on to the default web
@@ -342,6 +348,10 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            mUiController.getUi().hideComboView();
+            return true;
+        }
         if (!mController.onOptionsItemSelected(item)) {
             return super.onOptionsItemSelected(item);
         }

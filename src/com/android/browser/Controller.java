@@ -137,6 +137,8 @@ public class Controller
     private static final String SEND_APP_ID_EXTRA =
         "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
     private static final String INCOGNITO_URI = "chrome://incognito";
+    public static final String EXTRA_REQUEST_CODE = "_fake_request_code_";
+    public static final String EXTRA_RESULT_CODE = "_fake_result_code_";
 
     // Remind switch to data connection if wifi is unavailable
     private static final int NETWORK_SWITCH_TYPE_OK = 1;
@@ -3315,8 +3317,10 @@ public class Controller
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
             // Hardware menu key
-            mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.taburlbar),
-                    true, false);
+            if (!mUi.isComboViewShowing()) {
+                mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.taburlbar),
+                        true, false);
+            }
             return true;
         }
 

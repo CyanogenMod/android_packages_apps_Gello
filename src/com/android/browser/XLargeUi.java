@@ -32,6 +32,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.webkit.WebChromeClient;
 
 import org.codeaurora.swe.WebView;
@@ -53,6 +54,7 @@ public class XLargeUi extends BaseUi {
     private TabBar mTabBar;
 
     private NavigationBarTablet mNavBar;
+    private ComboView mComboView;
 
     private Handler mHandler;
 
@@ -70,13 +72,60 @@ public class XLargeUi extends BaseUi {
     }
 
     private void setupActionBar() {
+        mActionBar.setHomeButtonEnabled(false);
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         mActionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         mActionBar.setCustomView(mTabBar);
     }
 
     public void showComboView(ComboViews startWith, Bundle extras) {
-        super.showComboView(startWith, extras);
+        if (mComboView == null) {
+            ViewStub stub = (ViewStub) mActivity.getWindow().getDecorView().findViewById(R.id.combo_view_stub);
+            mComboView = (ComboView) stub.inflate();
+            mComboView.setVisibility(View.GONE);
+            mComboView.setupViews(mActivity);
+        }
+        mNavBar.setVisibility(View.GONE);
+        if (mActionBar != null)
+            mActionBar.hide();
+        Bundle b = new Bundle();
+        b.putString(ComboViewActivity.EXTRA_INITIAL_VIEW, startWith.name());
+        b.putBundle(ComboViewActivity.EXTRA_COMBO_ARGS, extras);
+        Tab t = getActiveTab();
+        if (t != null) {
+            b.putString(ComboViewActivity.EXTRA_CURRENT_URL, t.getUrl());
+        }
+        mComboView.showViews(mActivity, b);
+    }
+
+    @Override
+    public void hideComboView() {
+        if (showingComboView()) {
+            mComboView.hideViews();
+            mActionBar = mActivity.getActionBar();
+            setupActionBar();
+            if (mActionBar != null)
+                mActionBar.show();
+            mNavBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public boolean onBackKey() {
+        if (showingComboView()) {
+            hideComboView();
+            return true;
+        }
+        return super.onBackKey();
+    }
+
+    private boolean showingComboView() {
+        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public boolean isComboViewShowing() {
+        return showingComboView();
     }
 
     private void checkHideActionBar() {

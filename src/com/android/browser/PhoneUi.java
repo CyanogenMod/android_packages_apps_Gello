@@ -24,6 +24,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.ActionMode;
@@ -32,8 +35,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.ValueCallback;
+import org.codeaurora.swe.WebView;
+
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.browser.UrlInputView.StateListener;
@@ -50,12 +58,13 @@ public class PhoneUi extends BaseUi {
 
     private NavScreen mNavScreen;
     private AnimScreen mAnimScreen;
-    private NavigationBarPhone mNavigationBar;
-    private Activity mBrowser;
+    private final NavigationBarPhone mNavigationBar;
+    private final Activity mBrowser;
     private boolean mNavScreenRequested = false;
 
     boolean mAnimating;
     boolean mShowNav = false;
+    private ComboView mComboView;
 
 
     /**
@@ -83,9 +92,40 @@ public class PhoneUi extends BaseUi {
     }
 
     @Override
+    public void showComboView(ComboViews startingView, Bundle extras) {
+
+        if (mComboView == null) {
+            mNavScreen.setVisibility(View.GONE);
+            ViewStub stub = (ViewStub) mActivity.getWindow().getDecorView().findViewById(R.id.combo_view_stub);
+            mComboView = (ComboView) stub.inflate();
+            mComboView.setVisibility(View.GONE);
+            mComboView.setupViews(mActivity);
+        }
+
+        Bundle b = new Bundle();
+        b.putString(ComboViewActivity.EXTRA_INITIAL_VIEW, startingView.name());
+        b.putBundle(ComboViewActivity.EXTRA_COMBO_ARGS, extras);
+        Tab t = getActiveTab();
+        if (t != null) {
+            b.putString(ComboViewActivity.EXTRA_CURRENT_URL, t.getUrl());
+        }
+
+        mComboView.showViews(mActivity, b);
+    }
+
+    @Override
+    public void hideComboView() {
+        mComboView.hideViews();
+    }
+
+    @Override
     public boolean onBackKey() {
         if (showingNavScreen()) {
             mNavScreen.close(mUiController.getTabControl().getCurrentPosition());
+            return true;
+        }
+        if (showingComboView()) {
+            hideComboView();
             return true;
         }
         return super.onBackKey();
@@ -93,6 +133,10 @@ public class PhoneUi extends BaseUi {
 
     private boolean showingNavScreen() {
         return mNavScreen != null && mNavScreen.getVisibility() == View.VISIBLE;
+    }
+
+    private boolean showingComboView() {
+        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -119,8 +163,6 @@ public class PhoneUi extends BaseUi {
             }
             if (mAnimScreen == null) {
                 mAnimScreen = new AnimScreen(mActivity);
-                // initialize bitmaps
-                //mAnimScreen.set(getTitleBar(), getWebView());
             }
         }
     }
@@ -179,6 +221,13 @@ public class PhoneUi extends BaseUi {
             menu.setGroupVisible(R.id.SNAPSHOT_MENU, false);
             menu.setGroupVisible(R.id.NAV_MENU, false);
         }
+
+        if (showingComboView()) {
+            menu.setGroupVisible(R.id.MAIN_MENU, false);
+            menu.setGroupEnabled(R.id.MAIN_MENU, false);
+            menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
+        }
+
     }
 
     @Override
@@ -223,7 +272,12 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean isWebShowing() {
-        return super.isWebShowing() && !showingNavScreen();
+        return super.isWebShowing() && !showingNavScreen() && !showingComboView();
+    }
+
+    @Override
+    public boolean isComboViewShowing() {
+        return showingComboView();
     }
 
     @Override
