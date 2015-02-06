@@ -167,6 +167,33 @@ public class AddBookmarkPage extends Activity
         return BrowserContract.Bookmarks.buildFolderUri(folder);
     }
 
+    private String getNameFromId(long mCurrentFolder2) {
+        String title = "";
+        Cursor cursor = null;
+        try {
+            cursor = getApplicationContext().getContentResolver().query(
+                    BrowserContract.Bookmarks.CONTENT_URI,
+                    new String[] {
+                            BrowserContract.Bookmarks.TITLE
+                    },
+                    BrowserContract.Bookmarks._ID + " = ? AND "
+                            + BrowserContract.Bookmarks.IS_DELETED + " = ? AND "
+                            + BrowserContract.Bookmarks.IS_FOLDER + " = ? ", new String[] {
+                            String.valueOf(mCurrentFolder2), 0 + "", 1 + ""
+                    }, null);
+            if (cursor != null && cursor.getCount() != 0) {
+                while (cursor.moveToNext()) {
+                    title = cursor.getString(0);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return title;
+    }
+
     @Override
     public void onTop(BreadCrumbView view, int level, Object data) {
         if (null == data) return;
@@ -732,6 +759,11 @@ public class AddBookmarkPage extends Activity
             mButton.requestFocus();
         }
 
+        if (!(mCurrentFolder == -1 || mCurrentFolder == 2)) {
+            mFolder.setSelectionIgnoringSelectionChange(2);
+            mFolderAdapter.setOtherFolderDisplayText(getNameFromId(mCurrentFolder));
+        }
+
         getLoaderManager().restartLoader(LOADER_ID_ACCOUNTS, null, this);
     }
 
@@ -745,7 +777,6 @@ public class AddBookmarkPage extends Activity
     // Called once we have determined which folder is the root folder
     private void onRootFolderFound(long root) {
         mRootFolder = root;
-        mCurrentFolder = mRootFolder;
         setupTopCrumb();
         onCurrentFolderFound();
     }
