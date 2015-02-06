@@ -60,6 +60,8 @@ public interface UI {
 
     public void setActiveTab(Tab tab);
 
+    public void cancelNavScreenRequest();
+
     public void updateTabs(List<Tab> tabs);
 
     public void detachTab(Tab tab);

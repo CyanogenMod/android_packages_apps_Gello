@@ -53,6 +53,7 @@ public class PhoneUi extends BaseUi {
     private AnimScreen mAnimScreen;
     private NavigationBarPhone mNavigationBar;
     private Activity mBrowser;
+    private boolean mNavScreenRequested = false;
 
     boolean mAnimating;
     boolean mShowNav = false;
@@ -232,26 +233,50 @@ public class PhoneUi extends BaseUi {
         hideNavScreen(mUiController.getTabControl().getCurrentPosition(), animate);
     }
 
+    //Unblock touch events
+    private void unblockEvents() {
+        mUiController.setBlockEvents(false);
+    }
+    //Block touch events
+    private void blockEvents() {
+        mUiController.setBlockEvents(true);
+    }
+
+    @Override
+    public void cancelNavScreenRequest() {
+        mNavScreenRequested = false;
+    }
+
     void showNavScreen() {
         WebView webView = getWebView();
         if (webView != null) {
-            mShowNav = true;
-            dismissIME();
-            mUiController.setBlockEvents(true);
-
+            blockEvents();
+            mNavScreenRequested = true;
             webView.getContentBitmapAsync(1.0f,
                             new Rect(),
                             new ValueCallback<Bitmap>() {
                                 @Override
                                 public void onReceiveValue(Bitmap bitmap) {
-                                    onShowNavScreenContinue(bitmap);
+
+                                    // If something interrupted the NavScreen request, discard
+                                    // the callback
+                                    if (mNavScreenRequested) {
+                                        onShowNavScreenContinue(bitmap);
+                                    } else {
+                                        unblockEvents();
+                                    }
+
                                 }
                             });
         }
     }
 
-    void onShowNavScreenContinue(Bitmap viewportBitmap) {
 
+
+    void onShowNavScreenContinue(Bitmap viewportBitmap) {
+        dismissIME();
+        mShowNav = true;
+        mNavScreenRequested = false;
         if (mNavScreen == null) {
             mNavScreen = new NavScreen(mActivity, mUiController, this);
             mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
@@ -315,12 +340,12 @@ public class PhoneUi extends BaseUi {
             public void onAnimationEnd(Animator anim) {
                 mCustomViewContainer.removeView(mAnimScreen.mMain);
                 finishAnimationIn();
-                mUiController.setBlockEvents(false);
+                unblockEvents();
             }
         });
         set1.playSequentially(inanim, disappear);
         set1.start();
-        mUiController.setBlockEvents(false);
+        unblockEvents();
     }
 
     private void finishAnimationIn() {
@@ -332,6 +357,7 @@ public class PhoneUi extends BaseUi {
     }
 
     void hideNavScreen(int position, boolean animate) {
+
         mShowNav = false;
         if (!showingNavScreen()) return;
         final Tab tab = mUiController.getTabControl().getTab(position);
@@ -356,7 +382,7 @@ public class PhoneUi extends BaseUi {
             finishAnimateOut();
             return;
         }
-        mUiController.setBlockEvents(true);
+        blockEvents();
         mUiController.setActiveTab(tab);
         mContentView.setVisibility(View.VISIBLE);
         if (mAnimScreen == null) {
@@ -466,7 +492,7 @@ public class PhoneUi extends BaseUi {
             public void onAnimationEnd(Animator anim) {
                 mCustomViewContainer.removeView(mAnimScreen.mMain);
                 finishAnimateOut();
-                mUiController.setBlockEvents(false);
+                unblockEvents();
             }
         });
         otheralpha.setInterpolator(new DecelerateInterpolator());

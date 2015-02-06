@@ -281,7 +281,9 @@ public abstract class BaseUi implements UI {
     public void addTab(Tab tab) {
     }
 
-    @Override
+    public void cancelNavScreenRequest(){
+    }
+
     public void setActiveTab(final Tab tab) {
         if (tab == null) return;
         Tab tabToRemove = null;
@@ -298,6 +300,7 @@ public abstract class BaseUi implements UI {
             }
         }
         mActiveTab = tab;
+
         BrowserWebView web = (BrowserWebView) mActiveTab.getWebView();
         updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
@@ -764,6 +767,7 @@ public abstract class BaseUi implements UI {
     }
 
     protected WebView getWebView() {
+
         if (mActiveTab != null) {
             return mActiveTab.getWebView();
         } else {

@@ -2874,9 +2874,14 @@ public class Controller
     public void setActiveTab(Tab tab) {
         // monkey protection against delayed start
         if (tab != null) {
+
+            //Not going to the Nav Screen AnyMore. Unless NavScreen is already showing.
+            mUi.cancelNavScreenRequest();
             mTabControl.setCurrentTab(tab);
             // the tab is guaranteed to have a webview after setCurrentTab
             mUi.setActiveTab(tab);
+
+
             tab.setTimeStamp();
             //Purge active tabs
             MemoryMonitor.purgeActiveTabs(mActivity.getApplicationContext(), this, mSettings);
@@ -2892,6 +2897,8 @@ public class Controller
     }
 
     protected void reuseTab(Tab appTab, UrlData urlData) {
+        //Cancel navscreen request
+        mUi.cancelNavScreenRequest();
         // Dismiss the subwindow if applicable.
         dismissSubWindow(appTab);
         // Since we might kill the WebView, remove it from the
