@@ -132,9 +132,9 @@ public class AboutPreferencesFragment extends PreferenceFragment
         final Bundle arguments = getArguments();
         String user_agent = "";
         if (arguments != null) {
-            user_agent = (String) arguments.getCharSequence("UA");
-            mTabTitle = (String) arguments.getCharSequence("TabTitle");
-            mTabURL = (String) arguments.getCharSequence("TabURL");
+            user_agent = (String) arguments.getCharSequence("UA", "");
+            mTabTitle = (String) arguments.getCharSequence("TabTitle", "");
+            mTabURL = (String) arguments.getCharSequence("TabURL", "");
         }
 
         setPreference(PreferenceKeys.PREF_USER_AGENT, user_agent);
