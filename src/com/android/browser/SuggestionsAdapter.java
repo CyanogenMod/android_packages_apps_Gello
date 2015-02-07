@@ -212,7 +212,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
             List<SuggestItem> results = new ArrayList<SuggestItem>();
             int count = cursor.getCount();
             for (int i = 0; i < count; i++) {
-                results.add(cursor.getItem());
+                SuggestItem item = cursor.getItem();
+                if(item != null)
+                    results.add(item);
                 cursor.moveToNext();
             }
             cursor.close();
@@ -306,7 +308,9 @@ public class SuggestionsAdapter extends BaseAdapter implements Filterable,
                 maxLines -= n;
                 boolean more = false;
                 for (int j = 0; j < n; j++) {
-                    results.add(s.getItem());
+                    SuggestItem item = s.getItem();
+                    if(item != null)
+                        results.add(item);
                     more = s.moveToNext();
                 }
             }
