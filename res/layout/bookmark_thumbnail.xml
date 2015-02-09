@@ -44,9 +44,7 @@
         android:paddingTop="2dip"
         android:paddingBottom="2dip"
         android:singleLine="true"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:fontFamily="sans-serif-light"
+        android:textAppearance="@style/BookmarkText"
         />
 
 </com.android.browser.view.BookmarkContainer>

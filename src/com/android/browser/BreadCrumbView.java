@@ -397,7 +397,7 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
 
         private TextView makeCrumbView(String name) {
             TextView tv = new TextView(mContext);
-            tv.setTextAppearance(mContext, android.R.style.TextAppearance_Medium);
+            tv.setTextAppearance(mContext, R.style.BookmarkText);
             tv.setPadding(mCrumbPadding, 0, mCrumbPadding, 0);
             tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setText(name);
