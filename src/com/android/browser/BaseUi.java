@@ -326,6 +326,17 @@ public abstract class BaseUi implements UI {
     Runnable mRunnable = null;
 
     protected void scheduleRemoveTab(Tab tabToRemove, Tab tabToWaitFor) {
+
+        if(tabToWaitFor == mTabToRemove) {
+            if (mRunnable != null) {
+                mTitleBar.removeCallbacks(mRunnable);
+            }
+            mTabToRemove = null;
+            mTabToWaitFor = null;
+            mRunnable = null;
+            return;
+        }
+
         //remove previously scehduled tab
         if (mTabToRemove != null) {
             if (mRunnable != null)
