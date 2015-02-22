@@ -428,14 +428,9 @@ public abstract class BaseUi implements UI {
         // container to the content view.
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
-        ViewGroup parent = (ViewGroup) mainView.getParent();
-        if (parent != wrapper) {
-            if (parent != null) {
-                parent.removeView(mainView);
-            }
-            wrapper.addView(mainView);
-        }
-        parent = (ViewGroup) container.getParent();
+        if (wrapper != mainView.getView().getParent())
+            wrapper.addView(mainView.getView());
+        ViewGroup parent = (ViewGroup) container.getParent();
         if (parent != mContentView) {
             if (parent != null) {
                 parent.removeView(container);
@@ -458,7 +453,7 @@ public abstract class BaseUi implements UI {
         // needed by WebView.
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
-        wrapper.removeView(mainView);
+        wrapper.removeView(mainView.getView());
         mContentView.removeView(container);
         mUiController.endActionMode();
         mUiController.removeSubWindow(tab);

@@ -83,10 +83,6 @@ public class AdvancedPreferencesFragment
         // Below are preferences for carrier specific features
         PreferenceScreen contentSettingsPrefScreen =
                 (PreferenceScreen) mFragment.findPreference("content_settings");
-        if (!BrowserConfig.getInstance(mFragment.getActivity().getApplicationContext())
-                .hasFeature(BrowserConfig.Feature.ALLOW_MEDIA_DOWNLOADS))
-            contentSettingsPrefScreen.removePreference(contentSettingsPrefScreen
-                    .findPreference(PreferenceKeys.PREF_ALLOW_MEDIA_DOWNLOADS));
 
         if (!BrowserConfig.getInstance(mFragment.getActivity().getApplicationContext())
                 .hasFeature(BrowserConfig.Feature.CUSTOM_DOWNLOAD_PATH)) {

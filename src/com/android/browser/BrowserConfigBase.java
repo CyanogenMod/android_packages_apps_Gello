@@ -43,6 +43,12 @@ import org.codeaurora.swe.BrowserCommandLine;
 abstract class BrowserConfigBase {
 
     private static final String OVERRIDE_USER_AGENT = "user-agent";
+    private static final String OVERRIDE_MEDIA_DOWNLOAD = "media-download";
+    private static final String HTTP_HEADERS = "http-headers";
+    private static final String ENABLE_SWE = "enabled-swe";
+    private static final String ENABLE_TOP_CONTROLS = "enable-top-controls-position-calculation";
+    private static final String TOP_CONTROLS_HIDE_THRESHOLD = "top-controls-hide-threshold";
+    private static final String TOP_CONTROLS_SHOW_THRESHOLD = "top-controls-show-threshold";
     private Context mContext;
 
     public BrowserConfigBase(Context context) {
@@ -67,15 +73,31 @@ abstract class BrowserConfigBase {
         }
     }
 
+    public void overrideMediaDownload() {
+        boolean defaultAllowMediaDownloadsValue = mContext.getResources().getBoolean(
+            R.bool.def_allow_media_downloads);
+        if (defaultAllowMediaDownloadsValue)
+            BrowserCommandLine.appendSwitchWithValue(OVERRIDE_MEDIA_DOWNLOAD, "1");
+    }
+
+    public void setExtraHTTPRequestHeaders() {
+        String headers = mContext.getResources().getString(
+            R.string.def_extra_http_headers);
+        if (!TextUtils.isEmpty(headers))
+            BrowserCommandLine.appendSwitchWithValue(HTTP_HEADERS, headers);
+    }
+
     public void initCommandLineSwitches() {
         //SWE-hide-title-bar - enable following flags
-        BrowserCommandLine.appendSwitch("enable-top-controls-position-calculation");
-        BrowserCommandLine.appendSwitchWithValue("top-controls-height", "52");
-        BrowserCommandLine.appendSwitchWithValue("top-controls-show-threshold", "0.5");
-        BrowserCommandLine.appendSwitchWithValue("top-controls-hide-threshold", "0.5");
+        BrowserCommandLine.appendSwitch(ENABLE_TOP_CONTROLS);
+        BrowserCommandLine.appendSwitchWithValue(TOP_CONTROLS_SHOW_THRESHOLD, "0.5");
+        BrowserCommandLine.appendSwitchWithValue(TOP_CONTROLS_HIDE_THRESHOLD, "0.5");
+        BrowserCommandLine.appendSwitch(ENABLE_SWE);
 
         // Allow to override UserAgent
         overrideUserAgent();
+        overrideMediaDownload();
+        setExtraHTTPRequestHeaders();
     }
 
     private String constructUserAgent(String userAgent) {
@@ -98,7 +120,6 @@ abstract class BrowserConfigBase {
         EXIT_DIALOG, /* Add 'Exit' menu item and show 'Minimize or quit' dialog */
         TITLE_IN_URL_BAR, /* Display page title instead of url in URL bar */
         CUSTOM_DOWNLOAD_PATH, /* Allow users to provide custom download path */
-        ALLOW_MEDIA_DOWNLOADS, /* Add 'Allow media downloads' menu item */
         DISABLE_HISTORY /* Allow disabling saving history for non-incognito tabs */
     }
 
@@ -116,8 +137,6 @@ abstract class BrowserConfigBase {
                 return mContext.getResources().getBoolean(R.bool.feature_title_in_URL_bar);
             case CUSTOM_DOWNLOAD_PATH:
                 return mContext.getResources().getBoolean(R.bool.feature_custom_download_path);
-            case ALLOW_MEDIA_DOWNLOADS:
-                return mContext.getResources().getBoolean(R.bool.feature_allow_media_downloads);
             case DISABLE_HISTORY:
                 return mContext.getResources().getBoolean(R.bool.feature_disable_history);
             default:

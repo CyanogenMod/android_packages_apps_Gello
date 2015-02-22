@@ -37,7 +37,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.chromium.base.VisibleForTesting;
 import com.android.browser.R;
 import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;

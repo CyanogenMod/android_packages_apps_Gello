@@ -17,7 +17,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+    android:layout_height="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
     android:background="?android:attr/listChoiceBackgroundIndicator">
 
@@ -25,13 +25,13 @@
         android:id="@+id/group_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="50dp"
+        android:paddingStart="50dp"
         android:textAppearance="@style/BookmarkText"
         android:gravity="center_vertical" />
 
     <FrameLayout
         android:id="@+id/crumb_holder"
-        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

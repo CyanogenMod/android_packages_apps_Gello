@@ -24,12 +24,12 @@
         android:src="@drawable/ic_suggest_history_normal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="16dip" />
+        android:paddingStart="16dip" />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="8dip"
+        android:paddingStart="8dip"
         android:singleLine="true"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -38,7 +38,7 @@
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingLeft="16dip"
+        android:paddingStart="16dip"
         android:singleLine="true"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -48,7 +48,7 @@
         style="@style/NavButton"
         android:layout_width="wrap_content"
         android:contentDescription="@string/accessibility_button_bookmarks"
-        android:paddingRight="16dip"
+        android:paddingEnd="16dip"
         android:scaleType="center"
         android:src="@drawable/ic_deco_bookmarks_normal" />
 </com.android.browser.SnapshotBar>

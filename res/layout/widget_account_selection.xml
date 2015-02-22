@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:paddingStart="16dip"
+        android:paddingEnd="16dip"
         android:fadingEdgeLength="16dip" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="2dip"
-            android:paddingRight="2dip"
+            android:paddingStart="2dip"
+            android:paddingEnd="2dip"
             android:measureWithLargestChild="true"
             android:background="@null">
             <Button

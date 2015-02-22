@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/icon1"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/suggest_item_padding"
-            android:layout_marginRight="@dimen/suggest_item_padding" />
+            android:layout_marginStart="@dimen/suggest_item_padding"
+            android:layout_marginEnd="@dimen/suggest_item_padding" />
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         android:scaleType="center"
         android:src="@drawable/ic_action_querybuilder"
         android:background="?android:attr/selectableItemBackground"
-        android:paddingRight="@dimen/suggest_item_padding"
-        android:paddingLeft="@dimen/suggest_item_padding"
+        android:paddingEnd="@dimen/suggest_item_padding"
+        android:paddingStart="@dimen/suggest_item_padding"
          />
 </LinearLayout>

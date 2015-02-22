@@ -132,7 +132,7 @@ public class Controller
     private static final String LOGTAG = "Controller";
     private static final String SEND_APP_ID_EXTRA =
         "android.speech.extras.SEND_APPLICATION_ID_EXTRA";
-    private static final String INCOGNITO_URI = "browser:incognito";
+    private static final String INCOGNITO_URI = "chrome://incognito";
 
     // Remind switch to data connection if wifi is unavailable
     private static final int NETWORK_SWITCH_TYPE_OK = 1;
@@ -1406,6 +1406,7 @@ public class Controller
                 break;
         }
         getCurrentTopWebView().requestFocus();
+        getCurrentTopWebView().onActivityResult(requestCode, resultCode, intent);
     }
 
     /**

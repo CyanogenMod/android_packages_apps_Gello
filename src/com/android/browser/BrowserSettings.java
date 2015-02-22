@@ -258,8 +258,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setUseWideViewPort(isWideViewport());
         settings.setDoNotTrack(doNotTrack());
         settings.setMediaPlaybackRequiresUserGesture(false);
-        settings.setAllowMediaDownloads(allowMediaDownloads());
-        setExtraHTTPRequestHeaders(settings);
 
         WebSettings settingsClassic = (WebSettings) settings;
         settingsClassic.setHardwareAccelSkiaEnabled(isSkiaHardwareAccelerated());
@@ -284,12 +282,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settingsClassic.setLinkPrefetchEnabled(mLinkPrefetchAllowed);
     }
 
-    private void setExtraHTTPRequestHeaders(WebSettings settings){
-        String headers = mContext.getResources().getString(R.string.def_extra_http_headers);
-        if (!TextUtils.isEmpty(headers)){
-            settings.setHTTPRequestHeaders(headers);
-        }
-    }
 
     /**
      * Syncs all the settings that have no UI
@@ -343,6 +335,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     private void syncSharedSettings() {
         mNeedsSharedSync = false;
         CookieManager.getInstance().setAcceptCookie(acceptCookies());
+
     }
 
     private void syncManagedSettings() {
@@ -731,25 +724,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getBoolean(PREF_ENABLE_MEMORY_MONITOR, true);
     }
 
-    public boolean allowMediaDownloads() {
-        // Return false if preference is not exposed to user
-        if (!BrowserConfig.getInstance(mContext)
-                .hasFeature(BrowserConfig.Feature.ALLOW_MEDIA_DOWNLOADS))
-            return false;
-
-        // Otherwise, look at default value
-        boolean defaultAllowMediaDownloadsValue = mController.getContext()
-                .getResources().getBoolean(R.bool.def_allow_media_downloads);
-
-        // If preference is not saved, save default value
-        if (!mPrefs.contains(PREF_ALLOW_MEDIA_DOWNLOADS)){
-            Editor edit = mPrefs.edit();
-            edit.putBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, defaultAllowMediaDownloadsValue);
-            edit.apply();
-        }
-
-        return mPrefs.getBoolean(PREF_ALLOW_MEDIA_DOWNLOADS, defaultAllowMediaDownloadsValue);
-    }
 
     public boolean loadPageInOverviewMode() {
         return mPrefs.getBoolean(PREF_LOAD_PAGE, true);

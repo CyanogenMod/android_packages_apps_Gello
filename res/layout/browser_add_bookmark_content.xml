@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
+        android:paddingStart="5dip"
+        android:paddingEnd="5dip"
         android:orientation="horizontal"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
@@ -44,14 +44,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
-            android:paddingRight="8dip" />
+            android:paddingEnd="8dip" />
     </LinearLayout>
     <LinearLayout android:id="@+id/title_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
+        android:paddingStart="5dip"
+        android:paddingEnd="5dip"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
         <TextView android:id="@+id/fake_title"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:drawableLeft="@drawable/ic_action_bookmark_checked"
+            android:drawableStart="@drawable/ic_action_bookmark_checked"
             android:text="@string/bookmark_this_page"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <View android:id="@+id/remove_divider"
@@ -75,7 +75,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:text="@string/remove"
-            android:drawableLeft="@drawable/ic_action_trash_normal"
+            android:drawableStart="@drawable/ic_action_trash_normal"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
@@ -93,8 +93,8 @@
                 android:stretchColumns="1"
                 android:shrinkColumns="1"
                 android:paddingTop="10dip"
-                android:paddingLeft="20dip"
-                android:paddingRight="20dip" >
+                android:paddingStart="20dip"
+                android:paddingEnd="20dip" >
               <TableRow android:layout_marginBottom="10dip">
                 <TextView
                     android:id="@+id/titleText"
@@ -108,7 +108,7 @@
                     android:id="@+id/title"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="20dip"
+                    android:layout_marginStart="20dip"
                     android:inputType="textCapSentences|textNoSuggestions"
                     android:ellipsize="end"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -129,7 +129,7 @@
                     android:id="@+id/address"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="20dip"
+                    android:layout_marginStart="20dip"
                     android:hint="@string/http"
                     android:inputType="textUri"
                     android:ellipsize="end"
@@ -147,7 +147,7 @@
                     android:id="@+id/accounts"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="20dip"
+                    android:layout_marginStart="20dip"
                     android:spinnerMode="dropdown"
                     />
               </TableRow>
@@ -163,7 +163,7 @@
                     android:id="@+id/folder"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="20dip"
+                    android:layout_marginStart="20dip"
                     android:spinnerMode="dropdown"
                     />
               </TableRow>
@@ -179,8 +179,8 @@
 
             <view class="com.android.browser.AddBookmarkPage$CustomListView"
                 android:id="@+id/list"
-                android:layout_marginLeft="16dip"
-                android:layout_marginRight="16dip"
+                android:layout_marginStart="16dip"
+                android:layout_marginEnd="16dip"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
@@ -189,7 +189,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:layout_marginLeft="16dip"
+                android:layout_marginStart="16dip"
                 android:layout_marginTop="16dip"
                 android:text="@string/no_subfolders"
                 android:textStyle="italic"
@@ -206,7 +206,7 @@
         <Button android:id="@+id/cancel"
             android:text="@string/do_not_save"
             android:layout_width="0dip"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:maxLines="2"
             android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
         <Button android:id="@+id/OK"
             android:text="@string/save"
             android:layout_width="0dip"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:maxLines="2"
             android:layout_height="wrap_content"

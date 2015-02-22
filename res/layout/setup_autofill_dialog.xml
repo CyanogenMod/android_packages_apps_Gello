@@ -20,8 +20,8 @@
     android:orientation="vertical"
     android:paddingTop="9dip"
     android:paddingBottom="3dip"
-    android:paddingLeft="3dip"
-    android:paddingRight="1dip">
+    android:paddingStart="3dip"
+    android:paddingEnd="1dip">
 
     <TextView
         android:text="@string/autofill_setup_dialog_message"
@@ -33,7 +33,7 @@
     <CheckBox android:id="@+id/setup_autofill_dialog_disable_autofill"
         android:text="@string/disable_autofill"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

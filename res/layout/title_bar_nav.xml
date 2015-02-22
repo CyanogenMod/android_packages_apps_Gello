@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:src="@drawable/ic_deco_incognito_normal"
             android:visibility="gone" />
 
@@ -40,7 +40,7 @@
             android:id="@+id/location_button"
             style="@style/NavButton"
             android:layout_width="wrap_content"
-            android:paddingRight="2dp"
+            android:paddingEnd="2dp"
             android:visibility="gone" />
 
         <ImageView
@@ -48,8 +48,8 @@
             android:layout_width="44dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_action_search_normal"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:visibility="visible" />
 
         <FrameLayout
@@ -63,8 +63,8 @@
                 android:layout_width="32dip"
                 android:layout_height="32dip"
                 android:layout_gravity="center"
-                android:paddingLeft="6dip"
-                android:paddingRight="6dip"
+                android:paddingStart="6dip"
+                android:paddingEnd="6dip"
                 android:scaleType="fitCenter" />
 
             <ImageView
@@ -81,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/accessibility_button_stop"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:src="@drawable/ic_action_stop" />
 
         <com.android.browser.UrlInputView
@@ -100,8 +100,8 @@
             android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
             android:inputType="textUri"
             android:lines="1"
-            android:paddingLeft="4dp"
-            android:paddingRight="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="6dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:fontFamily="sans-serif-condensed"
@@ -112,7 +112,7 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_voice"
-            android:paddingRight="4dip"
+            android:paddingEnd="4dip"
             android:src="@drawable/ic_action_microphone_normal"
             android:visibility="gone" />
 
@@ -143,7 +143,7 @@
             android:layout_gravity="center"
             android:clickable="false"
             android:paddingBottom="3dp"
-            android:paddingRight="2dp"
+            android:paddingEnd="2dp"
             android:textColor="#333"
             android:textSize="13dp"
             android:textStyle="bold" />

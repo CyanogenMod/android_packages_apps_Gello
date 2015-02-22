@@ -111,6 +111,8 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
 
     public void setTitleBar(TitleBar title) {
         mTitleBar = title;
+        if (!mTitleBar.isFixed())
+            setTopControlsHeight(52);
     }
 
     // From TitleBarDelegate

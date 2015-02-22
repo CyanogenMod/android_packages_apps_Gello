@@ -160,10 +160,6 @@
                 android:key="enable_javascript"
                 android:title="@string/pref_content_javascript" />
 
-            <CheckBoxPreference
-                android:key="allow_media_downloads"
-                android:title="@string/pref_allow_media_downloads" />
-
             <PreferenceScreen
                 android:key="download_path_setting_screen"
                 android:title="@string/pref_download_path_setting_screen_title"/>

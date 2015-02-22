@@ -37,8 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
+        android:paddingStart="5dip"
+        android:paddingEnd="5dip"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         >
         <TextView android:id="@+id/download_settings_title"
@@ -65,8 +65,8 @@
                 android:id="@+id/download_table_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dip"
-                android:paddingRight="20dip"
+                android:paddingStart="20dip"
+                android:paddingEnd="20dip"
                 android:paddingTop="10dip"
                 android:shrinkColumns="1"
                 android:stretchColumns="1" >
@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="@string/download_filesize"
-                        android:paddingLeft="10dip"
+                        android:paddingStart="10dip"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="18sp" >
                     </TextView>
@@ -162,7 +162,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingLeft="10dip"
+                        android:paddingStart="10dip"
                         android:text="@string/download_timeneeded"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="18sp" >
@@ -183,7 +183,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:maxLines="1"
             android:text="@string/download_cancel" />
@@ -193,7 +193,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:maxLines="1"
             android:text="@string/download_start" />

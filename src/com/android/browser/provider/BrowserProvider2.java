@@ -58,7 +58,7 @@ import com.android.browser.platformsupport.BrowserContract.Settings;
 import com.android.browser.platformsupport.BrowserContract.SyncState;
 import com.android.browser.platformsupport.SyncStateContentProviderHelper;
 import com.android.browser.widget.BookmarkThumbnailWidgetProvider;
-import com.google.common.annotations.VisibleForTesting;
+import org.chromium.base.VisibleForTesting;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

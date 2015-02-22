@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="@dimen/widgetItemMinHeight"
-    android:paddingLeft="16dip"
+    android:paddingStart="16dip"
     android:background="@drawable/bookmark_thumb_selector">
     <ImageView
         android:id="@+id/favicon"
@@ -34,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/favicon"
+        android:layout_toEndOf="@id/favicon"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingLeft="16dip"
+        android:paddingStart="16dip"
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"/>

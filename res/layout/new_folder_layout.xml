@@ -43,7 +43,7 @@
         android:inputType="textCapSentences|textNoSuggestions"
         android:background="@null"
         android:gravity="center_vertical"
-        android:paddingLeft="6dip"
+        android:paddingStart="6dip"
         />
     <ImageView
         android:id="@+id/close"

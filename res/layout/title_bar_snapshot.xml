@@ -23,13 +23,13 @@
         android:src="@drawable/ic_suggest_history_normal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="8dip" />
+        android:paddingStart="8dip" />
     <ImageView
         android:id="@+id/favicon"
         android:layout_width="52dip"
         android:layout_height="match_parent"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:paddingStart="16dip"
+        android:paddingEnd="16dip"
         android:scaleType="fitCenter" />
     <FrameLayout
         android:id="@+id/toggle_container"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="3dp"
-            android:paddingRight="2dp"
+            android:paddingEnd="2dp"
             android:clickable="false"
             android:text="0" >
         </TextView>

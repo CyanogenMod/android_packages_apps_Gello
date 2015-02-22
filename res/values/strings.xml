@@ -323,8 +323,6 @@
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
     <string name="pref_memory_monitor">Enable Memory Monitor</string>
-     <!-- Settings label -->
-    <string name="pref_allow_media_downloads">Allow Media Downloads</string>
     <!-- Settings label -->
     <string name="pref_content_open_in_background">Open in background</string>
     <!-- Settings label -->

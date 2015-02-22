@@ -219,7 +219,7 @@ class Tab implements PictureListener {
         PageState(Context c, boolean incognito) {
             mIncognito = incognito;
             if (mIncognito) {
-                mOriginalUrl = mUrl = "browser:incognito";
+                mOriginalUrl = mUrl = "chrome://incognito";
                 mTitle = c.getString(R.string.new_incognito_tab);
             } else {
                 mOriginalUrl = mUrl = "";
@@ -670,7 +670,7 @@ class Tab implements PictureListener {
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
             //intercept if opening a new incognito tab - show the incognito welcome page
-            if (url.startsWith("browser:incognito")) {
+            if (url.startsWith("chrome://incognito")) {
                 Resources resourceHandle = mContext.getResources();
                 InputStream inStream = resourceHandle.openRawResource(
                         com.android.browser.R.raw.incognito_mode_start_page);
@@ -702,6 +702,24 @@ class Tab implements PictureListener {
                 super.onUnhandledKeyEvent(view, event);
             }
         }
+        //SWE-download-file
+        @Override
+        public void onDownloadStart(String url,
+                                 String userAgent,
+                                 String contentDisposition,
+                                 String mimeType,
+                                 long contentLength) {
+          if (mDownloadListener != null) {
+             if (mDownloadListener instanceof BrowserDownloadListener) {
+                 ((BrowserDownloadListener) mDownloadListener).onDownloadStart(url,
+                     userAgent, contentDisposition, mimeType, contentLength);
+             } else {
+                 mDownloadListener.onDownloadStart(url, userAgent,
+                     contentDisposition, mimeType, contentLength);
+             }
+          }
+        }
+        //SWE-download-file
     };
 
     private void syncCurrentState(WebView view, String url) {
@@ -1578,7 +1596,7 @@ class Tab implements PictureListener {
             if (mMainView.hasCrashed()) {
                 // Reload if render process has crashed. This is done here so that
                 // setFocus call sends wasShown message to correct render process.
-                mMainView.reload();
+                mMainView.setNeedsReload(true);
             }
             setupHwAcceleration(mMainView);
             mMainView.onResume();

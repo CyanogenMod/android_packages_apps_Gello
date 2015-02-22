@@ -25,9 +25,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.os.Process;
 
+import org.chromium.chrome.browser.ChromiumApplication;
+import org.chromium.chrome.browser.PKCS11AuthenticationManager;
+
 import org.codeaurora.swe.Engine;
 
-public class Browser extends Application {
+public class Browser extends ChromiumApplication {
 
     private final static String LOGTAG = "browser";
 
@@ -111,6 +114,29 @@ public class Browser extends Application {
             Preloader.initialize((Context) this);
         }
 
+    }
+
+    @Override
+    protected PKCS11AuthenticationManager getPKCS11AuthenticationManager() {
+        return null;
+    }
+
+    @Override
+    protected void openProtectedContentSettings() {
+    }
+
+    @Override
+    protected boolean areParentalControlsEnabled() {
+        return false;
+    }
+
+    @Override
+    public String getSettingsActivityName() {
+        return null;
+    }
+
+    @Override
+    public void initCommandLine() {
     }
 }
 

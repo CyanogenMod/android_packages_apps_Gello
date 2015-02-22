@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="0dip"
+            android:layout_marginStart="0dip"
             android:visibility="gone" />
 
         <com.android.browser.UrlInputView
@@ -90,8 +90,8 @@
             android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
             android:inputType="textUri"
             android:lines="1"
-            android:paddingLeft="4dip"
-            android:paddingRight="0dip"
+            android:paddingStart="4dip"
+            android:paddingEnd="0dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceMedium" />

@@ -45,7 +45,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
-import com.google.common.annotations.VisibleForTesting;
+import org.chromium.base.VisibleForTesting;
 
 public class EngineInitializer {
     private final static String LOGTAG = "EngineInitializer";
@@ -245,6 +245,66 @@ public class EngineInitializer {
             });
         }
 
+    }
+
+    private void completeInitializationAsynOnUiThread(final Context ctx) {
+        assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
+
+        if (!mInitializationCompleted) {
+            // TODO: Evaluate the benefit of async Engine.initialize()
+            Engine.StartupCallback callback =
+                new Engine.StartupCallback() {
+                    @Override
+                    public void onSuccess(boolean alreadyStarted) {
+                        if (Looper.myLooper() == Looper.getMainLooper()) {
+                            Log.e(LOGTAG, "SWE engine initialization success");
+                             // Add the browser commandline options
+                            BrowserConfig.getInstance(ctx).initCommandLineSwitches();
+
+                            //Note: Only enable this for debugging.
+                            if (BrowserCommandLine.hasSwitch(STRICT_MODE)) {
+                                Log.v(LOGTAG, "StrictMode enabled");
+                                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                                        .detectDiskReads()
+                                        .detectDiskWrites()
+                                        .detectNetwork()
+                                        .penaltyLog()
+                                        .build());
+                                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                                        .detectLeakedSqlLiteObjects()
+                                        .detectLeakedClosableObjects()
+                                        .penaltyLog()
+                                        .penaltyDeath()
+                                        .build());
+                            }
+
+                            //Enable remote debugging by default
+                            Engine.setWebContentsDebuggingEnabled(true);
+                            mInitializationCompleted = true;
+                            mLibraryLoaded = true;
+                            BrowserSettings.getInstance().onEngineInitializationComplete();
+
+                            if (mActivity != null && mNotifyActivity) {
+                                mNotifyActivity = false;
+                                postOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mActivity.onEngineInitializationComplete();
+                                        mActivityReady = true;
+                                        processPendingEvents();
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Log.e(LOGTAG, "SWE engine initialization failed");
+                    }
+            };
+            Engine.initialize(ctx, callback);
+        }
     }
 
     private void processPendingEvents() {

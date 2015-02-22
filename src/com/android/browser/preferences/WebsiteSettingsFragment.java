@@ -278,6 +278,13 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                     askForGeolocation(sites);
                 }
             });
+
+
+            //SWETODO: REMOVE code below be after WebStorage getOrigins Method is Functional
+            Map<String, Site> sites = new HashMap<String, Site>();
+            askForGeolocation(sites);
+
+
         }
 
         public void askForGeolocation(final Map<String, Site> sites) {
@@ -737,7 +744,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.website_settings, container, false);
+        View view = inflater.inflate(R.layout.swe_website_settings, container, false);
         Bundle args = getArguments();
         if (args != null) {
             mSite = (Site) args.getParcelable(EXTRA_SITE);

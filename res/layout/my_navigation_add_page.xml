@@ -37,8 +37,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:orientation="horizontal"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip" >
+        android:paddingStart="5dip"
+        android:paddingEnd="5dip" >
 
         <TextView
             android:id="@+id/dialog_title"
@@ -61,8 +61,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:id="@+id/default_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
+            android:paddingStart="10dip"
+            android:paddingEnd="10dip"
             android:paddingTop="10dip"
             android:shrinkColumns="1"
             android:stretchColumns="1" >
@@ -73,7 +73,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     android:id="@+id/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:paddingTop="10dip"
                     android:text="@string/my_navigation_name"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -82,7 +82,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
+                    android:layout_marginStart="10dip"
                     android:inputType="textCapSentences"
                     android:selectAllOnFocus="true"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -96,7 +96,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     android:id="@+id/addressText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:text="@string/my_navigation_address"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -104,7 +104,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                     android:id="@+id/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
+                    android:layout_marginStart="10dip"
                     android:hint="@string/http"
                     android:inputType="textUri"
                     android:selectAllOnFocus="true"
@@ -135,7 +135,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_weight="1"
                 android:maxLines="2"
                 android:text="@string/do_not_save" />
@@ -145,7 +145,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_weight="1"
                 android:maxLines="2"
                 android:text="@string/save" />

@@ -40,8 +40,6 @@
     <bool name="feature_title_in_URL_bar">false</bool>
     <!-- Allow users to provide custom download path -->
     <bool name="feature_custom_download_path">false</bool>
-    <!-- Add 'Allow media downloads' menu item -->
-    <bool name="feature_allow_media_downloads">false</bool>
     <!-- Allow disabling saving history for non-incognito tabs -->
     <bool name="feature_disable_history">false</bool>
 

@@ -27,8 +27,8 @@
             android:orientation="vertical"
             android:layout_width="0px"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/preference_screen_side_margin_negative"
-            android:layout_marginLeft="@dimen/preference_screen_side_margin"
+            android:layout_marginEnd="@dimen/preference_screen_side_margin_negative"
+            android:layout_marginStart="@dimen/preference_screen_side_margin"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:layout_weight="10">
@@ -54,8 +54,8 @@
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
-                android:layout_marginLeft="@dimen/preference_screen_side_margin"
-                android:layout_marginRight="@dimen/preference_screen_side_margin"
+                android:layout_marginStart="@dimen/preference_screen_side_margin"
+                android:layout_marginEnd="@dimen/preference_screen_side_margin"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="?android:attr/detailsElementBackground"
@@ -69,16 +69,16 @@
                 android:layout_width="match_parent"
                 android:paddingTop="16dip"
                 android:paddingBottom="8dip"
-                android:gravity="center_vertical|left"
-                android:layout_marginLeft="48dip"
-                android:layout_marginRight="48dip"
+                android:gravity="center_vertical|start"
+                android:layout_marginStart="48dip"
+                android:layout_marginEnd="48dip"
                 />
 
             <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="1dip"
-                    android:paddingLeft="32dip"
-                    android:paddingRight="32dip"
+                    android:paddingStart="32dip"
+                    android:paddingEnd="32dip"
                     android:src="#404040"
                 />
             <android.preference.PreferenceFrameLayout android:id="@+id/prefs"

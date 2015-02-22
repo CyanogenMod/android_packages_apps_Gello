@@ -120,7 +120,8 @@ do
         # trim branch to a num, or a smaller name
         BRANCH=${BRANCH##*/}
     fi
-
+    #SWE-FIXME
+    BRANCH=2125
     # tack on branch
     VERSION=${VERSION}.${BRANCH}
 
@@ -131,6 +132,8 @@ do
     if [[ -n ${MERGE_BASE} ]]
     then
         BUILDID=$(git log --oneline ${MERGE_BASE}.. | wc -l)
+        #SWE-FIXME
+        BUILDID=1200
         VERSION=${VERSION}.${BUILDID}
     else
         warning "using version ${VERSION}.. merge-base:\"${MERGE_BASE}\" branch: \"${BRANCH}\""
