@@ -777,6 +777,7 @@ public class AddBookmarkPage extends Activity
     // Called once we have determined which folder is the root folder
     private void onRootFolderFound(long root) {
         mRootFolder = root;
+        mCurrentFolder = (mCurrentFolder == -1) ? mRootFolder : mCurrentFolder;
         setupTopCrumb();
         onCurrentFolderFound();
     }
