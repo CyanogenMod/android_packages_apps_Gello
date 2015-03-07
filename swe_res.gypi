@@ -74,6 +74,13 @@
             '<(PRODUCT_DIR)/res.java/android_support_v7_appcompat_javalib.zip',
           ],
         },
+        #android_data_chart_res
+        {
+          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/android_data_chart_res/',
+          'files': [
+            '<(PRODUCT_DIR)/res.java/android_data_chart_java.zip',
+          ],
+        }
       ],
       'actions': [
         {
@@ -152,6 +159,18 @@
            'action': ['python', '<(DEPTH)/swe/tools/merge_resources.py',
                        '<(PRODUCT_DIR)/res.java/android_support_v7_appcompat_javalib.zip',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/android_support_res/res/',
+                     ],
+           'message': 'Merging SWE Resources'
+        },
+        {
+           'action_name': 'merge_android_data_usage',
+           'inputs': ['<(DEPTH)/swe/tools/merge_resources.py',
+                      '<(PRODUCT_DIR)/apks/SWE_AndroidBrowser.apk',
+                     ],
+           'outputs': ['<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/android_support_res/res/values/strings.xml'],
+           'action': ['python', '<(DEPTH)/swe/tools/merge_resources.py',
+                       '<(PRODUCT_DIR)/res.java/android_data_chart_java.zip',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/android_data_chart_res/res/',
                      ],
            'message': 'Merging SWE Resources'
         },
