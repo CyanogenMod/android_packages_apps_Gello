@@ -84,15 +84,7 @@ public class MemoryMonitor {
       * memory class.
       */
     private static int getMaxActiveTabs(Context context) {
-        // We use device memory class to decide number of active tabs
-        // (minimum memory class is 16).
-        ActivityManager am =(ActivityManager)context.
-            getSystemService(Context.ACTIVITY_SERVICE);
-        if (am.getMemoryClass() < 33) {
-            return 1;   // only 1 Tab can be active at a time
-        }
-        else {
-            return 2;  // atleast 2 Tabs can be active at a time
-        }
+        return context.getResources()
+                .getInteger(R.integer.feature_num_min_active_tabs);
     }
 }

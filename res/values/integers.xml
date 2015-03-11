@@ -34,4 +34,8 @@
     <integer name="titlebar_animation_duration">200</integer>
     <integer name="netswitch_type_remind">1</integer>
     <item type="fraction" format="fraction" name="menu_animation_pivot_x">95%</item>
+
+    <!-- MemoryMonitor minimum number of active tabs -->
+    <integer name="feature_num_min_active_tabs">2</integer>
+
 </resources>
