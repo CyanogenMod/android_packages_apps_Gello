@@ -154,7 +154,6 @@ class BookmarkItem extends ScrollView {
             * Rest of it will be scrollable.
             */
             mUrlText.setMaxLines(3);
-            mUrlText.setMovementMethod(new ScrollingMovementMethod());
         }
 
         mUrlText.setText(url);
