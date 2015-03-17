@@ -49,6 +49,10 @@ public class SnapshotTab extends Tab {
     private long mDateCreated;
     private boolean mIsLive;
     private String mLiveUrl;
+    private Bundle mSavedState;
+
+    // Used for saving and restoring each Tab
+    static final String SNAPSHOT_ID = "snapshotId";
 
     public SnapshotTab(WebViewController wvcontroller, long snapshotId) {
         super(wvcontroller, null, null);
@@ -116,7 +120,11 @@ public class SnapshotTab extends Tab {
         if (mIsLive) {
             return super.saveState();
         }
-        return null;
+
+        mSavedState = new Bundle();
+        mSavedState.putLong(SNAPSHOT_ID, mSnapshotId);
+
+        return mSavedState;
     }
 
     public long getDateCreated() {

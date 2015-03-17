@@ -438,7 +438,15 @@ class TabControl {
                     && state.getBoolean(Tab.INCOGNITO)) {
                 // ignore tab
             } else if (id == currentId || restoreAll) {
-                Tab t = createNewTab(state, false);
+                Tab t = null;
+                // Add special check to restore Snapshot Tab if needed
+                if (state.getLong(SnapshotTab.SNAPSHOT_ID, -1) != -1 ) {
+                  t = (SnapshotTab) createSnapshotTab( state.getLong(SnapshotTab.SNAPSHOT_ID) );
+                } else {
+                    // presume its a normal Tab
+                    t = createNewTab(state, false);
+                }
+
                 if (t == null) {
                     // We could "break" at this point, but we want
                     // sNextId to be set correctly.
