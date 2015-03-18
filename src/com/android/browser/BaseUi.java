@@ -840,7 +840,7 @@ public abstract class BaseUi implements UI {
             }
             if (!mTitleBar.isFixed()) {
                 float currentY = mTitleBar.getTranslationY();
-                float height = mTitleBar.getHeight();
+                float height = mNavigationBar.getHeight();
                 if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
                     mTitleBar.requestLayout();
                 } else if ((height + topControlsOffsetYPix) <= 0) {
