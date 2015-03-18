@@ -73,8 +73,9 @@ public class MemoryMonitor {
         });
 
         for(int i = 0; i < numActiveTabsToRelease; i++) {
-            if(tabControl.getCurrentTab()!=  activeTabList.get(i))
-                activeTabList.get(i).destroy();
+            if(tabControl.getCurrentTab()!=  activeTabList.get(i)) {
+                activeTabList.get(i).destroyThroughMemoryMonitor();
+            }
         }
     }
 

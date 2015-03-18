@@ -195,6 +195,10 @@ class Tab implements PictureListener {
     private boolean mFullScreen = false;
     private boolean mReceivedError;
 
+    // determine if webview is destroyed to MemoryMonitor
+    private boolean mWebViewDestroyedByMemoryMonitor;
+
+
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -1292,6 +1296,7 @@ class Tab implements PictureListener {
         setTimeStamp();
         mInPageLoad = false;
         mInForeground = false;
+        mWebViewDestroyedByMemoryMonitor = false;
 
         mDownloadListener = new BrowserDownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1407,10 +1412,21 @@ class Tab implements PictureListener {
                 syncCurrentState(w, null);
             } else {
                 mCurrentState = new PageState(mContext, mMainView.isPrivateBrowsingEnabled());
+
+                if (mWebViewDestroyedByMemoryMonitor) {
+                    /*
+                    * If tab was destroyed as a result of the MemoryMonitor
+                    * then we need to restore the state properties
+                    * from the old WebView (mMainView)
+                    */
+                    syncCurrentState(mMainView, null);
+                    mWebViewDestroyedByMemoryMonitor = false;
+                }
             }
         }
         // set the new one
         mMainView = w;
+
         // attach the WebViewClient, WebChromeClient and DownloadListener
         if (mMainView != null) {
             mMainView.setWebViewClient(mWebViewClient);
@@ -1435,6 +1451,11 @@ class Tab implements PictureListener {
                 mSavedState = null;
             }
         }
+    }
+
+    public void destroyThroughMemoryMonitor() {
+        mWebViewDestroyedByMemoryMonitor = true;
+        destroy();
     }
 
     /**
