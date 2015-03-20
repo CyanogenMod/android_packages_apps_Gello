@@ -145,7 +145,8 @@
     <string name="ssl_certificate">安全性憑證</string>
     <string name="ssl_certificate_is_valid">此憑證有效。</string>
     <string name="pref_memory_monitor">啟用記憶體監察器</string>
-
+    <string name="pref_powersave_enabled">"省電模式"</string>
+    <string name="pref_powersave_enabled_summary">"開啟省電模式"</string>
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"永遠開啟"</item>

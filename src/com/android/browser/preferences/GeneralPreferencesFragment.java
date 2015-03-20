@@ -93,6 +93,12 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                 PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autofill.setOnPreferenceClickListener(this);
 
+        final Bundle arguments = getArguments();
+        if (arguments != null && arguments.getBoolean("LowPower")) {
+            LowPowerDialogFragment fragment = LowPowerDialogFragment.newInstance();
+            fragment.show(getActivity().getFragmentManager(), "setPowersave dialog");
+        }
+
         //Disable set search engine preference if SEARCH_ENGINE restriction is enabled
         if (SearchEngineRestriction.getInstance().isEnabled()) {
             findPreference("search_engine").setEnabled(false);
@@ -299,6 +305,39 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         public void onSaveInstanceState(Bundle outState){
             super.onSaveInstanceState(outState);
             outState.putString(HOME_PAGE, editText.getText().toString().trim());
+        }
+    }
+    public static class LowPowerDialogFragment extends DialogFragment {
+        public static LowPowerDialogFragment newInstance() {
+            LowPowerDialogFragment frag = new LowPowerDialogFragment();
+            return frag;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final BrowserSettings settings = BrowserSettings.getInstance();
+            final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setPositiveButton(android.R.string.ok, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            settings.setPowerSaveModeEnabled(true);
+                            getActivity().finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            getActivity().finish();
+                        }
+                    })
+                    .setTitle(R.string.pref_powersave_enabled_summary)
+                    .create();
+
+            dialog.getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+            return dialog;
         }
     }
 }

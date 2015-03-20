@@ -380,6 +380,11 @@
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
     <string name="pref_general_autofill_title">Auto-fill</string>
 
+    <!-- Checkbox setting for enabling/disabling power save mode feature -->
+    <string name ="pref_powersave_enabled">Power save mode</string>
+    <!-- Settings summary for the powersave feature. -->
+    <string name ="pref_powersave_enabled_summary">Turn on power saving mode</string>
+
     <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
     <string name="pref_autofill_enabled">Form auto-fill</string>
     <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->

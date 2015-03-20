@@ -774,6 +774,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mPrefs.edit().putBoolean(PREF_AUTOFILL_ENABLED, value).apply();
     }
 
+    public boolean isPowerSaveModeEnabled() {
+        return mPrefs.getBoolean(PREF_POWERSAVE_ENABLED, false);
+    }
+
+    public void setPowerSaveModeEnabled(boolean value) {
+        mPrefs.edit().putBoolean(PREF_POWERSAVE_ENABLED, value).apply();
+    }
+
     // -----------------------------
     // getter/setters for debug_preferences.xml
     // -----------------------------

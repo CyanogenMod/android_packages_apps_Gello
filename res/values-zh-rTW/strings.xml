@@ -136,6 +136,11 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"啟用 JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"在背景中開啟"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"啟用外掛程式"</string>
+
+    <!-- Custom Translations -->
+    <string name="pref_powersave_enabled">"省電模式"</string>
+    <string name="pref_powersave_enabled_summary">"開啟省電模式"</string>
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"永遠開啟"</item>
     <item msgid="2484126708670016519">"隨選"</item>
