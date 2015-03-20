@@ -51,8 +51,10 @@
     <PreferenceCategory android:title="@string/pref_extras_title"
         android:key="advanced">
 
-        <PreferenceScreen android:title="@string/pref_privacy_security_title">
-            <PreferenceScreen android:title="@string/webstorage_clear_data_title">
+        <PreferenceScreen android:title="@string/pref_privacy_security_title"
+            android:key="privacy_security">
+            <PreferenceScreen android:title="@string/webstorage_clear_data_title"
+                android:key="clear_data">
                 <com.android.browser.BrowserYesNoPreference
                     android:dialogIcon="@android:drawable/ic_dialog_alert"
                     android:dialogMessage="@string/pref_privacy_clear_selected_dlg"

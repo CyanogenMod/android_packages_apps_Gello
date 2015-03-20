@@ -89,9 +89,10 @@ class BrowserYesNoPreference extends DialogPreference {
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
 
+        if (!positiveResult)
+            return;
+
         if (callChangeListener(positiveResult)) {
-            if (!positiveResult)
-                return;
             setEnabled(false);
             BrowserSettings settings = BrowserSettings.getInstance();
             if (PreferenceKeys.PREF_CLEAR_SELECTED_DATA.equals(getKey())) {
