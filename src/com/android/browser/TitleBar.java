@@ -270,7 +270,7 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
         if (view != null)
-            view.updateTopControls(false, true, true);
+            view.updateTopControls(false, true, false);
     }
 
     private void enableTopControls() {
@@ -296,9 +296,8 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             }
 
             //onPageFinished
-            if (isFixed())
-                showTopControls();
-            else
+            showTopControls();
+            if(!isFixed())
                 enableTopControls();
 
         } else {
@@ -308,13 +307,13 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
                 mNavBar.onProgressStarted();
                 mProgress.onProgressStarted();
                 //onPageStarted
-                showTopControls();
             }
             mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);
             if (!mShowing) {
                 show();
             }
+            showTopControls();
         }
     }
 
