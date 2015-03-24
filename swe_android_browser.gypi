@@ -22,7 +22,7 @@
             ],
           }],
         ],
-        'native_lib_target': 'libchromeshell',
+        'native_lib_target': 'libswe',
         'app_manifest_version_name': '<!(../swe/browser/tools/generate_about.sh --quiet --name --about)',
         'app_manifest_version_code': '<!(../swe/browser/tools/generate_about.sh --quiet --code)',
         #'additional_native_libs': [
