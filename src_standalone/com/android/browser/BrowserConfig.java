@@ -36,7 +36,7 @@ import android.content.Context;
 public class BrowserConfig extends BrowserConfigBase {
 
     //Authority string used by different providers
-    public final static String AUTHORITY = "com.android.swe.browser";
+    public final static String AUTHORITY = "org.codeaurora.swe.browser.beta";
 
     private static BrowserConfig sBrowserConfig;
 

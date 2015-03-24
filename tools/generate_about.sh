@@ -74,12 +74,16 @@ function error()
     exit ${retval}
 }
 
+VERSIONINFO=$(cat ${VERSIONFILE}) || error 1 "couldn't read \"${VERSIONFILE}\""
+VERSIONINFO=( ${VERSIONINFO//;/ } )
 
-BASEVERSION=$(cat ${VERSIONFILE}) || error 1 "couldn't read \"${VERSIONFILE}\""
-BASEVERSION=( ${BASEVERSION//./ } )
-MAJOR=${BASEVERSION[0]}
-MINOR=${BASEVERSION[1]}
-BRANCH=unknown
+BASE_STRING=( ${VERSIONINFO[0]//=/ } )
+BASE_STRING=( ${BASE_STRING[1]//./ } )
+MAJOR=${BASE_STRING[0]}
+MINOR=${BASE_STRING[1]}
+
+BRANCH=( ${VERSIONINFO[1]//=/ } )
+BRANCH=${BRANCH[1]}
 BUILDID=unknown
 VERSION=${MAJOR}.${MINOR}
 
@@ -102,26 +106,6 @@ do
     fi
 
     # collect branch and clean it up
-    BRANCH=$(git branch | awk '/^\*/')
-    BRANCH=${BRANCH#\* }
-
-    # try to get the best form of the branch, to
-    # catch detached HEADs, etc.
-    while read
-    do
-        REPLY=${REPLY// /}
-        [[ ${REPLY:0:1} == "(" ]] && continue
-        REPLY=${REPLY%->*}
-        git log -1 --oneline ${REPLY} | grep "${HASH}" &>/dev/null && BRANCH=${REPLY} && break;
-    done < <(git branch -a | grep -Ev "\*" 2>/dev/null)
-
-    if [[ ${BRANCH//(/} == ${BRANCH} ]]
-    then
-        # trim branch to a num, or a smaller name
-        BRANCH=${BRANCH##*/}
-    fi
-    #SWE-FIXME
-    BRANCH=2125
     # tack on branch
     VERSION=${VERSION}.${BRANCH}
 
@@ -132,8 +116,6 @@ do
     if [[ -n ${MERGE_BASE} ]]
     then
         BUILDID=$(git log --oneline ${MERGE_BASE}.. | wc -l)
-        #SWE-FIXME
-        BUILDID=1200
         VERSION=${VERSION}.${BUILDID}
     else
         warning "using version ${VERSION}.. merge-base:\"${MERGE_BASE}\" branch: \"${BRANCH}\""
@@ -175,6 +157,8 @@ fi
 [[ -n ${BRANCH//[0-9]/} ]] && BRANCH=0
 [[ -n ${BUILDID//[0-9]/} ]] && BUILDID=0
 
-(( ${CODE} )) && printf "%d%02d%06d%05d\n" $((${MAJOR})) $((${MINOR})) $((${BRANCH})) $((${BUILDID}))
+# This value should always be less than MAX int value "2147483647"
+(( ${CODE} )) && printf "%4d%04d\n" $((${BRANCH})) $((${BUILDID}))
+
 
 exit 0

@@ -18,10 +18,10 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
 
-    <permission android:name="com.android.swe.browser.permission.PRELOAD"
+    <permission android:name="org.codeaurora.swe.browser.beta.permission.PRELOAD"
         android:label="@string/permission_preload_label"
         android:protectionLevel="signatureOrSystem" />
-    <permission android:name="com.android.swe.browser.permission.INITIALIZE_DATABASE"
+    <permission android:name="org.codeaurora.swe.browser.beta.permission.INITIALIZE_DATABASE"
         android:protectionLevel="signatureOrSystem" />
     <permission android:name="org.chromium.swe.browser.permission.SANDBOX"
         android:protectionLevel="signatureOrSystem" />
@@ -48,9 +48,9 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="com.android.swe.browser.permission.READ_HOMEPAGE" />
-    <uses-permission android:name="com.android.swe.browser.permission.WRITE_HOMEPAGE" />
-    <uses-permission android:name="com.android.swe.browser.permission.INITIALIZE_DATABASE"/>
+    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.READ_HOMEPAGE" />
+    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.WRITE_HOMEPAGE" />
+    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.INITIALIZE_DATABASE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -58,7 +58,7 @@
 
     <application   android:name="Browser"
                    android:label="@string/application_name_swe"
-                   android:icon="@mipmap/ic_launcher_browser_swe"
+                   android:icon="@mipmap/ic_launcher_browser_swe_beta"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="true"
                    android:taskAffinity="android.task.swe.browser"
@@ -68,7 +68,7 @@
                       android:required="false" />
 
         <provider android:name=".provider.BrowserProvider2"
-                  android:authorities="com.android.swe.browser;swe.browser"
+                  android:authorities="org.codeaurora.swe.browser.beta;swe.browser.beta"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
@@ -76,8 +76,8 @@
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
             <path-permission android:path="/homepage"
-                    android:readPermission="com.android.swe.browser.permission.READ_HOMEPAGE"
-                    android:writePermission="com.android.swe.browser.permission.WRITE_HOMEPAGE" />
+                    android:readPermission="org.codeaurora.swe.browser.beta.permission.READ_HOMEPAGE"
+                    android:writePermission="org.codeaurora.swe.browser.beta.permission.WRITE_HOMEPAGE" />
         </provider>
 
         <activity android:name="BrowserLauncher"
@@ -288,7 +288,7 @@
         <!-- For custom home pages (like most visited) -->
         <provider
             android:name=".homepages.HomeProvider"
-            android:authorities="com.android.swe.browser.home"
+            android:authorities="org.codeaurora.swe.browser.beta.home"
             android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
@@ -306,7 +306,7 @@
         </receiver>
 
         <receiver android:name=".PreloadRequestReceiver"
-             android:permission="com.android.swe.browser.permission.PRELOAD" >
+             android:permission="org.codeaurora.swe.browser.beta.permission.PRELOAD" >
              <intent-filter>
                  <action android:name="android.intent.action.PRELOAD"/>
                  <data android:scheme="http" />
@@ -314,11 +314,11 @@
          </receiver>
 
         <provider android:name=".provider.SnapshotProvider"
-                  android:authorities="com.android.swe.browser.snapshots"
+                  android:authorities="org.codeaurora.swe.browser.beta.snapshots"
                   android:exported="false" />
         <provider
             android:name=".provider.MyNavigationProvider"
-            android:authorities="com.android.swe.browser.mynavigation"
+            android:authorities="org.codeaurora.swe.browser.beta.mynavigation"
             android:exported="false"
             android:grantUriPermissions="true"/>
 
