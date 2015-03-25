@@ -24,6 +24,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.Process;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
@@ -43,6 +44,8 @@ import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
 
+import java.util.Locale;
+
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.WebView;
 
@@ -61,6 +64,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     private ActivityController mController = NullController.INSTANCE;
 
     private Handler mHandler = new Handler();
+    private final Locale mCurrentLocale = Locale.getDefault();
 
     private UiController mUiController;
     private Handler mHandlerEx = new Handler();
@@ -300,6 +304,11 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
             mEngineInitializer.onActivityDestroy();
         mController.onDestroy();
         mController = NullController.INSTANCE;
+        if (!Locale.getDefault().equals(mCurrentLocale)) {
+            Log.e(LOGTAG,"Force Killing Browser on locale change");
+            Process.killProcess(Process.myPid());
+        }
+
     }
 
     @Override
