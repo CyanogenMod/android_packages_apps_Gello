@@ -1056,6 +1056,9 @@ public class AddBookmarkPage extends Activity
             if (urlUnmodified) {
                 thumbnail = (Bitmap) mMap.getParcelable(
                         BrowserContract.Bookmarks.THUMBNAIL);
+                if (thumbnail == null) {
+                    thumbnail = Controller.getAndReleaseLastBookmarkBitmapFromIntent();
+                }
                 favicon = (Bitmap) mMap.getParcelable(
                         BrowserContract.Bookmarks.FAVICON);
             } else {
