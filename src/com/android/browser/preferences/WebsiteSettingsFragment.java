@@ -278,13 +278,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                     askForGeolocation(sites);
                 }
             });
-
-
-            //SWETODO: REMOVE code below be after WebStorage getOrigins Method is Functional
-            Map<String, Site> sites = new HashMap<String, Site>();
-            askForGeolocation(sites);
-
-
         }
 
         public void askForGeolocation(final Map<String, Site> sites) {
