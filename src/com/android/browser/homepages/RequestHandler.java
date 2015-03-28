@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -48,6 +49,7 @@ public class RequestHandler extends Thread {
     private static final int INDEX = 1;
     private static final int RESOURCE = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+    private static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
 
     Uri mUri;
     Context mContext;
@@ -93,7 +95,7 @@ public class RequestHandler extends Thread {
     }
 
     byte[] htmlEncode(String s) {
-        return TextUtils.htmlEncode(s).getBytes();
+        return TextUtils.htmlEncode(s).getBytes(UTF8_CHARSET);
     }
 
     // We can reuse this for both History and Bookmarks queries because the
