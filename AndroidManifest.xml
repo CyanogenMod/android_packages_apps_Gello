@@ -61,7 +61,7 @@
                    android:icon="@mipmap/ic_launcher_browser_swe_beta"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="true"
-                   android:taskAffinity="android.task.swe.browser"
+                   android:taskAffinity="android.task.swe.browser.beta"
                    android:theme="@style/BrowserBase" >
 
         <uses-library android:name="com.qrd.useragent"
