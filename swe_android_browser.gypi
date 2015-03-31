@@ -6,6 +6,7 @@
       'dependencies': [
         'swe_chrome_engine',
         '<@(libnetxt_dependencies)',
+        '<@(libsta_dependencies)',
         #'android-support-v13',
       ],
       'variables': {
@@ -28,6 +29,7 @@
         'app_manifest_version_code': '<!(../swe/browser/tools/generate_about.sh --quiet --code)',
         'additional_native_libs': [
           '<@(libnetxt_native_libs)',
+          '<@(libsta_native_libs)',
         ],
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
