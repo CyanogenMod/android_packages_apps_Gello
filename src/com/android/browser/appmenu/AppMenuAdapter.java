@@ -158,7 +158,7 @@ class AppMenuAdapter extends BaseAdapter {
                 StandardMenuItemViewHolder holder = null;
                 if (convertView == null) {
                     holder = new StandardMenuItemViewHolder();
-                    convertView = mInflater.inflate(R.layout.menu_item, parent, false);
+                    convertView = mInflater.inflate(R.layout.swe_menu_item, parent, false);
                     holder.text = (TextView) convertView.findViewById(R.id.menu_item_text);
                     holder.image = (AppMenuItemIcon) convertView.findViewById(R.id.menu_item_icon);
                     holder.checkbox = (CheckBox) convertView.findViewById(R.id.menu_item_checkbox);
