@@ -17,10 +17,8 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -38,7 +36,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -49,10 +46,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.content.res.TypedArray;
-import com.android.browser.R;
+
 import com.android.browser.Tab.SecurityState;
 
 import org.codeaurora.swe.WebView;
@@ -160,14 +156,14 @@ public abstract class BaseUi implements UI {
 
     private Drawable getLockIconSecure() {
         if (mLockIconSecure == null) {
-            mLockIconSecure = mActivity.getResources().getDrawable(R.drawable.ic_secure_holo_dark);
+            mLockIconSecure = mActivity.getResources().getDrawable(R.drawable.ic_deco_secure);
         }
         return mLockIconSecure;
     }
 
     private Drawable getLockIconMixed() {
         if (mLockIconMixed == null) {
-            mLockIconMixed = mActivity.getResources().getDrawable(R.drawable.ic_secure_partial_holo_dark);
+            mLockIconMixed = mActivity.getResources().getDrawable(R.drawable.ic_deco_secure_partial);
         }
         return mLockIconMixed;
     }
