@@ -357,6 +357,12 @@ class Tab implements PictureListener {
         }
     }
 
+    public void setNetworkAvailable(boolean networkUp) {
+        if (networkUp && mReceivedError && (mMainView != null)) {
+            mMainView.reload();
+        }
+    }
+
     // -------------------------------------------------------------------------
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------

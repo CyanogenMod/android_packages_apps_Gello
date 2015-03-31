@@ -62,19 +62,22 @@ public class NetworkStateHandler {
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(
                         ConnectivityManager.CONNECTIVITY_ACTION)) {
+                    final ConnectivityManager cm = (ConnectivityManager)
+                            context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo info = cm.getActiveNetworkInfo();
 
-                    NetworkInfo info = intent.getParcelableExtra(
-                            ConnectivityManager.EXTRA_NETWORK_INFO);
+                    if (info == null) {
+                        onNetworkToggle(false);
+                        return;
+                    }
+
                     String typeName = info.getTypeName();
                     String subtypeName = info.getSubtypeName();
                     sendNetworkType(typeName.toLowerCase(),
                             (subtypeName != null ? subtypeName.toLowerCase() : ""));
                     BrowserSettings.getInstance().updateConnectionType();
 
-                    boolean noConnection = intent.getBooleanExtra(
-                            ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-
-                    onNetworkToggle(!noConnection);
+                    onNetworkToggle(info.isConnectedOrConnecting());
                 }
             }
         };
@@ -104,6 +107,10 @@ public class NetworkStateHandler {
         WebView w = mController.getCurrentWebView();
         if (w != null) {
             w.setNetworkAvailable(up);
+        }
+        Tab t = mController.getCurrentTab();
+        if (t != null) {
+            t.setNetworkAvailable(up);
         }
     }
 
