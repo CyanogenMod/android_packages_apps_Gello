@@ -35,12 +35,11 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
 
 import com.android.browser.NavTabScroller.OnRemoveListener;
-import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 
 import java.util.HashMap;
 
 public class NavScreen extends RelativeLayout
-        implements OnClickListener, OnMenuItemClickListener, OnThumbnailUpdatedListener {
+        implements OnClickListener, OnMenuItemClickListener {
 
 
     private final UiController mUiController;
@@ -257,13 +256,4 @@ public class NavScreen extends RelativeLayout
         }
 
     }
-
-    @Override
-    public void onThumbnailUpdated(Tab t) {
-        View v = mTabViews.get(t);
-        if (v != null) {
-            v.invalidate();
-        }
-    }
-
 }

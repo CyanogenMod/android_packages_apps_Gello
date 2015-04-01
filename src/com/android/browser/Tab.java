@@ -166,6 +166,7 @@ class Tab implements PictureListener {
     private boolean mInPageLoad;
     private boolean mPageFinished;
     private boolean mDisableOverrideUrlLoading;
+    private boolean mFirstVisualPixelPainted = false;
     // The last reported progress of the current page
     private int mPageLoadProgress;
     // The time the load started, used to find load page time
@@ -374,6 +375,7 @@ class Tab implements PictureListener {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             mInPageLoad = true;
             mPageFinished = false;
+            mFirstVisualPixelPainted = false;
             mReceivedError = false;
             mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
@@ -410,6 +412,11 @@ class Tab implements PictureListener {
             }
             syncCurrentState(view, url);
             mWebViewController.onPageFinished(Tab.this);
+        }
+
+        @Override
+        public void onFirstVisualPixel(WebView view) {
+            mFirstVisualPixelPainted = true;
         }
 
         // return true if want to hijack the url to let another app to handle it
@@ -2065,6 +2072,26 @@ class Tab implements PictureListener {
     protected void capture() {
         if (mMainView == null || mCapture == null) return;
         if (mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0) {
+            return;
+        }
+
+        if (!mFirstVisualPixelPainted) {
+            mCapture = Bitmap.createBitmap(
+                    mCaptureWidth,
+                    mCaptureHeight,
+                    Bitmap.Config.RGB_565);
+            mCapture.eraseColor(Color.WHITE);
+
+            mHandler.removeMessages(MSG_CAPTURE);
+
+            TabControl tc = mWebViewController.getTabControl();
+            if (tc != null) {
+                OnThumbnailUpdatedListener updateListener
+                        = tc.getOnThumbnailUpdatedListener();
+                if (updateListener != null) {
+                    updateListener.onThumbnailUpdated(this);
+                }
+            }
             return;
         }
 

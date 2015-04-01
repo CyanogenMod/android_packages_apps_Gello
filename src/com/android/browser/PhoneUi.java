@@ -23,10 +23,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Message;
 import android.util.Log;
 import android.view.ActionMode;
@@ -37,11 +34,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.ValueCallback;
-import org.codeaurora.swe.WebView;
 import android.widget.ImageView;
 
 import com.android.browser.UrlInputView.StateListener;
+
+import org.codeaurora.swe.WebView;
 
 /**
  * Ui for regular phone screen sizes
@@ -250,44 +247,43 @@ public class PhoneUi extends BaseUi {
     }
 
     void showNavScreen() {
-        WebView webView = getWebView();
-        if (webView != null) {
-            blockEvents();
-            mNavScreenRequested = true;
+        blockEvents();
+        mNavScreenRequested = true;
+        mTabControl.setOnThumbnailUpdatedListener(
+                new TabControl.OnThumbnailUpdatedListener() {
+                    @Override
+                    public void onThumbnailUpdated(Tab t) {
+                        mTabControl.setOnThumbnailUpdatedListener(null);
 
-            //To conserve memory, get a scaled down version of the screen and
-            //scale back up to full size
-            //0.25 uses 16 times less memory than the full size
-            final float downscaleRatio = 0.25f;
-            final float upscaleRatio = 1/downscaleRatio;
-            webView.getContentBitmapAsync(
-                    downscaleRatio,
-                    new Rect(),
-                    new ValueCallback<Bitmap>() {
-                        @Override
-                        public void onReceiveValue(Bitmap bm) {
-                            // Discard the callback if the req is interrupted
-                            if (!mNavScreenRequested) {
-                                unblockEvents();
-                                return;
-                            }
-
-                            Bitmap sbm = bm;
-                            if (bm != null) {
-                                //Upscale the low-res bitmap to the needed size
-                                sbm = Bitmap.createBitmap((int) upscaleRatio * bm.getWidth(),
-                                        (int) upscaleRatio * bm.getHeight(), Bitmap.Config.RGB_565);
-                                Canvas canvas = new Canvas(sbm);
-                                Matrix m = new Matrix();
-                                m.setScale(upscaleRatio, upscaleRatio, 0.0f, 0.0f);
-                                canvas.drawBitmap(bm, m, new Paint(Paint.FILTER_BITMAP_FLAG));
-                            }
-
-                            onShowNavScreenContinue(sbm);
+                        // Discard the callback if the req is interrupted
+                        if (!mNavScreenRequested) {
+                            unblockEvents();
+                            return;
                         }
+
+                        Bitmap bm = t.getScreenshot();
+                        Bitmap sbm;
+                        WebView webView = getWebView();
+                        if (webView != null) {
+                            int view_width = webView.getWidth();
+                            int capture_width = mActivity.getResources().getDimensionPixelSize(
+                                    R.dimen.tab_thumbnail_width);
+
+                            float scale =  (float) view_width / capture_width;
+
+                            //Upscale the low-res bitmap to the needed size
+                            Matrix m = new Matrix();
+                            m.postScale(scale, scale);
+                            sbm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                                    bm.getHeight(), m, false);
+                        } else {
+                            sbm = bm;
+                        }
+
+                        onShowNavScreenContinue(sbm);
                     }
-            );
-        }
+                });
+        mActiveTab.capture();
     }
 
     void onShowNavScreenContinue(Bitmap viewportBitmap) {
@@ -302,7 +298,6 @@ public class PhoneUi extends BaseUi {
             mNavScreen.setAlpha(1f);
             mNavScreen.refreshAdapter();
         }
-        mActiveTab.capture();
         if (mAnimScreen == null) {
             mAnimScreen = new AnimScreen(mActivity);
         } else {
@@ -369,7 +364,6 @@ public class PhoneUi extends BaseUi {
         if (showingNavScreen()) {
             // notify accessibility manager about the screen change
             mNavScreen.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-            mTabControl.setOnThumbnailUpdatedListener(mNavScreen);
         }
     }
 
@@ -517,7 +511,6 @@ public class PhoneUi extends BaseUi {
     }
 
     private void finishAnimateOut() {
-        mTabControl.setOnThumbnailUpdatedListener(null);
         mNavScreen.setVisibility(View.GONE);
         mCustomViewContainer.setAlpha(1f);
         mCustomViewContainer.setVisibility(View.GONE);
