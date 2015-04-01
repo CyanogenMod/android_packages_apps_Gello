@@ -28,7 +28,7 @@
  *
  */
 
-package com.android.browser.mdm;
+package com.android.browser.mdm.tests;
 
 import android.app.Instrumentation;
 import android.content.Context;
@@ -39,8 +39,10 @@ import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
+import com.android.browser.mdm.ManagedProfileManager;
+import com.android.browser.mdm.SearchEngineRestriction;
 
-public class RestrictionsTest extends ActivityInstrumentationTestCase2<BrowserActivity>
+public class SearchRestrictionsTest extends ActivityInstrumentationTestCase2<BrowserActivity>
         implements PreferenceKeys {
 
     private final static String TAG = "RestrictionsTest";
@@ -52,8 +54,10 @@ public class RestrictionsTest extends ActivityInstrumentationTestCase2<BrowserAc
     private Instrumentation mInstrumentation;
     private Context mContext;
     private BrowserActivity mActivity;
+    private SearchEngineRestriction mSearchEngineRestriction;
+    String mDefaultSearchEngineName;
 
-    public RestrictionsTest() {
+    public SearchRestrictionsTest() {
         super(BrowserActivity.class);
     }
 
@@ -63,86 +67,114 @@ public class RestrictionsTest extends ActivityInstrumentationTestCase2<BrowserAc
         mInstrumentation = getInstrumentation();
         mContext = getInstrumentation().getTargetContext();
         mActivity = getActivity();
+        mSearchEngineRestriction = SearchEngineRestriction.getInstance();
+        mDefaultSearchEngineName = mActivity.getApplicationContext()
+                .getString(R.string.default_search_engine_value);
     }
 
-    public void testSetDefaultSearchProvider() throws Throwable {
-        SearchEngineRestriction searchEngineRestriction = SearchEngineRestriction.getInstance();
+    /*
+     * Search Engine Restrictions Tests
+     */
 
-        // Ensure we start with the default search engine and no restriction
-        String defaultSearchEngineName = mActivity.getApplicationContext()
-                .getString(R.string.default_search_engine_value);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+    // Ensure we start with the default search engine and no restriction
+    public void testSR_initConditions() throws Throwable {
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
+    }
 
-        // Restriction is not set when DefaultSearchProviderEnabled is not present
+    // Restriction is not set when Enabled is null or false
+    public void testSR_NotSetWhenNotEnabled() throws Throwable {
         setDefaultSearchProvider(null, VALID_SEARCH_ENGINE_NAME_1);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
 
-        // Restriction is not set when DefaultSearchProviderEnabled is FALSE
         setDefaultSearchProvider(false, VALID_SEARCH_ENGINE_NAME_1);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
+    }
 
-        // Restriction is not set when DefaultSearchProviderName is not present
+    // Restriction is not set when DefaultSearchProviderName is null or invalid
+    public void testSR_NotSetWhenNameNullOrInvalid() throws Throwable {
         setDefaultSearchProvider(true, null);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
 
-        // Restriction is not set when DefaultSearchProviderName is INVALID
         setDefaultSearchProvider(true, INVALID_SEARCH_ENGINE_NAME);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
+    }
 
-        // Restriction is set when DefaultSearchProviderEnabled is TRUE and
-        // DefaultSearchProviderName is VALID
+    // Restriction is set when Enabled is TRUE and Name is VALID
+    public void testSR_SetWhenEnabledAndNameValid() throws Throwable {
         setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_1);
-        assertTrue("Search engine restriction", searchEngineRestriction.isEnabled());
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
         assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_1,
                 BrowserSettings.getInstance().getSearchEngineName());
 
         setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_2);
-        assertTrue("Search engine restriction", searchEngineRestriction.isEnabled());
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
         assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_2,
                 BrowserSettings.getInstance().getSearchEngineName());
 
-        // Restriction is lifted when neither DefaultSearchProviderEnabled nor
-        // DefaultSearchProviderName are present
+        // Restriction is lifted when neither Enabled nor Name are present
         setDefaultSearchProvider(null, null);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
+    }
 
-        // Restriction is lifted when DefaultSearchProviderEnabled is FALSE
-
-        // first set a valid search engine restriction
+    // Restriction is lifted when DefaultSearchProviderEnabled is FALSE or null
+    public void testSR_LiftedWhenDisabledOrNull() throws Throwable {
+        // set a valid search engine restriction
         setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_1);
-        assertTrue("Search engine restriction", searchEngineRestriction.isEnabled());
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
         assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_1,
                 BrowserSettings.getInstance().getSearchEngineName());
-        // then lift the restriction
+        // then lift the restriction (false)
         setDefaultSearchProvider(false, VALID_SEARCH_ENGINE_NAME_2);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
 
-        // Restriction is lifted when DefaultSearchProviderEnabled is TRUE and
-        // DefaultSearchProviderName is INVALID
-
-        // first set a valid search engine restriction
+        // set a valid search engine restriction
         setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_1);
-        assertTrue("Search engine restriction", searchEngineRestriction.isEnabled());
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
         assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_1,
                 BrowserSettings.getInstance().getSearchEngineName());
-        // then lift the restriction
+        // then lift the restriction (null)
+        setDefaultSearchProvider(null, VALID_SEARCH_ENGINE_NAME_2);
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
+                BrowserSettings.getInstance().getSearchEngineName());
+    }
+
+    // Restriction is lifted when Enabled is TRUE and Name is null or INVALID
+    public void testSR_LiftedWhenNameIsNullOrInvalid() throws Throwable {
+        // set a valid search engine restriction
+        setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_1);
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_1,
+                BrowserSettings.getInstance().getSearchEngineName());
+        // then lift the restriction with invalid name
         setDefaultSearchProvider(true, INVALID_SEARCH_ENGINE_NAME);
-        assertFalse("Search engine restriction", searchEngineRestriction.isEnabled());
-        assertEquals("Search provider", defaultSearchEngineName,
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
+                BrowserSettings.getInstance().getSearchEngineName());
+
+        // set a valid search engine restriction
+        setDefaultSearchProvider(true, VALID_SEARCH_ENGINE_NAME_1);
+        assertTrue("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", VALID_SEARCH_ENGINE_NAME_1,
+                BrowserSettings.getInstance().getSearchEngineName());
+        // then lift the restriction with a null
+        setDefaultSearchProvider(true, null);
+        assertFalse("Search engine restriction", mSearchEngineRestriction.isEnabled());
+        assertEquals("Search provider", mDefaultSearchEngineName,
                 BrowserSettings.getInstance().getSearchEngineName());
     }
 

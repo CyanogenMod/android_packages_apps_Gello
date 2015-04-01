@@ -265,7 +265,7 @@ public class ManagedProfileManager extends Observable {
      * Added for testing
      * @param restrictions The set of restrictions to apply.
      */
-    protected void setMdmRestrictions(Bundle restrictions) {
+    public void setMdmRestrictions(Bundle restrictions) {
         mMdmProvisioningRestrictions = restrictions;
         mergeRestrictions();
     }
