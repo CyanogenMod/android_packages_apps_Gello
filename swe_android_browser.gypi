@@ -7,6 +7,7 @@
         'swe_chrome_engine',
         '<@(libnetxt_dependencies)',
         '<@(libsta_dependencies)',
+        '<@(libsweadrenoext_dependencies)',
         #'android-support-v13',
       ],
       'variables': {
@@ -30,6 +31,7 @@
         'additional_native_libs': [
           '<@(libnetxt_native_libs)',
           '<@(libsta_native_libs)',
+          '<@(libsweadrenoext_native_libs)',
         ],
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
