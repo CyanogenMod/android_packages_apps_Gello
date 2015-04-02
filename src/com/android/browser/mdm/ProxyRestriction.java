@@ -89,10 +89,10 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
         // If you choose to use system proxy settings or auto detect the proxy server,
         // all other options are ignored.
         else if (proxyMode.equals(ProxyChangeListener.MODE_SYSTEM) ||
-                proxyMode.equals(ProxyChangeListener.MODE_AUTO_DETECT)) {
-            //TODO: Disable for now. Needs more investigation.
-            Log.v(TAG, "enforce: proxyMode is [" + proxyMode.toString() + "]. Not supported. disabling.");
-            enable(false);
+                 proxyMode.equals(ProxyChangeListener.MODE_AUTO_DETECT)) {
+            // TODO We will go ahead and configure here, but will throttle the enable in ProxyModeListener
+            enable(true);
+            ProxyChangeListener.setMdmProxy(proxyMode, null);
         }
 
         // If you choose fixed server proxy mode, you can specify further options in 'Address or URL
@@ -120,7 +120,7 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
             Log.v(TAG,"enforce: saving MODE_FIXED_SERVERS proxy config: ");
             Log.v(TAG,"   - host       : " + host.toString());
             Log.v(TAG,"   - port       : " + port);
-//            Log.v(TAG,"   - bypassList : " + proxyBypassList != null ? proxyBypassList.toString() : "NULL");
+            Log.v(TAG,"   - bypassList : " + (proxyBypassList != null ? proxyBypassList.toString() : "NULL"));
 
             saveProxyConfig(proxyMode, host, port, null, proxyBypassList);
         }
@@ -137,7 +137,7 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
             } else {
                 Log.v(TAG, "enforce: MODE_PAC_SCRIPT. proxyPacUrl ["+proxyPacUrl.toString() +
                            "]. sending and enabling");
-                saveProxyConfig(proxyMode, null, -1, null, proxyPacUrl);
+                saveProxyConfig(proxyMode, null, -1, proxyPacUrl, null);
             }
         }
     }
