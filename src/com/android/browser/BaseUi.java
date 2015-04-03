@@ -816,13 +816,13 @@ public abstract class BaseUi implements UI {
         if (getWebView() != null) {
             if (fullScreen) {
                 //hide topbar
-                getWebView().updateTopControls(true, false, false);
+                mTitleBar.hideTopControls(true);
             } else {
                 //show the topbar
-                getWebView().updateTopControls(false, true, false);
+                mTitleBar.showTopControls(true);
                 //enable for auto-hide
                 if (!mTitleBar.isFixed())
-                    getWebView().updateTopControls(true, true, false);
+                    mTitleBar.enableTopControls(true);
             }
         }
     }

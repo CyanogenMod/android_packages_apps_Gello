@@ -182,9 +182,9 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             this.setTranslationY(0);
             // reaffirm top-controls
             if (isFixed() || isInLoad())
-                showTopControls();
+                showTopControls(false);
             else
-                enableTopControls();
+                enableTopControls(true);
         } else if (!bOldStyleAutoHideDisabled) {
             int visibleHeight = getVisibleTitleHeight();
             float startPos = (-getEmbeddedHeight() + visibleHeight);
@@ -259,25 +259,25 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
         return webview != null ? webview.getVisibleTitleHeight() : 0;
     }
 
-    private void hideTopControls() {
+    protected void hideTopControls(boolean animate) {
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
         if (view != null)
-            view.updateTopControls(true, false, true);
+            view.updateTopControls(true, false, animate);
     }
 
-    private void showTopControls() {
+    protected void showTopControls(boolean animate) {
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
         if (view != null)
-            view.updateTopControls(false, true, false);
+            view.updateTopControls(false, true, animate);
     }
 
-    private void enableTopControls() {
+    protected void enableTopControls(boolean animate) {
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
         if (view != null)
-            view.updateTopControls(true, true, true);
+            view.updateTopControls(true, true, animate);
     }
 
 
@@ -296,9 +296,9 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             }
 
             //onPageFinished
-            showTopControls();
+            showTopControls(false);
             if(!isFixed())
-                enableTopControls();
+                enableTopControls(true);
 
         } else {
             if (!mInLoad) {
@@ -313,7 +313,7 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             if (!mShowing) {
                 show();
             }
-            showTopControls();
+            showTopControls(false);
         }
     }
 
