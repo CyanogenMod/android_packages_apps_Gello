@@ -751,11 +751,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public String getDefaultTextEncoding() {
-        String autoDetect = mPrefs.getString(PREF_DEFAULT_TEXT_ENCODING, "auto");
-        if(autoDetect.equalsIgnoreCase("auto")) {
-            return mContext.getResources().getString(R.string.pref_default_text_encoding_default);
-        }
-        return autoDetect;
+        return mPrefs.getString(PREF_DEFAULT_TEXT_ENCODING, "auto");
     }
 
     // -----------------------------
