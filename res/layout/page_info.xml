@@ -43,16 +43,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/address_header"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/page_info_address"
-                android:gravity="start"
-                android:layout_marginStart="20dip"
-                android:layout_marginEnd="20dip"
-                android:layout_marginBottom="10dip" />
-
-            <TextView
                 android:id="@+id/address"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -62,6 +52,46 @@
                 android:layout_marginBottom="12dip" />
 
         </TableLayout>
+
+        <TableLayout
+            android:id="@+id/web_refiner_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/web_refiner_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginStart="20dip"
+            android:layout_marginEnd="20dip"
+            android:layout_marginTop="12dip"
+            android:text="WebRefiner"
+            android:layout_marginBottom="12dip" />
+
+            <TextView
+                android:id="@+id/web_refiner_status"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="start"
+                android:text="Enabled on this site"
+                android:layout_marginStart="20dip"
+                android:layout_marginEnd="20dip"
+                android:layout_marginBottom="12dip" />
+
+            <TextView
+                android:id="@+id/web_refiner_blocked_status"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:gravity="start"
+                android:text="99 URLs blocked on this page"
+                android:layout_marginStart="20dip"
+                android:layout_marginEnd="20dip"
+                android:layout_marginBottom="12dip" />
+
+        </TableLayout>
+
 
     </LinearLayout>
 

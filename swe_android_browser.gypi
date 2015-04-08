@@ -12,6 +12,7 @@
         '<@(libnetxt_dependencies)',
         '<@(libsta_dependencies)',
         '<@(libsweadrenoext_dependencies)',
+        '<@(web_refiner_dependencies)',
         #'android-support-v13',
       ],
       'variables': {
@@ -42,6 +43,7 @@
           '<@(libnetxt_native_libs)',
           '<@(libsta_native_libs)',
           '<@(libsweadrenoext_native_libs)',
+          '<@(web_refiner_native_libs)',
         ],
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
@@ -64,6 +66,12 @@
             '<(assets_dir)/wml/swe_wml.xsl',
             '<(assets_dir)/wml/swe_wml.js',
             '<(assets_dir)/wml/swe_wml.css',
+          ],
+        },
+        {
+          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/web_refiner',
+          'files': [
+            '<(assets_dir)/web_refiner/web_refiner.conf',
           ],
         },
       ],

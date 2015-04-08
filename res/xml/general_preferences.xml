@@ -48,6 +48,12 @@
             android:summary="@string/pref_autofill_enabled_summary"
             android:defaultValue="true" />
 
+        <CheckBoxPreference
+            android:key="web_refiner_enabled"
+            android:title="@string/pref_web_refiner_enabled"
+            android:summary="@string/pref_web_refiner_enabled_summary"
+            android:defaultValue="true" />
+
         <PreferenceScreen
             android:key="autofill_profile"
             android:title="@string/pref_autofill_profile_editor"

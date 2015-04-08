@@ -27,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
+import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
 
 import com.android.browser.reflect.ReflectHelper;
@@ -160,6 +161,15 @@ public class PageDialogsHandler {
 
         ((TextView) pageInfoView.findViewById(R.id.address)).setText(url);
         ((TextView) pageInfoView.findViewById(R.id.title)).setText(title);
+
+        if (WebRefiner.isInitialized() && view != null) {
+            (pageInfoView.findViewById(R.id.web_refiner_info)).setVisibility(View.VISIBLE);
+            int count = WebRefiner.getInstance().getBlockedURLCount(view);
+            String msg = String.valueOf(count) + " requests blocked on this page";
+            ((TextView) pageInfoView.findViewById(R.id.web_refiner_blocked_status)).setText(msg);
+        } else {
+            (pageInfoView.findViewById(R.id.web_refiner_info)).setVisibility(View.INVISIBLE);
+        }
 
         mPageInfoView = tab;
         mPageInfoFromShowSSLCertificateOnError = fromShowSSLCertificateOnError;

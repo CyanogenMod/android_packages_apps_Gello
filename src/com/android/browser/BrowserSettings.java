@@ -48,6 +48,7 @@ import java.util.WeakHashMap;
 import org.codeaurora.swe.AutoFillProfile;
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.GeolocationPermissions;
+import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebSettings.LayoutAlgorithm;
 import org.codeaurora.swe.WebSettings.PluginState;
 import org.codeaurora.swe.WebSettings.TextSize;
@@ -377,6 +378,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
         } else if (PREF_LINK_PREFETCH.equals(key)) {
             updateConnectionType();
+        } else if (PREF_WEB_REFINER_ENABLED.equals(key)) {
+            if (WebRefiner.isInitialized())
+                WebRefiner.getInstance().setRulesEnabled(WebRefiner.CATEGORY_ALL, isWebRefinerEnabled());
         }
     }
 
@@ -781,6 +785,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setPowerSaveModeEnabled(boolean value) {
         mPrefs.edit().putBoolean(PREF_POWERSAVE_ENABLED, value).apply();
+    }
+
+    public boolean isWebRefinerEnabled() {
+        return mPrefs.getBoolean(PREF_WEB_REFINER_ENABLED, true);
+    }
+
+    public void setWebRefinerEnabled(boolean value) {
+        mPrefs.edit().putBoolean(PREF_WEB_REFINER_ENABLED, value).apply();
     }
 
     // -----------------------------

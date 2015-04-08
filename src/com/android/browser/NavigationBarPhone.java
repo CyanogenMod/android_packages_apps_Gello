@@ -18,9 +18,13 @@ package com.android.browser;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+
+import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.Activator;
 import org.codeaurora.swe.util.Observable;
@@ -47,6 +51,10 @@ public class NavigationBarPhone extends NavigationBarBase implements
     private float mTabSwitcherInitialTextSize = 0;
     private float mTabSwitcherCompressedTextSize = 0;
 
+    private static final int MSG_UPDATE_NOTIFICATION_COUNTER = 4242;
+    private static final int NOTIFICATION_COUNTER_UPDATE_DELAY = 3000;
+    private TextView mNotificationCounter;
+    private Handler mHandler;
 
     public NavigationBarPhone(Context context) {
         super(context);
@@ -89,6 +97,26 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcherInitialTextSize = mTabText.getTextSize();
             mTabSwitcherCompressedTextSize = (float) (mTabSwitcherInitialTextSize / 1.2);
         }
+
+        mNotificationCounter = (TextView) findViewById(R.id.notification_counter);
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message m) {
+                switch (m.what) {
+                    case MSG_UPDATE_NOTIFICATION_COUNTER:
+                        WebView wv = mUiController.getCurrentTopWebView();
+                        if (wv != null && WebRefiner.isInitialized()) {
+                            int count = WebRefiner.getInstance().getBlockedURLCount(wv);
+                            if (count > 0) {
+                                mNotificationCounter.setText(String.valueOf(count));
+                                mNotificationCounter.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_NOTIFICATION_COUNTER, NOTIFICATION_COUNTER_UPDATE_DELAY);
+                    break;
+                }
+            }
+        };
     }
 
     @Override
@@ -113,21 +141,24 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     public void onProgressStarted() {
         super.onProgressStarted();
-        if (mStopButton.getDrawable() != mStopDrawable) {
+        /*if (mStopButton.getDrawable() != mStopDrawable) {
             mStopButton.setImageDrawable(mStopDrawable);
             mStopButton.setContentDescription(mStopDescription);
             if (mStopButton.getVisibility() != View.VISIBLE) {
                 mComboIcon.setVisibility(View.GONE);
                 mStopButton.setVisibility(View.VISIBLE);
             }
-        }
+        }*/
+        mNotificationCounter.setVisibility(View.INVISIBLE);
+        mHandler.removeMessages(MSG_UPDATE_NOTIFICATION_COUNTER);
+        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_NOTIFICATION_COUNTER, NOTIFICATION_COUNTER_UPDATE_DELAY);
     }
 
     @Override
     public void onProgressStopped() {
         super.onProgressStopped();
-        mStopButton.setImageDrawable(mRefreshDrawable);
-        mStopButton.setContentDescription(mRefreshDescription);
+        //mStopButton.setImageDrawable(mRefreshDrawable);
+        //mStopButton.setContentDescription(mRefreshDescription);
         if (!isEditingUrl()) {
             mComboIcon.setVisibility(View.VISIBLE);
         }

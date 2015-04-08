@@ -389,6 +389,10 @@
     <string name="pref_autofill_enabled">Form auto-fill</string>
     <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
     <string name="pref_autofill_enabled_summary">Fill out web forms with a single touch</string>
+    <!-- Checkbox setting for enabling/disabling WebRefiner feature -->
+    <string name="pref_web_refiner_enabled">Web Refiner</string>
+    <!-- Settings summary for the WebRefiner -->
+    <string name="pref_web_refiner_enabled_summary">Block advertisements and tracking</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
     <string name="pref_autofill_profile_editor">Auto-fill text</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
