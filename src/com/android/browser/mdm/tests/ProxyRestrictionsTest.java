@@ -127,7 +127,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
-        setProxyRestrictions(ProxyChangeListener.MODE_DIRECT, null, null, null);
+        setProxyRestrictions(null, null, null, null);
 
         // set the restrictions
         setProxyRestrictions(mode, null, null, null);
@@ -149,7 +149,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
-        setProxyRestrictions(ProxyChangeListener.MODE_DIRECT, null, null, null);
+        setProxyRestrictions(null, null, null, null);
 
         // set the restrictions
         setProxyRestrictions(mode, null, null, null);
@@ -176,7 +176,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         String configuredMode;
 
         // Clear any restrictions
-        setProxyRestrictions(ProxyChangeListener.MODE_DIRECT, null, null, null);
+        setProxyRestrictions(null, null, null, null);
 
         // Test that mode didn't get set if no proxy server is set
         setProxyRestrictions(mode, null, null, null);
@@ -228,7 +228,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
-        setProxyRestrictions(ProxyChangeListener.MODE_DIRECT, null, null, null);
+        setProxyRestrictions(null, null, null, null);
 
         // set the restrictions without pac url
         setProxyRestrictions(mode, null, null, null);

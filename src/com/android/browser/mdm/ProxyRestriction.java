@@ -30,10 +30,13 @@
 
 package com.android.browser.mdm;
 
+import android.content.Intent;
+import android.net.Proxy;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.android.browser.Browser;
 import com.android.browser.PreferenceKeys;
 
 import org.chromium.net.ProxyChangeListener;
@@ -59,15 +62,6 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
     }
 
     @Override
-    public void enable(boolean enable) {
-        super.enable(enable);
-        // Ensure any previously set proxy restriction is revoked
-        if (!enable) {
-            ProxyChangeListener.setMdmProxy(null, null);
-        }
-    }
-
-    @Override
     public void enforce(Bundle restrictions) {
         String proxyMode = restrictions.getString(ProxyChangeListener.PROXY_MODE);
 
@@ -75,24 +69,23 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
         // choose the proxy settings on their own.
         if (proxyMode == null) {
             Log.v(TAG, "enforce: proxyMode is null, disabling.");
-            enable(false);
+            saveProxyConfig(false, null, null, -1, null, null);
         }
 
         // If policy is to not use the proxy and always connect directly, then all other options
         // are ignored.
         else if (proxyMode.equals(ProxyChangeListener.MODE_DIRECT)) {
             Log.v(TAG, "enforce: proxyMode is MODE_DIRECT, enabling and passing to ProxyChangeListener.");
-            enable(true);
-            ProxyChangeListener.setMdmProxy(proxyMode, null);
+            saveProxyConfig(true, proxyMode, null, -1, null, null);
         }
 
         // If you choose to use system proxy settings or auto detect the proxy server,
         // all other options are ignored.
         else if (proxyMode.equals(ProxyChangeListener.MODE_SYSTEM) ||
                  proxyMode.equals(ProxyChangeListener.MODE_AUTO_DETECT)) {
-            // TODO We will go ahead and configure here, but will throttle the enable in ProxyModeListener
-            enable(true);
-            ProxyChangeListener.setMdmProxy(proxyMode, null);
+
+            // TODO: We will go ahead and configure here, but will throttle the enable in ProxyModeListener
+            saveProxyConfig(true, proxyMode, null, -1, null, null);
         }
 
         // If you choose fixed server proxy mode, you can specify further options in 'Address or URL
@@ -105,15 +98,15 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
                 host = proxyServerUri.getHost();
                 // Bail out if host is not present
                 if (host == null) {
-                    Log.e(TAG, "enforce: host - nul while processing MODE_FIXED_SERVERS");
-                    enable(false);
+                    Log.e(TAG, "enforce: host == null while processing MODE_FIXED_SERVERS");
+                    saveProxyConfig(false, null, null, -1, null, null);
                     return;
                 }
                 port = proxyServerUri.getPort();
             } catch (Exception e) {
                 // Bail out if ProxyServer string is missing
                 Log.e(TAG,"enforce: Exception caught while processing MODE_FIXED_SERVERS");
-                enable(false);
+                saveProxyConfig(false, null, null, -1, null, null);
                 return;
             }
             String proxyBypassList = restrictions.getString(ProxyChangeListener.PROXY_BYPASS_LIST);
@@ -122,7 +115,7 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
             Log.v(TAG,"   - port       : " + port);
             Log.v(TAG,"   - bypassList : " + (proxyBypassList != null ? proxyBypassList.toString() : "NULL"));
 
-            saveProxyConfig(proxyMode, host, port, null, proxyBypassList);
+            saveProxyConfig(true, proxyMode, host, port, null, proxyBypassList);
         }
 
         // This policy only takes effect if you have selected manual proxy settings at 'Choose how
@@ -133,19 +126,39 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
             // Bail out if ProxyPacUrl string is missing
             if (proxyPacUrl == null) {
                 Log.v(TAG, "enforce: MODE_PAC_SCRIPT. proxyPacUrl is null. disabling");
-                enable(false);
+                saveProxyConfig(false, null, null, -1, null, null);
+
             } else {
                 Log.v(TAG, "enforce: MODE_PAC_SCRIPT. proxyPacUrl ["+proxyPacUrl.toString() +
                            "]. sending and enabling");
-                saveProxyConfig(proxyMode, null, -1, proxyPacUrl, null);
+                saveProxyConfig(true, proxyMode, null, -1, proxyPacUrl, null);
             }
         }
     }
 
-    private void saveProxyConfig(String proxyMode, String host, int port, String proxyPacUrl, String proxyBypassList) {
-        ProxyChangeListener.setMdmProxy(proxyMode, new ProxyConfig(host, port, proxyPacUrl,
-                (proxyBypassList != null) ? proxyBypassList.split(",") : new String[0]));
-        enable(true);
-    }
+    private void saveProxyConfig(boolean isEnabled, String proxyMode, String host,
+                                 int port, String proxyPacUrl, String proxyBypassList) {
 
+        if (isEnabled) {
+            String[] bypass = (proxyBypassList != null) ? proxyBypassList.split(",") : new String[0];
+
+            ProxyConfig cfg = null;
+            // If all components of the cfg are null or invalid, just send a null instead of
+            // of a completely invalid cfg. We don't check port, since it's meaningless without host.
+            if (host != null || proxyPacUrl != null || proxyBypassList != null) {
+                cfg = new ProxyConfig(host, port, proxyPacUrl, bypass);
+            }
+
+            ProxyChangeListener.setMdmProxy(proxyMode, cfg);
+            enable(true);
+        }
+        else {
+            // Ensure any previously set proxy restriction is revoked
+            ProxyChangeListener.setMdmProxy(null, null);
+            enable(false);
+        }
+
+        Intent proxySignal = new Intent(ProxyChangeListener.MDM_PROXY_CHANGE_ACTION);
+        Browser.getContext().sendBroadcast(proxySignal);
+    }
 }
