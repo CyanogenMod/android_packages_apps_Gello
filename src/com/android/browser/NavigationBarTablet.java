@@ -230,10 +230,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
         } else {
             if (mUiController.getCurrentTopWebView() != null) {
                 Tab currTab = mUiController.getTabControl().getCurrentTab();
-                if (currTab.hasCrashed) {
-                    currTab.replaceCrashView(mUiController.getCurrentTopWebView(),
-                        currTab.getViewContainer());
-                }
                 mUiController.getCurrentTopWebView().reload();
             }
         }

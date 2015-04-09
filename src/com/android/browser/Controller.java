@@ -403,7 +403,6 @@ public class Controller
                 && BrowserActivity.ACTION_SHOW_BOOKMARKS.equals(intent.getAction())) {
             bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         }
-
         mLowPowerReceiver = new PowerConnectionReceiver();
         mPowerChangeReceiver = new PowerConnectionReceiver();
 
@@ -415,7 +414,6 @@ public class Controller
         }
         filter.addAction(Intent.ACTION_BATTERY_OKAY);
         mActivity.registerReceiver(mPowerChangeReceiver, filter);
-
     }
 
     private static class PruneThumbnails implements Runnable {
@@ -457,10 +455,7 @@ public class Controller
 
     @Override
     public void onSetWebView(Tab tab, WebView view) {
-        if (tab.hasCrashed)
-            tab.showCrashView();
-        else
-            mUi.onSetWebView(tab, view);
+        mUi.onSetWebView(tab, view);
     }
 
     @Override
@@ -766,7 +761,6 @@ public class Controller
 
         WebView.disablePlatformNotifications();
         NfcHandler.unregister(mActivity);
-
         mActivity.unregisterReceiver(mLowPowerReceiver);
     }
 
@@ -814,10 +808,8 @@ public class Controller
             mUi.onVoiceResult(mVoiceResult);
             mVoiceResult = null;
         }
-        if (current != null && current.hasCrashed) {
-            current.replaceCrashView(current.getWebView(), current.getViewContainer());
-        }
-
+        if (current != null && current.getWebView().isShowingCrashView())
+            current.getWebView().reload();
         mActivity.registerReceiver(mLowPowerReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
     }
 
@@ -2092,10 +2084,6 @@ public class Controller
                     stopLoading();
                 } else {
                     Tab currentTab = mTabControl.getCurrentTab();
-                    if (currentTab.hasCrashed) {
-                        currentTab.replaceCrashView(getCurrentTopWebView(),
-                            currentTab.getViewContainer());
-                    }
                     getCurrentTopWebView().reload();
                 }
                 break;
@@ -3210,9 +3198,6 @@ public class Controller
             dismissSubWindow(tab);
             mHomepageHandler.registerJsInterface(tab.getWebView(), url);
             tab.loadUrl(url, headers);
-            if (tab.hasCrashed) {
-                tab.replaceCrashView(tab.getWebView(), tab.getViewContainer());
-            }
             mUi.onProgressChanged(tab);
         }
     }

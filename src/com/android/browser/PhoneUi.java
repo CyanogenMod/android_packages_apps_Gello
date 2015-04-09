@@ -461,10 +461,6 @@ public class PhoneUi extends BaseUi {
             webview = (BrowserWebView)tab.getWebView();
             if (webview == null) {
                 isready = false;
-            }
-            else if (webview.hasCrashed()) {
-                webview.reload();
-                isready = true;
             } else {
                 isready = webview.isReady();
             }
@@ -479,25 +475,22 @@ public class PhoneUi extends BaseUi {
             return;
         }
         mNumTries = 0;
-        final boolean hasCrashed = (webview == null) ? false : webview.hasCrashed();
+        final boolean hasCrashed = (webview == null) ? false :false;
         // fast path: don't wait if we've been ready for a while
         if (zeroTries) {
-            fadeOutCustomViewContainer(hasCrashed);
+            fadeOutCustomViewContainer();
             return;
         }
         mCustomViewContainer.postDelayed(new Runnable() {
             public void run() {
-                fadeOutCustomViewContainer(hasCrashed);
+                fadeOutCustomViewContainer();
             }
         }, 32); //WebView is ready, but give it extra 2 frame's time to display and finish the swaps
     }
 
-    private void fadeOutCustomViewContainer(boolean hasCrashed) {
+    private void fadeOutCustomViewContainer() {
         ObjectAnimator otheralpha = ObjectAnimator.ofFloat(mCustomViewContainer, "alpha", 1f, 0f);
-        if (hasCrashed)
-            otheralpha.setDuration(300);
-        else
-            otheralpha.setDuration(100);
+        otheralpha.setDuration(100);
         otheralpha.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator anim) {

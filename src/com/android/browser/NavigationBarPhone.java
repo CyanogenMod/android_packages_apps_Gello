@@ -168,9 +168,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
                 if (web != null) {
                     stopEditingUrl();
                     Tab currentTab = mUiController.getTabControl().getCurrentTab();
-                    if (currentTab.hasCrashed) {
-                        currentTab.replaceCrashView(web, currentTab.getViewContainer());
-                    }
                     web.reload();
                 }
             }

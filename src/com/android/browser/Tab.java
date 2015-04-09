@@ -109,7 +109,6 @@ class Tab implements PictureListener {
     private static final int INITIAL_PROGRESS = 5;
 
     private static Bitmap sDefaultFavicon;
-    protected boolean hasCrashed = false;
 
     private static Paint sAlphaPaint = new Paint();
     static {
@@ -324,36 +323,6 @@ class Tab implements PictureListener {
                     .create();
             d.setOnDismissListener(mDialogListener);
             d.show();
-        }
-    }
-
-    protected void replaceCrashView(View view, View container) {
-        if (hasCrashed && (view == mMainView)) {
-            final FrameLayout wrapper = (FrameLayout) container.findViewById(R.id.webview_wrapper);
-            wrapper.removeAllViewsInLayout();
-            wrapper.addView(view);
-            hasCrashed = false;
-        }
-        mMainView.reload();
-    }
-
-    protected void showCrashView() {
-        if (hasCrashed) {
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-            final View crashLayout = inflater.inflate(R.layout.browser_tab_crash, null);
-            final FrameLayout wrapper =
-                    (FrameLayout) mContainer.findViewById(R.id.webview_wrapper);
-            wrapper.removeAllViewsInLayout();
-            wrapper.addView(crashLayout);
-            mContainer.requestFocus();
-            Button reloadBtn = (Button) crashLayout.findViewById(R.id.browser_crash_reload_btn);
-            reloadBtn.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    replaceCrashView(mMainView, mContainer);
-                }
-            });
         }
     }
 
@@ -658,15 +627,6 @@ class Tab implements PictureListener {
                     new KeyChainLookup(mContext, handler, alias).execute();
                 }
             }, null, null, host, port, null);
-        }
-
-        @Override
-        public void onRendererCrash(WebView view, boolean crashedWhileOomProtected) {
-            Log.e(LOGTAG, "Tab Crashed");
-            if (mWebViewController.getTabControl().getCurrentTab() == Tab.this) {
-                hasCrashed = true;
-                showCrashView();
-            }
         }
 
         /**
@@ -1583,11 +1543,6 @@ class Tab implements PictureListener {
 
     void resume() {
         if (mMainView != null) {
-            if (mMainView.hasCrashed()) {
-                // Reload if render process has crashed. This is done here so that
-                // setFocus call sends wasShown message to correct render process.
-                mMainView.setNeedsReload(true);
-            }
             setupHwAcceleration(mMainView);
             mMainView.onResume();
             if (mSubView != null) {
@@ -2037,7 +1992,7 @@ class Tab implements PictureListener {
             return;
         }
 
-        if (!mFirstVisualPixelPainted) {
+        if (!mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
             mCapture = Bitmap.createBitmap(
                     mCaptureWidth,
                     mCaptureHeight,
