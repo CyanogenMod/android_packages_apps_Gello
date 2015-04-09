@@ -230,6 +230,8 @@ public class GeneralPreferencesFragment extends PreferenceFragment
       Add this class to manage AlertDialog lifecycle.
     */
     public static class MyAlertDialogFragment extends DialogFragment {
+        private  final String HOME_PAGE = "homepage";
+        private EditText editText = null;
         public static MyAlertDialogFragment newInstance() {
             MyAlertDialogFragment frag = new MyAlertDialogFragment();
             return frag;
@@ -238,10 +240,12 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final BrowserSettings settings = BrowserSettings.getInstance();
-            final EditText editText = new EditText(getActivity());
+            editText = new EditText(getActivity());
+            String homePage = savedInstanceState != null ?
+                    savedInstanceState.getString(HOME_PAGE): settings.getHomePage();
             editText.setInputType(InputType.TYPE_CLASS_TEXT
                     | InputType.TYPE_TEXT_VARIATION_URI);
-            editText.setText(settings.getHomePage());
+            editText.setText(homePage);
             editText.setSelectAllOnFocus(true);
             editText.setSingleLine(true);
             editText.setImeActionLabel(null, EditorInfo.IME_ACTION_DONE);
@@ -289,6 +293,12 @@ public class GeneralPreferencesFragment extends PreferenceFragment
                     WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
             return dialog;
+        }
+
+        @Override
+        public void onSaveInstanceState(Bundle outState){
+            super.onSaveInstanceState(outState);
+            outState.putString(HOME_PAGE, editText.getText().toString().trim());
         }
     }
 }
