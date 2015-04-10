@@ -719,24 +719,6 @@ class Tab implements PictureListener {
                 super.onUnhandledKeyEvent(view, event);
             }
         }
-        //SWE-download-file
-        @Override
-        public void onDownloadStart(String url,
-                                 String userAgent,
-                                 String contentDisposition,
-                                 String mimeType,
-                                 long contentLength) {
-          if (mDownloadListener != null) {
-             if (mDownloadListener instanceof BrowserDownloadListener) {
-                 ((BrowserDownloadListener) mDownloadListener).onDownloadStart(url,
-                     userAgent, contentDisposition, mimeType, contentLength);
-             } else {
-                 mDownloadListener.onDownloadStart(url, userAgent,
-                     contentDisposition, mimeType, contentLength);
-             }
-          }
-        }
-        //SWE-download-file
     };
 
     private void syncCurrentState(WebView view, String url) {
