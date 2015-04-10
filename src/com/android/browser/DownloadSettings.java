@@ -49,6 +49,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.view.Window;
 import android.widget.Toast;
+import android.webkit.MimeTypeMap;
 import android.text.TextUtils;
 
 import com.android.browser.reflect.ReflectHelper;
@@ -134,7 +135,7 @@ public class DownloadSettings extends Activity {
             Object[] params = {updatedFileName};
             Class[] type = new Class[] {String.class};
             mimetype = (String) ReflectHelper.invokeMethod("android.media.MediaFile",
-                                           "getMimeTypeForFile", type, params);
+                                            "getMimeTypeForFile", type, params);
         }
 
         //Add special check for .apk files with octet-stream mimetype
@@ -142,13 +143,36 @@ public class DownloadSettings extends Activity {
             mimetype =  "application/vnd.android.package-archive";
         }
 
+        // last way to fetch for mimetype if its still null
+        if (mimetype  == null  || mimetype.isEmpty())
+            mimetype = MimeTypeMap.getSingleton().getMimeTypeFromExtension(filenameExtension);
+
         downloadPath = chooseFolderFromMimeType(BrowserSettings.getInstance().getDownloadPath(),
                 mimetype);
         downloadPathForUser = DownloadHandler.getDownloadPathForUser(DownloadSettings.this,
                 downloadPath);
+
+        autoupdateFileName(filenameBase, DownloadHandler.getFilenameExtension(filename), downloadPath);
         setDownloadPathForUserText(downloadPathForUser);
         setDownloadFileSizeText();
         setDownloadFileTimeText();
+    }
+
+    private void autoupdateFileName(String filenameBase, String  extension, String downloadPath) {
+        String fullPath =  downloadPath + "/" + filenameBase + "." + extension;
+        int count = 1;
+        String newFilenameBase = "";
+
+        while(new File(fullPath).exists()) {
+            newFilenameBase = filenameBase+"-"+count++;
+            fullPath =  downloadPath + "/" + newFilenameBase + "." + extension;
+        }
+
+        if(!TextUtils.isEmpty(newFilenameBase)) {
+            filenameBase = newFilenameBase;
+        }
+
+        downloadFilenameET.setText(filenameBase);
     }
 
     private OnClickListener downloadPathListener = new OnClickListener() {
