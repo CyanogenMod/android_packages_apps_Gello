@@ -1971,7 +1971,7 @@ public class Controller
         // items defined in res/menu/browser.xml should be enabled
         boolean isLiveScheme = false;
         boolean isPageFinished = false;
-
+        boolean isSavable = false;
         resetMenuItems(menu);
 
         if (tab != null) {
@@ -1980,6 +1980,7 @@ public class Controller
             isLive = !tab.isSnapshot();
             isLiveScheme = UrlUtils.isLiveScheme(tab.getWebView().getUrl());
             isPageFinished = (tab.getPageFinishedStatus() || !tab.inPageLoad());
+            isSavable = tab.getWebView().isSavable();
         }
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
@@ -2008,7 +2009,7 @@ public class Controller
         setMenuItemVisibility(menu, R.id.add_to_homescreen,
                 isLive && isLiveScheme && isPageFinished);
         setMenuItemVisibility(menu, R.id.save_snapshot_menu_id,
-                isLive && isLiveScheme && isPageFinished);
+                isLive && isLiveScheme && isPageFinished && isSavable);
         // history and snapshots item are the members of COMBO menu group,
         // so if show history item, only make snapshots item invisible.
         menu.findItem(R.id.snapshots_menu_id).setVisible(false);
