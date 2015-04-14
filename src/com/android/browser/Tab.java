@@ -321,7 +321,12 @@ class Tab implements PictureListener {
             mCurrentState = new PageState(mContext,
                     view.isPrivateBrowsingEnabled(), url, favicon);
             mLoadStartTime = SystemClock.uptimeMillis();
-
+            // Need re-enable FullScreenMode on Page navigation if needed
+            if (BrowserSettings.getInstance().useFullscreen()){
+                Controller controller = (Controller) mWebViewController;
+                BaseUi ui = (BaseUi) controller.getUi();
+                ui.forceDisableFullscreenMode(false);
+            }
             // If we start a touch icon load and then load a new page, we don't
             // want to cancel the current touch icon loader. But, we do want to
             // create a new one when the touch icon url is known.
@@ -666,6 +671,15 @@ class Tab implements PictureListener {
                         getNavIdxFromCaptureIdx(id) >= maxIdx) {
                     view.deleteSnapshot(id);
                 }
+            }
+        }
+
+        @Override
+        public void onKeyboardStateChange(boolean popup) {
+            if (BrowserSettings.getInstance().useFullscreen()) {
+                Controller controller = (Controller) mWebViewController;
+                BaseUi ui = (BaseUi) controller.getUi();
+                ui.forceDisableFullscreenMode(popup);
             }
         }
     };
