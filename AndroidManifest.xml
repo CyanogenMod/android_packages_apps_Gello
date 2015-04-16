@@ -23,8 +23,6 @@
         android:protectionLevel="signatureOrSystem" />
     <permission android:name="org.codeaurora.swe.browser.beta.permission.INITIALIZE_DATABASE"
         android:protectionLevel="signatureOrSystem" />
-    <permission android:name="org.chromium.swe.browser.permission.SANDBOX"
-        android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
