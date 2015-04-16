@@ -264,6 +264,62 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         checkValue(ProxyChangeListener.PROXY_PAC_URL, pacUrl);
     }
 
+    public void testProxy_SwitchModesWithoutClear() throws Throwable {
+        String mode;
+        Log.v(TAG, "== Testing Proxy Switch ==");
+
+        String proxyHost   = "192.241.207.220";
+        String proxyPort   = "9090";
+        String proxyServer = "http://" + proxyHost + ":" + proxyPort;
+        String configuredMode;
+
+        // Clear any restrictions
+        setProxyRestrictions(null, null, null, null);
+
+        //
+        // set to Fixed Servers with exclusion list
+        //
+        mode = ProxyChangeListener.MODE_FIXED_SERVERS;
+        Log.v(TAG, "-- Setting mode " + mode + " ==");
+
+        setProxyRestrictions(mode, proxyServer, "*.google.com, *foo.com, 127.0.0.1:8080", null);
+
+        // check configured proxy mode
+        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        assertNotNull(configuredMode);
+        assertEquals(mode + ": configuration",mode,configuredMode);
+
+        //logProxyConfig(ProxyChangeListener.getMdmProxyConfig());
+
+        // check properties
+        checkValue("http.proxyHost", proxyHost);
+        checkValue("http.proxyPort", proxyPort);
+
+        String expected = "*.google.com|*foo.com|127.0.0.1:8080";
+        checkValue("http.nonProxyHosts", expected);
+
+        //
+        // Now set to direct mode
+        //
+        mode = ProxyChangeListener.MODE_DIRECT;
+        Log.v(TAG, "-- Setting mode " + mode + " ==");
+
+        // set the restrictions
+        setProxyRestrictions(mode, null, null, null);
+
+        // check configured proxy mode
+        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        assertEquals(mode + ": configuration", mode, configuredMode);
+
+        // get the proxy config from ProxyChangeListener
+        ProxyChangeListener.ProxyConfig pc = ProxyChangeListener.getMdmProxyConfig();
+        assertNull(mode +": proxyConfig should be null", pc);
+
+        checkValue("http.proxyHost", null);
+        checkValue("http.proxyPort", null);
+        checkValue("http.nonProxyHosts", null);
+    }
+
 
     /**
      * Activate Proxy restriction
