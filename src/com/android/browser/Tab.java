@@ -857,7 +857,9 @@ class Tab implements PictureListener {
 
             // Short-circuit if this was a user gesture.
             if (userGesture || !mSettings.blockPopupWindows()) {
-                CreateWindowParams windowParams = view.getCreateWindowParams();
+                WebView.WebViewTransport transport =
+                        (WebView.WebViewTransport) resultMsg.obj;
+                CreateWindowParams windowParams = transport.getCreateWindowParams();
                 if (windowParams.mOpenerSuppressed) {
                     createWindow(dialog, resultMsg, windowParams.mURL, true);
                     // This is special case for rendering links on a webpage in
@@ -872,35 +874,7 @@ class Tab implements PictureListener {
                 return true;
             }
 
-            // Allow the popup and create the appropriate window.
-            final AlertDialog.OnClickListener allowListener =
-                    new AlertDialog.OnClickListener() {
-                        public void onClick(DialogInterface d,
-                                int which) {
-                            createWindow(dialog, resultMsg);
-                        }
-                    };
-
-            // Block the popup by returning a null WebView.
-            final AlertDialog.OnClickListener blockListener =
-                    new AlertDialog.OnClickListener() {
-                        public void onClick(DialogInterface d, int which) {
-                            resultMsg.sendToTarget();
-                        }
-                    };
-
-            // Build a confirmation dialog to display to the user.
-            final AlertDialog d =
-                    new AlertDialog.Builder(mContext)
-                    .setIconAttribute(android.R.attr.alertDialogIcon)
-                    .setMessage(R.string.popup_window_attempt)
-                    .setPositiveButton(R.string.allow, allowListener)
-                    .setNegativeButton(R.string.block, blockListener)
-                    .setCancelable(false)
-                    .create();
-
-            // Show the confirmation dialog.
-            d.show();
+            createWindow(dialog, resultMsg);
             return true;
         }
 
