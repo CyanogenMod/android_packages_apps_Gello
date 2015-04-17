@@ -351,14 +351,19 @@ function substituteVariablesInURL(url)
 
 function substituteVariablesInPostfield(value)
 {
-    var pattern = /(\$\(([_a-z]{1}[_a-z0-9]*)([:]{1}((([e]{1})(scape)?)|(([n]{1})(oesc)?)|(([u]{1})(nesc)?)))?\))/gi;
+    var pattern1 = /(\$\(([_a-z]{1}[_a-z0-9]*)([:]{1}((([e]{1})(scape)?)|(([n]{1})(oesc)?)|(([u]{1})(nesc)?)))?\))/gi;
+    var pattern2 = /(\$([_a-zA-z]{1}[_a-zA-Z0-9]*))/g;
     var replacer = function () {
         var name = arguments[2];
         // TODO: Do the URL escaping here
         console.log("substituteVariablesInPostfield() found variable : " + arguments[0]);
         return WMLBrowser.getVar(name);
     };
-    return value.replace(pattern, replacer);
+    if (pattern1.test(value)) {
+        return value.replace(pattern1, replacer);
+    } else if (pattern2.test(value)) {
+        return value.replace(pattern2, replacer);
+    }
 }
 
 function refreshVariableInSelectElement(select)
