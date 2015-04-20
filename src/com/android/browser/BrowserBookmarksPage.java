@@ -564,8 +564,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         LoaderManager lm = getLoaderManager();
         lm.restartLoader(LOADER_ACCOUNTS, null, this);
 
-        //Notify about anticipated network activity
-        NetworkServices.HintUpcomingUserActivity();
+        if (!BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
+            //Notify about anticipated network activity
+            NetworkServices.hintUpcomingUserActivity();
+        }
 
         EditBookmarksRestriction.getInstance().registerView(mGrid);
 

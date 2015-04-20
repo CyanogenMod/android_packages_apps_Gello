@@ -50,6 +50,7 @@ import com.android.browser.stub.NullController;
 
 import java.util.Locale;
 
+import org.codeaurora.net.NetworkServices;
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.WebView;
 
@@ -218,6 +219,10 @@ public class BrowserActivity extends Activity {
     protected void onStart() {
         super.onStart();
         EngineInitializer.onActivityStart(BrowserActivity.this);
+        if (!BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
+            //Notify about anticipated network activity
+            NetworkServices.hintUpcomingUserActivity();
+        }
     }
 
     @Override

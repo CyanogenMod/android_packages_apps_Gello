@@ -46,6 +46,7 @@ import android.widget.ImageView;
 
 import com.android.browser.UrlInputView.StateListener;
 
+import org.codeaurora.net.NetworkServices;
 import org.codeaurora.swe.WebView;
 
 /**
@@ -337,6 +338,10 @@ public class PhoneUi extends BaseUi {
                         onShowNavScreenContinue(sbm);
                     }
                 });
+        if (!BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
+            //Notify about anticipated network activity
+            NetworkServices.hintUpcomingUserActivity();
+        }
         mActiveTab.capture();
     }
 

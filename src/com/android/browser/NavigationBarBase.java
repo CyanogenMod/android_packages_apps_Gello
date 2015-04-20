@@ -56,6 +56,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.codeaurora.net.NetworkServices;
 import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
@@ -338,6 +339,10 @@ public class NavigationBarBase extends LinearLayout implements
         if (hasFocus) {
             Engine.warmUpChildProcessAsync(mUiController.getActivity().getApplicationContext());
             mBaseUi.showTitleBar();
+            if (!BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
+                //Notify about anticipated network activity
+                NetworkServices.hintUpcomingUserActivity();
+            }
         } else if (!mUrlInput.needsUpdate()) {
             mUrlInput.dismissDropDown();
             mUrlInput.hideIME();
