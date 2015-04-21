@@ -97,7 +97,7 @@ public class NavigationBarBase extends LinearLayout implements
     private Tab.SecurityState mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
 
     private static final String noSitePrefs[] = {
-            "chrome://",
+            "browser://",
             "about:",
             "content:",
     };
@@ -523,7 +523,7 @@ public class NavigationBarBase extends LinearLayout implements
             Tab t = mBaseUi.getActiveTab();
             // Only shortcut javascript URIs for now, as there is special
             // logic in UrlHandler for other schemas
-            if (url != null && t != null && url.startsWith("javascript:")) {
+            if (url != null && t != null &&  url.startsWith("javascript:")) {
                 mUiController.loadUrl(t, url);
                 setDisplayTitle(text);
                 return;

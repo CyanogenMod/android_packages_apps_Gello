@@ -47,7 +47,7 @@ public class UrlUtils {
     static final Pattern ACCEPTED_URI_SCHEMA = Pattern.compile(
             "(?i)" + // switch on case insensitive matching
             "(" +    // begin group for schema
-            "(?:http|https|file|chrome):\\/\\/" +
+            "(?:http|https|file|browser):\\/\\/" +
             "|(?:inline|data|about|javascript):" +
             ")" +
             "(.*)" );
@@ -206,8 +206,7 @@ public class UrlUtils {
         if (inUrl == null) {
             return "";
         }
-        if (inUrl.startsWith("content:")
-                || inUrl.startsWith("browser:")) {
+        if (inUrl.startsWith("content:")) {
             return "";
         }
         return inUrl;

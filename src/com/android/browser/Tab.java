@@ -234,7 +234,7 @@ class Tab implements PictureListener {
         PageState(Context c, boolean incognito) {
             mIncognito = incognito;
             if (mIncognito) {
-                mOriginalUrl = mUrl = "chrome://incognito";
+                mOriginalUrl = mUrl = Controller.INCOGNITO_URI;
                 mTitle = c.getString(R.string.new_incognito_tab);
             } else {
                 mOriginalUrl = mUrl = "";
@@ -607,7 +607,12 @@ class Tab implements PictureListener {
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
             //intercept if opening a new incognito tab - show the incognito welcome page
-            if (url.startsWith("chrome://incognito")) {
+
+            // show only incognito content and webview has private
+            // and cannot go back(only supported if explicit from UI )
+            if (view.isPrivateBrowsingEnabled() &&
+                !view.canGoBack() &&
+                url.startsWith(Controller.INCOGNITO_URI) ) {
                 Resources resourceHandle = mContext.getResources();
                 InputStream inStream = resourceHandle.openRawResource(
                         com.android.browser.R.raw.incognito_mode_start_page);
