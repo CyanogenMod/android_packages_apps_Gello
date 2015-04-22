@@ -37,6 +37,8 @@ import android.os.Build.VERSION;
 import android.os.SystemClock;
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
+import android.os.FileObserver;
+import android.os.Handler;
 
 import org.codeaurora.swe.BrowserCommandLine;
 
@@ -45,6 +47,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -68,6 +73,7 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
     private static final String CRASH_LOG_FILE = "crash.log";
     private static final String CRASH_LOG_SERVER_CMD = "crash-log-server";
     private static final String CRASH_LOG_MAX_FILE_SIZE_CMD = "crash-log-max-file-size";
+    private static final String CRASH_REPORT_DIR = "Crash Reports";
 
     private final static String LOGTAG = "CrashLog";
 
@@ -80,10 +86,17 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
     private boolean mOverrideHandler = false;
 
     private int mMaxLogFileSize = 1024 * 1024;
+    // To avoid increasing startup time an upload delay is used
+    private static final int UPLOAD_DELAY = 3000;
+
+    private static FileObserver crashObserver;
+
+    private final Handler mCrashReportHandler = new Handler();
 
     public CrashLogExceptionHandler(Context ctx) {
         mAppContext = ctx;
         if (BrowserCommandLine.hasSwitch(CRASH_LOG_SERVER_CMD)) {
+            initNativeReporter(ctx);
             mLogServer = BrowserCommandLine.getSwitchValue(CRASH_LOG_SERVER_CMD);
             if (mLogServer != null) {
                 uploadPastCrashLog();
@@ -101,6 +114,33 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
                   + mMaxLogFileSize);
         }
 
+    }
+
+    private void initNativeReporter(Context ctx){
+        final File crashReports = new File(ctx.getCacheDir(),CRASH_REPORT_DIR);
+        // On fresh installs, make the directory before registering an observer
+        if (!crashReports.isDirectory()) {
+            crashReports.mkdir();
+        }
+        // Implement FileObserver for crashReports that don't bring the system down
+        crashObserver = new FileObserver(crashReports.getAbsolutePath()) {
+            @Override
+            public void onEvent(int event, String path){
+                if ((event == FileObserver.CREATE) || (event == FileObserver.MOVED_TO)){
+                    Log.w(LOGTAG, "A crash report was generated");
+                    checkNativeCrash(crashReports);
+                }
+            }
+        };
+        // Native Crash reporting if commandline is set
+        mCrashReportHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                checkNativeCrash(crashReports);
+            }
+        }, UPLOAD_DELAY);
+        // start watching the crash reports folder
+        crashObserver.startWatching();
     }
 
     private void saveCrashLog(String crashLog) {
@@ -154,7 +194,7 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
                 crashLog.append("\n").append(line);
             }
 
-            uploadCrashLog(crashLog.toString(), 3000);
+            uploadCrashLog(crashLog.toString(), UPLOAD_DELAY);
         } catch(FileNotFoundException fnfe) {
             Log.v(LOGTAG,"No previous crash found");
         } catch(IOException ioe) {
@@ -279,6 +319,44 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
             value = aboutText.substring(start, end);
         }
         return value;
+    }
+
+    private void checkNativeCrash(final File crashReportsDir) {
+        // Search cache/Crash Reports/ for any crashes
+        if (crashReportsDir.exists()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (File f : crashReportsDir.listFiles()) {
+                        uploadNativeCrashReport(f);
+                    }
+                }
+            }).start();
+        }
+    }
+
+    private void uploadNativeCrashReport(final File report) {
+        Log.w(LOGTAG, "Preparing Crash Report for upload " + report.getName());
+        // get server url from commandline
+        String server = BrowserCommandLine.getSwitchValue(CRASH_LOG_SERVER_CMD);
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(server);
+            InputStreamEntity isEntity = new InputStreamEntity(
+                    new FileInputStream(report), -1);
+            // Send the report as a Binary
+            isEntity.setContentType("binary/octet-stream");
+            isEntity.setChunked(false);
+            httpPost.setEntity(isEntity);
+            HttpResponse response = httpClient.execute(httpPost);
+            int status = response.getStatusLine().getStatusCode();
+            if (status == 200)
+                report.delete();
+            else Log.w(LOGTAG, "Upload Failure. Will try again next time- " + status);
+
+        } catch (Exception e) {
+            Log.w(LOGTAG, "Crash Report failed to upload, will try again next time " + e);
+        }
     }
 
 }
