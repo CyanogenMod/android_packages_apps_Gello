@@ -65,6 +65,8 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
 
     private Handler mHandler = new Handler();
     private final Locale mCurrentLocale = Locale.getDefault();
+    public static boolean killOnExitDialog = false;
+
 
     private UiController mUiController;
     private Handler mHandlerEx = new Handler();
@@ -304,8 +306,8 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
             mEngineInitializer.onActivityDestroy();
         mController.onDestroy();
         mController = NullController.INSTANCE;
-        if (!Locale.getDefault().equals(mCurrentLocale)) {
-            Log.e(LOGTAG,"Force Killing Browser on locale change");
+        if (!Locale.getDefault().equals(mCurrentLocale) || killOnExitDialog) {
+            Log.i(LOGTAG,"Force Killing Browser");
             Process.killProcess(Process.myPid());
         }
 

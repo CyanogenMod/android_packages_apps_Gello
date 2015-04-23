@@ -2370,6 +2370,7 @@ public class Controller
     }
 
     private void showExitDialog(final Activity activity) {
+        BrowserActivity.killOnExitDialog = false;
         new AlertDialog.Builder(activity)
                 .setTitle(R.string.exit_browser_title)
                 /* disabled, was worrying people: .setIcon(android.R.drawable.ic_dialog_alert) */
@@ -2382,15 +2383,9 @@ public class Controller
                 })
                 .setPositiveButton(R.string.exit_quit, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        mCrashRecoveryHandler.clearState(true);
+                        BrowserActivity.killOnExitDialog = true;
                         activity.finish();
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mCrashRecoveryHandler.clearState(true);
-                                int pid = android.os.Process.myPid();
-                                android.os.Process.killProcess(pid);
-                            }
-                        }, 300);
                         dialog.dismiss();
                     }
                 })
