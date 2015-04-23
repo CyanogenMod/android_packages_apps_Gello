@@ -26,8 +26,16 @@
           }],
         ],
         'native_lib_target': 'libswe',
-        'app_manifest_version_name': '<!(../swe/browser/tools/generate_about.sh --quiet --name --about)',
-        'app_manifest_version_code': '<!(../swe/browser/tools/generate_about.sh --quiet --code)',
+        'app_manifest_version_code': '<!(python <(DEPTH)/swe/tools/swe_version.py \
+                                     -i <(DEPTH)/chrome/VERSION \
+                                     -o <(DEPTH)/swe/VERSION --version-code-only)',
+        'app_manifest_version_name': '<!(python <(DEPTH)/swe/tools/swe_version.py \
+                                     -i <(DEPTH)/chrome/VERSION \
+                                     -o <(DEPTH)/swe/VERSION --version-string-only)',
+        'generate_about_string': '<!(python <(DEPTH)/swe/tools/swe_version.py \
+                                     -i <(DEPTH)/chrome/VERSION \
+                                     -o <(DEPTH)/swe/VERSION \
+                                     -about <(DEPTH)/swe/browser/res/values/about.xml)',
         'additional_native_libs': [
           '<@(libnetxt_native_libs)',
           '<@(libsta_native_libs)',
