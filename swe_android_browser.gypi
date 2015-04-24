@@ -13,6 +13,7 @@
         '<@(libsta_dependencies)',
         '<@(libsweadrenoext_dependencies)',
         '<@(web_refiner_dependencies)',
+        'fast_webview_java',
         #'android-support-v13',
       ],
       'variables': {
