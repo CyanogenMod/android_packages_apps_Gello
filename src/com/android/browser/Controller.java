@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Copyright (C) 2015 The Linux Foundation
+ * Copyright (c) 2015 The Linux Foundation, All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,6 +98,7 @@ import com.android.browser.AppAdapter;
 import com.android.browser.R;
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
+import com.android.browser.mdm.URLFilterRestriction;
 import com.android.browser.mynavigation.AddMyNavigationPage;
 import com.android.browser.mynavigation.MyNavigationUtil;
 import com.android.browser.platformsupport.Browser;
@@ -456,6 +457,7 @@ public class Controller
     @Override
     public void onSetWebView(Tab tab, WebView view) {
         mUi.onSetWebView(tab, view);
+        URLFilterRestriction.getInstance();
     }
 
     @Override
