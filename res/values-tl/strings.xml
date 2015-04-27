@@ -141,14 +141,114 @@
     <string name="pref_content_plugins" msgid="7231944644794301582">"Paganahin ang mga plug-in"</string>
 
     <!-- Custom Translations -->
+
     <string name="browser_tab_crash_snap">Naku !</string>
     <string name="browser_tab_crash_reload">I-reload</string>
     <string name="browser_tab_crash_message">May nangyaring hindi inaasahan noong ipinapakita ang webpage na ito. Paki-reload o pumunta sa isa pang pahina.</string>
+
     <string name="find_on_page">Hanapin sa pahina</string>
-    <string name="ssl_certificate">Certificate ng seguridad</string>
-    <string name="ssl_certificate_is_valid">May bisa ang certificate na ito.</string>
     <string name="pref_memory_monitor">Paganahin ang Memory Monitor</string>
 
+    <string-array name="geolocation_settings_choices">
+        <item>Tanggihan nang tuluyan</item>
+        <item>Payagan sa loob ng 24 na oras</item>
+        <item>Payagan nang tuluyan</item>
+        <item>Palaging magtanong</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">Payagan sa loob ng 24 na oras</string>
+    <string name="geolocation_settings_page_dialog_title">I-edit ang patakaran ng lokasyon para sa\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
+
+    <string name="version">Bersyon</string>
+    <string name="build_date">Petsa ng Paggawa</string>
+    <string name="build_hash">Gawin ang Sira</string>
+    <string name="user_agent">Agent ng User</string>
+    <string name="help">Tulong</string>
+    <string name="feedback">Feedback</string>
+
+    <string name="max_url_character_limit_msg">Naabot ang limitasyon ng maximum na URL</string>
+    <string name="msg_no_google_play">Paumanhin, wala ang Google Play store app.</string>
+    <string name="add_to_homescreen">Idagdag sa homescreen</string>
+
+    <string name="pref_select_items">Pumili ng mga item na dapat i-clear</string>
+    <string name="pref_privacy_clear_selected">I-clear ang mga piniling item</string>
+    <string name="pref_privacy_clear_selected_summary">I-clear ang mga piniling item sa listahan</string>
+    <string name="pref_privacy_clear_selected_dlg">I-clear ang mga sumusunod na item?</string>
+
+    <string name="pref_do_not_track">Huwag Subaybayan</string>
+    <string name="pref_do_not_track_summary">Magpadala ng Huwag Subaybayan na kahilingan gamit ang iyong trapiko sa pagba-browse</string>
+
+    <string name="pref_sample_font_size">I-drag ang slider upang i-adjust ang laki ng font upang maitakda ang ginugustong komportableng laki sa pagbabasa.</string>
+
+    <string name="my_navigation_delete_label">I-delete ang website</string>
+    <string name="my_navigation_edit_label">I-edit ang website</string>
+    <string name="my_navigation_add_label">Magdagdag ng website</string>
+    <string name="my_navigation_add">magdagdag</string>
+    <string name="my_navigation_delete_msg">I-delete ang website?</string>
+    <string name="my_navigation_name">Pamagat</string>
+    <string name="my_navigation_address">Address</string>
+    <string name="website_needs_title">Dapat ay may pamagat ang website</string>
+    <string name="website_needs_url">Dapat ay may URL ang website</string>
+    <string name="my_navigation_cannot_save_url">Di-wastong URL</string>
+    <string name="my_navigation_duplicate_url">Umiiral na ang URL</string>
+    <string name="my_navigation_page_title">Home</string>
+
+    <string name="http_video_msg">Pakipili kung paano mangasiwa ng media file</string>
+    <string name="video_save">I-save</string>
+    <string name="video_play">I-play</string>
+    <string name="exit">Lumabas</string>
+    <string name="about">Tungkol Sa</string>
+
+    <string name="exit_browser_title">Lumabas sa browser</string>
+    <string name="exit_browser_msg">Mangyaring piliin kung paano lumabas sa browser</string>
+    <string name="exit_minimize">I-minimize</string>
+     <string name="exit_quit">Umalis</string>
+
+    <string name="download_estore_app">Walang app na Estore, paki-download at paki-install ito.</string>
+    <string name="estore_url_warning">Nabigo sa pagbukas ng Estore na app, napakahaba ng url!</string>
+    <string name="drm_file_unsupported">Hindi sinusuportahan ang mga DRM file!</string>
+
+    <string name="save_bookmark_folder">Bagong folder</string>
+    <string name="save_to_bookmarks_title">I-save sa mga bookmark</string>
+    <string name="duplicated_folder_warning">Umiiral na ang folder</string>
+    <string name="overwrite_bookmark_msg">Umiiral na ang pangalan ng bookmark\'s o ang address. I-overwrite ito?</string>
+
+    <string name="browser_max_input_title">Naabot ang limitasyon para sa maximum na bilang ng mga character</string>
+    <string name="browser_max_input">Naabot ng iyong input ang maximum na limitasyon na <xliff:g id="MAXLIMIT">%s</xliff:g> (na) character</string>
+
+    <string name="invalid_path">Di-wastong path</string>
+    <string name="path_wrong">Maling Path</string>
+    <string name="pref_download_title">Mga setting ng path sa pag-download</string>
+    <string name="pref_download_path_setting_screen_title">Custom na path sa pag-download</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Kanselahin</string>
+    <string name="download_timeneeded">Oras</string>
+    <string name="download_filesize">Laki</string>
+    <string name="download_filepath_label">Path</string>
+    <string name="download_edit_filename_label">Pangalan</string>
+    <string name="download_default_path">/Download</string>
+    <string name="download_no_enough_memory">Hindi sapat na memory para sa download</string>
+    <string name="download_settings_title">Mga setting ng pag-download</string>
+    <string name="save_page_needs_title">Hindi maaaring walang laman ang filename ng download</string>
+    <string name="filename_empty_title">Walang laman ang filename ng download</string>
+    <string name="filename_empty_msg">Hindi maaaring walang laman ang filename ng download. Mangyaring maglagay ng wastong filename.</string>
+    <string name="download_file_setting">Mga setting sa pag-download ng file</string>
+    <string name="unknow_length">Hindi kilala/alam</string>
+    <string name="download_file_exist_msg">Umiiral na ang file. Mangyaring maglagay ng bagong filename.</string>
+    <string name="download_file_exist">Umiiral na ang file</string>
+    <string name="time_min">min</string>
+    <string name="download_path_phone_storage_label">/Imbakan ng Telepono</string>
+    <string name="download_path_sd_card_label">/SD card</string>
+    <string name="download_path_unavailable_dlg_title">Di available ang direktoryo ng pag-download</string>
+    <string name="download_path_unavailable_dlg_msg">Mangyaring baguhin ang direktoryo ng pag-download</string>
+
+    <string name="activity_not_found">Walang nahanap na aktibidad upang pangasiwaan ang layunin na ito <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">Tanggapin ang mensahe mula sa: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="ssl_certificate">Certificate ng seguridad</string>
+    <string name="ssl_certificate_is_valid">May bisa ang certificate na ito.</string>
+
+    <!--End of Custom Translations -->
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Palaging naka-on"</item>

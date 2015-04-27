@@ -141,12 +141,98 @@
     <string name="browser_tab_crash_snap">糟糕，突然中斷！</string>
     <string name="browser_tab_crash_reload">重新載入</string>
     <string name="browser_tab_crash_message">顯示網頁時發生未預期的錯誤。請重新載入或前往其他網頁。</string>
+
     <string name="find_on_page">在網頁上尋找</string>
-    <string name="ssl_certificate">安全性憑證</string>
-    <string name="ssl_certificate_is_valid">此憑證有效。</string>
     <string name="pref_memory_monitor">啟用記憶體監察器</string>
     <string name="pref_powersave_enabled">"省電模式"</string>
     <string name="pref_powersave_enabled_summary">"開啟省電模式"</string>
+    <string name="pref_allow_media_downloads">"允許多媒體下載"</string>
+
+    <string name="version">版本</string>
+    <string name="build_date">建立日期</string>
+    <string name="build_hash">建立散列</string>
+    <string name="user_agent">用戶代理</string>
+    <string name="help">說明</string>
+    <string name="feedback">反饋</string>
+
+    <string name="max_url_character_limit_msg">已達到最大的 URL 限制</string>
+    <string name="msg_no_google_play">抱歉，Google Play 商店應用程式不存在。</string>
+
+    <string name="pref_do_not_track">不要追蹤</string>
+    <string name="pref_do_not_track_summary">配以瀏覽流量傳送「不要追蹤」請求</string>
+
+    <string name="pref_sample_font_size">拖動滑動器調整字體大小以設定最理想的閱讀效果。</string>
+
+    <string name="my_navigation_delete_label">刪除網站</string>
+    <string name="my_navigation_edit_label">編輯網站</string>
+    <string name="my_navigation_add_label">新增網站</string>
+    <string name="my_navigation_add">新增</string>
+    <string name="my_navigation_delete_msg">刪除網站？</string>
+    <string name="my_navigation_name">標題</string>
+    <string name="my_navigation_address">地址</string>
+    <string name="website_needs_title">網站必須有標題</string>
+    <string name="website_needs_url">網站必須有 URL</string>
+    <string name="my_navigation_cannot_save_url">URL 無效</string>
+    <string name="my_navigation_duplicate_url">URL 已存在</string>
+    <string name="my_navigation_page_title">主螢幕</string>
+
+    <string name="http_video_msg">請選擇如何處理媒體檔案</string>
+    <string name="video_save">儲存</string>
+    <string name="video_play">播放</string>
+    <string name="exit">離開</string>
+    <string name="about">資料</string>
+
+    <string name="exit_browser_title">退出瀏覽器</string>
+    <string name="exit_browser_msg">請選擇如何退出瀏覽器</string>
+    <string name="exit_minimize">最小化</string>
+    <string name="exit_quit">結束</string>
+
+    <string name="download_estore_app">Estore 應用程式不存在，請下載並安裝。</string>
+    <string name="estore_url_warning">啟動 Estore 應用程式失敗，網址太長！</string>
+    <string name="drm_file_unsupported">不支援上傳中的 DRM 檔案！</string>
+
+    <string name="save_bookmark_folder">新增資料夾</string>
+    <string name="save_to_bookmarks_title">儲存至書籤</string>
+    <string name="duplicated_folder_warning">資料夾已存在</string>
+    <string name="overwrite_bookmark_msg">此書籤的名稱或位址已存在，要覆寫嗎？</string>
+
+    <string name="browser_max_input_title">超過字元上限</string>
+    <string name="browser_max_input">您的輸入已達到 <xliff:g id="MAXLIMIT">%s</xliff:g> 個字元的上限。</string>
+
+    <string name="invalid_path">路徑無效</string>
+    <string name="path_wrong">路徑錯誤</string>
+    <string name="pref_download_title">下載路徑設定</string>
+    <string name="pref_download_path_setting_screen_title">自訂下載路徑</string>
+    <string name="download_start">確定</string>
+    <string name="download_cancel">取消</string>
+    <string name="download_timeneeded">時間</string>
+    <string name="download_filesize">大小</string>
+    <string name="download_filepath_label">路徑</string>
+    <string name="download_edit_filename_label">名稱</string>
+    <string name="download_default_path">/下載</string>
+    <string name="download_no_enough_memory">容量不足以下載</string>
+    <string name="download_settings_title">下載設定</string>
+    <string name="save_page_needs_title">下載檔案名稱不能為空白</string>
+    <string name="filename_empty_title">下載檔案名稱空白</string>
+    <string name="filename_empty_msg">下載檔案名稱不能為空白，請輸入有效檔案名稱。</string>
+    <string name="download_file_setting">下載檔案設定</string>
+    <string name="unknow_length">不明</string>
+    <string name="download_file_exist_msg">檔案已存在。請輸入新的檔案名稱。</string>
+    <string name="download_file_exist">檔案已存在</string>
+    <string name="time_min">分鐘</string>
+    <string name="download_path_phone_storage_label">/手機儲存空間</string>
+    <string name="download_path_sd_card_label">/SD 卡</string>
+    <string name="download_path_unavailable_dlg_title">下載目錄無法使用</string>
+    <string name="download_path_unavailable_dlg_msg">請修改下載目錄</string>
+
+    <string name="activity_not_found">找不到活動處理意圖 <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">從 <xliff:g id="FROM">%s</xliff:g> 接收訊息。</string>
+    <string name="ssl_certificate">安全性憑證</string>
+    <string name="ssl_certificate_is_valid">此憑證有效。</string>
+
+    <!-- End of Custom Translations -->
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"永遠開啟"</item>
@@ -351,7 +437,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"編輯位置選項"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此網站目前可以存取您的位置資訊"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"這個網站目前無法存取您的位置資訊"</string>
-    <string name="geolocation_settings_page_dialog_title">編輯 <xliff:g id="website origin" example="maps.google.com">%s</xliff:g> 的位置策略</string>
+    <string name="geolocation_settings_page_dialog_title">編輯 <xliff:g id="website origin" example="codeaurora.org">%s</xliff:g> 的位置策略</string>
     <string-array name="geolocation_settings_choices">
         <item>總是拒絕</item>
         <item>24小時內允許</item>

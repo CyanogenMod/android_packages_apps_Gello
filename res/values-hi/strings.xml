@@ -144,10 +144,111 @@
     <string name="browser_tab_crash_snap">ओह !</string>
     <string name="browser_tab_crash_reload">पुन: लोड करें</string>
     <string name="browser_tab_crash_message">यह वेबपृष्ठ प्रदर्शित करते समय कुछ अनपेक्षित हुआ है. कृपया पुन: लोड करें या अन्य पृष्ठ पर जाएँ.</string>
+
     <string name="find_on_page">पृष्ठ पर ढूँढ़ें</string>
+    <string name="pref_memory_monitor">मेमोरी मॉनीटर सक्षम करें</string>
+
+    <string-array name="geolocation_settings_choices">
+        <item>हमेशा के लिए अस्वीकार करें</item>
+        <item>24 घंटों के लिए अनुमति दें</item>
+        <item>हमेशा के लिए अनुमति दें</item>
+        <item>हमेशा पूछें</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">24 घंटों के लिए अनुमति दें</string>
+    <string name="geolocation_settings_page_dialog_title"><xliff:g id="website origin" example="codeaurora.org">%s</xliff:g>\nके लिए स्थान नीति संपादित करें</string>
+
+    <string name="version">संस्करण</string>
+    <string name="build_date">निर्माण तिथि</string>
+    <string name="build_hash">निर्माण हैश</string>
+    <string name="user_agent">उपयोगकर्ता एजेंट</string>
+    <string name="help">मदद</string>
+    <string name="feedback">प्रतिपुष्टि</string>
+
+    <string name="max_url_character_limit_msg">अधिकतम URL सीमा पूरी हो गई है</string>
+    <string name="msg_no_google_play">क्षमा करें, गूगल प्ले स्टोर ऐप मौजूद नहीं है.</string>
+    <string name="add_to_homescreen">होम स्क्रीन पर जोड़ें</string>
+    <string name="pref_memory_monitor">मेमोरी मॉनिटर सक्षम करें</string>
+
+    <string name="pref_select_items">साफ़ किए जाने हेतु आइटम्स चुनें</string>
+    <string name="pref_privacy_clear_selected">चयनित आइटम्स साफ़ करें</string>
+    <string name="pref_privacy_clear_selected_summary">सूची में चयनित आइटम्स साफ़ करें</string>
+    <string name="pref_privacy_clear_selected_dlg">निम्न मदें साफ करें?</string>
+
+    <string name="pref_do_not_track">ट्रैक नहीं करें</string>
+    <string name="pref_do_not_track_summary">अपने ब्राउज़िंग टैफिक के साथ ट्रैक नहीं करें अनुरोध भेजें</string>
+
+    <string name="pref_sample_font_size">वांछित सुविधाजनक पठन आकार सेट करने के लिए फॉन्ट आकार समायोजित करने हेतु स्लाइडर ड्रैग करें.</string>
+
+    <string name="my_navigation_delete_label">वेबसाइट हटाएँ</string>
+    <string name="my_navigation_edit_label">वेबसाइट संपादित करें</string>
+    <string name="my_navigation_add_label">वेबसाइट जोड़ें</string>
+    <string name="my_navigation_add">जोड़ें</string>
+    <string name="my_navigation_delete_msg">वेबसाइट हटाएँ?</string>
+    <string name="my_navigation_name">शीर्षक</string>
+    <string name="my_navigation_address">पता</string>
+    <string name="website_needs_title">वेबसाइट में कोई शीर्षक होना आवश्यक है</string>
+    <string name="website_needs_url">वेबसाइट में कोई URL होना आवश्यक है</string>
+    <string name="my_navigation_cannot_save_url">अमान्य वेब पता</string>
+    <string name="my_navigation_duplicate_url">URL पहले से मौजूद है</string>
+    <string name="my_navigation_page_title">होम</string>
+
+    <string name="http_video_msg">कृपया मीडिया फ़ाइल को हैंडल करने का तरीका चुनें</string>
+    <string name="video_save">सहेजें</string>
+    <string name="video_play">चलाएं</string>
+    <string name="exit">बाहर निकलें</string>
+    <string name="about">के बारे में</string>
+
+    <string name="exit_browser_title">ब्राउज़र से बाहर आएं</string>
+    <string name="exit_browser_msg">कृपया ब्राउज़र से बाहर आने का तरीका चुनें</string>
+    <string name="exit_minimize">छोटा करें</string>
+     <string name="exit_quit">छोड़ें</string>
+
+    <string name="download_estore_app">Estore ऐप मौजूद नहीं है, कृपया इसे डाउनलोड और स्थापित करें.</string>
+    <string name="estore_url_warning">Estore ऐप लॉन्च करना विफल हुआ, url बहुत लंबा है!</string>
+    <string name="drm_file_unsupported">DRM फ़ाइलें अपलोड करना समर्थित नहीं है!</string>
+
+    <string name="save_bookmark_folder">नया फ़ोल्डर</string>
+    <string name="save_to_bookmarks_title">बुकमार्क्स में सहेजें</string>
+    <string name="duplicated_folder_warning">फ़ोल्डर पहले से मौजूद है</string>
+    <string name="overwrite_bookmark_msg">इस बुकमार्क का नाम या पता पहले से मौजूद है. इसे अधिलेखित करें?</string>
+
+    <string name="browser_max_input_title">वर्णों की अधिकतम संख्या की सीमा पूरी हुई</string>
+    <string name="browser_max_input">आपका इनपुट <xliff:g id="MAXLIMIT">%s</xliff:g> वर्णों की अधिकतम सीमा तक पहुंच गया है</string>
+
+    <string name="invalid_path">अमान्य पथ</string>
+    <string name="path_wrong">गलत पथ</string>
+    <string name="pref_download_title">डाउनलोड पथ सेटिंग्स</string>
+    <string name="pref_download_path_setting_screen_title">कस्टम डाउनलोड पथ</string>
+    <string name="download_start">ठीक</string>
+    <string name="download_cancel">रद्द करें</string>
+    <string name="download_timeneeded">समय</string>
+    <string name="download_filesize">आकार</string>
+    <string name="download_filepath_label">पथ</string>
+    <string name="download_edit_filename_label">नाम</string>
+    <string name="download_default_path">/डाउनलोड करें</string>
+    <string name="download_no_enough_memory">डाउनलोड करने हेतु अपर्याप्त मेमोरी</string>
+    <string name="download_settings_title">डाउनलोड सेटिंग्स</string>
+    <string name="save_page_needs_title">डाउनलोड फ़ाइल नाम रिक्त नहीं हो सकता</string>
+    <string name="filename_empty_title">डाउनलोड फ़ाइल नाम रिक्त है!</string>
+    <string name="filename_empty_msg">डाउनलोड फ़ाइल नाम रिक्त नहीं हो सकता. कृपया एक मान्य फ़ाइल नाम प्रविष्ट करें.</string>
+    <string name="download_file_setting">फ़ाइल सेटिंग्स डाउनलोड करें</string>
+    <string name="unknow_length">अज्ञात</string>
+    <string name="download_file_exist_msg">फ़ाइल नाम पहले से मौजूद है. कृपया एक नया फ़ाइल नाम इनपुट करें.</string>
+    <string name="download_file_exist">फ़ाइल पहले से मौजूद है</string>
+    <string name="time_min">मिनट</string>
+    <string name="download_path_phone_storage_label">/फ़ोन संग्रहण</string>
+    <string name="download_path_sd_card_label">/SD कार्ड</string>
+    <string name="download_path_unavailable_dlg_title">डाउनलोड निर्देशिका अनुपलब्ध है</string>
+    <string name="download_path_unavailable_dlg_msg">कृपया डाउनलोड निर्देशिका संशोधित करें</string>
+
+    <string name="activity_not_found">इस इंटेंट को हैंडल करने के लिए कोई गतिविधि नहीं मिली <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">इससे कोई संदेश प्राप्त करें: <xliff:g id="FROM">%s</xliff:g>.</string>
     <string name="ssl_certificate">सुरक्षा प्रमाणपत्र</string>
     <string name="ssl_certificate_is_valid">यह प्रमाणपत्र मान्य है.</string>
-    <string name="pref_memory_monitor">मेमोरी मॉनीटर सक्षम करें</string>
+
+    <!-- End of Custom Translations -->
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"हमेशा चालू"</item>

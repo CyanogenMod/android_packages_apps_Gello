@@ -144,10 +144,111 @@
     <string name="browser_tab_crash_snap">Ồ, Tách !</string>
     <string name="browser_tab_crash_reload">Tải lại</string>
     <string name="browser_tab_crash_message">Đã có sự cố không mong đợi khi hiển thị trang web này. Vui lòng tải lại hoặc đến trang khác.</string>
+
     <string name="find_on_page">Tìm trên trang</string>
+    <string name="pref_memory_monitor">Bật theo dõi bộ nhớ</string>
+
+    <string-array name="geolocation_settings_choices">
+        <item>Luôn từ chối</item>
+        <item>Cho phép 24 giờ</item>
+        <item>Luôn cho phép</item>
+        <item>Luôn hỏi</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">Cho phép 24 giờ</string>
+    <string name="geolocation_settings_page_dialog_title">Sửa chính sách vị trí cho\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
+
+    <string name="version">Phiên bản</string>
+    <string name="build_date">Ngày dựng</string>
+    <string name="build_hash">Mã hash bản dựng</string>
+    <string name="user_agent">Tác nhân người dùng</string>
+    <string name="help">Trợ giúp</string>
+    <string name="feedback">Phản hồi</string>
+
+    <string name="max_url_character_limit_msg">Đã đạt giới hạn URL</string>
+    <string name="msg_no_google_play">Rất tiếc, ứng dụng Google Play store không tồn tại.</string>
+    <string name="add_to_homescreen">Thêm vào màn hình chờ</string>
+    <string name="pref_memory_monitor">Bật theo dõi bộ nhớ</string>
+
+    <string name="pref_select_items">Chọn các mục cần xóa</string>
+    <string name="pref_privacy_clear_selected">Xóa các mục đã chọn</string>
+    <string name="pref_privacy_clear_selected_summary">Xóa các mục đã chọn trong danh sách</string>
+    <string name="pref_privacy_clear_selected_dlg">Xóa các mục sau?</string>
+
+    <string name="pref_do_not_track">Không theo dõi</string>
+    <string name="pref_do_not_track_summary">Gửi yêu cầu Không theo dõi với lưu lượng duyệt web của bạn</string>
+
+    <string name="pref_sample_font_size">Kéo thanh trượt để điều chỉnh font đến kích cỡ mong muốn để có thể đọc thoải mái.</string>
+
+    <string name="my_navigation_delete_label">Xóa trang web</string>
+    <string name="my_navigation_edit_label">Sửa trang web</string>
+    <string name="my_navigation_add_label">Thêm trang web</string>
+    <string name="my_navigation_add">thêm</string>
+    <string name="my_navigation_delete_msg">Xóa trang web?</string>
+    <string name="my_navigation_name">Tên</string>
+    <string name="my_navigation_address">Địa chỉ</string>
+    <string name="website_needs_title">Trang web phải có tên</string>
+    <string name="website_needs_url">Trang web phải có URL</string>
+    <string name="my_navigation_cannot_save_url">URL không hợp lệ</string>
+    <string name="my_navigation_duplicate_url">URL đã tồn tại</string>
+    <string name="my_navigation_page_title">Trang chủ</string>
+
+    <string name="http_video_msg">Vui lòng chọn cách xử lý file media</string>
+    <string name="video_save">Lưu</string>
+    <string name="video_play">Phát</string>
+    <string name="exit">Đóng</string>
+    <string name="about">Thông tin</string>
+
+    <string name="exit_browser_title">Thoát trình duyệt</string>
+    <string name="exit_browser_msg">Vui lòng chọn cách thoát trình duyệt</string>
+    <string name="exit_minimize">Thu nhỏ</string>
+     <string name="exit_quit">Thoát</string>
+
+    <string name="download_estore_app">Ứng dụng Estore không tồn tại, vui lòng tải về và cài đặt ứng dụng này.</string>
+    <string name="estore_url_warning">Khởi chạy ứng dụng Estore không thành công, url quá dài!</string>
+    <string name="drm_file_unsupported">Không hỗ trợ tải lên file DRM!</string>
+
+    <string name="save_bookmark_folder">Thư mục mới</string>
+    <string name="save_to_bookmarks_title">Lưu vào Dấu trang</string>
+    <string name="duplicated_folder_warning">Thư mục đã tồn tại</string>
+    <string name="overwrite_bookmark_msg">Tên hoặc địa chỉ của dấu trang này đã tồn tại. Ghi đè lên?</string>
+
+    <string name="browser_max_input_title">Đã đạt giới hạn số ký tự tối đa</string>
+    <string name="browser_max_input">Bạn đã nhập đến giới hạn tối đa <xliff:g id="MAXLIMIT">%s</xliff:g> ký tự</string>
+
+    <string name="invalid_path">Đường dẫn không hợp lệ</string>
+    <string name="path_wrong">Đường dẫn sai</string>
+    <string name="pref_download_title">Cài đặt đường dẫn tải về</string>
+    <string name="pref_download_path_setting_screen_title">Đường dẫn tải về tùy chỉnh</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Hủy</string>
+    <string name="download_timeneeded">Thời gian</string>
+    <string name="download_filesize">Kích thước</string>
+    <string name="download_filepath_label">Đường dẫn</string>
+    <string name="download_edit_filename_label">Tên</string>
+    <string name="download_default_path">/Tải về</string>
+    <string name="download_no_enough_memory">Không đủ bộ nhớ để tải về</string>
+    <string name="download_settings_title">Cài đặt tải về</string>
+    <string name="save_page_needs_title">Tên file tải về không thể để trống</string>
+    <string name="filename_empty_title">Tên file tải về trống</string>
+    <string name="filename_empty_msg">Tên file tải về không thể để trống. Vui lòng nhập tên file hợp lệ.</string>
+    <string name="download_file_setting">Cài đặt file tải về</string>
+    <string name="unknow_length">Không xác định</string>
+    <string name="download_file_exist_msg">File đã tồn tại. Vui lòng nhập tên file mới.</string>
+    <string name="download_file_exist">File đã tồn tại</string>
+    <string name="time_min">phút</string>
+    <string name="download_path_phone_storage_label">/Bộ nhớ điện thoại</string>
+    <string name="download_path_sd_card_label">/Thẻ SD</string>
+    <string name="download_path_unavailable_dlg_title">Thư mục tải về không có sẵn</string>
+    <string name="download_path_unavailable_dlg_msg">Vui lòng sửa đổi thư mục tải về</string>
+
+    <string name="activity_not_found">Không tìm thấy hoạt động để xử lý intent này <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">Nhận một tin nhắn từ: <xliff:g id="FROM">%s</xliff:g>.</string>
     <string name="ssl_certificate">Chứng chỉ bảo mật</string>
     <string name="ssl_certificate_is_valid">Chứng chỉ này hợp lệ.</string>
-    <string name="pref_memory_monitor">Bật theo dõi bộ nhớ</string>
+
+    <!-- End of Custom Translations -->
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Luôn bật"</item>

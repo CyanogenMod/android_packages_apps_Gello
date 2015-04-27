@@ -135,6 +135,122 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Увімк. JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Відкр. у фон. режимі"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Увімкнути плагіни"</string>
+
+    <!-- Custom Translations -->
+    <string-array name="geolocation_settings_choices">
+        <item>Відхилити назавжди</item>
+        <item>Дозволити на 24 години</item>
+        <item>Дозволити назавжди</item>
+        <item>Завжди запитувати</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">Дозволити на 24 години</string>
+    <string name="geolocation_settings_page_dialog_title">Редагувати правила визначення розташування для \n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
+
+
+    <string name="version">Версія</string>
+    <string name="build_date">Дата збірки</string>
+    <string name="build_hash">Хеш збірки</string>
+    <string name="user_agent">Агент користувача</string>
+    <string name="help">Довідка</string>
+    <string name="feedback">Відгуки</string>
+
+
+    <string name="browser_tab_crash_snap">Ой, стався збій!</string>
+    <string name="browser_tab_crash_reload">Перезавантажити</string>
+    <string name="browser_tab_crash_message">
+      У процесі відображення веб-сторінки сталася неочікувана помилка.
+    Перезавантажте сторінку або відкрийте іншу.
+    </string>
+
+    <string name="max_url_character_limit_msg">Досягнуто ліміту довжини URL-адреси</string>
+    <string name="msg_no_google_play">Вибачте, у Google Play немає такої програми.</string>
+    <string name="add_to_homescreen">Додати до головного екрана</string>
+    <string name="pref_memory_monitor">Увімкнути Memory Monitor</string>
+
+    <string name="pref_select_items">Виберіть елементи для видалення</string>
+    <string name="pref_privacy_clear_selected">Видалити вибрані елементи</string>
+    <string name="pref_privacy_clear_selected_summary">Видалити вибрані елементи списку</string>
+    <string name="pref_privacy_clear_selected_dlg">Видалити ці елементи?</string>
+
+    <string name="pref_do_not_track">Скасувати відстеження</string>
+    <string name="pref_do_not_track_summary">Надіслати запит щодо скасування відстеження трафіку браузера</string>
+
+    <string name="pref_sample_font_size">Рухаючи повзунок, можна відрегулювати розмір шрифту до комфортної для читання величини.</string>
+    <string name="pref_default_text_encoding_default">UTF-8</string>
+
+    <string name="find_on_page">Знайти на сторінці</string>
+
+    <string name="my_navigation_delete_label">Видалити веб-сайт</string>
+    <string name="my_navigation_edit_label">Редагувати веб-сайт</string>
+    <string name="my_navigation_add_label">Додати веб-сайт</string>
+    <string name="my_navigation_add">додати</string>
+    <string name="my_navigation_delete_msg">Видалити веб-сайт?</string>
+    <string name="my_navigation_name">Назва</string>
+    <string name="my_navigation_address">Адреса</string>
+    <string name="website_needs_title">Веб-сайт має мати заголовок</string>
+    <string name="website_needs_url">Веб-сайт має мати URL-адресу</string>
+    <string name="my_navigation_cannot_save_url">Недійсна URL-адреса</string>
+    <string name="my_navigation_duplicate_url">URL-адреса вже існує</string>
+    <string name="my_navigation_page_title">Головна</string>
+
+    <string name="http_video_msg">Виберіть спосіб застосування медіафайлу</string>
+    <string name="video_save">Зберегти</string>
+    <string name="video_play">Відтворити</string>
+    <string name="exit">Вийти</string>
+    <string name="about">Про</string>
+
+    <string name="exit_browser_title">Вийти з браузера</string>
+    <string name="exit_browser_msg">Виберіть спосіб виходу з браузера</string>
+    <string name="exit_minimize">Зменшити</string>
+     <string name="exit_quit">Скасувати</string>
+
+    <string name="download_estore_app">Програма Estore відсутня, завантажте і встановіть її</string>
+    <string name="estore_url_warning">Збій запуску програми Estore, URL-адреса задовга!</string>
+    <string name="drm_file_unsupported">Завантаження файлів DRM не підтримується!</string>
+
+    <string name="save_bookmark_folder">Нова папка</string>
+    <string name="save_to_bookmarks_title">Зробити закладку</string>
+    <string name="duplicated_folder_warning">Папка вже існує</string>
+    <string name="overwrite_bookmark_msg">Назва або URL-адреса закладки вже існує. Перезаписати її?</string>
+
+    <string name="browser_max_input_title">Досягнуто максимально дозволеної кількості символів</string>
+    <string name="browser_max_input">Введений текст досягнув ліміту, який становить <xliff:g id="MAXLIMIT">%s</xliff:g> символів</string>
+
+    <string name="invalid_path">Недійсний шлях</string>
+    <string name="path_wrong">Неправильний шлях</string>
+    <string name="pref_download_title">Налаштування шляху завантаження</string>
+    <string name="pref_download_path_setting_screen_title">Спеціальний шлях завантаження</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Скасувати</string>
+    <string name="download_timeneeded">Часом</string>
+    <string name="download_filesize">Розміром</string>
+    <string name="download_filepath_label">Шлях</string>
+    <string name="download_edit_filename_label">Ім\'я</string>
+    <string name="download_default_path">/Завантажити</string>
+    <string name="download_no_enough_memory">Недостатньо пам\'яті для завантаження</string>
+    <string name="download_settings_title">Параметри завантаження</string>
+    <string name="save_page_needs_title">Ім\'я файлу завантаження не може бути порожнім</string>
+    <string name="filename_empty_title">Ім\'я файлу завантаження порожнє</string>
+    <string name="filename_empty_msg">Ім\'я файлу завантаження не може бути порожнім. Введіть дійсне ім\'я файлу.</string>
+    <string name="download_file_setting">Параметри завантаження файлів</string>
+    <string name="unknow_length">Невідомо</string>
+    <string name="download_file_exist_msg">Такий файл вже існує. Введіть нове ім\'я файлу.</string>
+    <string name="download_file_exist">Такий файл вже існує</string>
+    <string name="time_min">хв.</string>
+    <string name="download_path_phone_storage_label">/Пам\'ять телефону</string>
+    <string name="download_path_sd_card_label">/Карта SD</string>
+    <string name="download_path_unavailable_dlg_title">Папка для завантажень недоступна</string>
+    <string name="download_path_unavailable_dlg_msg">Змініть папку для завантажень</string>
+
+    <string name="activity_not_found">Не знайдено дії для обробки заданої функції <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">Отримати повідомлення від: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="ssl_certificate">Сертифікат безпеки</string>
+    <string name="ssl_certificate_is_valid">Цей сертифікат дійсний.</string>
+
+    <!-- End of Custom Translations -->
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Завжди увімк."</item>
     <item msgid="2484126708670016519">"На вимогу"</item>

@@ -135,6 +135,123 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Włącz skrypty JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Otwieraj w tle"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Obsługa wtyczek"</string>
+
+    <!-- Custom Translations -->
+
+    <string-array name="geolocation_settings_choices">
+            <item>Zawsze odmawiaj</item>
+            <item>Zezwalaj na 24 godziny</item>
+            <item>Zawsze zezwalaj</item>
+            <item>Zawsze pytaj</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">Zezwalaj na 24 godziny</string>
+    <string name="geolocation_settings_page_dialog_title">Edytuj politykę lokalizacji\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
+
+
+    <string name="version">Wersja</string>
+    <string name="build_date">Data kompilacji</string>
+    <string name="build_hash">Nr kompilacji</string>
+    <string name="user_agent">Agent użytkownika</string>
+    <string name="help">Pomoc</string>
+    <string name="feedback">Informacje zwrotne</string>
+
+
+    <string name="browser_tab_crash_snap">Ups, Snap!</string>
+    <string name="browser_tab_crash_reload">Załaduj ponownie</string>
+    <string name="browser_tab_crash_message">
+      Podczas wyświetlania tej strony wydarzyło się coś nieoczekiwanego.
+    Załaduj ją ponownie lub przejdź do innej strony.
+    </string>
+
+    <string name="max_url_character_limit_msg">Maks. długość adresu URL</string>
+    <string name="msg_no_google_play">Przepraszamy, aplikacja Sklep Play nie istnieje.</string>
+    <string name="add_to_homescreen">Dodaj do ekranu głównego</string>
+    <string name="pref_memory_monitor">Włącz monitor pamięci</string>
+
+    <string name="pref_select_items">Wybierz elementy do usunięcia</string>
+    <string name="pref_privacy_clear_selected">Usuń wybrane elementy</string>
+    <string name="pref_privacy_clear_selected_summary">Usuń wybrane elementy z listy</string>
+    <string name="pref_privacy_clear_selected_dlg">Czy usunąć następujące elementy?</string>
+
+    <string name="pref_do_not_track">Nie śledź</string>
+    <string name="pref_do_not_track_summary">Wyślij żądanie nieśledzenia przy pomocy przeglądarki</string>
+
+    <string name="pref_sample_font_size">Przeciągnij suwak, aby wyregulować rozmiar czcionki do wygodnego do czytania.</string>
+    <string name="pref_default_text_encoding_default">UTF-8</string>
+
+    <string name="find_on_page">Znajdź na stronie</string>
+
+    <string name="my_navigation_delete_label">Usuń stronę</string>
+    <string name="my_navigation_edit_label">Edytuj stronę</string>
+    <string name="my_navigation_add_label">Dodaj stronę</string>
+    <string name="my_navigation_add">Dodaj</string>
+    <string name="my_navigation_delete_msg">Usunąć stronę?</string>
+    <string name="my_navigation_name">Tytuł</string>
+    <string name="my_navigation_address">Adres</string>
+    <string name="website_needs_title">Strona musi mieć tytuł</string>
+    <string name="website_needs_url">Strona musi mieć adres URL</string>
+    <string name="my_navigation_cannot_save_url">Nieprawidłowy adres URL</string>
+    <string name="my_navigation_duplicate_url">Adres URL już istnieje</string>
+    <string name="my_navigation_page_title">Strona główna</string>
+
+    <string name="http_video_msg">Wybierz sposób obsługi plików multimedialnych</string>
+    <string name="video_save">Zapisz</string>
+    <string name="video_play">Odtwórz</string>
+    <string name="exit">Zamknij</string>
+    <string name="about">Informacje</string>
+
+    <string name="exit_browser_title">Zamknij przeglądarkę</string>
+    <string name="exit_browser_msg">Wybierz sposób zamknięcia przeglądarki</string>
+    <string name="exit_minimize">Zminimalizuj</string>
+     <string name="exit_quit">Zamknij</string>
+
+    <string name="download_estore_app">Aplikacja Estore nie istnieje. Pobierz ją i zainstaluj.</string>
+    <string name="estore_url_warning">Nie można uruchomić aplikacji Estore. Adres URL jest zbyt długi.</string>
+    <string name="drm_file_unsupported">Przesyłanie plików DRM nie jest obsługiwane.</string>
+
+    <string name="save_bookmark_folder">Nowy folder</string>
+    <string name="save_to_bookmarks_title">Dodaj do zakładek</string>
+    <string name="duplicated_folder_warning">Folder już istnieje</string>
+    <string name="overwrite_bookmark_msg">Zakładka o tej nazwie lub adresie już istnieje. Zastąpić ją?</string>
+
+    <string name="browser_max_input_title">Osiągnięto limit maksymalnej liczby znaków</string>
+    <string name="browser_max_input">Wprowadzony tekst osiągnął limit maksymalnej liczby <xliff:g id="MAXLIMIT">%s</xliff:g> znaków</string>
+
+    <string name="invalid_path">Nieprawidłowa ścieżka</string>
+    <string name="path_wrong">Nieprawidłowa ścieżka</string>
+    <string name="pref_download_title">Pobierz ustawienia ścieżek</string>
+    <string name="pref_download_path_setting_screen_title">Niestandardowa ścieżka pobierania</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Anuluj</string>
+    <string name="download_timeneeded">Godzina</string>
+    <string name="download_filesize">Rozmiar</string>
+    <string name="download_filepath_label">Ścieżka</string>
+    <string name="download_edit_filename_label">Nazwa</string>
+    <string name="download_default_path">/Download</string>
+    <string name="download_no_enough_memory">Za mało pamięci, aby pobrać</string>
+    <string name="download_settings_title">Pobierz ustawienia</string>
+    <string name="save_page_needs_title">Nazwa pobranego pliku nie może być pusta</string>
+    <string name="filename_empty_title">Nazwa pobranego pliku jest pusta</string>
+    <string name="filename_empty_msg">Nazwa pobranego pliku nie może być pusta. Wprowadź poprawną nazwę pliku.</string>
+    <string name="download_file_setting">Pobierz plik ustawień</string>
+    <string name="unknow_length">Nieznany</string>
+    <string name="download_file_exist_msg">Plik już istnieje. Wprowadź nową nazwę pliku.</string>
+    <string name="download_file_exist">Plik już istnieje</string>
+    <string name="time_min">min</string>
+    <string name="download_path_phone_storage_label">/Phone Storage</string>
+    <string name="download_path_sd_card_label">/SD card</string>
+    <string name="download_path_unavailable_dlg_title">Folder pobierania jest niedostępny</string>
+    <string name="download_path_unavailable_dlg_msg">Zmień folder pobierania</string>
+
+    <string name="activity_not_found">Brak aktywności do obsłużenia tego celu <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">Odbierz wiadomość od: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="ssl_certificate">Certyfikat zabezpieczeń</string>
+    <string name="ssl_certificate_is_valid">Certyfikat jest ważny.</string>
+
+    <!--End of Custom Translations -->
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Zawsze włączona"</item>
     <item msgid="2484126708670016519">"Na żądanie"</item>

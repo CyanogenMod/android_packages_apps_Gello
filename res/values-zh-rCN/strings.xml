@@ -356,7 +356,7 @@
     <string name="geolocation_settings_page_title" msgid="1745477985097536528">"编辑位置选项"</string>
     <string name="geolocation_settings_page_summary_allowed" msgid="9180251524290811398">"此网站目前可获取您的位置信息"</string>
     <string name="geolocation_settings_page_summary_not_allowed" msgid="7941769772784366199">"此网站目前不能获取您的位置信息"</string>
-    <string name="geolocation_settings_page_dialog_title">编辑 <xliff:g id="website origin" example="maps.google.com">%s</xliff:g> 的位置策略</string>
+    <string name="geolocation_settings_page_dialog_title">编辑 <xliff:g id="website origin" example="codeaurora.org">%s</xliff:g> 的位置策略</string>
     <string-array name="geolocation_settings_choices">
         <item>总是拒绝</item>
         <item>24小时内允许</item>

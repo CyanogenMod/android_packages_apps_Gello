@@ -143,12 +143,111 @@
     <!-- Custom Translation -->
     <string name="browser_tab_crash_snap">ا للأسف!</string>
     <string name="browser_tab_crash_reload">إعادة تحميل</string>
-    <string name="browser_tab_crash_message">حدث شيء غير متوقع عند عرض صفحة الويب هذه.يرجى إعادة التحميل أو الانتقال إلى صفحة أخرى.</string>
+    <string name="browser_tab_crash_message">
+      حدث أمر غير متوقع عند عرض صفحة الويب هذه.
+    يرجى إعادة التحميل أو الانتقال إلى صفحة أخرى.
+    </string>
     <string name="find_on_page">تحديد على الصفحة</string>
-    <string name="ssl_certificate">شهادة الأمان</string>
-    <string name="ssl_certificate_is_valid">هذه الشهادة صالحة.</string>
+
+    <string-array name="geolocation_settings_choices">
+        <item>رفض باستمرار</item>
+        <item>السماح لمدة 24 ساعة</item>
+        <item>السماح باستمرار</item>
+        <item>السؤال دائمًا</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">السماح لمدة 24 ساعة</string>
+    <string name="geolocation_settings_page_dialog_title">تحرير سياسة الموقع لـ\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g>‎</string>
+
+    <string name="version">الإصدار</string>
+    <string name="build_date">تاريخ الاصدار</string>
+    <string name="build_hash">تجزئة الاصدار</string>
+    <string name="user_agent">وكيل المستخدم</string>
+    <string name="help">تعليمات</string>
+    <string name="feedback">الملاحظات</string>
+
+    <string name="max_url_character_limit_msg">تم بلوغ الحد الأقصى لعدد عناوين URL</string>
+    <string name="msg_no_google_play">عذراً، تطبيق متجر Google Play غير متوفر.</string>
+    <string name="add_to_homescreen">إضافة إلى الشاشة الرئيسية</string>
     <string name="pref_memory_monitor"> تمكين مراقب الذاكرة </string>
 
+    <string name="pref_select_items">تحديد العناصر التي يجب مسحها</string>
+    <string name="pref_privacy_clear_selected">مسح العناصر المحددة</string>
+    <string name="pref_privacy_clear_selected_summary">مسح العناصر المحددة في القائمة</string>
+    <string name="pref_privacy_clear_selected_dlg">هل تريد مسح العناصر التالية؟</string>
+
+    <string name="pref_do_not_track">عدم التعقب</string>
+    <string name="pref_do_not_track_summary">إرسال طلب عدم تعقب مع حركة الاستعراض</string>
+
+    <string name="my_navigation_delete_label">حذف موقع الويب</string>
+    <string name="my_navigation_edit_label">تحرير موقع الويب</string>
+    <string name="my_navigation_add_label">إضافة موقع ويب</string>
+    <string name="my_navigation_add">إضافة</string>
+    <string name="my_navigation_delete_msg">هل تريد حذف موقع الويب؟</string>
+    <string name="my_navigation_name">العنوان</string>
+    <string name="my_navigation_address">العنوان</string>
+    <string name="website_needs_title">يجب أن يكون موقع الويب مزوداً بعنوان</string>
+    <string name="website_needs_url">يجب أن يكون موقع الويب مزوداً بعنوان URL</string>
+    <string name="my_navigation_cannot_save_url">عنوان URL غير صالح</string>
+    <string name="my_navigation_duplicate_url">عنوان URL موجود مسبقاً</string>
+    <string name="my_navigation_page_title">المنزل</string>
+
+    <string name="http_video_msg">يرجى تحديد كيفية معالجة ملف الوسائط</string>
+    <string name="video_save">حفظ</string>
+    <string name="video_play">تشغيل</string>
+    <string name="exit">خروج</string>
+    <string name="about">حول</string>
+
+    <string name="exit_browser_title">الخروج من المستعرض</string>
+    <string name="exit_browser_msg">يرجى تحديد كيفية الخروج من المستعرض</string>
+    <string name="exit_minimize">تصغير</string>
+     <string name="exit_quit">إنهاء</string>
+
+    <string name="download_estore_app">تطبيق Estore غير موجود، يرجى تنزيله وتثبيته.</string>
+    <string name="estore_url_warning">فشل تشغيل Estore، عنوان url طويل جدًا!</string>
+    <string name="drm_file_unsupported">تحميل ملفات DRM غير معتمد!</string>
+
+    <string name="save_bookmark_folder">مجلد جديد</string>
+    <string name="save_to_bookmarks_title">حفظ إلى الإشارات المرجعية</string>
+    <string name="duplicated_folder_warning">المجلد موجود مسبقاً</string>
+    <string name="overwrite_bookmark_msg">اسم هذه الإشارة المرجعية أو عنوانها موجود مسبقاً. هل تريد الكتابة فوقه؟</string>
+
+    <string name="browser_max_input_title">تم بلوغ الحد الأقصى لعدد الأحرف</string>
+    <string name="browser_max_input">بلغ الإدخال الحد الأقصى المكوّن من <xliff:g id="MAXLIMIT">%s</xliff:g>‎ أحرف</string>
+
+    <string name="invalid_path">مسار غير صالح</string>
+    <string name="path_wrong">مسار غير صحيح</string>
+    <string name="pref_download_title">إعدادات مسار التنزيل</string>
+    <string name="pref_download_path_setting_screen_title">مسار تنزيل مخصص</string>
+    <string name="download_start">موافق</string>
+    <string name="download_cancel">إلغاء</string>
+    <string name="download_timeneeded">الوقت</string>
+    <string name="download_filesize">الحجم</string>
+    <string name="download_filepath_label">المسار</string>
+    <string name="download_edit_filename_label">الاسم</string>
+    <string name="download_default_path">/تنزيل</string>
+    <string name="download_no_enough_memory">ذاكرة غير كافية للتنزيل</string>
+    <string name="download_settings_title">إعدادات التنزيل</string>
+    <string name="save_page_needs_title">لا يمكن أن يكون اسم ملف التنزيل فارغاً</string>
+    <string name="filename_empty_title">اسم ملف التنزيل فارغ</string>
+    <string name="filename_empty_msg">لا يمكن أن يكون اسم ملف التنزيل فارغاً. يرجى إدخال اسم ملف صالح.</string>
+    <string name="download_file_setting">إعدادات ملف التنزيل</string>
+    <string name="unknow_length">غير معروف</string>
+    <string name="download_file_exist_msg">الملف موجود أصلاً. يرجى إدخال اسم ملف جديد.</string>
+    <string name="download_file_exist">الملف موجود بالفعل</string>
+    <string name="time_min">دقيقة</string>
+    <string name="download_path_phone_storage_label">/وحدة تخزين الهاتف</string>
+    <string name="download_path_sd_card_label">/بطاقة SD</string>
+    <string name="download_path_unavailable_dlg_title">دليل التنزيل غير متوفر</string>
+    <string name="download_path_unavailable_dlg_msg">يرجى تعديل دليل التنزيل</string>
+
+    <string name="activity_not_found">لم يتم العثور على نشاط لمعالجة هذا الهدف <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">استلام رسالة من: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="ssl_certificate">شهادة الأمان</string>
+    <string name="ssl_certificate_is_valid">هذه الشهادة صالحة.</string>
+
+    <!-- End of Custom Translations -->
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"تشغيل دومًا"</item>

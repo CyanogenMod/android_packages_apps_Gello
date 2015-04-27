@@ -863,7 +863,7 @@
 
     <!-- Geolocation -->
     <!-- Permissions prompt -->
-    <string name="geolocation_permissions_prompt_message"><xliff:g id="website origin" example="maps.google.com">%s</xliff:g> wants to know your location</string>
+    <string name="geolocation_permissions_prompt_message"><xliff:g id="website origin" example="codeaurora.org">%s</xliff:g> wants to know your location</string>
     <string name="geolocation_permissions_prompt_share">Allow</string>
     <string name="geolocation_permissions_prompt_share_for_limited_time">Allow for 24 hours</string>
     <string name="geolocation_permissions_prompt_dont_share">Deny</string>
@@ -876,7 +876,7 @@
     <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
     <string name="geolocation_settings_page_summary_not_allowed">This site can\'t currently access your location</string>
     <!-- Settings page dialog -->
-    <string name="geolocation_settings_page_dialog_title">Edit location policy for\n<xliff:g id="website origin" example="maps.google.com">%s</xliff:g></string>
+    <string name="geolocation_settings_page_dialog_title">Edit location policy for\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
     <string-array name="geolocation_settings_choices">
         <item>Deny forever</item>
         <item>Allow for 24 hours</item>

@@ -135,6 +135,121 @@
     <string name="pref_content_javascript" msgid="4570972030299516843">"Aktifkan JavaScript"</string>
     <string name="pref_content_open_in_background" msgid="824123779725118663">"Buka di latar belakang"</string>
     <string name="pref_content_plugins" msgid="7231944644794301582">"Aktifkan plugin"</string>
+
+    <!-- Custom Translations -->
+
+    <string-array name="geolocation_settings_choices">
+            <item>Tolak selamanya</item>
+            <item>Izinkan selama 24 jam</item>
+            <item>Izinkan selamanya</item>
+            <item>Selalu tanyakan</item>
+    </string-array>
+     <string name="geolocation_permissions_prompt_share_for_limited_time">Izinkan selama 24 jam</string>
+    <string name="geolocation_settings_page_dialog_title">Edit kebijakan lokasi untuk\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
+
+
+    <string name="version">Versi</string>
+    <string name="build_date">Tanggal Build</string>
+    <string name="build_hash">Hash Build</string>
+    <string name="user_agent">Agen Pengguna</string>
+    <string name="help">Bantuan</string>
+    <string name="feedback">Umpan balik</string>
+
+
+    <string name="browser_tab_crash_snap">Ya Ampun!</string>
+    <string name="browser_tab_crash_reload">Muat ulang</string>
+    <string name="browser_tab_crash_message">
+      Hal yang tidak diduga terjadi saat menampilkan halaman web ini.
+    Muat ulang atau buka halaman lain.
+    </string>
+
+    <string name="max_url_character_limit_msg">Batas URL maks tercapai</string>
+    <string name="msg_no_google_play">Maaf, aplikasi Google Play store tidak ada.</string>
+    <string name="add_to_homescreen">Tambah ke layar depan</string>
+    <string name="pref_memory_monitor">Aktifkan Monitor Memori</string>
+
+    <string name="pref_select_items">Pilih item untuk dihapus</string>
+    <string name="pref_privacy_clear_selected">Hapus item yang dipilih</string>
+    <string name="pref_privacy_clear_selected_summary">Hapus item yang dipilih dalam daftar</string>
+    <string name="pref_privacy_clear_selected_dlg">Hapus item berikut?</string>
+
+    <string name="pref_do_not_track">Jangan Lacak</string>
+    <string name="pref_do_not_track_summary">Kirim permintaan Jangan Lacak dengan lalu-lintas penjelajahan Anda</string>
+
+    <string name="pref_sample_font_size">Seret penggeser untuk menyesuaikan ukuran font hingga ukuran yang nyaman dibaca.</string>
+    <string name="find_on_page">Cari di halaman</string>
+
+    <string name="my_navigation_delete_label">Hapus situs web</string>
+    <string name="my_navigation_edit_label">Edit situs web</string>
+    <string name="my_navigation_add_label">Tambah situs web</string>
+    <string name="my_navigation_add">tambah</string>
+    <string name="my_navigation_delete_msg">Hapus situs web?</string>
+    <string name="my_navigation_name">Judul</string>
+    <string name="my_navigation_address">Alamat</string>
+    <string name="website_needs_title">Situs web harus memiliki judul</string>
+    <string name="website_needs_url">Situs web harus memiliki URL</string>
+    <string name="my_navigation_cannot_save_url">URL tidak valid</string>
+    <string name="my_navigation_duplicate_url">URL sudah ada</string>
+    <string name="my_navigation_page_title">Beranda</string>
+
+    <string name="http_video_msg">Pilih cara menangani file media</string>
+    <string name="video_save">Simpan</string>
+    <string name="video_play">Putar</string>
+    <string name="exit">Keluar</string>
+    <string name="about">Tentang</string>
+
+    <string name="exit_browser_title">Tutup browser</string>
+    <string name="exit_browser_msg">Pilih cara menutup browser</string>
+    <string name="exit_minimize">Minimalkan</string>
+     <string name="exit_quit">Keluar</string>
+
+    <string name="download_estore_app">Aplikasi Estore tidak ada, unduh dan instal aplikasinya.</string>
+    <string name="estore_url_warning">Gagal meluncurkan aplikasi Estore, url terlalu panjang!</string>
+    <string name="drm_file_unsupported">Mengunggah file DRM tidak didukung!</string>
+
+    <string name="save_bookmark_folder">Folder baru</string>
+    <string name="save_to_bookmarks_title">Simpan ke bookmark</string>
+    <string name="duplicated_folder_warning">Folder sudah ada</string>
+    <string name="overwrite_bookmark_msg">Nama atau alamat bookmark sudah ada. Timpa?</string>
+
+    <string name="browser_max_input_title">Batas jumlah karakter maksimal tercapai</string>
+    <string name="browser_max_input">Input Anda telah mencapai batas maksimal <xliff:g id="MAXLIMIT">%s</xliff:g> karakter</string>
+
+    <string name="invalid_path">Jalur tidak valid</string>
+    <string name="path_wrong">Jalur Salah</string>
+    <string name="pref_download_title">Pengaturan jalur unduhan</string>
+    <string name="pref_download_path_setting_screen_title">Jalur unduhan kustom</string>
+    <string name="download_start">OK</string>
+    <string name="download_cancel">Batalkan</string>
+    <string name="download_timeneeded">Waktu</string>
+    <string name="download_filesize">Ukuran</string>
+    <string name="download_filepath_label">Jalur</string>
+    <string name="download_edit_filename_label">Nama</string>
+    <string name="download_default_path">/Unduh</string>
+    <string name="download_no_enough_memory">Memori tidak cukup untuk mengunduh</string>
+    <string name="download_settings_title">Pengaturan unduhan</string>
+    <string name="save_page_needs_title">Nama file unduhan tidak boleh kosong</string>
+    <string name="filename_empty_title">Nama file unduhan kosong</string>
+    <string name="filename_empty_msg">Nama file unduhan tidak boleh kosong. Masukkan nama file yang valid.</string>
+    <string name="download_file_setting">Pengaturan file unduhan</string>
+    <string name="unknow_length">Tidak diketahui</string>
+    <string name="download_file_exist_msg">File sudah ada. Masukkan nama file baru.</string>
+    <string name="download_file_exist">File sudah ada</string>
+    <string name="time_min">mnt</string>
+    <string name="download_path_phone_storage_label">/Penyimpanan Telepon</string>
+    <string name="download_path_sd_card_label">/Kartu SD</string>
+    <string name="download_path_unavailable_dlg_title">Direktori unduhan tidak tersedia</string>
+    <string name="download_path_unavailable_dlg_msg">Ubah direktori unduhan</string>
+
+    <string name="activity_not_found">Aktivitas untuk menangani tujuan <xliff:g id="NOACTIVITY">%s</xliff:g> tidak ada</string>
+    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
+
+    <string name="received_message_full_screen">Terima pesan dari: <xliff:g id="FROM">%s</xliff:g>.</string>
+    <string name="ssl_certificate">Sertifikat keamanan</string>
+    <string name="ssl_certificate_is_valid">Sertifikat ini valid.</string>
+
+    <!--End of Custom Translations -->
+
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"Selalu hidup"</item>
     <item msgid="2484126708670016519">"Sesuai permintaan"</item>
