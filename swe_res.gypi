@@ -16,13 +16,12 @@
         ],
       },
       'copies' : [
-        #{
-          #TODO: FIX SWE_ENGINE.jar
-          #'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/jar/',
-          #'files': [
-          #  '<(PRODUCT_DIR)/lib.java/swe_engine.jar'
-          #],
-        #},
+        {
+          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/jar/',
+          'files': [
+            '<(PRODUCT_DIR)/lib.java/swe_engine.jar'
+          ],
+        },
         {
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/assets',
           'files': [
@@ -34,6 +33,14 @@
                 '<(PRODUCT_DIR)/icudtl.dat',
               ],
             }],
+          ],
+        },
+        {
+          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/assets/wml',
+          'files': [
+            '<(PRODUCT_DIR)/swe_android_browser_apk/assets/wml/swe_wml.xsl',
+            '<(PRODUCT_DIR)/swe_android_browser_apk/assets/wml/swe_wml.js',
+            '<(PRODUCT_DIR)/swe_android_browser_apk/assets/wml/swe_wml.css',
           ],
         },
 
@@ -57,7 +64,7 @@
         {
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/swe_res/',
           'files': [
-            '<(PRODUCT_DIR)/res.java/swe_chrome_engine.zip',
+            '<(PRODUCT_DIR)/res.java/swe_chrome_engine_java.zip',
           ],
         },
         #chrome_res.
@@ -65,6 +72,7 @@
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/chrome_res/',
           'files': [
             '<(PRODUCT_DIR)/res.java/chrome_java.zip',
+            '<(PRODUCT_DIR)/res.java/chrome_strings_grd.zip',
           ],
         },
         #android_support_v7_res.
@@ -79,6 +87,12 @@
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/android_data_chart_res/',
           'files': [
             '<(PRODUCT_DIR)/res.java/android_data_chart_java.zip',
+          ],
+        },
+        {
+          'destination': '<(DEPTH)/swe/browser/generated_src/src/org/chromium/base/library_loader',
+          'files': [
+            '<(PRODUCT_DIR)/swe_android_browser_apk/native_libraries_java/NativeLibraries.java',
           ],
         }
       ],
@@ -132,7 +146,7 @@
                      ],
            'outputs': ['<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/swe_res/res/values/strings.xml'],
            'action': ['python', '<(DEPTH)/swe/tools/merge_resources.py',
-                       '<(PRODUCT_DIR)/res.java/swe_chrome_engine.zip',
+                       '<(PRODUCT_DIR)/res.java/swe_chrome_engine_java.zip',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/swe_res/res/',
                      ],
            'message': 'Merging SWE Resources'
@@ -179,8 +193,16 @@
            'inputs': ['<(DEPTH)/swe/tools/merge_resources.py',
                       '<(PRODUCT_DIR)/apks/SWE_AndroidBrowser.apk',
                      ],
-           'outputs': [
-                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libswev8.so',
+           'outputs': ['<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libicui18n.cr.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libicuuc.cr.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libstlport_sh_521.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweskia.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweadrenoext_22_plugin.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweadrenoext_plugin.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsta.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libchromium_client.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libswe.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweadrenoext_plugin.so',
                       ],
            'action': ['python', '<(DEPTH)/swe/tools/copy.py',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/libs/<(arm_dir)',

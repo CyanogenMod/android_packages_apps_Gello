@@ -4,7 +4,7 @@
       'target_name': 'swe_android_browser_apk',
       'type': 'none',
       'dependencies': [
-        'swe_chrome_engine',
+        'swe_chrome_engine_java',
         '<@(libnetxt_dependencies)',
         '<@(libsta_dependencies)',
         '<@(libsweadrenoext_dependencies)',
