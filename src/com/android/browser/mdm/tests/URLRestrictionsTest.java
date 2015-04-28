@@ -33,7 +33,6 @@ package com.android.browser.mdm.tests;
 import android.app.Instrumentation;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
 import android.util.Log;
 
 import com.android.browser.BrowserActivity;
@@ -77,7 +76,7 @@ public class URLRestrictionsTest extends ActivityInstrumentationTestCase2<Browse
         // Wait for native to post the result
         while(!URLFilterRestrictionJNI.getInstance().isBlockedResultReady()) {
             try {
-                Thread.sleep(200);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
