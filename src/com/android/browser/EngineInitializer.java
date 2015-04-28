@@ -56,6 +56,10 @@ public class EngineInitializer {
     //Command line flag for strict mode
     private final static String STRICT_MODE = "enable-strict-mode";
 
+    // Command line flag for single-process mode.
+    // Must match the value of kSingleProcess in content_switches.cc
+    private static final String SINGLE_PROCESS = "single-process";
+
     private static boolean mInitializationStarted = false;
     private static boolean mSynchronousInitialization = false;
     private static boolean mInitializationCompleted = false;
@@ -277,9 +281,9 @@ public class EngineInitializer {
                 }
 
                 Engine.loadNativeLibraries(mApplicationContext);
-
-                Engine.warmUpChildProcess(mApplicationContext);
-
+                if (!BrowserCommandLine.hasSwitch(SINGLE_PROCESS)) {
+                    Engine.warmUpChildProcess(mApplicationContext);
+                }
                 return true;
             }
             catch (Exception e)
