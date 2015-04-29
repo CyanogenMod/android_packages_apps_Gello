@@ -229,11 +229,11 @@ public class BrowserActivity extends Activity {
     }
 
     protected void handleOnResume() {
-        // Note: Intentionally left blank.
+        mController.onResume();
     }
 
     protected void handleOnStart() {
-        mController.onResume();
+        mController.onStart();
     }
 
     @Override
@@ -246,7 +246,7 @@ public class BrowserActivity extends Activity {
 
     protected void handleOnStop() {
         CookieManager.getInstance().flushCookieStore();
-        mController.onPause();
+        mController.onStop();
     }
 
     @Override
@@ -290,7 +290,7 @@ public class BrowserActivity extends Activity {
     }
 
     protected void handleOnPause() {
-        // Note: Intentionally left blank
+        mController.onPause();
     }
 
     @Override

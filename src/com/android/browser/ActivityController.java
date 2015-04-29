@@ -21,6 +21,10 @@ public interface ActivityController {
 
     void handleNewIntent(Intent intent);
 
+    void onStart();
+
+    void onStop();
+
     void onResume();
 
     boolean onMenuOpened(int featureId, Menu menu);

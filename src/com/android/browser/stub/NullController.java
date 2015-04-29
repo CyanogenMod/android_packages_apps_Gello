@@ -38,6 +38,14 @@ public class NullController implements ActivityController {
     }
 
     @Override
+    public void onStop() {
+    }
+
+    @Override
+    public void onStart() {
+    }
+
+    @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
         return false;
     }

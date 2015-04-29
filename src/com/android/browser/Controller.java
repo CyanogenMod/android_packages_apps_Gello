@@ -238,6 +238,7 @@ public class Controller
     private boolean mExtendedMenuOpen;
 
     private boolean mActivityPaused = true;
+    private boolean mActivityStopped = true;
     private boolean mLoadStopped;
 
     private Handler mHandler;
@@ -730,24 +731,7 @@ public class Controller
             return;
         }
         mActivityPaused = true;
-        Tab tab = mTabControl.getCurrentTab();
-        if (tab != null) {
-            tab.pause();
-            if (!pauseWebViewTimers(tab)) {
-                if (mWakeLock == null) {
-                    PowerManager pm = (PowerManager) mActivity
-                            .getSystemService(Context.POWER_SERVICE);
-                    mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
-                }
-                mWakeLock.acquire();
-                mHandler.sendMessageDelayed(mHandler
-                        .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
-            }
-        }
-        mUi.onPause();
-        mNetworkHandler.onPause();
-        NfcHandler.unregister(mActivity);
-        mActivity.unregisterReceiver(mLowPowerReceiver);
+
     }
 
     @Override
@@ -777,9 +761,56 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
         }
+        mActivityPaused = false;
+        if (mVoiceResult != null) {
+            mUi.onVoiceResult(mVoiceResult);
+            mVoiceResult = null;
+        }
+    }
+
+    private void releaseWakeLock() {
+        if (mWakeLock != null && mWakeLock.isHeld()) {
+            mHandler.removeMessages(RELEASE_WAKELOCK);
+            mWakeLock.release();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if (mActivityStopped) {
+            Log.e(LOGTAG, "BrowserActivity is already stoped.");
+            return;
+        }
+        mActivityStopped = true;
+        Tab tab = mTabControl.getCurrentTab();
+        if (tab != null) {
+            tab.pause();
+            if (!pauseWebViewTimers(tab)) {
+                if (mWakeLock == null) {
+                    PowerManager pm = (PowerManager) mActivity
+                            .getSystemService(Context.POWER_SERVICE);
+                    mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Browser");
+                }
+                mWakeLock.acquire();
+                mHandler.sendMessageDelayed(mHandler
+                        .obtainMessage(RELEASE_WAKELOCK), WAKELOCK_TIMEOUT);
+            }
+        }
+        mUi.onPause();
+        mNetworkHandler.onPause();
+        NfcHandler.unregister(mActivity);
+        mActivity.unregisterReceiver(mLowPowerReceiver);
+    }
+
+    @Override
+    public void onStart() {
+        if (!mActivityStopped) {
+            Log.e(LOGTAG, "BrowserActivity is already started.");
+            return;
+        }
+        mActivityStopped = false;
         UpdateNotificationService.updateCheck(mActivity);
         mSettings.setLastRunPaused(false);
-        mActivityPaused = false;
         Tab current = mTabControl.getCurrentTab();
         if (current != null) {
             current.resume();
@@ -790,20 +821,10 @@ public class Controller
         mUi.onResume();
         mNetworkHandler.onResume();
         NfcHandler.register(mActivity, this);
-        if (mVoiceResult != null) {
-            mUi.onVoiceResult(mVoiceResult);
-            mVoiceResult = null;
-        }
         if (current != null && current.getWebView().isShowingCrashView())
             current.getWebView().reload();
         mActivity.registerReceiver(mLowPowerReceiver, new IntentFilter(Intent.ACTION_BATTERY_LOW));
-    }
 
-    private void releaseWakeLock() {
-        if (mWakeLock != null && mWakeLock.isHeld()) {
-            mHandler.removeMessages(RELEASE_WAKELOCK);
-            mWakeLock.release();
-        }
     }
 
     /**

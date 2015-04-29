@@ -141,15 +141,8 @@ public class NavigationBarPhone extends NavigationBarBase implements StateListen
             mTabText.setVisibility(View.VISIBLE);
             break;
         case StateListener.STATE_HIGHLIGHTED:
-            if (!mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
-                // only change text if different
-                mUrlInput.setText((String) mUrlInput.getTag(), false);
-                mUrlInput.selectAll();
-            }
-
             mTabSwitcher.setVisibility(View.GONE);
             mTabText.setVisibility(View.GONE);
-
             break;
         case StateListener.STATE_EDITED:
             mStopButton.setVisibility(View.GONE);
