@@ -20,13 +20,7 @@ package com.android.browser;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Message;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.util.Log;
 
 
 import java.util.concurrent.CountDownLatch;
