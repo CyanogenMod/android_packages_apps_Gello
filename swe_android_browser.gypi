@@ -1,4 +1,7 @@
 {
+  'variables' : {
+    'manifest_package_name%' : 'org.codeaurora.swe.browser.beta',
+  },
   'targets' : [
     {
       'target_name': 'swe_android_browser_apk',
@@ -12,9 +15,7 @@
       ],
       'variables': {
         'apk_name': 'SWE_AndroidBrowser',
-        'manifest_package_name': 'com.android.browser',
         'native_lib_version_name': '<(version_full)',
-        #'package_name': 'swe_android_browser_apk',
         'java_in_dir': '.',
         'resource_dir': '../browser/res',
         'assets_dir': '../../swe/browser/assets',
@@ -44,8 +45,8 @@
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
         ],
-        'override_package_name': 'org.codeaurora.swe.browser.beta',
-        'android_manifest_path': '../../swe/browser/AndroidManifest.xml',
+        'override_package_name': '<(manifest_package_name)',
+        'android_manifest_path': '<(SHARED_INTERMEDIATE_DIR)/swe_android_browser_apk/AndroidManifest.xml',
         'additional_src_dirs': ['<(DEPTH)/swe/browser/src_standalone/com/android/browser'],
       },
 
@@ -66,6 +67,22 @@
         },
       ],
       'includes': [ '../../build/java_apk.gypi' ],
+    },
+    {
+      'target_name': 'swe_android_browser_apk_manifest',
+      'type': 'none',
+      'variables': {
+        'jinja_inputs': ['<(DEPTH)/swe/browser/AndroidManifest.xml',
+                        ],
+        'jinja_output': '<(SHARED_INTERMEDIATE_DIR)/swe_android_browser_apk/AndroidManifest.xml',
+        'standalone_manifest_package_name' : 'org.codeaurora.swe.browser.beta',
+        'jinja_variables': ['package_name=<(standalone_manifest_package_name)',
+                            'apk_label=@string/application_name_swe',
+                            'apk_icon=@mipmap/ic_launcher_browser_swe_beta',
+                            'apk_task_affinity=<(standalone_manifest_package_name)',
+                            'apk_authorities=swe.browser.beta',],
+      },
+      'includes': [ '../../build/android/jinja_template.gypi' ],
     },
   ],
 }

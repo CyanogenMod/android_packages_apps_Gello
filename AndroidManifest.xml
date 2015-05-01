@@ -18,10 +18,10 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
 
-    <permission android:name="org.codeaurora.swe.browser.beta.permission.PRELOAD"
+    <permission android:name="{{ package_name }}.permission.PRELOAD"
         android:label="@string/permission_preload_label"
         android:protectionLevel="signatureOrSystem" />
-    <permission android:name="org.codeaurora.swe.browser.beta.permission.INITIALIZE_DATABASE"
+    <permission android:name="{{ package_name }}.permission.INITIALIZE_DATABASE"
         android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -44,27 +44,28 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.READ_HOMEPAGE" />
-    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.WRITE_HOMEPAGE" />
-    <uses-permission android:name="org.codeaurora.swe.browser.beta.permission.INITIALIZE_DATABASE"/>
+    <uses-permission android:name="{{ package_name }}.permission.READ_HOMEPAGE" />
+    <uses-permission android:name="{{ package_name }}.permission.WRITE_HOMEPAGE" />
+    <uses-permission android:name="{{ package_name }}.permission.INITIALIZE_DATABASE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
+    <!-- Templatize taskAffinity otherwise it will default to 'package'
+        defined in manifest -->
     <application   android:name="Browser"
-                   android:label="@string/application_name_swe"
-                   android:icon="@mipmap/ic_launcher_browser_swe_beta"
+                   android:label="{{ apk_label }}"
+                   android:icon="{{ apk_icon }}"
                    android:backupAgent=".BrowserBackupAgent"
                    android:hardwareAccelerated="true"
-                   android:taskAffinity="android.task.swe.browser.beta"
+                   android:taskAffinity="{{ apk_task_affinity }}"
                    android:theme="@style/BrowserBase" >
 
         <uses-library android:name="com.qrd.useragent"
                       android:required="false" />
 
         <provider android:name=".provider.BrowserProvider2"
-                  android:authorities="org.codeaurora.swe.browser.beta;swe.browser.beta"
+                  android:authorities="{{ package_name }};{{apk_authorities}}"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
@@ -72,8 +73,8 @@
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
             <path-permission android:path="/homepage"
-                    android:readPermission="org.codeaurora.swe.browser.beta.permission.READ_HOMEPAGE"
-                    android:writePermission="org.codeaurora.swe.browser.beta.permission.WRITE_HOMEPAGE" />
+                    android:readPermission="{{ package_name }}.permission.READ_HOMEPAGE"
+                    android:writePermission="{{ package_name }}.permission.WRITE_HOMEPAGE" />
         </provider>
 
         <activity android:name="BrowserLauncher"
@@ -89,7 +90,7 @@
         </activity>
 
         <activity android:name="BrowserActivity"
-                  android:label="@string/application_name_swe"
+                  android:label="{{ apk_label }}"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
                   android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
@@ -284,7 +285,7 @@
         <!-- For custom home pages (like most visited) -->
         <provider
             android:name=".homepages.HomeProvider"
-            android:authorities="org.codeaurora.swe.browser.beta.home"
+            android:authorities="{{ package_name }}.home"
             android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
@@ -302,7 +303,7 @@
         </receiver>
 
         <receiver android:name=".PreloadRequestReceiver"
-             android:permission="org.codeaurora.swe.browser.beta.permission.PRELOAD" >
+             android:permission="{{ package_name }}.permission.PRELOAD" >
              <intent-filter>
                  <action android:name="android.intent.action.PRELOAD"/>
                  <data android:scheme="http" />
@@ -310,139 +311,38 @@
          </receiver>
 
         <provider android:name=".provider.SnapshotProvider"
-                  android:authorities="org.codeaurora.swe.browser.beta.snapshots"
+                  android:authorities="{{ package_name }}.snapshots"
                   android:exported="false" />
         <provider
             android:name=".provider.MyNavigationProvider"
-            android:authorities="org.codeaurora.swe.browser.beta.mynavigation"
+            android:authorities="{{ package_name }}.mynavigation"
             android:exported="false"
             android:grantUriPermissions="true"/>
 
-        <meta-data android:name="org.chromium.content.browser.NUM_PRIVILEGED_SERVICES"
-                   android:value="3"/>
-
-        <service android:name="org.chromium.content.app.PrivilegedProcessService0"
-                 android:process=":privileged_process0"
-                 android:isolatedProcess="false"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.PrivilegedProcessService1"
-                 android:process=":privileged_process1"
-                 android:isolatedProcess="false"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.PrivilegedProcessService2"
-                 android:process=":privileged_process2"
-                 android:isolatedProcess="false"
-                 android:exported="false" />
-
-
+        {% set num_sandboxed_services = 20 %}
         <meta-data android:name="org.chromium.content.browser.NUM_SANDBOXED_SERVICES"
-           android:value="20"/>
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService0"
-                 android:process=":sandboxed_process0"
+                   android:value="{{ num_sandboxed_services }}"/>
+        {% for i in range(num_sandboxed_services) %}
+        <service android:name="org.chromium.content.app.SandboxedProcessService{{ i }}"
+                 android:process=":sandboxed_process{{ i }}"
                  android:isolatedProcess="true"
                  android:exported="false" />
+        {% endfor %}
 
-        <service android:name="org.chromium.content.app.SandboxedProcessService1"
-                 android:process=":sandboxed_process1"
-                 android:isolatedProcess="true"
+        {% set num_privileged_services = 3 %}
+        <meta-data android:name="org.chromium.content.browser.NUM_PRIVILEGED_SERVICES"
+                   android:value="{{ num_privileged_services }}"/>
+        {% for i in range(num_privileged_services) %}
+        <service android:name="org.chromium.content.app.PrivilegedProcessService{{ i }}"
+                 android:process=":privileged_process{{ i }}"
+                 android:isolatedProcess="false"
                  android:exported="false" />
+        {% endfor %}
 
-        <service android:name="org.chromium.content.app.SandboxedProcessService2"
-                 android:process=":sandboxed_process2"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService3"
-                 android:process=":sandboxed_process3"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService4"
-                 android:process=":sandboxed_process4"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService5"
-                 android:process=":sandboxed_process5"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService6"
-                 android:process=":sandboxed_process6"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService7"
-                 android:process=":sandboxed_process7"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService8"
-                 android:process=":sandboxed_process8"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService9"
-                 android:process=":sandboxed_process9"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService10"
-                 android:process=":sandboxed_process10"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService11"
-                 android:process=":sandboxed_process11"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService12"
-                 android:process=":sandboxed_process12"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService13"
-                 android:process=":sandboxed_process13"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService14"
-                 android:process=":sandboxed_process14"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService15"
-                 android:process=":sandboxed_process15"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService16"
-                 android:process=":sandboxed_process16"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService17"
-                 android:process=":sandboxed_process17"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService18"
-                 android:process=":sandboxed_process18"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
-
-        <service android:name="org.chromium.content.app.SandboxedProcessService19"
-                 android:process=":sandboxed_process19"
-                 android:isolatedProcess="true"
-                 android:exported="false" />
 
         <!-- Provider for FileProvider. -->
         <provider android:name="android.support.v4.content.FileProvider"
-            android:authorities="org.codeaurora.swe.browser.beta.FileProvider"
+            android:authorities="{{ package_name }}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
