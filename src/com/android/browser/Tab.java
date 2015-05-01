@@ -258,74 +258,6 @@ class Tab implements PictureListener {
     static final String USERAGENT = "useragent";
     static final String CLOSEFLAG = "closeOnBack";
 
-    // Container class for the next error dialog that needs to be displayed
-    private class ErrorDialog {
-        public final int mTitle;
-        public final String mDescription;
-        public final int mError;
-        ErrorDialog(int title, String desc, int error) {
-            mTitle = title;
-            mDescription = desc;
-            mError = error;
-        }
-    }
-
-    private void processNextError() {
-        if (mQueuedErrors == null) {
-            return;
-        }
-        // The first one is currently displayed so just remove it.
-        mQueuedErrors.removeFirst();
-        if (mQueuedErrors.size() == 0) {
-            mQueuedErrors = null;
-            return;
-        }
-        showError(mQueuedErrors.getFirst());
-    }
-
-    private DialogInterface.OnDismissListener mDialogListener =
-            new DialogInterface.OnDismissListener() {
-                public void onDismiss(DialogInterface d) {
-                    processNextError();
-                }
-            };
-    private LinkedList<ErrorDialog> mQueuedErrors;
-
-    private void queueError(int err, String desc) {
-        if (mQueuedErrors == null) {
-            mQueuedErrors = new LinkedList<ErrorDialog>();
-        }
-        for (ErrorDialog d : mQueuedErrors) {
-            if (d.mError == err) {
-                // Already saw a similar error, ignore the new one.
-                return;
-            }
-        }
-        ErrorDialog errDialog = new ErrorDialog(
-                err == WebViewClient.ERROR_FILE_NOT_FOUND ?
-                R.string.browserFrameFileErrorLabel :
-                R.string.browserFrameNetworkErrorLabel,
-                desc, err);
-        mQueuedErrors.addLast(errDialog);
-
-        // Show the dialog now if the queue was empty and it is in foreground
-        if (mQueuedErrors.size() == 1 && mInForeground) {
-            showError(errDialog);
-        }
-    }
-
-    private void showError(ErrorDialog errDialog) {
-        if (mInForeground) {
-            AlertDialog d = new AlertDialog.Builder(mContext)
-                    .setTitle(errDialog.mTitle)
-                    .setMessage(errDialog.mDescription)
-                    .setPositiveButton(R.string.ok, null)
-                    .create();
-            d.setOnDismissListener(mDialogListener);
-            d.show();
-        }
-    }
-
     public void setNetworkAvailable(boolean networkUp) {
         if (networkUp && mReceivedError && (mMainView != null)) {
             mMainView.reload();
@@ -442,20 +374,6 @@ class Tab implements PictureListener {
             // Used for the syncCurrentState to use
             // the failing url instead of using webview url
             mReceivedError = true;
-
-            if (errorCode != WebViewClient.ERROR_HOST_LOOKUP &&
-                    errorCode != WebViewClient.ERROR_CONNECT &&
-                    errorCode != WebViewClient.ERROR_BAD_URL &&
-                    errorCode != WebViewClient.ERROR_UNSUPPORTED_SCHEME &&
-                    errorCode != WebViewClient.ERROR_FILE) {
-                queueError(errorCode, description);
-
-                // Don't log URLs when in private browsing mode
-                if (!isPrivateBrowsingEnabled()) {
-                    Log.e(LOGTAG, "onReceivedError " + errorCode + " " + failingUrl
-                        + " " + description);
-                }
-            }
         }
 
         /**
@@ -1581,10 +1499,7 @@ class Tab implements PictureListener {
         if (mSubView != null) {
             mSubView.setOnCreateContextMenuListener(activity);
         }
-        // Show the pending error dialog if the queue is not empty
-        if (mQueuedErrors != null && mQueuedErrors.size() >  0) {
-            showError(mQueuedErrors.getFirst());
-        }
+
         mWebViewController.bookmarkedStatusHasChanged(this);
     }
 
