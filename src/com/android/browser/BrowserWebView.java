@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.View;
 import org.codeaurora.swe.WebChromeClient;
@@ -111,7 +112,14 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
 
     public void setTitleBar(TitleBar title) {
         mTitleBar = title;
-        setTopControlsHeight(52);
+        enableTopControls(true);
+    }
+
+    public void enableTopControls(boolean shinkViewport) {
+        Resources res = getContext().getResources();
+        int titlebarHeight = (int) (res.getDimension(R.dimen.toolbar_height)
+                                / res.getDisplayMetrics().density);
+        setTopControlsHeight(titlebarHeight, shinkViewport);
     }
 
     // From TitleBarDelegate

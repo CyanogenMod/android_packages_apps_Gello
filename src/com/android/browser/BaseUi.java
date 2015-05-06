@@ -820,13 +820,15 @@ public abstract class BaseUi implements UI {
         //Hide/show system ui bar as needed
         if (!BrowserSettings.getInstance().useFullscreen())
             setFullscreen(fullScreen);
-
         //Hide/show topbar as needed
         if (getWebView() != null) {
+            BrowserWebView bwv = (BrowserWebView) getWebView();
             if (fullScreen) {
                 //hide topbar
+                bwv.enableTopControls(false);
                 mTitleBar.hideTopControls(true);
             } else {
+                bwv.enableTopControls(true);
                 //show the topbar
                 mTitleBar.showTopControls(true);
                 //enable for auto-hide
