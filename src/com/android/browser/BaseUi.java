@@ -424,8 +424,17 @@ public abstract class BaseUi implements UI {
         // container to the content view.
         FrameLayout wrapper =
                 (FrameLayout) container.findViewById(R.id.webview_wrapper);
-        if (wrapper != mainView.getView().getParent())
+        ViewGroup parentView = (ViewGroup)mainView.getView().getParent();
+
+        if (wrapper != parentView) {
+            // clean up old view before attaching new view
+            // this helping in fixing issues such touch event
+            // getting triggered on old view instead of new one
+            if (parentView != null) {
+                parentView.removeView(mainView.getView());
+            }
             wrapper.addView(mainView.getView());
+        }
         ViewGroup parent = (ViewGroup) container.getParent();
         if (parent != mContentView) {
             if (parent != null) {
