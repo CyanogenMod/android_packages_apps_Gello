@@ -221,6 +221,12 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 mPrefs.edit().putString(PREF_DEFAULT_TEXT_ENCODING, "auto").apply();
             }
 
+            if (!mPrefs.contains(PREF_EDGE_SWIPE)) {
+                mPrefs.edit().putString(PREF_EDGE_SWIPE,
+                        mContext.getResources().getString(
+                                R.string.value_unknown_edge_swipe)).apply();
+            }
+
             if (sFactoryResetUrl.indexOf("{CID}") != -1) {
                 sFactoryResetUrl = sFactoryResetUrl.replace("{CID}",
                     BrowserProvider.getClientId(mContext.getContentResolver()));
@@ -757,6 +763,26 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public String getDefaultTextEncoding() {
         return mPrefs.getString(PREF_DEFAULT_TEXT_ENCODING, "auto");
+    }
+
+    public String getEdgeSwipeAction() {
+        return mPrefs.getString(PREF_EDGE_SWIPE,
+                mContext.getResources().getString(R.string.value_unknown_edge_swipe));
+    }
+
+    public void setEdgeSwipeTemporal() {
+        mPrefs.edit().putString(PREF_EDGE_SWIPE,
+                mContext.getResources().getString(R.string.value_temporal_edge_swipe)).apply();
+    }
+
+    public void setEdgeSwipeSpatial() {
+        mPrefs.edit().putString(PREF_EDGE_SWIPE,
+                mContext.getResources().getString(R.string.value_spatial_edge_swipe)).apply();
+    }
+
+    public void setEdgeSwipeDisabled() {
+        mPrefs.edit().putString(PREF_EDGE_SWIPE,
+                mContext.getResources().getString(R.string.value_disable_edge_swipe)).apply();
     }
 
     // -----------------------------

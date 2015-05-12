@@ -19,16 +19,121 @@
      Currently, the only such element is the Geolocation permissions prompt.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.browser.DraggableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/draggable_mainframe"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView android:id="@+id/navview_opacity"
+        android:layout_gravity="top"
+        android:scaleType="fitStart"
+        android:background="@android:color/black"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView android:id="@+id/stationary_navview"
+        android:layout_gravity="top"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <!-- Wrapper layout for the WebView, which must be in a FrameLayout. -->
     <FrameLayout android:id="@+id/webview_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="match_parent"
         android:layout_weight="1" />
+
+    <ImageView android:id="@+id/sliding_navview"
+        android:layout_gravity="top"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView android:id="@+id/sliding_navview_shadow"
+        android:background="@drawable/left_shade"
+        android:layout_gravity="top"
+        android:scaleType="fitStart"
+        android:visibility="gone"
+        android:layout_width="10dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout android:id="@+id/edge_sliding_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#00838f"
+        android:alpha="0.85"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight=".25"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:text="@string/pref_edge_swipe_title"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="21sp"
+            android:textColor="@color/white"
+            android:text="@string/pref_edge_swipe_option_msg"/>
+
+        <RadioGroup
+            android:id="@+id/edge_sliding_settings_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/edge_sliding_settings_options_temporal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_temporal_edge_swipe"
+                android:textColor="@color/white"
+                android:drawableEnd="@drawable/deco_swipe_temporal"
+                android:textSize="18sp"
+                android:padding="10dp"/>
+            <RadioButton
+                android:id="@+id/edge_sliding_settings_options_spatial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_spatial_edge_swipe"
+                android:textColor="@color/white"
+                android:drawableEnd="@drawable/deco_swipe_spatial"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:padding="10dp"/>
+            <RadioButton
+                android:id="@+id/edge_sliding_settings_options_disabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pref_disable_edge_swipe"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:padding="10dp"/>
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/edge_sliding_settings_close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_edge_swipe_option_close"
+            android:padding="10dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_gravity="center"
+            style="@android:style/Widget.Holo.Button.Borderless"/>
+
+    </LinearLayout>
 
     <!-- Geolocation permissions prompt -->
     <ViewStub android:id="@+id/geolocation_permissions_prompt"
@@ -36,4 +141,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+
+</com.android.browser.DraggableFrameLayout>

@@ -503,4 +503,11 @@
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">被管理员禁用</string>
+
+    <string name="pref_edge_swipe_title">边缘滑动</string>
+    <string name="pref_edge_swipe_option_msg">滑过屏幕边缘时，您想：</string>
+    <string name="pref_temporal_edge_swipe">上一个/下一个网站</string>
+    <string name="pref_spatial_edge_swipe">更换标签页</string>
+    <string name="pref_disable_edge_swipe">禁用边缘滑动</string>
+    <string name="pref_edge_swipe_option_close">关闭</string>
 </resources>

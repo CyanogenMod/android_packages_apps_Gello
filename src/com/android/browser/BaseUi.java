@@ -109,6 +109,9 @@ public abstract class BaseUi implements UI {
     private NavigationBarBase mNavigationBar;
     private boolean mBlockFocusAnimations;
 
+    private EdgeSwipeController mEdgeSwipeController;
+    private EdgeSwipeSettings mEdgeSwipeSettings;
+
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
         mUiController = controller;
@@ -205,6 +208,12 @@ public abstract class BaseUi implements UI {
     }
 
     public void onConfigurationChanged(Configuration config) {
+        if (mEdgeSwipeController != null) {
+            mEdgeSwipeController.onConfigurationChanged();
+        }
+        if (mEdgeSwipeSettings != null) {
+            mEdgeSwipeSettings.onConfigurationChanged();
+        }
     }
 
     public Activity getActivity() {
@@ -442,7 +451,47 @@ public abstract class BaseUi implements UI {
             }
             mContentView.addView(container, COVER_SCREEN_PARAMS);
         }
+
+        refreshEdgeSwipeController(container);
+
         mUiController.attachSubWindow(tab);
+    }
+
+    public void refreshEdgeSwipeController(View container) {
+        if (mEdgeSwipeController != null) {
+            mEdgeSwipeController.cleanup();
+        }
+
+        mEdgeSwipeSettings = null;
+
+        String action = BrowserSettings.getInstance().getEdgeSwipeAction();
+
+        if (action.equalsIgnoreCase(
+                mActivity.getResources().getString(R.string.value_temporal_edge_swipe))) {
+            mEdgeSwipeController = new EdgeSwipeController(
+                    container,
+                    R.id.stationary_navview,
+                    R.id.sliding_navview,
+                    R.id.sliding_navview_shadow,
+                    R.id.navview_opacity,
+                    R.id.webview_wrapper,
+                    R.id.draggable_mainframe,
+                    this);
+        } else if (action.equalsIgnoreCase(
+                mActivity.getResources().getString(R.string.value_unknown_edge_swipe))) {
+            mEdgeSwipeSettings = new EdgeSwipeSettings(
+                    container,
+                    R.id.stationary_navview,
+                    R.id.edge_sliding_settings,
+                    R.id.sliding_navview_shadow,
+                    R.id.webview_wrapper,
+                    R.id.draggable_mainframe,
+                    this);
+        } else {
+            DraggableFrameLayout draggableView = (DraggableFrameLayout)
+                    container.findViewById(R.id.draggable_mainframe);
+            draggableView.setDragHelper(null);
+        }
     }
 
     private void removeTabFromContentView(Tab tab) {

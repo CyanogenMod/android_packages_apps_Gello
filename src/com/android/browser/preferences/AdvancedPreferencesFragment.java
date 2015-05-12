@@ -100,6 +100,21 @@ public class AdvancedPreferencesFragment
                     downloadPath);
             downloadPathPreset.setSummary(downloadPathForUser);
         }
+
+        ListPreference edgeSwipePref =
+                (ListPreference) mFragment.findPreference("edge_swiping_action");
+
+        String[] options = mFragment.getResources().getStringArray(
+                R.array.pref_edge_swiping_values);
+
+        String value = BrowserSettings.getInstance().getEdgeSwipeAction();
+
+        for (int i = 0; i < options.length; i++) {
+            if (value.equals(options[i])) {
+                edgeSwipePref.setValueIndex(i);
+                break;
+            }
+        }
     }
 
     private Preference.OnPreferenceClickListener onClickDownloadPathSettings() {

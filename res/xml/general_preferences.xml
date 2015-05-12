@@ -200,6 +200,13 @@
             android:summary="@string/pref_extras_website_settings_summary"
             android:title="@string/pref_extras_website_settings" />
 
+        <ListPreference
+            android:dialogTitle="@string/pref_edge_swipe_option_msg"
+            android:entries="@array/pref_edge_swiping_choices"
+            android:entryValues="@array/pref_edge_swiping_values"
+            android:key="edge_swiping_action"
+            android:title="@string/pref_edge_swipe_title" />
+
         <com.android.browser.BrowserYesNoPreference
             android:key="reset_default_preferences"
             android:title="@string/pref_extras_reset_default"

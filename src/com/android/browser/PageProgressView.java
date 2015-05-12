@@ -106,6 +106,10 @@ public class PageProgressView extends ImageView {
         mHandler.sendEmptyMessage(MSG_UPDATE);
     }
 
+    public int getProgressPercent() {
+        return (100* mCurrentProgress) / MAX_PROGRESS;
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
 //        super.onDraw(canvas);

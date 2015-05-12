@@ -23,6 +23,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -48,7 +49,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
-import android.view.View.OnClickListener;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.URLUtil;
@@ -58,8 +58,6 @@ import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.ValueCallback;
 import android.widget.CheckBox;
 import android.widget.Toast;
-import android.widget.FrameLayout;
-import android.widget.Button;
 
 import com.android.browser.TabControl.OnThumbnailUpdatedListener;
 import com.android.browser.homepages.HomeProvider;
@@ -73,21 +71,19 @@ import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebBackForwardList;
 import org.codeaurora.swe.WebChromeClient;
-import org.codeaurora.swe.WebHistoryItem;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebView.PictureListener;
 import org.codeaurora.swe.WebView.CreateWindowParams;
 import org.codeaurora.swe.WebViewClient;
+import org.codeaurora.swe.util.Observable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
-import java.util.regex.Pattern;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -198,6 +194,16 @@ class Tab implements PictureListener {
     // determine if webview is destroyed to MemoryMonitor
     private boolean mWebViewDestroyedByMemoryMonitor;
 
+    private Observable mFirstPixelObservable;
+    private Observable mTabHistoryUpdateObservable;
+
+    Observable getFirstPixelObservable() {
+        return mFirstPixelObservable;
+    }
+
+    Observable getTabHistoryUpdateObservable() {
+        return mTabHistoryUpdateObservable;
+    }
 
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
@@ -264,6 +270,35 @@ class Tab implements PictureListener {
         }
     }
 
+    public boolean isFirstVisualPixelPainted() {
+        return mFirstVisualPixelPainted;
+    }
+
+    public int getCaptureIndex(int navIndex) {
+        int tabPosition = mWebViewController.getTabControl().getCurrentPosition();
+        int orientation = mWebViewController.getActivity().
+                getResources().getConfiguration().orientation;
+
+        int orientationBit = (orientation == Configuration.ORIENTATION_LANDSCAPE) ? 0 : 1;
+
+        int index = orientationBit << 31 | ((tabPosition & 0x7f) << 24) | (navIndex & 0xffffff);
+        return index;
+    }
+
+    public int getTabIdxFromCaptureIdx(int index) {
+        return (index & 0x7f000000) >> 24;
+    }
+
+    public int getOrientationFromCaptureIdx(int index) {
+        return ((index & 0x80000000) == 0) ? Configuration.ORIENTATION_LANDSCAPE :
+                Configuration.ORIENTATION_PORTRAIT;
+
+    }
+
+    public int getNavIdxFromCaptureIdx(int index) {
+        return (index & 0xffffff);
+    }
+
     // -------------------------------------------------------------------------
     // WebViewClient implementation for the main WebView
     // -------------------------------------------------------------------------
@@ -283,6 +318,7 @@ class Tab implements PictureListener {
             mInPageLoad = true;
             mPageFinished = false;
             mFirstVisualPixelPainted = false;
+            mFirstPixelObservable.set(false);
             mReceivedError = false;
             mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
@@ -324,6 +360,7 @@ class Tab implements PictureListener {
         @Override
         public void onFirstVisualPixel(WebView view) {
             mFirstVisualPixelPainted = true;
+            mFirstPixelObservable.set(true);
         }
 
         // return true if want to hijack the url to let another app to handle it
@@ -595,6 +632,50 @@ class Tab implements PictureListener {
             }
             if (!mWebViewController.onUnhandledKeyEvent(event)) {
                 super.onUnhandledKeyEvent(view, event);
+            }
+        }
+
+        @Override
+        public void beforeNavigation(WebView view, String url) {
+            if (isPrivateBrowsingEnabled()) {
+                return;
+            }
+
+            if (!mFirstVisualPixelPainted) {
+                return;
+            }
+
+            final int idx = view.copyBackForwardList().getCurrentIndex();
+            boolean bitmapExists = view.hasSnapshot(idx);
+
+            int progress = 100;
+            Controller controller = (Controller)mWebViewController;
+            UI ui = controller.getUi();
+            if (ui instanceof BaseUi) {
+                BaseUi baseUi = (BaseUi) ui;
+                TitleBar titleBar = baseUi.getTitleBar();
+                progress = titleBar.getProgressView().getProgressPercent();
+            }
+
+            if (bitmapExists && progress < 85) {
+                return;
+            }
+
+            int index = getCaptureIndex(view.getLastCommittedHistoryIndex());
+            view.captureSnapshot(index , null);
+        }
+
+        @Override
+        public void onHistoryItemCommit(WebView view, int index) {
+            mTabHistoryUpdateObservable.set(index);
+            int maxIdx = view.copyBackForwardList().getSize();
+            int[] ids = view.getSnapshotIds();
+            int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
+            for (int id : ids) {
+                if (getTabIdxFromCaptureIdx(id) == currentTabIdx &&
+                        getNavIdxFromCaptureIdx(id) >= maxIdx) {
+                    view.deleteSnapshot(id);
+                }
             }
         }
     };
@@ -1174,6 +1255,10 @@ class Tab implements PictureListener {
                 }
             }
         };
+
+        mFirstPixelObservable = new Observable();
+        mFirstPixelObservable.set(false);
+        mTabHistoryUpdateObservable = new Observable();
     }
 
     public boolean shouldUpdateThumbnail() {
@@ -1319,6 +1404,15 @@ class Tab implements PictureListener {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
             WebView webView = mMainView;
+            if (!mWebViewDestroyedByMemoryMonitor) {
+                int[] ids = webView.getSnapshotIds();
+                int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
+                for (int id : ids) {
+                    if (getTabIdxFromCaptureIdx(id) == currentTabIdx) {
+                        webView.deleteSnapshot(id);
+                    }
+                }
+            }
             setWebView(null);
             webView.destroy();
         }

@@ -638,6 +638,36 @@
         <item>auto</item>
     </string-array>
     <string name="pref_default_text_encoding_default">UTF-8</string>
+    <string name="pref_edge_swipe_title">Edge Swipe</string>
+    <string name="pref_edge_swipe_option_msg">When swiping, would you like:</string>
+    <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
+    <string name="pref_spatial_edge_swipe">Change Tab</string>
+    <string name="pref_disable_edge_swipe">Disable edge swipe</string>
+    <string name="pref_edge_swipe_option_close">Close</string>
+    <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
+    <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
+    <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
+    <string-array name="pref_edge_swiping_choices">
+        <item>@string/pref_temporal_edge_swipe</item>
+<!--
+        <item>@string/pref_spatial_edge_swipe</item>
+-->
+        <item>@string/pref_disable_edge_swipe</item>
+    </string-array>
+
+    <string name="value_temporal_edge_swipe"  translatable="false">temporal_edge_swipe</string>
+    <string name="value_spatial_edge_swipe"  translatable="false">spatial_edge_swipe</string>
+    <string name="value_disable_edge_swipe"  translatable="false">disable_edge_swipe</string>
+    <string name="value_unknown_edge_swipe"  translatable="false">unknown_edge_swipe</string>
+
+    <string-array name="pref_edge_swiping_values" translatable="false">
+        <item>@string/value_temporal_edge_swipe</item>
+<!--
+        <item>@string/value_spatial_edge_swipe</item>
+-->
+        <item>@string/value_disable_edge_swipe</item>
+    </string-array>
+
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
