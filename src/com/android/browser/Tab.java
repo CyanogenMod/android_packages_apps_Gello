@@ -1902,12 +1902,14 @@ class Tab implements PictureListener {
     }
 
     protected void capture() {
-        if (mMainView == null || mCapture == null) return;
+        boolean returnEmptyCapture = false;
+        if (mMainView == null || mCapture == null || !mMainView.isReady())
+            returnEmptyCapture = true;
         if (mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0) {
-            return;
+             returnEmptyCapture = true;
         }
 
-        if (!mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
+        if (returnEmptyCapture || !mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
             mCapture = Bitmap.createBitmap(
                     mCaptureWidth,
                     mCaptureHeight,
