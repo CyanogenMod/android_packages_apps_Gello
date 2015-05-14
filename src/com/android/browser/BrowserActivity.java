@@ -36,7 +36,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 
 import org.chromium.base.VisibleForTesting;
@@ -50,7 +49,7 @@ import java.util.Locale;
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.WebView;
 
-public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreDrawListener {
+public class BrowserActivity extends Activity {
 
     public static final String ACTION_SHOW_BOOKMARKS = "show_bookmarks";
     public static final String ACTION_SHOW_BROWSER = "show_browser";
@@ -84,7 +83,10 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     };
 
     private Bundle mSavedInstanceState;
-    private EngineInitializer mEngineInitializer;
+    private EngineInitializer.ActivityScheduler mActivityScheduler;
+    public EngineInitializer.ActivityScheduler getScheduler() {
+        return mActivityScheduler;
+    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -115,8 +117,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         }
         */
 
-        mEngineInitializer = EngineInitializer.getInstance();
-        mEngineInitializer.onActivityCreate(BrowserActivity.this);
+        mActivityScheduler = EngineInitializer.onActivityCreate(BrowserActivity.this);
 
         Thread.setDefaultUncaughtExceptionHandler(new CrashLogExceptionHandler(this));
 
@@ -128,22 +129,8 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         ViewGroup topLayout = (ViewGroup) findViewById(R.id.main_content);
         topLayout.requestTransparentRegion(topLayout);
 
-        // Add pre-draw listener to start the controller after engine initialization.
-        final ViewTreeObserver observer = getWindow().getDecorView().getViewTreeObserver();
-        observer.addOnPreDrawListener(this);
-
-        mEngineInitializer.initializeResourceExtractor(this);
+        EngineInitializer.onPostActivityCreate(BrowserActivity.this);
     }
-
-    @Override
-    public boolean onPreDraw()
-    {
-        final ViewTreeObserver observer = getWindow().getDecorView().getViewTreeObserver();
-        observer.removeOnPreDrawListener(this);
-        mEngineInitializer.onPreDraw();
-        return true;
-    }
-
 
     public static boolean isTablet(Context context) {
         return context.getResources().getBoolean(R.bool.isTablet);
@@ -166,7 +153,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         return controller;
     }
 
-    public void onEngineInitializationComplete() {
+    public void startController() {
         Intent intent = (mSavedInstanceState == null) ? getIntent() : null;
         mController.start(intent);
     }
@@ -180,7 +167,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     @Override
     protected void onNewIntent(Intent intent) {
         if (shouldIgnoreIntents()) return;
-        mEngineInitializer.onNewIntent(intent);
+        EngineInitializer.onNewIntent(BrowserActivity.this, intent);
         // Note: Do not add any more application logic in this method.
         //       Move any additional app logic into handleOnNewIntent().
     }
@@ -221,7 +208,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     @Override
     protected void onStart() {
         super.onStart();
-        mEngineInitializer.onActivityStart();
+        EngineInitializer.onActivityStart(BrowserActivity.this);
     }
 
     @Override
@@ -230,7 +217,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);
         }
-        mEngineInitializer.onActivityResume();
+        EngineInitializer.onActivityResume(BrowserActivity.this);
         // Note: Do not add any more application logic in this method.
         //       Move any additional app logic into handleOnResume().
     }
@@ -245,10 +232,15 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
 
     @Override
     protected void onStop() {
-        mEngineInitializer.onActivityStop();
+        EngineInitializer.onActivityStop(BrowserActivity.this);
         super.onStop();
         // Note: Do not add any more application logic in this method.
         //       Move any additional app logic into handleOnStop().
+    }
+
+    protected void handleOnStop() {
+        CookieManager.getInstance().flushCookieStore();
+        mController.onPause();
     }
 
     @Override
@@ -285,7 +277,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
 
     @Override
     protected void onPause() {
-        mEngineInitializer.onActivityPause();
+        EngineInitializer.onActivityPause(BrowserActivity.this);
         super.onPause();
         // Note: Do not add any more application logic in this method.
         //       Move any additional app logic into handleOnPause().
@@ -295,21 +287,13 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
         // Note: Intentionally left blank
     }
 
-    protected void handleOnStop() {
-        CookieManager.getInstance().flushCookieStore();
-        mController.onPause();
-    }
-
     @Override
     protected void onDestroy() {
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onDestroy: this=" + this);
         }
         super.onDestroy();
-        // mEngineInitializer can be null if onCreate is not called before onDestroy
-        // it happens when starting the activity with an intent while the screen is locked.
-        if (mEngineInitializer != null)
-            mEngineInitializer.onActivityDestroy();
+        EngineInitializer.onActivityDestroy(BrowserActivity.this);
         mController.onDestroy();
         mController = NullController.INSTANCE;
         if (!Locale.getDefault().equals(mCurrentLocale) || killOnExitDialog) {
@@ -402,7 +386,7 @@ public class BrowserActivity extends Activity implements ViewTreeObserver.OnPreD
     @Override
     protected void onActivityResult (int requestCode, int resultCode,
                                      Intent intent) {
-        mEngineInitializer.onActivityResult(requestCode, resultCode, intent);
+        EngineInitializer.onActivityResult(BrowserActivity.this, requestCode, resultCode, intent);
     }
 
     protected void handleOnActivityResult (int requestCode, int resultCode, Intent intent) {

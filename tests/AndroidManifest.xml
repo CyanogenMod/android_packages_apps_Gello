@@ -31,12 +31,17 @@
     "adb shell am instrument -w com.android.browser.tests/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.android.browser"
+                     android:targetPackage="org.codeaurora.swe.browser.beta"
                      android:label="Tests for Browser."/>
 
+    <uses-permission android:name="android.permission.RUN_INSTRUMENTATION" />
+    <uses-permission android:name="android.permission.INJECT_EVENTS" />
+
+    <!--
     <instrumentation android:name="com.android.browser.BrowserLaunchPerformance"
         android:targetPackage="com.android.browser"
         android:label="Browser Launch Performance">
     </instrumentation>
+    -->
 
 </manifest>

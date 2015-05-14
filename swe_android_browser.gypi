@@ -1,6 +1,7 @@
 {
   'variables' : {
     'manifest_package_name%' : 'org.codeaurora.swe.browser.beta',
+    'manifest_test_package_name%' : 'org.codeaurora.swe.browser.beta.tests',
   },
   'targets' : [
     {
@@ -83,6 +84,34 @@
                             'apk_authorities=swe.browser.beta',],
       },
       'includes': [ '../../build/android/jinja_template.gypi' ],
+    },
+    {
+      'target_name': 'swe_android_browser_fake_apk',
+      'type': 'none',
+      'dependencies': [
+        'swe_android_browser_apk',
+      ],
+      'includes': [ '../../build/apk_fake_jar.gypi' ],
+    },
+
+    {
+      'target_name': 'swe_android_browser_tests_apk',
+        'type': 'none',
+        'dependencies': [
+          'swe_android_browser_fake_apk',
+          '../base/base.gyp:base_java_test_support',
+          '../content/content_shell_and_tests.gyp:content_java_test_support',
+          '../net/net.gyp:net_java_test_support',
+        ],
+        'variables': {
+          'apk_name': 'SWEBrowserTests',
+          'override_package_name': '<(manifest_test_package_name)',
+          'android_manifest_path': './tests/AndroidManifest.xml',
+          'java_in_dir': './tests/startup',
+          'is_test_apk': 1,
+          'test_suite_name': 'swe_android_browser_tests',
+        },
+        'includes': [ '../../build/java_apk.gypi' ],
     },
   ],
 }

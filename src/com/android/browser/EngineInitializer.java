@@ -37,34 +37,31 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.ViewTreeObserver;
 
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.Engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import org.chromium.base.VisibleForTesting;
 
 public class EngineInitializer {
+
     private final static String LOGTAG = "EngineInitializer";
+    //Command line flag for strict mode
+    private final static String STRICT_MODE = "enable-strict-mode";
 
-    private BrowserActivity mActivity;
+    private static boolean mInitializationStarted = false;
+    private static boolean mSynchronousInitialization = false;
+    private static boolean mInitializationCompleted = false;
+    private static Handler mUiThreadHandler;
 
-    private boolean mNotifyActivity = false;
-    private boolean mActivityReady = false;
-    private boolean mActivityDestroyed = false;
-    private boolean mActivityStartPending = false;
-    private boolean mOnResumePending  = false;
-
-    private boolean mFirstDrawCompleted = false;
-    private boolean mLibraryLoaded = false;
-    private boolean mInitializationCompleted = false;
-
-    private Handler mUiThreadHandler;
-
-    class ActivityResult
+    static class ActivityResult
     {
         public Intent data;
         public int requestCode;
@@ -77,21 +74,173 @@ public class EngineInitializer {
             this.data = data;
         }
     }
-    private ArrayList<ActivityResult> mPendingActivityResults = null;
-    private ArrayList<Intent> mPendingIntents = null;
 
-    private static EngineInitializer sEngineInitializer = null;
-    public static  EngineInitializer getInstance() {
-        if (sEngineInitializer == null) {
-            sEngineInitializer = new EngineInitializer();
+    public static class ActivityScheduler implements ViewTreeObserver.OnPreDrawListener
+    {
+        private BrowserActivity mActivity = null;
+        private ArrayList<ActivityResult> mPendingActivityResults = null;
+        private ArrayList<Intent> mPendingIntents = null;
+
+        private boolean mFirstDrawCompleted = false;
+        private boolean mOnStartPending = false;
+        private boolean mOnPausePending  = false;
+        private boolean mEngineInitialized = false;
+        private boolean mCanForwardEvents = false;
+
+        public ActivityScheduler(BrowserActivity activity)
+        {
+            mActivity = activity;
+            mFirstDrawCompleted = false;
+            mOnStartPending = false;
+            mOnPausePending  = false;
+            mPendingIntents = null;
+            mPendingActivityResults = null;
+            mEngineInitialized = false;
+            mCanForwardEvents = false;
         }
-        return sEngineInitializer;
+
+        @VisibleForTesting
+        public boolean firstDrawCompleted() { return mFirstDrawCompleted; }
+        @VisibleForTesting
+        public boolean onStartPending() { return mOnStartPending; }
+        @VisibleForTesting
+        public boolean onPausePending() { return mOnPausePending; }
+        @VisibleForTesting
+        public boolean engineInitialized() { return mEngineInitialized; }
+        @VisibleForTesting
+        public boolean canForwardEvents() { return mCanForwardEvents; }
+
+        public void processPendingEvents() {
+            assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
+
+            if (mOnStartPending) {
+                mOnStartPending = false;
+                mActivity.handleOnStart();
+            }
+            if (mOnPausePending) {
+                mActivity.handleOnPause();
+                mOnPausePending = false;
+            }
+            if (mPendingIntents != null) {
+                for (int i = 0; i < mPendingIntents.size(); i++) {
+                    mActivity.handleOnNewIntent(mPendingIntents.get(i));
+                }
+                mPendingIntents = null;
+            }
+            if (mPendingActivityResults != null) {
+                for (int i = 0; i < mPendingActivityResults.size(); i++) {
+                    ActivityResult result = mPendingActivityResults.get(i);
+                    mActivity.handleOnActivityResult(result.requestCode, result.resultCode, result.data);
+                }
+                mPendingActivityResults = null;
+            }
+            mCanForwardEvents = true;
+        }
+
+        public void onActivityCreate(boolean engineInitialized) {
+            mEngineInitialized = engineInitialized;
+            if (!mEngineInitialized) {
+                // Engine initialization is not completed, we should wait for the onPreDraw() notification.
+                final ViewTreeObserver observer = mActivity.getWindow().getDecorView().getViewTreeObserver();
+                observer.addOnPreDrawListener(this);
+            } else {
+                mFirstDrawCompleted = true;
+                mCanForwardEvents = true;
+            }
+        }
+
+        @Override
+        public boolean onPreDraw() {
+            final ViewTreeObserver observer = mActivity.getWindow().getDecorView().getViewTreeObserver();
+            observer.removeOnPreDrawListener(this);
+
+            if (mFirstDrawCompleted)
+                return true;
+
+            mFirstDrawCompleted = true;
+            if (mEngineInitialized) {
+                postOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mActivity.startController();
+                        processPendingEvents();
+                    }
+                });
+            }
+            return true;
+        }
+
+        public void onEngineInitializationCompletion(boolean synchronous) {
+            if (synchronous) {
+                // Don't wait for pre-draw notification if it is synchronous
+                onPreDraw();
+            }
+            mEngineInitialized = true;
+            if (mFirstDrawCompleted) {
+                mActivity.startController();
+                processPendingEvents();
+            }
+        }
+
+        public void onActivityPause() {
+            if (mCanForwardEvents) {
+                mActivity.handleOnPause();
+                return;
+            }
+            mOnPausePending = true;
+        }
+
+        public void onActivityResume() {
+            if (mCanForwardEvents) {
+                mActivity.handleOnResume();
+                return;
+            }
+            mOnPausePending = false;
+        }
+
+        public void onActivityStart() {
+            if (mCanForwardEvents) {
+                mActivity.handleOnStart();
+                // TODO: We have no reliable mechanism to know when the app goes background.
+                //ChildProcessLauncher.onBroughtToForeground();
+                return;
+            }
+            mOnStartPending = true;
+        }
+
+        public void onActivityStop() {
+            if (!mCanForwardEvents) {
+                initializeSync(mActivity.getApplicationContext());
+            }
+            mActivity.handleOnStop();
+        }
+
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            if (mCanForwardEvents) {
+                mActivity.handleOnActivityResult(requestCode, resultCode, data);
+                return;
+            }
+            if (mPendingActivityResults == null) {
+                mPendingActivityResults = new ArrayList<ActivityResult>(1);
+            }
+            mPendingActivityResults.add(new ActivityResult(requestCode, resultCode, data));
+        }
+
+        public void onNewIntent(Intent intent) {
+            if (mCanForwardEvents) {
+                mActivity.handleOnNewIntent(intent);
+                return;
+            }
+
+            if (mPendingIntents == null) {
+                mPendingIntents = new ArrayList<Intent>(1);
+            }
+            mPendingIntents.add(intent);
+        }
     }
 
+    private static HashMap<BrowserActivity, ActivityScheduler> mActivitySchedulerMap = null;
     private static long sDelayForTesting = 0;
-
-    //Command line flag for strict mode
-    private static final String STRICT_MODE = "enable-strict-mode";
 
     @VisibleForTesting
     public static void setDelayForTesting(long delay)
@@ -99,26 +248,24 @@ public class EngineInitializer {
         sDelayForTesting = delay;
     }
 
-    private EngineInitializer() {
-        mUiThreadHandler = new Handler(Looper.getMainLooper());
-    }
-
     @VisibleForTesting
-    public boolean isInitialized()
+    public static boolean isInitialized()
     {
         return mInitializationCompleted;
     }
 
-    public boolean runningOnUiThread() {
+    public static boolean runningOnUiThread() {
         return mUiThreadHandler.getLooper() == Looper.myLooper();
     }
 
-    public void postOnUiThread(Runnable task) {
+    public static void postOnUiThread(Runnable task) {
         mUiThreadHandler.post(task);
     }
 
-    private class InitializeTask extends AsyncTask<Void, Void, Boolean> {
-        public InitializeTask() {
+    private static class InitializeTask extends AsyncTask<Void, Void, Boolean> {
+        private Context mApplicationContext;
+        public InitializeTask(Context ctx) {
+            mApplicationContext = ctx;
         }
         @Override
         protected Boolean doInBackground(Void... unused) {
@@ -129,9 +276,9 @@ public class EngineInitializer {
                     Thread.sleep(sDelayForTesting);
                 }
 
-                Engine.loadNativeLibraries(mActivity.getApplicationContext());
+                Engine.loadNativeLibraries(mApplicationContext);
 
-                Engine.warmUpChildProcess(mActivity.getApplicationContext());
+                Engine.warmUpChildProcess(mApplicationContext);
 
                 return true;
             }
@@ -144,17 +291,14 @@ public class EngineInitializer {
 
         @Override
         protected void onPostExecute (Boolean result) {
-            mLibraryLoaded = true;
-            if (mFirstDrawCompleted) {
-                completeInitializationOnUiThread(mActivity.getApplicationContext());
-            }
+            completeInitializationOnUiThread(mApplicationContext);
         }
     }
-    private InitializeTask mInitializeTask = null;
+    private static InitializeTask mInitializeTask = null;
 
-    public void initializeSync(Context ctx) {
+    public static void initializeSync(Context ctx) {
         assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
-
+        mSynchronousInitialization = true;
         if (mInitializeTask != null) {
             try {
                 // Wait for the InitializeTask to finish.
@@ -168,40 +312,47 @@ public class EngineInitializer {
             }
         }
         completeInitializationOnUiThread(ctx);
+        mSynchronousInitialization = false;
     }
 
-    private void reset(BrowserActivity newActivity) {
-        mActivity = newActivity;
-        mActivityStartPending = false;
-        mOnResumePending  = false;
-        mNotifyActivity = true;
-        mActivityReady = false;
-        mPendingIntents = null;
-        mPendingActivityResults = null;
-        mFirstDrawCompleted = false;
-        mActivityDestroyed = false;
-    }
-
-    public void onActivityCreate(BrowserActivity activity) {
-        assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
-        reset(activity);
+    private static void initialize(Context ctx) {
         if (!mInitializationCompleted) {
-            Engine.initializeCommandLine(mActivity.getApplicationContext());
-            mInitializeTask = new InitializeTask();
-            mInitializeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            if (!mInitializationStarted) {
+                mInitializationStarted = true;
+                mUiThreadHandler = new Handler(Looper.getMainLooper());
+                Engine.initializeCommandLine(ctx);
+                mInitializeTask = new InitializeTask(ctx);
+                mInitializeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                mActivitySchedulerMap = new HashMap<BrowserActivity, ActivityScheduler>();
+            } else {
+                // This is not the first activity, wait for the engine initialization to finish.
+                initializeSync(ctx);
+            }
         }
     }
 
-    private void completeInitialization() {
-        postOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                completeInitializationOnUiThread(mActivity.getApplicationContext());
-            }
-        });
+    public static ActivityScheduler onActivityCreate(BrowserActivity activity) {
+        assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
+
+        Context ctx = activity.getApplicationContext();
+        ActivityScheduler scheduler = new ActivityScheduler(activity);
+        initialize(ctx);
+
+        scheduler.onActivityCreate(mInitializationCompleted);
+        if (!mInitializationCompleted) {
+            mActivitySchedulerMap.put(activity, scheduler);
+        }
+        return scheduler;
     }
 
-    private void completeInitializationOnUiThread(Context ctx) {
+    public static void onPostActivityCreate(BrowserActivity activity) {
+        EngineInitializer.initializeResourceExtractor(activity);
+        if (EngineInitializer.isInitialized()) {
+            activity.startController();
+        }
+    }
+
+    private static void completeInitializationOnUiThread(Context ctx) {
         assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
 
         if (!mInitializationCompleted) {
@@ -230,184 +381,55 @@ public class EngineInitializer {
             //Enable remote debugging by default
             Engine.setWebContentsDebuggingEnabled(true);
             mInitializationCompleted = true;
-            mLibraryLoaded = true;
+            mInitializationStarted = true;
             BrowserSettings.getInstance().onEngineInitializationComplete();
-        }
-        if (mActivity != null && mNotifyActivity) {
-            mNotifyActivity = false;
-            postOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mActivity.onEngineInitializationComplete();
-                    mActivityReady = true;
-                    processPendingEvents();
+            Engine.resumeTracing(ctx);
+
+            if (mActivitySchedulerMap != null) {
+                for (Map.Entry<BrowserActivity, ActivityScheduler> entry : mActivitySchedulerMap.entrySet()) {
+                    entry.getValue().onEngineInitializationCompletion(mSynchronousInitialization);
                 }
-            });
-        }
-
-    }
-
-    private void completeInitializationAsynOnUiThread(final Context ctx) {
-        assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
-
-        if (!mInitializationCompleted) {
-            // TODO: Evaluate the benefit of async Engine.initialize()
-            Engine.StartupCallback callback =
-                new Engine.StartupCallback() {
-                    @Override
-                    public void onSuccess(boolean alreadyStarted) {
-                        if (Looper.myLooper() == Looper.getMainLooper()) {
-                            Log.e(LOGTAG, "SWE engine initialization success");
-                             // Add the browser commandline options
-                            BrowserConfig.getInstance(ctx).initCommandLineSwitches();
-
-                            //Note: Only enable this for debugging.
-                            if (BrowserCommandLine.hasSwitch(STRICT_MODE)) {
-                                Log.v(LOGTAG, "StrictMode enabled");
-                                StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                                        .detectDiskReads()
-                                        .detectDiskWrites()
-                                        .detectNetwork()
-                                        .penaltyLog()
-                                        .build());
-                                StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                                        .detectLeakedSqlLiteObjects()
-                                        .detectLeakedClosableObjects()
-                                        .penaltyLog()
-                                        .penaltyDeath()
-                                        .build());
-                            }
-
-                            //Enable remote debugging by default
-                            Engine.setWebContentsDebuggingEnabled(true);
-                            mInitializationCompleted = true;
-                            mLibraryLoaded = true;
-                            BrowserSettings.getInstance().onEngineInitializationComplete();
-
-                            if (mActivity != null && mNotifyActivity) {
-                                mNotifyActivity = false;
-                                postOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        mActivity.onEngineInitializationComplete();
-                                        mActivityReady = true;
-                                        processPendingEvents();
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        Log.e(LOGTAG, "SWE engine initialization failed");
-                    }
-            };
-            Engine.initialize(ctx, callback);
-        }
-    }
-
-    private void processPendingEvents() {
-        assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
-
-        if (mActivityStartPending) {
-            mActivityStartPending = false;
-            onActivityStart();
-        }
-        if (mPendingIntents != null) {
-            for (int i = 0; i < mPendingIntents.size(); i++) {
-                mActivity.handleOnNewIntent(mPendingIntents.get(i));
+                mActivitySchedulerMap.clear();
             }
-            mPendingIntents = null;
-        }
-        if (mPendingActivityResults != null) {
-            for (int i = 0; i < mPendingActivityResults.size(); i++) {
-                ActivityResult result = mPendingActivityResults.get(i);
-                mActivity.handleOnActivityResult(result.requestCode, result.resultCode, result.data);
-            }
-            mPendingActivityResults = null;
-        }
-        if (mOnResumePending && !mActivityDestroyed) {
-            onActivityResume();
-        }
-        mOnResumePending = false;
-    }
-
-    public void onPreDraw() {
-        mFirstDrawCompleted = true;
-        if (mLibraryLoaded) {
-            completeInitialization();
         }
     }
 
-    public void initializeResourceExtractor(Context ctx) {
+    public static void initializeResourceExtractor(Context ctx) {
         Engine.startExtractingResources(ctx);
     }
 
-    public void onActivityPause() {
-        mOnResumePending = false;
-        if (mActivityReady) {
-            mActivity.handleOnPause();
-        }
+    public static void onPreDraw(BrowserActivity activity) {
+        activity.getScheduler().onPreDraw();
     }
 
-    public void onActivityStop() {
-        mActivityStartPending = false;
-        if (mActivityReady) {
-            Engine.pauseTracing(mActivity.getApplicationContext());
-            mActivity.handleOnStop();
-        }
+    public static void onActivityPause(BrowserActivity activity) {
+        activity.getScheduler().onActivityPause();
     }
 
-    public void onActivityResume() {
-        if (mActivityReady) {
-            mActivity.handleOnResume();
-            return;
-        }
-        mOnResumePending = true;
+    public static void onActivityStop(BrowserActivity activity) {
+        activity.getScheduler().onActivityStop();
     }
 
-    public void onActivityStart() {
-        if (mActivityReady) {
-            Engine.resumeTracing(mActivity.getApplicationContext());
-            mActivity.handleOnStart();
-            // TODO: We have no reliable mechanism to know when the app goes background.
-            //ChildProcessLauncher.onBroughtToForeground();
-            return;
-        }
-        mActivityStartPending = true;
+    public static void onActivityResume(BrowserActivity activity) {
+        activity.getScheduler().onActivityResume();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (mActivityReady) {
-            mActivity.handleOnActivityResult(requestCode, resultCode, data);
-            return;
-        }
-        if (mPendingActivityResults == null) {
-            mPendingActivityResults = new ArrayList<ActivityResult>(1);
-        }
-        mPendingActivityResults.add(new ActivityResult(requestCode, resultCode, data));
+    public static void onActivityStart(BrowserActivity activity) {
+        activity.getScheduler().onActivityStart();
     }
 
-    public void onNewIntent(Intent intent) {
+    public static void onActivityResult(BrowserActivity activity, int requestCode, int resultCode, Intent data) {
+        activity.getScheduler().onActivityResult(requestCode, resultCode, data);
+    }
+
+    public static void onNewIntent(BrowserActivity activity, Intent intent) {
         if (BrowserActivity.ACTION_RESTART.equals(intent.getAction())) {
             Engine.releaseSpareChildProcess();
         }
-        if (mActivityReady) {
-            mActivity.handleOnNewIntent(intent);
-            return;
-        }
-
-        if (mPendingIntents == null) {
-            mPendingIntents = new ArrayList<Intent>(1);
-        }
-        mPendingIntents.add(intent);
+        activity.getScheduler().onNewIntent(intent);
     }
 
-    public void onActivityDestroy() {
+    public static void onActivityDestroy(BrowserActivity activity) {
         Engine.releaseSpareChildProcess();
-        mActivityDestroyed = true;
     }
-
-
 }

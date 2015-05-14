@@ -63,7 +63,7 @@ public class Browser extends ChromiumApplication {
                     Log.v(LOGTAG, "Browser.onActivityCreated: activity=" + activity);
                 }
                 if (!(activity instanceof BrowserActivity) && !(activity instanceof BrowserLauncher) ) {
-                    EngineInitializer.getInstance().initializeSync((Context) Browser.this);
+                    EngineInitializer.initializeSync((Context) Browser.this);
                 }
             }
 
