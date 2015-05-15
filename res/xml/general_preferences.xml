@@ -113,7 +113,7 @@
                 android:summary="@string/pref_security_show_security_warning_summary"
                 android:title="@string/pref_security_show_security_warning" />
 
-            <CheckBoxPreference
+            <com.android.browser.mdm.MdmCheckBoxPreference
                 android:defaultValue="true"
                 android:key="do_not_track"
                 android:summary="@string/pref_do_not_track_summary"

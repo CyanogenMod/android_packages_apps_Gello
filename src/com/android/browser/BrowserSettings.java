@@ -32,6 +32,7 @@ import android.webkit.WebStorage;
 
 import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.DoNotTrackRestriction;
 import com.android.browser.mdm.ProxyRestriction;
 import com.android.browser.mdm.SearchEngineRestriction;
 import com.android.browser.platformsupport.Browser;
@@ -896,7 +897,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean doNotTrack() {
-        return mPrefs.getBoolean(PREF_DO_NOT_TRACK, true);
+        boolean dntVal;
+        if (DoNotTrackRestriction.getInstance().isEnabled()) {
+            dntVal = DoNotTrackRestriction.getInstance().getValue();
+        }
+        else {
+            dntVal = mPrefs.getBoolean(PREF_DO_NOT_TRACK, true);
+        }
+        return dntVal;
     }
 
     public boolean acceptCookies() {
