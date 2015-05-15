@@ -195,7 +195,7 @@
                      ],
            'outputs': ['<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libicui18n.cr.so',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libicuuc.cr.so',
-                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libstlport_sh_521.so',
+                       '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libstlport_shared.so',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweskia.so',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweadrenoext_22_plugin.so',
                        '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/lib/libsweadrenoext_plugin.so',
