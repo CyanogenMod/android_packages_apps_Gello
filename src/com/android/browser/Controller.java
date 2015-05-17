@@ -2217,10 +2217,12 @@ public class Controller
                 final EditText input = new EditText(getContext());
                 input.setText(w.getTitle());
                 new AlertDialog.Builder(getContext())
-                        .setTitle("Add to homescreen")
-                        .setMessage("Title")
+                        .setTitle(getContext().getResources().getString(
+                            R.string.add_to_homescreen))
+                        .setMessage(R.string.my_navigation_name)
                         .setView(input)
-                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getContext().getResources().getString(
+                            R.string.add_bookmark_short), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 mActivity.sendBroadcast(BookmarkUtils.createAddToHomeIntent(
                                         getContext(),
@@ -2232,7 +2234,8 @@ public class Controller
                                 mActivity.startActivity(new Intent(Intent.ACTION_MAIN)
                                         .addCategory(Intent.CATEGORY_HOME));
                             }})
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getContext().getResources().getString(
+                            R.string.import_bookmarks_wizard_cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }
