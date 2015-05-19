@@ -59,7 +59,6 @@ import java.util.Set;
 
 import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebStorage;
-import org.json.JSONArray;
 
 /**
  * Manage the settings for an origin.
@@ -630,12 +629,10 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                     case 0: // Deny forever
                                         geolocationPermissions.deny(origin);
                                         break;
-                                    case 1: // Allow for 24 hours
-                                        // encode the expiration time and origin as a JSON string
-                                        JSONArray jsonArray = new JSONArray();
-                                        jsonArray.put(System.currentTimeMillis() + MILLIS_PER_DAY);
-                                        jsonArray.put(origin);
-                                        geolocationPermissions.allow(jsonArray.toString());
+                                    case 1:
+                                        // Allow for 24 hours
+                                        geolocationPermissions.allow(origin,
+                                                System.currentTimeMillis() + MILLIS_PER_DAY);
                                         break;
                                     case 2: // Allow forever
                                         geolocationPermissions.allow(origin);
@@ -662,53 +659,21 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                                alertDialogListener)
                             .setNegativeButton(R.string.geolocation_settings_page_dialog_cancel_button, null);
 
-                        final ValueCallback<Long> getExpirationCallback =
-                                new ValueCallback<Long>() {
-                            public void onReceiveValue(Long expirationTime) {
-                                if (expirationTime != null) {
-                                    geolocationPolicyExpiration = expirationTime.longValue();
-                                    // Set radio button and location icon
-                                    if (!geolocationPolicyOriginAllowed) {
-                                        // 0: Deny forever
-                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 0, null);
-                                    } else {
-                                        if (geolocationPolicyExpiration
-                                                != GeolocationPermissions.DO_NOT_EXPIRE) {
-                                        // 1: Allow for 24 hours
-                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 1, null);
-                                        } else {
-                                        // 2: Allow forever
-                                        builder.setSingleChoiceItems(R.array.geolocation_settings_choices, 2, null);
-                                        }
-                                    }
-                                }
-                                builder.show();
-                            }
-                        };
-
-                        final ValueCallback<Boolean> getAllowedCallback =
-                                new ValueCallback<Boolean>() {
-                            public void onReceiveValue(Boolean allowed) {
-                                if (allowed != null) {
-                                    geolocationPolicyOriginAllowed = allowed.booleanValue();
-                                    //Get the policy expiration time
-                                    geolocationPermissions.getExpirationTime(origin,
-                                            getExpirationCallback);
-                                }
-                            }
-                        };
-
-                        geolocationPermissions.hasOrigin(origin,
-                                new ValueCallback<Boolean>() {
-                            public void onReceiveValue(Boolean hasOrigin) {
-                                if (hasOrigin != null && hasOrigin.booleanValue()) {
-                                    //Get whether origin is allowed or denied
-                                    geolocationPermissions.getAllowed(origin,
-                                            getAllowedCallback);
-                                }
-                            }
-                        });
-                        break;
+                        switch(geolocationPermissions.getContentSetting(origin)) {
+                            case BLOCK:
+                                builder.setSingleChoiceItems(R.array.geolocation_settings_choices,
+                                        0, null);
+                                break;
+                            case ALLOW_24H:
+                                builder.setSingleChoiceItems(R.array.geolocation_settings_choices,
+                                        1, null);
+                                break;
+                            case ALLOW:
+                                builder.setSingleChoiceItems(R.array.geolocation_settings_choices,
+                                        2, null);
+                                break;
+                        }
+                        builder.show();
                 }
             } else {
                 Site site = (Site) view.getTag();

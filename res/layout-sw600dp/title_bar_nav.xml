@@ -56,12 +56,6 @@
         android:layout_weight="1.0"
         android:orientation="horizontal">
 
-        <com.android.browser.LocationButton
-            android:id="@+id/location_button"
-            style="@style/NavButton"
-            android:layout_width="48dp"
-            android:visibility="gone" />
-
         <ImageView
             android:id="@+id/url_icon"
             android:layout_width="32dip"

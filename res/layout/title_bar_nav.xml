@@ -36,13 +36,6 @@
             android:src="@drawable/ic_deco_incognito_normal"
             android:visibility="gone" />
 
-        <com.android.browser.LocationButton
-            android:id="@+id/location_button"
-            style="@style/NavButton"
-            android:layout_width="wrap_content"
-            android:paddingEnd="2dp"
-            android:visibility="gone" />
-
         <ImageView
             android:id="@+id/magnify"
             android:layout_width="44dp"

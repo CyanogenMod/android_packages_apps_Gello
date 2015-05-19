@@ -50,7 +50,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.ConsoleMessage;
-import android.webkit.GeolocationPermissions;
 import android.webkit.URLUtil;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebStorage;
@@ -134,8 +133,6 @@ class Tab implements PictureListener {
     // The tab ID
     private long mId = -1;
 
-    // The Geolocation permissions prompt
-    private GeolocationPermissionsPrompt mGeolocationPermissionsPrompt;
     // Main WebView wrapper
     private View mContainer;
     // Main WebView
@@ -331,12 +328,6 @@ class Tab implements PictureListener {
             if (mTouchIconLoader != null) {
                 mTouchIconLoader.mTab = null;
                 mTouchIconLoader = null;
-            }
-
-            // Loading a new page voids any ongoing Geolocation permission
-            // requests.
-            if (mGeolocationPermissionsPrompt != null) {
-                mGeolocationPermissionsPrompt.dismiss();
             }
 
             // finally update the UI in the activity if it is in the foreground
@@ -956,32 +947,6 @@ class Tab implements PictureListener {
                             quotaUpdater);
         }
 
-        /**
-         * Instructs the browser to show a prompt to ask the user to set the
-         * Geolocation permission state for the specified origin.
-         * @param origin The origin for which Geolocation permissions are
-         *     requested.
-         * @param callback The callback to call once the user has set the
-         *     Geolocation permission state.
-         */
-        @Override
-        public void onGeolocationPermissionsShowPrompt(String origin,
-                GeolocationPermissions.Callback callback) {
-            if (mInForeground) {
-                getGeolocationPermissionsPrompt().show(origin, callback);
-            }
-        }
-
-        /**
-         * Instructs the browser to hide the Geolocation permissions prompt.
-         */
-        @Override
-        public void onGeolocationPermissionsHidePrompt() {
-            if (mInForeground && mGeolocationPermissionsPrompt != null) {
-                mGeolocationPermissionsPrompt.hide();
-            }
-        }
-
         /* Adds a JavaScript error message to the system log and if the JS
          * console is enabled in the about:debug options, to that console
          * also.
@@ -1329,12 +1294,6 @@ class Tab implements PictureListener {
             return;
         }
 
-        // If the WebView is changing, the page will be reloaded, so any ongoing
-        // Geolocation permission requests are void.
-        if (mGeolocationPermissionsPrompt != null) {
-            mGeolocationPermissionsPrompt.hide();
-        }
-
         mWebViewController.onSetWebView(this, w);
 
         if (mMainView != null) {
@@ -1671,19 +1630,6 @@ class Tab implements PictureListener {
         mSubViewContainer = subViewContainer;
     }
 
-    /**
-     * @return The geolocation permissions prompt for this tab.
-     */
-    GeolocationPermissionsPrompt getGeolocationPermissionsPrompt() {
-        if (mGeolocationPermissionsPrompt == null) {
-            ViewStub stub = (ViewStub) mContainer
-                    .findViewById(R.id.geolocation_permissions_prompt);
-            mGeolocationPermissionsPrompt = (GeolocationPermissionsPrompt) stub
-                    .inflate();
-            mGeolocationPermissionsPrompt.init(mCurrentState.mIncognito);
-        }
-        return mGeolocationPermissionsPrompt;
-    }
 
     /**
      * @return The application id string
