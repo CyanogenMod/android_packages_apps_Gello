@@ -40,6 +40,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 
 import java.util.List;
 import java.util.Collections;
@@ -98,13 +99,22 @@ public class ShareDialog extends AppItem {
                 ComponentName name = new android.content.ComponentName(activityInfo.applicationInfo.packageName,
                                                      activityInfo.name);
                 Intent i = new Intent(Intent.ACTION_SEND);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                            Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+                    // This flag clears the called app from the activity stack,
+                    // so users arrive in the expected place next time this application is restarted
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                } else {
+                    // flag used from Lollipop onwards
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+                }
+
+                i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT |
+                            Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, url);
                 i.putExtra(Intent.EXTRA_SUBJECT, title);
                 i.putExtra(EXTRA_SHARE_FAVICON, favicon);
                 i.putExtra(EXTRA_SHARE_SCREENSHOT, screenshot);
-                i.setType("text/plain");
                 i.setComponent(name);
                 activity.startActivity(i);
             }

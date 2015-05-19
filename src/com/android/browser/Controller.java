@@ -2359,6 +2359,7 @@ public class Controller
     }
 
     private void goLive() {
+        if (!getCurrentTab().isSnapshot()) return;
         SnapshotTab t = (SnapshotTab) getCurrentTab();
         String url = t.getLiveUrl();
         boolean onlySingleTabRemaining = false;
