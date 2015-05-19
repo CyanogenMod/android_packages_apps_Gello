@@ -59,6 +59,8 @@
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/',
           'files': [
             '<@(chrome_android_pak_input_resources)',
+            '<@(libnetxt_input_resources)',
+            '<@(libsta_input_resources)',
           ],
         },
         {
