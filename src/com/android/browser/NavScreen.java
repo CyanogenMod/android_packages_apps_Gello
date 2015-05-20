@@ -33,8 +33,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.browser.NavTabScroller.OnRemoveListener;
+import com.android.browser.mdm.IncognitoRestriction;
 
 import java.util.HashMap;
 
@@ -107,12 +109,15 @@ public class NavScreen extends RelativeLayout
                 mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
     }
 
+
+
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.nav_screen, this);
         setContentDescription(getContext().getResources().getString(
                 R.string.accessibility_transition_navscreen));
         mToolbarLayout = findViewById(R.id.nav_toolbar_animate);
         mNewIncognitoTab = (ImageButton) findViewById(R.id.newincognitotab);
+        IncognitoRestriction.getInstance().registerButton(mNewIncognitoTab);
         mNewTab = (ImageButton) findViewById(R.id.newtab);
         mMore = (ImageButton) findViewById(R.id.more);
         mNewIncognitoTab.setOnClickListener(this);
@@ -144,7 +149,11 @@ public class NavScreen extends RelativeLayout
         if (mNewTab == v) {
             openNewTab();
         } else if (mNewIncognitoTab == v) {
-            openNewIncognitoTab();
+            if (IncognitoRestriction.getInstance().isEnabled()) {
+                Toast.makeText(getContext(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+            } else {
+                openNewIncognitoTab();
+            }
         } else if (mMore == v) {
             showPopupMenu();
         }
