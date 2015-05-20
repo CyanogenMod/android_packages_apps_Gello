@@ -69,6 +69,7 @@
             android:text="@string/add_new_bookmark"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:layout_weight="1"
             style="?android:attr/buttonBarButtonStyle"
             />
@@ -77,6 +78,7 @@
             android:text="@string/new_folder"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+             android:textSize="14sp"
             android:layout_weight="1"
             style="?android:attr/buttonBarButtonStyle"
             />
