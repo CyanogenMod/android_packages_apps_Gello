@@ -145,9 +145,6 @@
     <string name="browser_tab_crash_reload">पुन: लोड करें</string>
     <string name="browser_tab_crash_message">यह वेबपृष्ठ प्रदर्शित करते समय कुछ अनपेक्षित हुआ है. कृपया पुन: लोड करें या अन्य पृष्ठ पर जाएँ.</string>
 
-    <string name="find_on_page">पृष्ठ पर ढूँढ़ें</string>
-    <string name="pref_memory_monitor">मेमोरी मॉनीटर सक्षम करें</string>
-
     <string-array name="geolocation_settings_choices">
         <item>हमेशा के लिए अस्वीकार करें</item>
         <item>24 घंटों के लिए अनुमति दें</item>
@@ -164,6 +161,7 @@
     <string name="help">मदद</string>
     <string name="feedback">प्रतिपुष्टि</string>
 
+    <string name="find_on_page">पृष्ठ पर ढूँढ़ें</string>
     <string name="max_url_character_limit_msg">अधिकतम URL सीमा पूरी हो गई है</string>
     <string name="msg_no_google_play">क्षमा करें, गूगल प्ले स्टोर ऐप मौजूद नहीं है.</string>
     <string name="add_to_homescreen">होम स्क्रीन पर जोड़ें</string>

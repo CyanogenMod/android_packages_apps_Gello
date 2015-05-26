@@ -145,9 +145,6 @@
     <string name="browser_tab_crash_reload">Tải lại</string>
     <string name="browser_tab_crash_message">Đã có sự cố không mong đợi khi hiển thị trang web này. Vui lòng tải lại hoặc đến trang khác.</string>
 
-    <string name="find_on_page">Tìm trên trang</string>
-    <string name="pref_memory_monitor">Bật theo dõi bộ nhớ</string>
-
     <string-array name="geolocation_settings_choices">
         <item>Luôn từ chối</item>
         <item>Cho phép 24 giờ</item>
@@ -164,6 +161,7 @@
     <string name="help">Trợ giúp</string>
     <string name="feedback">Phản hồi</string>
 
+    <string name="find_on_page">Tìm trên trang</string>
     <string name="max_url_character_limit_msg">Đã đạt giới hạn URL</string>
     <string name="msg_no_google_play">Rất tiếc, ứng dụng Google Play store không tồn tại.</string>
     <string name="add_to_homescreen">Thêm vào màn hình chờ</string>
