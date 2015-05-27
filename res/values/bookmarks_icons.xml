@@ -3,31 +3,5 @@
     <string-array name="bookmark_preloads">
         <item>favicon_google</item>
         <item>thumb_google</item>
-        <item>favicon_picasa</item>
-        <item>thumb_picasa</item>
-        <item>favicon_yahoo</item>
-        <item>thumb_yahoo</item>
-        <item>favicon_msn</item>
-        <item>thumb_msn</item>
-        <item>favicon_twitter</item>
-        <item>thumb_twitter</item>
-        <item>favicon_facebook</item>
-        <item>thumb_facebook</item>
-        <item>favicon_wikipedia</item>
-        <item>thumb_wikipedia</item>
-        <item>favicon_ebay</item>
-        <item>thumb_ebay</item>
-        <item>favicon_cnn</item>
-        <item>thumb_cnn</item>
-        <item>favicon_nytimes</item>
-        <item>thumb_nytimes</item>
-        <item>favicon_espn</item>
-        <item>thumb_espn</item>
-        <item>favicon_amazon</item>
-        <item>thumb_amazon</item>
-        <item>favicon_weatherchannel</item>
-        <item>thumb_weatherchannel</item>
-        <item>favicon_bbc</item>
-        <item>thumb_bbc</item>
     </string-array>
 </resources>
