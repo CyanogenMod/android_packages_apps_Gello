@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (c) 2015, The Linux Foundation. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +41,7 @@ import android.view.Window;
 
 import org.chromium.base.VisibleForTesting;
 import com.android.browser.R;
+import com.android.browser.mdm.ThirdPartyCookiesRestriction;
 import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
@@ -156,6 +158,9 @@ public class BrowserActivity extends Activity {
     public void startController() {
         Intent intent = (mSavedInstanceState == null) ? getIntent() : null;
         mController.start(intent);
+
+        // MDM Restrictions not tied to a UI element initialized here.
+        ThirdPartyCookiesRestriction.getInstance();
     }
 
     @VisibleForTesting
