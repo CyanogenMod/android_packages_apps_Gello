@@ -98,6 +98,7 @@ import com.android.browser.AppAdapter;
 import com.android.browser.R;
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
+import com.android.browser.mdm.IncognitoRestriction;
 import com.android.browser.mdm.URLFilterRestriction;
 import com.android.browser.mynavigation.AddMyNavigationPage;
 import com.android.browser.mynavigation.MyNavigationUtil;
@@ -1930,6 +1931,10 @@ public class Controller
         }
         mCurrentMenuState = mMenuState;
         mUi.onPrepareOptionsMenu(menu);
+
+        IncognitoRestriction.getInstance()
+                            .registerControl(menu.findItem(R.id.incognito_menu_id)
+                                                 .getIcon());
     }
 
     private void setMenuItemVisibility(Menu menu, int id,
@@ -3063,20 +3068,24 @@ public class Controller
     private Tab createNewTab(boolean incognito, boolean setActive,
             boolean useCurrent) {
         Tab tab = null;
-        if (mTabControl.canCreateNewTab()) {
-            tab = mTabControl.createNewTab(incognito, !setActive);
-            addTab(tab);
-            if (setActive) {
-                setActiveTab(tab);
-            } else {
-                tab.pause();
-            }
+        if (IncognitoRestriction.getInstance().isEnabled() && incognito) {
+            Toast.makeText(getContext(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
         } else {
-            if (useCurrent) {
-                tab = mTabControl.getCurrentTab();
-                reuseTab(tab, null);
+            if (mTabControl.canCreateNewTab()) {
+                tab = mTabControl.createNewTab(incognito, !setActive);
+                addTab(tab);
+                if (setActive) {
+                    setActiveTab(tab);
+                } else {
+                    tab.pause();
+                }
             } else {
-                mUi.showMaxTabsWarning();
+                if (useCurrent) {
+                    tab = mTabControl.getCurrentTab();
+                    reuseTab(tab, null);
+                } else {
+                    mUi.showMaxTabsWarning();
+                }
             }
         }
         return tab;

@@ -30,8 +30,11 @@
 
 package com.android.browser.mdm;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.ImageButton;
+import android.view.View;
+
+import java.util.ArrayList;
 
 public class IncognitoRestriction extends Restriction {
 
@@ -40,10 +43,14 @@ public class IncognitoRestriction extends Restriction {
     public static final String INCOGNITO_RESTRICTION_ENABLED = "IncognitoRestrictionEnabled"; // boolean
 
     private static IncognitoRestriction sInstance;
-    private ImageButton mIncogButton = null;
+
+    private ArrayList<View> registeredViews;
+    private ArrayList<Drawable> registeredDrawables;
 
     private IncognitoRestriction() {
         super();
+        registeredViews = new ArrayList<>();
+        registeredDrawables = new ArrayList<>();
     }
 
     public static IncognitoRestriction getInstance() {
@@ -61,19 +68,40 @@ public class IncognitoRestriction extends Restriction {
         updateButton();
     }
 
-    public void registerButton (ImageButton ib) {
-        mIncogButton = ib;
+    public void registerControl(View v) {
+        if (!registeredViews.contains(v)) {
+            registeredViews.add(v);
+        }
+        updateButton();
+    }
+
+    public void registerControl(Drawable d) {
+        if (!registeredDrawables.contains(d)) {
+            registeredDrawables.add(d);
+        }
         updateButton();
     }
 
     private void updateButton() {
-        if (null != mIncogButton) {
-            mIncogButton.setAlpha((float) (isEnabled() ? 0.5 : 1.0));
+        if (null != registeredViews) {
+            for (View v : registeredViews) {
+                if (null != v) {
+                    v.setAlpha((float) (isEnabled() ? 0.5 : 1.0));
+                }
+            }
+        }
+        if (null != registeredDrawables) {
+            for (Drawable d : registeredDrawables) {
+                if (null != d) {
+                    d.setAlpha((isEnabled() ? 0x80 : 0xff));
+                }
+            }
         }
     }
 
     // For testing
     public float getButtonAlpha() {
-        return mIncogButton != null ? mIncogButton.getAlpha() : (float) 1.0;
+        View v = registeredViews.get(0);
+        return v != null ? v.getAlpha() : (float) 1.0;
     }
 }
