@@ -270,6 +270,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
         settings.setDoNotTrack(doNotTrack());
+        settings.setNightModeEnabled(isNightModeEnabled());
         settings.setMediaPlaybackRequiresUserGesture(false);
 
         WebSettings settingsClassic = (WebSettings) settings;
@@ -819,6 +820,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setWebRefinerEnabled(boolean value) {
         mPrefs.edit().putBoolean(PREF_WEB_REFINER_ENABLED, value).apply();
+    }
+
+    public boolean isNightModeEnabled() {
+        return mPrefs.getBoolean(PREF_NIGHTMODE_ENABLED, false);
+    }
+
+    public void setNightModeEnabled(boolean value) {
+        mPrefs.edit().putBoolean(PREF_NIGHTMODE_ENABLED, value).apply();
     }
 
     // -----------------------------

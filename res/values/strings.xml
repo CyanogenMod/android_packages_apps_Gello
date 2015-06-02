@@ -385,6 +385,11 @@
     <!-- Settings summary for the powersave feature. -->
     <string name ="pref_powersave_enabled_summary">Turn on power saving mode</string>
 
+    <!-- Checkbox setting for enabling/disabling night mode feature -->
+    <string name ="pref_nightmode_enabled">Night mode</string>
+    <!-- Settings summary for the night mode feature. -->
+    <string name ="pref_nightmode_enabled_summary">Turn on night mode</string>
+
     <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
     <string name="pref_autofill_enabled">Form auto-fill</string>
     <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
