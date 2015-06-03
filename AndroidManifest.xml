@@ -187,6 +187,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".preferences.LegalPreviewActivity"
+            android:parentActivityName=".BrowserActivity"
+            android:theme="@style/SettingsTheme">
+        </activity>
+
         <activity android:name="BookmarkSearch"
                   android:label="@string/bookmarks_search"
                   android:stateNotNeeded="true"

@@ -132,6 +132,13 @@ public interface PreferenceKeys {
     static final String PREF_USER_AGENT = "user_agent";
     static final String PREF_HELP = "help_about";
     static final String PREF_FEEDBACK = "feedback";
-
     static final String PREF_EDGE_SWIPE = "edge_swiping_action";
+    static final String PREF_LEGAL = "legal";
+
+    // ----------------------
+    // Keys for legal_preferences.xml
+    // ----------------------
+    static final String PREF_LEGAL_CREDITS = "legal_credits";
+    static final String PREF_LEGAL_EULA = "legal_eula";
+    static final String PREF_LEGAL_PRIVACY_POLICY = "legal_privacy_policy";
 }

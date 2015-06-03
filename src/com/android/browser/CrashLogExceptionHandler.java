@@ -71,7 +71,6 @@ import java.util.Calendar;
 public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private static final String CRASH_LOG_FILE = "crash.log";
-    private static final String CRASH_LOG_SERVER_CMD = "crash-log-server";
     private static final String CRASH_LOG_MAX_FILE_SIZE_CMD = "crash-log-max-file-size";
     private static final String CRASH_REPORT_DIR = "Crash Reports";
 
@@ -95,9 +94,9 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
 
     public CrashLogExceptionHandler(Context ctx) {
         mAppContext = ctx;
-        if (BrowserCommandLine.hasSwitch(CRASH_LOG_SERVER_CMD)) {
+        if (BrowserCommandLine.hasSwitch(BrowserSwitches.CRASH_LOG_SERVER_CMD)) {
             initNativeReporter(ctx);
-            mLogServer = BrowserCommandLine.getSwitchValue(CRASH_LOG_SERVER_CMD);
+            mLogServer = BrowserCommandLine.getSwitchValue(BrowserSwitches.CRASH_LOG_SERVER_CMD);
             if (mLogServer != null) {
                 uploadPastCrashLog();
                 mOverrideHandler = true;
@@ -338,7 +337,7 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
     private void uploadNativeCrashReport(final File report) {
         Log.w(LOGTAG, "Preparing Crash Report for upload " + report.getName());
         // get server url from commandline
-        String server = BrowserCommandLine.getSwitchValue(CRASH_LOG_SERVER_CMD);
+        String server = BrowserCommandLine.getSwitchValue(BrowserSwitches.CRASH_LOG_SERVER_CMD);
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(server);

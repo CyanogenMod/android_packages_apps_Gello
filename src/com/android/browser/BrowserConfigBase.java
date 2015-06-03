@@ -42,13 +42,7 @@ import org.codeaurora.swe.BrowserCommandLine;
 
 abstract class BrowserConfigBase {
 
-    private static final String OVERRIDE_USER_AGENT = "user-agent";
-    private static final String OVERRIDE_MEDIA_DOWNLOAD = "media-download";
-    private static final String HTTP_HEADERS = "http-headers";
-    private static final String ENABLE_SWE = "enabled-swe";
-    private static final String ENABLE_TOP_CONTROLS = "enable-top-controls-position-calculation";
-    private static final String TOP_CONTROLS_HIDE_THRESHOLD = "top-controls-hide-threshold";
-    private static final String TOP_CONTROLS_SHOW_THRESHOLD = "top-controls-show-threshold";
+
     private Context mContext;
 
     public BrowserConfigBase(Context context) {
@@ -57,7 +51,7 @@ abstract class BrowserConfigBase {
 
     public void overrideUserAgent() {
         // Check if the UA is already present using command line file
-        if (BrowserCommandLine.hasSwitch(OVERRIDE_USER_AGENT)) {
+        if (BrowserCommandLine.hasSwitch(BrowserSwitches.OVERRIDE_USER_AGENT)) {
             return;
         }
 
@@ -69,7 +63,7 @@ abstract class BrowserConfigBase {
         ua = constructUserAgent(ua);
 
         if (!TextUtils.isEmpty(ua)){
-            BrowserCommandLine.appendSwitchWithValue(OVERRIDE_USER_AGENT, ua);
+            BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.OVERRIDE_USER_AGENT, ua);
         }
     }
 
@@ -77,22 +71,22 @@ abstract class BrowserConfigBase {
         boolean defaultAllowMediaDownloadsValue = mContext.getResources().getBoolean(
             R.bool.def_allow_media_downloads);
         if (defaultAllowMediaDownloadsValue)
-            BrowserCommandLine.appendSwitchWithValue(OVERRIDE_MEDIA_DOWNLOAD, "1");
+            BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.OVERRIDE_MEDIA_DOWNLOAD, "1");
     }
 
     public void setExtraHTTPRequestHeaders() {
         String headers = mContext.getResources().getString(
             R.string.def_extra_http_headers);
         if (!TextUtils.isEmpty(headers))
-            BrowserCommandLine.appendSwitchWithValue(HTTP_HEADERS, headers);
+            BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.HTTP_HEADERS, headers);
     }
 
     public void initCommandLineSwitches() {
         //SWE-hide-title-bar - enable following flags
-        BrowserCommandLine.appendSwitch(ENABLE_TOP_CONTROLS);
-        BrowserCommandLine.appendSwitchWithValue(TOP_CONTROLS_SHOW_THRESHOLD, "0.5");
-        BrowserCommandLine.appendSwitchWithValue(TOP_CONTROLS_HIDE_THRESHOLD, "0.5");
-        BrowserCommandLine.appendSwitch(ENABLE_SWE);
+        BrowserCommandLine.appendSwitch(BrowserSwitches.ENABLE_TOP_CONTROLS);
+        BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.TOP_CONTROLS_SHOW_THRESHOLD, "0.5");
+        BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.TOP_CONTROLS_HIDE_THRESHOLD, "0.5");
+        BrowserCommandLine.appendSwitch(BrowserSwitches.ENABLE_SWE);
 
         // Allow to override UserAgent
         overrideUserAgent();

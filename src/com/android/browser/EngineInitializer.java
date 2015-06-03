@@ -53,12 +53,6 @@ import org.chromium.base.VisibleForTesting;
 public class EngineInitializer {
 
     private final static String LOGTAG = "EngineInitializer";
-    //Command line flag for strict mode
-    private final static String STRICT_MODE = "enable-strict-mode";
-
-    // Command line flag for single-process mode.
-    // Must match the value of kSingleProcess in content_switches.cc
-    private static final String SINGLE_PROCESS = "single-process";
 
     private static boolean mInitializationStarted = false;
     private static boolean mSynchronousInitialization = false;
@@ -281,7 +275,7 @@ public class EngineInitializer {
                 }
 
                 Engine.loadNativeLibraries(mApplicationContext);
-                if (!BrowserCommandLine.hasSwitch(SINGLE_PROCESS)) {
+                if (!BrowserCommandLine.hasSwitch(BrowserSwitches.SINGLE_PROCESS)) {
                     Engine.warmUpChildProcess(mApplicationContext);
                 }
                 return true;
@@ -366,7 +360,7 @@ public class EngineInitializer {
             BrowserConfig.getInstance(ctx).initCommandLineSwitches();
 
             //Note: Only enable this for debugging.
-            if (BrowserCommandLine.hasSwitch(STRICT_MODE)) {
+            if (BrowserCommandLine.hasSwitch(BrowserSwitches.STRICT_MODE)) {
                 Log.v(LOGTAG, "StrictMode enabled");
                 StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                         .detectDiskReads()

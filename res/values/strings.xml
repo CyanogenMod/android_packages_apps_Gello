@@ -1127,6 +1127,15 @@
     <string name="user_agent">User Agent</string>
     <string name="help">Help</string>
     <string name="feedback">Feedback</string>
+    <string name="swe_legal">Legal information</string>
+    <string name="swe_open_source_licenses">Open source licenses</string>
+    <string name="swe_open_source_license_url">chrome://credits</string>
+    <string name="swe_pref_legal_info_summary">Copyright (c) 2015, The Linux Foundation. All rights reserved.</string>
+    <string name="swe_eula">End user licenses agreement</string>
+    <string name="swe_eula_url"></string>
+    <string name="swe_privacy_policy">Privacy policy</string>
+    <string name="swe_privacy_policy_url"></string>
+
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>

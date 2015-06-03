@@ -40,6 +40,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 
 import com.android.browser.BrowserActivity;
+import com.android.browser.BrowserPreferencesPage;
+import com.android.browser.BrowserSwitches;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
@@ -47,9 +49,6 @@ import org.codeaurora.swe.BrowserCommandLine;
 
 public class AboutPreferencesFragment extends PreferenceFragment
                             implements OnPreferenceClickListener {
-
-    final String CMD_LINE_SWITCH_FEEDBACK = "mail-feedback-to";
-    final String CMD_LINE_SWITCH_HELPURL  = "help-url";
 
     final String ABOUT_TEXT_VERSION_KEY = "Version:";
     final String ABOUT_TEXT_BUILT_KEY = "Built:";
@@ -139,17 +138,21 @@ public class AboutPreferencesFragment extends PreferenceFragment
 
         setPreference(PreferenceKeys.PREF_USER_AGENT, user_agent);
 
-        if (BrowserCommandLine.hasSwitch(CMD_LINE_SWITCH_HELPURL)) {
-            mHelpURL = BrowserCommandLine.getSwitchValue(CMD_LINE_SWITCH_HELPURL);
+        if (BrowserCommandLine.hasSwitch(BrowserSwitches.CMD_LINE_SWITCH_HELPURL)) {
+            mHelpURL = BrowserCommandLine.getSwitchValue(
+                    BrowserSwitches.CMD_LINE_SWITCH_HELPURL);
         }
 
         setOnClickListener(PreferenceKeys.PREF_HELP, !mHelpURL.isEmpty());
 
-        if (BrowserCommandLine.hasSwitch(CMD_LINE_SWITCH_FEEDBACK)) {
-            mFeedbackRecipient = BrowserCommandLine.getSwitchValue(CMD_LINE_SWITCH_FEEDBACK);
+        if (BrowserCommandLine.hasSwitch(BrowserSwitches.CMD_LINE_SWITCH_FEEDBACK)) {
+            mFeedbackRecipient = BrowserCommandLine.getSwitchValue(
+                    BrowserSwitches.CMD_LINE_SWITCH_FEEDBACK);
         }
 
         setOnClickListener(PreferenceKeys.PREF_FEEDBACK, !mFeedbackRecipient.isEmpty());
+
+        setOnClickListener(PreferenceKeys.PREF_LEGAL, true);
     }
 
     @Override
@@ -159,6 +162,11 @@ public class AboutPreferencesFragment extends PreferenceFragment
             intent.setAction(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(mHelpURL));
             getActivity().startActivity(intent);
+            return true;
+        } else if(preference.getKey().equals(PreferenceKeys.PREF_LEGAL)) {
+            Bundle bundle = new Bundle();
+            BrowserPreferencesPage.startPreferenceFragmentExtraForResult(getActivity(),
+                    LegalPreferencesFragment.class.getName(), bundle, 0);
             return true;
         } else if (preference.getKey().equals(PreferenceKeys.PREF_FEEDBACK)) {
             Intent intent = new Intent(Intent.ACTION_SEND);
