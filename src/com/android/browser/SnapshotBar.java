@@ -47,6 +47,8 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     private static final long DURATION_SHOW_DATE = BaseUi.HIDE_TITLEBAR_DELAY;
 
     private ImageView mFavicon;
+    private ImageView mSnapshoticon;
+    private ImageView mReadericon;
     private TextView mDate;
     private TextView mTitle;
     private View mBookmarks;
@@ -107,6 +109,8 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mFavicon = (ImageView) findViewById(R.id.favicon);
+        mSnapshoticon = (ImageView) findViewById(R.id.snapshot_icon);
+        mReadericon = (ImageView) findViewById(R.id.reader_icon);
         mDate = (TextView) findViewById(R.id.date);
         mTitle = (TextView) findViewById(R.id.title);
         mBookmarks = findViewById(R.id.all_btn);
@@ -232,6 +236,32 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
 
     public boolean isAnimating() {
         return mIsAnimating;
+    }
+
+    public void setTitle(String title) {
+        mTitle.setText(title);
+    }
+
+    public void setDate(String date) {
+        mDate.setText(date);
+    }
+
+    public void setSnapshoticonVisibility(int visibility) {
+        if (mSnapshoticon.getVisibility() != visibility) {
+            mSnapshoticon.setVisibility(visibility);
+        }
+    }
+
+    public void setReadericonVisibility(int visibility) {
+        if (mReadericon.getVisibility() != visibility) {
+            mReadericon.setVisibility(visibility);
+        }
+    }
+
+    public void setFaviconVisibility(int visibility) {
+        if (mFavicon.getVisibility() != visibility) {
+            mFavicon.setVisibility(visibility);
+        }
     }
 
 }

@@ -387,10 +387,21 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             mSnapshotBar.onTabDataChanged(tab);
         }
 
-        if (tab.isSnapshot()) {
+        if (tab.isSnapshot() || tab.isDistilled()) {
             inflateSnapshotBar();
             mSnapshotBar.setVisibility(VISIBLE);
             mNavBar.setVisibility(GONE);
+            if  (tab.isDistilled()) {
+                mSnapshotBar.setTitle(tab.getWebView().getTitle());
+                mSnapshotBar.setDate(tab.getNonDistilledUrl());
+                mSnapshotBar.setSnapshoticonVisibility(View.GONE);
+                mSnapshotBar.setFaviconVisibility(View.GONE);
+                mSnapshotBar.setReadericonVisibility(View.VISIBLE);
+            } else {
+                mSnapshotBar.setSnapshoticonVisibility(View.VISIBLE);
+                mSnapshotBar.setFaviconVisibility(View.VISIBLE);
+                mSnapshotBar.setReadericonVisibility(View.GONE);
+            }
         } else {
             if (mSnapshotBar != null) {
                 mSnapshotBar.setVisibility(GONE);

@@ -76,6 +76,7 @@ import org.codeaurora.swe.WebView.PictureListener;
 import org.codeaurora.swe.WebView.CreateWindowParams;
 import org.codeaurora.swe.WebViewClient;
 import org.codeaurora.swe.util.Observable;
+import org.codeaurora.swe.DomDistillerUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -206,6 +207,8 @@ class Tab implements PictureListener {
         return mTabHistoryUpdateObservable;
     }
 
+    // dertermines if the tab contains a disllable page
+    private boolean mIsDistillable = false;
 
     private static synchronized Bitmap getDefaultFavicon(Context context) {
         if (sDefaultFavicon == null) {
@@ -315,6 +318,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            setIsDistillable(false);
             mInPageLoad = true;
             mPageFinished = false;
             mFirstVisualPixelPainted = false;
@@ -1716,6 +1720,7 @@ class Tab implements PictureListener {
 
     protected void onPageFinished() {
         mPageFinished = true;
+        isDistillable();
     }
 
     public boolean getPageFinishedStatus() {
@@ -2126,5 +2131,68 @@ class Tab implements PictureListener {
             // sub-resource.
             setSecurityState(SecurityState.SECURITY_STATE_MIXED);
         }
+    }
+
+    // dertermines if the tab contains a dislled page
+    public boolean isDistilled() {
+        if (!BrowserCommandLine.hasSwitch("reader-mode")) {
+            return false;
+        }
+        try {
+            return DomDistillerUtils.isUrlDistilled(getUrl());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    //determines if the tab contains a distillable page
+    public boolean isDistillable() {
+        if (!BrowserCommandLine.hasSwitch("reader-mode")) {
+            mIsDistillable = false;
+            return mIsDistillable;
+        }
+        final ValueCallback<String> onIsDistillable =  new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String str) {
+                mIsDistillable = Boolean.parseBoolean(str);
+            }
+        };
+
+        if (isDistilled()) {
+            mIsDistillable = true;
+            return mIsDistillable;
+        }
+
+        try {
+            DomDistillerUtils.isWebViewDistillable(getWebView(), onIsDistillable);
+        } catch (Exception e) {
+            mIsDistillable = false;
+        }
+
+        return mIsDistillable;
+    }
+
+    // Function that sets the mIsDistillable variable
+    public void setIsDistillable(boolean value) {
+        if (!BrowserCommandLine.hasSwitch("reader-mode")) {
+            mIsDistillable = false;
+        }
+        mIsDistillable = value;
+    }
+
+    // Function that returns the distilled url of the current url
+    public String getDistilledUrl() {
+        if (getUrl() != null) {
+            return DomDistillerUtils.getDistilledUrl(getUrl());
+        }
+        return new String();
+    }
+
+    // function that returns the non-distilled version of the current url
+    public String getNonDistilledUrl() {
+        if (getUrl() != null) {
+            return DomDistillerUtils.getOriginalUrlFromDistilledUrl(getUrl());
+        }
+        return new String();
     }
 }

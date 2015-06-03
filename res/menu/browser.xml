@@ -80,6 +80,12 @@
                 android:id="@+id/ua_desktop_menu_id"
                 android:checkable="true"
                 android:title="@string/ua_switcher_desktop" />
+
+            <item
+                android:id="@+id/reader_mode_menu_id"
+                android:checkable="true"
+                android:title="@string/enable_reader_mode" />
+
             <item
                 android:id="@+id/save_snapshot_menu_id"
                 android:title="@string/menu_save_snapshot" />

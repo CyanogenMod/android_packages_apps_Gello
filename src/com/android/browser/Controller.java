@@ -1952,6 +1952,11 @@ public class Controller
         } else {
             bookmark_icon.setChecked(false);
         }
+
+        // update reader mode checkbox
+        MenuItem readerSwitcher = menu.findItem(R.id.reader_mode_menu_id);
+        readerSwitcher.setVisible(false);
+        readerSwitcher.setChecked(false);
     }
 
     @Override
@@ -1964,6 +1969,9 @@ public class Controller
         boolean isLiveScheme = false;
         boolean isPageFinished = false;
         boolean isSavable = false;
+
+        boolean isDistillable = false;
+        boolean isDistilled = false;
         resetMenuItems(menu);
 
         if (tab != null) {
@@ -1973,6 +1981,9 @@ public class Controller
             isLiveScheme = UrlUtils.isLiveScheme(tab.getWebView().getUrl());
             isPageFinished = (tab.getPageFinishedStatus() || !tab.inPageLoad());
             isSavable = tab.getWebView().isSavable();
+
+            isDistillable = tab.isDistillable();
+            isDistilled = tab.isDistilled();
         }
 
         final MenuItem forward = menu.findItem(R.id.forward_menu_id);
@@ -2001,10 +2012,18 @@ public class Controller
         setMenuItemVisibility(menu, R.id.add_to_homescreen,
                 isLive && isLiveScheme && isPageFinished);
         setMenuItemVisibility(menu, R.id.save_snapshot_menu_id,
-                isLive && isLiveScheme && isPageFinished && isSavable);
+                isLive && ( isLiveScheme || isDistilled ) && isPageFinished && isSavable);
         // history and snapshots item are the members of COMBO menu group,
         // so if show history item, only make snapshots item invisible.
         menu.findItem(R.id.snapshots_menu_id).setVisible(false);
+
+
+        // update reader mode checkbox
+        final MenuItem readerSwitcher = menu.findItem(R.id.reader_mode_menu_id);
+        // The reader mode checkbox is hidden only
+        // when the current page is neither distillable nor distilled
+        readerSwitcher.setVisible(isDistillable || isDistilled);
+        readerSwitcher.setChecked(isDistilled);
 
         mUi.updateMenuState(tab, menu);
     }
@@ -2154,6 +2173,10 @@ public class Controller
                 toggleUserAgent();
                 break;
 
+            case R.id.reader_mode_menu_id:
+                toggleReaderMode();
+                break;
+
             case R.id.window_one_menu_id:
             case R.id.window_two_menu_id:
             case R.id.window_three_menu_id:
@@ -2292,6 +2315,17 @@ public class Controller
     public void toggleUserAgent() {
         WebView web = getCurrentWebView();
         mSettings.toggleDesktopUseragent(web);
+    }
+
+    // This function calls the  method in the webview to enable/disable
+    // the reader mode through the DOM distiller
+    public void toggleReaderMode() {
+        Tab t = mTabControl.getCurrentTab();
+        if (t.isDistilled()) {
+            closeTab(t);
+        } else if (t.isDistillable()) {
+            openTab(t.getDistilledUrl(), false, true, false, t);
+        }
     }
 
     @Override

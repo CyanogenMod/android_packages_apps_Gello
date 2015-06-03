@@ -18,8 +18,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:orientation="horizontal" >
     <ImageView
+        android:id="@+id/reader_icon"
+        android:src="@drawable/ic_deco_reader_mode_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:paddingEnd="16dip"
+        android:paddingStart="16dip" />
+    <ImageView
+        android:id="@+id/snapshot_icon"
         android:src="@drawable/ic_suggest_history_normal"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
