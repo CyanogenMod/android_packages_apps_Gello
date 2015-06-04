@@ -31,12 +31,11 @@
 package com.android.browser.mdm;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.android.browser.PreferenceKeys;
+import org.codeaurora.swe.MdmManager;
 
-import org.chromium.chrome.browser.preferences.PrefServiceBridge;
-
-public class ThirdPartyCookiesRestriction extends Restriction implements PreferenceKeys {
+public class ThirdPartyCookiesRestriction extends Restriction {
 
     private final static String TAG = "TPC_Restriction";
 
@@ -63,17 +62,11 @@ public class ThirdPartyCookiesRestriction extends Restriction implements Prefere
     public void enforce(Bundle restrictions) {
         enable(restrictions.getBoolean(TPC_ENABLED,false));
         mTpcValue = restrictions.getBoolean(TPC_VALUE, false);
-
-        PrefServiceBridge psb = PrefServiceBridge.getInstance();
-
-        if(psb != null) {
-            psb.setMdmBlockThirdPartyCookiesManaged(isEnabled());
-            psb.setMdmBlockThirdPartyCookiesEnabled(mTpcValue);
-        }
+        Log.i(TAG, "Enforcing. enabled[" + isEnabled() + "]. val[" + mTpcValue + "]");
+        MdmManager.updateMdmThirdPartyCookies(isEnabled(), mTpcValue);
     }
 
     public boolean getValue() {
         return mTpcValue;
     }
-
 }

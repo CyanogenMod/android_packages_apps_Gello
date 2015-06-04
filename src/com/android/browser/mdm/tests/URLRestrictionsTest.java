@@ -40,7 +40,7 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.mdm.ManagedProfileManager;
 import com.android.browser.mdm.URLFilterRestriction;
 
-import org.chromium.chrome.browser.mdm.URLFilterRestrictionJNI;
+import org.codeaurora.swe.MdmManager;
 
 public class URLRestrictionsTest extends ActivityInstrumentationTestCase2<BrowserActivity>
         implements PreferenceKeys {
@@ -68,13 +68,13 @@ public class URLRestrictionsTest extends ActivityInstrumentationTestCase2<Browse
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                URLFilterRestrictionJNI.getInstance().isBlocked(url);
+                MdmManager.isMdmUrlBlocked(url);
             }
         });
         mInstrumentation.waitForIdleSync();
 
         // Wait for native to post the result
-        while(!URLFilterRestrictionJNI.getInstance().isBlockedResultReady()) {
+        while(!MdmManager.isMdmUrlBlockedResultReady()) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -83,7 +83,7 @@ public class URLRestrictionsTest extends ActivityInstrumentationTestCase2<Browse
         }
 
         // Retrieve the result
-        return URLFilterRestrictionJNI.getInstance().getBlockedResult();
+        return MdmManager.getMdmUrlBlockedResult();
     }
 
     private boolean isBlocked (final String url, boolean expected) {

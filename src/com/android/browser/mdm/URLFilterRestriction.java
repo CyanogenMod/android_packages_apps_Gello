@@ -32,7 +32,7 @@ package com.android.browser.mdm;
 
 import android.os.Bundle;
 
-import org.chromium.chrome.browser.mdm.URLFilterRestrictionJNI;
+import org.codeaurora.swe.MdmManager;
 
 public class URLFilterRestriction extends Restriction {
     private final static String TAG = "URLFilterRestriction";
@@ -58,6 +58,6 @@ public class URLFilterRestriction extends Restriction {
         String urlBlackList = restrictions.getString(URL_BLACK_LIST);
         String urlWhiteList = restrictions.getString(URL_WHITE_LIST);
 
-        URLFilterRestrictionJNI.getInstance().SetMdmUrlFilters(urlBlackList, urlWhiteList);
+        MdmManager.updateMdmUrlFilters(urlBlackList, urlWhiteList);
     }
 }

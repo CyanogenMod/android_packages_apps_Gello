@@ -31,6 +31,7 @@
 package com.android.browser.mdm.tests;
 
 import android.app.Instrumentation;
+import android.content.Context;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
@@ -38,7 +39,9 @@ import android.util.Log;
 import com.android.browser.BrowserActivity;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.mdm.ManagedProfileManager;
-import org.chromium.net.ProxyChangeListener;
+import com.android.browser.mdm.ProxyRestriction;
+
+import org.codeaurora.swe.MdmManager;
 
 public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<BrowserActivity>
         implements PreferenceKeys {
@@ -47,7 +50,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
 
     private Instrumentation mInstrumentation;
     private BrowserActivity mActivity;
-    private ProxyChangeListener mPcl;
+    private Context mContext;
 
     public ProxyRestrictionsTest() {
         super(BrowserActivity.class);
@@ -58,37 +61,18 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         super.setUp();
         mInstrumentation = getInstrumentation();
         mActivity = getActivity();
-        mPcl = ProxyChangeListener.create(getInstrumentation().getTargetContext());
-    }
-
-    /*
-     * Proxy Restrictions Tests
-     */
-    // Properties we can query ProxyChangeListener for:
-    //  http.proxyHost     , https.proxyHost
-    //  http.proxyPort     , https.proxyPort
-    //  http.nonProxyHosts , https.nonProxyHosts
-    //  ProxyServer          (ProxyChangeListener.PROXY_SERVER)
-    //  ProxyPacUrl          (ProxyChangeListener.PROXY_PAC_URL)
-    //  ProxyBypassList      (ProxyChangeListener.PROXY_BYPASS_LIST)
-    public void logProxyConfig (ProxyChangeListener.ProxyConfig pc) {
-        if (pc != null) {
-            Log.v(TAG, "ProxyConfig Dump:");
-            Log.v(TAG, pc.toString());
-        } else {
-            Log.v(TAG, "ProxyConfig Dump: pc was NULL");
-        }
+        mContext = getInstrumentation().getTargetContext();
     }
 
     public void checkValue (String key, String expected) {
         if (expected == null) {
-            assertNull(ProxyChangeListener.getProperty(key));
+            assertNull(MdmManager.getProxyProperty(key));
             // native gives us empty strings, not nulls
-            assertEquals(mPcl.fetchProxyPropertyFromNative(key), "");
+            assertEquals(MdmManager.getNativeProxyProperty(mContext,key), "");
         }
         else {
-            assertEquals(ProxyChangeListener.getProperty(key), expected);
-            assertEquals(mPcl.fetchProxyPropertyFromNative(key), expected);
+            assertEquals(MdmManager.getProxyProperty(key), expected);
+            assertEquals(MdmManager.getNativeProxyProperty(mContext,key), expected);
         }
     }
 
@@ -97,10 +81,10 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         Log.v(TAG, "== Init Conditions ==");
 
         // check configured proxy mode
-        assertNull("Init: mode should be null", ProxyChangeListener.getmMdmProxyMode());
+        assertNull("Init: mode should be null", MdmManager.getMdmProxyMode());
 
         // get the proxy config from ProxyChangeListener
-        assertNull("Init: proxyConfig should be null", ProxyChangeListener.getMdmProxyConfig());
+        assertFalse("Init: proxyConfig should be null", MdmManager.isMdmProxyCfgValid());
 
         checkValue("http.proxyHost", null);
         checkValue("http.proxyPort", null);
@@ -110,29 +94,29 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
     // If you choose to never use a proxy server and always connect directly,
     // all other options are ignored.
     public void testProxy_ModeDirect() throws Throwable {
-        String mode = ProxyChangeListener.MODE_DIRECT;
+        String mode = ProxyRestriction.MODE_DIRECT;
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // set the restrictions
         setProxyRestrictions(mode, null, null, null);
 
         // check configured proxy mode
-        String configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        String configuredMode = MdmManager.getMdmProxyMode();
         assertEquals(mode + ": configuration", mode, configuredMode);
 
         // get the proxy config from ProxyChangeListener
-        ProxyChangeListener.ProxyConfig pc = ProxyChangeListener.getMdmProxyConfig();
-        assertNull(mode +": proxyConfig should be null", pc);
+        boolean valid = MdmManager.isMdmProxyCfgValid();
+        assertFalse(mode +": proxyConfig should be null", valid);
 
-        checkValue("http.proxyHost", null);
-        checkValue("http.proxyPort", null);
-        checkValue("http.nonProxyHosts", null);
+        checkValue("http.proxyHost", "");
+        checkValue("http.proxyPort", "0");
+        checkValue("http.nonProxyHosts", "");
     }
 
     // If you choose to use system proxy settings or auto detect the proxy server,
     // all other options are ignored.
     public void testProxy_ModeSystem() throws Throwable {
-        String mode = ProxyChangeListener.MODE_SYSTEM;
+        String mode = ProxyRestriction.MODE_SYSTEM;
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
@@ -142,13 +126,13 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         setProxyRestrictions(mode, null, null, null);
 
         // check configured proxy mode
-        String configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        String configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
 
         // get the proxy config from ProxyChangeListener
-        ProxyChangeListener.ProxyConfig pc = ProxyChangeListener.getMdmProxyConfig();
-        assertNull(mode +": proxyConfig should be null", pc);
+        boolean valid = MdmManager.isMdmProxyCfgValid();
+        assertFalse(mode +": proxyConfig should be null", valid);
 
         checkValue("http.proxyHost", null);
         checkValue("http.proxyPort", null);
@@ -158,7 +142,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
     // If you choose to use system proxy settings or auto detect the proxy server,
     // all other options are ignored.
     public void testProxy_ModeAutoDetect() throws Throwable {
-        String mode = ProxyChangeListener.MODE_AUTO_DETECT;
+        String mode = ProxyRestriction.MODE_AUTO_DETECT;
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
@@ -168,13 +152,13 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         setProxyRestrictions(mode, null, null, null);
 
         // check configured proxy mode
-        String configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        String configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
 
         // get the proxy config from ProxyChangeListener
-        ProxyChangeListener.ProxyConfig pc = ProxyChangeListener.getMdmProxyConfig();
-        assertNull(mode +": proxyConfig should be null", pc);
+        boolean valid = MdmManager.isMdmProxyCfgValid();
+        assertFalse(mode +": proxyConfig should be null", valid);
 
         checkValue("http.proxyHost", null);
         checkValue("http.proxyPort", null);
@@ -184,7 +168,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
     // If you choose fixed server proxy mode, you can specify further options in
     // 'Address or URL of proxy server' and 'Comma-separated list of proxy bypass rules'.
     public void testProxy_ModeFixedServers() throws Throwable {
-        String mode = ProxyChangeListener.MODE_FIXED_SERVERS;
+        String mode = ProxyRestriction.MODE_FIXED_SERVERS;
         Log.v(TAG, "== Testing " + mode + " ==");
 
         String proxyHost   = "192.241.207.220";
@@ -197,7 +181,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
 
         // Test that mode didn't get set if no proxy server is set
         setProxyRestrictions(mode, null, null, null);
-        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        configuredMode = MdmManager.getMdmProxyMode();
         assertNull(configuredMode);
 
         //
@@ -206,11 +190,9 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         setProxyRestrictions(mode, proxyServer, null, null);
 
         // check configured proxy mode
-        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
-
-        logProxyConfig(ProxyChangeListener.getMdmProxyConfig());
 
         // check proxy values
         checkValue("http.proxyHost", proxyHost);
@@ -223,11 +205,9 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         setProxyRestrictions(mode, proxyServer, "*.google.com, *foo.com, 127.0.0.1:8080", null);
 
         // check configured proxy mode
-        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
-
-        logProxyConfig(ProxyChangeListener.getMdmProxyConfig());
 
         // check properties
         checkValue("http.proxyHost", proxyHost);
@@ -240,7 +220,7 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
     // If you choose to use a .pac proxy script, you must specify the URL to the
     // script in 'URL to a proxy .pac file'.
     public void testProxy_ModePacScript() throws Throwable {
-        String mode = ProxyChangeListener.MODE_PAC_SCRIPT;
+        String mode = ProxyRestriction.MODE_PAC_SCRIPT;
         Log.v(TAG, "== Testing " + mode + " ==");
 
         // Clear any restrictions
@@ -248,20 +228,18 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
 
         // set the restrictions without pac url
         setProxyRestrictions(mode, null, null, null);
-        assertNull(ProxyChangeListener.getmMdmProxyMode()); // registered mode should be null
+        assertNull(MdmManager.getMdmProxyMode()); // registered mode should be null
 
         // set the restrictions
         String pacUrl = "http://internal.site:8888/example.pac";
         setProxyRestrictions(mode, null, null, pacUrl);
 
         // check configured proxy mode
-        String configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        String configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
 
-        logProxyConfig(ProxyChangeListener.getMdmProxyConfig());
-
-        checkValue(ProxyChangeListener.PROXY_PAC_URL, pacUrl);
+        checkValue(ProxyRestriction.PROXY_PAC_URL, pacUrl);
     }
 
     public void testProxy_SwitchModesWithoutClear() throws Throwable {
@@ -279,17 +257,15 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         //
         // set to Fixed Servers with exclusion list
         //
-        mode = ProxyChangeListener.MODE_FIXED_SERVERS;
+        mode = ProxyRestriction.MODE_FIXED_SERVERS;
         Log.v(TAG, "-- Setting mode " + mode + " ==");
 
         setProxyRestrictions(mode, proxyServer, "*.google.com, *foo.com, 127.0.0.1:8080", null);
 
         // check configured proxy mode
-        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        configuredMode = MdmManager.getMdmProxyMode();
         assertNotNull(configuredMode);
         assertEquals(mode + ": configuration",mode,configuredMode);
-
-        //logProxyConfig(ProxyChangeListener.getMdmProxyConfig());
 
         // check properties
         checkValue("http.proxyHost", proxyHost);
@@ -301,23 +277,23 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
         //
         // Now set to direct mode
         //
-        mode = ProxyChangeListener.MODE_DIRECT;
+        mode = ProxyRestriction.MODE_DIRECT;
         Log.v(TAG, "-- Setting mode " + mode + " ==");
 
         // set the restrictions
         setProxyRestrictions(mode, null, null, null);
 
         // check configured proxy mode
-        configuredMode = ProxyChangeListener.getmMdmProxyMode();
+        configuredMode = MdmManager.getMdmProxyMode();
         assertEquals(mode + ": configuration", mode, configuredMode);
 
         // get the proxy config from ProxyChangeListener
-        ProxyChangeListener.ProxyConfig pc = ProxyChangeListener.getMdmProxyConfig();
-        assertNull(mode +": proxyConfig should be null", pc);
+        boolean valid = MdmManager.isMdmProxyCfgValid();
+        assertFalse(mode +": proxyConfig should be null", valid);
 
-        checkValue("http.proxyHost", null);
-        checkValue("http.proxyPort", null);
-        checkValue("http.nonProxyHosts", null);
+        checkValue("http.proxyHost", "");
+        checkValue("http.proxyPort", "0");
+        checkValue("http.nonProxyHosts", "");
     }
 
 
@@ -333,16 +309,16 @@ public class ProxyRestrictionsTest extends ActivityInstrumentationTestCase2<Brow
                                       String nonProxyList, String pacScriptUri) {
         // Construct restriction bundle
         final Bundle restrictions = new Bundle();
-        restrictions.putString(ProxyChangeListener.PROXY_MODE, mode);
+        restrictions.putString(ProxyRestriction.PROXY_MODE, mode);
 
         if (proxyServer  != null) {
-            restrictions.putString(ProxyChangeListener.PROXY_SERVER, proxyServer);
+            restrictions.putString(ProxyRestriction.PROXY_SERVER, proxyServer);
         }
         if (nonProxyList != null) {
-            restrictions.putString(ProxyChangeListener.PROXY_BYPASS_LIST, nonProxyList);
+            restrictions.putString(ProxyRestriction.PROXY_BYPASS_LIST, nonProxyList);
         }
         if (pacScriptUri != null) {
-            restrictions.putString(ProxyChangeListener.PROXY_PAC_URL, pacScriptUri);
+            restrictions.putString(ProxyRestriction.PROXY_PAC_URL, pacScriptUri);
         }
 
         // Deliver restriction on UI thread
