@@ -36,7 +36,7 @@ public interface PreferenceKeys {
     // Keys for advanced_preferences.xml
     // ----------------------
     static final String PREF_AUTOFIT_PAGES = "autofit_pages";
-    static final String PREF_BLOCK_POPUP_WINDOWS = "block_popup_windows";
+    static final String PREF_POPUP_WINDOWS = "popup_windows";
     static final String PREF_DEFAULT_TEXT_ENCODING = "default_text_encoding";
     static final String PREF_ENABLE_JAVASCRIPT = "enable_javascript";
     static final String PREF_ENABLE_MEMORY_MONITOR = "enable_memory_monitor";
@@ -59,7 +59,6 @@ public interface PreferenceKeys {
     // ----------------------
     static final String PREF_AUTOFILL_ENABLED = "autofill_enabled";
     static final String PREF_AUTOFILL_PROFILE = "autofill_profile";
-    static final String PREF_WEB_REFINER_ENABLED = "web_refiner_enabled";
     static final String PREF_HOMEPAGE = "homepage";
     static final String PREF_POWERSAVE_ENABLED = "powersave_enabled";
     static final String PREF_NIGHTMODE_ENABLED = "nightmode_enabled";

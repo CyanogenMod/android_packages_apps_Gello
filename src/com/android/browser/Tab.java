@@ -1726,6 +1726,10 @@ class Tab implements PictureListener {
         return getDefaultFavicon(mContext);
     }
 
+    public boolean hasFavicon() {
+        return mCurrentState.mFavicon != null;
+    }
+
     public boolean isBookmarkedSite() {
         return mCurrentState.mIsBookmarkedSite;
     }

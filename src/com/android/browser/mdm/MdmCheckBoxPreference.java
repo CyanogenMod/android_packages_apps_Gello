@@ -32,6 +32,7 @@ package com.android.browser.mdm;
 import android.content.Context;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 //import android.util.Log;
 import android.view.View;
@@ -39,7 +40,7 @@ import android.widget.Toast;
 
 import com.android.browser.R;
 
-public class MdmCheckBoxPreference extends CheckBoxPreference {
+public class MdmCheckBoxPreference extends SwitchPreference {
 
     View mView = null;
     OnPreferenceClickListener mOrigClickListener = null;

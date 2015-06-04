@@ -17,7 +17,9 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_font_size_category">
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category_first"
+        android:title="@string/pref_font_size_category">
         <com.android.browser.preferences.FontSizePreview android:title="@string/preview" />
         <com.android.browser.preferences.SeekBarSummaryPreference
             android:defaultValue="10"
@@ -31,7 +33,7 @@
             android:max="20"
             android:title="@string/pref_min_font_size" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:key="force_userscalable"
             android:summary="@string/pref_force_userscalable_summary"

@@ -26,11 +26,9 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.webkit.WebStorage;
 
-import com.android.browser.R;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.mdm.DoNotTrackRestriction;
 import com.android.browser.mdm.ProxyRestriction;
@@ -43,16 +41,14 @@ import com.android.browser.search.SearchEngines;
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.WeakHashMap;
 
 import org.codeaurora.swe.AutoFillProfile;
 import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.GeolocationPermissions;
+import org.codeaurora.swe.PermissionsServiceFactory;
 import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebSettings.LayoutAlgorithm;
-import org.codeaurora.swe.WebSettings.PluginState;
 import org.codeaurora.swe.WebSettings.TextSize;
-import org.codeaurora.swe.WebSettings.ZoomDensity;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebViewDatabase;
@@ -385,9 +381,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
             }
         } else if (PREF_LINK_PREFETCH.equals(key)) {
             updateConnectionType();
-        } else if (PREF_WEB_REFINER_ENABLED.equals(key)) {
-            if (WebRefiner.isInitialized())
-                WebRefiner.getInstance().setRulesEnabled(WebRefiner.CATEGORY_ALL, isWebRefinerEnabled());
         }
     }
 
@@ -755,7 +748,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean blockPopupWindows() {
-        return mPrefs.getBoolean(PREF_BLOCK_POPUP_WINDOWS, true);
+        return !mPrefs.getBoolean(PREF_POPUP_WINDOWS, false);
     }
 
     public boolean loadImages() {
@@ -812,14 +805,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void setPowerSaveModeEnabled(boolean value) {
         mPrefs.edit().putBoolean(PREF_POWERSAVE_ENABLED, value).apply();
-    }
-
-    public boolean isWebRefinerEnabled() {
-        return mPrefs.getBoolean(PREF_WEB_REFINER_ENABLED, true);
-    }
-
-    public void setWebRefinerEnabled(boolean value) {
-        mPrefs.edit().putBoolean(PREF_WEB_REFINER_ENABLED, value).apply();
     }
 
     public boolean isNightModeEnabled() {
@@ -955,7 +940,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean acceptCookies() {
-        return mPrefs.getBoolean(PREF_ACCEPT_COOKIES, true);
+        return PermissionsServiceFactory.getDefaultPermissions(
+                PermissionsServiceFactory.PermissionType.COOKIE);
     }
 
     public boolean saveFormdata() {

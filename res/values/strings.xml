@@ -311,6 +311,7 @@
     <string name="menu_preferences">Settings</string>
     <!-- Settings screen, section title -->
     <string name="pref_content_title">Content settings</string>
+    <string name="pref_content_title_summary">Web content setting</string>
     <!-- Settings label [CHAR LIMIT=45]-->
     <string name="pref_allow_apptabs">Allow multiple tabs per app</string>
     <!-- Settings label -->
@@ -319,6 +320,7 @@
     <string name="pref_content_load_images_summary">Display images on web pages</string>
     <!-- Settings label [CHAR LIMIT=30] -->
     <string name="pref_content_block_popups">Block pop-ups</string>
+    <string name="pref_security_allow_popups">Pop ups</string>
     <!-- Settings label -->
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
@@ -375,6 +377,9 @@
     <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
     <string name="pref_general_title">General</string>
+    <string name="pref_default_site_settings_title">Default Site Settings</string>
+    <string name="pref_site_settings_title">Site Settings</string>
+    <string name="pref_site_settings_info_panel">Security Information</string>
     <!-- Settings category for sync under general settings. This includes bookmark sync with Chrome [CHAR-LIMIT=50] -->
     <string name="pref_general_sync_title">Sync</string>
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
@@ -398,6 +403,8 @@
     <string name="pref_web_refiner_enabled">Web Refiner</string>
     <!-- Settings summary for the WebRefiner -->
     <string name="pref_web_refiner_enabled_summary">Block advertisements and tracking</string>
+    <string name="pref_web_refiner_blocked">Blocked</string>
+    <string name="pref_web_refiner_advertisements">advertisements</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
     <string name="pref_autofill_profile_editor">Auto-fill text</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
@@ -452,6 +459,7 @@
 
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
     <string name="pref_privacy_security_title">Privacy &amp; security</string>
+    <string name="pref_privacy_security_title_summary">Browser security and privacy settings</string>
     <!-- Popup dialog -->
     <string name="pref_select_items">Select items to be cleared</string>
     <!-- Settings label -->
@@ -469,9 +477,9 @@
     <!-- Cookie settings category [CHAR-LIMIT=50] -->
     <string name="pref_privacy_cookies_title">Cookies</string>
     <!-- Settings label -->
-    <string name="pref_privacy_clear_cookies">Cookies</string>
+    <string name="pref_privacy_clear_cookies">Cookies and Site Data</string>
     <!-- Settings summary -->
-    <string name="pref_privacy_clear_cookies_summary">Clear all browser cookies</string>
+    <string name="pref_privacy_clear_cookies_summary">Clear all browser cookies and site data</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_cookies_dlg">Delete all cookies?</string>
     <!-- Settings label -->
@@ -497,7 +505,7 @@
     <!-- Location settings category [CHAR-LIMIT=50] -->
     <string name="pref_privacy_location_title">Location</string>
     <!-- Settings label -->
-    <string name="pref_privacy_enable_geolocation">Enable location</string>
+    <string name="pref_privacy_enable_geolocation">Location</string>
     <!-- Settings summary -->
     <string name="pref_privacy_enable_geolocation_summary">Allow sites to request access to your location</string>
     <!-- Settings label -->
@@ -528,6 +536,22 @@
     <string name="pref_security_accept_cookies">Accept cookies</string>
     <!-- Settings summary -->
     <string name="pref_security_accept_cookies_summary">Allow sites to save and read cookie data</string>
+
+    <string name="pref_security_allow_mic">Microphone</string>
+    <string name="pref_security_allow_camera">Camera</string>
+    <string name="pref_security_web_refiner">Ads and Distracting Content</string>
+    <string name="pref_security_accept_third_party_cookies">Third Party Cookies</string>
+    <string name="pref_security_ask_before_using">Ask before using</string>
+    <string name="pref_security_allowed">Allowed</string>
+    <string name="pref_security_not_allowed">Not allowed</string>
+    <string name="pref_security_remember">Remember</string>
+    <string name="pref_security_protect">Protect by default</string>
+    <string name="pref_website_title">Website</string>
+    <string name="pref_security_add">Add</string>
+    <string name="pref_security_cancel">Cancel</string>
+    <string name="pref_security_origin_name">Site Origin</string>
+    <string name="pref_security_access_is_allowed">access is allowed</string>
+
     <!-- Settings text size options - displays sample font size in settings -->
     <string name="pref_sample_font_size">Drag the slider to adjust the font size to set the desired comfortable reading size.</string>
     <!-- Label for minimum font size [CHAR LIMIT=30] -->
@@ -573,7 +597,7 @@
     <!-- Settings screen, section title [CHAR LIMIT=50] -->
     <string name="pref_extras_title">Advanced</string>
     <!-- Settings label -->
-    <string name="pref_extras_website_settings">Website settings</string>
+    <string name="pref_extras_website_settings">Per Site Settings</string>
     <!-- Settings summary -->
     <string name="pref_extras_website_settings_summary">Advanced settings for individual websites</string>
     <!-- Settings category label [CHAR-LIMIT=50] -->
@@ -675,6 +699,7 @@
 
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
+    <string name="pref_accessibility_title_summary">Text size and zooming</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
     <string name="pref_font_size_category">Text size</string>
     <!-- Title for lab settings [CHAR LIMIT=25] -->
@@ -863,7 +888,8 @@
     <string name="webstorage_outofspace_notification_title">Browser storage full</string>
     <string name="webstorage_outofspace_notification_text">Touch to free up space.</string>
     <!-- Used in the Browser Settings -->
-    <string name="webstorage_clear_data_title">Clear stored data</string>
+    <string name="webstorage_clear_data_title">Storage</string>
+    <string name="webstorage_private_data_title">Private Data</string>
 
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
     <string name="webstorage_clear_data_dialog_message">Delete all data stored by this website?</string>
@@ -894,11 +920,11 @@
         <item>Deny forever</item>
         <item>Allow for 24 hours</item>
         <item>Allow forever</item>
-        <item>Always ask</item>
     </string-array>
     <string name="geolocation_settings_page_dialog_ok_button">OK</string>
     <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
 
+    <string name="website_settings_add_origin">New Site</string>
     <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
     <string name="website_settings_clear_all">Clear all</string>
     <string name="website_settings_clear_all_dialog_message">Delete all website data and location permissions?</string>

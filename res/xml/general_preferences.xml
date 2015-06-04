@@ -16,204 +16,94 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_general_title">
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category_first"
+        android:title="@string/pref_general_title">
         <com.android.browser.preferences.NonformattingListPreference
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_list_widget"
             android:key="homepage_picker"
             android:entries="@array/pref_homepage_choices"
             android:entryValues="@array/pref_homepage_values"
             android:title="@string/pref_content_homepage" />
 
         <com.android.browser.search.SearchEnginePreference
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_list_widget"
             android:defaultValue="@string/default_search_engine_value"
             android:dialogTitle="@string/pref_content_search_engine"
             android:key="search_engine"
             android:summary="@string/pref_content_search_engine_summary"
             android:title="@string/pref_content_search_engine" />
 
-        <CheckBoxPreference
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
             android:defaultValue="false"
             android:key="fullscreen"
             android:summary="@string/pref_lab_fullscreen_summary"
             android:title="@string/pref_lab_fullscreen" />
 
-        <CheckBoxPreference
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
             android:defaultValue="false"
             android:key="powersave_enabled"
             android:summary="@string/pref_powersave_enabled_summary"
             android:title="@string/pref_powersave_enabled" />
 
-        <CheckBoxPreference
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
             android:defaultValue="false"
             android:key="nightmode_enabled"
             android:summary="@string/pref_nightmode_enabled_summary"
             android:title="@string/pref_nightmode_enabled" />
 
-        <CheckBoxPreference
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
             android:key="autofill_enabled"
             android:title="@string/pref_autofill_enabled"
             android:summary="@string/pref_autofill_enabled_summary"
             android:defaultValue="true" />
 
-        <CheckBoxPreference
-            android:key="web_refiner_enabled"
-            android:title="@string/pref_web_refiner_enabled"
-            android:summary="@string/pref_web_refiner_enabled_summary"
-            android:defaultValue="true" />
-
         <PreferenceScreen
+            android:layout="@layout/swe_preference"
             android:key="autofill_profile"
             android:title="@string/pref_autofill_profile_editor"
             android:summary="@string/pref_autofill_profile_editor_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_extras_title"
+        android:layout="@layout/swe_preference_category"
         android:key="advanced">
 
         <PreferenceScreen android:title="@string/pref_privacy_security_title"
-            android:key="privacy_security">
-            <PreferenceScreen android:title="@string/webstorage_clear_data_title"
-                android:key="clear_data">
-                <com.android.browser.BrowserYesNoPreference
-                    android:dialogIcon="@android:drawable/ic_dialog_alert"
-                    android:dialogMessage="@string/pref_privacy_clear_selected_dlg"
-                    android:key="privacy_clear_selected"
-                    android:summary="@string/pref_privacy_clear_selected_summary"
-                    android:title="@string/pref_privacy_clear_selected" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="privacy_clear_history"
-                    android:summary="@string/pref_privacy_clear_history_summary"
-                    android:title="@string/pref_privacy_clear_history" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="privacy_clear_cache"
-                    android:summary="@string/pref_privacy_clear_cache_summary"
-                    android:title="@string/pref_privacy_clear_cache" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="privacy_clear_cookies"
-                    android:summary="@string/pref_privacy_clear_cookies_summary"
-                    android:title="@string/pref_privacy_clear_cookies" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="privacy_clear_form_data"
-                    android:summary="@string/pref_privacy_clear_form_data_summary"
-                    android:title="@string/pref_privacy_clear_form_data" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:key="privacy_clear_passwords"
-                    android:summary="@string/pref_privacy_clear_passwords_summary"
-                    android:title="@string/pref_privacy_clear_passwords" />
-
-                <CheckBoxPreference
-                    android:defaultValue="true"
-                    android:dependency="enable_geolocation"
-                    android:key="privacy_clear_geolocation_access"
-                    android:summary="@string/pref_privacy_clear_geolocation_access_summary"
-                    android:title="@string/pref_privacy_clear_geolocation_access" />
-
-            </PreferenceScreen>
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="show_security_warnings"
-                android:summary="@string/pref_security_show_security_warning_summary"
-                android:title="@string/pref_security_show_security_warning" />
-
-            <com.android.browser.mdm.MdmCheckBoxPreference
-                android:defaultValue="true"
-                android:key="do_not_track"
-                android:summary="@string/pref_do_not_track_summary"
-                android:title="@string/pref_do_not_track" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="accept_cookies"
-                android:summary="@string/pref_security_accept_cookies_summary"
-                android:title="@string/pref_security_accept_cookies" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="save_formdata"
-                android:summary="@string/pref_security_save_form_data_summary"
-                android:title="@string/pref_security_save_form_data" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="enable_geolocation"
-                android:summary="@string/pref_privacy_enable_geolocation_summary"
-                android:title="@string/pref_privacy_enable_geolocation" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="remember_passwords"
-                android:summary="@string/pref_security_remember_passwords_summary"
-                android:title="@string/pref_security_remember_passwords" />
-
-        </PreferenceScreen>
+            android:summary="@string/pref_privacy_security_title_summary"
+            android:layout="@layout/swe_preference"
+            android:key="privacy_security" />
 
         <PreferenceScreen
+            android:layout="@layout/swe_preference"
             android:key="accessibility_menu"
-            android:title="@string/pref_accessibility_title" />
+            android:summary="@string/pref_accessibility_title_summary"
+            android:title="@string/pref_accessibility_title"/>
 
 
         <PreferenceScreen android:title="@string/pref_content_title"
-            android:key="content_settings">
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="block_popup_windows"
-                android:title="@string/pref_content_block_popups" />
-
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:key="open_in_background"
-                android:summary="@string/pref_content_open_in_background_summary"
-                android:title="@string/pref_content_open_in_background" />
-
-            <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="enable_javascript"
-                android:title="@string/pref_content_javascript" />
-
-            <PreferenceScreen
-                android:key="download_path_setting_screen"
-                android:title="@string/pref_download_path_setting_screen_title"/>
-
-            <ListPreference
-                android:defaultValue="@string/pref_default_text_encoding_default"
-                android:dialogTitle="@string/pref_default_text_encoding_dialogtitle"
-                android:entries="@array/pref_default_text_encoding_choices"
-                android:entryValues="@array/pref_default_text_encoding_values"
-                android:key="default_text_encoding"
-                android:title="@string/pref_default_text_encoding" />
-
-            <CheckBoxPreference
-                android:key="load_images"
-                android:defaultValue="true"
-                android:title="@string/pref_content_load_images"
-                android:summary="@string/pref_content_load_images_summary" />
-
-        </PreferenceScreen>
-
-
-        <PreferenceScreen
-            android:key="website_settings"
-            android:summary="@string/pref_extras_website_settings_summary"
-            android:title="@string/pref_extras_website_settings" />
+            android:summary="@string/pref_content_title_summary"
+            android:layout="@layout/swe_preference"
+            android:key="content_settings" />
 
         <ListPreference
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_list_widget"
             android:dialogTitle="@string/pref_edge_swipe_option_msg"
             android:entries="@array/pref_edge_swiping_choices"
             android:entryValues="@array/pref_edge_swiping_values"
+            android:summary="%s"
             android:key="edge_swiping_action"
             android:title="@string/pref_edge_swipe_title" />
 
         <com.android.browser.BrowserYesNoPreference
+            android:layout="@layout/swe_preference"
             android:key="reset_default_preferences"
             android:title="@string/pref_extras_reset_default"
             android:summary="@string/pref_extras_reset_default_summary"
@@ -221,6 +111,7 @@
             android:dialogIcon="@android:drawable/ic_dialog_alert" />
 
         <PreferenceScreen
+            android:layout="@layout/swe_preference"
             android:key="debug_menu"
             android:title="@string/pref_development_title" />
     </PreferenceCategory>

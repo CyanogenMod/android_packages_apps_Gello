@@ -20,13 +20,10 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceFragment;
 
-import com.android.browser.BrowserSettings;
-import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
-public class DebugPreferencesFragment extends PreferenceFragment
+public class DebugPreferencesFragment extends SWEPreferenceFragment
         implements OnPreferenceClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {

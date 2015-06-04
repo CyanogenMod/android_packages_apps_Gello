@@ -733,7 +733,7 @@ public abstract class BaseUi implements UI {
             // See http://b/5403800
             d = getLockIconMixed();
         }
-        mNavigationBar.setLock(d);
+        mNavigationBar.setLock(d, securityState);
     }
 
     protected void setUrlTitle(Tab tab) {

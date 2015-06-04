@@ -25,6 +25,8 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 class BrowserYesNoPreference extends DialogPreference {
     private SharedPreferences mPrefs;
@@ -35,6 +37,31 @@ class BrowserYesNoPreference extends DialogPreference {
         super(context, attrs);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         mContext = context;
+    }
+
+    @Override
+    protected View onCreateView(ViewGroup group) {
+        View child = super.onCreateView(group);
+        View titleView = child.findViewById(android.R.id.title);
+        if (titleView instanceof Button) {
+            Button btn = (Button) titleView;
+            final BrowserYesNoPreference pref = this;
+            btn.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            pref.onClick();
+                        }
+                    }
+            );
+        }
+
+        return child;
+    }
+
+    @Override
+    protected void onClick() {
+        super.onClick();
     }
 
     @Override

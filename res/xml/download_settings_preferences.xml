@@ -31,9 +31,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory
-       android:title="@string/pref_download_title"
-       android:key="download_path_setting_category">
-         <PreferenceScreen
+        android:layout="@layout/swe_preference_category_first"
+        android:title="@string/pref_download_title"
+        android:key="download_path_setting_category">
+        <PreferenceScreen
                android:key="download_path_setting_screen"
                android:title="@string/pref_download_path_setting_screen_title"/>
 

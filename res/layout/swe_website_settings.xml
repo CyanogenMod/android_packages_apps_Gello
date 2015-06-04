@@ -30,12 +30,27 @@
         android:clipToPadding="false"
         android:drawSelectorOnTop="false"
         android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-    <Button android:id="@+id/clear_all_button"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button android:id="@+id/add_new_site"
+                android:layout_width="150dip"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:text="@string/website_settings_add_origin"
+                android:visibility="gone" />
+
+        <Button android:id="@+id/clear_all_button"
             android:layout_width="150dip"
             android:layout_height="wrap_content"
             android:layout_margin="5dip"
             android:text="@string/website_settings_clear_all"
             android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

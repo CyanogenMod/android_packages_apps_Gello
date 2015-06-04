@@ -15,14 +15,21 @@
  */
 package com.android.browser;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.net.http.SslCertificate;
+import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,14 +47,19 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.android.browser.R;
 import com.android.browser.UrlInputView.UrlInputListener;
+import com.android.browser.preferences.SiteSpecificPreferencesFragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import org.codeaurora.swe.Engine;
+import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.util.ColorUtils;
 
 public class NavigationBarBase extends LinearLayout implements
         OnClickListener, UrlInputListener, OnFocusChangeListener,
@@ -61,6 +73,8 @@ public class NavigationBarBase extends LinearLayout implements
     protected UiController mUiController;
     protected UrlInputView mUrlInput;
 
+    protected ImageView mFaviconBadge;
+
     private ImageView mFavicon;
     private ImageView mLockIcon;
 
@@ -68,6 +82,11 @@ public class NavigationBarBase extends LinearLayout implements
     private PopupMenu mPopupMenu;
     private boolean mOverflowMenuShowing;
     private boolean mNeedsMenu;
+
+    private int mStatusBarColor;
+    private static int mDefaultStatusBarColor = -1;
+
+    private Tab.SecurityState mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -94,6 +113,7 @@ public class NavigationBarBase extends LinearLayout implements
         mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
+        mFaviconBadge = (ImageView) findViewById(R.id.favicon_badge);
     }
 
     public void setTitleBar(TitleBar titleBar) {
@@ -103,7 +123,22 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.setController(mUiController);
     }
 
-    public void setLock(Drawable d) {
+    public void setLock(Drawable d, Tab.SecurityState securityState) {
+        mSecurityState = securityState;
+        switch (mSecurityState) {
+            case SECURITY_STATE_SECURE:
+                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_good);
+                break;
+            case SECURITY_STATE_MIXED:
+                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_warning);
+                break;
+            case SECURITY_STATE_BAD_CERTIFICATE:
+                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_severe);
+                break;
+            case SECURITY_STATE_NOT_SECURE:
+            default:
+                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
+        }
         if (mLockIcon == null) return;
         if (d == null) {
             mLockIcon.setVisibility(View.GONE);
@@ -113,9 +148,155 @@ public class NavigationBarBase extends LinearLayout implements
         }
     }
 
+    public static int adjustColor(int color, float hueMultiplier,
+                                   float saturationMultiplier, float valueMultiplier) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[0] *= hueMultiplier;
+        hsv[1] *= saturationMultiplier;
+        hsv[2] *= valueMultiplier;
+        return Color.HSVToColor(Color.alpha(color), hsv);
+    }
+
+    public static void setStatusAndNavigationBarColor(final Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int currentColor = activity.getWindow().getStatusBarColor();
+            Integer from = currentColor;
+            Integer to = color;
+            ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), from, to);
+
+            if (mDefaultStatusBarColor == -1) {
+                mDefaultStatusBarColor = activity.getWindow().getStatusBarColor();
+            }
+
+            animator.addUpdateListener(
+                    new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            Integer value = (Integer) animation.getAnimatedValue();
+                            activity.getWindow().setStatusBarColor(value.intValue());
+                            //activity.getWindow().setNavigationBarColor(value.intValue());
+                        }
+                    }
+            );
+            animator.start();
+        }
+    }
+
+    private void updateSiteIconColor(String urlString, int color) {
+        try {
+            URL url = new URL(urlString);
+            String host = url.getHost();
+            SharedPreferences prefs = BrowserSettings.getInstance().getPreferences();
+            int currentColor = prefs.getInt(host + ":color", 0);
+            if (currentColor != color) {
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.remove(host + ":color");
+                editor.putInt(host + ":color", color);
+                editor.commit();
+            }
+        } catch (MalformedURLException e) {
+        }
+    }
+
+    public static int getSiteIconColor(String urlString) {
+        try {
+            URL url = new URL(urlString);
+            String host = url.getHost();
+            SharedPreferences prefs = BrowserSettings.getInstance().getPreferences();
+            return prefs.getInt(host + ":color", 0);
+        } catch (MalformedURLException e) {
+            return 0;
+        }
+    }
+
+    public static int getDefaultStatusBarColor() {
+        return mDefaultStatusBarColor;
+    }
+
     public void setFavicon(Bitmap icon) {
+        int color = ColorUtils.getDominantColorForBitmap(icon);
+        Tab tab = mUiController.getCurrentTab();
+
+        if (tab != null) {
+            if (tab.hasFavicon()) {
+                updateSiteIconColor(tab.getUrl(), color);
+                setStatusAndNavigationBarColor(mUiController.getActivity(),
+                        adjustColor(color, 1, 1, 0.7f));
+            } else {
+                color = getSiteIconColor(tab.getUrl());
+                if (color != 0) {
+                    setStatusAndNavigationBarColor(mUiController.getActivity(),
+                            adjustColor(color, 1, 1, 0.7f));
+                } else {
+                    setStatusAndNavigationBarColor(mUiController.getActivity(),
+                            mDefaultStatusBarColor);
+                }
+            }
+        } else {
+            setStatusAndNavigationBarColor(mUiController.getActivity(), mDefaultStatusBarColor);
+        }
+
         if (mFavicon == null) return;
         mFavicon.setImageDrawable(mBaseUi.getFaviconDrawable(icon));
+    }
+
+    protected void showSiteSpecificSettings() {
+        WebView wv = mUiController.getCurrentTopWebView();
+        int count = 0;
+
+        if (wv != null && WebRefiner.getInstance() != null) {
+            count = WebRefiner.getInstance().getBlockedURLCount(wv);
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putCharSequence(SiteSpecificPreferencesFragment.EXTRA_SITE,
+                mUiController.getCurrentTab().getUrl());
+        bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_INFO, count);
+
+        bundle.putParcelable(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT,
+                SslCertificate.saveState(wv.getCertificate()));
+
+        SslError error = mUiController.getCurrentTab().getSslCertificateError();
+        if (error != null) {
+            int certError = 0;
+            if (error.hasError(SslError.SSL_DATE_INVALID)) {
+                certError |= (1 << SslError.SSL_DATE_INVALID);
+            }
+
+            if (error.hasError(SslError.SSL_EXPIRED)) {
+                certError |= (1 << SslError.SSL_EXPIRED);
+            }
+
+            if (error.hasError(SslError.SSL_IDMISMATCH)) {
+                certError |= (1 << SslError.SSL_IDMISMATCH);
+            }
+
+            if (error.hasError(SslError.SSL_INVALID)) {
+                certError |= (1 << SslError.SSL_INVALID);
+            }
+
+            if (error.hasError(SslError.SSL_NOTYETVALID)) {
+                certError |= (1 << SslError.SSL_NOTYETVALID);
+            }
+
+            if (error.hasError(SslError.SSL_UNTRUSTED)) {
+                certError |= (1 << SslError.SSL_UNTRUSTED);
+            }
+
+            bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT_ERR, certError);
+        }
+
+        Bitmap favicon = mUiController.getCurrentTab().getFavicon();
+        if (favicon != null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            favicon.compress(Bitmap.CompressFormat.PNG, 50, baos);
+            bundle.putByteArray(SiteSpecificPreferencesFragment.EXTRA_FAVICON,
+                    baos.toByteArray());
+        }
+        BrowserPreferencesPage.startPreferenceFragmentExtraForResult(
+                mUiController.getActivity(),
+                SiteSpecificPreferencesFragment.class.getName(), bundle, 0);
     }
 
     @Override
@@ -422,6 +603,8 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void onProgressStarted() {
+        mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
+        mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
     }
 
     public void onProgressStopped() {

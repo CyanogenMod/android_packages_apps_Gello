@@ -17,13 +17,16 @@ package com.android.browser;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
+import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.Activator;
@@ -32,6 +35,10 @@ import org.codeaurora.swe.util.Observable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.browser.UrlInputView.StateListener;
+import com.android.browser.preferences.AboutPreferencesFragment;
+import com.android.browser.preferences.SiteSpecificPreferencesFragment;
+
+import java.io.ByteArrayOutputStream;
 
 public class NavigationBarPhone extends NavigationBarBase implements
         StateListener {
@@ -149,6 +156,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
                 mStopButton.setVisibility(View.VISIBLE);
             }
         }*/
+        mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
         mNotificationCounter.setVisibility(View.INVISIBLE);
         mHandler.removeMessages(MSG_UPDATE_NOTIFICATION_COUNTER);
         mHandler.sendEmptyMessageDelayed(MSG_UPDATE_NOTIFICATION_COUNTER, NOTIFICATION_COUNTER_UPDATE_DELAY);
@@ -207,7 +215,7 @@ public class NavigationBarPhone extends NavigationBarBase implements
         } else if (mClearButton == v) {
             mUrlInput.setText("");
         } else if (mComboIcon == v) {
-            mUiController.showPageInfo();
+            showSiteSpecificSettings();
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else {

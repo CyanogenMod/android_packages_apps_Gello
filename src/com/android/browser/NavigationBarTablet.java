@@ -25,6 +25,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,6 +34,12 @@ import android.widget.ImageView;
 
 import com.android.browser.UI.ComboViews;
 import com.android.browser.UrlInputView.StateListener;
+import com.android.browser.preferences.SiteSpecificPreferencesFragment;
+
+import org.codeaurora.swe.WebRefiner;
+import org.codeaurora.swe.WebView;
+
+import java.io.ByteArrayOutputStream;
 
 public class NavigationBarTablet extends NavigationBarBase implements StateListener {
 
@@ -105,6 +112,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
         mVoiceButton.setOnClickListener(this);
         mUrlInput.setContainer(mUrlContainer);
         mUrlInput.setStateListener(this);
+        mUrlIcon.setOnClickListener(this);
     }
 
     public void onConfigurationChanged(Configuration config) {
@@ -171,6 +179,8 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             clearOrClose();
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
+        } else if (mUrlIcon == v) {
+            showSiteSpecificSettings();
         } else {
             super.onClick(v);
         }
@@ -188,6 +198,7 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
 
     @Override
     public void setFavicon(Bitmap icon) {
+        super.setFavicon(icon);
         mFaviconDrawable = mBaseUi.getFaviconDrawable(icon);
         updateUrlIcon();
     }

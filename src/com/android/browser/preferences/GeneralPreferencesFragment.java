@@ -30,7 +30,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -52,7 +51,7 @@ import com.android.browser.mdm.DoNotTrackRestriction;
 import com.android.browser.mdm.MdmCheckBoxPreference;
 import com.android.browser.mdm.SearchEngineRestriction;
 
-public class GeneralPreferencesFragment extends PreferenceFragment
+public class GeneralPreferencesFragment extends SWEPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     static final String TAG = "GeneralPreferencesFragment";
@@ -112,7 +111,7 @@ public class GeneralPreferencesFragment extends PreferenceFragment
         DoNotTrackRestriction.getInstance().registerPreference(dntPref);
 
         mAdvFrag = new AdvancedPreferencesFragment(this);
-        mPrivFrag = new PrivacySecurityPreferencesFragment(this);
+        //mPrivFrag = new PrivacySecurityPreferencesFragment(this);
     }
 
     @Override

@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
@@ -36,6 +37,7 @@ import android.view.ViewStub;
 import android.webkit.WebChromeClient;
 
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.util.ColorUtils;
 
 import com.android.browser.R;
 
@@ -266,6 +268,13 @@ public class XLargeUi extends BaseUi {
     public void setFavicon(Tab tab) {
         super.setFavicon(tab);
         mTabBar.onFavicon(tab, tab.getFavicon());
+        if (mActiveTab == tab) {
+            int color = NavigationBarBase.getSiteIconColor(tab.getUrl());
+            if (tab.hasFavicon()) {
+                color = ColorUtils.getDominantColorForBitmap(tab.getFavicon());
+            }
+            mActionBar.setBackgroundDrawable(new ColorDrawable(color));
+        }
     }
 
     @Override

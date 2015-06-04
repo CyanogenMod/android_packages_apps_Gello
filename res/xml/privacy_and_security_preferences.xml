@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2015, The Linux Foundation. All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above
+          copyright notice, this list of conditions and the following
+          disclaimer in the documentation and/or other materials provided
+          with the distribution.
+        * Neither the name of The Linux Foundation nor the names of its
+          contributors may be used to endorse or promote products derived
+          from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+    ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+    BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+    BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category_first"
+        android:title="@string/pref_general_title">
+        <com.android.browser.mdm.MdmCheckBoxPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:key="do_not_track"
+            android:summaryOn="@string/pref_security_protect"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_do_not_track" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:key="remember_passwords"
+            android:summaryOn="@string/pref_security_remember"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_remember_passwords" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:key="save_formdata"
+            android:summaryOn="@string/pref_security_remember"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_save_form_data" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:key="accept_third_cookies"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_accept_third_party_cookies" />
+
+        <PreferenceScreen android:title="@string/webstorage_private_data_title"
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_storage_widget"
+            >
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="privacy_clear_history"
+                android:summary="@string/pref_privacy_clear_history_summary"
+                android:title="@string/pref_privacy_clear_history" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="privacy_clear_cache"
+                android:summary="@string/pref_privacy_clear_cache_summary"
+                android:title="@string/pref_privacy_clear_cache" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="privacy_clear_cookies"
+                android:summary="@string/pref_privacy_clear_cookies_summary"
+                android:title="@string/pref_privacy_clear_cookies" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="privacy_clear_form_data"
+                android:summary="@string/pref_privacy_clear_form_data_summary"
+                android:title="@string/pref_privacy_clear_form_data" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="privacy_clear_passwords"
+                android:summary="@string/pref_privacy_clear_passwords_summary"
+                android:title="@string/pref_privacy_clear_passwords" />
+
+            <CheckBoxPreference
+                android:defaultValue="true"
+                android:dependency="enable_geolocation"
+                android:key="privacy_clear_geolocation_access"
+                android:summary="@string/pref_privacy_clear_geolocation_access_summary"
+                android:title="@string/pref_privacy_clear_geolocation_access" />
+
+            <com.android.browser.BrowserYesNoPreference
+                android:layout="@layout/swe_preference_button"
+                android:dialogIcon="@android:drawable/ic_dialog_alert"
+                android:dialogMessage="@string/pref_privacy_clear_selected_dlg"
+                android:key="privacy_clear_selected"
+                android:summary="@string/pref_privacy_clear_selected_summary"
+                android:title="@string/pref_privacy_clear_selected" />
+
+        </PreferenceScreen>
+
+        <PreferenceScreen
+            android:layout="@layout/swe_preference"
+            android:key="website_settings"
+            android:summary="@string/pref_extras_website_settings_summary"
+            android:title="@string/pref_extras_website_settings" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category"
+        android:title="@string/pref_default_site_settings_title">
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_location"
+            android:key="enable_geolocation"
+            android:summaryOn="@string/pref_security_ask_before_using"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_privacy_enable_geolocation" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_microphone"
+            android:key="microphone"
+            android:summaryOn="@string/pref_security_ask_before_using"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_mic" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_camera"
+            android:key="camera"
+            android:summaryOn="@string/pref_security_ask_before_using"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_camera" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sp_webrefiner"
+            android:key="distracting_contents"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_web_refiner" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sp_popups"
+            android:key="popup_windows"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_popups" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_thirdcookies"
+            android:key="accept_cookies"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_accept_cookies" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

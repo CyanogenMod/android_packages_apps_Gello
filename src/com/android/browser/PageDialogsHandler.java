@@ -353,23 +353,17 @@ public class PageDialogsHandler {
         return (View)ReflectHelper.invokeMethod(certificate, "inflateCertificateView",type, params);
     }
 
-    /*
-     * Creates an AlertDialog to display the given certificate. If error is
-     * null, text is added to state that the certificae is valid and the icon
-     * is set accordingly. If error is non-null, it must relate to the supplied
-     * certificate. In this case, error is used to add text describing the
-     * problems with the certificate and a different icon is used.
-     */
-    private AlertDialog.Builder createSslCertificateDialog(SslCertificate certificate,
-            SslError error) {
-        View certificateView = inflateCertificateView(certificate, mContext);
+    public static AlertDialog.Builder createSslCertificateDialog(Context ctx,
+                                                                 SslCertificate certificate,
+                                                                 SslError error) {
+        View certificateView = inflateCertificateView(certificate, ctx);
         Resources res = Resources.getSystem();
         // load 'android.R.placeholder' via introspection, since it's not a public resource ID
         int placeholder_id = res.getIdentifier("placeholder", "id", "android");
         final LinearLayout placeholder =
                 (LinearLayout)certificateView.findViewById(placeholder_id);
 
-        LayoutInflater factory = LayoutInflater.from(mContext);
+        LayoutInflater factory = LayoutInflater.from(ctx);
         int iconId;
 
         if (error == null) {
@@ -407,13 +401,25 @@ public class PageDialogsHandler {
             }
         }
 
-        return new AlertDialog.Builder(mContext)
+        return new AlertDialog.Builder(ctx)
                 .setTitle(R.string.ssl_certificate)
                 .setIcon(iconId)
                 .setView(certificateView);
     }
 
-    private void addError(LayoutInflater inflater, LinearLayout parent, int error) {
+    /*
+     * Creates an AlertDialog to display the given certificate. If error is
+     * null, text is added to state that the certificae is valid and the icon
+     * is set accordingly. If error is non-null, it must relate to the supplied
+     * certificate. In this case, error is used to add text describing the
+     * problems with the certificate and a different icon is used.
+     */
+    private AlertDialog.Builder createSslCertificateDialog(SslCertificate certificate,
+            SslError error) {
+        return createSslCertificateDialog(mContext, certificate, error);
+    }
+
+    private static void addError(LayoutInflater inflater, LinearLayout parent, int error) {
         TextView textView = (TextView) inflater.inflate(R.layout.ssl_warning,
                 parent, false);
         textView.setText(error);

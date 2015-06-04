@@ -18,10 +18,8 @@ package com.android.browser.preferences;
 
 import android.app.ActionBar;
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.util.Log;
 
 import com.android.browser.BrowserSettings;
@@ -30,7 +28,7 @@ import com.android.browser.R;
 
 import java.text.NumberFormat;
 
-public class AccessibilityPreferencesFragment extends PreferenceFragment
+public class AccessibilityPreferencesFragment extends SWEPreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     NumberFormat mFormat;
