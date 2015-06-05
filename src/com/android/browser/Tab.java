@@ -275,13 +275,12 @@ class Tab implements PictureListener {
     }
 
     public int getCaptureIndex(int navIndex) {
-        int tabPosition = mWebViewController.getTabControl().getCurrentPosition();
         int orientation = mWebViewController.getActivity().
                 getResources().getConfiguration().orientation;
 
         int orientationBit = (orientation == Configuration.ORIENTATION_LANDSCAPE) ? 0 : 1;
 
-        int index = orientationBit << 31 | ((tabPosition & 0x7f) << 24) | (navIndex & 0xffffff);
+        int index = orientationBit << 31 | (((int)mId & 0x7f) << 24) | (navIndex & 0xffffff);
         return index;
     }
 
