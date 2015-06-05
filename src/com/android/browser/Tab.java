@@ -1676,8 +1676,6 @@ class Tab implements PictureListener {
     }
 
     String getOriginalUrl() {
-        if (mMainView != null)
-            return mMainView.getOriginalUrl();
         if (mCurrentState.mOriginalUrl == null) {
             return getUrl();
         }
