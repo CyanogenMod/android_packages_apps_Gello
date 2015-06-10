@@ -152,6 +152,8 @@
     <string name="pref_sample_font_size">"拖动该滑块，将文字调整到适合您阅读的大小。点按两次某段落后，文字至少应该显示为这样的字体大小。"</string>
     <string name="pref_powersave_enabled">"省电模式"</string>
     <string name="pref_powersave_enabled_summary">"开启省电模式"</string>
+    <string name="pref_nightmode_enabled">"夜间模式"</string>
+    <string name="pref_nightmode_enabled_summary">"开启夜间模式"</string>
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"始终启用（打开）"</item>

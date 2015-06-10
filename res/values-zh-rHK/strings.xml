@@ -146,6 +146,8 @@
     <string name="pref_memory_monitor">啟用記憶體監察器</string>
     <string name="pref_powersave_enabled">"省電模式"</string>
     <string name="pref_powersave_enabled_summary">"開啟省電模式"</string>
+    <string name="pref_nightmode_enabled">"夜間模式"</string>
+    <string name="pref_nightmode_enabled_summary">"開啟夜間模式"</string>
     <string name="pref_allow_media_downloads">"允許多媒體下載"</string>
 
     <string name="version">版本</string>

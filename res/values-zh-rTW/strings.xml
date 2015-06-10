@@ -140,6 +140,8 @@
     <!-- Custom Translations -->
     <string name="pref_powersave_enabled">"省電模式"</string>
     <string name="pref_powersave_enabled_summary">"開啟省電模式"</string>
+    <string name="pref_nightmode_enabled">"夜間模式"</string>
+    <string name="pref_nightmode_enabled_summary">"開啟夜間模式"</string>
 
   <string-array name="pref_content_plugins_choices">
     <item msgid="6745108155096660725">"永遠開啟"</item>
