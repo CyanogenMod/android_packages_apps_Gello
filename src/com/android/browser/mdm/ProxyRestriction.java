@@ -62,7 +62,7 @@ public class ProxyRestriction extends Restriction implements PreferenceKeys {
     private static ProxyRestriction sInstance;
 
     private ProxyRestriction() {
-        super();
+        super(TAG);
     }
 
     public static ProxyRestriction getInstance() {

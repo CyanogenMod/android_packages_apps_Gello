@@ -23,4 +23,5 @@ public class BrowserBookmarksAdapterItem {
     public BitmapDrawable thumbnail;
     public boolean has_thumbnail;
     public boolean is_folder;
+    public boolean is_mdm_managed;
 }

@@ -31,6 +31,7 @@
 package com.android.browser.mdm;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import org.codeaurora.swe.util.Activator;
 import org.codeaurora.swe.util.Observable;
@@ -44,8 +45,10 @@ public abstract class Restriction {
 
     private boolean mEnabled = false;
 
-    public Restriction() {
+    public Restriction(String s) {
         // Register observer for restrictions
+        Log.i("+++", "["+ s + "] is registering it's observer");
+        doCustomInit();
         Activator.activate(new Observable.Observer() {
             @Override
             public void onChange(Object... params) {
@@ -65,5 +68,7 @@ public abstract class Restriction {
     }
 
     abstract public void enforce(Bundle restrictions);
+
+    protected void doCustomInit() {}
 }
 

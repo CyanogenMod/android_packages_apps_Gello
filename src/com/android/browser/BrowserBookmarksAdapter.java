@@ -19,6 +19,7 @@ package com.android.browser;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
-import com.android.browser.R;
+import com.android.browser.mdm.ManagedBookmarksRestriction;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
 import com.android.browser.util.ThreadedCursorAdapter;
 import com.android.browser.view.BookmarkContainer;
@@ -35,6 +36,7 @@ import com.android.browser.view.BookmarkThumbImageView;
 public class BrowserBookmarksAdapter extends
         ThreadedCursorAdapter<BrowserBookmarksAdapterItem> {
 
+    private static final String TAG = "BrowserBookmarksAdapter";
     LayoutInflater mInflater;
     Context mContext;
 
@@ -85,19 +87,50 @@ public class BrowserBookmarksAdapter extends
                 padding, view.getPaddingBottom());
         BookmarkThumbImageView thumb = (BookmarkThumbImageView) view.findViewById(R.id.thumb_image);
         TextView tv = (TextView) view.findViewById(R.id.label);
+        float badgeScale = 0.8f;
 
         tv.setText(item.title);
         if (item.is_folder) {
             // folder
-            thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
-            thumb.setScaleType(ScaleType.FIT_END);
+            if(item.is_mdm_managed) {
+                // build a bitmap that has the mdm badge overlaid
+                Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.thumb_bookmark_widget_folder_holo);
+                Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
+                thumb.setmAdjustDown(false);
+                thumb.setScaleType(ScaleType.CENTER_INSIDE);
+                thumb.setImageBitmap(bm);
+            }
+            else {
+                thumb.setmAdjustDown(true);
+                thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
+                thumb.setScaleType(ScaleType.FIT_END);
+            }
             thumb.setBackground(null);
         } else {
             if (item.thumbnail == null || !item.has_thumbnail) {
-                thumb.setScaleType(ScaleType.CENTER_CROP);
-                thumb.setImageResource(R.drawable.browser_thumbnail);
+                if(item.is_mdm_managed) {
+                    Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.browser_thumbnail);
+                    Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
+                    thumb.setmAdjustDown(false);
+                    thumb.setScaleType(ScaleType.CENTER_INSIDE);
+                    thumb.setImageBitmap(bm);
+                }
+                else {
+                    thumb.setmAdjustDown(true);
+                    thumb.setScaleType(ScaleType.CENTER_CROP);
+                    thumb.setImageResource(R.drawable.browser_thumbnail);
+                }
             } else {
-                thumb.setImageDrawable(item.thumbnail);
+                if (item.is_mdm_managed) {
+                    Bitmap b = item.thumbnail.getBitmap();
+                    Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
+                    thumb.setmAdjustDown(false);
+                    thumb.setScaleType(ScaleType.CENTER_INSIDE);
+                    thumb.setImageBitmap(bm);
+                } else {
+                    thumb.setmAdjustDown(true);
+                    thumb.setImageDrawable(item.thumbnail);
+                }
             }
         }
     }
@@ -119,6 +152,7 @@ public class BrowserBookmarksAdapter extends
         item.is_folder = c.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
         item.title = getTitle(c);
         item.url = c.getString(BookmarksLoader.COLUMN_INDEX_URL);
+        item.is_mdm_managed = ManagedBookmarksRestriction.getInstance().mDb.isMdmElement(getItemId(c));
         return item;
     }
 

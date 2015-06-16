@@ -41,7 +41,7 @@ public class URLFilterRestriction extends Restriction {
     private static URLFilterRestriction sInstance;
 
     private URLFilterRestriction() {
-        super();
+        super(TAG);
     }
 
     public static URLFilterRestriction getInstance() {

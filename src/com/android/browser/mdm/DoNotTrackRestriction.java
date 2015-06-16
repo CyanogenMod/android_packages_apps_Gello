@@ -48,7 +48,7 @@ public class DoNotTrackRestriction extends Restriction implements PreferenceKeys
     private MdmCheckBoxPreference mPref = null;
 
     private DoNotTrackRestriction() {
-        super();
+        super(TAG);
     }
 
     public static DoNotTrackRestriction getInstance() {

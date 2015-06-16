@@ -48,7 +48,7 @@ public class IncognitoRestriction extends Restriction {
     private ArrayList<Drawable> registeredDrawables;
 
     private IncognitoRestriction() {
-        super();
+        super(TAG);
         registeredViews = new ArrayList<>();
         registeredDrawables = new ArrayList<>();
     }

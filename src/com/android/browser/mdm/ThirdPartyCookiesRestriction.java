@@ -46,7 +46,7 @@ public class ThirdPartyCookiesRestriction extends Restriction {
     private boolean mTpcValue;
 
     private ThirdPartyCookiesRestriction() {
-        super();
+        super(TAG);
     }
 
     public static ThirdPartyCookiesRestriction getInstance() {

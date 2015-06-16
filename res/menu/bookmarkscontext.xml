@@ -38,9 +38,9 @@
     android:visible="false">
     <item android:id="@+id/new_window_context_menu_id"
       android:title="@string/open_all_in_new_window"/>
-    <item android:id="@+id/edit_context_menu_id"
+    <item android:id="@+id/folder_edit_context_menu_id"
       android:title="@string/edit_folder"/>
-    <item android:id="@+id/delete_context_menu_id"
+    <item android:id="@+id/folder_delete_context_menu_id"
       android:title="@string/delete_folder"/>
   </group>
 </menu>

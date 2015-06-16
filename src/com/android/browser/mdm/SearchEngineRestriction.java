@@ -53,7 +53,7 @@ public class SearchEngineRestriction extends Restriction implements PreferenceKe
     private SearchEngineInfo mSearchEngineInfo;
 
     private SearchEngineRestriction() {
-        super();
+        super(TAG);
     }
 
     public static SearchEngineRestriction getInstance() {

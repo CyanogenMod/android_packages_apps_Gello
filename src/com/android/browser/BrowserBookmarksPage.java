@@ -34,13 +34,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +51,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
-import com.android.browser.R;
+import com.android.browser.mdm.ManagedBookmarksRestriction;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.Accounts;
 import com.android.browser.provider.BrowserProvider2;
@@ -77,6 +78,8 @@ interface BookmarksPageCallbacks {
 public class BrowserBookmarksPage extends Fragment implements View.OnCreateContextMenuListener,
         LoaderManager.LoaderCallbacks<Cursor>, BreadCrumbView.Controller,
         OnChildClickListener {
+
+    private static final String TAG = "BrowserBookmarksPage";
 
     public static class ExtraDragState {
         public int childPosition;
@@ -196,6 +199,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         case R.id.open_context_menu_id:
             loadUrl(adapter, childPosition);
             break;
+        case R.id.folder_edit_context_menu_id:
         case R.id.edit_context_menu_id:
             editBookmark(adapter, childPosition);
             break;
@@ -203,6 +207,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             Cursor c = adapter.getItem(childPosition);
             activity.sendBroadcast(createShortcutIntent(getActivity(), c));
             break;
+        case R.id.folder_delete_context_menu_id:
         case R.id.delete_context_menu_id:
             displayRemoveBookmarkDialog(adapter, childPosition);
             break;
@@ -287,21 +292,31 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         }
         boolean isFolder
                 = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
+        boolean isMdmElem = ManagedBookmarksRestriction.getInstance().mDb.
+                isMdmElement(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
 
         final Activity activity = getActivity();
         MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.bookmarkscontext, menu);
         if (isFolder) {
             menu.setGroupVisible(R.id.FOLDER_CONTEXT_MENU, true);
+            if(isMdmElem) {
+                menu.findItem(R.id.folder_edit_context_menu_id).setEnabled(false);
+                menu.findItem(R.id.folder_delete_context_menu_id).setEnabled(false);
+            }
         } else {
             menu.setGroupVisible(R.id.BOOKMARK_CONTEXT_MENU, true);
             if (mDisableNewWindow) {
                 menu.findItem(R.id.new_window_context_menu_id).setVisible(false);
             }
+            if(isMdmElem) {
+                menu.findItem(R.id.edit_context_menu_id).setEnabled(false);
+                menu.findItem(R.id.delete_context_menu_id).setEnabled(false);
+            }
         }
         BookmarkItem header = new BookmarkItem(activity);
         header.setEnableScrolling(true);
-        populateBookmarkItem(cursor, header, isFolder);
+        populateBookmarkItem(cursor, header, isFolder, isMdmElem);
         menu.setHeaderView(header);
 
         int count = menu.size();
@@ -316,12 +331,71 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 || type == BrowserContract.Bookmarks.BOOKMARK_TYPE_FOLDER;
     }
 
-    private void populateBookmarkItem(Cursor cursor, BookmarkItem item, boolean isFolder) {
+    public static Bitmap overlayBookmarkBitmap(Bitmap origImage, int overlayResId, Context context,
+                                               float overlayScaleFactor) {
+        if (origImage == null) {
+            Log.e(TAG, "Orig Image is null!");
+            return origImage;
+        }
+        // Get metrics for incoming bitmap
+        int origWidth = origImage.getWidth();
+        int origHeight = origImage.getHeight();
+
+        // Load the bitmap for the badge
+        Bitmap srcOverlay = BitmapFactory.decodeResource(context.getResources(), overlayResId);
+
+        if (srcOverlay == null) {
+            Log.e(TAG, "Overlay bitmap creation failed");
+            return origImage;
+        }
+
+        // Scale the badge
+        float fx = (float) srcOverlay.getWidth()  * overlayScaleFactor;
+        float fy = (float) srcOverlay.getHeight() * overlayScaleFactor;
+        Bitmap scaledOverlay = Bitmap.createScaledBitmap(srcOverlay, (int) fx, (int) fy, true);
+        if (scaledOverlay == null) {
+            srcOverlay.recycle();
+            Runtime.getRuntime().gc();
+            Log.e(TAG, "Scaled bitmap creation failed");
+            return origImage;
+        }
+
+        // Create the bitmap we are compositing into
+        Bitmap overlaid = Bitmap.createBitmap(origWidth, origHeight, Bitmap.Config.ARGB_8888);
+        if (overlaid == null) {
+            srcOverlay.recycle();
+            scaledOverlay.recycle();
+            Runtime.getRuntime().gc();
+            Log.e(TAG, "Composite bitmap creation failed");
+            return origImage;
+        }
+
+        // Do the overlay
+        Canvas comboImage = new Canvas(overlaid);
+        comboImage.drawBitmap(origImage, 0, 0, null);
+
+        comboImage.drawBitmap(scaledOverlay,
+                origWidth  - scaledOverlay.getWidth(),
+                origHeight - scaledOverlay.getHeight(),
+                null);
+
+        // Clean up our bitmaps
+        srcOverlay.recycle();
+        scaledOverlay.recycle();
+        Runtime.getRuntime().gc();
+
+        return overlaid;
+    }
+
+    private void populateBookmarkItem(Cursor cursor, BookmarkItem item, boolean isFolder, boolean isMdmElem) {
         item.setName(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
         if (isFolder) {
             item.setUrl(null);
             Bitmap bitmap =
                 BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_folder_normal);
+            if (isMdmElem) {
+                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright, getActivity(), 0.25f);
+            }
             item.setFavicon(bitmap);
             new LookupBookmarkCount(getActivity(), item)
                     .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
@@ -329,6 +403,12 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             item.setUrl(url);
             Bitmap bitmap = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
+            if (isMdmElem) {
+                if (null == bitmap) {
+                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_favicon_normal);
+                }
+                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright, getActivity(), 0.25f);
+            }
             item.setFavicon(bitmap);
         }
     }
@@ -419,11 +499,18 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, AddBookmarkPage.class);
-                intent.putExtra(BrowserContract.Bookmarks.URL, "http://");
-                intent.putExtra(BrowserContract.Bookmarks.TITLE, "");
-                intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
-                activity.startActivity(intent);
+                ManagedBookmarksRestriction mbr = ManagedBookmarksRestriction.getInstance();
+                if (mbr.isEnabled() &&
+                    mbr.mDb.isMdmElement(mCurrentFolderId)) {
+                    Toast.makeText(getActivity(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(activity, AddBookmarkPage.class);
+                    intent.putExtra(BrowserContract.Bookmarks.URL, "http://");
+                    intent.putExtra(BrowserContract.Bookmarks.TITLE, "");
+                    intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+                    activity.startActivity(intent);
+                }
             }
         });
 
@@ -431,9 +518,16 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, AddBookmarkFolder.class);
-                intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
-                activity.startActivity(intent);
+                ManagedBookmarksRestriction mbr = ManagedBookmarksRestriction.getInstance();
+                if (mbr.isEnabled() &&
+                    mbr.mDb.isMdmElement(mCurrentFolderId)) {
+                    Toast.makeText(getActivity(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(activity, AddBookmarkFolder.class);
+                    intent.putExtra(BrowserContract.Bookmarks.PARENT, mCurrentFolderId);
+                    activity.startActivity(intent);
+                }
             }
         });
 
