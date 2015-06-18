@@ -83,6 +83,7 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Vector;
+import java.util.List;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -663,15 +664,20 @@ class Tab implements PictureListener {
         @Override
         public void onHistoryItemCommit(WebView view, int index) {
             mTabHistoryUpdateObservable.set(index);
-            int maxIdx = view.copyBackForwardList().getSize();
-            int[] ids = view.getSnapshotIds();
-            int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
-            for (int id : ids) {
-                if (getTabIdxFromCaptureIdx(id) == currentTabIdx &&
-                        getNavIdxFromCaptureIdx(id) >= maxIdx) {
-                    view.deleteSnapshot(id);
+            final int maxIdx = view.copyBackForwardList().getSize();
+            final WebView wv = view;
+            view.getSnapshotIds(new ValueCallback <List<Integer>>() {
+                @Override
+                public void onReceiveValue(List<Integer> ids) {
+                    int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
+                    for (Integer id : ids) {
+                        if (getTabIdxFromCaptureIdx(id) == currentTabIdx &&
+                                getNavIdxFromCaptureIdx(id) >= maxIdx) {
+                            wv.deleteSnapshot(id);
+                        }
+                    }
                 }
-            }
+            });
         }
 
         @Override
@@ -1375,15 +1381,22 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
-            WebView webView = mMainView;
+            final WebView webView = mMainView;
             if (!mWebViewDestroyedByMemoryMonitor) {
-                int[] ids = webView.getSnapshotIds();
-                int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
-                for (int id : ids) {
-                    if (getTabIdxFromCaptureIdx(id) == currentTabIdx) {
-                        webView.deleteSnapshot(id);
+                webView.getSnapshotIds(new ValueCallback<List<Integer>>() {
+                    @Override
+                    public void onReceiveValue(List<Integer> ids) {
+                        int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
+                        for (Integer id : ids) {
+                            if (getTabIdxFromCaptureIdx(id) == currentTabIdx) {
+                                webView.deleteSnapshot(id);
+                            }
+                        }
+                        setWebView(null);
+                        webView.destroy();
                     }
-                }
+                });
+                return;
             }
             setWebView(null);
             webView.destroy();
