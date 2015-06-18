@@ -753,8 +753,6 @@ public class Controller
         }
         mUi.onPause();
         mNetworkHandler.onPause();
-
-        WebView.disablePlatformNotifications();
         NfcHandler.unregister(mActivity);
         mActivity.unregisterReceiver(mLowPowerReceiver);
     }
@@ -797,7 +795,6 @@ public class Controller
 
         mUi.onResume();
         mNetworkHandler.onResume();
-        WebView.enablePlatformNotifications();
         NfcHandler.register(mActivity, this);
         if (mVoiceResult != null) {
             mUi.onVoiceResult(mVoiceResult);
