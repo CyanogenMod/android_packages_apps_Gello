@@ -24,9 +24,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
+import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.ManagedBookmarksRestriction;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
 import com.android.browser.util.ThreadedCursorAdapter;
@@ -87,51 +87,45 @@ public class BrowserBookmarksAdapter extends
                 padding, view.getPaddingBottom());
         BookmarkThumbImageView thumb = (BookmarkThumbImageView) view.findViewById(R.id.thumb_image);
         TextView tv = (TextView) view.findViewById(R.id.label);
-        float badgeScale = 0.8f;
-
         tv.setText(item.title);
+        int containerWidth = thumb.getWidth() - thumb.getPaddingLeft() - thumb.getPaddingRight();
+
+        Bitmap b;
+
         if (item.is_folder) {
-            // folder
-            if(item.is_mdm_managed) {
-                // build a bitmap that has the mdm badge overlaid
-                Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.thumb_bookmark_widget_folder_holo);
-                Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
-                thumb.setmAdjustDown(false);
-                thumb.setScaleType(ScaleType.CENTER_INSIDE);
-                thumb.setImageBitmap(bm);
+            b = BitmapFactory.decodeResource(mContext.getResources(),
+                    R.drawable.thumb_bookmark_widget_folder_holo);
+        }
+        else if (item.thumbnail == null || !item.has_thumbnail) {
+            b = BitmapFactory.decodeResource(mContext.getResources(),
+                    R.drawable.browser_thumbnail);
+        }
+        else {
+            b = item.thumbnail.getBitmap();
+        }
+
+        // If the item is managed by mdm or edit bookmark restriction enabled
+        if (containerWidth != 0 && (item.is_mdm_managed || EditBookmarksRestriction.getInstance().isEnabled())) {
+            int iconResId;
+            float overlayScale, overlayVertPos;
+
+            if (item.is_mdm_managed) {
+                iconResId = R.drawable.img_deco_mdm_badge_bright;
+                overlayScale = 0.6f;
+                overlayVertPos = 100f;
             }
             else {
-                thumb.setmAdjustDown(true);
-                thumb.setImageResource(R.drawable.thumb_bookmark_widget_folder_holo);
-                thumb.setScaleType(ScaleType.FIT_END);
+                iconResId = R.drawable.ic_deco_secure;
+                overlayScale = 1.2f;
+                overlayVertPos = 75f;
             }
-            thumb.setBackground(null);
-        } else {
-            if (item.thumbnail == null || !item.has_thumbnail) {
-                if(item.is_mdm_managed) {
-                    Bitmap b = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.browser_thumbnail);
-                    Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
-                    thumb.setmAdjustDown(false);
-                    thumb.setScaleType(ScaleType.CENTER_INSIDE);
-                    thumb.setImageBitmap(bm);
-                }
-                else {
-                    thumb.setmAdjustDown(true);
-                    thumb.setScaleType(ScaleType.CENTER_CROP);
-                    thumb.setImageResource(R.drawable.browser_thumbnail);
-                }
-            } else {
-                if (item.is_mdm_managed) {
-                    Bitmap b = item.thumbnail.getBitmap();
-                    Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, R.drawable.img_deco_mdm_badge_bright, mContext, badgeScale);
-                    thumb.setmAdjustDown(false);
-                    thumb.setScaleType(ScaleType.CENTER_INSIDE);
-                    thumb.setImageBitmap(bm);
-                } else {
-                    thumb.setmAdjustDown(true);
-                    thumb.setImageDrawable(item.thumbnail);
-                }
-            }
+            float willScale = (float) containerWidth / (float) b.getWidth();
+            Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, iconResId, mContext,
+                    overlayScale / willScale, (int) (overlayVertPos / willScale));
+            thumb.setImageBitmap(bm);
+        }
+        else {
+            thumb.setImageBitmap(b);
         }
     }
 

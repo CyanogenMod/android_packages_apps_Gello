@@ -38,8 +38,6 @@ import android.widget.ImageView;
 
 public class BookmarkThumbImageView extends ImageView {
 
-    private boolean mAdjustDown = true;
-
     public BookmarkThumbImageView(Context context) {
         this(context, null);
     }
@@ -52,39 +50,29 @@ public class BookmarkThumbImageView extends ImageView {
         super(context, attrs, defStyleAttr);
     }
 
-    public boolean getAdjustDown() {
-        return mAdjustDown;
-    }
-
-    public void setmAdjustDown(boolean mAdjustDown) {
-        this.mAdjustDown = mAdjustDown;
-    }
-
     @Override
     public void setImageDrawable(Drawable drawable) {
-        if (mAdjustDown) {
-            int drawableWidth = drawable.getIntrinsicWidth();
-            int drawableHeight = drawable.getIntrinsicHeight();
-            int containerWidth = getWidth() - getPaddingLeft() - getPaddingRight();
-            int containerHeight = getHeight() - getPaddingTop() - getPaddingBottom();
+        int drawableWidth = drawable.getIntrinsicWidth();
+        int drawableHeight = drawable.getIntrinsicHeight();
+        int containerWidth = getWidth() - getPaddingLeft() - getPaddingRight();
+        int containerHeight = getHeight() - getPaddingTop() - getPaddingBottom();
 
-            float scale;
-            Matrix m = new Matrix();
-            if ( (drawableWidth * containerHeight) > (containerWidth * drawableHeight)) {
-                scale = (float) containerHeight / (float) drawableHeight;
-            } else {
-                scale = (float) containerWidth / (float) drawableWidth;
-                float translateY = (containerHeight - drawableHeight * scale) / 2;
-                if (translateY < 0) {
-                    translateY = 0;
-                }
-                m.postTranslate(0, translateY + 0.5f);
+        float scale;
+        Matrix m = new Matrix();
+        if ( (drawableWidth * containerHeight) > (containerWidth * drawableHeight)) {
+            scale = (float) containerHeight / (float) drawableHeight;
+        } else {
+            scale = (float) containerWidth / (float) drawableWidth;
+            float translateY = (containerHeight - drawableHeight * scale) / 2;
+            if (translateY < 0) {
+                translateY = 0;
             }
-            m.setScale(scale, scale);
-
-            this.setScaleType(ScaleType.MATRIX);
-            this.setImageMatrix(m);
+            m.postTranslate(0, translateY + 0.5f);
         }
+        m.setScale(scale, scale);
+
+        this.setScaleType(ScaleType.MATRIX);
+        this.setImageMatrix(m);
         super.setImageDrawable(drawable);
     }
 }

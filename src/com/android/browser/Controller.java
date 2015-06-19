@@ -98,6 +98,7 @@ import com.android.browser.AppAdapter;
 import com.android.browser.R;
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
+import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.IncognitoRestriction;
 import com.android.browser.mdm.URLFilterRestriction;
 import com.android.browser.mynavigation.AddMyNavigationPage;
@@ -1933,8 +1934,9 @@ public class Controller
         mUi.onPrepareOptionsMenu(menu);
 
         IncognitoRestriction.getInstance()
-                            .registerControl(menu.findItem(R.id.incognito_menu_id)
-                                                 .getIcon());
+                .registerControl(menu.findItem(R.id.incognito_menu_id).getIcon());
+        EditBookmarksRestriction.getInstance()
+                .registerControl(menu.findItem(R.id.bookmark_this_page_id).getIcon());
     }
 
     private void setMenuItemVisibility(Menu menu, int id,
@@ -2347,20 +2349,25 @@ public class Controller
 
     @Override
     public void bookmarkCurrentPage() {
-        WebView w = getCurrentTopWebView();
-        if (w == null)
-            return;
-        final Intent i = createBookmarkCurrentPageIntent(false);
-        createScreenshotAsync(
-            w, getDesiredThumbnailWidth(mActivity),
-            getDesiredThumbnailHeight(mActivity),
-            new ValueCallback<Bitmap>() {
-                @Override
-                    public void onReceiveValue(Bitmap bitmap) {
-                    mBookmarkBitmap = bitmap;
-                    mActivity.startActivity(i);
-                }
-            });
+        if(EditBookmarksRestriction.getInstance().isEnabled()) {
+            Toast.makeText(getContext(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            WebView w = getCurrentTopWebView();
+            if (w == null)
+                return;
+            final Intent i = createBookmarkCurrentPageIntent(false);
+            createScreenshotAsync(
+                    w, getDesiredThumbnailWidth(mActivity),
+                    getDesiredThumbnailHeight(mActivity),
+                    new ValueCallback<Bitmap>() {
+                        @Override
+                        public void onReceiveValue(Bitmap bitmap) {
+                            mBookmarkBitmap = bitmap;
+                            mActivity.startActivity(i);
+                        }
+                    });
+        }
     }
 
     private void goLive() {

@@ -51,6 +51,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.Toast;
 
+import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.ManagedBookmarksRestriction;
 import com.android.browser.platformsupport.BrowserContract;
 import com.android.browser.platformsupport.BrowserContract.Accounts;
@@ -294,13 +295,14 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 = cursor.getInt(BookmarksLoader.COLUMN_INDEX_IS_FOLDER) != 0;
         boolean isMdmElem = ManagedBookmarksRestriction.getInstance().mDb.
                 isMdmElement(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
+        boolean isMdmEditRestricted = EditBookmarksRestriction.getInstance().isEnabled();
 
         final Activity activity = getActivity();
         MenuInflater inflater = activity.getMenuInflater();
         inflater.inflate(R.menu.bookmarkscontext, menu);
         if (isFolder) {
             menu.setGroupVisible(R.id.FOLDER_CONTEXT_MENU, true);
-            if(isMdmElem) {
+            if(isMdmElem || isMdmEditRestricted) {
                 menu.findItem(R.id.folder_edit_context_menu_id).setEnabled(false);
                 menu.findItem(R.id.folder_delete_context_menu_id).setEnabled(false);
             }
@@ -309,7 +311,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             if (mDisableNewWindow) {
                 menu.findItem(R.id.new_window_context_menu_id).setVisible(false);
             }
-            if(isMdmElem) {
+            if(isMdmElem || isMdmEditRestricted) {
                 menu.findItem(R.id.edit_context_menu_id).setEnabled(false);
                 menu.findItem(R.id.delete_context_menu_id).setEnabled(false);
             }
@@ -332,7 +334,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
     }
 
     public static Bitmap overlayBookmarkBitmap(Bitmap origImage, int overlayResId, Context context,
-                                               float overlayScaleFactor) {
+                                               float overlayScaleFactor, int overlayOffsetY) {
         if (origImage == null) {
             Log.e(TAG, "Orig Image is null!");
             return origImage;
@@ -374,9 +376,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Canvas comboImage = new Canvas(overlaid);
         comboImage.drawBitmap(origImage, 0, 0, null);
 
+        // align overlay to right edge. Vertical alingment
+        // determined by overlayOffsetY
         comboImage.drawBitmap(scaledOverlay,
                 origWidth  - scaledOverlay.getWidth(),
-                origHeight - scaledOverlay.getHeight(),
+                overlayOffsetY,
                 null);
 
         // Clean up our bitmaps
@@ -387,29 +391,50 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         return overlaid;
     }
 
-    private void populateBookmarkItem(Cursor cursor, BookmarkItem item, boolean isFolder, boolean isMdmElem) {
+    private void populateBookmarkItem(Cursor cursor, BookmarkItem item,
+                                      boolean isFolder, boolean isMdmElem) {
         item.setName(cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE));
+
+        // Fetch appropriate bitmap
+        Bitmap bitmap;
         if (isFolder) {
             item.setUrl(null);
-            Bitmap bitmap =
-                BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_folder_normal);
-            if (isMdmElem) {
-                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright, getActivity(), 0.25f);
-            }
-            item.setFavicon(bitmap);
-            new LookupBookmarkCount(getActivity(), item)
-                    .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
-        } else {
+            bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_folder_normal);
+        }
+        else {
             String url = cursor.getString(BookmarksLoader.COLUMN_INDEX_URL);
             item.setUrl(url);
-            Bitmap bitmap = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
-            if (isMdmElem) {
-                if (null == bitmap) {
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_deco_favicon_normal);
-                }
-                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright, getActivity(), 0.25f);
+            bitmap = getBitmap(cursor, BookmarksLoader.COLUMN_INDEX_FAVICON);
+            if (null == bitmap) {
+                bitmap = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_deco_favicon_normal);
             }
-            item.setFavicon(bitmap);
+        }
+
+        // if mdm element or edit bookmak restriction enforced, overlay an indicator
+        int containerWidth = item.getFavIconIntrinsicWidth();
+        if (containerWidth != 0 &&
+                (isMdmElem || EditBookmarksRestriction.getInstance().isEnabled())) {
+            float willScale = (float) containerWidth / (float) bitmap.getWidth();
+            if (isMdmElem) {
+                float overlayscale = 0.3f;
+                float overlayVertPos = 50f;
+                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright,
+                        getActivity(), overlayscale / willScale, (int) (overlayVertPos/willScale));
+            }
+            else if (EditBookmarksRestriction.getInstance().isEnabled()) {
+                float overlayscale = 1.3f;
+                float overlayVertPos = -25f;
+                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.ic_deco_secure,
+                        getActivity(), overlayscale / willScale, (int) (overlayVertPos/willScale));
+            }
+        }
+
+        // Set the bitmap
+        item.setFavicon(bitmap);
+        if (isFolder) {
+            new LookupBookmarkCount(getActivity(), item)
+                    .execute(cursor.getLong(BookmarksLoader.COLUMN_INDEX_ID));
         }
     }
 
@@ -500,9 +525,10 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             @Override
             public void onClick(View view) {
                 ManagedBookmarksRestriction mbr = ManagedBookmarksRestriction.getInstance();
-                if (mbr.isEnabled() &&
-                    mbr.mDb.isMdmElement(mCurrentFolderId)) {
-                    Toast.makeText(getActivity(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+                if ((mbr.isEnabled() && mbr.mDb.isMdmElement(mCurrentFolderId)) ||
+                        EditBookmarksRestriction.getInstance().isEnabled()) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Intent intent = new Intent(activity, AddBookmarkPage.class);
@@ -513,15 +539,17 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 }
             }
         });
+        EditBookmarksRestriction.getInstance().registerControl(btn);
 
         btn = (Button) mRoot.findViewById(R.id.new_bmfolder_button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ManagedBookmarksRestriction mbr = ManagedBookmarksRestriction.getInstance();
-                if (mbr.isEnabled() &&
-                    mbr.mDb.isMdmElement(mCurrentFolderId)) {
-                    Toast.makeText(getActivity(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+                if ((mbr.isEnabled() && mbr.mDb.isMdmElement(mCurrentFolderId)) ||
+                      EditBookmarksRestriction.getInstance().isEnabled()) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Intent intent = new Intent(activity, AddBookmarkFolder.class);
@@ -530,6 +558,7 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 }
             }
         });
+        EditBookmarksRestriction.getInstance().registerControl(btn);
 
         // Start the loaders
         LoaderManager lm = getLoaderManager();
@@ -537,6 +566,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
 
         //Notify about anticipated network activity
         NetworkServices.HintUpcomingUserActivity();
+
+        EditBookmarksRestriction.getInstance().registerView(mGrid);
 
         return mRoot;
     }
@@ -553,6 +584,8 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             lm.destroyLoader(id);
         }
         mBookmarkAdapters.clear();
+
+        EditBookmarksRestriction.getInstance().registerView(null);
     }
 
     private BrowserBookmarksAdapter getChildAdapter(int groupPosition) {
