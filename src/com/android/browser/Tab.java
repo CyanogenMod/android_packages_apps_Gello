@@ -64,6 +64,7 @@ import com.android.browser.mynavigation.MyNavigationUtil;
 import com.android.browser.provider.MyNavigationProvider;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
 
+import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.BrowserDownloadListener;
 import org.codeaurora.swe.ClientCertRequestHandler;
 import org.codeaurora.swe.HttpAuthHandler;
@@ -633,6 +634,10 @@ class Tab implements PictureListener {
 
         @Override
         public void beforeNavigation(WebView view, String url) {
+            if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+                return;
+            }
+
             if (isPrivateBrowsingEnabled()) {
                 return;
             }
@@ -663,6 +668,10 @@ class Tab implements PictureListener {
 
         @Override
         public void onHistoryItemCommit(WebView view, int index) {
+            if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+                return;
+            }
+
             mTabHistoryUpdateObservable.set(index);
             final int maxIdx = view.copyBackForwardList().getSize();
             final WebView wv = view;
@@ -1382,7 +1391,8 @@ class Tab implements PictureListener {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
             final WebView webView = mMainView;
-            if (!mWebViewDestroyedByMemoryMonitor) {
+            if (!mWebViewDestroyedByMemoryMonitor &&
+                    !BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
                 webView.getSnapshotIds(new ValueCallback<List<Integer>>() {
                     @Override
                     public void onReceiveValue(List<Integer> ids) {

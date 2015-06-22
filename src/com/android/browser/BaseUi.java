@@ -51,6 +51,7 @@ import android.content.res.TypedArray;
 
 import com.android.browser.Tab.SecurityState;
 
+import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.WebView;
 
 import java.util.List;
@@ -460,6 +461,10 @@ public abstract class BaseUi implements UI {
     }
 
     public void refreshEdgeSwipeController(View container) {
+        if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+            return;
+        }
+
         if (mEdgeSwipeController != null) {
             mEdgeSwipeController.cleanup();
         }

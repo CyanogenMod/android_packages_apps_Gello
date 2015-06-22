@@ -36,6 +36,8 @@ import com.android.browser.DownloadHandler;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
+import org.codeaurora.swe.BrowserCommandLine;
+
 public class AdvancedPreferencesFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
@@ -73,15 +75,19 @@ public class AdvancedPreferencesFragment
         ListPreference edgeSwipePref =
                 (ListPreference) mFragment.findPreference("edge_swiping_action");
 
-        String[] options = mFragment.getResources().getStringArray(
-                R.array.pref_edge_swiping_values);
+        if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+            edgeSwipePref.setEnabled(false);
+        } else {
+            String[] options = mFragment.getResources().getStringArray(
+                    R.array.pref_edge_swiping_values);
 
-        String value = BrowserSettings.getInstance().getEdgeSwipeAction();
+            String value = BrowserSettings.getInstance().getEdgeSwipeAction();
 
-        for (int i = 0; i < options.length; i++) {
-            if (value.equals(options[i])) {
-                edgeSwipePref.setValueIndex(i);
-                break;
+            for (int i = 0; i < options.length; i++) {
+                if (value.equals(options[i])) {
+                    edgeSwipePref.setValueIndex(i);
+                    break;
+                }
             }
         }
     }
