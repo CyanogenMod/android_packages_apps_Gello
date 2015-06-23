@@ -19,8 +19,8 @@
     <dimen name="tab_slice">15.5dp</dimen>
     <dimen name="tab_focus_stroke">2dip</dimen>
     <dimen name="max_tab_width">300dp</dimen>
-    <dimen name="bookmarkThumbnailWidth">130dip</dimen>
-    <dimen name="bookmarkThumbnailHeight">65dip</dimen>
+    <dimen name="bookmarkThumbnailWidth">100dip</dimen>
+    <dimen name="bookmarkThumbnailHeight">100dip</dimen>
     <!--Add for Navigation Feature -->
     <dimen name="mynav_item_width">80px</dimen>
     <dimen name="mynav_item_width_portrait">80px</dimen>

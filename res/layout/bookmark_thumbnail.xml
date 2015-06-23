@@ -25,26 +25,39 @@
     android:orientation="vertical"
     >
 
-    <com.android.browser.view.BookmarkThumbImageView
-        android:id="@+id/thumb_image"
-        android:layout_width="@dimen/bookmarkThumbnailWidth"
-        android:layout_height="@dimen/bookmarkThumbnailHeight"
-        android:paddingTop="2dip"
-        android:scaleType="centerCrop"
-        android:src="@drawable/browser_thumbnail"
-        />
-
-    <TextView
-        android:id="@+id/label"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:paddingStart="8dip"
-        android:paddingEnd="4dip"
-        android:paddingTop="2dip"
-        android:paddingBottom="2dip"
-        android:singleLine="true"
-        android:textAppearance="@style/BookmarkText"
-        />
+        android:layout_height="match_parent">
+
+        <com.android.browser.view.BookmarkThumbImageView
+            android:id="@+id/thumb_image"
+            android:layout_width="@dimen/bookmarkThumbnailWidth"
+            android:layout_height="@dimen/bookmarkThumbnailHeight"
+            android:paddingTop="2dip"
+            android:scaleType="centerCrop"
+            android:src="@drawable/browser_thumbnail"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/bookmarkWidgetFolderBackground"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="@dimen/bookmarkThumbnailWidth"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingStart="8dip"
+                android:paddingEnd="4dip"
+                android:paddingTop="2dip"
+                android:paddingBottom="2dip"
+                android:singleLine="true"
+                android:textAppearance="@style/BookmarkText"
+                />
+        </LinearLayout>
+    </FrameLayout>
 
 </com.android.browser.view.BookmarkContainer>

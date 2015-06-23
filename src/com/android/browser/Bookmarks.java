@@ -22,6 +22,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -158,15 +159,31 @@ public class Bookmarks {
             Combined.URL + " == ? OR " +
             Combined.URL + " == ?";
 
+    private static String eatTrailingSlash(String input) {
+        if (TextUtils.isEmpty(input)) {
+            return input;
+        }
+
+        if (input.charAt(input.length() - 1) == '/') {
+            return input.substring(0, input.length() - 1);
+        }
+
+        return input;
+    }
+
     public static Cursor queryCombinedForUrl(ContentResolver cr,
             String originalUrl, String url) {
         if (cr == null || url == null) {
             return null;
         }
 
+        url = eatTrailingSlash(url);
+
         // If originalUrl is null, just set it to url.
         if (originalUrl == null) {
             originalUrl = url;
+        } else {
+            originalUrl = eatTrailingSlash(originalUrl);
         }
 
         // Look for both the original url and the actual url. This takes in to
@@ -205,20 +222,39 @@ public class Bookmarks {
             protected Void doInBackground(Void... unused) {
                 final ByteArrayOutputStream os = new ByteArrayOutputStream();
                 favicon.compress(Bitmap.CompressFormat.PNG, 100, os);
+                byte[] image = os.toByteArray();
 
                 // The Images update will insert if it doesn't exist
                 ContentValues values = new ContentValues();
-                values.put(Images.FAVICON, os.toByteArray());
-                updateImages(cr, originalUrl, values);
-                updateImages(cr, url, values);
+                values.put(Images.FAVICON, image);
+                values.put(Images.THUMBNAIL, image);
+
+                updateImages(cr, removeQuery(originalUrl), values);
+                updateImages(cr, removeQuery(url), values);
+
+                Cursor cursor = null;
+                try {
+                    cursor = queryCombinedForUrl(cr, originalUrl, url);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        do {
+                            updateImages(cr, cursor.getString(0), values);
+                        } while (cursor.moveToNext());
+                    }
+                } catch (IllegalStateException e) {
+                    // Ignore
+                } catch (SQLiteException s) {
+                    // Ignore
+                } finally {
+                    if (cursor != null) cursor.close();
+                }
+
                 return null;
             }
 
             private void updateImages(final ContentResolver cr,
-                    final String url, ContentValues values) {
-                String iurl = removeQuery(url);
-                if (!TextUtils.isEmpty(iurl)) {
-                    values.put(Images.URL, iurl);
+                                      final String url, ContentValues values) {
+                if (!TextUtils.isEmpty(url)) {
+                    values.put(Images.URL, url);
                     cr.update(BrowserContract.Images.CONTENT_URI, values, null, null);
                 }
             }

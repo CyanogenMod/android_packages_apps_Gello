@@ -155,8 +155,6 @@ public class Controller
     private static final int RELEASE_WAKELOCK = 107;
     private static final int UNKNOWN_TYPE_MSG = 109;
 
-    static final int UPDATE_BOOKMARK_THUMBNAIL = 108;
-
     private static final int OPEN_BOOKMARKS = 201;
     private static final int OPEN_MENU = 202;
 
@@ -263,7 +261,6 @@ public class Controller
     private String mUpdateMyNavThumbnailUrl;
     private float mLevel = 0.0f;
     private WebView.HitTestResult mResult;
-    private static Bitmap mBookmarkBitmap;
     private PowerConnectionReceiver mLowPowerReceiver;
     private PowerConnectionReceiver mPowerChangeReceiver;
 
@@ -671,12 +668,6 @@ public class Controller
                         }
                         break;
 
-                    case UPDATE_BOOKMARK_THUMBNAIL:
-                        Tab tab = (Tab) msg.obj;
-                        if (tab != null) {
-                            updateScreenshot(tab);
-                        }
-                        break;
                     case OPEN_MENU:
                         if (!mOptionsMenuOpen && mActivity != null ) {
                             mActivity.openOptionsMenu();
@@ -989,12 +980,6 @@ public class Controller
     @Override
     public void onPageStarted(Tab tab, WebView view, Bitmap favicon) {
 
-        // We've started to load a new page. If there was a pending message
-        // to save a screenshot then we will now take the new page and save
-        // an incorrect screenshot. Therefore, remove any pending thumbnail
-        // messages from the queue.
-        mHandler.removeMessages(Controller.UPDATE_BOOKMARK_THUMBNAIL, tab);
-
         // reset sync timer to avoid sync starts during loading a page
         CookieSyncManager.getInstance().resetSync();
         WifiManager wifiMgr = (WifiManager) this.getContext()
@@ -1045,6 +1030,7 @@ public class Controller
          }
 
         tab.onPageFinished();
+        maybeUpdateFavicon(tab, tab.getOriginalUrl(), tab.getUrl(), tab.getFavicon());
 
         Performance.tracePageFinished();
     }
@@ -1074,22 +1060,6 @@ public class Controller
                 // pause the WebView timer and release the wake lock if it is
                 // finished while BrowserActivity is in pause state.
                 releaseWakeLock();
-            }
-            if (!tab.isPrivateBrowsingEnabled()
-                    && !TextUtils.isEmpty(tab.getUrl())
-                    && !tab.isSnapshot()) {
-                // Only update the bookmark screenshot if the user did not
-                // cancel the load early and there is not already
-                // a pending update for the tab.
-                if (tab.shouldUpdateThumbnail() &&
-                        (tab.inForeground() && !didUserStopLoading()
-                        || !tab.inForeground())) {
-                    if (!mHandler.hasMessages(UPDATE_BOOKMARK_THUMBNAIL, tab)) {
-                        mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                                UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
-                                1500);
-                    }
-                }
             }
         } else {
             if (!tab.inPageLoad()) {
@@ -2377,36 +2347,18 @@ public class Controller
         BrowserPreferencesPage.startPreferencesForResult(mActivity, getCurrentTopWebView().getUrl(), PREFERENCES_PAGE);
     }
 
-    // This function is specifically used from AddBookmark Activity.
-    // The bookmark activity clears the bitmap after retrieving it.
-    // The function usage elsewhere will result in breaking bookmark
-    // functionality.
-    public static Bitmap getAndReleaseLastBookmarkBitmapFromIntent() {
-        Bitmap bitmap = mBookmarkBitmap;
-        mBookmarkBitmap = null;
-        return bitmap;
-    }
-
     @Override
     public void bookmarkCurrentPage() {
         if(EditBookmarksRestriction.getInstance().isEnabled()) {
-            Toast.makeText(getContext(), R.string.mdm_managed_alert, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.mdm_managed_alert,
+                    Toast.LENGTH_SHORT).show();
         }
         else {
             WebView w = getCurrentTopWebView();
             if (w == null)
                 return;
             final Intent i = createBookmarkCurrentPageIntent(false);
-            createScreenshotAsync(
-                    w, getDesiredThumbnailWidth(mActivity),
-                    getDesiredThumbnailHeight(mActivity),
-                    new ValueCallback<Bitmap>() {
-                        @Override
-                        public void onReceiveValue(Bitmap bitmap) {
-                            mBookmarkBitmap = bitmap;
-                            mActivity.startActivity(i);
-                        }
-                    });
+            mActivity.startActivity(i);
         }
     }
 
@@ -2709,116 +2661,6 @@ public class Controller
                         bitmap = bitmap.copy(Bitmap.Config.RGB_565, false);
                     cb.onReceiveValue(bitmap);
                 }});
-    }
-
-    private void updateScreenshot(final Tab tab) {
-        createScreenshotAsync(
-            tab.getWebView(),
-            getDesiredThumbnailWidth(mActivity),
-            getDesiredThumbnailHeight(mActivity),
-            new ValueCallback<Bitmap>() {
-                @Override
-                public void onReceiveValue(Bitmap bitmap) {
-                   updateScreenshot(tab, bitmap);
-                }
-            });
-    }
-
-    private void updateScreenshot(Tab tab, final Bitmap bm) {
-        // If this is a bookmarked site, add a screenshot to the database.
-        // FIXME: Would like to make sure there is actually something to
-        // draw, but the API for that (WebViewCore.pictureReady()) is not
-        // currently accessible here.
-
-        WebView view = tab.getWebView();
-        if (view == null) {
-            // Tab was destroyed
-            return;
-        }
-        final String url = tab.getUrl();
-        final String originalUrl = view.getOriginalUrl();
-        final String thumbnailUrl = mUpdateMyNavThumbnailUrl;
-        if (TextUtils.isEmpty(url)) {
-            return;
-        }
-
-        //update My Navigation Thumbnails
-        if (bm != null) {
-            updateMyNavigationThumbnail(url, bm);
-        }
-        // Only update thumbnails for web urls (http(s)://), not for
-        // about:, javascript:, data:, etc...
-        // Unless it is a bookmarked site, then always update
-        if (!Patterns.WEB_URL.matcher(url).matches() && !tab.isBookmarkedSite()) {
-            return;
-        }
-
-        if (url != null && mUpdateMyNavThumbnailUrl != null
-                && Patterns.WEB_URL.matcher(url).matches()
-                && Patterns.WEB_URL.matcher(mUpdateMyNavThumbnailUrl).matches()) {
-            String urlHost = (new WebAddress(url)).getHost();
-            String bookmarkHost = (new WebAddress(mUpdateMyNavThumbnailUrl)).getHost();
-            if (urlHost == null || urlHost.length() == 0 || bookmarkHost == null
-                    || bookmarkHost.length() == 0) {
-                return;
-            }
-            String urlDomain = urlHost.substring(urlHost.indexOf('.'), urlHost.length());
-            String bookmarkDomain = bookmarkHost.substring(bookmarkHost.indexOf('.'),
-                    bookmarkHost.length());
-            Log.d(LOGTAG, "addressUrl domain is  " + urlDomain);
-            Log.d(LOGTAG, "bookmarkUrl domain is " + bookmarkDomain);
-            if (!bookmarkDomain.equals(urlDomain)) {
-                return;
-            }
-        }
-        if (bm == null) {
-            if (!mHandler.hasMessages(UPDATE_BOOKMARK_THUMBNAIL, tab)) {
-                mHandler.sendMessageDelayed(mHandler.obtainMessage(
-                     UPDATE_BOOKMARK_THUMBNAIL, 0, 0, tab),
-                     500);
-            }
-            return;
-        }
-
-        final ContentResolver cr = mActivity.getContentResolver();
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... unused) {
-                Cursor cursor = null;
-                try {
-                    // TODO: Clean this up
-                    cursor = Bookmarks.queryCombinedForUrl(cr, originalUrl,
-                            mUpdateMyNavThumbnail ? ((thumbnailUrl != null) ? thumbnailUrl : url)
-                                    : url);
-                    if (mUpdateMyNavThumbnail) {
-                        mUpdateMyNavThumbnail = false;
-                        mUpdateMyNavThumbnailUrl = null;
-                    }
-                    if (cursor != null && cursor.moveToFirst()) {
-                        final ByteArrayOutputStream os =
-                                new ByteArrayOutputStream();
-                        bm.compress(Bitmap.CompressFormat.PNG, 100, os);
-
-                        ContentValues values = new ContentValues();
-                        values.put(Images.THUMBNAIL, os.toByteArray());
-
-                        do {
-                            values.put(Images.URL, cursor.getString(0));
-                            cr.update(Images.CONTENT_URI, values, null, null);
-                        } while (cursor.moveToNext());
-                    }
-                } catch (IllegalStateException e) {
-                    // Ignore
-                } catch (SQLiteException s) {
-                    // Added for possible error when user tries to remove the same bookmark
-                    // that is being updated with a screen shot
-                    Log.w(LOGTAG, "Error when running updateScreenshot ", s);
-                } finally {
-                    if (cursor != null) cursor.close();
-                }
-                return null;
-            }
-        }.execute();
     }
 
     private class Copy implements OnMenuItemClickListener {

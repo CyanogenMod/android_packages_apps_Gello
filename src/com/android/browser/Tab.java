@@ -1228,11 +1228,11 @@ class Tab implements PictureListener {
             }
         };
 
-        mCaptureWidth = mContext.getResources().getDimensionPixelSize(
-                R.dimen.tab_thumbnail_width);
-        mCaptureHeight = mContext.getResources().getDimensionPixelSize(
-                R.dimen.tab_thumbnail_height);
-        updateShouldCaptureThumbnails();
+        mCaptureWidth = mContext.getResources().getDimensionPixelSize(R.dimen.tab_thumbnail_width);
+        mCaptureHeight =mContext.getResources().getDimensionPixelSize(R.dimen.tab_thumbnail_height);
+
+        initCaptureBitmap();
+
         restoreState(state);
         if (getId() == -1) {
             mId = TabControl.getNextId();
@@ -1254,8 +1254,9 @@ class Tab implements PictureListener {
         mTabHistoryUpdateObservable = new Observable();
     }
 
-    public boolean shouldUpdateThumbnail() {
-        return mUpdateThumbnail;
+    private void initCaptureBitmap() {
+        mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight, Bitmap.Config.RGB_565);
+        mCapture.eraseColor(Color.WHITE);
     }
 
     /**
@@ -1267,15 +1268,15 @@ class Tab implements PictureListener {
         mId = TabControl.getNextId();
     }
 
-    public void updateShouldCaptureThumbnails() {
+    public void setController(WebViewController ctl) {
+        mWebViewController = ctl;
+
         if (mWebViewController.shouldCaptureThumbnails()) {
             synchronized (Tab.this) {
                 if (mCapture == null) {
-                    mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight,
-                            Bitmap.Config.RGB_565);
-                    mCapture.eraseColor(Color.WHITE);
-                    if (mInForeground) {
-                        postCapture();
+                    initCaptureBitmap();
+                    if (mInForeground && !mHandler.hasMessages(MSG_CAPTURE)) {
+                        mHandler.sendEmptyMessageDelayed(MSG_CAPTURE, CAPTURE_DELAY);
                     }
                 }
             }
@@ -1285,11 +1286,6 @@ class Tab implements PictureListener {
                 deleteThumbnail();
             }
         }
-    }
-
-    public void setController(WebViewController ctl) {
-        mWebViewController = ctl;
-        updateShouldCaptureThumbnails();
     }
 
     public long getId() {
@@ -1979,82 +1975,63 @@ class Tab implements PictureListener {
         mDisableOverrideUrlLoading = true;
     }
 
-    protected void capture() {
-        boolean returnEmptyCapture = false;
-        if (mMainView == null || mCapture == null || !mMainView.isReady())
-            returnEmptyCapture = true;
-        if (mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0) {
-             returnEmptyCapture = true;
-        }
-
-        if (returnEmptyCapture || !mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
-            mCapture = Bitmap.createBitmap(
-                    mCaptureWidth,
-                    mCaptureHeight,
-                    Bitmap.Config.RGB_565);
-            mCapture.eraseColor(Color.WHITE);
-
-            mHandler.removeMessages(MSG_CAPTURE);
-
-            TabControl tc = mWebViewController.getTabControl();
-            if (tc != null) {
-                OnThumbnailUpdatedListener updateListener
-                        = tc.getOnThumbnailUpdatedListener();
-                if (updateListener != null) {
-                    updateListener.onThumbnailUpdated(this);
-                }
-            }
-            return;
-        }
-
-        mMainView
-            .getContentBitmapAsync(
-                 (float) mCaptureWidth / mMainView.getWidth(),
-                 new Rect(),
-                 new ValueCallback<Bitmap>() {
-                     @Override
-                     public void onReceiveValue(Bitmap bitmap) {
-                         onCaptureCallback(bitmap);
-                     }});
-    }
-
-    private void onCaptureCallback(Bitmap bitmap) {
-        if (mCapture == null || bitmap == null)
-            return;
-
-        Canvas c = new Canvas(mCapture);
-        mCapture.eraseColor(Color.WHITE);
-        c.drawBitmap(bitmap, 0, 0, null);
-
-        // manually anti-alias the edges for the tilt
-        c.drawRect(0, 0, 1, mCapture.getHeight(), sAlphaPaint);
-        c.drawRect(mCapture.getWidth() - 1, 0, mCapture.getWidth(),
-                mCapture.getHeight(), sAlphaPaint);
-        c.drawRect(0, 0, mCapture.getWidth(), 1, sAlphaPaint);
-        c.drawRect(0, mCapture.getHeight() - 1, mCapture.getWidth(),
-                mCapture.getHeight(), sAlphaPaint);
-        c.setBitmap(null);
+    private void thumbnailUpdated() {
         mHandler.removeMessages(MSG_CAPTURE);
-        persistThumbnail();
+
         TabControl tc = mWebViewController.getTabControl();
         if (tc != null) {
-            OnThumbnailUpdatedListener updateListener
-                    = tc.getOnThumbnailUpdatedListener();
+            OnThumbnailUpdatedListener updateListener = tc.getOnThumbnailUpdatedListener();
             if (updateListener != null) {
                 updateListener.onThumbnailUpdated(this);
             }
         }
     }
 
-    @Override
-    public void onNewPicture(WebView view, Picture picture) {
-        postCapture();
+    protected void capture() {
+        if (mMainView == null || mCapture == null || !mMainView.isReady() ||
+                mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0 ||
+                !mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
+
+            initCaptureBitmap();
+            thumbnailUpdated();
+            return;
+        }
+
+        mMainView.getContentBitmapAsync((float) mCaptureWidth / mMainView.getWidth(), new Rect(),
+            new ValueCallback<Bitmap>() {
+                @Override
+                public void onReceiveValue(Bitmap bitmap) {
+                    if (mCapture == null) {
+                        initCaptureBitmap();
+                    }
+
+                    if (bitmap == null) {
+                        thumbnailUpdated();
+                        return;
+                    }
+
+                    Canvas c = new Canvas(mCapture);
+                    mCapture.eraseColor(Color.WHITE);
+                    c.drawBitmap(bitmap, 0, 0, null);
+
+                    // manually anti-alias the edges for the tilt
+                    c.drawRect(0, 0, 1, mCapture.getHeight(), sAlphaPaint);
+                    c.drawRect(mCapture.getWidth() - 1, 0, mCapture.getWidth(),
+                            mCapture.getHeight(), sAlphaPaint);
+                    c.drawRect(0, 0, mCapture.getWidth(), 1, sAlphaPaint);
+                    c.drawRect(0, mCapture.getHeight() - 1, mCapture.getWidth(),
+                            mCapture.getHeight(), sAlphaPaint);
+                    c.setBitmap(null);
+
+                    persistThumbnail();
+                    thumbnailUpdated();
+                }
+            }
+        );
     }
 
-    private void postCapture() {
-        if (!mHandler.hasMessages(MSG_CAPTURE)) {
-            mHandler.sendEmptyMessageDelayed(MSG_CAPTURE, CAPTURE_DELAY);
-        }
+    @Override
+    public void onNewPicture(WebView view, Picture picture) {
     }
 
     public boolean canGoBack() {

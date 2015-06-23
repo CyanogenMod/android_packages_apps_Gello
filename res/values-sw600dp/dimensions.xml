@@ -11,8 +11,6 @@
     License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <dimen name="bookmarkThumbnailWidth">180dip</dimen>
-    <dimen name="bookmarkThumbnailHeight">90dip</dimen>
     <dimen name="widgetThumbnailHeight">104dip</dimen>
     <dimen name="widgetColumnWidth">130dip</dimen>
     <dimen name="favicon_padded_size">28dip</dimen>

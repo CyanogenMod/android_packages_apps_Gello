@@ -829,7 +829,7 @@ public class AddBookmarkPage extends Activity
             String url = bundle.getString(BrowserContract.Bookmarks.URL);
             boolean invalidateThumbnail = bundle.getBoolean(REMOVE_THUMBNAIL);
             Bitmap thumbnail = invalidateThumbnail ? null
-                    : (Bitmap) bundle.getParcelable(BrowserContract.Bookmarks.THUMBNAIL);
+                    : (Bitmap) bundle.getParcelable(BrowserContract.Bookmarks.FAVICON);
             String touchIconUrl = bundle.getString(TOUCH_ICON_URL);
 
             // Save to the bookmarks DB.
@@ -1056,9 +1056,6 @@ public class AddBookmarkPage extends Activity
             if (urlUnmodified) {
                 thumbnail = (Bitmap) mMap.getParcelable(
                         BrowserContract.Bookmarks.THUMBNAIL);
-                if (thumbnail == null) {
-                    thumbnail = Controller.getAndReleaseLastBookmarkBitmapFromIntent();
-                }
                 favicon = (Bitmap) mMap.getParcelable(
                         BrowserContract.Bookmarks.FAVICON);
             } else {
