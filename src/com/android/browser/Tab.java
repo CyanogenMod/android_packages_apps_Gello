@@ -799,6 +799,10 @@ class Tab implements PictureListener {
             if (mWebViewController instanceof Controller) {
                 Controller controller = (Controller)mWebViewController;
                 controller.getUi().translateTitleBar(topControlsOffsetYPix);
+                // Resize the viewport if top controls is not visible
+                if (topControlsOffsetYPix == 0.0f || contentOffsetYPix == 0.0f)
+                    ((BrowserWebView)mMainView).enableTopControls(
+                        (topControlsOffsetYPix == 0.0f) ? true : false);
             }
         }
 
