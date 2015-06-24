@@ -57,7 +57,7 @@
             android:summary="@string/pref_nightmode_enabled_summary"
             android:title="@string/pref_nightmode_enabled" />
 
-        <SwitchPreference
+        <com.android.browser.mdm.MdmCheckBoxPreference
             android:layout="@layout/swe_preference"
             android:key="autofill_enabled"
             android:title="@string/pref_autofill_enabled"

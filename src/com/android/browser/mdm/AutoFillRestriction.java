@@ -30,79 +30,79 @@
 
 package com.android.browser.mdm;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.util.Log;
 
-public class DoNotTrackRestriction extends Restriction {
+import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
 
-    private final static String TAG = "DoNotTrackRestriction";
+public class AutoFillRestriction extends Restriction implements PreferenceKeys {
 
-    public static final String DO_NOT_TRACK_ENABLED = "DoNotTrackEnabled"; // boolean
-    public static final String DO_NOT_TRACK_VALUE   = "DoNotTrackValue";   // boolean
+    private final static String TAG = "AutoFillRestriction";
 
-    private static DoNotTrackRestriction sInstance;
-    private boolean mDntValue;
+    public static final String AUTO_FILL_RESTRICTION = "AutoFillEnabled";
 
+    private static AutoFillRestriction sInstance;
     private MdmCheckBoxPreference mPref = null;
 
-    private DoNotTrackRestriction() {
+    private AutoFillRestriction() {
         super(TAG);
     }
 
-    public static DoNotTrackRestriction getInstance() {
-        synchronized (DoNotTrackRestriction.class) {
+    public static AutoFillRestriction getInstance() {
+        synchronized (AutoFillRestriction.class) {
             if (sInstance == null) {
-                sInstance = new DoNotTrackRestriction();
+                sInstance = new AutoFillRestriction();
             }
         }
         return sInstance;
     }
 
     @Override
-    public void enforce(Bundle restrictions) {
-        // Possible states
-        //   DNT_enabled  DNT_value  |  menu-item-enabled      check-box-value
-        //   -----------------------------------------------------------------
-        //     not set       x       |        Yes              curr-sys-value
-        //       0           x       |        Yes              curr-sys-value
-        //       1           0       |        No                   0
-        //       1           1       |        No                   1
+    protected void doCustomInit() {
+    }
 
-        boolean dntEnabled = restrictions.getBoolean(DO_NOT_TRACK_ENABLED,false);
-        if (dntEnabled) {
-            mDntValue = restrictions.getBoolean(DO_NOT_TRACK_VALUE, true); // default to true
 
-            // enable the restriction : controls enable of the menu item
-            // Log.i(TAG, "DNT Restriction enabled. new val [" + mDntValue + "]");
-            enable(true);
-        }
-        else {
-            enable(false);
-        }
-
-        // Real time update of the Preference if it is registered
+    public void registerPreference (Preference pref) {
+        mPref = (MdmCheckBoxPreference) pref;
         updatePref();
     }
 
     private void updatePref() {
         if (null != mPref) {
             if (isEnabled()) {
-                mPref.setChecked(getValue());
+                mPref.setChecked(false);
                 mPref.disablePref();
             }
             else {
+                mPref.setChecked(true);
                 mPref.enablePref();
             }
             mPref.setMdmRestrictionState(isEnabled());
         }
     }
 
-    public boolean getValue() {
-        return mDntValue;
-    }
+    /*
+     *   Note reversed logic:
+     *       [x] 'Restrict' true  = AutoFillEnabled : false   => disable Auto fill in swe
+     *       [ ] 'Restrict' false = AutoFillEnabled : true    => enable Auto fill in swe
+     */
+    @Override
+    public void enforce(Bundle restrictions) {
+        SharedPreferences.Editor editor = BrowserSettings.getInstance().getPreferences().edit();
 
-    public void registerPreference (Preference pref) {
-        mPref = (MdmCheckBoxPreference) pref;
+        boolean bEnable = false;
+        if (restrictions.containsKey(AUTO_FILL_RESTRICTION)) {
+            bEnable = ! restrictions.getBoolean(AUTO_FILL_RESTRICTION);
+        }
+        Log.i(TAG, "Enforce [" + bEnable + "]");
+        enable(bEnable);
+
+        editor.putBoolean(PREF_AUTOFILL_ENABLED, !isEnabled());
+        editor.apply();
+
         updatePref();
     }
 }

@@ -47,8 +47,8 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.AutoFillRestriction;
 import com.android.browser.mdm.DoNotTrackRestriction;
-import com.android.browser.mdm.MdmCheckBoxPreference;
 import com.android.browser.mdm.SearchEngineRestriction;
 
 public class GeneralPreferencesFragment extends SWEPreferenceFragment
@@ -105,10 +105,11 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
             findPreference("search_engine").setEnabled(false);
         }
 
-        // Register Do-Not-Track Preference with it's MDM restriction handler
-        // Log.i("+++", "\n===== REGISTERING =====");
-        MdmCheckBoxPreference dntPref = (MdmCheckBoxPreference) findPreference(PreferenceKeys.PREF_DO_NOT_TRACK);
-        DoNotTrackRestriction.getInstance().registerPreference(dntPref);
+        // Register Preference objects with their MDM restriction handlers
+        DoNotTrackRestriction.getInstance().
+                registerPreference(findPreference(PreferenceKeys.PREF_DO_NOT_TRACK));
+        AutoFillRestriction.getInstance().
+                registerPreference(findPreference(PreferenceKeys.PREF_AUTOFILL_ENABLED));
 
         mAdvFrag = new AdvancedPreferencesFragment(this);
         //mPrivFrag = new PrivacySecurityPreferencesFragment(this);
@@ -118,9 +119,9 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
     public void onDestroy() {
         super.onDestroy();
 
-        // Log.i("+++", "===== DESTROYING =====\n");
-        // Un-register Do-Not-Track Preference from it's MDM restriction handler
+        // Un-register Preference objects from their MDM restriction handlers
         DoNotTrackRestriction.getInstance().registerPreference(null);
+        AutoFillRestriction.getInstance().registerPreference(null);
     }
 
     @Override
