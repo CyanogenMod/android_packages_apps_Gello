@@ -48,7 +48,6 @@ import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.mdm.AutoFillRestriction;
-import com.android.browser.mdm.DoNotTrackRestriction;
 import com.android.browser.mdm.SearchEngineRestriction;
 
 public class GeneralPreferencesFragment extends SWEPreferenceFragment
@@ -106,8 +105,6 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
         }
 
         // Register Preference objects with their MDM restriction handlers
-        DoNotTrackRestriction.getInstance().
-                registerPreference(findPreference(PreferenceKeys.PREF_DO_NOT_TRACK));
         AutoFillRestriction.getInstance().
                 registerPreference(findPreference(PreferenceKeys.PREF_AUTOFILL_ENABLED));
 
@@ -120,7 +117,6 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
         super.onDestroy();
 
         // Un-register Preference objects from their MDM restriction handlers
-        DoNotTrackRestriction.getInstance().registerPreference(null);
         AutoFillRestriction.getInstance().registerPreference(null);
     }
 

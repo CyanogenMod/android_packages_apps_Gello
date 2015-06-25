@@ -30,10 +30,14 @@
 
 package com.android.browser.mdm;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 
-public class DoNotTrackRestriction extends Restriction {
+import com.android.browser.BrowserSettings;
+import com.android.browser.PreferenceKeys;
+
+public class DoNotTrackRestriction extends Restriction implements PreferenceKeys {
 
     private final static String TAG = "DoNotTrackRestriction";
 
@@ -60,6 +64,7 @@ public class DoNotTrackRestriction extends Restriction {
 
     @Override
     public void enforce(Bundle restrictions) {
+        SharedPreferences.Editor editor = BrowserSettings.getInstance().getPreferences().edit();
         // Possible states
         //   DNT_enabled  DNT_value  |  menu-item-enabled      check-box-value
         //   -----------------------------------------------------------------
@@ -71,6 +76,9 @@ public class DoNotTrackRestriction extends Restriction {
         boolean dntEnabled = restrictions.getBoolean(DO_NOT_TRACK_ENABLED,false);
         if (dntEnabled) {
             mDntValue = restrictions.getBoolean(DO_NOT_TRACK_VALUE, true); // default to true
+
+            editor.putBoolean(PREF_DO_NOT_TRACK, mDntValue);
+            editor.apply();
 
             // enable the restriction : controls enable of the menu item
             // Log.i(TAG, "DNT Restriction enabled. new val [" + mDntValue + "]");
