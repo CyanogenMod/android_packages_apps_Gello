@@ -66,7 +66,7 @@ public class ThirdPartyCookiesRestrictionsTest extends ActivityInstrumentationTe
 
         clearTPCRestrictions();
         assertFalse(mTBCRestriction.isEnabled());
-        assertFalse(mTBCRestriction.getValue());
+        assertTrue(mTBCRestriction.getValue()); // default is 'allowed'
 
         setTPCRestrictions(false, true);
         assertFalse(mTBCRestriction.isEnabled());
@@ -88,7 +88,7 @@ public class ThirdPartyCookiesRestrictionsTest extends ActivityInstrumentationTe
      *
      * @param enable boolean. Set the state of the restriction.
      *
-     * @param value boolean. Set the state of Do Not Track if enabled is set to true.
+     * @param value boolean. Set the state of TPC. true == allowed. If enabled is set to true.
      *              we still bundle it, but it should be ignored by the handler.
      */
     private void setTPCRestrictions(boolean clear, boolean enable, boolean value) {
@@ -97,7 +97,7 @@ public class ThirdPartyCookiesRestrictionsTest extends ActivityInstrumentationTe
 
         if(!clear) {
             restrictions.putBoolean(ThirdPartyCookiesRestriction.TPC_ENABLED,enable);
-            restrictions.putBoolean(ThirdPartyCookiesRestriction.TPC_VALUE, value);
+            restrictions.putBoolean(ThirdPartyCookiesRestriction.TPC_ALLOWED, value);
         }
 
         // Deliver restriction on UI thread

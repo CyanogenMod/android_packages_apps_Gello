@@ -56,7 +56,7 @@
             android:summaryOff="@string/pref_security_not_allowed"
             android:title="@string/pref_security_save_form_data" />
 
-        <SwitchPreference
+        <com.android.browser.mdm.MdmCheckBoxPreference
             android:layout="@layout/swe_preference"
             android:defaultValue="true"
             android:key="accept_third_cookies"

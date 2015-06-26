@@ -31,6 +31,7 @@
 package com.android.browser.mdm;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.util.Log;
 
 import org.codeaurora.swe.MdmManager;
@@ -40,10 +41,11 @@ public class ThirdPartyCookiesRestriction extends Restriction {
     private final static String TAG = "TPC_Restriction";
 
     public static final String TPC_ENABLED = "ThirdPartyCookiesRestrictionEnabled"; // boolean
-    public static final String TPC_VALUE   = "ThirdPartyCookiesValue";   // boolean
+    public static final String TPC_ALLOWED = "AllowThirdPartyCookies";   // boolean
 
     private static ThirdPartyCookiesRestriction sInstance;
-    private boolean mTpcValue;
+    private boolean mAllowTpc;
+    private MdmCheckBoxPreference mPref = null;
 
     private ThirdPartyCookiesRestriction() {
         super(TAG);
@@ -58,15 +60,41 @@ public class ThirdPartyCookiesRestriction extends Restriction {
         return sInstance;
     }
 
+    public void registerPreference (Preference pref) {
+        mPref = (MdmCheckBoxPreference) pref;
+        updatePref();
+    }
+
+    private void updatePref() {
+        if (null != mPref) {
+            if (isEnabled()) {
+                mPref.setChecked(getValue());
+                mPref.disablePref();
+            }
+            else {
+                mPref.enablePref();
+            }
+            mPref.setMdmRestrictionState(isEnabled());
+        }
+    }
+
     @Override
     public void enforce(Bundle restrictions) {
         enable(restrictions.getBoolean(TPC_ENABLED,false));
-        mTpcValue = restrictions.getBoolean(TPC_VALUE, false);
-        Log.i(TAG, "Enforcing. enabled[" + isEnabled() + "]. val[" + mTpcValue + "]");
-        MdmManager.updateMdmThirdPartyCookies(isEnabled(), mTpcValue);
+        mAllowTpc = restrictions.getBoolean(TPC_ALLOWED, true);
+        Log.d(TAG, "Enforcing. enabled[" + isEnabled() + "]. tpc allowed[" + mAllowTpc + "]");
+
+        // Real time update of the Preference if it is registered
+        updatePref();
+
+        if (isEnabled()) {
+            // Logic in native is "should we block?", so we need to
+            // reverse the logic here.
+            MdmManager.updateMdmThirdPartyCookies(!mAllowTpc);
+        }
     }
 
     public boolean getValue() {
-        return mTpcValue;
+        return mAllowTpc;
     }
 }

@@ -19,6 +19,7 @@ package com.android.browser.preferences;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.mdm.DoNotTrackRestriction;
+import com.android.browser.mdm.ThirdPartyCookiesRestriction;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -76,6 +77,8 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
         // Register Preference objects with their MDM restriction handlers
         DoNotTrackRestriction.getInstance().
                 registerPreference(findPreference(PreferenceKeys.PREF_DO_NOT_TRACK));
+        ThirdPartyCookiesRestriction.getInstance().
+                registerPreference(findPreference("accept_third_cookies"));
     }
 
     @Override
@@ -84,6 +87,7 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
 
         // Un-register Preference objects from their MDM restriction handlers
         DoNotTrackRestriction.getInstance().registerPreference(null);
+        ThirdPartyCookiesRestriction.getInstance().registerPreference(null);
     }
 
     @Override
