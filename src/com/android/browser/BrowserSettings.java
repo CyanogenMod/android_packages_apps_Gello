@@ -27,6 +27,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
 
 import com.android.browser.homepages.HomeProvider;
@@ -39,8 +40,10 @@ import com.android.browser.search.SearchEngine;
 import com.android.browser.search.SearchEngines;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.codeaurora.swe.AutoFillProfile;
 import org.codeaurora.swe.CookieManager;
@@ -125,6 +128,47 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
 
     public void onEngineInitializationComplete() {
         mEngineInitialized = true;
+
+        // Intialize Web Refiner only once
+        final WebRefiner refiner = WebRefiner.getInstance();
+        if (refiner != null) {
+            refiner.setRulesEnabled(WebRefiner.CATEGORY_ALL,
+                    PermissionsServiceFactory.getDefaultPermissions(
+                            PermissionsServiceFactory.PermissionType.WEBREFINER));
+
+            PermissionsServiceFactory.getPermissionsService(
+                new ValueCallback<PermissionsServiceFactory.PermissionsService>() {
+                    @Override
+                    public void onReceiveValue(
+                            PermissionsServiceFactory.PermissionsService value) {
+                        Set<String> origins = value.getOrigins();
+                        ArrayList<String> allowList = new ArrayList<>();
+                        ArrayList<String> blockList = new ArrayList<>();
+                        for (String origin : origins) {
+                            PermissionsServiceFactory.PermissionsService.OriginInfo
+                                    info = value.getOriginInfo(origin);
+                            int perm = info.getPermission(
+                                    PermissionsServiceFactory.PermissionType.WEBREFINER);
+                            if (perm == PermissionsServiceFactory.Permission.ALLOW) {
+                                allowList.add(origin);
+                            } else if (perm == PermissionsServiceFactory.Permission.BLOCK) {
+                                blockList.add(origin);
+                            }
+                        }
+                        if (!allowList.isEmpty()) {
+                            refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL,
+                                    allowList.toArray(new String[allowList.size()]));
+                        }
+
+                        if (!blockList.isEmpty()) {
+                            refiner.disableRulesForDomains(WebRefiner.CATEGORY_ALL,
+                                    blockList.toArray(new String[blockList.size()]));
+                        }
+                    }
+                }
+            );
+        }
+
         mAutofillHandler = new AutofillHandler(mContext);
         if (mSyncManagedSettings) {
             syncManagedSettings();

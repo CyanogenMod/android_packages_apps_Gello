@@ -57,8 +57,13 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
 
         readAndShowPermission("camera", PermissionsServiceFactory.PermissionType.VIDEO);
 
-        readAndShowPermission("distracting_contents",
-                PermissionsServiceFactory.PermissionType.WEBREFINER);
+        // since webrefiner and distracting_contents are paradoxes
+        // the value needs to be flipped
+        Preference pref = findPreference("distracting_contents");
+        pref.setOnPreferenceChangeListener(this);
+        showPermission(pref,
+            !PermissionsServiceFactory.getDefaultPermissions(
+                PermissionsServiceFactory.PermissionType.WEBREFINER));
 
         readAndShowPermission("popup_windows", PermissionsServiceFactory.PermissionType.POPUP);
 
@@ -118,12 +123,8 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("distracting_contents")) {
-            WebRefiner refiner = WebRefiner.getInstance();
             PermissionsServiceFactory.setDefaultPermissions(
-                    PermissionsServiceFactory.PermissionType.WEBREFINER, flag);
-            if (refiner != null) {
-                refiner.setRulesEnabled(WebRefiner.CATEGORY_ALL, !flag);
-            }
+                    PermissionsServiceFactory.PermissionType.WEBREFINER, !flag);
             return true;
         }
 

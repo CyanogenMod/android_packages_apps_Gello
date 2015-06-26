@@ -88,9 +88,7 @@ import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.CookieSyncManager;
 import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.HttpAuthHandler;
-import org.codeaurora.swe.PermissionsServiceFactory;
 import org.codeaurora.swe.SslErrorHandler;
-import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebBackForwardList;
@@ -127,7 +125,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Controller for browser
@@ -294,45 +291,6 @@ public class Controller
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
         mHomepageHandler = new HomepageHandler(browser, this);
         mAppMenuHandler = new AppMenuHandler(browser, this, R.menu.browser);
-
-        final WebRefiner refiner = WebRefiner.getInstance();
-        if (refiner != null) {
-            refiner.setRulesEnabled(WebRefiner.CATEGORY_ALL,
-                    !PermissionsServiceFactory.getDefaultPermissions(
-                            PermissionsServiceFactory.PermissionType.WEBREFINER));
-
-            PermissionsServiceFactory.getPermissionsService(
-                    new ValueCallback<PermissionsServiceFactory.PermissionsService>() {
-                        @Override
-                        public void onReceiveValue(
-                                PermissionsServiceFactory.PermissionsService value) {
-                            Set<String> origins = value.getOrigins();
-                            ArrayList<String> allowList = new ArrayList<>();
-                            ArrayList<String> blockList = new ArrayList<>();
-                            for (String origin : origins) {
-                                PermissionsServiceFactory.PermissionsService.OriginInfo
-                                        info = value.getOriginInfo(origin);
-                                int perm = info.getPermission(
-                                        PermissionsServiceFactory.PermissionType.WEBREFINER);
-                                if (perm == PermissionsServiceFactory.Permission.ALLOW) {
-                                    allowList.add(origin);
-                                } else if (perm == PermissionsServiceFactory.Permission.BLOCK) {
-                                    blockList.add(origin);
-                                }
-                            }
-                            if (!allowList.isEmpty()) {
-                                refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL,
-                                        allowList.toArray(new String[allowList.size()]));
-                            }
-
-                            if (!blockList.isEmpty()) {
-                                refiner.disableRulesForDomains(WebRefiner.CATEGORY_ALL,
-                                        blockList.toArray(new String[blockList.size()]));
-                            }
-                        }
-                    }
-            );
-        }
     }
 
     @Override

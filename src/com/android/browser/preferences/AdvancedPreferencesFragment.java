@@ -37,6 +37,7 @@ import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import org.codeaurora.swe.BrowserCommandLine;
+import org.codeaurora.swe.PermissionsServiceFactory;
 
 public class AdvancedPreferencesFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -146,6 +147,7 @@ public class AdvancedPreferencesFragment
         if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
+                PermissionsServiceFactory.resetDefaultPermissions();
                 mFragment.startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
                         mFragment.getActivity(), BrowserActivity.class));
                 return true;
