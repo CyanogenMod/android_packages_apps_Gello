@@ -125,19 +125,21 @@ public class NavigationBarBase extends LinearLayout implements
 
     public void setLock(Drawable d, Tab.SecurityState securityState) {
         mSecurityState = securityState;
-        switch (mSecurityState) {
-            case SECURITY_STATE_SECURE:
-                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_good);
-                break;
-            case SECURITY_STATE_MIXED:
-                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_warning);
-                break;
-            case SECURITY_STATE_BAD_CERTIFICATE:
-                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_severe);
-                break;
-            case SECURITY_STATE_NOT_SECURE:
-            default:
-                mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
+        if (mFaviconBadge != null) {
+            switch (mSecurityState) {
+                case SECURITY_STATE_SECURE:
+                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_good);
+                    break;
+                case SECURITY_STATE_MIXED:
+                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_warning);
+                    break;
+                case SECURITY_STATE_BAD_CERTIFICATE:
+                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_severe);
+                    break;
+                case SECURITY_STATE_NOT_SECURE:
+                default:
+                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
+            }
         }
         if (mLockIcon == null) return;
         if (d == null) {
@@ -287,7 +289,7 @@ public class NavigationBarBase extends LinearLayout implements
             bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT_ERR, certError);
         }
 
-        Bitmap favicon = mUiController.getCurrentTab().getFavicon();
+        Bitmap favicon = mUiController.getCurrentTopWebView().getFavicon();
         if (favicon != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             favicon.compress(Bitmap.CompressFormat.PNG, 50, baos);

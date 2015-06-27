@@ -84,10 +84,14 @@ public class AdvancedPreferencesFragment
 
             String value = BrowserSettings.getInstance().getEdgeSwipeAction();
 
-            for (int i = 0; i < options.length; i++) {
-                if (value.equals(options[i])) {
-                    edgeSwipePref.setValueIndex(i);
-                    break;
+            if (value.equals(mFragment.getString(R.string.value_unknown_edge_swipe))) {
+                edgeSwipePref.setSummary(mFragment.getString(R.string.pref_edge_swipe_unknown));
+            } else {
+                for (int i = 0; i < options.length; i++) {
+                    if (value.equals(options[i])) {
+                        edgeSwipePref.setValueIndex(i);
+                        break;
+                    }
                 }
             }
         }

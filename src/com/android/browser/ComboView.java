@@ -37,7 +37,8 @@ import com.android.browser.UI.ComboViews;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ComboView extends LinearLayout implements CombinedBookmarksCallbacks, View.OnLayoutChangeListener {
+public class ComboView extends LinearLayout
+        implements CombinedBookmarksCallbacks, View.OnLayoutChangeListener {
 
     private Activity mActivity;
     private ViewPager mViewPager;
@@ -140,6 +141,7 @@ public class ComboView extends LinearLayout implements CombinedBookmarksCallback
 
         // Compare the items in args with old args and recreate the fragments if they don't match.
         if (mExtraArgs != null && !compareArgs(mExtraArgs, args)) {
+            mTabsAdapter.removeAllTabs();
             mTabsAdapter = null;
         }
 

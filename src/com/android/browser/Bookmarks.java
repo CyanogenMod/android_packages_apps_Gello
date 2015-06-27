@@ -177,13 +177,9 @@ public class Bookmarks {
             return null;
         }
 
-        url = eatTrailingSlash(url);
-
         // If originalUrl is null, just set it to url.
         if (originalUrl == null) {
             originalUrl = url;
-        } else {
-            originalUrl = eatTrailingSlash(originalUrl);
         }
 
         // Look for both the original url and the actual url. This takes in to
@@ -235,6 +231,14 @@ public class Bookmarks {
                 Cursor cursor = null;
                 try {
                     cursor = queryCombinedForUrl(cr, originalUrl, url);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        do {
+                            updateImages(cr, cursor.getString(0), values);
+                        } while (cursor.moveToNext());
+                    }
+
+                    cursor = queryCombinedForUrl(cr, eatTrailingSlash(originalUrl),
+                            eatTrailingSlash(url));
                     if (cursor != null && cursor.moveToFirst()) {
                         do {
                             updateImages(cr, cursor.getString(0), values);

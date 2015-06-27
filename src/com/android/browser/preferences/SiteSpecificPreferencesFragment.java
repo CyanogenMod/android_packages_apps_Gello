@@ -433,8 +433,15 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING, warningText);
         }
 
-        showPermission("distracting_contents", PermissionsServiceFactory.PermissionType.WEBREFINER,
+        permission = showPermission("distracting_contents",
+                PermissionsServiceFactory.PermissionType.WEBREFINER,
                 R.string.pref_security_allowed, R.string.pref_security_not_allowed);
+        pref = findPreference("distracting_contents");
+        if (permission == PermissionsServiceFactory.Permission.BLOCK) {
+            ((TwoStatePreference) pref).setChecked(true);
+        } else {
+            ((TwoStatePreference) pref).setChecked(false);
+        }
 
         showPermission("popup_windows", PermissionsServiceFactory.PermissionType.POPUP,
                 R.string.pref_security_allowed, R.string.pref_security_not_allowed);
@@ -451,7 +458,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                     findPreference("site_specific_prefs");
 
             pref = findPreference("site_security_info_title");
-            screen.removePreference(pref);
+            if (pref != null && screen != null) {
+                screen.removePreference(pref);
+            }
         }
 
     }
@@ -643,13 +652,13 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         } else if (pref.getKey().toString().equalsIgnoreCase("distracting_contents")) {
             WebRefiner refiner = WebRefiner.getInstance();
             if (refiner != null) {
-                boolean enable = (boolean) objValue;
+                boolean disable = (boolean) objValue;
                 String[] origins = new String[1];
                 origins[0] = mOriginInfo.getOrigin();
-                if (enable) {
-                    refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL, origins);
-                } else {
+                if (disable) {
                     refiner.disableRulesForDomains(WebRefiner.CATEGORY_ALL, origins);
+                } else {
+                    refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL, origins);
                 }
             }
             updateTwoStatePreference(pref,

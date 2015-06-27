@@ -31,6 +31,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.graphics.BitmapFactory;
@@ -235,6 +237,14 @@ public class BrowserHistoryPage extends Fragment
         getLoaderManager().restartLoader(LOADER_MOST_VISITED, null, this);
 
         return mRoot;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Resources res = getActivity().getResources();
+        int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
+        mRoot.setPadding(0, paddingTop, 0, 0);
     }
 
     private void inflateSinglePane() {

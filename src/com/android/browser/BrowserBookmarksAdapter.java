@@ -136,8 +136,13 @@ public class BrowserBookmarksAdapter extends
             item = new BrowserBookmarksAdapterItem();
         }
         Bitmap thumbnail = item.thumbnail != null ? item.thumbnail.getBitmap() : null;
+
         thumbnail = BrowserBookmarksPage.getBitmap(c,
-                BookmarksLoader.COLUMN_INDEX_THUMBNAIL, thumbnail);
+                BookmarksLoader.COLUMN_INDEX_TOUCH_ICON, thumbnail);
+        if (thumbnail == null) {
+            thumbnail = BrowserBookmarksPage.getBitmap(c,
+                    BookmarksLoader.COLUMN_INDEX_THUMBNAIL, thumbnail);
+        }
         item.has_thumbnail = thumbnail != null;
         if (thumbnail != null
                 && (item.thumbnail == null || item.thumbnail.getBitmap() != thumbnail)) {

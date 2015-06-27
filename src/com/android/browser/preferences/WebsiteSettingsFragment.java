@@ -193,10 +193,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             }
 
             notifyDataSetChanged();
-
-            if (getCount() == 0) {
-                finish(); // we close the screen
-            }
         }
 
         @Override

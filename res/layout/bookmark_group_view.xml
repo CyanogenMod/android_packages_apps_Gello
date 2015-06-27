@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:paddingStart="50dp"
         android:textAppearance="@style/BookmarkText"
+        android:textColor="@color/accent"
         android:gravity="center_vertical" />
 
     <FrameLayout

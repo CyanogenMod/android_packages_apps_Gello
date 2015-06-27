@@ -29,15 +29,18 @@
 
 package com.android.browser.preferences;
 
+import android.app.ActionBar;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
+
+import com.android.browser.R;
 
 public abstract class SWEPreferenceFragment extends PreferenceFragment  {
 
@@ -74,6 +77,16 @@ public abstract class SWEPreferenceFragment extends PreferenceFragment  {
         );
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ActionBar bar = getActivity().getActionBar();
+        if (bar != null) {
+            bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.accent)));
+        }
     }
 
     private final void findAndResizeSwitchPreferenceWidget(View parent) {

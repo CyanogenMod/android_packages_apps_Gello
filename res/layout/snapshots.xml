@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/combo_snapshot_paddingTop">
+    android:paddingTop="@dimen/combo_paddingTop">
 
     <com.android.browser.view.SnapshotGridView
         android:id="@+id/grid"
@@ -36,6 +36,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/empty_snapshots_folder"
         android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/combo_shadow_height"
+        android:layout_gravity="bottom"
+        android:background="@drawable/shadow_top" />
 
     <View
         android:layout_width="match_parent"

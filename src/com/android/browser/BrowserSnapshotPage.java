@@ -26,6 +26,8 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -82,6 +84,8 @@ public class BrowserSnapshotPage extends Fragment implements
     CombinedBookmarksCallbacks mCallback;
     long mAnimateId;
 
+    View mRoot;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,11 +104,20 @@ public class BrowserSnapshotPage extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.snapshots, container, false);
+        mRoot = view;
         mEmpty = view.findViewById(android.R.id.empty);
         mGrid = (GridView) view.findViewById(R.id.grid);
         setupGrid(inflater);
         getLoaderManager().initLoader(LOADER_SNAPSHOTS, null, this);
         return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Resources res = getActivity().getResources();
+        int paddingTop = (int) res.getDimension(R.dimen.combo_paddingTop);
+        mRoot.setPadding(0, paddingTop, 0, 0);
     }
 
     @Override

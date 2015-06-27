@@ -404,7 +404,7 @@
     <!-- Settings summary for the WebRefiner -->
     <string name="pref_web_refiner_enabled_summary">Block advertisements and tracking</string>
     <string name="pref_web_refiner_blocked">Blocked</string>
-    <string name="pref_web_refiner_advertisements">advertisements</string>
+    <string name="pref_web_refiner_advertisements">distractions</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
     <string name="pref_autofill_profile_editor">Auto-fill text</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
@@ -676,6 +676,7 @@
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
     <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
+    <string name="pref_edge_swipe_unknown">Unknown</string>
     <string-array name="pref_edge_swiping_choices">
         <item>@string/pref_temporal_edge_swipe</item>
 <!--

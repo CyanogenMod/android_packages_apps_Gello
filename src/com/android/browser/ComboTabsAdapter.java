@@ -41,29 +41,29 @@ import java.util.ArrayList;
  */
 public class ComboTabsAdapter extends FragmentPagerAdapter
     implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
-        private final Context mContext;
-        private final ActionBar mActionBar;
-        private final ViewPager mViewPager;
-        private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+    private final Context mContext;
+    private final ActionBar mActionBar;
+    private final ViewPager mViewPager;
+    private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
 
-        static final class TabInfo {
-            private final Class<?> clss;
-            private final Bundle args;
+    static final class TabInfo {
+        private final Class<?> clss;
+        private final Bundle args;
 
-            TabInfo(Class<?> _class, Bundle _args) {
-                clss = _class;
-                args = _args;
-            }
+        TabInfo(Class<?> _class, Bundle _args) {
+            clss = _class;
+            args = _args;
         }
+    }
 
-        public ComboTabsAdapter(Activity activity, ViewPager pager) {
-            super(activity.getFragmentManager());
-            mContext = activity;
-            mActionBar = activity.getActionBar();
-            mViewPager = pager;
-            mViewPager.setAdapter(this);
-            mViewPager.setOnPageChangeListener(this);
-        }
+    public ComboTabsAdapter(Activity activity, ViewPager pager) {
+        super(activity.getFragmentManager());
+        mContext = activity;
+        mActionBar = activity.getActionBar();
+        mViewPager = pager;
+        mViewPager.setAdapter(this);
+        mViewPager.setOnPageChangeListener(this);
+    }
 
     public void addTab(ActionBar.Tab tab, Class<?> clss, Bundle args) {
         TabInfo info = new TabInfo(clss, args);
@@ -71,6 +71,11 @@ public class ComboTabsAdapter extends FragmentPagerAdapter
         tab.setTabListener(this);
         mTabs.add(info);
         mActionBar.addTab(tab);
+        notifyDataSetChanged();
+    }
+
+    public void removeAllTabs() {
+        mActionBar.removeAllTabs();
         notifyDataSetChanged();
     }
 

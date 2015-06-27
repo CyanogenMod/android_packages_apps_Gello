@@ -141,6 +141,19 @@ public class XLargeUi extends BaseUi {
     }
 
     @Override
+    public void onProgressChanged(Tab tab) {
+        super.onProgressChanged(tab);
+        if (mComboView != null && !mComboView.isShowing()) {
+            mActionBar = mActivity.getActionBar();
+            setupActionBar();
+            if (mActionBar != null)
+                mActionBar.show();
+            if (mNavBar != null)
+                mNavBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void onDestroy() {
         hideTitleBar();
     }
@@ -268,6 +281,7 @@ public class XLargeUi extends BaseUi {
     public void setFavicon(Tab tab) {
         super.setFavicon(tab);
         mTabBar.onFavicon(tab, tab.getFavicon());
+/*
         if (mActiveTab == tab) {
             int color = NavigationBarBase.getSiteIconColor(tab.getUrl());
             if (tab.hasFavicon()) {
@@ -275,6 +289,7 @@ public class XLargeUi extends BaseUi {
             }
             mActionBar.setBackgroundDrawable(new ColorDrawable(color));
         }
+*/
     }
 
     @Override

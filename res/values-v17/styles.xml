@@ -26,9 +26,6 @@
     <style name="DialogWhenLarge" parent="@android:style/Theme.Holo.Light.DialogWhenLarge" >
         <item name="android:windowActionBar">false</item>
     </style>
-    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:displayOptions">none</item>
-    </style>
     <style name="PopupMenuStyle" parent="@android:style/Widget.Holo.Light.PopupMenu">
     </style>
     <style name="Suggestions" parent="@android:style/Widget.Holo.Light.AutoCompleteTextView">
@@ -74,6 +71,11 @@
     </style>
 
     <style name="SettingsTheme" parent="@style/BrowserBase">
+        <item name="android:actionBarStyle"
+            >@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse</item>
+    </style>
+
+    <style name="LightActionBarSolidStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
     </style>
 
     <style name="LightActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
