@@ -28,13 +28,15 @@
     *
     */
 
+
 package com.android.browser;
 
 import android.content.Context;
 
 public class BrowserConfig extends BrowserConfigBase {
 
-    public final static String AUTHORITY = "com.android.browser";
+    //Authority string used by different providers
+    public final static String AUTHORITY = "@PACKAGE_NAME@";
 
     private static BrowserConfig sBrowserConfig;
 
