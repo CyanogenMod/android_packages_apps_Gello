@@ -39,6 +39,8 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 
+import com.android.browser.mdm.DevToolsRestriction;
+
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.Engine;
 
@@ -376,8 +378,8 @@ public class EngineInitializer {
                         .build());
             }
 
-            //Enable remote debugging by default
-            Engine.setWebContentsDebuggingEnabled(true);
+            //Enable remote debugging by default as long as MDM restriction is not enabled
+            Engine.setWebContentsDebuggingEnabled(!DevToolsRestriction.getInstance().isEnabled());
             mInitializationCompleted = true;
             mInitializationStarted = true;
             BrowserSettings.getInstance().onEngineInitializationComplete();
