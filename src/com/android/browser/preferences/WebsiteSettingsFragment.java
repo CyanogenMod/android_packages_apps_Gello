@@ -165,13 +165,13 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             if (mPermServ != null) {
                 Set<String> origins = mPermServ.getOrigins();
                 String[] originArray = origins.toArray(new String[origins.size()]);
-                for (String origin : originArray) {
-                    PermissionsServiceFactory.PermissionsService.OriginInfo info =
-                            mPermServ.getOriginInfo(origin);
-                    if (info != null) {
-                        mPermServ.deleteOriginInfo(info);
-                    }
-                }
+
+                // purge the permissionservice since its not needed
+                mPermServ.purge();
+                mPermServ = null;
+
+                // reset all site settings
+                PermissionsServiceFactory.resetSiteSettings();
 
                 WebRefiner refiner = WebRefiner.getInstance();
                 if (refiner != null) {
@@ -314,7 +314,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                             public void onClick(DialogInterface dlg, int which) {
                                 mAdapter.deleteAllOrigins();
                                 WebStorage.getInstance().deleteAllData();
-                                GeolocationPermissions.getInstance().clearAll();
                                 if (GeolocationPermissions.isIncognitoCreated()) {
                                     GeolocationPermissions.getIncognitoInstance().clearAll();
                                 }
