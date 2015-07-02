@@ -192,6 +192,7 @@
                 android:layout_marginStart="16dip"
                 android:layout_marginTop="16dip"
                 android:text="@string/no_subfolders"
+                android:contentDescription="@string/no_subfolders"
                 android:textStyle="italic"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
