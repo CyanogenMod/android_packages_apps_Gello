@@ -2028,10 +2028,12 @@ public class Controller
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
+                getCurrentTab().capture();
                 openTabToHomePage();
                 break;
 
             case R.id.incognito_menu_id:
+                getCurrentTab().capture();
                 openIncognitoTab();
                 break;
 
@@ -2543,7 +2545,7 @@ public class Controller
                 AddBookmarkPage.class);
         i.putExtra(BrowserContract.Bookmarks.URL, w.getUrl());
         i.putExtra(BrowserContract.Bookmarks.TITLE, w.getTitle());
-        String touchIconUrl = w.getTouchIconUrl();
+        String touchIconUrl = getCurrentTab().getTouchIconUrl();
         if (touchIconUrl != null) {
             i.putExtra(AddBookmarkPage.TOUCH_ICON_URL, touchIconUrl);
             WebSettings settings = w.getSettings();

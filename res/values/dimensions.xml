@@ -19,8 +19,8 @@
     <dimen name="tab_slice">15.5dp</dimen>
     <dimen name="tab_focus_stroke">2dip</dimen>
     <dimen name="max_tab_width">300dp</dimen>
-    <dimen name="bookmarkThumbnailWidth">100dip</dimen>
-    <dimen name="bookmarkThumbnailHeight">100dip</dimen>
+    <dimen name="bookmarkThumbnailWidth">90dip</dimen>
+    <dimen name="bookmarkThumbnailHeight">90dip</dimen>
     <!--Add for Navigation Feature -->
     <dimen name="mynav_item_width">80px</dimen>
     <dimen name="mynav_item_width_portrait">80px</dimen>
@@ -48,8 +48,8 @@
     <dimen name="widgetVerticalSpacing">6dip</dimen>
     <dimen name="widgetColumnWidth">80dip</dimen>
     <!-- For the combined Bookmarks History view -->
-    <dimen name="combo_paddingTop">50dip</dimen>
-    <dimen name="combo_horizontalSpacing">6dip</dimen>
+    <dimen name="combo_paddingTop">48dip</dimen>
+    <dimen name="combo_horizontalSpacing">8dip</dimen>
     <dimen name="combo_bookmark_thumbnail_margin">4dip</dimen>
     <dimen name="combo_snapshot_item_padding">12dip</dimen>
     <dimen name="combo_shadow_height">8dip</dimen>
@@ -85,4 +85,6 @@
     <dimen name="edge_swipe_in_slop">25dp</dimen>
     <dimen name="edge_swipe_in_additional_slop">50dp</dimen>
     <dimen name="edge_swipe_out_slop">18dp</dimen>
+
+    <dimen name="SiteTileOverline">1dp</dimen>
 </resources>

@@ -53,8 +53,7 @@
         android:paddingStart="8dip"
         android:gravity="center_vertical"
         android:typeface="sans"
-        android:textSize="12sp"
-        android:textColor="#AAAAAA"
+        android:textAppearance="@style/BookmarkText"
         android:lines="2" />
     <ImageView
         android:id="@+id/divider"

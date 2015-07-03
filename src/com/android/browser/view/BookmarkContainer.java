@@ -26,6 +26,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
 
+import com.android.browser.R;
+import com.android.browser.SiteTileView;
+
 public class BookmarkContainer extends LinearLayout implements OnClickListener {
 
     private OnClickListener mClickListener;
@@ -53,13 +56,21 @@ public class BookmarkContainer extends LinearLayout implements OnClickListener {
     }
 
     @Override
-    public void setBackgroundDrawable(Drawable d) {
-        super.setBackgroundDrawable(d);
+    public void setOnClickListener(OnClickListener l) {
+        mClickListener = l;
+        View thumb =  findViewById(R.id.thumb_image);
+        if (thumb != null) {
+            thumb.setOnClickListener(l);
+        }
     }
 
     @Override
-    public void setOnClickListener(OnClickListener l) {
-        mClickListener = l;
+    public void setTag(int key, final Object tag) {
+        super.setTag(key, tag);
+        View thumb =  findViewById(R.id.thumb_image);
+        if (thumb != null) {
+            thumb.setTag(key, tag);
+        }
     }
 
     @Override

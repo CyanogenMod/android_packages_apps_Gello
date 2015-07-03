@@ -229,6 +229,11 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         mSslCert = (parcel != null) ? SslCertificate.restoreState(parcel) : null;
 
         if (mSslCert != null) {
+            Preference pref = findPreference("site_security_info");
+            if (pref != null) {
+                pref.setSelectable(true);
+            }
+
             int certErrors = args.getInt(EXTRA_SECURITY_CERT_ERR, 0);
 
             if (certErrors == 0) {

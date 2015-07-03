@@ -529,7 +529,7 @@
     <!-- Settings summmary -->
     <string name="pref_security_show_security_warning_summary">Show warning if there\'s a problem with a site\'s security</string>
     <!-- Settings Label -->
-    <string name="pref_do_not_track">Do Not Track</string>
+    <string name="pref_do_not_track">Request \'Do Not Track\'</string>
     <!-- Settings summary -->
     <string name="pref_do_not_track_summary">Send a Do Not Track request with your browsing traffic</string>
     <!-- Settings label -->
@@ -539,13 +539,15 @@
 
     <string name="pref_security_allow_mic">Microphone</string>
     <string name="pref_security_allow_camera">Camera</string>
-    <string name="pref_security_web_refiner">Ads and Distracting Content</string>
-    <string name="pref_security_accept_third_party_cookies">Third Party Cookies</string>
+    <string name="pref_security_web_refiner">Ads and distracting content</string>
+    <string name="pref_security_accept_third_party_cookies">Third party cookies</string>
     <string name="pref_security_ask_before_using">Ask before using</string>
     <string name="pref_security_allowed">Allowed</string>
     <string name="pref_security_not_allowed">Not allowed</string>
     <string name="pref_security_remember">Remember</string>
     <string name="pref_security_protect">Protect by default</string>
+    <string name="pref_security_on">On</string>
+    <string name="pref_security_off">Off</string>
     <string name="pref_website_title">Website</string>
     <string name="pref_security_add">Add</string>
     <string name="pref_security_cancel">Cancel</string>
@@ -597,13 +599,14 @@
     <!-- Settings screen, section title [CHAR LIMIT=50] -->
     <string name="pref_extras_title">Advanced</string>
     <!-- Settings label -->
-    <string name="pref_extras_website_settings">Per Site Settings</string>
+    <string name="pref_extras_website_settings">Per site settings</string>
     <!-- Settings summary -->
     <string name="pref_extras_website_settings_summary">Advanced settings for individual websites</string>
     <!-- Settings category label [CHAR-LIMIT=50] -->
     <string name="pref_extras_reset_default_title">Reset defaults</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
+    <string name="pref_extras_reset">Reset</string>
     <!-- Settings summary -->
     <string name="pref_extras_reset_default_summary">Restore default settings</string>
     <!-- Confirmation dialog message -->
@@ -667,7 +670,7 @@
         <item>auto</item>
     </string-array>
     <string name="pref_default_text_encoding_default">UTF-8</string>
-    <string name="pref_edge_swipe_title">Edge Swipe</string>
+    <string name="pref_edge_swipe_title">Edge swipe</string>
     <string name="pref_edge_swipe_option_msg">When swiping, would you like:</string>
     <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
     <string name="pref_spatial_edge_swipe">Change Tab</string>
@@ -890,7 +893,7 @@
     <string name="webstorage_outofspace_notification_text">Touch to free up space.</string>
     <!-- Used in the Browser Settings -->
     <string name="webstorage_clear_data_title">Storage</string>
-    <string name="webstorage_private_data_title">Private Data</string>
+    <string name="webstorage_private_data_title">Private data</string>
 
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
     <string name="webstorage_clear_data_dialog_message">Delete all data stored by this website?</string>

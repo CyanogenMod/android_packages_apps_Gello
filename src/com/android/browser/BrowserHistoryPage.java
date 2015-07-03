@@ -652,8 +652,14 @@ public class BrowserHistoryPage extends Fragment
                         item.getPaddingRight(),
                         item.getPaddingBottom());
                 item.setFaviconBackground(mFaviconBackground);
+                item.setTag(R.id.group_position, groupPosition);
+                item.setTag(R.id.child_position, childPosition);
+                item.setTag(R.id.combo_view_container, mHistoryList);
             } else {
                 item = (HistoryItem) convertView;
+                item.setTag(R.id.group_position, groupPosition);
+                item.setTag(R.id.child_position, childPosition);
+                item.setTag(R.id.combo_view_container, mHistoryList);
             }
 
             // Bail early if the Cursor is closed.

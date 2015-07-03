@@ -193,6 +193,8 @@ class Tab implements PictureListener {
     // determine if webview is destroyed to MemoryMonitor
     private boolean mWebViewDestroyedByMemoryMonitor;
 
+    private String mTouchIconUrl;
+
     private Observable mFirstPixelObservable;
     private Observable mTabHistoryUpdateObservable;
 
@@ -634,6 +636,7 @@ class Tab implements PictureListener {
 
         @Override
         public void beforeNavigation(WebView view, String url) {
+            mTouchIconUrl = null;
             if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
                 return;
             }
@@ -726,6 +729,9 @@ class Tab implements PictureListener {
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
 
+    public String getTouchIconUrl() {
+        return mTouchIconUrl;
+    }
 
     public boolean isTabFullScreen() {
         return mFullScreen;
@@ -771,6 +777,8 @@ class Tab implements PictureListener {
                 mWebViewController.attachSubWindow(Tab.this);
                 transport.setWebView(mSubView);
             } else {
+                capture();
+
                 final Tab newTab = mWebViewController.openTab(url,
                         Tab.this, true, true);
                 // This is special case for rendering links on a webpage in
@@ -919,6 +927,7 @@ class Tab implements PictureListener {
                         mContext, cr, view);
                 mTouchIconLoader.execute(url);
             }
+            mTouchIconUrl = url;
         }
 
         @Override

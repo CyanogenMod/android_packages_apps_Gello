@@ -16,18 +16,14 @@
 
 package com.android.browser;
 
-import com.android.browser.R;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -37,13 +33,14 @@ class BookmarkItem extends ScrollView {
 
     final static int MAX_TEXTVIEW_LEN = 80;
 
-    protected TextView    mTextView;
-    protected TextView    mUrlText;
-    protected ImageView   mImageView;
-    protected String      mUrl;
-    protected String      mTitle;
+    protected TextView     mTextView;
+    protected TextView     mUrlText;
+    protected SiteTileView mTileView;
+    protected String       mUrl;
+    protected String       mTitle;
     protected boolean mEnableScrolling = false;
 
+    protected Bitmap  mBitmap;
     /**
      *  Instantiate a bookmark item, including a default favicon.
      *
@@ -58,19 +55,9 @@ class BookmarkItem extends ScrollView {
         factory.inflate(R.layout.history_item, this);
         mTextView = (TextView) findViewById(R.id.title);
         mUrlText = (TextView) findViewById(R.id.url);
-        mImageView = (ImageView) findViewById(R.id.favicon);
+        mTileView = (SiteTileView) findViewById(R.id.favicon);
         View star = findViewById(R.id.star);
         star.setVisibility(View.GONE);
-    }
-
-    /**
-     *  Copy this BookmarkItem to item.
-     *  @param item BookmarkItem to receive the info from this BookmarkItem.
-     */
-    /* package */ void copyTo(BookmarkItem item) {
-        item.mTextView.setText(mTextView.getText());
-        item.mUrlText.setText(mUrlText.getText());
-        item.mImageView.setImageDrawable(mImageView.getDrawable());
     }
 
     /**
@@ -92,18 +79,17 @@ class BookmarkItem extends ScrollView {
      */
     /* package */ void setFavicon(Bitmap b) {
         if (b != null) {
-            mImageView.setImageBitmap(b);
-        } else {
-            mImageView.setImageResource(R.drawable.ic_deco_favicon_normal);
+            mTileView.replaceFavicon(b);
+            mBitmap = b;
         }
     }
 
     public int getFavIconIntrinsicWidth() {
-        return mImageView.getDrawable().getIntrinsicWidth();
+        return mTileView.getMeasuredWidth();
     }
 
     void setFaviconBackground(Drawable d) {
-        mImageView.setBackgroundDrawable(d);
+        mTileView.setBackgroundDrawable(d);
     }
 
     /**

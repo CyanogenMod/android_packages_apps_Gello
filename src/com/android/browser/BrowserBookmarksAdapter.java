@@ -24,6 +24,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.browser.mdm.EditBookmarksRestriction;
@@ -85,7 +86,7 @@ public class BrowserBookmarksAdapter extends
                 .getDimensionPixelSize(R.dimen.combo_horizontalSpacing);
         view.setPadding(padding, view.getPaddingTop(),
                 padding, view.getPaddingBottom());
-        BookmarkThumbImageView thumb = (BookmarkThumbImageView) view.findViewById(R.id.thumb_image);
+        SiteTileView thumb =  (SiteTileView) view.findViewById(R.id.thumb_image);
         TextView tv = (TextView) view.findViewById(R.id.label);
         tv.setText(item.title);
         int containerWidth = thumb.getWidth() - thumb.getPaddingLeft() - thumb.getPaddingRight();
@@ -94,7 +95,8 @@ public class BrowserBookmarksAdapter extends
 
         if (item.is_folder) {
             b = BitmapFactory.decodeResource(mContext.getResources(),
-                    R.drawable.thumb_bookmark_widget_folder_holo);
+                    R.drawable.ic_deco_folder_normal);
+            thumb.setFloating(true);
         }
         else if (item.thumbnail == null || !item.has_thumbnail) {
             b = BitmapFactory.decodeResource(mContext.getResources(),
@@ -105,7 +107,8 @@ public class BrowserBookmarksAdapter extends
         }
 
         // If the item is managed by mdm or edit bookmark restriction enabled
-        if (containerWidth != 0 && (item.is_mdm_managed || EditBookmarksRestriction.getInstance().isEnabled())) {
+        if (containerWidth != 0 && (item.is_mdm_managed ||
+                EditBookmarksRestriction.getInstance().isEnabled())) {
             int iconResId;
             float overlayScale, overlayVertPos;
 
@@ -122,11 +125,12 @@ public class BrowserBookmarksAdapter extends
             float willScale = (float) containerWidth / (float) b.getWidth();
             Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, iconResId, mContext,
                     overlayScale / willScale, (int) (overlayVertPos / willScale));
-            thumb.setImageBitmap(bm);
+            thumb.replaceFavicon(bm);
         }
         else {
-            thumb.setImageBitmap(b);
+            thumb.replaceFavicon(b);
         }
+        thumb.setLongClickable(true);
     }
 
     @Override

@@ -49,8 +49,11 @@
     <color name="bookmarkListFaviconBackground">#23ffffff</color>
     <color name="bookmarkLabelColor">#555555</color>
     <color name="comboViewActionBarColor">#ffffff</color>
+    <color name="comboViewBackground">#efeff0</color>
     <color name="tabFaviconBackground">#FF555555</color>
     <color name="tabFocusHighlight">#FF99CC00</color>
     <color name="tabViewTitleBackground">#D0000000</color>
     <color name="navtab_bg">#80606060</color>
+
+    <color name="SiteTileOverline">#666</color>
 </resources>

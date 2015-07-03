@@ -20,14 +20,14 @@ import android.content.Context;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ExpandableListView;
 
-import com.android.browser.R;
 import com.android.browser.platformsupport.Browser;
 /**
  *  Layout representing a history item in the classic history viewer.
  */
 /* package */ class HistoryItem extends BookmarkItem
-        implements OnCheckedChangeListener {
+        implements OnCheckedChangeListener, View.OnClickListener {
 
     private CompoundButton  mStar;      // Star for bookmarking
     /**
@@ -48,13 +48,15 @@ import com.android.browser.platformsupport.Browser;
         } else {
             mStar.setVisibility(View.GONE);
         }
+
+        mTileView.setOnClickListener(this);
     }
     
     /* package */ void copyTo(HistoryItem item) {
         item.mTextView.setText(mTextView.getText());
         item.mUrlText.setText(mUrlText.getText());
         item.setIsBookmark(mStar.isChecked());
-        item.mImageView.setImageDrawable(mImageView.getDrawable());
+        item.mTileView.replaceFavicon(mBitmap);
     }
 
     /**
@@ -85,6 +87,23 @@ import com.android.browser.platformsupport.Browser;
         } else {
             Bookmarks.removeFromBookmarks(getContext(),
                     getContext().getContentResolver(), mUrl, getName());
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mTileView) {
+            ExpandableListView list = (ExpandableListView) getTag(R.id.combo_view_container);
+            int group = (int) getTag(R.id.group_position);
+            int pos = (int) getTag(R.id.child_position);
+            if (list != null) {
+                long packedPos = list.getPackedPositionForChild(group, pos);
+                int flatPos = list.getFlatListPosition(packedPos);
+                list.performItemClick(
+                        list.getAdapter().getView(flatPos, null, null),
+                        flatPos, list.getAdapter().getItemId(flatPos));
+            }
+            performClick();
         }
     }
 }

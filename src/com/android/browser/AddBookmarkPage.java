@@ -657,6 +657,7 @@ public class AddBookmarkPage extends Activity
 
         String title = null;
         String url = null;
+        mTouchIconUrl = null;
 
         mFakeTitle = (TextView) findViewById(R.id.fake_title);
         if (mMap != null) {
@@ -838,7 +839,7 @@ public class AddBookmarkPage extends Activity
                 Bookmarks.addBookmark(AddBookmarkPage.this, false, url,
                         title, thumbnail, mCurrentFolder);
                 if (touchIconUrl != null) {
-                    new DownloadTouchIcon(mContext, cr, url).execute(mTouchIconUrl);
+                    new DownloadTouchIcon(mContext, cr, url).execute(touchIconUrl);
                 }
                 mMessage.arg1 = 1;
             } catch (IllegalStateException e) {
@@ -1083,7 +1084,9 @@ public class AddBookmarkPage extends Activity
             } else {
                 bundle.putParcelable(BrowserContract.Bookmarks.THUMBNAIL, thumbnail);
                 bundle.putBoolean(REMOVE_THUMBNAIL, !urlUnmodified);
-                bundle.putString(TOUCH_ICON_URL, mTouchIconUrl);
+                if (mTouchIconUrl != null) {
+                    bundle.putString(TOUCH_ICON_URL, mTouchIconUrl);
+                }
                 // Post a message to write to the DB.
                 Message msg = Message.obtain(mHandler, SAVE_BOOKMARK);
                 msg.setData(bundle);

@@ -36,8 +36,8 @@
             android:layout="@layout/swe_preference"
             android:defaultValue="true"
             android:key="do_not_track"
-            android:summaryOn="@string/pref_security_protect"
-            android:summaryOff="@string/pref_security_not_allowed"
+            android:summaryOn="@string/pref_security_on"
+            android:summaryOff="@string/pref_security_off"
             android:title="@string/pref_do_not_track" />
 
         <SwitchPreference
@@ -128,6 +128,24 @@
         android:title="@string/pref_default_site_settings_title">
         <SwitchPreference
             android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sp_webrefiner"
+            android:key="distracting_contents"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_web_refiner" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_thirdcookies"
+            android:key="accept_cookies"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_accept_cookies" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
             android:defaultValue="true"
             android:icon="@drawable/ic_sp_location"
             android:key="enable_geolocation"
@@ -156,29 +174,11 @@
         <SwitchPreference
             android:layout="@layout/swe_preference"
             android:defaultValue="false"
-            android:icon="@drawable/ic_sp_webrefiner"
-            android:key="distracting_contents"
-            android:summaryOn="@string/pref_security_allowed"
-            android:summaryOff="@string/pref_security_not_allowed"
-            android:title="@string/pref_security_web_refiner" />
-
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="false"
             android:icon="@drawable/ic_sp_popups"
             android:key="popup_windows"
             android:summaryOn="@string/pref_security_allowed"
             android:summaryOff="@string/pref_security_not_allowed"
             android:title="@string/pref_security_allow_popups" />
-
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="true"
-            android:icon="@drawable/ic_sp_thirdcookies"
-            android:key="accept_cookies"
-            android:summaryOn="@string/pref_security_allowed"
-            android:summaryOff="@string/pref_security_not_allowed"
-            android:title="@string/pref_security_accept_cookies" />
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -31,7 +31,6 @@
     android:id="@+id/site_security_info"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="?android:attr/scrollbarSize"
     android:paddingEnd="?android:attr/scrollbarSize"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:gravity="center_vertical"
@@ -50,10 +49,15 @@
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
             >
+            <!--Padding-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dip" />
+
             <ImageView
                 android:gravity="center"
                 android:src="@drawable/ic_sp_level_severe"
-                android:minWidth="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -61,6 +65,7 @@
                 android:id="@+id/security_view_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dip"
                 android:gravity="start" />
         </LinearLayout>
 
@@ -72,10 +77,15 @@
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
             >
+            <!--Padding-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dip" />
+
             <ImageView
                 android:gravity="center"
                 android:src="@drawable/ic_sp_level_warning"
-                android:minWidth="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -83,6 +93,7 @@
                 android:id="@id/security_view_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dip"
                 android:gravity="start" />
         </LinearLayout>
 
@@ -94,10 +105,15 @@
             android:minHeight="?android:attr/listPreferredItemHeightSmall"
             android:gravity="center_vertical"
             >
+            <!--Padding-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dip" />
+
             <ImageView
                 android:src="@drawable/ic_sp_level_good"
                 android:gravity="center"
-                android:minWidth="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -105,6 +121,7 @@
                 android:id="@id/security_view_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dip"
                 android:gravity="start" />
         </LinearLayout>
     </LinearLayout>
