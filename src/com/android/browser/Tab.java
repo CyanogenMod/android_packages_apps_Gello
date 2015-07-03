@@ -800,7 +800,8 @@ class Tab implements PictureListener {
                 Controller controller = (Controller)mWebViewController;
                 controller.getUi().translateTitleBar(topControlsOffsetYPix);
                 // Resize the viewport if top controls is not visible
-                if (topControlsOffsetYPix == 0.0f || contentOffsetYPix == 0.0f)
+                if (mMainView != null &&
+                        (topControlsOffsetYPix == 0.0f || contentOffsetYPix == 0.0f))
                     ((BrowserWebView)mMainView).enableTopControls(
                         (topControlsOffsetYPix == 0.0f) ? true : false);
             }
@@ -1391,8 +1392,10 @@ class Tab implements PictureListener {
             dismissSubWindow();
             // save the WebView to call destroy() after detach it from the tab
             final WebView webView = mMainView;
+            setWebView(null);
             if (!mWebViewDestroyedByMemoryMonitor &&
                     !BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+                // Tabs can be reused with new instance of WebView so delete the snapshots
                 webView.getSnapshotIds(new ValueCallback<List<Integer>>() {
                     @Override
                     public void onReceiveValue(List<Integer> ids) {
@@ -1402,14 +1405,12 @@ class Tab implements PictureListener {
                                 webView.deleteSnapshot(id);
                             }
                         }
-                        setWebView(null);
                         webView.destroy();
                     }
                 });
-                return;
+            } else {
+                webView.destroy();
             }
-            setWebView(null);
-            webView.destroy();
         }
     }
 
