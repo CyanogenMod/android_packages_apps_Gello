@@ -66,6 +66,7 @@
 
         <PreferenceScreen android:title="@string/webstorage_private_data_title"
             android:layout="@layout/swe_preference"
+            android:key="clear_private_data"
             android:widgetLayout="@layout/swe_preference_storage_widget"
             >
             <CheckBoxPreference

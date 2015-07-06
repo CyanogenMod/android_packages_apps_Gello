@@ -93,6 +93,8 @@ public class BrowserBookmarksAdapter extends
 
         Bitmap b;
 
+        thumb.setFloating(false);
+
         if (item.is_folder) {
             b = BitmapFactory.decodeResource(mContext.getResources(),
                     R.drawable.ic_deco_folder_normal);

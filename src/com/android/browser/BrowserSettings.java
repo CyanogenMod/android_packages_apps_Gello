@@ -792,7 +792,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public boolean blockPopupWindows() {
-        return !mPrefs.getBoolean(PREF_POPUP_WINDOWS, false);
+        return !PermissionsServiceFactory.getDefaultPermissions(
+                PermissionsServiceFactory.PermissionType.POPUP);
     }
 
     public boolean loadImages() {
