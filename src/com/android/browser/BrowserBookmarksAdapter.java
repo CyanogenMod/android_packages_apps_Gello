@@ -89,7 +89,6 @@ public class BrowserBookmarksAdapter extends
         SiteTileView thumb =  (SiteTileView) view.findViewById(R.id.thumb_image);
         TextView tv = (TextView) view.findViewById(R.id.label);
         tv.setText(item.title);
-        int containerWidth = thumb.getWidth() - thumb.getPaddingLeft() - thumb.getPaddingRight();
 
         Bitmap b;
 
@@ -109,24 +108,23 @@ public class BrowserBookmarksAdapter extends
         }
 
         // If the item is managed by mdm or edit bookmark restriction enabled
-        if (containerWidth != 0 && (item.is_mdm_managed ||
-                EditBookmarksRestriction.getInstance().isEnabled())) {
-            int iconResId;
-            float overlayScale, overlayVertPos;
+        if (item.title != null &&
+                (item.is_mdm_managed || EditBookmarksRestriction.getInstance().isEnabled())) {
+            int containerWidth = view.getResources().getDimensionPixelSize(R.dimen.bookmarkThumbnailWidth);
+            int containerHeight = view.getResources().getDimensionPixelSize(R.dimen.bookmarkThumbnailHeight);
+            Bitmap bm;
 
             if (item.is_mdm_managed) {
-                iconResId = R.drawable.img_deco_mdm_badge_bright;
-                overlayScale = 0.6f;
-                overlayVertPos = 100f;
+                bm = BrowserBookmarksPage.overlayBookmarkBitmap(mContext, b,
+                        R.drawable.img_deco_mdm_badge_bright,
+                        containerWidth, containerHeight, 0.6f, 185, 20);
             }
             else {
-                iconResId = R.drawable.ic_deco_secure;
-                overlayScale = 1.2f;
-                overlayVertPos = 75f;
+                bm = BrowserBookmarksPage.overlayBookmarkBitmap(mContext, b,
+                        R.drawable.ic_deco_secure,
+                        containerWidth, containerHeight, 1.7f, 110, 0);
             }
-            float willScale = (float) containerWidth / (float) b.getWidth();
-            Bitmap bm = BrowserBookmarksPage.overlayBookmarkBitmap(b, iconResId, mContext,
-                    overlayScale / willScale, (int) (overlayVertPos / willScale));
+
             thumb.replaceFavicon(bm);
         }
         else {

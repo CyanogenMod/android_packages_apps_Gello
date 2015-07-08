@@ -333,19 +333,31 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 || type == BrowserContract.Bookmarks.BOOKMARK_TYPE_FOLDER;
     }
 
-    public static Bitmap overlayBookmarkBitmap(Bitmap origImage, int overlayResId, Context context,
-                                               float overlayScaleFactor, int overlayOffsetY) {
+    public static Bitmap overlayBookmarkBitmap(Context context, Bitmap origImage, int overlayResId,
+                                               int containerWidth, int containerHeight,
+                                               float overlayScale, int overlayOffsetY,
+                                               int overlayMarginX) {
         if (origImage == null) {
             Log.e(TAG, "Orig Image is null!");
             return origImage;
         }
+
         // Get metrics for incoming bitmap
         int origWidth = origImage.getWidth();
         int origHeight = origImage.getHeight();
 
+        // Compute final overlay scale factor based on container size
+        float willScale, overlayScaleFactor;
+        if (Math.abs(containerWidth - origWidth) > Math.abs(containerHeight - origHeight)) {
+            willScale = (float) containerWidth / (float) origWidth;
+        }
+        else {
+            willScale = (float) containerHeight / (float) origHeight;
+        }
+        overlayScaleFactor = overlayScale / willScale;
+
         // Load the bitmap for the badge
         Bitmap srcOverlay = BitmapFactory.decodeResource(context.getResources(), overlayResId);
-
         if (srcOverlay == null) {
             Log.e(TAG, "Overlay bitmap creation failed");
             return origImage;
@@ -376,11 +388,11 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         Canvas comboImage = new Canvas(overlaid);
         comboImage.drawBitmap(origImage, 0, 0, null);
 
-        // align overlay to right edge. Vertical alingment
+        // align overlay to right edge. Vertical alignment
         // determined by overlayOffsetY
         comboImage.drawBitmap(scaledOverlay,
-                origWidth  - scaledOverlay.getWidth(),
-                overlayOffsetY,
+                (origWidth  - scaledOverlay.getWidth()) - (overlayMarginX / willScale),
+                (overlayOffsetY / willScale),
                 null);
 
         // Clean up our bitmaps
@@ -411,22 +423,19 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
             }
         }
 
-        // if mdm element or edit bookmak restriction enforced, overlay an indicator
-        int containerWidth = item.getFavIconIntrinsicWidth();
-        if (containerWidth != 0 &&
-                (isMdmElem || EditBookmarksRestriction.getInstance().isEnabled())) {
-            float willScale = (float) containerWidth / (float) bitmap.getWidth();
+        // if mdm element or edit bookmark restriction enforced, overlay an indicator
+        if (isMdmElem || EditBookmarksRestriction.getInstance().isEnabled()) {
+            int containerSize = getResources().
+                    getDimensionPixelSize(R.dimen.bookmark_widget_favicon_size);  // it's square!
             if (isMdmElem) {
-                float overlayscale = 0.3f;
-                float overlayVertPos = 50f;
-                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.img_deco_mdm_badge_bright,
-                        getActivity(), overlayscale / willScale, (int) (overlayVertPos/willScale));
+                bitmap = overlayBookmarkBitmap(getActivity(), bitmap,
+                        R.drawable.img_deco_mdm_badge_bright,
+                        containerSize, containerSize, 0.25f, 40, 0);
             }
             else if (EditBookmarksRestriction.getInstance().isEnabled()) {
-                float overlayscale = 1.3f;
-                float overlayVertPos = -25f;
-                bitmap = overlayBookmarkBitmap(bitmap, R.drawable.ic_deco_secure,
-                        getActivity(), overlayscale / willScale, (int) (overlayVertPos/willScale));
+                bitmap = overlayBookmarkBitmap(getActivity(), bitmap,
+                        R.drawable.ic_deco_secure,
+                        containerSize, containerSize, 0.75f, 0, 0);
             }
         }
 

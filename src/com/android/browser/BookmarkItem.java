@@ -84,10 +84,6 @@ class BookmarkItem extends ScrollView {
         }
     }
 
-    public int getFavIconIntrinsicWidth() {
-        return mTileView.getMeasuredWidth();
-    }
-
     void setFaviconBackground(Drawable d) {
         mTileView.setBackgroundDrawable(d);
     }
