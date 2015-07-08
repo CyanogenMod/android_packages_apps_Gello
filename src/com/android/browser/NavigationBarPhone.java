@@ -16,52 +16,23 @@
 package com.android.browser;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import org.codeaurora.swe.Engine;
-import org.codeaurora.swe.WebRefiner;
-import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.Activator;
 import org.codeaurora.swe.util.Observable;
 
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.browser.UrlInputView.StateListener;
-import com.android.browser.preferences.AboutPreferencesFragment;
-import com.android.browser.preferences.SiteSpecificPreferencesFragment;
 
-import java.io.ByteArrayOutputStream;
+public class NavigationBarPhone extends NavigationBarBase implements StateListener {
 
-public class NavigationBarPhone extends NavigationBarBase implements
-        StateListener {
-
-    private ImageView mStopButton;
-    private ImageView mMagnify;
-    private ImageView mClearButton;
-    private ImageView mVoiceButton;
-    private Drawable mStopDrawable;
-    private Drawable mRefreshDrawable;
-    private String mStopDescription;
-    private String mRefreshDescription;
     private View mTabSwitcher;
     private TextView mTabText;
-    private View mComboIcon;
     private View mIncognitoIcon;
     private float mTabSwitcherInitialTextSize = 0;
     private float mTabSwitcherCompressedTextSize = 0;
-
-    private static final int MSG_UPDATE_NOTIFICATION_COUNTER = 4242;
-    private static final int NOTIFICATION_COUNTER_UPDATE_DELAY = 3000;
-    private TextView mNotificationCounter;
-    private Handler mHandler;
 
     public NavigationBarPhone(Context context) {
         super(context);
@@ -78,24 +49,10 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mStopButton = (ImageView) findViewById(R.id.stop);
-        mStopButton.setOnClickListener(this);
-        mClearButton = (ImageView) findViewById(R.id.clear);
-        mClearButton.setOnClickListener(this);
-        mVoiceButton = (ImageView) findViewById(R.id.voice);
-        mVoiceButton.setOnClickListener(this);
-        mMagnify = (ImageView) findViewById(R.id.magnify);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabSwitcher.setOnClickListener(this);
         mTabText = (TextView) findViewById(R.id.tab_switcher_text);
-        mComboIcon = findViewById(R.id.iconcombo);
-        mComboIcon.setOnClickListener(this);
         setFocusState(false);
-        Resources res = getContext().getResources();
-        mStopDrawable = res.getDrawable(R.drawable.ic_action_stop);
-        mRefreshDrawable = res.getDrawable(R.drawable.ic_action_reload);
-        mStopDescription = res.getString(R.string.accessibility_button_stop);
-        mRefreshDescription = res.getString(R.string.accessibility_button_refresh);
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
         mIncognitoIcon = findViewById(R.id.incognito_icon);
@@ -104,26 +61,6 @@ public class NavigationBarPhone extends NavigationBarBase implements
             mTabSwitcherInitialTextSize = mTabText.getTextSize();
             mTabSwitcherCompressedTextSize = (float) (mTabSwitcherInitialTextSize / 1.2);
         }
-
-        mNotificationCounter = (TextView) findViewById(R.id.notification_counter);
-        mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message m) {
-                switch (m.what) {
-                    case MSG_UPDATE_NOTIFICATION_COUNTER:
-                        WebView wv = mUiController.getCurrentTopWebView();
-                        if (wv != null && WebRefiner.isInitialized()) {
-                            int count = WebRefiner.getInstance().getBlockedURLCount(wv);
-                            if (count > 0) {
-                                mNotificationCounter.setText(String.valueOf(count));
-                                mNotificationCounter.setVisibility(View.VISIBLE);
-                            }
-                        }
-                        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_NOTIFICATION_COUNTER, NOTIFICATION_COUNTER_UPDATE_DELAY);
-                    break;
-                }
-            }
-        };
     }
 
     @Override
@@ -134,9 +71,11 @@ public class NavigationBarPhone extends NavigationBarBase implements
                     @Override
                     public void onChange(Object... params) {
                         if ((Integer)params[0] > 9) {
-                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherCompressedTextSize);
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                                    mTabSwitcherCompressedTextSize);
                         } else {
-                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherInitialTextSize);
+                            mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                                    mTabSwitcherInitialTextSize);
                         }
 
                         mTabText.setText(Integer.toString((Integer) params[0]));
@@ -146,30 +85,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
     }
 
     @Override
-    public void onProgressStarted() {
-        super.onProgressStarted();
-        /*if (mStopButton.getDrawable() != mStopDrawable) {
-            mStopButton.setImageDrawable(mStopDrawable);
-            mStopButton.setContentDescription(mStopDescription);
-            if (mStopButton.getVisibility() != View.VISIBLE) {
-                mComboIcon.setVisibility(View.GONE);
-                mStopButton.setVisibility(View.VISIBLE);
-            }
-        }*/
-        mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
-        mNotificationCounter.setVisibility(View.INVISIBLE);
-        mHandler.removeMessages(MSG_UPDATE_NOTIFICATION_COUNTER);
-        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_NOTIFICATION_COUNTER, NOTIFICATION_COUNTER_UPDATE_DELAY);
-    }
-
-    @Override
     public void onProgressStopped() {
         super.onProgressStopped();
-        //mStopButton.setImageDrawable(mRefreshDrawable);
-        //mStopButton.setContentDescription(mRefreshDescription);
-        if (!isEditingUrl()) {
-            mComboIcon.setVisibility(View.VISIBLE);
-        }
         onStateChanged(mUrlInput.getState());
     }
 
@@ -199,25 +116,8 @@ public class NavigationBarPhone extends NavigationBarBase implements
 
     @Override
     public void onClick(View v) {
-        if (v == mStopButton) {
-            if (mTitleBar.isInLoad()) {
-                mUiController.stopLoading();
-            } else {
-                WebView web = mBaseUi.getWebView();
-                if (web != null) {
-                    stopEditingUrl();
-                    Tab currentTab = mUiController.getTabControl().getCurrentTab();
-                    web.reload();
-                }
-            }
-        } else if (v == mTabSwitcher) {
+        if (v == mTabSwitcher) {
             ((PhoneUi) mBaseUi).toggleNavScreen();
-        } else if (mClearButton == v) {
-            mUrlInput.setText("");
-        } else if (mComboIcon == v) {
-            showSiteSpecificSettings();
-        } else if (mVoiceButton == v) {
-            mUiController.startVoiceRecognizer();
         } else {
             super.onClick(v);
         }
@@ -226,57 +126,39 @@ public class NavigationBarPhone extends NavigationBarBase implements
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (view == mUrlInput && !hasFocus) {
-            setDisplayTitle(mUrlInput.getText().toString());
+            Tab currentTab = mUiController.getTabControl().getCurrentTab();
+            setDisplayTitle(currentTab.getUrl());
         }
         super.onFocusChange(view, hasFocus);
     }
 
     @Override
     public void onStateChanged(int state) {
-        super.onStateChanged(state);
-        mVoiceButton.setVisibility(View.GONE);
         switch(state) {
         case StateListener.STATE_NORMAL:
-            mComboIcon.setVisibility(View.VISIBLE);
             mStopButton.setVisibility(View.GONE);
-            mClearButton.setVisibility(View.GONE);
-            mMagnify.setVisibility(View.GONE);
             mTabSwitcher.setVisibility(View.VISIBLE);
             mTabText.setVisibility(View.VISIBLE);
-            if (mUiController != null) {
-                mUiController.setWindowDimming(0.0f);
-            }
             break;
         case StateListener.STATE_HIGHLIGHTED:
-            mComboIcon.setVisibility(View.GONE);
-            mStopButton.setVisibility(View.VISIBLE);
-            mClearButton.setVisibility(View.GONE);
-            if ((mUiController != null) && mUiController.supportsVoice()) {
-                mVoiceButton.setVisibility(View.VISIBLE);
-            }
-            mMagnify.setVisibility(View.GONE);
-            mTabSwitcher.setVisibility(View.GONE);
-            mTabText.setVisibility(View.GONE);
-
             if (!mUrlInput.getText().toString().equals(mUrlInput.getTag())) {
                 // only change text if different
                 mUrlInput.setText((String) mUrlInput.getTag(), false);
                 mUrlInput.selectAll();
             }
 
-            if (mUiController != null) {
-                mUiController.setWindowDimming(0.75f);
-            }
+            mStopButton.setVisibility(View.VISIBLE);
+            mTabSwitcher.setVisibility(View.GONE);
+            mTabText.setVisibility(View.GONE);
+
             break;
         case StateListener.STATE_EDITED:
-            mComboIcon.setVisibility(View.GONE);
             mStopButton.setVisibility(View.GONE);
-            mClearButton.setVisibility(View.VISIBLE);
-            mMagnify.setVisibility(View.VISIBLE);
             mTabSwitcher.setVisibility(View.GONE);
             mTabText.setVisibility(View.GONE);
             break;
         }
+        super.onStateChanged(state);
     }
 
     @Override

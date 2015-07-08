@@ -423,7 +423,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
             public void onAnimationEnd(Animator animation) {
                 mTabs.removeTab(tv);
                 mTabMap.remove(tab);
-                mUi.onRemoveTabCompleted(tab);
             }
 
             @Override
@@ -449,7 +448,6 @@ public class TabBar extends LinearLayout implements OnClickListener {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mUi.onAddTabCompleted(tab);
             }
 
             @Override

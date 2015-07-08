@@ -45,49 +45,13 @@
             android:paddingEnd="6dp"
             android:visibility="visible" />
 
-        <FrameLayout
-            android:id="@+id/iconcombo"
-            style="@style/NavButton"
-            android:layout_width="44dip"
-            android:contentDescription="@string/page_info">
-
-            <ImageView
-                android:id="@+id/favicon_badge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
-
-            <ImageView
-                android:id="@+id/favicon"
-                android:layout_width="32dip"
-                android:layout_height="32dip"
-                android:layout_gravity="center"
-                android:paddingStart="6dip"
-                android:paddingEnd="6dip"
-                android:scaleType="fitCenter" />
-
-            <ImageView
-                android:id="@+id/lock"
-                android:layout_width="32dip"
-                android:layout_height="32dip"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/notification_counter"
-                android:layout_marginTop="6dip"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="top|end"
-                android:background="@drawable/rounded_rectangle_background"
-                android:textColor="#FFFFFF"
-                android:textSize="10sp"
-                android:gravity="center"
-                android:text="99"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-        </FrameLayout>
+        <com.android.browser.SiteTileView
+            android:id="@+id/favicon_view"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:contentDescription="@string/page_info"/>
 
         <ImageView
             android:id="@+id/stop"

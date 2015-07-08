@@ -86,5 +86,5 @@
     <dimen name="edge_swipe_in_additional_slop">50dp</dimen>
     <dimen name="edge_swipe_out_slop">18dp</dimen>
 
-    <dimen name="SiteTileOverline">1dp</dimen>
+    <dimen name="SiteTileOverlineWidth">1dp</dimen>
 </resources>

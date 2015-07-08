@@ -31,5 +31,7 @@
         <attr name="android:src" />
         <attr name="flat" format="boolean|reference" />
         <attr name="floating" format="boolean|reference" />
+        <attr name="trustLevel" format="integer|reference" />
+        <attr name="blockedObjects" format="integer|reference" />
     </declare-styleable>
 </resources>

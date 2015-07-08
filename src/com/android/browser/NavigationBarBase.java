@@ -24,14 +24,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -73,21 +76,33 @@ public class NavigationBarBase extends LinearLayout implements
     protected TitleBar mTitleBar;
     protected UiController mUiController;
     protected UrlInputView mUrlInput;
+    protected ImageView mStopButton;
 
-    protected ImageView mFaviconBadge;
-
-    private ImageView mFavicon;
-    private ImageView mLockIcon;
-
+    private SiteTileView mFaviconTile;
+    private ImageView mMagnify;
+    private View mVoiceButton;
+    private ImageView mClearButton;
     private View mMore;
     private PopupMenu mPopupMenu;
     private boolean mOverflowMenuShowing;
     private boolean mNeedsMenu;
 
+    private static Bitmap mDefaultFavicon;
+
     private int mStatusBarColor;
     private static int mDefaultStatusBarColor = -1;
 
+    private static final int WEBREFINER_COUNTER_MSG = 4242;
+    private static final int WEBREFINER_COUNTER_MSG_DELAY = 3000;
+    private Handler mHandler;
+
     private Tab.SecurityState mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
+
+    private static final String noSitePrefs[] = {
+            "chrome://",
+            "about:",
+            "content:",
+    };
 
     public NavigationBarBase(Context context) {
         super(context);
@@ -104,8 +119,6 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mLockIcon = (ImageView) findViewById(R.id.lock);
-        mFavicon = (ImageView) findViewById(R.id.favicon);
         mUrlInput = (UrlInputView) findViewById(R.id.url);
         mUrlInput.setUrlInputListener(this);
         mUrlInput.setOnFocusChangeListener(this);
@@ -114,7 +127,38 @@ public class NavigationBarBase extends LinearLayout implements
         mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
         mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
-        mFaviconBadge = (ImageView) findViewById(R.id.favicon_badge);
+        mMagnify = (ImageView) findViewById(R.id.magnify);
+        mMagnify.setOnClickListener(this);
+        mFaviconTile = (SiteTileView) findViewById(R.id.favicon_view);
+        mFaviconTile.setOnClickListener(this);
+        mVoiceButton = findViewById(R.id.voice);
+        mVoiceButton.setOnClickListener(this);
+        mClearButton = (ImageView) findViewById(R.id.clear);
+        mClearButton.setOnClickListener(this);
+        mStopButton = (ImageView) findViewById(R.id.stop);
+        mStopButton.setOnClickListener(this);
+
+        mDefaultFavicon = BitmapFactory.decodeResource(getResources(),
+                R.drawable.ic_deco_favicon_normal);
+
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message m) {
+                switch (m.what) {
+                    case WEBREFINER_COUNTER_MSG:
+                        WebView wv = mUiController.getCurrentTopWebView();
+                        if (wv != null && WebRefiner.isInitialized()) {
+                            int count = WebRefiner.getInstance().getBlockedURLCount(wv);
+                            if (count > 0) {
+                                mFaviconTile.setExtraBlockedObjectsCount(count);
+                            }
+                        }
+                        mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,
+                                WEBREFINER_COUNTER_MSG_DELAY);
+                        break;
+                }
+            }
+        };
     }
 
     public void setTitleBar(TitleBar titleBar) {
@@ -124,30 +168,21 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.setController(mUiController);
     }
 
-    public void setLock(Drawable d, Tab.SecurityState securityState) {
+    public void setSecurityState(Tab.SecurityState securityState) {
         mSecurityState = securityState;
-        if (mFaviconBadge != null) {
-            switch (mSecurityState) {
-                case SECURITY_STATE_SECURE:
-                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_good);
-                    break;
-                case SECURITY_STATE_MIXED:
-                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_warning);
-                    break;
-                case SECURITY_STATE_BAD_CERTIFICATE:
-                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_severe);
-                    break;
-                case SECURITY_STATE_NOT_SECURE:
-                default:
-                    mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
-            }
-        }
-        if (mLockIcon == null) return;
-        if (d == null) {
-            mLockIcon.setVisibility(View.GONE);
-        } else {
-            mLockIcon.setImageDrawable(d);
-            mLockIcon.setVisibility(View.VISIBLE);
+        switch (mSecurityState) {
+            case SECURITY_STATE_SECURE:
+                mFaviconTile.setTrustLevel(SiteTileView.TRUST_TRUSTED);
+                break;
+            case SECURITY_STATE_MIXED:
+                mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNTRUSTED);
+                break;
+            case SECURITY_STATE_BAD_CERTIFICATE:
+                mFaviconTile.setTrustLevel(SiteTileView.TRUST_AVOID);
+                break;
+            case SECURITY_STATE_NOT_SECURE:
+            default:
+                mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
         }
     }
 
@@ -240,8 +275,11 @@ public class NavigationBarBase extends LinearLayout implements
             setStatusAndNavigationBarColor(mUiController.getActivity(), mDefaultStatusBarColor);
         }
 
-        if (mFavicon == null) return;
-        mFavicon.setImageDrawable(mBaseUi.getFaviconDrawable(icon));
+        //Bitmap favicon = mUiController.getCurrentTopWebView().getFavicon();
+
+        if (mFaviconTile != null) {
+            mFaviconTile.replaceFavicon(mUiController.getCurrentTopWebView().getFavicon());
+        }
     }
 
     protected void showSiteSpecificSettings() {
@@ -304,8 +342,61 @@ public class NavigationBarBase extends LinearLayout implements
 
     @Override
     public void onClick(View v) {
+        Tab currentTab = mUiController.getCurrentTab();
+        String url = null;
+        if (currentTab != null){
+            url = currentTab.getUrl();
+        }
         if (mMore == v) {
             showMenu(mMore);
+        } else if (mFaviconTile == v) {
+            if (urlHasSitePrefs(url)){
+                showSiteSpecificSettings();
+            }
+        } else if (mMagnify == v) {
+            startEditingUrl(true, true);
+        } else if (mVoiceButton == v) {
+            mUiController.startVoiceRecognizer();
+        } else if (mStopButton == v) {
+            stopOrRefresh();
+        } else if (mClearButton == v) {
+            clearOrClose();
+            mUrlInput.setText("");
+        }
+    }
+
+    private static boolean urlHasSitePrefs(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return false;
+        }
+
+        for (int i = 0; i < noSitePrefs.length; i++) {
+            if (url.startsWith(noSitePrefs[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void stopOrRefresh() {
+        if (mUiController == null) return;
+        if (mTitleBar.isInLoad()) {
+            mUiController.stopLoading();
+        } else {
+            if (mUiController.getCurrentTopWebView() != null) {
+                stopEditingUrl();
+                mUiController.getCurrentTopWebView().reload();
+            }
+        }
+    }
+
+    private void clearOrClose() {
+        if (TextUtils.isEmpty(mUrlInput.getText())) {
+            // close
+            mUrlInput.clearFocus();
+        } else {
+            // clear
+            mUrlInput.setText("");
         }
     }
 
@@ -610,11 +701,25 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void onProgressStarted() {
-        mFaviconBadge.setImageResource(R.drawable.ic_fav_overlay_normal);
+        mFaviconTile.setExtraBlockedObjectsCount(0);
+        mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
+        mFaviconTile.replaceFavicon(mDefaultFavicon);
         mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
+        mHandler.removeMessages(WEBREFINER_COUNTER_MSG);
+        mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,
+                WEBREFINER_COUNTER_MSG_DELAY);
+        mStopButton.setImageResource(R.drawable.ic_action_stop);
+        mStopButton.setContentDescription(getResources().
+                getString(R.string.accessibility_button_stop));
     }
 
     public void onProgressStopped() {
+        if (!isEditingUrl()) {
+            mFaviconTile.setVisibility(View.VISIBLE);
+        }
+        mStopButton.setImageResource(R.drawable.ic_action_reload);
+        mStopButton.setContentDescription(getResources().
+                getString(R.string.accessibility_button_refresh));
     }
 
     public void onTabDataChanged(Tab tab) {
@@ -636,14 +741,41 @@ public class NavigationBarBase extends LinearLayout implements
 
     @Override
     public void onStateChanged(int state) {
+        mVoiceButton.setVisibility(View.GONE);
         switch(state) {
             case STATE_NORMAL:
+                mFaviconTile.setVisibility(View.VISIBLE);
+                mMagnify.setVisibility(View.GONE);
+                mClearButton.setVisibility(View.GONE);
                 mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
+                if (mUiController != null) {
+                    Tab currentTab = mUiController.getCurrentTab();
+                    if (currentTab != null){
+                        if (TextUtils.isEmpty(currentTab.getUrl())) {
+                            mFaviconTile.setVisibility(View.GONE);
+                            mMagnify.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    mUiController.setWindowDimming(0.0f);
+                }
+
                 break;
             case STATE_HIGHLIGHTED:
+                mFaviconTile.setVisibility(View.GONE);
+                mMagnify.setVisibility(View.GONE);
+                mClearButton.setVisibility(View.GONE);
                 mMore.setVisibility(View.GONE);
+                if (mUiController != null) {
+                    mUiController.setWindowDimming(0.75f);
+                    if (mUiController.supportsVoice()) {
+                        mVoiceButton.setVisibility(View.VISIBLE);
+                    }
+                }
                 break;
             case STATE_EDITED:
+                mFaviconTile.setVisibility(View.GONE);
+                mMagnify.setVisibility(View.VISIBLE);
+                mClearButton.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 break;
         }

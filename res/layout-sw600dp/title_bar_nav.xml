@@ -40,14 +40,15 @@
             android:contentDescription="@string/accessibility_button_forward"
             android:src="@drawable/ic_action_history_forward" />
 
-        <!-- Stop/Refresh button -->
-        <ImageButton
-            android:id="@+id/stop"
-            style="@style/NavButton"
-            android:layout_width="wrap_content"
-            android:contentDescription="@string/accessibility_button_stop"
-            android:gravity="center_vertical" />
     </LinearLayout>
+
+    <!-- Stop/Refresh button -->
+    <ImageButton
+        android:id="@+id/stop"
+        style="@style/NavButton"
+        android:layout_width="wrap_content"
+        android:contentDescription="@string/accessibility_button_stop"
+        android:gravity="center_vertical" />
 
     <LinearLayout
         android:id="@+id/urlbar_focused"
@@ -57,20 +58,23 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/url_icon"
-            android:layout_width="32dip"
-            android:layout_height="20dip"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_deco_favicon_normal" />
-
-        <ImageView
-            android:id="@+id/lock"
-            style="@style/HoloIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/magnify"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_search_normal"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="0dip"
-            android:visibility="gone" />
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:visibility="visible" />
+
+        <com.android.browser.SiteTileView
+            android:id="@+id/favicon_view"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:contentDescription="@string/page_info"/>
 
         <com.android.browser.UrlInputView
             android:id="@+id/url"

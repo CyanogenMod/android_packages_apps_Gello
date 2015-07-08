@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PaintDrawable;
@@ -37,9 +36,6 @@ import android.view.ViewStub;
 import android.webkit.WebChromeClient;
 
 import org.codeaurora.swe.WebView;
-import org.codeaurora.swe.util.ColorUtils;
-
-import com.android.browser.R;
 
 import java.util.List;
 
@@ -82,7 +78,8 @@ public class XLargeUi extends BaseUi {
 
     public void showComboView(ComboViews startWith, Bundle extras) {
         if (mComboView == null) {
-            ViewStub stub = (ViewStub) mActivity.getWindow().getDecorView().findViewById(R.id.combo_view_stub);
+            ViewStub stub = (ViewStub) mActivity.getWindow().getDecorView().
+                    findViewById(R.id.combo_view_stub);
             mComboView = (ComboView) stub.inflate();
             mComboView.setVisibility(View.GONE);
             mComboView.setupViews(mActivity);
@@ -102,7 +99,7 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void hideComboView() {
-        if (showingComboView()) {
+        if (isComboViewShowing()) {
             mComboView.hideViews();
             mActionBar = mActivity.getActionBar();
             setupActionBar();
@@ -114,30 +111,22 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public boolean onBackKey() {
-        if (showingComboView()) {
+        if (isComboViewShowing()) {
             hideComboView();
             return true;
         }
         return super.onBackKey();
     }
 
-    private boolean showingComboView() {
-        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
-    }
-
     @Override
     public boolean isComboViewShowing() {
-        return showingComboView();
-    }
-
-    private void checkHideActionBar() {
+        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mNavBar.clearCompletions();
-        checkHideActionBar();
     }
 
     @Override
@@ -185,10 +174,6 @@ public class XLargeUi extends BaseUi {
         mTabBar.onNewTab(tab);
     }
 
-    protected void onAddTabCompleted(Tab tab) {
-        checkHideActionBar();
-    }
-
     @Override
     public void setActiveTab(final Tab tab) {
         mTitleBar.cancelTitleBarAnimation(true);
@@ -202,14 +187,11 @@ public class XLargeUi extends BaseUi {
             return;
         }
         mTabBar.onSetActiveTab(tab);
-        updateLockIconToLatest(tab);
-        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     @Override
     public void updateTabs(List<Tab> tabs) {
         mTabBar.updateTabs(tabs);
-        checkHideActionBar();
     }
 
     @Override
@@ -227,10 +209,6 @@ public class XLargeUi extends BaseUi {
         super.showCustomView(view, requestedOrientation, callback);
         if (mActionBar != null)
             mActionBar.hide();
-    }
-
-    protected void onRemoveTabCompleted(Tab tab) {
-        checkHideActionBar();
     }
 
     int getContentWidth() {
@@ -257,7 +235,6 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
-        checkHideActionBar();
         if (inLoad) {
             // the titlebar was removed when the CAB was shown
             // if the page is loading, show it again
@@ -295,7 +272,6 @@ public class XLargeUi extends BaseUi {
     @Override
     public void onHideCustomView() {
         super.onHideCustomView();
-        checkHideActionBar();
         if (mActionBar != null)
             mActionBar.show();
     }
@@ -326,10 +302,6 @@ public class XLargeUi extends BaseUi {
 
     private boolean isTypingKey(KeyEvent evt) {
         return evt.getUnicodeChar() > 0;
-    }
-
-    TabBar getTabBar() {
-        return mTabBar;
     }
 
     @Override
@@ -363,7 +335,8 @@ public class XLargeUi extends BaseUi {
             d.setLayerInset(1, 2, 2, 2, 2);
             return d;
         }
-        return icon == null ? getGenericFavicon() : new BitmapDrawable(mActivity.getResources(), icon);
+        return icon == null ? getGenericFavicon() :
+                new BitmapDrawable(mActivity.getResources(), icon);
     }
 
 }

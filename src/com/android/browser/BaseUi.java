@@ -49,8 +49,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.res.TypedArray;
 
-import com.android.browser.Tab.SecurityState;
-
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.WebView;
 
@@ -83,8 +81,6 @@ public abstract class BaseUi implements UI {
     protected Tab mActiveTab;
     private InputMethodManager mInputManager;
 
-    private Drawable mLockIconSecure;
-    private Drawable mLockIconMixed;
     private Drawable mGenericFavicon;
 
     protected FrameLayout mContentView;
@@ -160,20 +156,6 @@ public abstract class BaseUi implements UI {
         }
     }
 
-    private Drawable getLockIconSecure() {
-        if (mLockIconSecure == null) {
-            mLockIconSecure = mActivity.getResources().getDrawable(R.drawable.ic_deco_secure);
-        }
-        return mLockIconSecure;
-    }
-
-    private Drawable getLockIconMixed() {
-        if (mLockIconMixed == null) {
-            mLockIconMixed = mActivity.getResources().getDrawable(R.drawable.ic_deco_secure_partial);
-        }
-        return mLockIconMixed;
-    }
-
     protected Drawable getGenericFavicon() {
         if (mGenericFavicon == null) {
             mGenericFavicon = mActivity.getResources().getDrawable(R.drawable.ic_deco_favicon_normal);
@@ -247,7 +229,7 @@ public abstract class BaseUi implements UI {
     public void onTabDataChanged(Tab tab) {
         setUrlTitle(tab);
         setFavicon(tab);
-        updateLockIconToLatest(tab);
+        updateTabSecurityState(tab);
         updateNavigationState(tab);
         mTitleBar.onTabDataChanged(tab);
         mNavigationBar.onTabDataChanged(tab);
@@ -326,6 +308,9 @@ public abstract class BaseUi implements UI {
         mBlockFocusAnimations = false;
 
         scheduleRemoveTab(tabToRemove, tabToWaitFor);
+
+        updateTabSecurityState(tab);
+        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     Tab mTabToRemove = null;
@@ -719,26 +704,10 @@ public abstract class BaseUi implements UI {
     /**
      * Update the lock icon to correspond to our latest state.
      */
-    protected void updateLockIconToLatest(Tab t) {
+    private void updateTabSecurityState(Tab t) {
         if (t != null && t.inForeground()) {
-            updateLockIconImage(t.getSecurityState());
+            mNavigationBar.setSecurityState(t.getSecurityState());
         }
-    }
-
-    /**
-     * Updates the lock-icon image in the title-bar.
-     */
-    private void updateLockIconImage(SecurityState securityState) {
-        Drawable d = null;
-        if (securityState == SecurityState.SECURITY_STATE_SECURE) {
-            d = getLockIconSecure();
-        } else if (securityState == SecurityState.SECURITY_STATE_MIXED
-                || securityState == SecurityState.SECURITY_STATE_BAD_CERTIFICATE) {
-            // TODO: It would be good to have different icons for insecure vs mixed content.
-            // See http://b/5403800
-            d = getLockIconMixed();
-        }
-        mNavigationBar.setLock(d, securityState);
     }
 
     protected void setUrlTitle(Tab tab) {
@@ -755,8 +724,7 @@ public abstract class BaseUi implements UI {
     // Set the favicon in the title bar.
     protected void setFavicon(Tab tab) {
         if (tab.inForeground()) {
-            Bitmap icon = tab.getFavicon();
-            mNavigationBar.setFavicon(icon);
+            mNavigationBar.setFavicon(tab.getWebView().getFavicon());
         }
     }
 
@@ -1059,5 +1027,10 @@ public abstract class BaseUi implements UI {
         } else {
             mTitleBar.setTranslationY(0);
         }
+    }
+
+    @Override
+    public boolean shouldCaptureThumbnails() {
+        return true;
     }
 }

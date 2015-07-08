@@ -57,12 +57,12 @@ import android.view.View;
  */
 public class SiteTileView extends View {
 
-    // external configuration constants
-    public static final int TYPE_SMALL = 1;
-    public static final int TYPE_MEDIUM = 2;
-    public static final int TYPE_LARGE = 3;
-    private static final int TYPE_AUTO = 0;
-    private static final int COLOR_AUTO = 0;
+    // public trust level constants
+    public static final int TRUST_UNKNOWN   =    0; // default
+    public static final int TRUST_AVOID     = 0x01;
+    public static final int TRUST_UNTRUSTED = 0x02;
+    public static final int TRUST_TRUSTED   = 0x04;
+    private static final int TRUST_MASK     = 0x07;
 
 
     // static configuration
@@ -72,8 +72,19 @@ public class SiteTileView extends View {
     private static final int BACKGROUND_DRAWABLE_RES = R.drawable.img_tile_background;
     private static final float FILLER_RADIUS_DP = 2f; // sync with the bg image radius
     private static final int FILLER_FALLBACK_COLOR = Color.WHITE; // in case there is no favicon
-    private static final int OVERLINE_WIDTH_RES = R.dimen.SiteTileOverline;
-    private static final int OVERLINE_COLOR_RES = R.color.SiteTileOverline;
+    private static final int OVERLINE_WIDTH_RES = R.dimen.SiteTileOverlineWidth;
+    private static final int OVERLINE_COLOR_DEFAULT_RES = R.color.SiteTileOverlineUnknown;
+    private static final int OVERLINE_COLOR_TRUSTED_RES = R.color.SiteTileOverlineTrusted;
+    private static final int OVERLINE_COLOR_UNTRUSTED_RES = R.color.SiteTileOverlineUntrusted;
+    private static final int OVERLINE_COLOR_AVOID_RES = R.color.SiteTileOverlineAvoid;
+    private static final boolean SHOW_EXTRAS_BLOCKED_COUNT = true;
+
+    // internal enums
+    private static final int TYPE_SMALL = 1;
+    private static final int TYPE_MEDIUM = 2;
+    private static final int TYPE_LARGE = 3;
+    private static final int TYPE_AUTO = 0;
+    private static final int COLOR_AUTO = 0;
 
 
     // configuration
@@ -83,6 +94,20 @@ public class SiteTileView extends View {
     private int mFaviconHeight = 0;
     private int mForcedType = TYPE_AUTO;
     private int mForcedFundamentalColor = COLOR_AUTO;
+    private boolean mFloating = false;
+    private int mTrustLevel = TRUST_UNKNOWN;
+    private int mExtraBlockedObjectsCount = 0;
+    private boolean mExtrasShown = false;
+
+    // runtime params set on Layout
+    private int mCurrentWidth = 0;
+    private int mCurrentHeight = 0;
+    private int mCurrentType = TYPE_MEDIUM;
+    private int mPaddingLeft = 0;
+    private int mPaddingTop = 0;
+    private int mPaddingRight = 0;
+    private int mPaddingBottom = 0;
+    private boolean mCurrentBackgroundDrawn = false;
 
     // static objects, to be recycled amongst instances (this is an optimization)
     private static int sMediumPxThreshold = -1;
@@ -90,24 +115,13 @@ public class SiteTileView extends View {
     private static int sLargeFaviconPx = -1;
     private static float sRoundedRadius = -1;
     private static Paint sBitmapPaint = null;
+    private static Paint sExtrasPaint = null;
     private static Rect sSrcRect = new Rect();
     private static Rect sDstRect = new Rect();
     private static RectF sRectF = new RectF();
     private static Paint sOverlineOutlinePaint = null;
     private static Drawable sBackgroundDrawable = null;
     private static Rect sBackgroundDrawablePadding = new Rect();
-
-    // runtime params set on Layout
-    private int mCurrentWidth = 0;
-    private int mCurrentHeight = 0;
-    private int mCurrentType = TYPE_MEDIUM;
-    private boolean mCurrentBackgroundDrawn = false;
-    private boolean mFloating = false;
-    private int mPaddingLeft = 0;
-    private int mPaddingTop = 0;
-    private int mPaddingRight = 0;
-    private int mPaddingBottom = 0;
-
 
 
     /* XML constructors */
@@ -164,9 +178,46 @@ public class SiteTileView extends View {
      * @param floating true to disable the background (defaults to false)
      */
     public void setFloating(boolean floating) {
-        mFloating = floating;
-        invalidate();
+        if (mFloating != floating) {
+            mFloating = floating;
+            invalidate();
+        }
     }
+
+    /**
+     * For 'Medium' tiles updates the border and corner badges
+     * @param trustLevel one of the TRUST_ constants
+     */
+    public void setTrustLevel(int trustLevel) {
+        if (mTrustLevel != trustLevel) {
+            mTrustLevel = trustLevel;
+            if (requiresOverline())
+                invalidate();
+        }
+    }
+
+    /**
+     * Sets the number of objects blocked (a positive contribution to the page). Presentation
+     * may or may not have the number indication.
+     * @param sessionCounter Counter of blocked objects. Use 0 to not display anything.
+     */
+    public void setExtraBlockedObjectsCount(int sessionCounter) {
+        if (sessionCounter != mExtraBlockedObjectsCount) {
+            mExtraBlockedObjectsCount = sessionCounter;
+            updateExtrasShown();
+            if (SHOW_EXTRAS_BLOCKED_COUNT)
+                invalidate();
+        }
+    }
+
+    private void updateExtrasShown() {
+        boolean shouldBeShown = mExtraBlockedObjectsCount > 0;
+        if (shouldBeShown != mExtrasShown) {
+            mExtrasShown = shouldBeShown;
+            invalidate();
+        }
+    }
+
 
 
     /**
@@ -198,8 +249,14 @@ public class SiteTileView extends View {
             mForcedType = TYPE_SMALL;
 
         // check if we want it floating (disable shadow and filler)
-        if (a.getBoolean(R.styleable.SiteTileView_floating, false))
-            mFloating = true;
+        setFloating(a.getBoolean(R.styleable.SiteTileView_floating, false));
+
+        // read the trust level (unknown, aka 'default', if not present)
+        setTrustLevel(a.getInteger(R.styleable.SiteTileView_trustLevel, TRUST_UNKNOWN)
+                & TRUST_MASK);
+
+        // read the amount of blocked objects (or 0 if not present)
+        setExtraBlockedObjectsCount(a.getInteger(R.styleable.SiteTileView_blockedObjects, 0));
 
         // delete attribute resolution
         a.recycle();
@@ -241,14 +298,18 @@ public class SiteTileView extends View {
             sBitmapPaint.setFilterBitmap(true);
 
             // overline configuration (null if we don't need it)
-            int ovlColor = getResources().getColor(OVERLINE_COLOR_RES);
             float ovlWidthPx = getResources().getDimension(OVERLINE_WIDTH_RES);
-            if (ovlWidthPx > 0.5 && ovlColor != Color.TRANSPARENT) {
+            if (ovlWidthPx > 0.5) {
                 sOverlineOutlinePaint = new Paint();
-                sOverlineOutlinePaint.setColor(ovlColor);
                 sOverlineOutlinePaint.setStrokeWidth(ovlWidthPx);
                 sOverlineOutlinePaint.setStyle(Paint.Style.STROKE);
             }
+
+            // extras paint (anti-aliased)
+            sExtrasPaint = new Paint();
+            sExtrasPaint.setAntiAlias(true);
+            sExtrasPaint.setColor(getResources().getColor(OVERLINE_COLOR_TRUSTED_RES));
+            sExtrasPaint.setStrokeWidth(Math.max(ovlWidthPx, 1));
         }
 
         // change when clicked
@@ -421,10 +482,70 @@ public class SiteTileView extends View {
         }
 
         // D. (when needed) draw the thin over-line
-        boolean requiresOverline = mCurrentType == TYPE_MEDIUM
-                && sOverlineOutlinePaint != null;
-        if (requiresOverline) {
-            canvas.drawRect(left, top, right, bottom, sOverlineOutlinePaint);
+        if (requiresOverline()) {
+            int colorRes;
+            switch (mTrustLevel) {
+                case TRUST_TRUSTED:
+                    colorRes = OVERLINE_COLOR_TRUSTED_RES;
+                    break;
+                case TRUST_UNTRUSTED:
+                    colorRes = OVERLINE_COLOR_UNTRUSTED_RES;
+                    break;
+                case TRUST_AVOID:
+                    colorRes = OVERLINE_COLOR_AVOID_RES;
+                    break;
+                default:
+                    colorRes = OVERLINE_COLOR_DEFAULT_RES;
+                    break;
+            }
+            int lineColor = getResources().getColor(colorRes);
+            if (lineColor != Color.TRANSPARENT) {
+                // draw the white inline first
+                boolean needSeparation = mTrustLevel != TRUST_UNKNOWN;
+                if (needSeparation) {
+                    sOverlineOutlinePaint.setColor(Color.WHITE);
+                    float d = sOverlineOutlinePaint.getStrokeWidth();
+                    canvas.drawRect(left + d, top + d, right - d, bottom - d, sOverlineOutlinePaint);
+                }
+
+                // then draw the outline
+                sOverlineOutlinePaint.setColor(lineColor);
+                canvas.drawRect(left, top, right, bottom, sOverlineOutlinePaint);
+            }
+        }
+
+        // E. show extra, if requested
+        if (mExtrasShown) {
+            // as default, we show a bubble
+            int eRad = Math.min(2 * contentWidth / 5, sMediumPxThreshold / 4);
+            int eCX = Math.min(right - eRad / 2, mCurrentWidth - eRad); //left + (4 * contentWidth / 5) - eRad;
+            int eCY = Math.min(bottom - eRad / 4, mCurrentHeight - eRad);
+
+            // circle back
+            //canvas.drawCircle(eCX, eCY, eRad, sExtrasPaint);
+
+            // round rect back
+            sRectF.set(eCX - eRad, eCY - eRad, eCX + eRad, eCY + eRad);
+            sExtrasPaint.setStyle(Paint.Style.FILL);
+            sExtrasPaint.setColor(0xff666666);
+            canvas.drawRoundRect(sRectF, eRad / 2, eRad / 2, sExtrasPaint);
+
+            // DEBUG! -- draw blocked count
+            if (SHOW_EXTRAS_BLOCKED_COUNT && mExtraBlockedObjectsCount > 0) {
+                final Paint paint = new Paint();
+                float textSize = eRad * 1.2f;
+                paint.setColor(Color.WHITE);
+                paint.setAntiAlias(true);
+                paint.setTextSize(textSize);
+                String text = String.valueOf(mExtraBlockedObjectsCount);
+                int textWidth = Math.round(paint.measureText(text) / 2);
+                canvas.drawText(text, eCX - textWidth - 1, eCY + textSize / 3 + 1, paint);
+            }
+
+            // round rect stroke
+            sExtrasPaint.setStyle(Paint.Style.STROKE);
+            sExtrasPaint.setColor(0xFFeeeeee);
+            canvas.drawRoundRect(sRectF, eRad / 2, eRad / 2, sExtrasPaint);
         }
 
         /*if (true) { // DEBUG TYPE
@@ -433,6 +554,10 @@ public class SiteTileView extends View {
             paint.setTextSize(20);
             canvas.drawText(String.valueOf(mCurrentType), 30, 30, paint);
         }*/
+    }
+
+    private boolean requiresOverline() {
+        return mCurrentType == TYPE_MEDIUM && sOverlineOutlinePaint != null && !mFloating;
     }
 
 
@@ -499,11 +624,30 @@ public class SiteTileView extends View {
      * @return Color, but if it's 0, you should discard it (not representative)
      */
     private static int sampleColor(Bitmap bitmap, int x, int y) {
-        int color = bitmap.getPixel(x, y);
+        final int color = bitmap.getPixel(x, y);
+
         // discard semi-transparent pixels, because they're probably from a spurious border
+        //if ((color >>> 24) <= 128)
+        //    return 0;
+
+        // compose transparent pixels with white, since the BG will be white anyway
+        final int alpha = Color.alpha(color);
+        if (alpha == 0)
+            return Color.WHITE;
+        if (alpha < 255) {
+            // perform simplified Porter-Duff source-over
+            int dstContribution = 255 - alpha;
+            return Color.argb(255,
+                    ((alpha * Color.red(color)) >> 8) + dstContribution,
+                    ((alpha * Color.green(color)) >> 8) + dstContribution,
+                    ((alpha * Color.blue(color)) >> 8) + dstContribution
+            );
+        }
+
         // discard black pixels, because black is not a color (well, not a good looking one)
-        if ((color >>> 24) <= 128 || (color & 0xFFFFFF) == 0)
+        if ((color & 0xFFFFFF) == 0)
             return 0;
+
         return color;
     }
 

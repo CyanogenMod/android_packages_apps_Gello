@@ -24,10 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
@@ -38,16 +35,14 @@ import android.view.View;
 import android.view.ViewStub;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
-import android.webkit.ValueCallback;
+
 import org.codeaurora.swe.WebView;
 
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.browser.UrlInputView.StateListener;
 
 import org.codeaurora.net.NetworkServices;
-import org.codeaurora.swe.WebView;
 
 /**
  * Ui for regular phone screen sizes
@@ -55,15 +50,12 @@ import org.codeaurora.swe.WebView;
 public class PhoneUi extends BaseUi {
 
     private static final String LOGTAG = "PhoneUi";
-    private static final int MSG_INIT_NAVSCREEN = 100;
 
     private NavScreen mNavScreen;
     private AnimScreen mAnimScreen;
     private final NavigationBarPhone mNavigationBar;
-    private final Activity mBrowser;
     private boolean mNavScreenRequested = false;
 
-    boolean mAnimating;
     boolean mShowNav = false;
     private ComboView mComboView;
 
@@ -75,7 +67,6 @@ public class PhoneUi extends BaseUi {
     public PhoneUi(Activity browser, UiController controller) {
         super(browser, controller);
         mNavigationBar = (NavigationBarPhone) mTitleBar.getNavigationBar();
-        mBrowser = browser;
     }
 
     @Override
@@ -96,8 +87,11 @@ public class PhoneUi extends BaseUi {
     public void showComboView(ComboViews startingView, Bundle extras) {
 
         if (mComboView == null) {
-            mNavScreen.setVisibility(View.GONE);
-            ViewStub stub = (ViewStub) mActivity.getWindow().getDecorView().findViewById(R.id.combo_view_stub);
+            if (mNavScreen != null) {
+                mNavScreen.setVisibility(View.GONE);
+            }
+            ViewStub stub = (ViewStub) mActivity.getWindow().
+                    getDecorView().findViewById(R.id.combo_view_stub);
             mComboView = (ComboView) stub.inflate();
             mComboView.setVisibility(View.GONE);
             mComboView.setupViews(mActivity);
@@ -125,7 +119,7 @@ public class PhoneUi extends BaseUi {
             mNavScreen.close(mUiController.getTabControl().getCurrentPosition());
             return true;
         }
-        if (showingComboView()) {
+        if (isComboViewShowing()) {
             hideComboView();
             return true;
         }
@@ -136,36 +130,9 @@ public class PhoneUi extends BaseUi {
         return mNavScreen != null && mNavScreen.getVisibility() == View.VISIBLE;
     }
 
-    private boolean showingComboView() {
-        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
-    }
-
     @Override
     public boolean dispatchKey(int code, KeyEvent event) {
         return false;
-    }
-
-    @Override
-    public void onProgressChanged(Tab tab) {
-        super.onProgressChanged(tab);
-        if (mNavScreen == null && getTitleBar().getHeight() > 0) {
-            mHandler.sendEmptyMessage(MSG_INIT_NAVSCREEN);
-        }
-    }
-
-    @Override
-    protected void handleMessage(Message msg) {
-        super.handleMessage(msg);
-        if (msg.what == MSG_INIT_NAVSCREEN) {
-            if (mNavScreen == null) {
-                mNavScreen = new NavScreen(mActivity, mUiController, this);
-                mCustomViewContainer.addView(mNavScreen, COVER_SCREEN_PARAMS);
-                mNavScreen.setVisibility(View.GONE);
-            }
-            if (mAnimScreen == null) {
-                mAnimScreen = new AnimScreen(mActivity);
-            }
-        }
     }
 
     @Override
@@ -191,8 +158,6 @@ public class PhoneUi extends BaseUi {
 
         // update nav bar state
         mNavigationBar.onStateChanged(StateListener.STATE_NORMAL);
-        updateLockIconToLatest(tab);
-        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     // menu handling callbacks
@@ -223,7 +188,7 @@ public class PhoneUi extends BaseUi {
             menu.setGroupVisible(R.id.NAV_MENU, false);
         }
 
-        if (showingComboView()) {
+        if (isComboViewShowing()) {
             menu.setGroupVisible(R.id.MAIN_MENU, false);
             menu.setGroupEnabled(R.id.MAIN_MENU, false);
             menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
@@ -273,12 +238,12 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public boolean isWebShowing() {
-        return super.isWebShowing() && !showingNavScreen() && !showingComboView();
+        return super.isWebShowing() && !showingNavScreen() && !isComboViewShowing();
     }
 
     @Override
     public boolean isComboViewShowing() {
-        return showingComboView();
+        return mComboView != null && mComboView.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -386,7 +351,8 @@ public class PhoneUi extends BaseUi {
         ObjectAnimator tx = ObjectAnimator.ofInt(mAnimScreen.mContent, "left", fromLeft, toLeft);
         ObjectAnimator ty = ObjectAnimator.ofInt(mAnimScreen.mContent, "top", fromTop, toTop);
         ObjectAnimator tr = ObjectAnimator.ofInt(mAnimScreen.mContent, "right", fromRight, toRight);
-        ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom", fromBottom, toBottom);
+        ObjectAnimator tb = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
+                fromBottom, toBottom);
         ObjectAnimator sx = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor", 1f, toScaleFactor);
         ObjectAnimator navTabsIn = mNavScreen.createToolbarInAnimator();
         mAnimScreen.mContent.layout(fromLeft, fromTop, fromRight, fromBottom);
@@ -493,7 +459,8 @@ public class PhoneUi extends BaseUi {
         ObjectAnimator l = ObjectAnimator.ofInt(mAnimScreen.mContent, "left", fromLeft, toLeft);
         ObjectAnimator t = ObjectAnimator.ofInt(mAnimScreen.mContent, "top", fromTop, toTop);
         ObjectAnimator r = ObjectAnimator.ofInt(mAnimScreen.mContent, "right", fromRight, toRight);
-        ObjectAnimator b = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom", fromBottom, toBottom);
+        ObjectAnimator b = ObjectAnimator.ofInt(mAnimScreen.mContent, "bottom",
+                fromBottom, toBottom);
         ObjectAnimator scale = ObjectAnimator.ofFloat(mAnimScreen, "scaleFactor", 1f, scaleFactor);
         set.playTogether(animAppear, l, t, r, b, scale);
         set.setInterpolator(new DecelerateInterpolator());
@@ -563,7 +530,9 @@ public class PhoneUi extends BaseUi {
     }
 
     private void finishAnimateOut() {
-        mNavScreen.setVisibility(View.GONE);
+        if (mNavScreen != null) {
+            mNavScreen.setVisibility(View.GONE);
+        }
         mCustomViewContainer.setAlpha(1f);
         mCustomViewContainer.setVisibility(View.GONE);
         mAnimScreen.set(null);
@@ -580,11 +549,6 @@ public class PhoneUi extends BaseUi {
         } else {
             hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         }
-    }
-
-    @Override
-    public boolean shouldCaptureThumbnails() {
-        return true;
     }
 
     static class AnimScreen {
@@ -614,15 +578,6 @@ public class PhoneUi extends BaseUi {
             }
             mContent.setImageBitmap(viewportBitmap);
         }
-
-        /*private Bitmap safeCreateBitmap(int width, int height) {
-            if (width <= 0 || height <= 0) {
-                Log.w(LOGTAG, "safeCreateBitmap failed! width: " + width
-                        + ", height: " + height);
-                return null;
-            }
-            return Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        }*/
 
         public void set(Bitmap image) {
             mContent.setImageBitmap(image);

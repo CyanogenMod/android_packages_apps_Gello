@@ -55,5 +55,8 @@
     <color name="tabViewTitleBackground">#D0000000</color>
     <color name="navtab_bg">#80606060</color>
 
-    <color name="SiteTileOverline">#666</color>
+    <color name="SiteTileOverlineUnknown">@android:color/transparent</color>
+    <color name="SiteTileOverlineTrusted">#00b813</color>
+    <color name="SiteTileOverlineUntrusted">#ebc400</color>
+    <color name="SiteTileOverlineAvoid">#d70704</color>
 </resources>
