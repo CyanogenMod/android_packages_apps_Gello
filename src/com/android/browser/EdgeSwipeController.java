@@ -459,7 +459,7 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
     public void onEdgeTouched (int edgeFlags, int pointerId) {
         synchronized (this) {
-            if (mActiveTab.isPrivateBrowsingEnabled()) {
+            if (mActiveTab.isPrivateBrowsingEnabled() || mActiveTab.isKeyboardShowing()) {
                 mDragHelper.abort();
                 return;
             }

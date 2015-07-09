@@ -107,6 +107,7 @@ class Tab implements PictureListener {
     private static final int INITIAL_PROGRESS = 5;
 
     private static Bitmap sDefaultFavicon;
+    private boolean mIsKeyboardUp = false;
 
     private static Paint sAlphaPaint = new Paint();
     static {
@@ -698,6 +699,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onKeyboardStateChange(boolean popup) {
+            mIsKeyboardUp = popup;
             if (BrowserSettings.getInstance().useFullscreen()) {
                 Controller controller = (Controller) mWebViewController;
                 BaseUi ui = (BaseUi) controller.getUi();
@@ -735,6 +737,11 @@ class Tab implements PictureListener {
 
     public String getTouchIconUrl() {
         return mTouchIconUrl;
+    }
+
+    public boolean isKeyboardShowing() {
+        Controller controller = (Controller)mWebViewController;
+        return (mIsKeyboardUp || controller.getUi().isEditingUrl());
     }
 
     public boolean isTabFullScreen() {
