@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -224,16 +225,20 @@ public class PhoneUi extends BaseUi {
     public void onActionModeStarted(ActionMode mode) {
         super.onActionModeStarted(mode);
         if (!isEditingUrl()) {
-            hideTitleBar();
+            mTitleBar.setVisibility(View.GONE);
+        }
+
+        ActionBar actionBar = mActivity.getActionBar();
+        if (actionBar != null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.hide();
         }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
         super.onActionModeFinished(inLoad);
-        if (inLoad) {
-            showTitleBar();
-        }
+        mTitleBar.setVisibility(View.VISIBLE);
     }
 
     @Override
