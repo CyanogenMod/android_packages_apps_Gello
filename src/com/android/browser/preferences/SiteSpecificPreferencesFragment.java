@@ -553,7 +553,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                         if (refiner != null) {
                                             String[] origins = new String[1];
                                             origins[0] = mOriginInfo.getOrigin();
-                                            refiner.useGlobalRulesForDomains(origins);
+                                            refiner.useDefaultPermissionForOrigins(origins);
                                         }
 
                                         finish();
@@ -660,11 +660,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 boolean disable = (boolean) objValue;
                 String[] origins = new String[1];
                 origins[0] = mOriginInfo.getOrigin();
-                if (disable) {
-                    refiner.disableRulesForDomains(WebRefiner.CATEGORY_ALL, origins);
-                } else {
-                    refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL, origins);
-                }
+                refiner.setPermissionForOrigins(origins, !disable);
             }
             updateTwoStatePreference(pref,
                     PermissionsServiceFactory.PermissionType.WEBREFINER, (boolean)objValue);

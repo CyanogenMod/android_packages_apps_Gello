@@ -175,7 +175,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
 
                 WebRefiner refiner = WebRefiner.getInstance();
                 if (refiner != null) {
-                    refiner.useGlobalRulesForDomains(originArray);
+                    refiner.useDefaultPermissionForOrigins(originArray);
                 }
             }
         }

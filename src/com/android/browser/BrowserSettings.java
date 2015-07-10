@@ -139,8 +139,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // Intialize Web Refiner only once
         final WebRefiner refiner = WebRefiner.getInstance();
         if (refiner != null) {
-            refiner.setRulesEnabled(WebRefiner.CATEGORY_ALL,
-                    PermissionsServiceFactory.getDefaultPermissions(
+            refiner.setDefaultPermission(PermissionsServiceFactory.getDefaultPermissions(
                             PermissionsServiceFactory.PermissionType.WEBREFINER));
 
             PermissionsServiceFactory.getPermissionsService(
@@ -163,13 +162,13 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                             }
                         }
                         if (!allowList.isEmpty()) {
-                            refiner.enableRulesForDomains(WebRefiner.CATEGORY_ALL,
-                                    allowList.toArray(new String[allowList.size()]));
+                            refiner.setPermissionForOrigins(
+                                    allowList.toArray(new String[allowList.size()]), true);
                         }
 
                         if (!blockList.isEmpty()) {
-                            refiner.disableRulesForDomains(WebRefiner.CATEGORY_ALL,
-                                    blockList.toArray(new String[blockList.size()]));
+                            refiner.setPermissionForOrigins(
+                                    blockList.toArray(new String[blockList.size()]), false);
                         }
                     }
                 }
