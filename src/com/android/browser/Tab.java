@@ -578,14 +578,15 @@ class Tab implements PictureListener {
             }
             KeyChain.choosePrivateKeyAlias(
                     mWebViewController.getActivity(), new KeyChainAliasCallback() {
-                @Override public void alias(String alias) {
-                    if (alias == null) {
-                        handler.cancel();
-                        return;
-                    }
-                    new KeyChainLookup(mContext, handler, alias).execute();
-                }
-            }, null, null, host, port, null);
+                        @Override
+                        public void alias(String alias) {
+                            if (alias == null) {
+                                handler.cancel();
+                                return;
+                            }
+                            new KeyChainLookup(mContext, handler, alias).execute();
+                        }
+                    }, null, null, host, port, null);
         }
 
         /**
@@ -671,7 +672,7 @@ class Tab implements PictureListener {
             }
 
             int index = getCaptureIndex(view.getLastCommittedHistoryIndex());
-            view.captureSnapshot(index , null);
+            view.captureSnapshot(index, null);
         }
 
         @Override

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.content.res.Resources;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.View;
 import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebView;
@@ -184,6 +185,18 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
     public void destroy() {
         BrowserSettings.getInstance().stopManagingSettings(getSettings());
         super.destroy();
+    }
+
+    @Override
+    public boolean dispatchKeyEventPreIme(KeyEvent event) {
+        Tab currentTab = mTitleBar.getUiController().getCurrentTab();
+        if (currentTab != null && currentTab.isKeyboardShowing()){
+            // Try to detect the "back" key that dismisses the keyboard
+            if(event.getAction() == KeyEvent.ACTION_DOWN &&
+                    event.getKeyCode() == KeyEvent.KEYCODE_BACK)
+                mWebViewClient.onKeyboardStateChange(false);
+        }
+        return super.dispatchKeyEventPreIme(event);
     }
 
 }
