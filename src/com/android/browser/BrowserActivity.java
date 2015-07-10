@@ -41,9 +41,6 @@ import android.view.Window;
 
 import org.chromium.base.VisibleForTesting;
 import com.android.browser.R;
-import com.android.browser.mdm.EditBookmarksRestriction;
-import com.android.browser.mdm.ManagedBookmarksRestriction;
-import com.android.browser.mdm.ThirdPartyCookiesRestriction;
 import com.android.browser.search.DefaultSearchEngine;
 import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
@@ -161,11 +158,6 @@ public class BrowserActivity extends Activity {
     public void startController() {
         Intent intent = (mSavedInstanceState == null) ? getIntent() : null;
         mController.start(intent);
-
-        // MDM Restrictions not tied to a UI element initialized here.
-        ThirdPartyCookiesRestriction.getInstance();
-        ManagedBookmarksRestriction.getInstance();
-        EditBookmarksRestriction.getInstance();
     }
 
     @VisibleForTesting

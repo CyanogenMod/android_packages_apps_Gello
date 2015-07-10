@@ -31,9 +31,16 @@ import android.webkit.ValueCallback;
 import android.webkit.WebStorage;
 
 import com.android.browser.homepages.HomeProvider;
+import com.android.browser.mdm.AutoFillRestriction;
+import com.android.browser.mdm.DevToolsRestriction;
 import com.android.browser.mdm.DoNotTrackRestriction;
+import com.android.browser.mdm.EditBookmarksRestriction;
+import com.android.browser.mdm.IncognitoRestriction;
+import com.android.browser.mdm.ManagedBookmarksRestriction;
 import com.android.browser.mdm.ProxyRestriction;
 import com.android.browser.mdm.SearchEngineRestriction;
+import com.android.browser.mdm.ThirdPartyCookiesRestriction;
+import com.android.browser.mdm.URLFilterRestriction;
 import com.android.browser.platformsupport.Browser;
 import com.android.browser.provider.BrowserProvider;
 import com.android.browser.search.SearchEngine;
@@ -176,9 +183,18 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         if (mNeedsSharedSync) {
             syncSharedSettings();
         }
-        // Instantiate ProxyRestriction after engine initialization
-        // to ensure ProxyChangeListener is already created.
+
+        // Instantiate all MDM Restriction Singletons.
+        AutoFillRestriction.getInstance();
+        DevToolsRestriction.getInstance();
+        DoNotTrackRestriction.getInstance();
+        EditBookmarksRestriction.getInstance();
+        IncognitoRestriction.getInstance();
+        ManagedBookmarksRestriction.getInstance();
         ProxyRestriction.getInstance();
+        SearchEngineRestriction.getInstance();
+        ThirdPartyCookiesRestriction.getInstance();
+        URLFilterRestriction.getInstance();
     }
 
     public void startManagingSettings(final WebSettings settings) {
