@@ -117,8 +117,9 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
                 // between tabs
                 getActivity().setResult(Activity.RESULT_OK,
                         (new Intent()).putExtra(Intent.EXTRA_TEXT, pref.getKey()));
-                return true;
             }
+            // return true by default for all preferences
+            return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("enable_geolocation")) {
