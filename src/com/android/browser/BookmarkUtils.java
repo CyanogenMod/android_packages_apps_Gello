@@ -235,12 +235,13 @@ public class BookmarkUtils {
      * @param msg Message to send if the bookmark is deleted.
      */
     static void displayRemoveBookmarkDialog( final long id, final String title,
-            final Context context, final Message msg) {
+            final Context context, final Message msg, boolean is_folder) {
 
         new AlertDialog.Builder(context)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
-                .setMessage(context.getString(R.string.delete_bookmark_warning,
-                        title))
+                .setMessage(is_folder ?
+                        context.getString(R.string.delete_folder_warning, title) :
+                        context.getString(R.string.delete_bookmark_warning, title))
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -248,7 +249,7 @@ public class BookmarkUtils {
                                 if (msg != null) {
                                     msg.sendToTarget();
                                 }
-                                Runnable runnable = new Runnable(){
+                                Runnable runnable = new Runnable() {
                                     @Override
                                     public void run() {
                                         removeBookmarkOrFolder(context, id);

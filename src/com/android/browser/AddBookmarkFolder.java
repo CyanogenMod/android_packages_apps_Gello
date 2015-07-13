@@ -638,7 +638,7 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         mAddSeparator.setVisibility(View.GONE);
 
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
-        mCrumbs.setUseBackButton(true);
+        //mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         mHeaderIcon = getResources().getDrawable(R.drawable.ic_deco_folder_normal);
         mCrumbHolder = findViewById(R.id.crumb_holder);

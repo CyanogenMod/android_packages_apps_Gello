@@ -103,6 +103,7 @@ public class AddBookmarkPage extends Activity
     private EditText    mAddress;
     private TextView    mButton;
     private View        mCancelButton;
+    private View        mDeleteButton;
     private boolean     mEditingExisting;
     private boolean     mEditingFolder;
     private Bundle      mMap;
@@ -314,6 +315,8 @@ public class AddBookmarkPage extends Activity
             } else {
                 finish();
             }
+        } else if (v == mDeleteButton || v == mRemoveLink) {
+            onDeleteWithConfirm();
         } else if (v == mFolderCancel) {
             completeOrCancelFolderNaming(true);
         } else if (v == mAddNewFolder) {
@@ -330,16 +333,6 @@ public class AddBookmarkPage extends Activity
             Class[] type = new Class[] {View.class};
             ReflectHelper.invokeMethod(imm, "focusIn", type, params);
             imm.showSoftInput(mFolderNamer, InputMethodManager.SHOW_IMPLICIT);
-        } else if (v == mRemoveLink) {
-            if (!mEditingExisting) {
-                throw new AssertionError("Remove button should not be shown for"
-                        + " new bookmarks");
-            }
-            long id = mMap.getLong(BrowserContract.Bookmarks._ID);
-            createHandler();
-            Message msg = Message.obtain(mHandler, BOOKMARK_DELETED);
-            BookmarkUtils.displayRemoveBookmarkDialog(id,
-                    mTitle.getText().toString(), this, msg);
         }
     }
 
@@ -546,6 +539,14 @@ public class AddBookmarkPage extends Activity
                 while (cursor.moveToNext()) {
                     mAccountAdapter.add(new BookmarkAccount(this, cursor));
                 }
+
+                if (cursor.getCount() < 2) {
+                    View accountView = findViewById(R.id.row_account);
+                    if (accountView != null) {
+                        accountView.setVisibility(View.GONE);
+                    }
+                }
+
                 getLoaderManager().destroyLoader(LOADER_ID_ACCOUNTS);
                 getLoaderManager().restartLoader(LOADER_ID_EDIT_INFO, null,
                         mEditInfoLoaderCallbacks);
@@ -660,6 +661,10 @@ public class AddBookmarkPage extends Activity
         mTouchIconUrl = null;
 
         mFakeTitle = (TextView) findViewById(R.id.fake_title);
+
+        mDeleteButton = findViewById(R.id.delete);
+        mDeleteButton.setOnClickListener(this);
+
         if (mMap != null) {
             Bundle b = mMap.getBundle(EXTRA_EDIT_BOOKMARK);
             if (b != null) {
@@ -691,6 +696,7 @@ public class AddBookmarkPage extends Activity
                     title = title.substring(0, MAX_TITLE_LENGTH);
                 }
             }
+
         }
 
         mTitle = (EditText) findViewById(R.id.title);
@@ -731,7 +737,7 @@ public class AddBookmarkPage extends Activity
         mAddSeparator = findViewById(R.id.add_divider);
 
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
-        mCrumbs.setUseBackButton(true);
+        //mCrumbs.setUseBackButton(true);
         mCrumbs.setController(this);
         mHeaderIcon = getResources().getDrawable(R.drawable.ic_deco_folder_normal);
         mCrumbHolder = findViewById(R.id.crumb_holder);
@@ -769,6 +775,7 @@ public class AddBookmarkPage extends Activity
     }
 
     private void showRemoveButton() {
+        mDeleteButton.setVisibility(View.VISIBLE);
         findViewById(R.id.remove_divider).setVisibility(View.VISIBLE);
         mRemoveLink = findViewById(R.id.remove);
         mRemoveLink.setVisibility(View.VISIBLE);
@@ -907,6 +914,52 @@ public class AddBookmarkPage extends Activity
     static void deleteDuplicateBookmark(final Context context, final long id) {
         Uri uri = ContentUris.withAppendedId(BrowserContract.Bookmarks.CONTENT_URI, id);
         context.getContentResolver().delete(uri, null, null);
+    }
+
+    private void onDeleteWithConfirm() {
+        final String title = mTitle.getText().toString().trim();
+        final String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        final String url = unfilteredUrl.trim();
+        new AlertDialog.Builder(this)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setMessage(getString(R.string.delete_bookmark_warning, title))
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ContentResolver cr = getContentResolver();
+                        Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
+                                BookmarksLoader.PROJECTION,
+                                "title = ? OR url = ?",
+                                new String[] {
+                                        title, url
+                                },
+                                null);
+
+                        if (cursor == null) {
+                            finish();
+                            return;
+                        }
+
+                        try {
+                            if (cursor.moveToFirst()) {
+                                do {
+                                    long index = cursor.getLong(
+                                            cursor.getColumnIndex(BrowserContract.Bookmarks._ID));
+                                    cr.delete(ContentUris.withAppendedId(
+                                            BrowserContract.Bookmarks.CONTENT_URI, index),
+                                            null, null);
+                                } while (cursor.moveToNext());
+                            }
+                        } catch (IllegalStateException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (cursor != null)
+                                cursor.close();
+                        }
+                        finish();
+                    }
+                })
+                .show();
     }
 
     private void onSaveWithConfirm() {

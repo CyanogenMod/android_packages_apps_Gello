@@ -69,6 +69,14 @@
         <item name="android:fontFamily">roboto</item>
     </style>
 
+    <style name="BookmarkPathText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/bookmarkLabelColor</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">roboto</item>
+    </style>
+
     <style name="ShortcutTheme" parent="@style/BrowserBase">
     </style>
 

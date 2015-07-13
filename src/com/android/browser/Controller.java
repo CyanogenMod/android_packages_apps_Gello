@@ -261,6 +261,8 @@ public class Controller
     private PowerConnectionReceiver mLowPowerReceiver;
     private PowerConnectionReceiver mPowerChangeReceiver;
 
+    private boolean mCurrentPageBookmarked;
+
     public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
@@ -1947,7 +1949,8 @@ public class Controller
 
         String title = w.getTitle();
         String url = w.getUrl();
-        if (title != null && url != null && lookupBookmark(title, url) > 0) {
+        mCurrentPageBookmarked = (lookupBookmark(title, url) > 0);
+        if (title != null && url != null && mCurrentPageBookmarked) {
             bookmark_icon.setChecked(true);
         } else {
             bookmark_icon.setChecked(false);
@@ -2348,7 +2351,7 @@ public class Controller
             WebView w = getCurrentTopWebView();
             if (w == null)
                 return;
-            final Intent i = createBookmarkCurrentPageIntent(false);
+            final Intent i = createBookmarkCurrentPageIntent(mCurrentPageBookmarked);
             mActivity.startActivity(i);
         }
     }

@@ -82,6 +82,9 @@ public class BookmarkExpandableView extends ExpandableListView
                 .getInteger(R.integer.max_bookmark_columns);
         setScrollBarStyle(SCROLLBARS_OUTSIDE_OVERLAY);
         mAdapter = new BookmarkAccountAdapter(mContext);
+        if (mAdapter.getGroupCount() < 2) {
+            setGroupIndicator(null);
+        }
         super.setAdapter(mAdapter);
     }
 
@@ -251,6 +254,10 @@ public class BookmarkExpandableView extends ExpandableListView
 
         @Override
         public void onClick(View v) {
+            if (mAdapter.getGroupCount() < 2) {
+                return;
+            }
+
             int groupPosition = (Integer) v.getTag(R.id.group_position);
             if (isGroupExpanded(groupPosition)) {
                 collapseGroup(groupPosition);
@@ -402,6 +409,7 @@ public class BookmarkExpandableView extends ExpandableListView
                 View view, ViewGroup parent) {
             if (view == null) {
                 view = mInflater.inflate(R.layout.bookmark_group_view, parent, false);
+                view.setEnabled(false);
                 view.setOnClickListener(mGroupOnClickListener);
             }
             view.setTag(R.id.group_position, groupPosition);
@@ -411,13 +419,19 @@ public class BookmarkExpandableView extends ExpandableListView
             if (crumbs.getParent() != null) {
                 ((ViewGroup)crumbs.getParent()).removeView(crumbs);
             }
+            crumbs.setVisibility(VISIBLE);
             crumbHolder.addView(crumbs);
+
+            TextView overflowView = (TextView) view.findViewById(R.id.crumb_overflow);
+            crumbs.addOverflowLabel(overflowView);
+/*
             TextView name = (TextView) view.findViewById(R.id.group_name);
             String groupName = mGroups.get(groupPosition);
             if (groupName == null) {
-                groupName = mContext.getString(R.string.local_bookmarks);
+                groupName = mContext.getString(R.string.bookmarks);
             }
             name.setText(groupName);
+*/
             return view;
         }
 
@@ -427,8 +441,8 @@ public class BookmarkExpandableView extends ExpandableListView
                 crumbs = (BreadCrumbView)
                         mInflater.inflate(R.layout.bookmarks_header, null);
                 crumbs.setController(BookmarkExpandableView.this);
-                crumbs.setUseBackButton(true);
-                crumbs.setMaxVisible(1);
+                //crumbs.setUseBackButton(true);
+                crumbs.setMaxVisible(2);
                 String bookmarks = mContext.getString(R.string.bookmarks);
                 crumbs.pushView(bookmarks, false,
                         BrowserContract.Bookmarks.CONTENT_URI_DEFAULT_FOLDER);

@@ -135,7 +135,8 @@
                     android:ellipsize="end"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
               </TableRow>
-              <TableRow android:layout_marginBottom="10dip">
+              <TableRow android:layout_marginBottom="10dip"
+                  android:id="@+id/row_account">
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -203,21 +204,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="end"
         style="?android:attr/buttonBarStyle">
+        <Button android:id="@+id/delete"
+            android:visibility="gone"
+            android:text="@string/remove_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle" />
         <Button android:id="@+id/cancel"
             android:text="@string/do_not_save"
-            android:layout_width="0dip"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:maxLines="2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle" />
         <Button android:id="@+id/OK"
             android:text="@string/save"
-            android:layout_width="0dip"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:maxLines="2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>

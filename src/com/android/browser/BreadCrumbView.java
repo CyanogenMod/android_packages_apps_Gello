@@ -60,6 +60,7 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
     private int mMaxVisible = -1;
     private Context mContext;
     private int mCrumbPadding;
+    private TextView mOverflowView;
 
     /**
      * @param context
@@ -164,6 +165,16 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
         return crumb.crumbView;
     }
 
+    public void addOverflowLabel(TextView view) {
+        mOverflowView = view;
+        if (view != null) {
+            view.setTextAppearance(mContext, R.style.BookmarkPathText);
+            view.setPadding(mCrumbPadding, 0, mCrumbPadding, 0);
+            view.setGravity(Gravity.CENTER_VERTICAL);
+            view.setText("... >");
+        }
+    }
+
     public void pushView(View view, Object data) {
         Crumb crumb = new Crumb(view, true, data);
         pushCrumb(crumb);
@@ -211,7 +222,7 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
         params.setMargins(0, 0, 4 * mCrumbPadding, 0);
         mCrumbLayout.setLayoutParams(params);
         mCrumbLayout.setVisibility(View.VISIBLE);
-        addParentLabel();
+        //addParentLabel();
         addView(mCrumbLayout);
     }
 
@@ -275,17 +286,25 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
 
     private void updateVisible() {
         // start at index 1 (0 == parent label)
-        int childIndex = 1;
+        int childIndex = 0;
         if (mMaxVisible >= 0) {
             int invisibleCrumbs = size() - mMaxVisible;
             if (invisibleCrumbs > 0) {
                 int crumbIndex = 0;
+                if (mOverflowView != null) {
+                    mOverflowView.setVisibility(VISIBLE);
+                    mOverflowView.setOnClickListener(this);
+                }
                 while (crumbIndex < invisibleCrumbs) {
                     // Set the crumb to GONE.
                     mCrumbLayout.getChildAt(childIndex).setVisibility(View.GONE);
                     childIndex++;
                     // Move to the next crumb.
                     crumbIndex++;
+                }
+            } else {
+                if (mOverflowView != null) {
+                    mOverflowView.setVisibility(GONE);
                 }
             }
             // Make sure the last is visible.
@@ -332,6 +351,13 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
     public void onClick(View v) {
         if (mBackButton == v) {
             popView();
+            notifyController();
+        } else if (mOverflowView == v) {
+            int maxVisible = getMaxVisible();
+            while (maxVisible > 0) {
+                pop(false);
+                maxVisible--;
+            }
             notifyController();
         } else {
             // pop until view matches crumb view
@@ -397,10 +423,10 @@ public class BreadCrumbView extends RelativeLayout implements OnClickListener {
 
         private TextView makeCrumbView(String name) {
             TextView tv = new TextView(mContext);
-            tv.setTextAppearance(mContext, R.style.BookmarkText);
+            tv.setTextAppearance(mContext, R.style.BookmarkPathText);
             tv.setPadding(mCrumbPadding, 0, mCrumbPadding, 0);
             tv.setGravity(Gravity.CENTER_VERTICAL);
-            tv.setText(name);
+            tv.setText(name + " >");
             tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.MATCH_PARENT));
             tv.setSingleLine();

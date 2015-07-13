@@ -21,18 +21,27 @@
     android:orientation="horizontal"
     android:background="?android:attr/listChoiceBackgroundIndicator">
 
+<!--
     <TextView
         android:id="@+id/group_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="50dp"
         android:textAppearance="@style/BookmarkText"
-        android:textColor="@color/accent"
         android:gravity="center_vertical" />
+-->
+
+    <TextView
+        android:id="@+id/crumb_overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textAppearance="@style/BookmarkPathText"
+        android:visibility="gone"
+        />
 
     <FrameLayout
         android:id="@+id/crumb_holder"
-        android:paddingStart="16dp"
+        android:textAppearance="@style/BookmarkPathText"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

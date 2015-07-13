@@ -153,7 +153,7 @@
     <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
     <string name="add_to_homescreen_menu_option">Home screen</string>
     <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
-    <string name="add_to_other_folder_menu_option">Other folder</string>
+    <string name="add_to_other_folder_menu_option">Select folder...</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
@@ -179,7 +179,7 @@
     <!-- Context menu item for setting the bookmark/history item as the homepage -->
     <string name="set_as_homepage">Set as homepage</string>
     <!-- Toast informing the user that their action to save a bookmark has succeeded -->
-    <string name="bookmark_saved">Saved to bookmarks.</string>
+    <string name="bookmark_saved">Bookmarked</string>
     <!-- Toast informing the user that their action to save a bookmark did not succeed -->
     <string name="bookmark_not_saved">Couldn\'t save bookmark.</string>
     <!-- Toast confirming that the homepage has been set -->
@@ -212,6 +212,9 @@
     <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
     <string name="delete_bookmark_warning">Delete bookmark \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
+    <!-- Confirmation dialog message confirming that the user wishes to delete
+               the folder they selected for deletion -->
+    <string name="delete_folder_warning">Delete folder \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
     <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
     <string name="open_all_in_new_window">Open all in new tabs</string>
     <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
