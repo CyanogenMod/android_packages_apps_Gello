@@ -137,10 +137,6 @@ public class NavScreen extends RelativeLayout
                 onCloseTab(tab);
             }
         });
-        boolean needsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
-        if (!needsMenu) {
-            mMore.setVisibility(View.GONE);
-        }
     }
 
     @Override

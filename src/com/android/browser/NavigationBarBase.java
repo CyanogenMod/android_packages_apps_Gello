@@ -85,7 +85,6 @@ public class NavigationBarBase extends LinearLayout implements
     private View mMore;
     private PopupMenu mPopupMenu;
     private boolean mOverflowMenuShowing;
-    private boolean mNeedsMenu;
 
     private static Bitmap mDefaultFavicon;
 
@@ -126,7 +125,6 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.addTextChangedListener(this);
         mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
-        mNeedsMenu = !ViewConfiguration.get(getContext()).hasPermanentMenuKey();
         mMagnify = (ImageView) findViewById(R.id.magnify);
         mMagnify.setOnClickListener(this);
         mFaviconTile = (SiteTileView) findViewById(R.id.favicon_view);
@@ -747,7 +745,7 @@ public class NavigationBarBase extends LinearLayout implements
                 mFaviconTile.setVisibility(View.VISIBLE);
                 mMagnify.setVisibility(View.GONE);
                 mClearButton.setVisibility(View.GONE);
-                mMore.setVisibility(mNeedsMenu ? View.VISIBLE : View.GONE);
+                mMore.setVisibility(View.VISIBLE);
                 if (mUiController != null) {
                     Tab currentTab = mUiController.getCurrentTab();
                     if (currentTab != null){

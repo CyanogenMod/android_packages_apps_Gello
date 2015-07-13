@@ -41,7 +41,7 @@ import org.codeaurora.swe.Engine;
  */
 public class AppMenu implements OnItemClickListener, OnKeyListener {
     /** Whether or not to show the software menu button in the menu. */
-    private static final boolean SHOW_SW_MENU_BUTTON = true;
+    private static final boolean SHOW_SW_MENU_BUTTON = false;
 
     private static final float LAST_ITEM_SHOW_FRACTION = 0.5f;
 
