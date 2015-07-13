@@ -27,6 +27,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
+import com.android.browser.AddBookmarkPage;
 import com.android.browser.R;
 import com.android.browser.platformsupport.BrowserContract.Bookmarks;
 import com.android.browser.platformsupport.BrowserContract.Combined;
@@ -159,10 +160,10 @@ public class Browser {
     public static final void saveBookmark(Context c,
                                           String title,
                                           String url) {
-        Intent i = new Intent(Intent.ACTION_INSERT, Browser.BOOKMARKS_URI);
-        i.putExtra("title", title);
-        i.putExtra("url", url);
-        c.startActivity(i);
+        Intent intent = new Intent(c, AddBookmarkPage.class);
+        intent.putExtra(BrowserContract.Bookmarks.URL, url);
+        intent.putExtra(BrowserContract.Bookmarks.TITLE, title);
+        c.startActivity(intent);
     }
 
     /**
