@@ -706,8 +706,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 origins[0] = mOriginInfo.getOrigin();
                 refiner.setPermissionForOrigins(origins, !disable);
             }
+            // Distracting contents and web refiner complimentary of each other
             updateTwoStatePreference(pref,
-                    PermissionsServiceFactory.PermissionType.WEBREFINER, (boolean)objValue);
+                    PermissionsServiceFactory.PermissionType.WEBREFINER, !(boolean)objValue);
         } else if (pref.getKey().toString().equalsIgnoreCase("popup_windows")) {
             updateTwoStatePreference(pref,
                     PermissionsServiceFactory.PermissionType.POPUP, (boolean)objValue);

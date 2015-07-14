@@ -155,6 +155,9 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                         for (String origin : origins) {
                             PermissionsServiceFactory.PermissionsService.OriginInfo
                                     info = value.getOriginInfo(origin);
+                            if (info == null) {
+                                continue;
+                            }
                             int perm = info.getPermission(
                                     PermissionsServiceFactory.PermissionType.WEBREFINER);
                             if (perm == PermissionsServiceFactory.Permission.ALLOW) {
