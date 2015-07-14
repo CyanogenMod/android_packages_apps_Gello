@@ -216,6 +216,22 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
                         }
                         cancel();
+                    } else if(mState == ViewDragHelper.STATE_DRAGGING) {
+                        if (mGrayBM) {
+                            return;
+                        }
+                        switch (mFromEdge) {
+                            case ViewDragHelper.EDGE_LEFT:
+                                mView.setSlidingViewBitmap(
+                                        getGrayscale(getSnapshotOrFavicon(pageIndex)));
+                                mGrayBM = true;
+                                break;
+                            case ViewDragHelper.EDGE_RIGHT:
+                                mView.setStationaryViewBitmap(
+                                        getGrayscale(getSnapshotOrFavicon(pageIndex)));
+                                mGrayBM = true;
+                                break;
+                        }
                     } else {
                         if (mGrayBM) {
                             return;
