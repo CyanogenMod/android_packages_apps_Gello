@@ -147,7 +147,7 @@ public class NavigationBarBase extends LinearLayout implements
                         if (wv != null && WebRefiner.isInitialized()) {
                             int count = WebRefiner.getInstance().getBlockedURLCount(wv);
                             if (count > 0) {
-                                mFaviconTile.setExtraBlockedObjectsCount(count);
+                                mFaviconTile.setBadgeBlockedObjectsCount(count);
                             }
                         }
                         mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,
@@ -170,12 +170,15 @@ public class NavigationBarBase extends LinearLayout implements
         switch (mSecurityState) {
             case SECURITY_STATE_SECURE:
                 mFaviconTile.setTrustLevel(SiteTileView.TRUST_TRUSTED);
+                mFaviconTile.setBadgeHasCertIssues(false);
                 break;
             case SECURITY_STATE_MIXED:
                 mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNTRUSTED);
+                mFaviconTile.setBadgeHasCertIssues(true);
                 break;
             case SECURITY_STATE_BAD_CERTIFICATE:
                 mFaviconTile.setTrustLevel(SiteTileView.TRUST_AVOID);
+                mFaviconTile.setBadgeHasCertIssues(true);
                 break;
             case SECURITY_STATE_NOT_SECURE:
             default:
@@ -719,8 +722,9 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void onProgressStarted() {
-        mFaviconTile.setExtraBlockedObjectsCount(0);
+        mFaviconTile.setBadgeBlockedObjectsCount(0);
         mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
+        mFaviconTile.setBadgeHasCertIssues(false);
         mFaviconTile.replaceFavicon(mDefaultFavicon);
         mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
         mHandler.removeMessages(WEBREFINER_COUNTER_MSG);

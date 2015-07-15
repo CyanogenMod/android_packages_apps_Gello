@@ -71,7 +71,8 @@
 
     <style name="BookmarkPathText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/bookmarkLabelColor</item>
+        <item name="android:textColor">@color/clickable_color</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">roboto</item>

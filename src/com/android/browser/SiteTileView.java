@@ -29,19 +29,25 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
+
+import java.util.Map;
 
 /**
  * This represents a WebSite Tile that is created from a Drawable and will scale across any
@@ -70,14 +76,10 @@ public class SiteTileView extends View {
     private static final int THRESHOLD_LARGE_DP = 64;
     private static final int LARGE_FAVICON_SIZE_DP = 48;
     private static final int BACKGROUND_DRAWABLE_RES = R.drawable.img_tile_background;
+    private static final int DEFAULT_SITE_FAVICON = 0;
     private static final float FILLER_RADIUS_DP = 2f; // sync with the bg image radius
     private static final int FILLER_FALLBACK_COLOR = Color.WHITE; // in case there is no favicon
-    private static final int OVERLINE_WIDTH_RES = R.dimen.SiteTileOverlineWidth;
-    private static final int OVERLINE_COLOR_DEFAULT_RES = R.color.SiteTileOverlineUnknown;
-    private static final int OVERLINE_COLOR_TRUSTED_RES = R.color.SiteTileOverlineTrusted;
-    private static final int OVERLINE_COLOR_UNTRUSTED_RES = R.color.SiteTileOverlineUntrusted;
-    private static final int OVERLINE_COLOR_AVOID_RES = R.color.SiteTileOverlineAvoid;
-    private static final boolean SHOW_EXTRAS_BLOCKED_COUNT = true;
+    private static final boolean BADGE_SHOW_BLOCKED_COUNT = false;
 
     // internal enums
     private static final int TYPE_SMALL = 1;
@@ -92,12 +94,11 @@ public class SiteTileView extends View {
     private Paint mFundamentalPaint = null;
     private int mFaviconWidth = 0;
     private int mFaviconHeight = 0;
-    private int mForcedType = TYPE_AUTO;
     private int mForcedFundamentalColor = COLOR_AUTO;
-    private boolean mFloating = false;
+    private boolean mBackgroundDisabled = false;
     private int mTrustLevel = TRUST_UNKNOWN;
-    private int mExtraBlockedObjectsCount = 0;
-    private boolean mExtrasShown = false;
+    private int mBadgeBlockedObjectsCount = 0;
+    private boolean mBadgeHasCertIssues = false;
 
     // runtime params set on Layout
     private int mCurrentWidth = 0;
@@ -107,21 +108,28 @@ public class SiteTileView extends View {
     private int mPaddingTop = 0;
     private int mPaddingRight = 0;
     private int mPaddingBottom = 0;
-    private boolean mCurrentBackgroundDrawn = false;
+    private boolean mCurrentShadowDrawn = false;
 
     // static objects, to be recycled amongst instances (this is an optimization)
+    // NOTE: package-visible statics are for optimized usage inside FolderTileView as well
     private static int sMediumPxThreshold = -1;
     private static int sLargePxThreshold = -1;
     private static int sLargeFaviconPx = -1;
-    private static float sRoundedRadius = -1;
+    /* package */ static float sRoundedRadius = -1;
     private static Paint sBitmapPaint = null;
-    private static Paint sExtrasPaint = null;
+    private static Paint sBadgeTextPaint = null;
     private static Rect sSrcRect = new Rect();
     private static Rect sDstRect = new Rect();
-    private static RectF sRectF = new RectF();
-    private static Paint sOverlineOutlinePaint = null;
+    /* package */ static RectF sRectF = new RectF();
     private static Drawable sBackgroundDrawable = null;
-    private static Rect sBackgroundDrawablePadding = new Rect();
+    private static class BadgeAssets {
+        Drawable back;
+        Drawable accent;
+        int textColor;
+    }
+    private static Map<Integer, BadgeAssets> sBadges;
+    private static Bitmap sDefaultSiteBitmap = null;
+    /* package */ static Rect sBackgroundDrawablePadding = new Rect();
 
 
     /* XML constructors */
@@ -175,24 +183,34 @@ public class SiteTileView extends View {
     /**
      * Disables the automatic background and filling. Useful for things that are not really
      * "Website Tiles", like folders.
-     * @param floating true to disable the background (defaults to false)
+     * @param disabled true to disable the background (defaults to false)
      */
-    public void setFloating(boolean floating) {
-        if (mFloating != floating) {
-            mFloating = floating;
+    public void setBackgroundDisabled(boolean disabled) {
+        if (mBackgroundDisabled != disabled) {
+            mBackgroundDisabled = disabled;
             invalidate();
         }
     }
 
     /**
-     * For 'Medium' tiles updates the border and corner badges
+     * This results in the Badge being updated
      * @param trustLevel one of the TRUST_ constants
      */
     public void setTrustLevel(int trustLevel) {
         if (mTrustLevel != trustLevel) {
             mTrustLevel = trustLevel;
-            if (requiresOverline())
-                invalidate();
+            invalidate();
+        }
+    }
+
+    /**
+     * Tells that there will be some message about issues inside
+     * @param certIssues true if there are issues.
+     */
+    public void setBadgeHasCertIssues(boolean certIssues) {
+        if (certIssues != mBadgeHasCertIssues) {
+            mBadgeHasCertIssues = certIssues;
+            invalidate();
         }
     }
 
@@ -201,23 +219,15 @@ public class SiteTileView extends View {
      * may or may not have the number indication.
      * @param sessionCounter Counter of blocked objects. Use 0 to not display anything.
      */
-    public void setExtraBlockedObjectsCount(int sessionCounter) {
-        if (sessionCounter != mExtraBlockedObjectsCount) {
-            mExtraBlockedObjectsCount = sessionCounter;
-            updateExtrasShown();
-            if (SHOW_EXTRAS_BLOCKED_COUNT)
+    public void setBadgeBlockedObjectsCount(int sessionCounter) {
+        if (sessionCounter != mBadgeBlockedObjectsCount) {
+            // repaint if going from or to 0, or if showing the ads count
+            //noinspection PointlessBooleanExpression,ConstantConditions
+            if (mBadgeBlockedObjectsCount == 0 || sessionCounter == 0 || BADGE_SHOW_BLOCKED_COUNT)
                 invalidate();
+            mBadgeBlockedObjectsCount = sessionCounter;
         }
     }
-
-    private void updateExtrasShown() {
-        boolean shouldBeShown = mExtraBlockedObjectsCount > 0;
-        if (shouldBeShown != mExtrasShown) {
-            mExtrasShown = shouldBeShown;
-            invalidate();
-        }
-    }
-
 
 
     /**
@@ -234,6 +244,30 @@ public class SiteTileView extends View {
 
     /*** private stuff ahead ***/
 
+    private boolean requiresBadge() {
+        return !mBackgroundDisabled && (mTrustLevel != TRUST_UNKNOWN || mBadgeHasCertIssues
+                || mBadgeBlockedObjectsCount > 0);
+    }
+
+    private int computeBadgeMessages() {
+        // special case, for TRUST_AVOID, always show the common accent
+        if (mTrustLevel == TRUST_AVOID)
+            return 0;
+
+        // recompute number of 'messages' inside the badge
+        int count = 0;
+        if (mBadgeHasCertIssues)
+            count++;
+        if (mBadgeBlockedObjectsCount > 0)
+            count++;
+
+        // add the number of blocked objects (-1, for having already counted the message) if needed
+        if (BADGE_SHOW_BLOCKED_COUNT)
+            count += mBadgeBlockedObjectsCount - 1;
+
+        return count;
+    }
+
     private void xmlInit(AttributeSet attrs, int defStyle) {
         // load attributes
         final TypedArray a = getContext().obtainStyledAttributes(attrs,
@@ -244,19 +278,15 @@ public class SiteTileView extends View {
         final Bitmap favicon = drawable instanceof BitmapDrawable ?
                 ((BitmapDrawable) drawable).getBitmap() : null;
 
-        // check if we disable shading (plain favicon)
-        if (a.getBoolean(R.styleable.SiteTileView_flat, false))
-            mForcedType = TYPE_SMALL;
-
-        // check if we want it floating (disable shadow and filler)
-        setFloating(a.getBoolean(R.styleable.SiteTileView_floating, false));
+        // check if we want it background-less (disable shadow and filler)
+        setBackgroundDisabled(a.getBoolean(R.styleable.SiteTileView_disableBackground, false));
 
         // read the trust level (unknown, aka 'default', if not present)
         setTrustLevel(a.getInteger(R.styleable.SiteTileView_trustLevel, TRUST_UNKNOWN)
                 & TRUST_MASK);
 
         // read the amount of blocked objects (or 0 if not present)
-        setExtraBlockedObjectsCount(a.getInteger(R.styleable.SiteTileView_blockedObjects, 0));
+        setBadgeBlockedObjectsCount(a.getInteger(R.styleable.SiteTileView_blockedObjects, 0));
 
         // delete attribute resolution
         a.recycle();
@@ -267,6 +297,16 @@ public class SiteTileView extends View {
 
     private void init(Bitmap favicon, int fundamentalColor) {
         mFaviconBitmap = favicon;
+
+        // show a default favicon if nothing is set (consider removing this, it's ugly)
+        if (mFaviconBitmap == null && DEFAULT_SITE_FAVICON != 0) {
+            if (sDefaultSiteBitmap == null)
+                sDefaultSiteBitmap = BitmapFactory.decodeResource(getResources(),
+                        DEFAULT_SITE_FAVICON);
+            mFaviconBitmap = sDefaultSiteBitmap;
+            fundamentalColor = 0xFF262626;
+        }
+
         if (mFaviconBitmap != null) {
             mFaviconWidth = mFaviconBitmap.getWidth();
             mFaviconHeight = mFaviconBitmap.getHeight();
@@ -277,47 +317,70 @@ public class SiteTileView extends View {
         mForcedFundamentalColor = fundamentalColor;
 
         // shared (static) resources initialization; except for background, inited on-demand
-        if (sMediumPxThreshold < 0) {
-            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
-            // heuristics thresholds
-            sMediumPxThreshold = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    THRESHOLD_MEDIUM_DP, displayMetrics);
-            sLargePxThreshold = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    THRESHOLD_LARGE_DP, displayMetrics);
-            sLargeFaviconPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                    LARGE_FAVICON_SIZE_DP, displayMetrics);
-
-            // rounded radius
-            sRoundedRadius = FILLER_RADIUS_DP > 0 ? TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, FILLER_RADIUS_DP, displayMetrics) : 0;
-
-            // bitmap paint (copy, smooth scale)
-            sBitmapPaint = new Paint();
-            sBitmapPaint.setColor(Color.BLACK);
-            sBitmapPaint.setFilterBitmap(true);
-
-            // overline configuration (null if we don't need it)
-            float ovlWidthPx = getResources().getDimension(OVERLINE_WIDTH_RES);
-            if (ovlWidthPx > 0.5) {
-                sOverlineOutlinePaint = new Paint();
-                sOverlineOutlinePaint.setStrokeWidth(ovlWidthPx);
-                sOverlineOutlinePaint.setStyle(Paint.Style.STROKE);
-            }
-
-            // extras paint (anti-aliased)
-            sExtrasPaint = new Paint();
-            sExtrasPaint.setAntiAlias(true);
-            sExtrasPaint.setColor(getResources().getColor(OVERLINE_COLOR_TRUSTED_RES));
-            sExtrasPaint.setStrokeWidth(Math.max(ovlWidthPx, 1));
-        }
+        ensureCommonLoaded(getResources());
 
         // change when clicked
         setClickable(true);
-        // disable by default the long click
-        setLongClickable(false);
     }
 
+    static void ensureCommonLoaded(Resources r) {
+        // check if already initialized
+        if (sMediumPxThreshold != -1)
+            return;
+
+        // heuristics thresholds
+        final DisplayMetrics displayMetrics = r.getDisplayMetrics();
+        sMediumPxThreshold = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                THRESHOLD_MEDIUM_DP, displayMetrics);
+        sLargePxThreshold = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                THRESHOLD_LARGE_DP, displayMetrics);
+        sLargeFaviconPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                LARGE_FAVICON_SIZE_DP, displayMetrics);
+
+        // rounded radius
+        sRoundedRadius = FILLER_RADIUS_DP > 0 ? TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, FILLER_RADIUS_DP, displayMetrics) : 0;
+
+        // bitmap paint (copy, smooth scale)
+        sBitmapPaint = new Paint();
+        sBitmapPaint.setColor(Color.BLACK);
+        sBitmapPaint.setFilterBitmap(true);
+
+        // badge text paint (anti-aliased)
+        sBadgeTextPaint = new Paint();
+        sBadgeTextPaint.setAntiAlias(true);
+        Typeface badgeTypeface = Typeface.create("sans-serif-medium", Typeface.NORMAL);
+        if (badgeTypeface != null)
+            sBadgeTextPaint.setTypeface(badgeTypeface);
+
+        // load the background (could be loaded on demand, but in the end it's always needed)
+        sBackgroundDrawable = r.getDrawable(BACKGROUND_DRAWABLE_RES);
+        if (sBackgroundDrawable != null)
+            sBackgroundDrawable.getPadding(sBackgroundDrawablePadding);
+
+        // load all the badge drawables
+        sBadges = new ArrayMap<>();
+        loadBadgeResources(r, TRUST_AVOID, R.drawable.img_deco_tile_avoid,
+                R.drawable.img_deco_tile_avoid_accent, R.color.TileBadgeTextAvoid);
+        loadBadgeResources(r, TRUST_UNTRUSTED, R.drawable.img_deco_tile_untrusted,
+                R.drawable.img_deco_tile_untrusted_accent, R.color.TileBadgeTextUntrusted);
+        loadBadgeResources(r, TRUST_UNKNOWN, R.drawable.img_deco_tile_unknown,
+                R.drawable.img_deco_tile_unknown_accent, R.color.TileBadgeTextUnknown);
+        loadBadgeResources(r, TRUST_TRUSTED, R.drawable.img_deco_tile_verified,
+                R.drawable.img_deco_tile_verified_accent, R.color.TileBadgeTextVerified);
+    }
+
+    private static void loadBadgeResources(Resources r, int t, int back, int accent, int color) {
+        BadgeAssets ba = new BadgeAssets();
+        ba.back = back == 0 ? null : r.getDrawable(back);
+        ba.accent = accent == 0 ? null : r.getDrawable(accent);
+        ba.textColor = color == 0 ? Color.TRANSPARENT : r.getColor(color);
+        sBadges.put(t, ba);
+    }
+
+    static Rect getBackgroundDrawablePadding() {
+        return sBackgroundDrawablePadding != null ? sBackgroundDrawablePadding : new Rect();
+    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -325,39 +388,27 @@ public class SiteTileView extends View {
         mCurrentHeight = bottom - top;
 
         // auto-determine the "TYPE_" from the physical size of the layout
-        if (mForcedType == TYPE_AUTO) {
-            if (mCurrentWidth < sMediumPxThreshold && mCurrentHeight < sMediumPxThreshold)
-                mCurrentType = TYPE_SMALL;
-            else if (mCurrentWidth < sLargePxThreshold && mCurrentHeight < sLargePxThreshold)
-                mCurrentType = TYPE_MEDIUM;
-            else
-                mCurrentType = TYPE_LARGE;
-        } else {
-            // or use the forced one, if defined
-            mCurrentType = mForcedType;
-        }
+        if (mCurrentWidth < sMediumPxThreshold && mCurrentHeight < sMediumPxThreshold)
+            mCurrentType = TYPE_SMALL;
+        else if (mCurrentWidth < sLargePxThreshold && mCurrentHeight < sLargePxThreshold)
+            mCurrentType = TYPE_MEDIUM;
+        else
+            mCurrentType = TYPE_LARGE;
 
         // set or remove the background (if the need changed!)
-        boolean requiresBackground = mCurrentType >= TYPE_MEDIUM;
-        if (requiresBackground && !mCurrentBackgroundDrawn) {
+        boolean requiresBackgroundDrawable = mCurrentType >= TYPE_MEDIUM;
+        if (requiresBackgroundDrawable && !mCurrentShadowDrawn) {
             // draw the background
-            mCurrentBackgroundDrawn = true;
-
-            // load the background just the first time, on demand (it may fail too)
-            if (sBackgroundDrawable == null) {
-                sBackgroundDrawable = getResources().getDrawable(BACKGROUND_DRAWABLE_RES);
-                if (sBackgroundDrawable != null)
-                    sBackgroundDrawable.getPadding(sBackgroundDrawablePadding);
-            }
+            mCurrentShadowDrawn = mCurrentType >= TYPE_LARGE;
 
             // background -> padding
             mPaddingLeft = sBackgroundDrawablePadding.left;
             mPaddingTop = sBackgroundDrawablePadding.top;
             mPaddingRight = sBackgroundDrawablePadding.right;
             mPaddingBottom = sBackgroundDrawablePadding.bottom;
-        } else if (!requiresBackground && mCurrentBackgroundDrawn) {
+        } else if (!requiresBackgroundDrawable && mCurrentShadowDrawn) {
             // turn off background drawing
-            mCurrentBackgroundDrawn = false;
+            mCurrentShadowDrawn = false;
 
             // no background -> no padding
             mPaddingLeft = 0;
@@ -410,15 +461,15 @@ public class SiteTileView extends View {
         final int contentHeight = bottom - top;
 
         // A. the background drawable (if set)
-        boolean requiresBackground = mCurrentBackgroundDrawn && sBackgroundDrawable != null
-                && !isPressed() && !mFloating;
+        boolean requiresBackground = mCurrentShadowDrawn && sBackgroundDrawable != null
+                && !isPressed() && !mBackgroundDisabled;
         if (requiresBackground) {
             sBackgroundDrawable.setBounds(0, 0, mCurrentWidth, mCurrentHeight);
             sBackgroundDrawable.draw(canvas);
         }
 
         // B. (when needed) draw the background rectangle; sharp our rounded
-        boolean requiresFundamentalFiller = mCurrentType >= TYPE_LARGE && !mFloating;
+        boolean requiresFundamentalFiller = mCurrentType >= TYPE_LARGE && !mBackgroundDisabled;
         if (requiresFundamentalFiller) {
             // create the filler paint on demand (not all icons need it)
             if (mFundamentalPaint == null)
@@ -481,71 +532,50 @@ public class SiteTileView extends View {
             canvas.drawBitmap(mFaviconBitmap, sSrcRect, sDstRect, sBitmapPaint);
         }
 
-        // D. (when needed) draw the thin over-line
-        if (requiresOverline()) {
-            int colorRes;
-            switch (mTrustLevel) {
-                case TRUST_TRUSTED:
-                    colorRes = OVERLINE_COLOR_TRUSTED_RES;
-                    break;
-                case TRUST_UNTRUSTED:
-                    colorRes = OVERLINE_COLOR_UNTRUSTED_RES;
-                    break;
-                case TRUST_AVOID:
-                    colorRes = OVERLINE_COLOR_AVOID_RES;
-                    break;
-                default:
-                    colorRes = OVERLINE_COLOR_DEFAULT_RES;
-                    break;
-            }
-            int lineColor = getResources().getColor(colorRes);
-            if (lineColor != Color.TRANSPARENT) {
-                // draw the white inline first
-                boolean needSeparation = mTrustLevel != TRUST_UNKNOWN;
-                if (needSeparation) {
-                    sOverlineOutlinePaint.setColor(Color.WHITE);
-                    float d = sOverlineOutlinePaint.getStrokeWidth();
-                    canvas.drawRect(left + d, top + d, right - d, bottom - d, sOverlineOutlinePaint);
+        // D. show badge, if requested
+        if (requiresBadge()) {
+            // retrieve the badge resources
+            final BadgeAssets ba = sBadges.get(mTrustLevel);
+            if (ba != null) {
+
+                // paint back
+                final Drawable back = ba.back;
+                int badgeL = 0, badgeT = 0, badgeW = 0, badgeH = 0;
+                if (back != null) {
+                    badgeW = back.getIntrinsicWidth();
+                    badgeH = back.getIntrinsicHeight();
+                    badgeL = mCurrentWidth - mPaddingRight / 3 - badgeW;
+                    badgeT = mCurrentHeight - mPaddingBottom / 3 - badgeH;
+                    back.setBounds(badgeL, badgeT, badgeL + badgeW, badgeT + badgeH);
+                    back.draw(canvas);
                 }
+                int messagesCount = computeBadgeMessages();
 
-                // then draw the outline
-                sOverlineOutlinePaint.setColor(lineColor);
-                canvas.drawRect(left, top, right, bottom, sOverlineOutlinePaint);
+                // paint accent, if 0 messages
+                if (messagesCount < 1) {
+                    final Drawable accent = ba.accent;
+                    if (accent != null && badgeW > 0 && badgeH > 0) {
+                        int accentW = accent.getIntrinsicWidth();
+                        int accentH = accent.getIntrinsicHeight();
+                        int accentL = badgeL + (badgeW - accentW) / 2;
+                        int accentT = badgeT + (badgeH - accentH) / 2;
+                        accent.setBounds(accentL, accentT, accentL + accentW, accentT + accentH);
+                        accent.draw(canvas);
+                    }
+                }
+                // at least 1 message, draw text
+                else if (Color.alpha(ba.textColor) > 0) {
+                    float textSize = Math.min(2 * contentWidth / 5, sMediumPxThreshold / 4) * 1.1f;
+                    sBadgeTextPaint.setTextSize(textSize);
+                    sBadgeTextPaint.setColor(ba.textColor);
+                    final String text = String.valueOf(messagesCount);
+                    int textWidth = Math.round(sBadgeTextPaint.measureText(text) / 2);
+                    int textCx = badgeL + badgeW / 2;
+                    int textCy = badgeT + badgeH / 2;
+                    canvas.drawText(text, textCx - textWidth, textCy + textSize / 3 + 1,
+                            sBadgeTextPaint);
+                }
             }
-        }
-
-        // E. show extra, if requested
-        if (mExtrasShown) {
-            // as default, we show a bubble
-            int eRad = Math.min(2 * contentWidth / 5, sMediumPxThreshold / 4);
-            int eCX = Math.min(right - eRad / 2, mCurrentWidth - eRad); //left + (4 * contentWidth / 5) - eRad;
-            int eCY = Math.min(bottom - eRad / 4, mCurrentHeight - eRad);
-
-            // circle back
-            //canvas.drawCircle(eCX, eCY, eRad, sExtrasPaint);
-
-            // round rect back
-            sRectF.set(eCX - eRad, eCY - eRad, eCX + eRad, eCY + eRad);
-            sExtrasPaint.setStyle(Paint.Style.FILL);
-            sExtrasPaint.setColor(0xff666666);
-            canvas.drawRoundRect(sRectF, eRad / 2, eRad / 2, sExtrasPaint);
-
-            // DEBUG! -- draw blocked count
-            if (SHOW_EXTRAS_BLOCKED_COUNT && mExtraBlockedObjectsCount > 0) {
-                final Paint paint = new Paint();
-                float textSize = eRad * 1.2f;
-                paint.setColor(Color.WHITE);
-                paint.setAntiAlias(true);
-                paint.setTextSize(textSize);
-                String text = String.valueOf(mExtraBlockedObjectsCount);
-                int textWidth = Math.round(paint.measureText(text) / 2);
-                canvas.drawText(text, eCX - textWidth - 1, eCY + textSize / 3 + 1, paint);
-            }
-
-            // round rect stroke
-            sExtrasPaint.setStyle(Paint.Style.STROKE);
-            sExtrasPaint.setColor(0xFFeeeeee);
-            canvas.drawRoundRect(sRectF, eRad / 2, eRad / 2, sExtrasPaint);
         }
 
         /*if (true) { // DEBUG TYPE
@@ -554,10 +584,6 @@ public class SiteTileView extends View {
             paint.setTextSize(20);
             canvas.drawText(String.valueOf(mCurrentType), 30, 30, paint);
         }*/
-    }
-
-    private boolean requiresOverline() {
-        return mCurrentType == TYPE_MEDIUM && sOverlineOutlinePaint != null && !mFloating;
     }
 
 

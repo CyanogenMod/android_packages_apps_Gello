@@ -17,6 +17,7 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,8 +25,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.ManagedBookmarksRestriction;
@@ -62,75 +61,46 @@ public class BrowserBookmarksAdapter extends
         return mInflater.inflate(R.layout.bookmark_thumbnail, parent, false);
     }
 
-    @Override
-    public void bindView(View view, BrowserBookmarksAdapterItem object) {
-        BookmarkContainer container = (BookmarkContainer) view;
-        container.setIgnoreRequestLayout(true);
-        bindGridView(view, mContext, object);
-        container.setIgnoreRequestLayout(false);
-    }
-
     CharSequence getTitle(Cursor cursor) {
         int type = cursor.getInt(BookmarksLoader.COLUMN_INDEX_TYPE);
         switch (type) {
-        case Bookmarks.BOOKMARK_TYPE_OTHER_FOLDER:
-            return mContext.getText(R.string.other_bookmarks);
+            case Bookmarks.BOOKMARK_TYPE_OTHER_FOLDER:
+                return mContext.getText(R.string.other_bookmarks);
         }
         return cursor.getString(BookmarksLoader.COLUMN_INDEX_TITLE);
     }
 
-    void bindGridView(View view, Context context, BrowserBookmarksAdapterItem item) {
-        // We need to set this to handle rotation and other configuration change
-        // events. If the padding didn't change, this is a no op.
-        int padding = context.getResources()
+    @Override
+    public void bindView(View view, BrowserBookmarksAdapterItem item) {
+        BookmarkContainer c = (BookmarkContainer) view;
+
+        // we need to set this to handle rotation and other configuration change events.
+        // (if the padding didn't change, this is a no op)
+        int padding = mContext.getResources()
                 .getDimensionPixelSize(R.dimen.combo_horizontalSpacing);
-        view.setPadding(padding, view.getPaddingTop(),
-                padding, view.getPaddingBottom());
-        SiteTileView thumb =  (SiteTileView) view.findViewById(R.id.thumb_image);
-        TextView tv = (TextView) view.findViewById(R.id.label);
-        tv.setText(item.title);
+        c.setPadding(padding, c.getPaddingTop(), padding, c.getPaddingBottom());
 
-        Bitmap b;
-
-        thumb.setFloating(false);
-
+        // configure the main content of the bookmark icon
         if (item.is_folder) {
-            b = BitmapFactory.decodeResource(mContext.getResources(),
-                    R.drawable.ic_deco_folder_normal);
-            thumb.setFloating(true);
-        }
-        else if (item.thumbnail == null || !item.has_thumbnail) {
-            b = BitmapFactory.decodeResource(mContext.getResources(),
-                    R.drawable.browser_thumbnail);
-        }
-        else {
-            b = item.thumbnail.getBitmap();
+            c.reConfigureAsFolder(item.title.toString(), "");
+        } else {
+            final Bitmap favicon = (item.thumbnail == null || !item.has_thumbnail) ?
+                    null : item.thumbnail.getBitmap();
+            c.reConfigureAsSite(favicon);
         }
 
-        // If the item is managed by mdm or edit bookmark restriction enabled
+        // configure the label under the bookmark
+        if (item.title != null) {
+            c.setBottomLabelText(item.title.toString());
+        }
+
+        // if the item is managed by mdm or edit bookmark restriction, show a badge
         if (item.title != null &&
                 (item.is_mdm_managed || EditBookmarksRestriction.getInstance().isEnabled())) {
-            int containerWidth = view.getResources().getDimensionPixelSize(R.dimen.bookmarkThumbnailWidth);
-            int containerHeight = view.getResources().getDimensionPixelSize(R.dimen.bookmarkThumbnailHeight);
-            Bitmap bm;
-
-            if (item.is_mdm_managed) {
-                bm = BrowserBookmarksPage.overlayBookmarkBitmap(mContext, b,
-                        R.drawable.img_deco_mdm_badge_bright,
-                        containerWidth, containerHeight, 0.6f, 185, 20);
-            }
-            else {
-                bm = BrowserBookmarksPage.overlayBookmarkBitmap(mContext, b,
-                        R.drawable.ic_deco_secure,
-                        containerWidth, containerHeight, 1.7f, 110, 0);
-            }
-
-            thumb.replaceFavicon(bm);
-        }
-        else {
-            thumb.replaceFavicon(b);
-        }
-        thumb.setLongClickable(true);
+            c.setOverlayBadge(item.is_mdm_managed ? R.drawable.img_deco_mdm_badge_bright :
+                    R.drawable.ic_deco_secure);
+        } else
+            c.setOverlayBadge(0);
     }
 
     @Override

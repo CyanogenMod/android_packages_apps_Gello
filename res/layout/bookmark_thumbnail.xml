@@ -23,10 +23,16 @@
     android:paddingEnd="@dimen/combo_horizontalSpacing"
     android:paddingStart="@dimen/combo_horizontalSpacing" >
 
-    <com.android.browser.SiteTileView
-        android:id="@+id/thumb_image"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="@dimen/bookmarkThumbnailWidth"
-        android:layout_height="@dimen/bookmarkThumbnailHeight" />
+        android:layout_height="@dimen/bookmarkThumbnailHeight">
+
+        <!-- The SiteTileView or FolderTileView will be injected here dynamically -->
+
+        <!-- The Managed (MDM) badge (an ImageView) will be injected here dynamically -->
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/label"

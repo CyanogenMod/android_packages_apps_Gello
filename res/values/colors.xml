@@ -55,8 +55,13 @@
     <color name="tabViewTitleBackground">#D0000000</color>
     <color name="navtab_bg">#80606060</color>
 
-    <color name="SiteTileOverlineUnknown">@android:color/transparent</color>
-    <color name="SiteTileOverlineTrusted">#00b813</color>
-    <color name="SiteTileOverlineUntrusted">#ebc400</color>
-    <color name="SiteTileOverlineAvoid">#d70704</color>
+    <color name="TileBadgeTextAvoid">#fff</color>
+    <color name="TileBadgeTextUntrusted">#333</color>
+    <color name="TileBadgeTextUnknown">#333</color>
+    <color name="TileBadgeTextVerified">#fff</color>
+
+    <!-- xml configuration for FolderTileView -->
+    <color name="FolderTileBackground">#555</color>
+    <color name="FolderTileTitle">#fff</color>
+    <color name="FolderTileCount">#fff</color>
 </resources>

@@ -27,11 +27,17 @@
     IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <resources>
+
     <declare-styleable name="SiteTileView">
         <attr name="android:src" />
-        <attr name="flat" format="boolean|reference" />
-        <attr name="floating" format="boolean|reference" />
+        <attr name="disableBackground" format="boolean|reference" />
         <attr name="trustLevel" format="integer|reference" />
         <attr name="blockedObjects" format="integer|reference" />
     </declare-styleable>
+
+    <declare-styleable name="FolderTileView">
+        <attr name="android:text" />
+        <attr name="android:label" />
+    </declare-styleable>
+
 </resources>
