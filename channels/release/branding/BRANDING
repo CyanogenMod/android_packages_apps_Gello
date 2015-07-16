@@ -7,5 +7,4 @@ PRODUCT_INSTALLER_SHORTNAME=Snapdragon Installer
 COPYRIGHT=Copyright (c) 2015 The Linux Foundation. All rights reserved.
 PACKAGE_NAME=org.codeaurora.swe.browser
 APK_LABEL=@string/application_name_swe
-APK_ICON=@mipmap/ic_launcher_browser_swe
 APK_AUTHORITIES=swe.browser

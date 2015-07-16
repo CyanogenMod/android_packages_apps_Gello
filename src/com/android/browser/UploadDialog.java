@@ -65,7 +65,7 @@ public class UploadDialog extends AppItem {
                                     R.layout.app_row, this.apps);
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
-        builderSingle.setIcon(R.mipmap.ic_launcher_browser_swe);
+        builderSingle.setIcon(R.mipmap.ic_launcher_browser);
         builderSingle.setTitle(activity.getString(R.string.choose_upload));
 
         builderSingle.setAdapter(adapter, new DialogInterface.OnClickListener() {

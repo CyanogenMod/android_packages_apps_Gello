@@ -33,6 +33,8 @@
         'additional_input_paths': [
           '<@(chrome_android_pak_output_resources)',
         ],
+        'res_extra_dirs': [ '<@(swe_extra_res_dirs)',
+                          ],
         'override_package_name': '<!(python <(swe_py_config) \
                                      -i <(browser_config_path) \
                                      -c PACKAGE_NAME)',

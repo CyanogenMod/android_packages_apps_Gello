@@ -88,7 +88,7 @@ public class ShareDialog extends AppItem {
 
     public void loadView(final AppAdapter adapter) {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
-        builderSingle.setIcon(R.mipmap.ic_launcher_browser_swe);
+        builderSingle.setIcon(R.mipmap.ic_launcher_browser);
         builderSingle.setTitle(activity.getString(R.string.choosertitle_sharevia));
         builderSingle.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
