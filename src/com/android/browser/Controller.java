@@ -96,6 +96,7 @@ import org.codeaurora.swe.WebHistoryItem;
 
 import com.android.browser.IntentHandler.UrlData;
 import com.android.browser.UI.ComboViews;
+import com.android.browser.mdm.DownloadDirRestriction;
 import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.IncognitoRestriction;
 import com.android.browser.mdm.URLFilterRestriction;
@@ -1540,8 +1541,14 @@ public class Controller
             menu.setGroupVisible(R.id.ANCHOR_MENU,
                     type == WebView.HitTestResult.SRC_ANCHOR_TYPE
                             || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE);
-            menu.findItem(R.id.save_link_context_menu_id).setEnabled(
-                UrlUtils.isDownloadableScheme(extra));
+
+            if (DownloadDirRestriction.getInstance().downloadsAllowed()) {
+                menu.findItem(R.id.save_link_context_menu_id).setEnabled(
+                        UrlUtils.isDownloadableScheme(extra));
+            }
+            else {
+                menu.findItem(R.id.save_link_context_menu_id).setEnabled(false);
+            }
         }
         // Setup custom handling depending on the type
         switch (type) {

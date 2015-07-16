@@ -34,6 +34,7 @@ import com.android.browser.homepages.HomeProvider;
 import com.android.browser.mdm.AutoFillRestriction;
 import com.android.browser.mdm.DevToolsRestriction;
 import com.android.browser.mdm.DoNotTrackRestriction;
+import com.android.browser.mdm.DownloadDirRestriction;
 import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.IncognitoRestriction;
 import com.android.browser.mdm.ManagedBookmarksRestriction;
@@ -187,6 +188,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         AutoFillRestriction.getInstance();
         DevToolsRestriction.getInstance();
         DoNotTrackRestriction.getInstance();
+        DownloadDirRestriction.getInstance();
         EditBookmarksRestriction.getInstance();
         IncognitoRestriction.getInstance();
         ManagedBookmarksRestriction.getInstance();

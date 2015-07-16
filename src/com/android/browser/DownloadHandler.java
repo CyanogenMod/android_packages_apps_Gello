@@ -38,6 +38,7 @@ import android.webkit.URLUtil;
 import android.widget.Toast;
 
 import com.android.browser.R;
+import com.android.browser.mdm.DownloadDirRestriction;
 import com.android.browser.platformsupport.WebAddress;
 import com.android.browser.reflect.ReflectHelper;
 
@@ -320,8 +321,14 @@ public class DownloadHandler {
             new FetchUrlMimeType(activity, url, userAgent, referer,
                     privateBrowsing, filename).start();
         } else {
-            startDownloadSettings(activity, url, userAgent, contentDisposition, mimetype, referer,
-                    privateBrowsing, contentLength, filename);
+            if (DownloadDirRestriction.getInstance().downloadsAllowed()) {
+                startDownloadSettings(activity, url, userAgent, contentDisposition, mimetype, referer,
+                        privateBrowsing, contentLength, filename);
+            }
+            else {
+                Toast.makeText(activity, R.string.managed_by_your_administrator, Toast.LENGTH_SHORT)
+                .show();
+            }
         }
 
     }
@@ -599,7 +606,7 @@ public class DownloadHandler {
             defaultStorage = getExternalStorageDirectory(context);
         }
 
-        defaultDownloadPath = defaultStorage + context.getString(R.string.download_default_path);
+        defaultDownloadPath = defaultStorage + DownloadDirRestriction.getInstance().getDownloadDirectory();
         Log.e(LOGTAG, "defaultStorage directory is : " + defaultDownloadPath);
         return defaultDownloadPath;
     }
