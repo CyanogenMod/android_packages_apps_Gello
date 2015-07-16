@@ -31,15 +31,18 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.android.browser.AutoFillSettingsFragment;
 import com.android.browser.BrowserSettings;
@@ -49,6 +52,8 @@ import com.android.browser.UrlUtils;
 import com.android.browser.homepages.HomeProvider;
 import com.android.browser.mdm.AutoFillRestriction;
 import com.android.browser.mdm.SearchEngineRestriction;
+
+import org.codeaurora.swe.PermissionsServiceFactory;
 
 public class GeneralPreferencesFragment extends SWEPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -65,6 +70,7 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
     static final String OTHER = "other";
 
     static final String PREF_HOMEPAGE_PICKER = "homepage_picker";
+    static final String PREF_POWERSAVE = "powersave_enabled";
 
     String[] mChoices, mValues;
     String mCurrentPage;
@@ -92,6 +98,9 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
         PreferenceScreen autofill = (PreferenceScreen) findPreference(
                 PreferenceKeys.PREF_AUTOFILL_PROFILE);
         autofill.setOnPreferenceClickListener(this);
+
+        SwitchPreference powersave = (SwitchPreference) findPreference(PREF_POWERSAVE);
+        powersave.setOnPreferenceChangeListener(this);
 
         final Bundle arguments = getArguments();
         if (arguments != null && arguments.getBoolean("LowPower")) {
@@ -151,6 +160,14 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
             pref.setSummary(getHomepageSummary());
             ((ListPreference)pref).setValue(getHomepageValue());
             return false;
+        }
+
+        if (pref.getKey().equals(PREF_POWERSAVE)) {
+                BrowserSettings settings = BrowserSettings.getInstance();
+                settings.setPowerSaveModeEnabled((Boolean)objValue);
+                PermissionsServiceFactory.setDefaultPermissions(
+                    PermissionsServiceFactory.PermissionType.WEBREFINER, !(Boolean)objValue);
+                showPowerSaveInfo((Boolean) objValue);
         }
 
         return true;
@@ -242,6 +259,18 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
             return true;
         }
         return false;
+    }
+
+    void showPowerSaveInfo(boolean toggle) {
+        String toastInfo;
+        if (toggle)
+            toastInfo = getActivity().getResources().getString(R.string.powersave_dialog_on);
+        else
+            toastInfo = getActivity().getResources().getString(R.string.powersave_dialog_off);
+
+        Toast toast = Toast.makeText(getActivity(), toastInfo, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     /*

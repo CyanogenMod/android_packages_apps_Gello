@@ -643,7 +643,7 @@ class Tab implements PictureListener {
         @Override
         public void beforeNavigation(WebView view, String url) {
             mTouchIconUrl = null;
-            if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+            if (BaseUi.isUiLowPowerMode()) {
                 return;
             }
 
@@ -677,7 +677,7 @@ class Tab implements PictureListener {
 
         @Override
         public void onHistoryItemCommit(WebView view, int index) {
-            if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+            if (BaseUi.isUiLowPowerMode()) {
                 return;
             }
 
@@ -1414,8 +1414,7 @@ class Tab implements PictureListener {
             // save the WebView to call destroy() after detach it from the tab
             final WebView webView = mMainView;
             setWebView(null);
-            if (!mWebViewDestroyedByMemoryMonitor &&
-                    !BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+            if (!mWebViewDestroyedByMemoryMonitor && !BaseUi.isUiLowPowerMode()) {
                 // Tabs can be reused with new instance of WebView so delete the snapshots
                 webView.getSnapshotIds(new ValueCallback<List<Integer>>() {
                     @Override

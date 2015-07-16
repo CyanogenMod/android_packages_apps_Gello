@@ -30,13 +30,13 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
+import com.android.browser.BaseUi;
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
 import com.android.browser.DownloadHandler;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
-import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.PermissionsServiceFactory;
 
 public class AdvancedPreferencesFragment
@@ -77,7 +77,7 @@ public class AdvancedPreferencesFragment
                 (ListPreference) mFragment.findPreference("edge_swiping_action");
         edgeSwipePref.setOnPreferenceChangeListener(this);
 
-        if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+        if (BaseUi.isUiLowPowerMode()) {
             edgeSwipePref.setEnabled(false);
         } else {
             String[] options = mFragment.getResources().getStringArray(

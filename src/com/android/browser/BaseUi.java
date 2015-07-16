@@ -446,7 +446,7 @@ public abstract class BaseUi implements UI {
     }
 
     public void refreshEdgeSwipeController(View container) {
-        if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
+        if (isUiLowPowerMode()) {
             return;
         }
 
@@ -694,6 +694,11 @@ public abstract class BaseUi implements UI {
     @Override
     public boolean isComboViewShowing() {
         return false;
+    }
+
+    public static boolean isUiLowPowerMode() {
+        return BrowserCommandLine.hasSwitch("ui-low-power-mode") ||
+            BrowserSettings.getInstance().isPowerSaveModeEnabled();
     }
 
     // -------------------------------------------------------------------------
