@@ -100,8 +100,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
         closeBtn.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View v) {
-                    mbWaitForSettings = false;
-                    mSettingsView.setVisibility(View.GONE);
                     goLive();
                 }
             }
@@ -112,8 +110,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
         temporalNavButton.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View v) {
-                    mbWaitForSettings = false;
-                    mSettingsView.setVisibility(View.GONE);
                     BrowserSettings.getInstance().setEdgeSwipeTemporal();
                     goLive();
                     applySettingsAndRefresh(ui, container);
@@ -129,8 +125,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
         spatialNavButton.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View v) {
-                    mbWaitForSettings = false;
-                    mSettingsView.setVisibility(View.GONE);
                     BrowserSettings.getInstance().setEdgeSwipeSpatial();
                     goLive();
                     applySettingsAndRefresh(ui, container);
@@ -146,8 +140,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
         disabledNavButton.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View v) {
-                    mbWaitForSettings = false;
-                    mSettingsView.setVisibility(View.GONE);
                     BrowserSettings.getInstance().setEdgeSwipeDisabled();
                     goLive();
                     applySettingsAndRefresh(ui, container);
@@ -171,10 +163,12 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
     }
 
     private void goLive() {
+        mbWaitForSettings = false;
         mFromEdge = ViewDragHelper.EDGE_TOP;
         mLiveView.setVisibility(View.VISIBLE);
         mStationaryView.setVisibility(View.GONE);
         mSlidingViewShadow.setVisibility(View.GONE);
+        mSettingsView.setVisibility(View.GONE);
         mViewGroup.invalidate();
     }
 
@@ -185,7 +179,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
     }
 
     public void onConfigurationChanged() {
-        mSettingsView.setVisibility(View.GONE);
         goLive();
     }
 
@@ -213,7 +206,6 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
 
     public void onViewDragStateChanged(int state) {
         if (ViewDragHelper.STATE_IDLE == state && !mbWaitForSettings) {
-            mSettingsView.setVisibility(View.GONE);
             goLive();
         }
     }
@@ -309,7 +301,7 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
     }
 
     public boolean tryCaptureView(View child, int pointerId) {
-        return (child == mSettingsView);
+        return (mFromEdge != ViewDragHelper.EDGE_TOP && child == mSettingsView);
     }
 
     public int clampViewPositionHorizontal(View child, int left, int dx) {
