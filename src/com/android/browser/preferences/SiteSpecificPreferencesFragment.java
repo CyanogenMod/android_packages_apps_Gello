@@ -51,8 +51,11 @@ import android.webkit.ValueCallback;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.browser.BrowserLocationListPreference;
+import com.android.browser.BrowserLocationSwitchPreference;
 import com.android.browser.NavigationBarBase;
 import com.android.browser.PageDialogsHandler;
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
 import org.codeaurora.swe.PermissionsServiceFactory;
@@ -473,6 +476,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     @Override
     public void onResume() {
         super.onResume();
+        BrowserLocationListPreference pref =
+                (BrowserLocationListPreference) findPreference("select_geolocation");
+        if ( pref != null) pref.setEnabled(PermissionsServiceFactory.isSystemLocationEnabled());
         if (mBar != null) {
             mOriginalActionBarOptions = mBar.getDisplayOptions();
             mBar.setDisplayHomeAsUpEnabled(false);

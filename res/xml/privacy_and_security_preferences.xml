@@ -145,7 +145,7 @@
             android:summaryOff="@string/pref_security_not_allowed"
             android:title="@string/pref_security_accept_cookies" />
 
-        <SwitchPreference
+        <com.android.browser.BrowserLocationSwitchPreference
             android:layout="@layout/swe_preference"
             android:defaultValue="true"
             android:icon="@drawable/ic_sp_location"

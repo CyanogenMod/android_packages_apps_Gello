@@ -74,7 +74,7 @@
             android:summaryOff="@string/pref_security_not_allowed"
             android:title="@string/pref_security_accept_cookies" />
 
-        <ListPreference
+        <com.android.browser.BrowserLocationListPreference
             android:layout="@layout/swe_preference"
             android:widgetLayout="@layout/swe_preference_list_widget"
             android:icon="@drawable/ic_sp_location"

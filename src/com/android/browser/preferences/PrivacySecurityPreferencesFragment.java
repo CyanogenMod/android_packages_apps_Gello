@@ -16,6 +16,7 @@
 
 package com.android.browser.preferences;
 
+import com.android.browser.BrowserLocationSwitchPreference;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.mdm.DoNotTrackRestriction;
@@ -200,10 +201,13 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
     public void onResume() {
         super.onResume();
         ActionBar bar = getActivity().getActionBar();
+        BrowserLocationSwitchPreference pref =
+                (BrowserLocationSwitchPreference) findPreference(PreferenceKeys.PREF_ENABLE_GEOLOCATION);
         if (bar != null) {
             bar.setTitle(R.string.pref_privacy_security_title);
             bar.setDisplayHomeAsUpEnabled(false);
             bar.setHomeButtonEnabled(false);
         }
+        if ( pref != null) pref.setEnabled(PermissionsServiceFactory.isSystemLocationEnabled());
     }
 }
