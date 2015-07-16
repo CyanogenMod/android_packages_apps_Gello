@@ -17,6 +17,7 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserLocationSwitchPreference;
+import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 import com.android.browser.mdm.DoNotTrackRestriction;
@@ -31,6 +32,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 
@@ -60,13 +62,22 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
 
         readAndShowPermission("camera", PermissionsServiceFactory.PermissionType.VIDEO);
 
-        // since webrefiner and distracting_contents are paradoxes
-        // the value needs to be flipped
         Preference pref = findPreference("distracting_contents");
-        pref.setOnPreferenceChangeListener(this);
-        showPermission(pref,
-            !PermissionsServiceFactory.getDefaultPermissions(
-                PermissionsServiceFactory.PermissionType.WEBREFINER));
+        if (!BrowserSettings.getInstance().getPreferences()
+                .getBoolean(PreferenceKeys.PREF_WEB_REFINER, false)) {
+            PreferenceCategory category =
+                    (PreferenceCategory) findPreference("default_site_settings");
+            if (category != null) {
+                category.removePreference(pref);
+            }
+        } else {
+            // since webrefiner and distracting_contents are paradoxes
+            // the value needs to be flipped
+            pref.setOnPreferenceChangeListener(this);
+            showPermission(pref,
+                    !PermissionsServiceFactory.getDefaultPermissions(
+                            PermissionsServiceFactory.PermissionType.WEBREFINER));
+        }
 
         readAndShowPermission("popup_windows", PermissionsServiceFactory.PermissionType.POPUP);
 

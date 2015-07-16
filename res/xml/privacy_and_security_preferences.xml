@@ -125,6 +125,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="default_site_settings"
         android:layout="@layout/swe_preference_category"
         android:title="@string/pref_default_site_settings_title">
         <SwitchPreference

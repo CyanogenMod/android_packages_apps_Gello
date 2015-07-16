@@ -406,8 +406,26 @@
     <string name="pref_web_refiner_enabled">Web Refiner</string>
     <!-- Settings summary for the WebRefiner -->
     <string name="pref_web_refiner_enabled_summary">Block advertisements and tracking</string>
-    <string name="pref_web_refiner_blocked">Blocked</string>
-    <string name="pref_web_refiner_advertisements">distractions</string>
+    <plurals name="pref_web_refiner_advertisements">
+        <item quantity="one">%d advertisement</item>
+        <item quantity="other">%d advertisements</item>
+    </plurals>
+    <plurals name="pref_web_refiner_trackers">
+        <item quantity="one">%d tracker</item>
+        <item quantity="other">%d trackers</item>
+    </plurals>
+    <plurals name="pref_web_refiner_malware">
+        <item quantity="one">%d malware threat</item>
+        <item quantity="other">%d malware threats</item>
+    </plurals>
+    <string-array name="pref_web_refiner_message">
+        <item>"Blocked %s. "</item>
+        <item>"Blocked %1$s and %2$s. "</item>
+        <item>"Blocked %1$s, %2$s and $3$s. "</item>
+    </string-array>
+    <string name="pref_valid_cert">Site has a valid SSL certificate.</string>
+    <string name="pref_invalid_cert">Site has an invalid SSL certificate.</string>
+    <string name="pref_warning_cert">Site SSL certificate has warnings.</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
     <string name="pref_autofill_profile_editor">Auto-fill text</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->

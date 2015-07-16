@@ -44,7 +44,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -282,16 +281,37 @@ public class NavigationBarBase extends LinearLayout implements
 
     protected void showSiteSpecificSettings() {
         WebView wv = mUiController.getCurrentTopWebView();
-        int count = 0;
+        int ads = 0;
+        int tracker = 0;
+        int malware = 0;
 
-        if (wv != null && WebRefiner.getInstance() != null) {
-            count = WebRefiner.getInstance().getBlockedURLCount(wv);
+        WebRefiner webRefiner = WebRefiner.getInstance();
+        if (wv != null &&  webRefiner != null) {
+            WebRefiner.PageInfo pageInfo = webRefiner.getPageInfo(wv);
+            if (pageInfo != null) {
+                for (WebRefiner.MatchedURLInfo urlInfo : pageInfo.mMatchedURLInfoList) {
+                    switch (urlInfo.mMatchedFilterCategory) {
+                        case WebRefiner.RuleSet.CATEGORY_ADS:
+                            ads++;
+                            break;
+                        case WebRefiner.RuleSet.CATEGORY_TRACKERS:
+                            tracker++;
+                            break;
+                        case WebRefiner.RuleSet.CATEGORY_MALWARE_DOMAINS:
+                            malware++;
+                            break;
+                    }
+                }
+            }
         }
 
         Bundle bundle = new Bundle();
         bundle.putCharSequence(SiteSpecificPreferencesFragment.EXTRA_SITE,
                 mUiController.getCurrentTab().getUrl());
-        bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_INFO, count);
+
+        bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_ADS_INFO, ads);
+        bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_TRACKER_INFO, tracker);
+        bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_MALWARE_INFO, malware);
 
         bundle.putParcelable(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT,
                 SslCertificate.saveState(wv.getCertificate()));

@@ -40,9 +40,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.http.SslCertificate;
 import android.net.http.SslError;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.text.TextUtils;
@@ -53,6 +53,7 @@ import android.widget.TextView;
 
 import com.android.browser.BrowserLocationListPreference;
 import com.android.browser.BrowserLocationSwitchPreference;
+import com.android.browser.BrowserSettings;
 import com.android.browser.NavigationBarBase;
 import com.android.browser.PageDialogsHandler;
 import com.android.browser.PreferenceKeys;
@@ -64,8 +65,10 @@ import org.codeaurora.swe.util.ColorUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +78,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     public static final String EXTRA_SITE = "website";
     public static final String EXTRA_ORIGIN = "website_origin";
     public static final String EXTRA_FAVICON = "website_favicon";
-    public static final String EXTRA_WEB_REFINER_INFO = "website_refiner_info";
+    public static final String EXTRA_WEB_REFINER_ADS_INFO = "website_refiner_ads_info";
+    public static final String EXTRA_WEB_REFINER_TRACKER_INFO = "website_refiner_tracker_info";
+    public static final String EXTRA_WEB_REFINER_MALWARE_INFO = "website_refiner_malware_info";
     public static final String EXTRA_SECURITY_CERT = "website_security_cert";
     public static final String EXTRA_SECURITY_CERT_ERR = "website_security_cert_err";
 
@@ -228,6 +233,44 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             }
         );
 
+        if (!BrowserSettings.getInstance().getPreferences()
+                .getBoolean(PreferenceKeys.PREF_WEB_REFINER, false)) {
+            PreferenceCategory category = (PreferenceCategory) findPreference("site_pref_list");
+            if (category != null) {
+                Preference pref = findPreference("distracting_contents");
+                category.removePreference(pref);
+            }
+        }
+
+        int ads = args.getInt(EXTRA_WEB_REFINER_ADS_INFO, 0);
+        String[] strings = new String[3];
+        int index = 0;
+
+        if (ads > 0) {
+            strings[index++] = getResources().getQuantityString(
+                    R.plurals.pref_web_refiner_advertisements, ads, ads);
+        }
+
+        int trackers = args.getInt(EXTRA_WEB_REFINER_TRACKER_INFO, 0);
+        if (trackers > 0) {
+            strings[index++] = getResources().getQuantityString(
+                    R.plurals.pref_web_refiner_trackers, trackers, trackers);
+
+        }
+
+        int malware = args.getInt(EXTRA_WEB_REFINER_MALWARE_INFO, 0);
+        if (malware > 0) {
+            strings[index++] = getResources().getQuantityString(
+                    R.plurals.pref_web_refiner_malware, malware, malware);
+        }
+
+        if (index > 0) {
+            String[] formats = getResources().getStringArray(R.array.pref_web_refiner_message);
+            Formatter formatter = new Formatter();
+            formatter.format(formats[index - 1], strings[0], strings[1], strings[2]);
+            mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.INFO, formatter.toString());
+        }
+
         Bundle parcel = args.getParcelable(EXTRA_SECURITY_CERT);
         mSslCert = (parcel != null) ? SslCertificate.restoreState(parcel) : null;
 
@@ -241,53 +284,46 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
 
             if (certErrors == 0) {
                 mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.INFO,
-                        "Valid SSL Certificate. ");
+                        getString(R.string.pref_valid_cert));
             } else {
                 mSslError = new SslError(-1, mSslCert, mOriginText);
 
                 if ((certErrors & (1 << SslError.SSL_DATE_INVALID)) != 0) {
                     mSslError.addError(SslError.SSL_DATE_INVALID);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            "Invalid SSL Certificate. ");
+                            getString(R.string.pref_invalid_cert));
                 }
 
                 if ((certErrors & (1 << SslError.SSL_EXPIRED)) != 0) {
                     mSslError.addError(SslError.SSL_EXPIRED);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            "Invalid SSL Certificate. ");
+                            getString(R.string.pref_invalid_cert));
                 }
 
                 if ((certErrors & (1 << SslError.SSL_IDMISMATCH)) != 0) {
                     mSslError.addError(SslError.SSL_IDMISMATCH);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            "Invalid SSL Certificate. ");
+                            getString(R.string.pref_invalid_cert));
                 }
 
                 if ((certErrors & (1 << SslError.SSL_INVALID)) != 0) {
                     mSslError.addError(SslError.SSL_INVALID);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            "Invalid SSL Certificate. ");
+                            getString(R.string.pref_invalid_cert));
                 }
 
                 if ((certErrors & (1 << SslError.SSL_NOTYETVALID)) != 0) {
                     mSslError.addError(SslError.SSL_NOTYETVALID);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING,
-                            "SSL Certificate warnings. ");
+                            getString(R.string.pref_warning_cert));
                 }
 
                 if ((certErrors & (1 << SslError.SSL_UNTRUSTED)) != 0) {
                     mSslError.addError(SslError.SSL_UNTRUSTED);
                     mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING,
-                            "SSL Certificate warnings. ");
+                            getString(R.string.pref_warning_cert));
                 }
             }
-        }
-
-        int adBlocks = args.getInt(EXTRA_WEB_REFINER_INFO, 0);
-        if (adBlocks > 0) {
-            mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.INFO,
-                     getString(R.string.pref_web_refiner_blocked) + " " + adBlocks + " " +
-                            getString(R.string.pref_web_refiner_advertisements));
         }
     }
 
@@ -441,14 +477,16 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING, warningText);
         }
 
-        permission = showPermission("distracting_contents",
-                PermissionsServiceFactory.PermissionType.WEBREFINER,
-                R.string.pref_security_allowed, R.string.pref_security_not_allowed);
         pref = findPreference("distracting_contents");
-        if (permission == PermissionsServiceFactory.Permission.BLOCK) {
-            ((TwoStatePreference) pref).setChecked(true);
-        } else {
-            ((TwoStatePreference) pref).setChecked(false);
+        if (pref != null) {
+            permission = showPermission("distracting_contents",
+                    PermissionsServiceFactory.PermissionType.WEBREFINER,
+                    R.string.pref_security_allowed, R.string.pref_security_not_allowed);
+            if (permission == PermissionsServiceFactory.Permission.BLOCK) {
+                ((TwoStatePreference) pref).setChecked(true);
+            } else {
+                ((TwoStatePreference) pref).setChecked(false);
+            }
         }
 
         showPermission("popup_windows", PermissionsServiceFactory.PermissionType.POPUP,

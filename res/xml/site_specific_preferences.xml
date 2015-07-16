@@ -54,7 +54,7 @@
     <PreferenceCategory
         android:title="@string/pref_site_settings_title"
         android:layout="@layout/swe_preference_category"
-        android:key="reset_default">
+        android:key="site_pref_list">
 
         <SwitchPreference
             android:layout="@layout/swe_preference"

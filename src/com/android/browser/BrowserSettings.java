@@ -140,6 +140,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // Intialize Web Refiner only once
         final WebRefiner refiner = WebRefiner.getInstance();
         if (refiner != null) {
+            mPrefs.edit().putBoolean(PREF_WEB_REFINER, true).apply();
             refiner.setDefaultPermission(PermissionsServiceFactory.getDefaultPermissions(
                             PermissionsServiceFactory.PermissionType.WEBREFINER));
 
@@ -174,6 +175,8 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                     }
                 }
             );
+        } else {
+            mPrefs.edit().putBoolean(PREF_WEB_REFINER, false).apply();
         }
 
         mAutofillHandler = new AutofillHandler(mContext);
