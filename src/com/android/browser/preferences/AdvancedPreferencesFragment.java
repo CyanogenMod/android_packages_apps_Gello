@@ -75,6 +75,7 @@ public class AdvancedPreferencesFragment
 
         ListPreference edgeSwipePref =
                 (ListPreference) mFragment.findPreference("edge_swiping_action");
+        edgeSwipePref.setOnPreferenceChangeListener(this);
 
         if (BrowserCommandLine.hasSwitch("ui-low-power-mode")) {
             edgeSwipePref.setEnabled(false);
@@ -147,8 +148,14 @@ public class AdvancedPreferencesFragment
             Log.w("PageContentPreferencesFragment", "onPreferenceChange called from detached fragment!");
             return false;
         }
+        if(pref.getKey().equals("edge_swiping_action")){
+            ListPreference lp = (ListPreference) pref;
+            lp.setValue((String) objValue);
+            updateListPreferenceSummary(lp);
+            return true;
+        }
 
-        if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
+        else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Boolean value = (Boolean) objValue;
             if (value.booleanValue() == true) {
                 PermissionsServiceFactory.resetDefaultPermissions();
