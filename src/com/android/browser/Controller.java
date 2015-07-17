@@ -40,7 +40,6 @@ import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
@@ -65,7 +64,6 @@ import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -104,8 +102,6 @@ import com.android.browser.mynavigation.AddMyNavigationPage;
 import com.android.browser.mynavigation.MyNavigationUtil;
 import com.android.browser.platformsupport.Browser;
 import com.android.browser.platformsupport.BrowserContract;
-import com.android.browser.platformsupport.WebAddress;
-import com.android.browser.platformsupport.BrowserContract.Images;
 import com.android.browser.preferences.AboutPreferencesFragment;
 import com.android.browser.provider.BrowserProvider2.Thumbnails;
 import com.android.browser.provider.SnapshotProvider.Snapshots;
@@ -787,6 +783,7 @@ public class Controller
             Log.e(LOGTAG, "BrowserActivity is already resumed.");
             return;
         }
+        UpdateNotificationService.updateCheck(mActivity);
         mSettings.setLastRunPaused(false);
         mActivityPaused = false;
         Tab current = mTabControl.getCurrentTab();
@@ -2404,6 +2401,7 @@ public class Controller
                 })
                 .show();
     }
+
     @Override
     public void showPageInfo() {
         mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);

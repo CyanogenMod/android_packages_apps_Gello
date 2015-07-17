@@ -1193,6 +1193,9 @@
     <string name="swe_privacy_policy">Privacy policy</string>
     <string name="swe_privacy_policy_url" translatable="False"></string>
 
+    <!--Strings for auto update notification feature -->
+    <string name="update" translatable="false">SWE browser update available</string>
+    <string name="update_msg" translatable="false">"Version: "</string>
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>

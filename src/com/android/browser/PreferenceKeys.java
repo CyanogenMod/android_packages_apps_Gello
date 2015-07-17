@@ -132,6 +132,7 @@ public interface PreferenceKeys {
     static final String PREF_USER_AGENT = "user_agent";
     static final String PREF_HELP = "help_about";
     static final String PREF_FEEDBACK = "feedback";
+    static final String PREF_AUTO_UPDATE = "update_notification";
     static final String PREF_EDGE_SWIPE = "edge_swiping_action";
     static final String PREF_LEGAL = "legal";
 

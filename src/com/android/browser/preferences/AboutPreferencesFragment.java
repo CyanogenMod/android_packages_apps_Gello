@@ -38,12 +38,14 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
+import android.provider.Browser;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSwitches;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
+import com.android.browser.UpdateNotificationService;
 
 import org.codeaurora.swe.BrowserCommandLine;
 
@@ -153,6 +155,18 @@ public class AboutPreferencesFragment extends PreferenceFragment
         setOnClickListener(PreferenceKeys.PREF_FEEDBACK, !mFeedbackRecipient.isEmpty());
 
         setOnClickListener(PreferenceKeys.PREF_LEGAL, true);
+        if (BrowserCommandLine.hasSwitch(BrowserSwitches.AUTO_UPDATE_SERVER_CMD)) {
+            setPreference(PreferenceKeys.PREF_AUTO_UPDATE,
+                    UpdateNotificationService.getLatestVersion(getActivity()));
+            setOnClickListener(PreferenceKeys.PREF_AUTO_UPDATE,
+                    UpdateNotificationService.getCurrentVersionCode(getActivity()) <
+                            UpdateNotificationService.getLatestVersionCode(getActivity()));
+        } else {
+            Preference pref = findPreference(PreferenceKeys.PREF_AUTO_UPDATE);
+            if (mHeadPref != null)
+                mHeadPref.removePreference(pref);
+        }
+
     }
 
     @Override
@@ -200,6 +214,14 @@ public class AboutPreferencesFragment extends PreferenceFragment
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "Select email application"));
             return true;
+        } else if (preference.getKey().equals(PreferenceKeys.PREF_AUTO_UPDATE)) {
+            Intent intent = new Intent(getActivity(), BrowserActivity.class);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.putExtra(Browser.EXTRA_APPLICATION_ID, getActivity().getPackageName());
+            intent.putExtra(Browser.EXTRA_CREATE_NEW_TAB, true);
+            intent.setData(Uri.parse(
+                    UpdateNotificationService.getLatestDownloadUrl(getActivity())));
+            getActivity().startActivity(intent);
         }
         return false;
     }

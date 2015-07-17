@@ -60,9 +60,12 @@ public class BrowserSwitches {
 
     public static final String CMD_LINE_SWITCH_FEEDBACK = "mail-feedback-to";
 
-    public static final String CMD_LINE_SWITCH_HELPURL  = "help-url";
+    public static final String CMD_LINE_SWITCH_HELPURL = "help-url";
 
     public static final String CMD_LINE_SWITCH_EULA_URL = "legal-eula-url";
 
     public static final String CMD_LINE_SWITCH_PRIVACY_POLICY_URL = "legal-privacy-policy-url";
+
+    public static final String AUTO_UPDATE_SERVER_CMD = "auto-update-server";
+
 }

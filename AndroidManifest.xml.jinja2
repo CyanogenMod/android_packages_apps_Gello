@@ -351,6 +351,16 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <service
+            android:name=".UpdateNotificationService"
+            android:exported="false" >
+        </service>
+
+        <!-- Compiler gcc/llvm -->
+        <meta-data android:name="Compiler" android:value="{{ apk_compiler }}" />
+        <!-- Architecture x64/x32 -->
+        <meta-data android:name="Architecture" android:value="{{ apk_architecture }}" />
+
     </application>
 
     <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="21" />

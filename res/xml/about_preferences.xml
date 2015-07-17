@@ -62,4 +62,8 @@
         android:title="@string/swe_legal"
         android:summary="@string/swe_pref_legal_info_summary"/>
 
+    <Preference
+        android:key="update_notification"
+        android:title="@string/update" />
+
 </PreferenceScreen>
