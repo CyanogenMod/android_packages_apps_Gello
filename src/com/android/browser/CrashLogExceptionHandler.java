@@ -50,6 +50,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.entity.AbstractHttpEntity;
+import org.apache.http.entity.ByteArrayEntity;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,11 +65,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.Integer;
 import java.lang.StringBuilder;
 import java.lang.System;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Calendar;
+import java.util.zip.GZIPOutputStream;
 
 public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -341,12 +348,32 @@ public class CrashLogExceptionHandler implements Thread.UncaughtExceptionHandler
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(server);
-            InputStreamEntity isEntity = new InputStreamEntity(
-                    new FileInputStream(report), -1);
-            // Send the report as a Binary
-            isEntity.setContentType("binary/octet-stream");
-            isEntity.setChunked(false);
-            httpPost.setEntity(isEntity);
+
+            // Compress the data
+            ByteArrayOutputStream arrayStream = new ByteArrayOutputStream();
+            OutputStream gzipData = new GZIPOutputStream(arrayStream);
+            InputStream inputStream = new FileInputStream(report);
+            long length = report.length();
+            byte[] data = new byte[(int)length];
+
+            // Read in the bytes
+            int offset = 0;
+            int numRead = 0;
+            while (offset < data.length
+                   && (numRead=inputStream.read(data, offset, data.length-offset)) >= 0) {
+                offset += numRead;
+            }
+            gzipData.write(data);
+            gzipData.close();
+
+            AbstractHttpEntity entity = new ByteArrayEntity(arrayStream.toByteArray());
+
+            // Send the report as a compressed Binary
+            entity.setContentType("binary/octet-stream");
+            entity.setContentEncoding("gzip");
+            entity.setChunked(false);
+            httpPost.setEntity(entity);
+
             HttpResponse response = httpClient.execute(httpPost);
             int status = response.getStatusLine().getStatusCode();
             if (status == 200)
