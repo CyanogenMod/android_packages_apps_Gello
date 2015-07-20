@@ -758,7 +758,7 @@ public class AddBookmarkPage extends Activity
         mAccountSpinner = (Spinner) findViewById(R.id.accounts);
         mAccountSpinner.setAdapter(mAccountAdapter);
         mAccountSpinner.setOnItemSelectedListener(this);
-
+        mFolder.setSelectionIgnoringSelectionChange(1); // Select Bookmarks by default
 
         mFakeTitleHolder = findViewById(R.id.title_holder);
 
