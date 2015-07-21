@@ -901,6 +901,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mPrefs.getBoolean(PREF_ENABLE_HARDWARE_ACCEL_SKIA, false);
     }
 
+    public boolean isDisablePerfFeatures() {
+        // This value is flipped in the prefs.
+        return !mPrefs.getBoolean(PREF_DISABLE_PERF, true);
+    }
+
     // -----------------------------
     // getter/setters for hidden_debug_preferences.xml
     // -----------------------------

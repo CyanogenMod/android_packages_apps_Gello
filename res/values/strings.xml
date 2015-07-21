@@ -657,6 +657,13 @@
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_cpu_upload_path" translatable="false">Enable Cpu Upload Path</string>
     <!-- Do not tranlsate.  Development option -->
+    <string name="pref_development_disable_perf"
+        translatable="false">High Performance features</string>
+    <string name="pref_development_disable_perf_on"
+        translatable="false">WebRefiner, WebAccelerator, EdgeNavigation enabled</string>
+    <string name="pref_development_disable_perf_off"
+        translatable="false">WebRefiner, WebAccelerator, EdgeNavigation disabled</string>
+    <!-- Do not tranlsate.  Development option -->
     <string name="js_engine_flags" translatable="false">Set JS flags</string>
     <!-- Do not tranlsate.  Development option -->
     <string name="pref_development_uastring" translatable="false">UAString</string>

@@ -686,8 +686,9 @@ public abstract class BaseUi implements UI {
     }
 
     public static boolean isUiLowPowerMode() {
-        return BrowserCommandLine.hasSwitch("ui-low-power-mode") ||
-            BrowserSettings.getInstance().isPowerSaveModeEnabled();
+        return BrowserCommandLine.hasSwitch("ui-low-power-mode")
+            || BrowserSettings.getInstance().isPowerSaveModeEnabled()
+            || BrowserSettings.getInstance().isDisablePerfFeatures();
     }
 
     // -------------------------------------------------------------------------

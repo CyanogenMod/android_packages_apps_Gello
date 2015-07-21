@@ -78,6 +78,14 @@
         android:defaultValue="false"
         android:title="@string/pref_development_nav_dump" />
 
+    <SwitchPreference
+        android:layout="@layout/swe_preference"
+        android:key="disable_perf"
+        android:defaultValue="true"
+        android:summaryOn="@string/pref_development_disable_perf_on"
+        android:summaryOff="@string/pref_development_disable_perf_off"
+        android:title="@string/pref_development_disable_perf" />
+
     <EditTextPreference
         android:layout="@layout/swe_preference"
         android:key="js_engine_flags"

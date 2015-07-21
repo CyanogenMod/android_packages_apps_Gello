@@ -53,6 +53,7 @@ public interface PreferenceKeys {
     // ----------------------
     static final String PREF_ENABLE_HARDWARE_ACCEL = "enable_hardware_accel";
     static final String PREF_ENABLE_HARDWARE_ACCEL_SKIA = "enable_hardware_accel_skia";
+    static final String PREF_DISABLE_PERF = "disable_perf";
 
     // ----------------------
     // Keys for general_preferences.xml

@@ -19,18 +19,41 @@ package com.android.browser.preferences;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.SwitchPreference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.Preference.OnPreferenceChangeListener;
 
+import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
 
+import org.codeaurora.swe.PermissionsServiceFactory;
+
 public class DebugPreferencesFragment extends SWEPreferenceFragment
-        implements OnPreferenceClickListener {
+        implements OnPreferenceClickListener, OnPreferenceChangeListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Load the XML preferences file
         addPreferencesFromResource(R.xml.debug_preferences);
+
+        SwitchPreference pref = (SwitchPreference) findPreference(PreferenceKeys.PREF_DISABLE_PERF);
+        pref.setOnPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference pref, Object objValue) {
+        if (getActivity() == null) {
+            return false;
+        }
+
+        if (pref.getKey().equals(PreferenceKeys.PREF_DISABLE_PERF)) {
+            PermissionsServiceFactory.setDefaultPermissions(
+                PermissionsServiceFactory.PermissionType.WEBREFINER, (Boolean)objValue);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
