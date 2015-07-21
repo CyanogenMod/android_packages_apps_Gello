@@ -50,7 +50,7 @@ public class BrowserSwitches {
 
     public static final String ENABLE_SWE = "enabled-swe";
 
-    public static final String ENABLE_TOP_CONTROLS = "enable-top-controls-position-calculation";
+    public static final String DISABLE_TOP_CONTROLS = "disable-top-controls";
 
     public static final String TOP_CONTROLS_HIDE_THRESHOLD = "top-controls-hide-threshold";
 

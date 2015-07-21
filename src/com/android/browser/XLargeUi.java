@@ -176,8 +176,6 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        mTitleBar.cancelTitleBarAnimation(true);
-        mTitleBar.setSkipTitleBarAnimations(true);
         super.setActiveTab(tab);
         BrowserWebView view = (BrowserWebView) tab.getWebView();
         // TabControl.setCurrentTab has been called before this,
@@ -196,11 +194,8 @@ public class XLargeUi extends BaseUi {
 
     @Override
     public void removeTab(Tab tab) {
-        mTitleBar.cancelTitleBarAnimation(true);
-        mTitleBar.setSkipTitleBarAnimations(true);
         super.removeTab(tab);
         mTabBar.onRemoveTab(tab);
-        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     @Override

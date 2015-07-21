@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebView;
@@ -158,6 +159,17 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
 
     public void drawContent(Canvas c) {
         //super.drawContent(c);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // block touch event if title bar is selected
+        if (mTitleBar.isEditingUrl()) {
+            requestFocus();
+            return true;
+        }
+        else
+            return super.onTouchEvent(event);
     }
 
     @Override

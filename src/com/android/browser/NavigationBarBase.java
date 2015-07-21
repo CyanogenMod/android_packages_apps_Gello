@@ -466,7 +466,6 @@ public class NavigationBarBase extends LinearLayout implements
                     setDisplayTitle(currentTab.getUrl());
                 }
             }
-            mBaseUi.suggestHideTitleBar();
         }
         mUrlInput.clearNeedsUpdate();
     }
@@ -819,7 +818,6 @@ public class NavigationBarBase extends LinearLayout implements
 
     private void onMenuHidden() {
         mOverflowMenuShowing = false;
-        mBaseUi.showTitleBarForDuration();
     }
 
 

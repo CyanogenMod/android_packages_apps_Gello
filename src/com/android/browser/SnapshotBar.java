@@ -44,7 +44,7 @@ import java.util.Date;
 public class SnapshotBar extends LinearLayout implements OnClickListener {
 
     private static final int MSG_SHOW_TITLE = 1;
-    private static final long DURATION_SHOW_DATE = BaseUi.HIDE_TITLEBAR_DELAY;
+    private static final long DURATION_SHOW_DATE = 1500;
 
     private ImageView mFavicon;
     private ImageView mSnapshoticon;
@@ -100,7 +100,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
             if (msg.what == MSG_SHOW_TITLE) {
                 mIsAnimating = false;
                 showTitle();
-                mTitleBar.getUi().showTitleBarForDuration();
             }
         }
     };
@@ -209,7 +208,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         } else if (mToggleContainer == v && !mIsAnimating) {
             mIsAnimating = true;
             showDate();
-            mTitleBar.getUi().showTitleBar();
+            mTitleBar.showTopControls(false);
             Message m = mHandler.obtainMessage(MSG_SHOW_TITLE);
             mHandler.sendMessageDelayed(m, DURATION_SHOW_DATE);
         }

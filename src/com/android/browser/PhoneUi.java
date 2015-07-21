@@ -138,8 +138,6 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void setActiveTab(final Tab tab) {
-        mTitleBar.cancelTitleBarAnimation(true);
-        mTitleBar.setSkipTitleBarAnimations(true);
         super.setActiveTab(tab);
 
         //if at Nav screen show, detach tab like what showNavScreen() do.

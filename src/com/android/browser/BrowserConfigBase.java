@@ -83,10 +83,8 @@ abstract class BrowserConfigBase {
 
     public void initCommandLineSwitches() {
         //SWE-hide-title-bar - enable following flags
-        BrowserCommandLine.appendSwitch(BrowserSwitches.ENABLE_TOP_CONTROLS);
         BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.TOP_CONTROLS_SHOW_THRESHOLD, "0.5");
         BrowserCommandLine.appendSwitchWithValue(BrowserSwitches.TOP_CONTROLS_HIDE_THRESHOLD, "0.5");
-        BrowserCommandLine.appendSwitch(BrowserSwitches.ENABLE_SWE);
 
         // Allow to override UserAgent
         overrideUserAgent();

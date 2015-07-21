@@ -72,9 +72,6 @@ public abstract class BaseUi implements UI {
         ViewGroup.LayoutParams.MATCH_PARENT,
         Gravity.CENTER);
 
-    private static final int MSG_HIDE_TITLEBAR = 1;
-    public static final int HIDE_TITLEBAR_DELAY = 1500; // in ms
-
     Activity mActivity;
     UiController mUiController;
     TabControl mTabControl;
@@ -89,8 +86,6 @@ public abstract class BaseUi implements UI {
     private View mCustomView;
     private CustomViewCallback mCustomViewCallback;
     private int mOriginalOrientation;
-
-    private UrlBarAutoShowManager mUrlBarAutoShowManager;
 
     private Toast mStopToast;
 
@@ -131,7 +126,6 @@ public abstract class BaseUi implements UI {
                 mContentView);
         mTitleBar.setProgress(100);
         mNavigationBar = mTitleBar.getNavigationBar();
-        mUrlBarAutoShowManager = new UrlBarAutoShowManager(this);
 
         // install system ui visibility listeners
         mDecorView = mActivity.getWindow().getDecorView();
@@ -219,6 +213,12 @@ public abstract class BaseUi implements UI {
         return false;
     }
 
+    public boolean isFullScreen() {
+        if (mTabControl.getCurrentTab() != null)
+            return mTabControl.getCurrentTab().isTabFullScreen();
+        return false;
+    }
+
     @Override
     public boolean onMenuKey() {
         return false;
@@ -281,7 +281,6 @@ public abstract class BaseUi implements UI {
 
         // block unnecessary focus change animations during tab switch
         mBlockFocusAnimations = true;
-        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if ((tab != mActiveTab) && (mActiveTab != null)) {
             tabToRemove = mActiveTab;
             WebView web = mActiveTab.getWebView();
@@ -292,7 +291,6 @@ public abstract class BaseUi implements UI {
         mActiveTab = tab;
 
         BrowserWebView web = (BrowserWebView) mActiveTab.getWebView();
-        updateUrlBarAutoShowManagerTarget();
         attachTabToContentView(tab);
         if (web != null) {
             // Request focus on the top window.
@@ -310,7 +308,6 @@ public abstract class BaseUi implements UI {
         scheduleRemoveTab(tabToRemove, tabToWaitFor);
 
         updateTabSecurityState(tab);
-        mTitleBar.setSkipTitleBarAnimations(false);
     }
 
     Tab mTabToRemove = null;
@@ -376,13 +373,6 @@ public abstract class BaseUi implements UI {
         }
         mTabToRemove = null;
         mTabToWaitFor = null;
-    }
-
-    protected void updateUrlBarAutoShowManagerTarget() {
-        WebView web = mActiveTab != null ? mActiveTab.getWebView() : null;
-        if (web instanceof BrowserWebView) {
-            mUrlBarAutoShowManager.setTarget((BrowserWebView) web);
-        }
     }
 
     Tab getActiveTab() {
@@ -598,15 +588,14 @@ public abstract class BaseUi implements UI {
     }
 
     protected void showTitleBar() {
-        mHandler.removeMessages(MSG_HIDE_TITLEBAR);
         if (canShowTitleBar()) {
-            mTitleBar.show();
+            mTitleBar.showTopControls(false);
         }
     }
 
     protected void hideTitleBar() {
         if (mTitleBar.isShowing()) {
-            mTitleBar.hide();
+            mTitleBar.enableTopControls(false);
         }
     }
 
@@ -871,36 +860,34 @@ public abstract class BaseUi implements UI {
         if (getWebView() != null) {
             BrowserWebView bwv = (BrowserWebView) getWebView();
             if (fullScreen) {
-                //hide topbar
-                bwv.enableTopControls(false);
+                // hide titlebar
                 mTitleBar.hideTopControls(true);
             } else {
-                bwv.enableTopControls(true);
-                //show the topbar
-                mTitleBar.showTopControls(true);
-                //enable for auto-hide
+                // show titlebar
+                mTitleBar.showTopControls(false);
+                // enable auto hide titlebar
                 if (!mTitleBar.isFixed())
-                    mTitleBar.enableTopControls(true);
+                    mTitleBar.enableTopControls(false);
             }
         }
     }
 
     public void translateTitleBar(float topControlsOffsetYPix) {
-        if (mTitleBar != null && !mInActionMode) {
+        if (mTitleBar == null || mTitleBar.isFixed())
+            return;
+        if (!mInActionMode) {
             if (topControlsOffsetYPix != 0.0) {
                 mTitleBar.setEnabled(false);
             } else {
                 mTitleBar.setEnabled(true);
             }
-            if (!mTitleBar.isFixed()) {
-                float currentY = mTitleBar.getTranslationY();
-                float height = mNavigationBar.getHeight();
-                if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
-                    mTitleBar.requestLayout();
-                } else if ((height + topControlsOffsetYPix) <= 0) {
-                    topControlsOffsetYPix -= 1;
-                    mTitleBar.getParent().requestTransparentRegion(mTitleBar);
-                }
+            float currentY = mTitleBar.getTranslationY();
+            float height = mNavigationBar.getHeight();
+            if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
+                mTitleBar.requestLayout();
+            } else if ((height + topControlsOffsetYPix) <= 0) {
+                topControlsOffsetYPix -= 1;
+                mTitleBar.getParent().requestTransparentRegion(mTitleBar);
             }
             // This was done to get HTML5 fullscreen API to work with fixed mode since
             // topcontrols are used to implement HTML5 fullscreen
@@ -931,28 +918,6 @@ public abstract class BaseUi implements UI {
         return mActiveTab != null ? mActiveTab.inPageLoad() : false;
     }
 
-    /**
-     * Suggest to the UI that the title bar can be hidden. The UI will then
-     * decide whether or not to hide based off a number of factors, such
-     * as if the user is editing the URL bar or if the page is loading
-     */
-    public void suggestHideTitleBar() {
-        if (!isLoading() && !isEditingUrl() && !mTitleBar.wantsToBeVisible()
-                && !mNavigationBar.isMenuShowing()) {
-            hideTitleBar();
-        }
-    }
-
-    protected final void showTitleBarForDuration() {
-        showTitleBarForDuration(HIDE_TITLEBAR_DELAY);
-    }
-
-    protected final void showTitleBarForDuration(long duration) {
-        showTitleBar();
-        Message msg = Message.obtain(mHandler, MSG_HIDE_TITLEBAR);
-        mHandler.sendMessageDelayed(msg, duration);
-    }
-
     protected void setMenuItemVisibility(Menu menu, int id,
                                          boolean visibility) {
         MenuItem item = menu.findItem(id);
@@ -965,9 +930,6 @@ public abstract class BaseUi implements UI {
 
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == MSG_HIDE_TITLEBAR) {
-                suggestHideTitleBar();
-            }
             BaseUi.this.handleMessage(msg);
         }
     };

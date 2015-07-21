@@ -16,9 +16,6 @@
 
 package com.android.browser;
 
-import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -29,7 +26,8 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 import android.view.accessibility.AccessibilityManager;
-import android.view.animation.DecelerateInterpolator;
+
+import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.WebView;
 
 import android.widget.FrameLayout;
@@ -54,8 +52,6 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
     //state
     private boolean mShowing;
     private boolean mInLoad;
-    private boolean mSkipTitleBarAnimations;
-    private Animator mTitleBarAnimator;
     private boolean mIsFixedTitleBar;
     private float mCurrentTranslationY;
     private boolean mUpdateTranslationY = false;
@@ -127,7 +123,8 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
     }
 
     private void setFixedTitleBar() {
-        boolean isFixed = !getContext().getResources().getBoolean(R.bool.hide_title);
+        boolean isFixed = !getContext().getResources().getBoolean(R.bool.hide_title) ||
+                BrowserCommandLine.hasSwitch(BrowserSwitches.DISABLE_TOP_CONTROLS);
 
         isFixed |= mAccessibilityManager.isEnabled() &&
             mAccessibilityManager.isTouchExplorationEnabled();
@@ -135,9 +132,7 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
         ViewGroup parent = (ViewGroup)getParent();
         if (mIsFixedTitleBar == isFixed && parent != null) return;
         mIsFixedTitleBar = isFixed;
-        setSkipTitleBarAnimations(true);
-        show();
-        setSkipTitleBarAnimations(false);
+        showTopControls(false);
         if (parent != null) {
             parent.removeView(this);
         }
@@ -161,97 +156,9 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
         }
     }
 
-    void setSkipTitleBarAnimations(boolean skip) {
-        mSkipTitleBarAnimations = skip;
-    }
-
-    void setupTitleBarAnimator(Animator animator) {
-        Resources res = getContext().getResources();
-        int duration = res.getInteger(R.integer.titlebar_animation_duration);
-        animator.setInterpolator(new DecelerateInterpolator(
-                ANIM_TITLEBAR_DECELERATE));
-        animator.setDuration(duration);
-    }
-
-    //Disable stock autohide behavior in favor of top controls
-    private static final  boolean bOldStyleAutoHideDisabled = true;
-    void show() {
-        cancelTitleBarAnimation(false);
-        if (mSkipTitleBarAnimations) {
-            this.setVisibility(View.VISIBLE);
-            this.setTranslationY(0);
-            // reaffirm top-controls
-            if (isFixed() || isInLoad())
-                showTopControls(false);
-            else
-                enableTopControls(true);
-        } else if (!bOldStyleAutoHideDisabled) {
-            int visibleHeight = getVisibleTitleHeight();
-            float startPos = (-getEmbeddedHeight() + visibleHeight);
-            if (getTranslationY() != 0) {
-                startPos = Math.max(startPos, getTranslationY());
-            }
-            mTitleBarAnimator = ObjectAnimator.ofFloat(this,
-                    "translationY",
-                    startPos, 0);
-            setupTitleBarAnimator(mTitleBarAnimator);
-            mTitleBarAnimator.start();
-        }
-
-        mShowing = true;
-    }
-
-    void hide() {
-        if (mIsFixedTitleBar || bOldStyleAutoHideDisabled) return;
-        if (!mSkipTitleBarAnimations) {
-            cancelTitleBarAnimation(false);
-            int visibleHeight = getVisibleTitleHeight();
-            mTitleBarAnimator = ObjectAnimator.ofFloat(this,
-                    "translationY", getTranslationY(),
-                    (-getEmbeddedHeight() + visibleHeight));
-            mTitleBarAnimator.addListener(mHideTileBarAnimatorListener);
-            setupTitleBarAnimator(mTitleBarAnimator);
-            mTitleBarAnimator.start();
-        } else {
-            onScrollChanged();
-        }
-        mShowing = false;
-    }
-
     boolean isShowing() {
         return mShowing;
     }
-
-    void cancelTitleBarAnimation(boolean reset) {
-        if (mTitleBarAnimator != null) {
-            mTitleBarAnimator.cancel();
-            mTitleBarAnimator = null;
-        }
-        if (reset) {
-            setTranslationY(0);
-        }
-    }
-
-    private AnimatorListener mHideTileBarAnimatorListener = new AnimatorListener() {
-
-        @Override
-        public void onAnimationStart(Animator animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            // update position
-            onScrollChanged();
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-        }
-    };
 
     private int getVisibleTitleHeight() {
         Tab tab = mBaseUi.getActiveTab();
@@ -260,20 +167,28 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
     }
 
     protected void hideTopControls(boolean animate) {
+        if (mIsFixedTitleBar)
+            return;
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
-        if (view != null)
+        if (view != null) {
             view.updateTopControls(true, false, animate);
+        }
+        mShowing = false;
     }
 
     protected void showTopControls(boolean animate) {
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
-        if (view != null)
+        if (view != null) {
             view.updateTopControls(false, true, animate);
+        }
+        mShowing = true;
     }
 
     protected void enableTopControls(boolean animate) {
+        if (mIsFixedTitleBar)
+            return;
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;
         if (view != null)
@@ -290,15 +205,8 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             mProgress.setVisibility(View.GONE);
             mInLoad = false;
             mNavBar.onProgressStopped();
-            // check if needs to be hidden
-            if (!isEditingUrl() && !wantsToBeVisible()) {
-                mBaseUi.showTitleBarForDuration();
-            }
-
             //onPageFinished
-            showTopControls(false);
-            if(!isFixed())
-                enableTopControls(true);
+            enableTopControls(true);
 
         } else {
             if (!mInLoad) {
@@ -310,9 +218,6 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
             }
             mProgress.setProgress(newProgress * PageProgressView.MAX_PROGRESS
                     / PROGRESS_MAX);
-            if (!mShowing) {
-                show();
-            }
             showTopControls(false);
         }
     }

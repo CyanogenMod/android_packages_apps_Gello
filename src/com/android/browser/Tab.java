@@ -707,10 +707,16 @@ class Tab implements PictureListener {
 
         @Override
         public void onKeyboardStateChange(boolean popup) {
+            boolean keyboardWasShowing = isKeyboardShowing();
             mIsKeyboardUp = popup;
+            Controller controller = (Controller)mWebViewController;
+            BaseUi ui = (BaseUi) controller.getUi();
+            // lock the title bar
+            if (popup)
+                ui.getTitleBar().showTopControls(true);
+            if (keyboardWasShowing && popup)
+                ui.getTitleBar().enableTopControls(true);
             if (BrowserSettings.getInstance().useFullscreen()) {
-                Controller controller = (Controller) mWebViewController;
-                BaseUi ui = (BaseUi) controller.getUi();
                 ui.forceDisableFullscreenMode(popup);
             }
         }
