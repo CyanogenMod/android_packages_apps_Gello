@@ -380,21 +380,31 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
         // Scale the badge
         float fx = (float) srcOverlay.getWidth()  * overlayScaleFactor;
         float fy = (float) srcOverlay.getHeight() * overlayScaleFactor;
-        Bitmap scaledOverlay = Bitmap.createScaledBitmap(srcOverlay, (int) fx, (int) fy, true);
+        Bitmap scaledOverlay = null;
+        try {
+            scaledOverlay = Bitmap.createScaledBitmap(srcOverlay, (int) fx, (int) fy, true);
+        } catch (IllegalArgumentException exception) {
+            Log.e(TAG, "Scaled bitmap creation failed" + exception.getMessage());
+        }
+
         if (scaledOverlay == null) {
             srcOverlay.recycle();
             Runtime.getRuntime().gc();
-            Log.e(TAG, "Scaled bitmap creation failed");
             return origImage;
         }
 
         // Create the bitmap we are compositing into
-        Bitmap overlaid = Bitmap.createBitmap(origWidth, origHeight, Bitmap.Config.ARGB_8888);
+        Bitmap overlaid = null;
+        try {
+            overlaid = Bitmap.createBitmap(origWidth, origHeight, Bitmap.Config.ARGB_8888);
+        } catch (IllegalArgumentException exception) {
+            Log.e(TAG, "Composite bitmap creation failed" + exception.getMessage());
+        }
+
         if (overlaid == null) {
             srcOverlay.recycle();
             scaledOverlay.recycle();
             Runtime.getRuntime().gc();
-            Log.e(TAG, "Composite bitmap creation failed");
             return origImage;
         }
 
