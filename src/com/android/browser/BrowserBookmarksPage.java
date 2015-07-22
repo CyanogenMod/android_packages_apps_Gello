@@ -149,6 +149,20 @@ public class BrowserBookmarksPage extends Fragment implements View.OnCreateConte
                 lm.restartLoader(id, args, this);
                 id++;
             }
+            if (id == LOADER_BOOKMARKS){ // Didn't find any bookmarks
+                Bundle args = new Bundle();
+                args.putString(ACCOUNT_NAME, "null");
+                args.putString(ACCOUNT_TYPE, "null");
+                BrowserBookmarksAdapter adapter = new BrowserBookmarksAdapter(
+                        getActivity());
+                mBookmarkAdapters.put(id, adapter);
+                boolean expand = true;
+                try {
+                    expand = mState.getBoolean(BookmarkExpandableView.LOCAL_ACCOUNT_NAME);
+                } catch (JSONException e) {} // no state for accountName
+                mGrid.addAccount("null", adapter, expand);
+                lm.restartLoader(id, args, this);
+            }
             // TODO: Figure out what a reload of these means
             // Currently, a reload is triggered whenever bookmarks change
             // This is less than ideal
