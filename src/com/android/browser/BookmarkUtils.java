@@ -119,6 +119,7 @@ public class BookmarkUtils {
             Bitmap touchIcon, Bitmap favicon) {
         Intent i = new Intent(INSTALL_SHORTCUT);
         Intent shortcutIntent = createShortcutIntent(url);
+        shortcutIntent.setPackage(context.getPackageName());
         i.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         i.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
         i.putExtra(Intent.EXTRA_SHORTCUT_ICON, createIcon(context, touchIcon, favicon,
