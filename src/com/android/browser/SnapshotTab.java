@@ -49,7 +49,6 @@ public class SnapshotTab extends Tab {
     private long mDateCreated;
     private boolean mIsLive;
     private String mLiveUrl;
-    private Bundle mSavedState;
 
     // Used for saving and restoring each Tab
     static final String SNAPSHOT_ID = "snapshotId";
@@ -65,6 +64,7 @@ public class SnapshotTab extends Tab {
         WebView web = mWebViewFactory.createWebView(false);
         setWebView(web);
         loadData();
+        mIsLive = false;
     }
 
     @Override
@@ -125,10 +125,11 @@ public class SnapshotTab extends Tab {
             return super.saveState();
         }
 
-        mSavedState = new Bundle();
-        mSavedState = super.saveState();
-        mSavedState.putLong(SNAPSHOT_ID, mSnapshotId);
-        return mSavedState;
+        Bundle savedState = new Bundle();
+        savedState.putLong(SNAPSHOT_ID, mSnapshotId);
+        savedState.putLong(ID, getId());
+
+        return savedState;
     }
 
     public long getDateCreated() {
@@ -137,15 +138,6 @@ public class SnapshotTab extends Tab {
 
     public String getLiveUrl() {
         return mLiveUrl;
-    }
-
-    @Override
-    public void loadUrl(String url, Map<String, String> headers) {
-        if (!mIsLive) {
-            mIsLive = true;
-            getWebView().clearViewState();
-        }
-        super.loadUrl(url, headers);
     }
 
     @Override

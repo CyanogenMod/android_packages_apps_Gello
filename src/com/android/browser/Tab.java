@@ -655,6 +655,8 @@ class Tab implements PictureListener {
                 return;
             }
 
+
+
             final int idx = view.copyBackForwardList().getCurrentIndex();
             boolean bitmapExists = view.hasSnapshot(idx);
 
@@ -678,6 +680,11 @@ class Tab implements PictureListener {
         @Override
         public void onHistoryItemCommit(WebView view, int index) {
             if (BaseUi.isUiLowPowerMode()) {
+                return;
+            }
+
+            // prevent snapshot tab from commiting any history
+            if (isSnapshot()) {
                 return;
             }
 

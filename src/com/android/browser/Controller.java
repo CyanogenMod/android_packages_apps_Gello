@@ -1058,7 +1058,9 @@ public class Controller
 
     @Override
     public boolean shouldOverrideUrlLoading(Tab tab, WebView view, String url) {
-        return mUrlHandler.shouldOverrideUrlLoading(tab, view, url);
+        // if tab is snapshot tab we want to prevent navigation from occuring
+        // since snapshot tab opens a new tab with the url
+        return  goLive(url) || mUrlHandler.shouldOverrideUrlLoading(tab, view, url);
     }
 
     @Override
@@ -2149,9 +2151,10 @@ public class Controller
                 break;
 
             case R.id.snapshot_go_live:
-                goLive();
-                return true;
-
+                // passing null to distinguish between
+                // "go live" button and navigating a web page
+                //  on a snapshot tab
+                return goLive(null);
             case R.id.share_page_menu_id:
                 Tab currentTab = mTabControl.getCurrentTab();
                 if (null == currentTab) {
@@ -2360,23 +2363,18 @@ public class Controller
         }
     }
 
-    private void goLive() {
-        if (!getCurrentTab().isSnapshot()) return;
+    public boolean goLive(String url) {
+        if (!getCurrentTab().isSnapshot())
+            return false;
         SnapshotTab t = (SnapshotTab) getCurrentTab();
-        String url = t.getLiveUrl();
-        boolean onlySingleTabRemaining = false;
-        if (mTabControl.getTabCount() > 1) {
-            // destroy the old snapshot tab
-            closeCurrentTab();
-        } else {
-            onlySingleTabRemaining = true;
-        }
-        Tab liveTab =  createNewTab(false, true, false);
-        if (onlySingleTabRemaining) {
+
+        if (url == null) { // "go live" button was clicked
+            url = t.getLiveUrl();
             closeTab(t);
         }
-
+        Tab liveTab = createNewTab(false, true, false);
         loadUrl(liveTab, url);
+        return true;
     }
 
     private void showExitDialog(final Activity activity) {
