@@ -2985,7 +2985,7 @@ public class Controller
     public SnapshotTab createNewSnapshotTab(long snapshotId, boolean setActive) {
         SnapshotTab tab = null;
         if (mTabControl.canCreateNewTab()) {
-            tab = mTabControl.createSnapshotTab(snapshotId);
+            tab = mTabControl.createSnapshotTab(snapshotId, null);
             addTab(tab);
             if (setActive) {
                 setActiveTab(tab);

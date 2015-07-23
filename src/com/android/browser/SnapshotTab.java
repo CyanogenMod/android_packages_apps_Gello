@@ -53,9 +53,13 @@ public class SnapshotTab extends Tab {
 
     // Used for saving and restoring each Tab
     static final String SNAPSHOT_ID = "snapshotId";
+    static final String ID = "ID";
 
-    public SnapshotTab(WebViewController wvcontroller, long snapshotId) {
-        super(wvcontroller, null, null);
+
+    public SnapshotTab(WebViewController wvcontroller,
+                       long snapshotId,
+                       Bundle state) {
+        super(wvcontroller, null, state);
         mSnapshotId = snapshotId;
         mWebViewFactory = mWebViewController.getWebViewFactory();
         WebView web = mWebViewFactory.createWebView(false);
@@ -122,8 +126,8 @@ public class SnapshotTab extends Tab {
         }
 
         mSavedState = new Bundle();
+        mSavedState = super.saveState();
         mSavedState.putLong(SNAPSHOT_ID, mSnapshotId);
-
         return mSavedState;
     }
 

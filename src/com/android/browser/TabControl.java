@@ -242,8 +242,8 @@ class TabControl {
         return createNewTab(false);
     }
 
-    SnapshotTab createSnapshotTab(long snapshotId) {
-        SnapshotTab t = new SnapshotTab(mController, snapshotId);
+    SnapshotTab createSnapshotTab(long snapshotId, Bundle state) {
+        SnapshotTab t = new SnapshotTab(mController, snapshotId, state);
         mTabs.add(t);
         mTabCountObservable.set(mTabs.size());
         return t;
@@ -441,7 +441,7 @@ class TabControl {
                 Tab t = null;
                 // Add special check to restore Snapshot Tab if needed
                 if (state.getLong(SnapshotTab.SNAPSHOT_ID, -1) != -1 ) {
-                  t = (SnapshotTab) createSnapshotTab( state.getLong(SnapshotTab.SNAPSHOT_ID) );
+                  t = (SnapshotTab) createSnapshotTab( state.getLong(SnapshotTab.SNAPSHOT_ID), state);
                 } else {
                     // presume its a normal Tab
                     t = createNewTab(state, false);
