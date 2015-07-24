@@ -126,9 +126,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         }
         if (mOverflowMenu != null) {
             mOverflowMenu.setOnClickListener(this);
-            boolean showMenu = !ViewConfiguration.get(getContext())
-                    .hasPermanentMenuKey();
-            mOverflowMenu.setVisibility(showMenu ? VISIBLE : GONE);
+            mOverflowMenu.setVisibility(VISIBLE);
         }
         if (mToggleContainer != null) {
             mToggleContainer.setOnClickListener(this);

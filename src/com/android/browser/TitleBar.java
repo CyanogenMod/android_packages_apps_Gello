@@ -304,7 +304,7 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
                 mSnapshotBar.setReadericonVisibility(View.VISIBLE);
             } else {
                 mSnapshotBar.setSnapshoticonVisibility(View.VISIBLE);
-                mSnapshotBar.setFaviconVisibility(View.VISIBLE);
+                mSnapshotBar.setFaviconVisibility(View.GONE); // Snapshot Tabs don't have a Favicon
                 mSnapshotBar.setReadericonVisibility(View.GONE);
             }
         } else {
