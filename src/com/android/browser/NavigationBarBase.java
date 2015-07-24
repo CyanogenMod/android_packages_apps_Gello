@@ -293,16 +293,18 @@ public class NavigationBarBase extends LinearLayout implements
             WebRefiner.PageInfo pageInfo = webRefiner.getPageInfo(wv);
             if (pageInfo != null) {
                 for (WebRefiner.MatchedURLInfo urlInfo : pageInfo.mMatchedURLInfoList) {
-                    switch (urlInfo.mMatchedFilterCategory) {
-                        case WebRefiner.RuleSet.CATEGORY_ADS:
-                            ads++;
-                            break;
-                        case WebRefiner.RuleSet.CATEGORY_TRACKERS:
-                            tracker++;
-                            break;
-                        case WebRefiner.RuleSet.CATEGORY_MALWARE_DOMAINS:
-                            malware++;
-                            break;
+                    if (urlInfo.mActionTaken == WebRefiner.MatchedURLInfo.ACTION_BLOCKED) {
+                        switch (urlInfo.mMatchedFilterCategory) {
+                            case WebRefiner.RuleSet.CATEGORY_ADS:
+                                ads++;
+                                break;
+                            case WebRefiner.RuleSet.CATEGORY_TRACKERS:
+                                tracker++;
+                                break;
+                            case WebRefiner.RuleSet.CATEGORY_MALWARE_DOMAINS:
+                                malware++;
+                                break;
+                        }
                     }
                 }
             }
