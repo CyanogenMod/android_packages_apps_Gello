@@ -560,6 +560,11 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             NavigationBarBase.setStatusAndNavigationBarColor(getActivity(),
                     NavigationBarBase.getDefaultStatusBarColor());
         }
+
+        // flush all the settings in pause to assure that writes happen
+        //  as soon the user leaves the activity
+        PermissionsServiceFactory.flushPendingSettings();
+
     }
 
     private void appendActionBarDisplayOptions(int extraOptions) {

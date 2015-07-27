@@ -105,6 +105,12 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
     }
 
     @Override
+    public void onPause() {
+       super.onPause();
+       PermissionsServiceFactory.flushPendingSettings();
+    }
+
+    @Override
     public boolean onPreferenceClick(Preference preference) {
         FragmentManager fragmentManager = getFragmentManager();
 
