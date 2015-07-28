@@ -42,6 +42,8 @@ import org.codeaurora.swe.WebRefiner;
 public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
+    private Preference mClearPref;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +54,8 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
         websiteSettings.setFragment(WebsiteSettingsFragment.class.getName());
         websiteSettings.setOnPreferenceClickListener(this);
 
-        Preference e = findPreference(PreferenceKeys.PREF_CLEAR_SELECTED_DATA);
-        e.setOnPreferenceChangeListener(this);
+        mClearPref = findPreference(PreferenceKeys.PREF_CLEAR_SELECTED_DATA);
+        mClearPref.setOnPreferenceChangeListener(this);
 
         readAndShowPermission("enable_geolocation",
                 PermissionsServiceFactory.PermissionType.GEOLOCATION);
@@ -120,7 +122,17 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference pref, Object objValue) {
-        boolean flag = (boolean) objValue;
+        boolean flag = true;
+        if (pref == mClearPref) {
+            Integer value = (Integer) objValue;
+            if (value == 0) {
+                return false;
+            }
+        } else {
+            Boolean bFlag = (Boolean) objValue;
+            flag = bFlag.booleanValue();
+        }
+
         if (pref.getKey().equals(PreferenceKeys.PREF_CLEAR_SELECTED_DATA)) {
             if (pref.getPreferenceManager().getDefaultSharedPreferences(
                     (Context) getActivity()).getBoolean(

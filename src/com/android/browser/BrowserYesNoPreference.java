@@ -16,14 +16,14 @@
 
 package com.android.browser;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,12 +31,21 @@ import android.widget.Button;
 class BrowserYesNoPreference extends DialogPreference {
     private SharedPreferences mPrefs;
     private Context mContext;
+    private String mNeutralBtnTxt;
+    private String mPositiveBtnTxt;
+    private String mNegativeBtnTxt;
+    private boolean mNeutralBtnClicked = false;
 
     // This is the constructor called by the inflater
     public BrowserYesNoPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         mContext = context;
+        final TypedArray a = mContext.obtainStyledAttributes(attrs,
+                R.styleable.BrowserYesNoPreference, 0, 0);
+        mNeutralBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_neutralButtonText);
+        mPositiveBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_positiveButtonText);
+        mNegativeBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_negativeButtonText);
     }
 
     @Override
@@ -60,8 +69,30 @@ class BrowserYesNoPreference extends DialogPreference {
     }
 
     @Override
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
+        super.onPrepareDialogBuilder(builder);
+        if (mNeutralBtnTxt != null) {
+            builder.setNeutralButton(mNeutralBtnTxt, this);
+        }
+
+        if (mPositiveBtnTxt != null) {
+            builder.setPositiveButton(mPositiveBtnTxt, this);
+        }
+
+        if (mNegativeBtnTxt != null) {
+            builder.setNegativeButton(mNegativeBtnTxt, this);
+        }
+    }
+
+    @Override
     protected void onClick() {
         super.onClick();
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        super.onClick(dialog, which);
+        mNeutralBtnClicked = DialogInterface.BUTTON_NEUTRAL == which;
     }
 
     @Override
@@ -115,11 +146,13 @@ class BrowserYesNoPreference extends DialogPreference {
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
+        Integer result = (positiveResult) ? 1 : 0;
 
-        if (!positiveResult)
-            return;
+        if (mNeutralBtnTxt != null && mNeutralBtnClicked) {
+            result = 2;
+        }
 
-        if (callChangeListener(positiveResult)) {
+        if (callChangeListener(result)) {
             setEnabled(false);
             BrowserSettings settings = BrowserSettings.getInstance();
             if (PreferenceKeys.PREF_CLEAR_SELECTED_DATA.equals(getKey())) {
@@ -147,6 +180,16 @@ class BrowserYesNoPreference extends DialogPreference {
                 setEnabled(true);
             } else if (PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES.equals(
                     getKey())) {
+                if (mNeutralBtnClicked) {
+                    settings.clearCache();
+                    settings.clearDatabases();
+                    settings.clearCookies();
+                    settings.clearHistory();
+                    settings.clearFormData();
+                    settings.clearPasswords();
+                    settings.clearLocationAccess();
+                }
+
                 settings.resetDefaultPreferences();
                 setEnabled(true);
             }

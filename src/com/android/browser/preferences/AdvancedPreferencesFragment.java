@@ -156,13 +156,14 @@ public class AdvancedPreferencesFragment
         }
 
         else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
-            Boolean value = (Boolean) objValue;
-            if (value.booleanValue() == true) {
+            Integer value = (Integer) objValue;
+            if (value.intValue() != 0) {
                 PermissionsServiceFactory.resetDefaultPermissions();
                 mFragment.startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
                         mFragment.getActivity(), BrowserActivity.class));
                 return true;
             }
+
         } else if (pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
             ListPreference lp = (ListPreference) pref;
             lp.setValue((String) objValue);

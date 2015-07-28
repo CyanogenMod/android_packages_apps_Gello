@@ -14,8 +14,8 @@
      limitations under the License.
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
     <PreferenceCategory
         android:layout="@layout/swe_preference_category_first"
         android:title="@string/pref_general_title">
@@ -107,6 +107,7 @@
             android:key="reset_default_preferences"
             android:title="@string/pref_extras_reset_default"
             android:summary="@string/pref_extras_reset_default_summary"
+            app:neutralButtonText="@string/website_settings_clear_all"
             android:dialogMessage="@string/pref_extras_reset_default_dlg"
             android:dialogIcon="@android:drawable/ic_dialog_alert" />
 

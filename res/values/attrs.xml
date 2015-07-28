@@ -40,4 +40,9 @@
         <attr name="android:label" />
     </declare-styleable>
 
+    <declare-styleable name="BrowserYesNoPreference">
+        <attr name="positiveButtonText" format="string|reference" />
+        <attr name="negativeButtonText" format="string|reference" />
+        <attr name="neutralButtonText" format="string|reference" />
+    </declare-styleable>
 </resources>
