@@ -72,7 +72,7 @@
     <dimen name="nav_tab_text_normal">18sp</dimen>
     <dimen name="nav_tab_text_small">14sp</dimen>
     <dimen name="suggest_item_padding">8dp</dimen>
-    <dimen name="progress_bar_margin">-12dip</dimen>
+    <dimen name="progress_bar_margin">-18dip</dimen>
 
     <!-- Custom Menu dimensions -->
     <dimen name="menu_negative_software_vertical_offset">0dp</dimen>

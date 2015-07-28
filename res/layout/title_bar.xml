@@ -38,14 +38,15 @@
             android:layout="@layout/title_bar_snapshot"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height" />
-
-        <!-- Cosmetic separator -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:background="@color/NavigationBarUnderline" />
     </FrameLayout>
+
+    <!--The dropshadow for the titlebar-->
+    <ImageView
+        android:id="@+id/titleBar_dropShadow"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_deco_dropshadow" />
 
     <!-- the main Progress view -->
     <com.android.browser.PageProgressView
