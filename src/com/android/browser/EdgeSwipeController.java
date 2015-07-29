@@ -321,11 +321,11 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
             if (mbNavigated) {
                 mView.setStationaryViewBitmap(getSnapshotOrFavicon(mCurrIndex));
-                mView.setStationaryViewAlpha(1.0f);
             } else {
                 swipeSessionCleanup();
             }
 
+            mView.setStationaryViewAlpha(1.0f);
             mView.invalidate();
 
             setState(ViewDragHelper.STATE_SETTLING, ViewDragHelper.STATE_IDLE);
@@ -387,6 +387,7 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                     if (mView.isLive()) {
                         return;
                     }
+                    mView.setStationaryViewAlpha(mMinAlpha + alpha * (1 - mMinAlpha));
 
                     if (mState != ViewDragHelper.STATE_IDLE) {
                         mView.moveShadowView(left);
@@ -398,13 +399,10 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                         if (!mView.stationaryViewHasImage()) {
                             mView.setStationaryViewBitmap(getSnapshotOrFavicon(mPrevIndex));
                         }
-
-                        if (mActiveTab.getWebView().canGoToHistoryIndex(mPrevIndex)) {
-                            mView.setStationaryViewAlpha(mMinAlpha + alpha * (1 - mMinAlpha));
-                        }
                     }
                     break;
                 case ViewDragHelper.EDGE_RIGHT:
+                    mView.setStationaryViewAlpha(mMinAlpha + (1 - alpha) * (1 - mMinAlpha));
                     if (mState != ViewDragHelper.STATE_IDLE) {
                         mView.moveShadowView(mView.getMeasuredWidth() + left);
 
@@ -416,10 +414,6 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                         if (mbCurrBMSynced) {
                             mView.goDormant();
                         }
-                    }
-                    if (mNextIndex < mMaxIndex &&
-                            mActiveTab.getWebView().canGoToHistoryIndex(mNextIndex)) {
-                        mView.setStationaryViewAlpha(mMinAlpha + (1 - alpha) * (1 - mMinAlpha));
                     }
                     break;
                 default:
