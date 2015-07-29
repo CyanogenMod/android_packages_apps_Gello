@@ -333,7 +333,8 @@ public class UrlInputView extends AutoCompleteTextView
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (StateListener.STATE_HIGHLIGHTED == mState) {
+        if (StateListener.STATE_HIGHLIGHTED == mState ||
+            StateListener.STATE_EDITED == mState) {
             changeState(StateListener.STATE_EDITED);
         }
     }

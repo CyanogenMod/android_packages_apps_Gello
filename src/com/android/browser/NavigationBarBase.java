@@ -765,11 +765,11 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public void onStateChanged(int state) {
         mVoiceButton.setVisibility(View.GONE);
+        mClearButton.setVisibility(View.GONE);
         switch(state) {
             case STATE_NORMAL:
                 mFaviconTile.setVisibility(View.VISIBLE);
                 mMagnify.setVisibility(View.GONE);
-                mClearButton.setVisibility(View.GONE);
                 mMore.setVisibility(View.VISIBLE);
                 if (mUiController != null) {
                     Tab currentTab = mUiController.getCurrentTab();
@@ -785,20 +785,24 @@ public class NavigationBarBase extends LinearLayout implements
                 break;
             case STATE_HIGHLIGHTED:
                 mFaviconTile.setVisibility(View.GONE);
-                mMagnify.setVisibility(View.GONE);
-                mClearButton.setVisibility(View.GONE);
+                mMagnify.setVisibility(View.VISIBLE);
+                mClearButton.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 if (mUiController != null) {
                     mUiController.setWindowDimming(0.75f);
-                    if (mUiController.supportsVoice()) {
-                        mVoiceButton.setVisibility(View.VISIBLE);
-                    }
                 }
                 break;
             case STATE_EDITED:
+                if (TextUtils.isEmpty(mUrlInput.getText()) &&
+                        mUiController != null &&
+                        mUiController.supportsVoice()) {
+                    mVoiceButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    mClearButton.setVisibility(View.VISIBLE);
+                }
                 mFaviconTile.setVisibility(View.GONE);
                 mMagnify.setVisibility(View.VISIBLE);
-                mClearButton.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 break;
         }

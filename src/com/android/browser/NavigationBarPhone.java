@@ -147,7 +147,6 @@ public class NavigationBarPhone extends NavigationBarBase implements StateListen
                 mUrlInput.selectAll();
             }
 
-            mStopButton.setVisibility(View.VISIBLE);
             mTabSwitcher.setVisibility(View.GONE);
             mTabText.setVisibility(View.GONE);
 

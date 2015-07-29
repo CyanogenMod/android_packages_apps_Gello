@@ -136,8 +136,8 @@
                 <data android:scheme="file" />
                 <data android:mimeType="application/x-webarchive-xml"/>
             </intent-filter>
-            <!-- Accept inbound NFC URLs at a low priority -->
-            <intent-filter android:priority="-101">
+            <!-- Accept inbound NFC URLs -->
+            <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />

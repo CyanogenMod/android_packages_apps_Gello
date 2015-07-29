@@ -61,6 +61,7 @@
             android:contentDescription="@string/accessibility_button_stop"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
+            android:visibility="gone"
             android:src="@drawable/ic_action_stop" />
 
         <com.android.browser.UrlInputView
@@ -90,7 +91,6 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_voice"
-            android:paddingEnd="4dip"
             android:src="@drawable/ic_action_microphone_normal"
             android:visibility="gone" />
 
