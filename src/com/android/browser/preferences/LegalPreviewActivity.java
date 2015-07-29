@@ -36,6 +36,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 
 import com.android.browser.R;
 
@@ -50,6 +51,7 @@ public class LegalPreviewActivity extends FragmentActivity {
         ActionBar bar = getActionBar();
         if (bar != null) {
             bar.setTitle(R.string.swe_open_source_licenses);
+            bar.setDisplayHomeAsUpEnabled(true);
         }
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         mLegalPreviewFragment = new LegalPreviewFragment();
@@ -63,17 +65,31 @@ public class LegalPreviewActivity extends FragmentActivity {
         fragmentTransaction.commit();
     }
 
+    private boolean back() {
+        if(!mLegalPreviewFragment.onBackPressed()) {
+            onBackPressed();
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if (event.isTracking() && !event.isCanceled()) {
-                    if(!mLegalPreviewFragment.onBackPressed()) {
-                        finish();
-                    }
+                    return back();
                 }
-                break;
         }
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return back();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
