@@ -1028,7 +1028,8 @@ public class Controller
                 mWasInPageLoad = true;
             }
         }
-        mUi.onProgressChanged(tab);
+        if (isInLoad())
+            mUi.onProgressChanged(tab);
     }
 
     @Override
