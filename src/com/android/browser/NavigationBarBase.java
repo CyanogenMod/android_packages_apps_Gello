@@ -28,7 +28,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.net.http.SslCertificate;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -93,8 +92,6 @@ public class NavigationBarBase extends LinearLayout implements
     private static final int WEBREFINER_COUNTER_MSG = 4242;
     private static final int WEBREFINER_COUNTER_MSG_DELAY = 3000;
     private Handler mHandler;
-
-    private Tab.SecurityState mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
 
     private static final String noSitePrefs[] = {
             "browser://",
@@ -166,8 +163,7 @@ public class NavigationBarBase extends LinearLayout implements
     }
 
     public void setSecurityState(Tab.SecurityState securityState) {
-        mSecurityState = securityState;
-        switch (mSecurityState) {
+        switch (securityState) {
             case SECURITY_STATE_SECURE:
                 mFaviconTile.setTrustLevel(SiteTileView.TRUST_TRUSTED);
                 mFaviconTile.setBadgeHasCertIssues(false);
@@ -321,34 +317,12 @@ public class NavigationBarBase extends LinearLayout implements
         bundle.putParcelable(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT,
                 SslCertificate.saveState(wv.getCertificate()));
 
-        SslError error = mUiController.getCurrentTab().getSslCertificateError();
-        if (error != null) {
-            int certError = 0;
-            if (error.hasError(SslError.SSL_DATE_INVALID)) {
-                certError |= (1 << SslError.SSL_DATE_INVALID);
-            }
-
-            if (error.hasError(SslError.SSL_EXPIRED)) {
-                certError |= (1 << SslError.SSL_EXPIRED);
-            }
-
-            if (error.hasError(SslError.SSL_IDMISMATCH)) {
-                certError |= (1 << SslError.SSL_IDMISMATCH);
-            }
-
-            if (error.hasError(SslError.SSL_INVALID)) {
-                certError |= (1 << SslError.SSL_INVALID);
-            }
-
-            if (error.hasError(SslError.SSL_NOTYETVALID)) {
-                certError |= (1 << SslError.SSL_NOTYETVALID);
-            }
-
-            if (error.hasError(SslError.SSL_UNTRUSTED)) {
-                certError |= (1 << SslError.SSL_UNTRUSTED);
-            }
-
-            bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT_ERR, certError);
+        Tab.SecurityState securityState = Tab.getWebViewSecurityState(
+                mUiController.getCurrentTab().getWebView());
+        if (securityState == Tab.SecurityState.SECURITY_STATE_MIXED) {
+            bundle.putBoolean(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT_MIXED, true);
+        } else if (securityState == Tab.SecurityState.SECURITY_STATE_BAD_CERTIFICATE) {
+            bundle.putBoolean(SiteSpecificPreferencesFragment.EXTRA_SECURITY_CERT_BAD, true);
         }
 
         Bitmap favicon = mUiController.getCurrentTopWebView().getFavicon();
@@ -732,7 +706,7 @@ public class NavigationBarBase extends LinearLayout implements
         mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
         mFaviconTile.setBadgeHasCertIssues(false);
         mFaviconTile.replaceFavicon(mDefaultFavicon);
-        mSecurityState = Tab.SecurityState.SECURITY_STATE_NOT_SECURE;
+        setSecurityState(Tab.SecurityState.SECURITY_STATE_NOT_SECURE);
         mHandler.removeMessages(WEBREFINER_COUNTER_MSG);
         mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,
                 WEBREFINER_COUNTER_MSG_DELAY);

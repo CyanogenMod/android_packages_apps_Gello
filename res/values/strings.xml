@@ -423,7 +423,8 @@
         <item>"Blocked %1$s and %2$s. "</item>
         <item>"Blocked %1$s, %2$s and $3$s. "</item>
     </string-array>
-    <string name="pref_valid_cert">Site has a valid SSL certificate.</string>
+    <string name="pref_valid_cert"
+        >Valid SSL certificate. Communication is encrypted and identity is verified.</string>
     <string name="pref_invalid_cert">Site has an invalid SSL certificate.</string>
     <string name="pref_warning_cert">Site SSL certificate has warnings.</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->

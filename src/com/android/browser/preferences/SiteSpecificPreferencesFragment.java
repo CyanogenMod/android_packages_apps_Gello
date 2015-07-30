@@ -32,32 +32,36 @@ package com.android.browser.preferences;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.http.SslCertificate;
-import android.net.http.SslError;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
+import android.text.Html;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.browser.BrowserLocationListPreference;
-import com.android.browser.BrowserLocationSwitchPreference;
 import com.android.browser.BrowserSettings;
 import com.android.browser.NavigationBarBase;
-import com.android.browser.PageDialogsHandler;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
+import com.android.browser.reflect.ReflectHelper;
 
 import org.codeaurora.swe.PermissionsServiceFactory;
 import org.codeaurora.swe.WebRefiner;
@@ -65,7 +69,6 @@ import org.codeaurora.swe.util.ColorUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Formatter;
@@ -82,7 +85,8 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     public static final String EXTRA_WEB_REFINER_TRACKER_INFO = "website_refiner_tracker_info";
     public static final String EXTRA_WEB_REFINER_MALWARE_INFO = "website_refiner_malware_info";
     public static final String EXTRA_SECURITY_CERT = "website_security_cert";
-    public static final String EXTRA_SECURITY_CERT_ERR = "website_security_cert_err";
+    public static final String EXTRA_SECURITY_CERT_BAD = "website_security_cert_bad";
+    public static final String EXTRA_SECURITY_CERT_MIXED = "website_security_cert_mixed";
 
     private PermissionsServiceFactory.PermissionsService.OriginInfo mOriginInfo;
     private PermissionsServiceFactory.PermissionsService mPermServ;
@@ -94,7 +98,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     private int mIconColor = 0;
 
     private SslCertificate mSslCert;
-    private SslError mSslError;
+    private int mSslState;
 
     private static class SiteSecurityViewFactory {
         private class SiteSecurityView {
@@ -280,51 +284,70 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 pref.setSelectable(true);
             }
 
-            int certErrors = args.getInt(EXTRA_SECURITY_CERT_ERR, 0);
-
-            if (certErrors == 0) {
+            boolean certBad = args.getBoolean(EXTRA_SECURITY_CERT_BAD, false);
+            boolean certMix = args.getBoolean(EXTRA_SECURITY_CERT_MIXED, false);
+            if (!certBad && !certMix) {
+                final String string = getString(R.string.pref_valid_cert);
                 mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.INFO,
-                        getString(R.string.pref_valid_cert));
+                        string);
+                mSslState = 0;
+            } else if (certMix) {
+                mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING,
+                        getString(R.string.pref_warning_cert));
+                mSslState = 1;
             } else {
-                mSslError = new SslError(-1, mSslCert, mOriginText);
-
-                if ((certErrors & (1 << SslError.SSL_DATE_INVALID)) != 0) {
-                    mSslError.addError(SslError.SSL_DATE_INVALID);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            getString(R.string.pref_invalid_cert));
-                }
-
-                if ((certErrors & (1 << SslError.SSL_EXPIRED)) != 0) {
-                    mSslError.addError(SslError.SSL_EXPIRED);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            getString(R.string.pref_invalid_cert));
-                }
-
-                if ((certErrors & (1 << SslError.SSL_IDMISMATCH)) != 0) {
-                    mSslError.addError(SslError.SSL_IDMISMATCH);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            getString(R.string.pref_invalid_cert));
-                }
-
-                if ((certErrors & (1 << SslError.SSL_INVALID)) != 0) {
-                    mSslError.addError(SslError.SSL_INVALID);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
-                            getString(R.string.pref_invalid_cert));
-                }
-
-                if ((certErrors & (1 << SslError.SSL_NOTYETVALID)) != 0) {
-                    mSslError.addError(SslError.SSL_NOTYETVALID);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING,
-                            getString(R.string.pref_warning_cert));
-                }
-
-                if ((certErrors & (1 << SslError.SSL_UNTRUSTED)) != 0) {
-                    mSslError.addError(SslError.SSL_UNTRUSTED);
-                    mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING,
-                            getString(R.string.pref_warning_cert));
-                }
+                mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.ERROR,
+                        getString(R.string.pref_invalid_cert));
+                mSslState = 2;
             }
         }
+    }
+
+    private AlertDialog.Builder createSslCertificateDialog(Context ctx,
+                                                           SslCertificate certificate) {
+        Object[] params = {ctx};
+        Class[] type = new Class[] {Context.class};
+        View certificateView = (View) ReflectHelper.invokeMethod(certificate,
+                "inflateCertificateView", type, params);
+        Resources res = Resources.getSystem();
+        // load 'android.R.placeholder' via introspection, since it's not a public resource ID
+        int placeholder_id = res.getIdentifier("placeholder", "id", "android");
+        final LinearLayout placeholder =
+                (LinearLayout)certificateView.findViewById(placeholder_id);
+
+        LayoutInflater factory = LayoutInflater.from(ctx);
+        int iconId = R.drawable.ic_cert_trusted;
+        TextView textView;
+
+        switch (mSslState) {
+            case 0:
+                iconId = R.drawable.ic_cert_trusted;
+                LinearLayout table = (LinearLayout)factory.inflate(R.layout.ssl_success, placeholder);
+                textView = (TextView)table.findViewById(R.id.success);
+                textView.setText(R.string.ssl_certificate_is_valid);
+                break;
+            case 1:
+                iconId = R.drawable.ic_cert_untrusted;
+                textView = (TextView) factory.inflate(R.layout.ssl_warning, placeholder, false);
+                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sp_level_warning,
+                        0, 0, 0);
+                textView.setText(R.string.ssl_unknown);
+                placeholder.addView(textView);
+                break;
+            case 2:
+                iconId = R.drawable.ic_cert_avoid;
+                textView = (TextView) factory.inflate(R.layout.ssl_warning, placeholder, false);
+                textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sp_level_severe,
+                        0, 0, 0);
+                textView.setText(R.string.ssl_invalid);
+                placeholder.addView(textView);
+                break;
+        }
+
+        return new AlertDialog.Builder(ctx)
+                .setTitle(R.string.ssl_certificate)
+                .setIcon(iconId)
+                .setView(certificateView);
     }
 
     private void setActionBarTitle(String url) {
@@ -644,7 +667,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.site_security_info) {
-            PageDialogsHandler.createSslCertificateDialog(getActivity(),mSslCert, mSslError)
+            createSslCertificateDialog(getActivity(), mSslCert)
                     .setPositiveButton(R.string.ok, null)
                     .show();
         }

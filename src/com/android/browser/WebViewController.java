@@ -20,15 +20,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import org.codeaurora.swe.HttpAuthHandler;
-import org.codeaurora.swe.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
-import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebView;
 
 import java.util.List;
@@ -84,9 +81,6 @@ public interface WebViewController {
     Bitmap getDefaultVideoPoster();
 
     View getVideoLoadingProgressView();
-
-    void showSslCertificateOnError(WebView view, SslErrorHandler handler,
-            SslError error);
 
     void onUserCanceledSsl(Tab tab);
 

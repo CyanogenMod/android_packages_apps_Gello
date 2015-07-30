@@ -20,13 +20,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import org.codeaurora.swe.HttpAuthHandler;
-import org.codeaurora.swe.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import org.codeaurora.swe.WebView;
@@ -178,12 +176,6 @@ public class PreloadController implements WebViewController {
     public View getVideoLoadingProgressView() {
         if (LOGD_ENABLED) Log.d(LOGTAG, "getVideoLoadingProgressView()");
         return null;
-    }
-
-    @Override
-    public void showSslCertificateOnError(WebView view,
-                                    SslErrorHandler handler, SslError error) {
-        if (LOGD_ENABLED) Log.d(LOGTAG, "showSslCertificateOnError()");
     }
 
     @Override

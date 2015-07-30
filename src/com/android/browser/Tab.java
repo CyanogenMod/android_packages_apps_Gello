@@ -36,7 +36,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,7 +47,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewStub;
 import android.webkit.ConsoleMessage;
 import android.webkit.URLUtil;
 import android.webkit.WebResourceResponse;
@@ -68,7 +66,6 @@ import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.BrowserDownloadListener;
 import org.codeaurora.swe.ClientCertRequestHandler;
 import org.codeaurora.swe.HttpAuthHandler;
-import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebBackForwardList;
 import org.codeaurora.swe.WebChromeClient;
 import org.codeaurora.swe.WebView;
@@ -226,7 +223,6 @@ class Tab implements PictureListener {
         String mTitle;
         SecurityState mSecurityState;
         // This is non-null only when mSecurityState is SECURITY_STATE_BAD_CERTIFICATE.
-        SslError mSslCertificateError;
         Bitmap mFavicon;
         boolean mIsBookmarkedSite;
         boolean mIncognito;
@@ -246,11 +242,7 @@ class Tab implements PictureListener {
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
             mIncognito = incognito;
             mOriginalUrl = mUrl = url;
-            if (URLUtil.isHttpsUrl(url)) {
-                mSecurityState = SecurityState.SECURITY_STATE_SECURE;
-            } else {
-                mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
-            }
+            mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
             mFavicon = favicon;
         }
 
@@ -301,6 +293,20 @@ class Tab implements PictureListener {
 
     public int getNavIdxFromCaptureIdx(int index) {
         return (index & 0xffffff);
+    }
+
+    public static SecurityState getWebViewSecurityState(WebView view) {
+        switch (view.getSecurityLevel()) {
+            case WebView.SecurityLevel.EV_SECURE:
+            case WebView.SecurityLevel.SECURE:
+                return SecurityState.SECURITY_STATE_SECURE;
+            case WebView.SecurityLevel.SECURITY_ERROR:
+                return SecurityState.SECURITY_STATE_BAD_CERTIFICATE;
+            case WebView.SecurityLevel.SECURITY_POLICY_WARNING:
+            case WebView.SecurityLevel.SECURITY_WARNING:
+                return SecurityState.SECURITY_STATE_MIXED;
+        }
+        return SecurityState.SECURITY_STATE_NOT_SECURE;
     }
 
     // -------------------------------------------------------------------------
@@ -359,6 +365,7 @@ class Tab implements PictureListener {
             }
             syncCurrentState(view, url);
             mWebViewController.onPageFinished(Tab.this);
+            setSecurityState(getWebViewSecurityState(view));
         }
 
         @Override
@@ -480,74 +487,6 @@ class Tab implements PictureListener {
         public void doUpdateVisitedHistory(WebView view, String url,
                 boolean isReload) {
             mWebViewController.doUpdateVisitedHistory(Tab.this, isReload);
-        }
-
-        /**
-         * Displays SSL error(s) dialog to the user.
-         */
-        @Override
-        public void onReceivedSslError(final WebView view,
-                final SslErrorHandler handler, final SslError error) {
-            if (!mInForeground) {
-                handler.cancel();
-                setSecurityState(SecurityState.SECURITY_STATE_NOT_SECURE);
-                return;
-            }
-            if (mSettings.showSecurityWarnings()) {
-                new AlertDialog.Builder(mContext)
-                    .setTitle(R.string.security_warning)
-                    .setMessage(R.string.ssl_warnings_header)
-                    .setIconAttribute(android.R.attr.alertDialogIcon)
-                    .setPositiveButton(R.string.ssl_continue,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
-                                handler.proceed();
-                                handleProceededAfterSslError(error);
-                            }
-                        })
-                    .setNeutralButton(R.string.view_certificate,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
-                                mWebViewController.showSslCertificateOnError(
-                                        view, handler, error);
-                            }
-                        })
-                    .setNegativeButton(R.string.ssl_go_back,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
-                                dialog.cancel();
-                            }
-                        })
-                    .setOnCancelListener(
-                        new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                handler.cancel();
-                                setSecurityState(SecurityState.SECURITY_STATE_NOT_SECURE);
-                                mWebViewController.onUserCanceledSsl(Tab.this);
-                            }
-                        })
-                    .show();
-            } else {
-                handler.proceed();
-            }
-        }
-
-        /**
-         * Called when an SSL error occurred while loading a resource, but the
-         * WebView but chose to proceed anyway based on a decision retained
-         * from a previous response to onReceivedSslError(). We update our
-         * security state to reflect this.
-         */
-        @Override
-        public void onProceededAfterSslError(WebView view, SslError error) {
-            handleProceededAfterSslError(error);
         }
 
         /**
@@ -751,7 +690,6 @@ class Tab implements PictureListener {
             // In case we stop when loading an HTTPS page from an HTTP page
             // but before a provisional load occurred
             mCurrentState.mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
-            mCurrentState.mSslCertificateError = null;
         }
         mCurrentState.mIncognito = view.isPrivateBrowsingEnabled();
     }
@@ -1175,16 +1113,6 @@ class Tab implements PictureListener {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return mClient.shouldOverrideUrlLoading(view, url);
-        }
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler,
-                SslError error) {
-            mClient.onReceivedSslError(view, handler, error);
-        }
-        @Override
-        public void onReceivedClientCertRequest(WebView view,
-                ClientCertRequestHandler handler, String host_and_port) {
-            mClient.onReceivedClientCertRequest(view, handler, host_and_port);
         }
         @Override
         public void onReceivedHttpAuthRequest(WebView view,
@@ -1792,7 +1720,6 @@ class Tab implements PictureListener {
      */
     private void setSecurityState(SecurityState securityState) {
         mCurrentState.mSecurityState = securityState;
-        mCurrentState.mSslCertificateError = null;
         mWebViewController.onUpdatedSecurityState(this);
     }
 
@@ -1801,15 +1728,6 @@ class Tab implements PictureListener {
      */
     SecurityState getSecurityState() {
         return mCurrentState.mSecurityState;
-    }
-
-    /**
-     * Gets the SSL certificate error, if any, for the page's main resource.
-     * This is only non-null when the security state is
-     * SECURITY_STATE_BAD_CERTIFICATE.
-     */
-    SslError getSslCertificateError() {
-        return mCurrentState.mSslCertificateError;
     }
 
     int getLoadProgress() {
@@ -2146,18 +2064,6 @@ class Tab implements PictureListener {
             builder.append(getUrl());
         }
         return builder.toString();
-    }
-
-    private void handleProceededAfterSslError(SslError error) {
-        if (error.getUrl().equals(mCurrentState.mUrl)) {
-            // The security state should currently be SECURITY_STATE_SECURE.
-            setSecurityState(SecurityState.SECURITY_STATE_BAD_CERTIFICATE);
-            mCurrentState.mSslCertificateError = error;
-        } else if (getSecurityState() == SecurityState.SECURITY_STATE_SECURE) {
-            // The page's main resource is secure and this error is for a
-            // sub-resource.
-            setSecurityState(SecurityState.SECURITY_STATE_MIXED);
-        }
     }
 
     // dertermines if the tab contains a dislled page

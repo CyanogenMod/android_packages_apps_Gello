@@ -997,10 +997,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     // getter/setters for privacy_security_preferences.xml
     // -----------------------------
 
-    public boolean showSecurityWarnings() {
-        return mPrefs.getBoolean(PREF_SHOW_SECURITY_WARNINGS, true);
-    }
-
     public boolean doNotTrack() {
         boolean dntVal;
         if (DoNotTrackRestriction.getInstance().isEnabled()) {

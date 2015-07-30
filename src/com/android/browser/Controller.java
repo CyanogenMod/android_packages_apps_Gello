@@ -86,7 +86,6 @@ import org.codeaurora.swe.CookieManager;
 import org.codeaurora.swe.CookieSyncManager;
 import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.HttpAuthHandler;
-import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebSettings;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.WebBackForwardList;
@@ -195,7 +194,6 @@ public class Controller
     private UrlHandler mUrlHandler;
     private UploadHandler mUploadHandler;
     private IntentHandler mIntentHandler;
-    private PageDialogsHandler mPageDialogsHandler;
     private NetworkStateHandler mNetworkHandler;
 
     private Message mAutoFillSetupMessage;
@@ -271,7 +269,6 @@ public class Controller
 
         mUrlHandler = new UrlHandler(this);
         mIntentHandler = new IntentHandler(mActivity, this);
-        mPageDialogsHandler = new PageDialogsHandler(mActivity, this);
 
         startHandler();
         mBookmarksObserver = new ContentObserver(mHandler) {
@@ -711,9 +708,6 @@ public class Controller
         if (mOptionsMenuOpen) {
             mActivity.closeOptionsMenu();
             mHandler.sendMessageDelayed(mHandler.obtainMessage(OPEN_MENU), 100);
-        }
-        if (mPageDialogsHandler != null) {
-            mPageDialogsHandler.onConfigurationChanged(config);
         }
         mUi.onConfigurationChanged(config);
     }
@@ -1202,9 +1196,7 @@ public class Controller
         if (username != null && password != null) {
             handler.proceed(username, password);
         } else {
-            if (tab.inForeground() /*&& !handler.suppressDialog()*/) {
-                mPageDialogsHandler.showHttpAuthentication(tab, handler, host, realm);
-            } else {
+            if (!tab.inForeground()) {
                 handler.cancel();
             }
         }
@@ -1242,12 +1234,6 @@ public class Controller
     @Override
     public View getVideoLoadingProgressView() {
         return mUi.getVideoLoadingProgressView();
-    }
-
-    @Override
-    public void showSslCertificateOnError(WebView view, SslErrorHandler handler,
-            SslError error) {
-        mPageDialogsHandler.showSSLCertificateOnError(view, handler, error);
     }
 
     // helper method
@@ -2403,7 +2389,6 @@ public class Controller
 
     @Override
     public void showPageInfo() {
-        mPageDialogsHandler.showPageInfo(mTabControl.getCurrentTab(), false, null);
     }
 
     @Override
