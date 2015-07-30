@@ -660,7 +660,9 @@ class Tab implements PictureListener {
                 return;
             }
 
-
+            if (view.getUrl().equals(url)) {
+                return;
+            }
 
             final int idx = view.copyBackForwardList().getCurrentIndex();
             boolean bitmapExists = view.hasSnapshot(idx);
