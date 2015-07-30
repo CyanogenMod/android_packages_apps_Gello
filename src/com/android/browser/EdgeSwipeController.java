@@ -315,10 +315,6 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
             mView.hideSlidingViews();
 
-            if (mView.isLive()) {
-                return;
-            }
-
             if (mbNavigated) {
                 mView.setStationaryViewBitmap(getSnapshotOrFavicon(mCurrIndex));
             } else {
