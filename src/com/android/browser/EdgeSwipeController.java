@@ -39,6 +39,7 @@ import android.support.v4.widget.ViewDragHelper;
 import android.view.View;
 
 import org.codeaurora.swe.WebHistoryItem;
+import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.Activator;
 import org.codeaurora.swe.util.Observable;
 
@@ -257,13 +258,21 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
         }.start();
     }
 
+    private int lastCommittedHistoryIndex() {
+        WebView wv = mActiveTab.getWebView();
+        if (wv == null || wv.getLastCommittedHistoryIndex() == -1)
+            return 0; // WebView is null or No History has been committed for this tab
+        else
+            return wv.getLastCommittedHistoryIndex();
+    }
+
     private void monitorProgressAtHistoryUpdate(final int pageIndex) {
         if (mCommitTimer != null) {
             mCommitTimer.cancel();
         }
 
         if (mTitleBar.getProgressView().getProgressPercent() >= mMinProgress
-                && mActiveTab.getWebView().getLastCommittedHistoryIndex() == pageIndex) {
+                && lastCommittedHistoryIndex() == pageIndex) {
             swipeSessionCleanup();
             return;
         }
@@ -465,7 +474,9 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
     public void onEdgeTouched (int edgeFlags, int pointerId) {
         synchronized (this) {
-            if (mActiveTab.isPrivateBrowsingEnabled() || mActiveTab.isKeyboardShowing()) {
+            if (mActiveTab.getWebView() == null ||
+                mActiveTab.isPrivateBrowsingEnabled() ||
+                mActiveTab.isKeyboardShowing()) {
                 mDragHelper.abort();
                 return;
             }
@@ -478,7 +489,7 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
             mView.init();
 
             if (mCurrIndex == EDGE_SWIPE_INVALID_INDEX) {
-                mCurrIndex = mActiveTab.getWebView().getLastCommittedHistoryIndex();
+                mCurrIndex = lastCommittedHistoryIndex();
             }
 
             mMaxIndex = mActiveTab.getWebView().copyBackForwardList().getSize() - 1;

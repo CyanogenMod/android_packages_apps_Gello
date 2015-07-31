@@ -205,7 +205,7 @@ public class DownloadSettings extends Activity {
         public void onClick(View v) {
             filenameBase = getFilenameBaseFromUserEnter();
             // check the filename user enter is null or not
-            if (filenameBase.length() <= 0) {
+            if (TextUtils.isEmpty(filenameBase) || TextUtils.isEmpty(downloadPath)) {
                 DownloadHandler.showFilenameEmptyDialog(DownloadSettings.this);
                 return;
             }
