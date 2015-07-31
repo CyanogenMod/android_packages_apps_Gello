@@ -698,6 +698,11 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public boolean dispatchKeyEventPreIme(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            if (mUiController.getCurrentTab() != null &&
+                    mUiController.getCurrentTab().isKeyboardShowing()){
+                stopEditingUrl();
+                return true;
+            }
             // catch back key in order to do slightly more cleanup than usual
             stopEditingUrl();
         }
