@@ -64,7 +64,6 @@ import com.android.browser.provider.SnapshotProvider.Snapshots;
 
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.BrowserDownloadListener;
-import org.codeaurora.swe.ClientCertRequestHandler;
 import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.WebBackForwardList;
 import org.codeaurora.swe.WebChromeClient;
@@ -487,45 +486,6 @@ class Tab implements PictureListener {
         public void doUpdateVisitedHistory(WebView view, String url,
                 boolean isReload) {
             mWebViewController.doUpdateVisitedHistory(Tab.this, isReload);
-        }
-
-        /**
-         * Displays client certificate request to the user.
-         */
-        @Override
-        public void onReceivedClientCertRequest(final WebView view,
-                final ClientCertRequestHandler handler, final String host_and_port) {
-            if (!mInForeground) {
-                handler.ignore();
-                return;
-            }
-            int colon = host_and_port.lastIndexOf(':');
-            String host;
-            int port;
-            if (colon == -1) {
-                host = host_and_port;
-                port = -1;
-            } else {
-                String portString = host_and_port.substring(colon + 1);
-                try {
-                    port = Integer.parseInt(portString);
-                    host = host_and_port.substring(0, colon);
-                } catch  (NumberFormatException e) {
-                    host = host_and_port;
-                    port = -1;
-                }
-            }
-            KeyChain.choosePrivateKeyAlias(
-                    mWebViewController.getActivity(), new KeyChainAliasCallback() {
-                        @Override
-                        public void alias(String alias) {
-                            if (alias == null) {
-                                handler.cancel();
-                                return;
-                            }
-                            new KeyChainLookup(mContext, handler, alias).execute();
-                        }
-                    }, null, null, host, port, null);
         }
 
         /**

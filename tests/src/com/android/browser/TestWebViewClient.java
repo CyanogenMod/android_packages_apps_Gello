@@ -22,7 +22,6 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.webkit.WebViewClientClassicExt;
 
-import org.codeaurora.swe.ClientCertRequestHandler;
 import org.codeaurora.swe.HttpAuthHandler;
 import org.codeaurora.swe.SslErrorHandler;
 import org.codeaurora.swe.WebView;
@@ -100,17 +99,6 @@ abstract class TestWebViewClient extends WebViewClientClassicExt {
   public void onReceivedSslError(WebView view, SslErrorHandler handler,
           SslError error) {
       mWrappedClient.onReceivedSslError(view, handler, error);
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public void onReceivedClientCertRequest(WebView view, ClientCertRequestHandler handler,
-          String host_and_port) {
-    if (mWrappedClient instanceof WebViewClientClassicExt) {
-      ((WebViewClientClassicExt) mWrappedClient).onReceivedClientCertRequest(view, handler, host_and_port);
-    } else {
-      super.onReceivedClientCertRequest(view, handler, host_and_port);
-    }
   }
 
   /** {@inheritDoc} */

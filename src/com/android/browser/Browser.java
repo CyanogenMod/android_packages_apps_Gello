@@ -27,6 +27,7 @@ import android.os.Process;
 
 import org.chromium.chrome.browser.ChromiumApplication;
 import org.chromium.chrome.browser.PKCS11AuthenticationManager;
+import org.codeaurora.swe.SWEEmptyPKCS11AuthenticationManager;
 
 import org.codeaurora.swe.Engine;
 
@@ -126,7 +127,7 @@ public class Browser extends ChromiumApplication {
 
     @Override
     protected PKCS11AuthenticationManager getPKCS11AuthenticationManager() {
-        return null;
+        return new SWEEmptyPKCS11AuthenticationManager();
     }
 
     @Override
