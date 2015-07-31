@@ -225,10 +225,8 @@ public class UpdateNotificationService extends IntentService {
                     showNotification(this, url, version);
                 }
                 stream.close();
-            } catch (JSONException e) {
-                Log.e(LOGTAG, "handleUpdateCheck JSONException : " + e.toString());
-            } catch (IOException e) {
-                Log.e(LOGTAG, "handleUpdateCheck IOException : " + e.toString());
+            } catch (Exception e) {
+                Log.e(LOGTAG, "handleUpdateCheck Exception : " + e.toString());
             } finally {
                 // always update the timestamp
                 updateTimeStamp();
