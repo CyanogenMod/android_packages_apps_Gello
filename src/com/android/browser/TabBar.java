@@ -290,7 +290,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
         public void setActivated(boolean selected) {
             mSelected = selected;
             mClose.setVisibility(mSelected ? View.VISIBLE : View.GONE);
-            mFaviconView.setVisibility(mSelected ? View.GONE : View.VISIBLE);
+            mFaviconView.setVisibility((mSelected || mTab.isSnapshot()) ?
+                    View.GONE : View.VISIBLE);
             mTitle.setTextAppearance(mActivity, mSelected ?
                     R.style.TabTitleSelected : R.style.TabTitleUnselected);
             setHorizontalFadingEdgeEnabled(!mSelected);

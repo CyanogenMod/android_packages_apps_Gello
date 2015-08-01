@@ -82,6 +82,8 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
                 new Observable.Observer() {
                     @Override
                     public void onChange(Object... params) {
+                        if (mTabText == null)
+                            return;
                         if ((Integer) params[0] > 9) {
                             mTabText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTabSwitcherCompressedTextSize);
                         } else {
@@ -133,7 +135,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
             resetAnimation();
         }
 
-        if (mTabSwitcherInitialTextSize == 0) {
+        if (mTabSwitcherInitialTextSize == 0 && mTabText != null) {
             mTabSwitcherInitialTextSize = mTabText.getTextSize();
             mTabSwitcherCompressedTextSize = (float) (mTabSwitcherInitialTextSize / 1.2);
         }
@@ -203,6 +205,9 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
             if (navBar instanceof NavigationBarPhone) {
                 ((NavigationBarPhone)navBar).showMenu(mOverflowMenu);
             }
+            else if (navBar instanceof  NavigationBarTablet) {
+                ((NavigationBarTablet)navBar).showMenu(mOverflowMenu);
+            }
         } else if (mToggleContainer == v && !mIsAnimating) {
             mIsAnimating = true;
             showDate();
@@ -250,13 +255,13 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     }
 
     public void setReadericonVisibility(int visibility) {
-        if (mReadericon.getVisibility() != visibility) {
+        if (mReadericon != null && mReadericon.getVisibility() != visibility) {
             mReadericon.setVisibility(visibility);
         }
     }
 
     public void setFaviconVisibility(int visibility) {
-        if (mFavicon.getVisibility() != visibility) {
+        if (mFavicon != null && mFavicon.getVisibility() != visibility) {
             mFavicon.setVisibility(visibility);
         }
     }
