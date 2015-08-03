@@ -666,6 +666,20 @@ class Tab implements PictureListener {
                 ui.forceDisableFullscreenMode(popup);
             }
         }
+
+        @Override
+        public void onAttachInterstitialPage(WebView mWebView) {
+            Controller controller = (Controller)mWebViewController;
+            BaseUi ui = (BaseUi) controller.getUi();
+            ui.getTitleBar().showTopControls(false);
+        }
+
+        @Override
+        public void onDetachInterstitialPage(WebView mWebView) {
+            Controller controller = (Controller)mWebViewController;
+            BaseUi ui = (BaseUi) controller.getUi();
+            ui.getTitleBar().enableTopControls(true);
+        }
     };
 
     private void syncCurrentState(WebView view, String url) {

@@ -340,6 +340,7 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public void onClick(View v) {
         Tab currentTab = mUiController.getCurrentTab();
+        WebView wv = currentTab.getWebView();
         String url = null;
         if (currentTab != null){
             url = currentTab.getUrl();
@@ -347,7 +348,7 @@ public class NavigationBarBase extends LinearLayout implements
         if (mMore == v) {
             showMenu(mMore);
         } else if (mFaviconTile == v) {
-            if (urlHasSitePrefs(url)){
+            if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage()) ){
                 showSiteSpecificSettings();
             }
         } else if (mMagnify == v) {
