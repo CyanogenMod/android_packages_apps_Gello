@@ -338,11 +338,6 @@
         <item>On demand</item>
         <item>Off</item>
     </string-array>
-    <string-array name="pref_content_plugins_values" translatable="false">
-        <item>ON</item>
-        <item>ON_DEMAND</item>
-        <item>OFF</item>
-    </string-array>
     <!-- Settings summary [CHAR LIMIT=50]-->
     <string name="pref_content_open_in_background_summary">Open new tabs behind the current tab</string>
     <!-- Settings label [CHAR LIMIT=50] -->
@@ -364,13 +359,6 @@
         <item>Most visited sites</item>
         <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
         <item>Other</item>
-    </string-array>
-    <string-array name="pref_homepage_values" translatable="false">
-        <item>current</item>
-        <item>blank</item>
-        <item>default</item>
-        <item>most_visited</item>
-        <item>other</item>
     </string-array>
     <!-- Settings label -->
     <string name="pref_content_autofit">Auto-fit pages</string>
@@ -612,12 +600,6 @@
     </string-array>
     <!-- Title of dialog for setting the default zoom -->
     <string name="pref_default_zoom_dialogtitle">Default zoom</string>
-    <!-- Do not translate -->
-    <string-array name="pref_default_zoom_values" translatable="false">
-        <item><xliff:g>FAR</xliff:g></item>
-        <item><xliff:g>MEDIUM</xliff:g></item>
-        <item><xliff:g>CLOSE</xliff:g></item>
-    </string-array>
     <!-- Settings label -->
     <string name="pref_content_load_page">Open pages in overview</string>
     <!-- Settings summary -->
@@ -639,69 +621,11 @@
     <string name="pref_extras_reset_default_dlg">Revert settings to default values?</string>
     <!-- Title for a group of settings -->
     <string name="pref_development_title">Debug</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_viewport" translatable="false">Use wide viewport</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_single_column_rendering" translatable="false">Single column rendering</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_normal_rendering" translatable="false">Normal rendering</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_trace" translatable="false">Enable tracing</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_nav_dump" translatable="false">Enable nav cache dump</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_hardware_accel" translatable="false">Enable OpenGL Rendering</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_hardware_accel_skia" translatable="false">Enable HW Accelerated Skia</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_visual_indicator" translatable="false">Enable Visual Indicator</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_cpu_upload_path" translatable="false">Enable Cpu Upload Path</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_disable_perf"
-        translatable="false">High Performance features</string>
-    <string name="pref_development_disable_perf_on"
-        translatable="false">WebRefiner, WebAccelerator, EdgeNavigation enabled</string>
-    <string name="pref_development_disable_perf_off"
-        translatable="false">WebRefiner, WebAccelerator, EdgeNavigation disabled</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="js_engine_flags" translatable="false">Set JS flags</string>
-    <!-- Do not tranlsate.  Development option -->
-    <string name="pref_development_uastring" translatable="false">UAString</string>
-    <!-- Do not translate. Development option to reset the prologin time [CHAR LIMIT=20] -->
-    <string name="pref_development_reset_prelogin" translatable="false">Reset prelogin</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
-    <!--SWE TODO: localize this for all languages -->
-    <string name="pref_default_text_encoding_default_value" translatable="false">Auto detect</string>
-    <!-- Options in the Default encoding dialog box -->
-    <string-array name="pref_default_text_encoding_choices">
-        <item>Latin-1 (ISO-8859-1)</item>
-        <item>Unicode (UTF-8)</item>
-        <item>Chinese (GBK)</item>
-        <item>Chinese (Big5)</item>
-        <item>Japanese (ISO-2022-JP)</item>
-        <item>Japanese (SHIFT_JIS)</item>
-        <item>Japanese (EUC-JP)</item>
-        <!-- No need to translate a EUC-KR part, and there is no string length limits. -->
-        <item>Korean (EUC-KR)</item>
-        <item>@string/pref_default_text_encoding_default_value</item>
-        <!-- TODO: We should add a lot more encodings.  -->
-    </string-array>
     <!-- Dialog box title -->
     <string name="pref_default_text_encoding_dialogtitle">Text encoding</string>
     <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
-    <string-array name="pref_default_text_encoding_values" translatable="false">
-        <item>Latin-1</item>
-        <item>UTF-8</item>
-        <item>GBK</item>
-        <item>Big5</item>
-        <item>ISO-2022-JP</item>
-        <item>SHIFT_JIS</item>
-        <item>EUC-JP</item>
-        <item>EUC-KR</item>
-        <item>auto</item>
-    </string-array>
     <string name="pref_default_text_encoding_default">UTF-8</string>
     <string name="pref_edge_swipe_title">Edge swipe</string>
     <string name="pref_edge_swipe_option_msg">When swiping, would you like:</string>
@@ -720,20 +644,6 @@
 -->
         <item>@string/pref_disable_edge_swipe</item>
     </string-array>
-
-    <string name="value_temporal_edge_swipe"  translatable="false">temporal_edge_swipe</string>
-    <string name="value_spatial_edge_swipe"  translatable="false">spatial_edge_swipe</string>
-    <string name="value_disable_edge_swipe"  translatable="false">disable_edge_swipe</string>
-    <string name="value_unknown_edge_swipe"  translatable="false">unknown_edge_swipe</string>
-
-    <string-array name="pref_edge_swiping_values" translatable="false">
-        <item>@string/value_temporal_edge_swipe</item>
-<!--
-        <item>@string/value_spatial_edge_swipe</item>
--->
-        <item>@string/value_disable_edge_swipe</item>
-    </string-array>
-
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
@@ -762,16 +672,6 @@
         <item>Only on Wi-Fi</item>
         <item>Always</item>
     </string-array>
-    <!-- Do not translate -->
-    <string name="pref_data_preload_value_never" translatable="false">NEVER</string>
-    <string name="pref_data_preload_value_wifi_only" translatable="false">WIFI_ONLY</string>
-    <string name="pref_data_preload_value_always" translatable="false">ALWAYS</string>
-    <string name="pref_data_preload_default_value" translatable="false">@string/pref_data_preload_value_wifi_only</string>
-    <string-array name="pref_data_preload_values" translatable="false">
-        <item><xliff:g>@string/pref_data_preload_value_never</xliff:g></item>
-        <item><xliff:g>@string/pref_data_preload_value_wifi_only</xliff:g></item>
-        <item><xliff:g>@string/pref_data_preload_value_always</xliff:g></item>
-    </string-array>
     <!-- Summary for search preloading [CHAR LIMIT=80] -->
     <string name="pref_data_preload_summary">Allow browser to preload high confidence search results in the background</string>
     <!-- Title of dialog for search preloading [CHAR LIMIT=40] -->
@@ -783,16 +683,6 @@
         <item>Never</item>
         <item>Only on Wi-Fi</item>
         <item>Always</item>
-    </string-array>
-    <!-- Do not translate -->
-    <string name="pref_link_prefetch_value_never" translatable="false">NEVER</string>
-    <string name="pref_link_prefetch_value_wifi_only" translatable="false">WIFI_ONLY</string>
-    <string name="pref_link_prefetch_value_always" translatable="false">ALWAYS</string>
-    <string name="pref_link_prefetch_default_value" translatable="false">@string/pref_link_prefetch_value_wifi_only</string>
-    <string-array name="pref_link_prefetch_values" translatable="false">
-        <item><xliff:g>@string/pref_link_prefetch_value_never</xliff:g></item>
-        <item><xliff:g>@string/pref_link_prefetch_value_wifi_only</xliff:g></item>
-        <item><xliff:g>@string/pref_link_prefetch_value_always</xliff:g></item>
     </string-array>
     <!-- Summary for link prefetching [CHAR LIMIT=80] -->
     <string name="pref_link_prefetch_summary">Allow browser to preload linked web pages in the background</string>
@@ -827,9 +717,6 @@
             will add that page to bookmarks -->
     <string name="add_bookmark_short">Add</string>
 
-    <!-- This string is for the browser "Go To" UI. -->
-    <!-- Do not translate.  This string is not displayed in UI (no badge is selected for go to). -->
-    <string name="search_label" translatable="false">Browser</string>
     <!-- This string is for the browser "Go To" UI. -->
     <!-- This is the hint text shown in the Go To widget, before text is entered. -->
     <string name="search_hint">Search or type URL</string>
@@ -889,32 +776,6 @@
             telling their status.  This message states that the download has not
             yet begun -->
     <string name="download_pending">Starting download\u2026</string>
-
-    <!-- Do not translate.  Testing only -->
-    <string name="dump_nav" translatable="false">Dump navigation cache</string>
-
-    <!-- Intentional empty elements - used for overlay feature -->
-    <string name="def_intent_file_manager" translatable="false"></string>
-    <string name="def_file_manager_result_dir" translatable="false"></string>
-    <string name="def_wifi_browser_interaction_remind_type" translatable="false"></string>
-    <string name="def_action_wifi_selection_data_connections" translatable="false"></string>
-    <string name="def_intent_pick_network" translatable="false"></string>
-    <string name="def_landing_page" translatable="false"></string>
-    <string name="def_useragent" translatable="false"></string>
-    <string name="def_extra_http_headers" translatable="false"></string>
-
-    <!-- The default homepage. -->
-    <string name="homepage_base" translatable="false">
-        https://www.google.com/webhp?client={CID}&amp;source=android-home</string>
-
-    <!-- Bookmarks -->
-    <string-array name="bookmarks" translatable="false">
-        <item>Google</item>
-        <item>http://www.google.com/</item>
-    </string-array>
-
-    <!-- Bookmark name for Picasa website -->
-    <string name="picasa" translatable="false">Picasa</string>
 
     <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
@@ -1130,8 +991,6 @@
     <!-- Add for Carrier Feature.Content description for about menu item -->
     <string name="about">About</string>
 
-    <!-- Add for Wap2Estore Feature -->
-    <string name="estore_homepage" translatable="false">http://3g.189store.com/downclient</string>
     <string name="download_estore_app">Estore app does not exist, please download and install it.</string>
     <string name="estore_url_warning">Launch Estore app failed, url is too long!</string>
 
@@ -1196,13 +1055,7 @@
     <string name="swe_open_source_licenses">Open source licenses</string>
     <string name="swe_pref_legal_info_summary">Copyright (c) 2015, The Linux Foundation. All rights reserved.</string>
     <string name="swe_eula">End user licenses agreement</string>
-    <string name="swe_eula_url" translatable="False"></string>
     <string name="swe_privacy_policy">Privacy policy</string>
-    <string name="swe_privacy_policy_url" translatable="False"></string>
-
-    <!--Strings for auto update notification feature -->
-    <string name="update" translatable="false">SWE browser update available</string>
-    <string name="update_msg" translatable="false">"Version: "</string>
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>
