@@ -26,6 +26,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
@@ -60,6 +61,8 @@ public class PhoneUi extends BaseUi {
     boolean mShowNav = false;
     private ComboView mComboView;
 
+    private CountDownTimer mCaptureTimer;
+    private static final int mCaptureMaxWaitMS = 1000;
 
     /**
      * @param browser
@@ -269,41 +272,75 @@ public class PhoneUi extends BaseUi {
         mNavScreenRequested = false;
     }
 
+    private void thumbnailUpdated(Tab t) {
+        mTabControl.setOnThumbnailUpdatedListener(null);
+
+        // Discard the callback if the req is interrupted
+        if (!mNavScreenRequested) {
+            unblockEvents();
+            return;
+        }
+
+        Bitmap bm = t.getScreenshot();
+        if (bm == null) {
+            t.initCaptureBitmap();
+            bm = t.getScreenshot();
+        }
+
+        Bitmap sbm;
+        WebView webView = getWebView();
+        if (webView != null) {
+            int view_width = webView.getWidth();
+            int capture_width = mActivity.getResources().getDimensionPixelSize(
+                    R.dimen.tab_thumbnail_width);
+
+            float scale =  (float) view_width / capture_width;
+
+            //Upscale the low-res bitmap to the needed size
+            Matrix m = new Matrix();
+            m.postScale(scale, scale);
+            sbm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                    bm.getHeight(), m, false);
+        } else {
+            sbm = bm;
+        }
+
+        onShowNavScreenContinue(sbm);
+    }
+
+    private void startCaptureTimer(final Tab tab) {
+        mCaptureTimer = new CountDownTimer(mCaptureMaxWaitMS, mCaptureMaxWaitMS) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Do nothing
+            }
+
+            @Override
+            public void onFinish() {
+                Log.e(LOGTAG, "Screen capture timed out while showing navigation screen");
+                thumbnailUpdated(tab);
+            }
+        }.start();
+    }
+
+    private void stopCaptureTimer() {
+        if (mCaptureTimer != null) {
+            mCaptureTimer.cancel();
+            mCaptureTimer = null;
+        }
+    }
+
     void showNavScreen() {
         blockEvents();
+        stopCaptureTimer();
+
         mNavScreenRequested = true;
         mTabControl.setOnThumbnailUpdatedListener(
                 new TabControl.OnThumbnailUpdatedListener() {
                     @Override
                     public void onThumbnailUpdated(Tab t) {
-                        mTabControl.setOnThumbnailUpdatedListener(null);
-
-                        // Discard the callback if the req is interrupted
-                        if (!mNavScreenRequested) {
-                            unblockEvents();
-                            return;
-                        }
-
-                        Bitmap bm = t.getScreenshot();
-                        Bitmap sbm;
-                        WebView webView = getWebView();
-                        if (webView != null) {
-                            int view_width = webView.getWidth();
-                            int capture_width = mActivity.getResources().getDimensionPixelSize(
-                                    R.dimen.tab_thumbnail_width);
-
-                            float scale =  (float) view_width / capture_width;
-
-                            //Upscale the low-res bitmap to the needed size
-                            Matrix m = new Matrix();
-                            m.postScale(scale, scale);
-                            sbm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
-                                    bm.getHeight(), m, false);
-                        } else {
-                            sbm = bm;
-                        }
-
-                        onShowNavScreenContinue(sbm);
+                        stopCaptureTimer();
+                        thumbnailUpdated(t);
                     }
                 });
         if (!BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
@@ -311,6 +348,7 @@ public class PhoneUi extends BaseUi {
             NetworkServices.hintUpcomingUserActivity();
         }
         mActiveTab.capture();
+        startCaptureTimer(mActiveTab);
     }
 
     void onShowNavScreenContinue(Bitmap viewportBitmap) {

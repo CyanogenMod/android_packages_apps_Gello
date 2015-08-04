@@ -1202,7 +1202,7 @@ class Tab implements PictureListener {
         mTabHistoryUpdateObservable = new Observable();
     }
 
-    private void initCaptureBitmap() {
+    public void initCaptureBitmap() {
         mCapture = Bitmap.createBitmap(mCaptureWidth, mCaptureHeight, Bitmap.Config.RGB_565);
         mCapture.eraseColor(Color.WHITE);
     }
