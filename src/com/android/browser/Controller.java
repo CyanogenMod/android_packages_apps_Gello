@@ -833,7 +833,7 @@ public class Controller
      */
     private void resumeWebViewTimers(Tab tab) {
         boolean inLoad = tab.inPageLoad();
-        if ((!mActivityPaused && !inLoad) || (mActivityPaused && inLoad)) {
+        if ((!mActivityStopped && !inLoad) || (mActivityStopped && inLoad)) {
             CookieSyncManager.getInstance().startSync();
             WebView w = tab.getWebView();
             WebViewTimersControl.getInstance().onBrowserActivityResume(w);
@@ -968,7 +968,7 @@ public class Controller
         // onResume as it is triggered from onCreate. Call resumeWebViewTimers
         // to start the timer. As we won't switch tabs while an activity is in
         // pause state, we can ensure calling resume and pause in pair.
-        if (mActivityPaused) {
+        if (mActivityStopped) {
             resumeWebViewTimers(tab);
         }
         mLoadStopped = false;
@@ -1026,7 +1026,7 @@ public class Controller
                 updateInLoadMenuItems(mCachedMenu, tab);
             }
 
-            if (mActivityPaused && pauseWebViewTimers(tab)) {
+            if (mActivityStopped && pauseWebViewTimers(tab)) {
                 // pause the WebView timer and release the wake lock if it is
                 // finished while BrowserActivity is in pause state.
                 releaseWakeLock();
