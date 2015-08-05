@@ -66,7 +66,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:background="#00838f"
-        android:alpha="0.85"
+        android:alpha="0.92"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"

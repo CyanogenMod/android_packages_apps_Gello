@@ -44,9 +44,10 @@
     <style name="PopupMenuStyle" parent="@android:style/Widget.Material.Light.PopupMenu">
     </style>
     <style name="Suggestions" parent="@android:style/Widget.Material.Light.AutoCompleteTextView">
-        <!-- Doesn't play nice with material <item name="android:popupBackground">@color/NavigationBarBackground</item>-->
+        <item name="android:popupBackground">@color/NavigationBarBackground</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownVerticalOffset">0dip</item>
+        <item name="android:textColor">@color/default_text_color</item>
     </style>
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Material.Small" />

@@ -261,9 +261,9 @@
     <!-- Settings summary [CHAR LIMIT=50]-->
     <string name="pref_content_open_in_background_summary">Open new tabs behind the current tab</string>
     <!-- Settings label [CHAR LIMIT=50] -->
-    <string name="pref_content_homepage">Set homepage</string>
+    <string name="pref_content_homepage">Homepage</string>
     <!-- Settings label -->
-    <string name="pref_content_search_engine">Set search engine</string>
+    <string name="pref_content_search_engine">Search engine</string>
     <!-- Settings summary -->
     <string name="pref_content_search_engine_summary">Choose a search engine</string>
     <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
