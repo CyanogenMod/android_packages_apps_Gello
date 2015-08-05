@@ -72,7 +72,7 @@ public class FolderSpinnerAdapter extends BaseAdapter {
                 drawableResource = R.drawable.ic_deco_home_normal;
                 break;
             case ROOT_FOLDER:
-                labelResource = R.string.add_to_bookmarks_menu_option;
+                labelResource = R.string.bookmarks;
                 drawableResource = R.drawable.ic_deco_bookmarks_normal;
                 break;
             case RECENT_FOLDER:

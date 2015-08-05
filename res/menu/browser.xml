@@ -65,7 +65,7 @@
             android:showAsAction="never" />
         <item
             android:id="@+id/history_menu_id"
-            android:title="@string/tab_history" />
+            android:title="@string/history" />
         <item
             android:id="@+id/snapshots_menu_id"
             android:title="@string/tab_snapshots"

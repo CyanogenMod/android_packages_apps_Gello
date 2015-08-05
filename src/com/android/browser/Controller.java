@@ -937,7 +937,7 @@ public class Controller
                     this.getContext().startActivity(intent);
                 } catch (Exception e) {
                     String err_msg = this.getContext().getString(
-                                R.string.acivity_not_found, wifiSelection);
+                                R.string.activity_not_found, wifiSelection);
                     Toast.makeText(this.getContext(), err_msg, Toast.LENGTH_LONG).show();
                 }
             }
@@ -2250,7 +2250,7 @@ public class Controller
                                         .addCategory(Intent.CATEGORY_HOME));
                             }})
                         .setNegativeButton(getContext().getResources().getString(
-                            R.string.import_bookmarks_wizard_cancel), new DialogInterface.OnClickListener() {
+                            R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 // Do nothing.
                             }

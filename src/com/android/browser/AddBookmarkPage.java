@@ -1008,7 +1008,7 @@ public class AddBookmarkPage extends Activity
         }
 
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.save_to_bookmarks_title))
+                .setTitle(getString(R.string.save_to_bookmarks))
                 .setMessage(getString(R.string.overwrite_bookmark_msg))
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

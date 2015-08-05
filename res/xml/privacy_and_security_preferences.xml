@@ -73,7 +73,7 @@
                 android:defaultValue="true"
                 android:key="privacy_clear_history"
                 android:summary="@string/pref_privacy_clear_history_summary"
-                android:title="@string/pref_privacy_clear_history" />
+                android:title="@string/history" />
 
             <CheckBoxPreference
                 android:defaultValue="true"

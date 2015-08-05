@@ -138,7 +138,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 android:layout_gravity="end"
                 android:layout_weight="1"
                 android:maxLines="2"
-                android:text="@string/do_not_save" />
+                android:text="@string/cancel" />
 
             <Button
                 android:id="@+id/OK"
@@ -148,7 +148,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 android:layout_gravity="start"
                 android:layout_weight="1"
                 android:maxLines="2"
-                android:text="@string/save" />
+                android:text="@string/ok" />
         </LinearLayout>
     </LinearLayout>
 

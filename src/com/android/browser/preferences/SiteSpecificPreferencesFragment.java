@@ -612,7 +612,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                     new AlertDialog.Builder(getActivity())
                         .setMessage(R.string.pref_extras_reset_default_dlg)
                         .setPositiveButton(
-                            R.string.website_settings_clear_all_dialog_ok_button,
+                            R.string.ok,
                             new AlertDialog.OnClickListener() {
                                 public void onClick(DialogInterface dlg, int which) {
                                     if (mOriginInfo != null) {
@@ -633,7 +633,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                 }
                             })
                         .setNegativeButton(
-                                R.string.website_settings_clear_all_dialog_cancel_button, null)
+                                R.string.cancel, null)
                         .setIconAttribute(android.R.attr.alertDialogIcon)
                         .show();
                 }
@@ -752,7 +752,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         if (pref.getKey().toString().equalsIgnoreCase("clear_data")) {
             new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.website_settings_clear_all_dialog_message)
-                .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
+                .setPositiveButton(R.string.ok,
                         new AlertDialog.OnClickListener() {
                             public void onClick(DialogInterface dlg, int which) {
                                 if (mOriginInfo != null) {
@@ -762,7 +762,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                 }
                             }
                         })
-                .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
+                .setNegativeButton(R.string.cancel, null)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .show();
         }

@@ -157,9 +157,9 @@ public class ComboView extends LinearLayout
         if (mTabsAdapter == null) {
             mExtraArgs = args;
             mTabsAdapter = new ComboTabsAdapter(activity, mViewPager);
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_bookmarks),
+            mTabsAdapter.addTab(bar.newTab().setText(R.string.bookmarks),
                     BrowserBookmarksPage.class, args);
-            mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_history),
+            mTabsAdapter.addTab(bar.newTab().setText(R.string.history),
                     BrowserHistoryPage.class, args);
             mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_snapshots),
                     BrowserSnapshotPage.class, args);

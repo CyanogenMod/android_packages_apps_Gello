@@ -316,7 +316,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             // Show the prompt to clear all origins of their data and geolocation permissions.
             new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.website_settings_clear_all_dialog_message)
-                .setPositiveButton(R.string.website_settings_clear_all_dialog_ok_button,
+                .setPositiveButton(R.string.ok,
                         new AlertDialog.OnClickListener() {
                             public void onClick(DialogInterface dlg, int which) {
                                 mAdapter.deleteAllOrigins();
@@ -328,7 +328,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                 finish();
                             }
                         })
-                .setNegativeButton(R.string.website_settings_clear_all_dialog_cancel_button, null)
+                .setNegativeButton(R.string.cancel, null)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .show();
             break;
@@ -355,7 +355,7 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                     fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
                                 }})
-                    .setNegativeButton(R.string.pref_security_cancel, null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
 
             break;

@@ -213,12 +213,12 @@
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle" />
         <Button android:id="@+id/cancel"
-            android:text="@string/do_not_save"
+            android:text="@string/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle" />
         <Button android:id="@+id/OK"
-            android:text="@string/save"
+            android:text="@string/ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle" />

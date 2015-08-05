@@ -186,7 +186,7 @@
             android:layout_gravity="end"
             android:layout_weight="1"
             android:maxLines="1"
-            android:text="@string/download_cancel" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/download_start"
@@ -196,7 +196,7 @@
             android:layout_gravity="start"
             android:layout_weight="1"
             android:maxLines="1"
-            android:text="@string/download_start" />
+            android:text="@string/ok" />
     </LinearLayout>
 
 </LinearLayout>

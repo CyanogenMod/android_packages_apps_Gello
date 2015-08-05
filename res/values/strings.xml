@@ -19,8 +19,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
-    <!-- The name of standalone application. -->
-    <string name="application_name_swe">Browser</string>
     <!-- Displayed with a file picker to choose a file to upload -->
     <string name="choose_upload">Choose file for upload</string>
     <!-- Toast to show the user after they try to open the file picker but no apps on the
@@ -40,12 +38,8 @@
     <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
     <string name="new_incognito_tab">Private Browsing</string>
-    <!-- Name of tab containing bookmarks -->
-    <string name="tab_bookmarks">Bookmarks</string>
     <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
     <string name="tab_most_visited">Most visited</string>
-    <!-- Name of tab containing the user's complete history, organized by time of last visit -->
-    <string name="tab_history">History</string>
     <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
     <string name="tab_snapshots">Saved pages</string>
     <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
@@ -64,16 +58,11 @@
     <string name="action">Sign in</string>
     <!-- The name of the add bookmark page activity.-->
     <string name="bookmarks_add_page">Save bookmark</string>
-    <!-- The name of the bookmarks and history search suggestion source.  -->
-    <string name="bookmarks_search">Browser</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->
     <string name="ok">OK</string>
-    <string name="config_carrier_resource">default</string>
 
-    <!-- Displayed on the title bar while the page is loading -->
-    <string name="title_bar_loading">Loading\u2026</string>
     <!-- Message to be displayed if url character limit exceeds -->
     <string name="max_url_character_limit_msg">Max URL limit reached</string>
     <!-- Message to be displayed when google play store does not exist on the device -->
@@ -81,38 +70,14 @@
 
     <!-- Menu item -->
     <string name="page_info">Page information</string>
-    <!-- Label for a button on an SSL error dialog that allows the user to see
-        Page info screen for the current page -->
-    <string name="page_info_view">View page info</string>
     <!-- Page Info dialog strings -->
     <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
     <string name="page_info_address">Address:</string>
 
-    <!-- SSL Error dialogs -->
-    <string name="ssl_warnings_header">There are problems with the security certificate for this site.</string>
-    <!-- Label for a button on an SSL error dialog that lets the user continue
-            and view the page despite the error -->
-    <string name="ssl_continue">Continue</string>
     <!-- Title for an SSL error dialog  -->
     <string name="security_warning">Security warning</string>
-    <!-- Label for a button on an SSL error dialog that lets the user view the
-        certificate -->
-    <string name="view_certificate">View certificate</string>
-    <!-- Label for a button on an SSL error dialog that lets the user go back to
-         the last page they were on instead of continuing to the new page. [CHAR-LIMIT=20] -->
-    <string name="ssl_go_back">Go back</string>
 
-    <!-- Message in an SSL Error dialog -->
-    <string name="ssl_untrusted">This certificate isn\'t from a trusted authority.</string>
-    <!-- Message in an SSL Error dialog -->
-    <string name="ssl_mismatch">The name of the site doesn\'t match the name on the certificate.</string>
-    <!-- Message in an SSL Error dialog -->
-    <string name="ssl_expired">This certificate has expired.</string>
-    <!-- Message in an SSL Error dialog -->
-    <string name="ssl_not_yet_valid">This certificate isn\'t valid yet.</string>
-    <!-- Message in an SSL Error dialog -->
-    <string name="ssl_date_invalid">This certificate has an invalid date.</string>
     <!-- Message in an SSL Error dialog -->
     <string name="ssl_invalid">This certificate is invalid.</string>
     <!-- Message in an SSL Error dialog -->
@@ -128,10 +93,6 @@
     <string name="back">Back</string>
     <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
     <string name="forward">Forward</string>
-    <!-- Button label to confirm saving a bookmark. -->
-    <string name="save">OK</string>
-    <!-- Button label to cancel saving a bookmark. -->
-    <string name="do_not_save">Cancel</string>
     <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
     <string name="location">Address</string>
     <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
@@ -148,8 +109,6 @@
     <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
     <string name="no_subfolders">No subfolders.</string>
-    <!-- Menu item to use the top level bookmarks folder to save a bookmark in. [CHAR-LIMIT=30]-->
-    <string name="add_to_bookmarks_menu_option">Bookmarks</string>
     <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
     <string name="add_to_homescreen_menu_option">Home screen</string>
     <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
@@ -159,6 +118,7 @@
     <!-- Initial value in Location field in Bookmark dialog box -->
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
+    <!-- Also used as title for AddBookmarkPage -->
     <string name="save_to_bookmarks">Save to bookmarks</string>
     <!-- Title of the dialog to bookmark a page -->
     <string name="bookmark_this_page">Bookmark this page</string>
@@ -168,8 +128,6 @@
     <string name="edit_bookmark">Edit bookmark</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
     <string name="create_shortcut_bookmark">Add shortcut to home</string>
-    <!-- Context menu item to open the currently highlighted bookmark -->
-    <string name="open_bookmark">Open</string>
     <!-- Menu item to remove the currently highlighted bookmark-->
     <string name="remove_bookmark">Delete bookmark</string>
     <!-- Context menu item to remove a history item from bookmarks -->
@@ -192,17 +150,6 @@
     <string name="bookmark_url_not_valid">This URL isn\'t valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
     <string name="bookmark_cannot_save_url">This URL can\'t be bookmarked.</string>
-    <!-- Menu item in the page that displays all bookmarks. It brings up a
-            dialog that allows the user to bookmark the page that the browser is
-            currently on, but is not visible because the bookmarks page is
-            showing. -->
-    <string name="bookmark_page">Bookmark last-viewed page</string>
-    <!-- Menu item in the page that displays all bookmarks.  Switches to
-            a grid view which shows thumbnails [CHAR LIMIT=20] -->
-    <string name="bookmark_thumbnail_view">Thumbnails</string>
-    <!-- Menu item in the page that displays all bookmarks.  Switches to a
-            list view which shows titles [CHAR LIMIT=20] -->
-    <string name="bookmark_list_view">List</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -217,28 +164,19 @@
     <string name="delete_folder_warning">Delete folder \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
     <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
     <string name="open_all_in_new_window">Open all in new tabs</string>
-    <!-- Menu item to open a dialog which allows the user to enter a url or do search-->
-    <string name="goto_dot">Go</string>
-    <!-- Menu item to switch to text selection mode for copy and paste. -->
-    <string name="select_dot">Select text</string>
     <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
     <string name="sendText">Choose an action for text</string>
     <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
     <string name="close_other_tabs">Close other tabs</string>
-    <!-- Menu item to open the bookmarks page. This is a shorter version that
-            is displayed with an icon -->
+    <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
     <string name="bookmarks">Bookmarks</string>
     <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
     <string name="shortcut_bookmark">Bookmark</string>
     <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
     <string name="shortcut_bookmark_title">Choose a bookmark</string>
-    <!-- Menu item to display the History of previously visited pages -->
+    <!-- Menu item to display the History of previously visited pages and the name of the combo view
+        Tab-->
     <string name="history">History</string>
-    <!-- Menu item for viewing downloads from the browser -->
-    <string name="menu_view_download">Downloads</string>
-    <!-- Context menu item for copying the url of the current page from the
-            title bar -->
-    <string name="copy_page_url">Copy page URL</string>
     <!-- Menu item -->
     <string name="share_page">Share page</string>
     <!-- Menu item for saving link to homescreen -->
@@ -305,39 +243,21 @@
             <url of new bookmark>?" -->
     <string name="replace">Replace</string>
 
-    <!-- Title displayed when the bookmarks page is shown -->
-    <string name="browser_bookmarks_page_bookmarks_text">Bookmarks</string>
-
-
     <!-- Settings screen strings -->
     <!-- Menu item to open the Settings screen -->
     <string name="menu_preferences">Settings</string>
     <!-- Settings screen, section title -->
     <string name="pref_content_title">Content settings</string>
     <string name="pref_content_title_summary">Web content setting</string>
-    <!-- Settings label [CHAR LIMIT=45]-->
-    <string name="pref_allow_apptabs">Allow multiple tabs per app</string>
     <!-- Settings label -->
     <string name="pref_content_load_images">Load images</string>
     <!-- Settings label -->
     <string name="pref_content_load_images_summary">Display images on web pages</string>
-    <!-- Settings label [CHAR LIMIT=30] -->
-    <string name="pref_content_block_popups">Block pop-ups</string>
     <string name="pref_security_allow_popups">Pop ups</string>
     <!-- Settings label -->
     <string name="pref_content_javascript">Enable JavaScript</string>
     <!-- Settings label -->
-    <string name="pref_memory_monitor">Enable Memory Monitor</string>
-    <!-- Settings label -->
     <string name="pref_content_open_in_background">Open in background</string>
-    <!-- Settings label -->
-    <string name="pref_content_plugins">Enable plug-ins</string>
-    <!-- Plugin options -->
-    <string-array name="pref_content_plugins_choices">
-        <item>Always on</item>
-        <item>On demand</item>
-        <item>Off</item>
-    </string-array>
     <!-- Settings summary [CHAR LIMIT=50]-->
     <string name="pref_content_open_in_background_summary">Open new tabs behind the current tab</string>
     <!-- Settings label [CHAR LIMIT=50] -->
@@ -360,10 +280,6 @@
         <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
         <item>Other</item>
     </string-array>
-    <!-- Settings label -->
-    <string name="pref_content_autofit">Auto-fit pages</string>
-    <!-- Settings summary -->
-    <string name="pref_content_autofit_summary">Format webpages to fit the screen</string>
 
     <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
@@ -371,8 +287,6 @@
     <string name="pref_default_site_settings_title">Default Site Settings</string>
     <string name="pref_site_settings_title">Site Settings</string>
     <string name="pref_site_settings_info_panel">Security Information</string>
-    <!-- Settings category for sync under general settings. This includes bookmark sync with Chrome [CHAR-LIMIT=50] -->
-    <string name="pref_general_sync_title">Sync</string>
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
     <string name="pref_general_autofill_title">Auto-fill</string>
 
@@ -390,10 +304,6 @@
     <string name="pref_autofill_enabled">Form auto-fill</string>
     <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
     <string name="pref_autofill_enabled_summary">Fill out web forms with a single touch</string>
-    <!-- Checkbox setting for enabling/disabling WebRefiner feature -->
-    <string name="pref_web_refiner_enabled">Web Refiner</string>
-    <!-- Settings summary for the WebRefiner -->
-    <string name="pref_web_refiner_enabled_summary">Block advertisements and tracking</string>
     <plurals name="pref_web_refiner_advertisements">
         <item quantity="one">%d advertisement</item>
         <item quantity="other">%d advertisements</item>
@@ -486,70 +396,36 @@
     <string name="pref_privacy_clear_cache">Cache</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_cache_summary">Clear locally cached content and databases</string>
-    <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_cache_dlg">Delete locally cached content and databases?</string>
-    <!-- Cookie settings category [CHAR-LIMIT=50] -->
-    <string name="pref_privacy_cookies_title">Cookies</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_cookies">Cookies and Site Data</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_cookies_summary">Clear all browser cookies and site data</string>
-    <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_cookies_dlg">Delete all cookies?</string>
-    <!-- Settings label -->
-    <string name="pref_privacy_clear_history">History</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_history_summary">Clear the browser navigation history</string>
     <!-- Confirmation dialog message -->
     <string name="pref_privacy_clear_history_dlg">Delete the browser navigation history?</string>
-    <!-- Formdata settings category [CHAR-LIMIT=50] -->
-    <string name="pref_privacy_formdata_title">Form data</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_form_data">Form data</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_form_data_summary">Clear all saved form data</string>
-    <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_form_data_dlg">Delete all saved form data?</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_passwords">Passwords</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_passwords_summary">Clear all saved passwords</string>
-    <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_passwords_dlg">Delete all saved passwords?</string>
-    <!-- Location settings category [CHAR-LIMIT=50] -->
-    <string name="pref_privacy_location_title">Location</string>
     <!-- Settings label -->
     <string name="pref_privacy_enable_geolocation">Location</string>
-    <!-- Settings summary -->
-    <string name="pref_privacy_enable_geolocation_summary">Allow sites to request access to your location</string>
     <!-- Settings label -->
     <string name="pref_privacy_clear_geolocation_access">Location access</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_geolocation_access_summary">Clear location access for all websites</string>
-    <!-- Confirmation dialog message -->
-    <string name="pref_privacy_clear_geolocation_access_dlg">Clear website location access?</string>
-    <!-- Passwords settings category [CHAR-LIMIT=50] -->
-    <string name="pref_security_passwords_title">Passwords</string>
     <!-- Settings label -->
     <string name="pref_security_remember_passwords">Remember passwords</string>
-    <!-- Settings summary -->
-    <string name="pref_security_remember_passwords_summary">Save usernames and passwords for websites</string>
     <!-- Settings label -->
     <string name="pref_security_save_form_data">Remember form data</string>
-    <!-- Settings summary -->
-    <string name="pref_security_save_form_data_summary">Remember data I type in forms for later use</string>
-    <!-- Settings label -->
-    <string name="pref_security_show_security_warning">Show security warnings</string>
-    <!-- Settings summmary -->
-    <string name="pref_security_show_security_warning_summary">Show warning if there\'s a problem with a site\'s security</string>
     <!-- Settings Label -->
     <string name="pref_do_not_track">Request \'Do Not Track\'</string>
-    <!-- Settings summary -->
-    <string name="pref_do_not_track_summary">Send a Do Not Track request with your browsing traffic</string>
     <!-- Settings label -->
     <string name="pref_security_accept_cookies">Accept cookies</string>
-    <!-- Settings summary -->
-    <string name="pref_security_accept_cookies_summary">Allow sites to save and read cookie data</string>
 
     <string name="pref_security_allow_mic">Microphone</string>
     <string name="pref_security_allow_camera">Camera</string>
@@ -559,12 +435,10 @@
     <string name="pref_security_allowed">Allowed</string>
     <string name="pref_security_not_allowed">Not allowed</string>
     <string name="pref_security_remember">Remember</string>
-    <string name="pref_security_protect">Protect by default</string>
     <string name="pref_security_on">On</string>
     <string name="pref_security_off">Off</string>
     <string name="pref_website_title">Website</string>
     <string name="pref_security_add">Add</string>
-    <string name="pref_security_cancel">Cancel</string>
     <string name="pref_security_origin_name">Site Origin</string>
     <string name="pref_security_access_is_allowed">access is allowed</string>
 
@@ -576,8 +450,6 @@
     <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
     <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
     <string name="pref_text_zoom">Text scaling</string>
-    <!-- Label for zoom on double-tap (percent) [CHAR LIMIT=30] -->
-    <string name="pref_zoom_on_double_tap">Zoom on double-tap</string>
     <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
     <string name="pref_force_userscalable">Force enable zoom</string>
     <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
@@ -590,28 +462,12 @@
     <string name="pref_inverted_summary">Black becomes white and vice versa</string>
     <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
     <string name="pref_inverted_contrast">Contrast</string>
-    <!-- Settings label -->
-    <string name="pref_default_zoom">Default zoom</string>
-    <!-- Settings default zoom options; appear in default zoom dialog box -->
-    <string-array name="pref_default_zoom_choices">
-        <item>Far</item>
-        <item>Medium</item>
-        <item>Close</item>
-    </string-array>
-    <!-- Title of dialog for setting the default zoom -->
-    <string name="pref_default_zoom_dialogtitle">Default zoom</string>
-    <!-- Settings label -->
-    <string name="pref_content_load_page">Open pages in overview</string>
-    <!-- Settings summary -->
-    <string name="pref_content_load_page_summary">Show overview of newly-opened pages</string>
     <!-- Settings screen, section title [CHAR LIMIT=50] -->
     <string name="pref_extras_title">Advanced</string>
     <!-- Settings label -->
     <string name="pref_extras_website_settings">Per site settings</string>
     <!-- Settings summary -->
     <string name="pref_extras_website_settings_summary">Advanced settings for individual websites</string>
-    <!-- Settings category label [CHAR-LIMIT=50] -->
-    <string name="pref_extras_reset_default_title">Reset defaults</string>
     <!-- Settings label -->
     <string name="pref_extras_reset_default">Reset to default</string>
     <string name="pref_extras_reset">Reset</string>
@@ -623,8 +479,6 @@
     <string name="pref_development_title">Debug</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
-    <!-- Dialog box title -->
-    <string name="pref_default_text_encoding_dialogtitle">Text encoding</string>
     <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
     <string name="pref_default_text_encoding_default">UTF-8</string>
     <string name="pref_edge_swipe_title">Edge swipe</string>
@@ -649,68 +503,34 @@
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
     <string name="pref_font_size_category">Text size</string>
-    <!-- Title for lab settings [CHAR LIMIT=25] -->
-    <string name="pref_lab_title">Labs</string>
-    <!-- Title for the "Instant search" lab feature [CHAR LIMIT=40] -->
-    <string name="pref_use_instant_search">Google Instant</string>
-    <!-- Summary for the "Instant search" lab feature [CHAR LIMIT=120] -->
-    <string name="pref_use_instant_search_summary">
-      Use Google Instant when you use Google Search, to show results as you
-      type (this can increase data use).</string>
     <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
     <string name="pref_lab_fullscreen">Immersive</string>
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
     <string name="pref_lab_fullscreen_summary">
       Make the browser fullscreen</string>
-    <!-- Title for bandwidth management preference [CHAR LIMIT=25] -->
-    <string name="pref_data_title">Bandwidth management</string>
     <!-- Title for search preloading [CHAR LIMIT=40] -->
     <string name="pref_data_preload_title">Search result preloading</string>
     <!-- Search preloading options [CHAR LIMIT=20] -->
-    <string-array name="pref_data_preload_choices">
+    <!-- Link prefetching options [CHAR LIMIT=20] -->
+    <string-array name="pref_temporal_choices">
         <item>Never</item>
         <item>Only on Wi-Fi</item>
         <item>Always</item>
     </string-array>
     <!-- Summary for search preloading [CHAR LIMIT=80] -->
     <string name="pref_data_preload_summary">Allow browser to preload high confidence search results in the background</string>
-    <!-- Title of dialog for search preloading [CHAR LIMIT=40] -->
-    <string name="pref_data_preload_dialogtitle">Search result preloading</string>
     <!-- Title for link prefetching [CHAR LIMIT=40] -->
     <string name="pref_link_prefetch_title">Web page preloading</string>
-    <!-- Link prefetching options [CHAR LIMIT=20] -->
-    <string-array name="pref_link_prefetch_choices">
-        <item>Never</item>
-        <item>Only on Wi-Fi</item>
-        <item>Always</item>
-    </string-array>
     <!-- Summary for link prefetching [CHAR LIMIT=80] -->
     <string name="pref_link_prefetch_summary">Allow browser to preload linked web pages in the background</string>
-    <!-- Title of dialog for link prefetching [CHAR LIMIT=40] -->
-    <string name="pref_link_prefetch_dialogtitle">Web page preloading</string>
-    <!-- Title for a dialog displayed when the browser has a data connectivity
-            problem -->
-    <string name="browserFrameNetworkErrorLabel">Connection problem</string>
-    <!-- Title for a dialog displayed when the browser runs into a file label
-            error -->
-    <string name="browserFrameFileErrorLabel">File problem</string>
     <!-- Dialog box title -->
     <string name="browserFrameFormResubmitLabel"></string>
     <!-- Dialog box message -->
     <string name="browserFrameFormResubmitMessage">The page you\'re trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action the form on the page carried out (such as a search or online purchase) will be repeated.</string>
-    <!-- Dialog box title -->
-    <string name="loadSuspendedTitle">No connection</string>
-    <!-- Dialog box message -->
-    <string name="loadSuspended">The browser can\'t load this page because there\'s
-      no Internet connection.</string>
     <!-- Menu item -->
     <string name="clear_history">Clear history</string>
-    <!-- History screen title; appears in title bar -->
-    <string name="browser_history">Recently-visited pages</string>
     <!-- Appears on History screen if no history is found -->
     <string name="empty_history">No browser history.</string>
-    <!-- Menu option to load the user's home page [CHAR LIMIT=30] -->
-    <string name="go_home">Homepage</string>
     <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
     <string name="add_new_bookmark">Add bookmark</string>
     <!-- Verb placed in front of a screenshot of a web page that, when clicked,
@@ -726,11 +546,6 @@
     <!-- The string used to describe the browser as a searchable item within system search settings. -->
     <string name="search_settings_description">Bookmarks and web history</string>
 
-    <!-- Pop-up window dialog -->
-    <!-- Message for a dialog informing the user that the site is attempting to
-            display a popup window -->
-    <string name="popup_window_attempt">Allow this site to open a
-      pop-up window?</string>
     <!-- Label for a button to allow a particular popup window to open -->
     <string name="allow">Allow</string>
     <!-- Label for a button to disallow a particular popup from opening -->
@@ -791,50 +606,26 @@
 
     <!-- Confirmation dialog when the user ask to clear all data for an origin -->
     <string name="webstorage_clear_data_dialog_message">Delete all data stored by this website?</string>
-    <string name="webstorage_clear_data_dialog_ok_button">OK</string>
-    <string name="webstorage_clear_data_dialog_cancel_button">Cancel</string>
-    <!-- Strings used in the summary of origins -->
-    <string name="webstorage_origin_summary_mb_stored">MB stored on your phone</string>
-        <!-- String shown in a progress view while a video is loading, before it starts playing -->
+    <!-- String shown in a progress view while a video is loading, before it starts playing -->
     <string name="loading_video">Loading video\u2026</string>
 
     <!-- Geolocation -->
     <!-- Permissions prompt -->
-    <string name="geolocation_permissions_prompt_message"><xliff:g id="website origin" example="codeaurora.org">%s</xliff:g> wants to know your location</string>
-    <string name="geolocation_permissions_prompt_share">Allow</string>
     <string name="geolocation_permissions_prompt_share_for_limited_time">Allow for 24 hours</string>
-    <string name="geolocation_permissions_prompt_dont_share">Deny</string>
-    <string name="geolocation_permissions_prompt_remember">Remember preference</string>
-    <!-- Permissions prompt toast -->
-    <string name="geolocation_permissions_prompt_toast_allowed">This site can access your location. Change this on the Settings &gt; Advanced &gt; Website screen.</string>
-    <string name="geolocation_permissions_prompt_toast_disallowed">This site cannot access your location. Change this on the Settings &gt; Advanced &gt; Website screen.</string>
-    <!-- Settings -> Advanced -> Website settings -> <origin> -->
-    <string name="geolocation_settings_page_title">Edit location access</string>
-    <string name="geolocation_settings_page_summary_allowed">This site can currently access your location</string>
-    <string name="geolocation_settings_page_summary_not_allowed">This site can\'t currently access your location</string>
     <!-- Settings page dialog -->
-    <string name="geolocation_settings_page_dialog_title">Edit location policy for\n<xliff:g id="website origin" example="codeaurora.org">%s</xliff:g></string>
     <string-array name="geolocation_settings_choices">
         <item>Deny forever</item>
         <item>Allow for 24 hours</item>
         <item>Allow forever</item>
     </string-array>
-    <string name="geolocation_settings_page_dialog_ok_button">OK</string>
-    <string name="geolocation_settings_page_dialog_cancel_button">Cancel</string>
 
     <string name="website_settings_add_origin">New Site</string>
     <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
     <string name="website_settings_clear_all">Clear all</string>
     <string name="website_settings_clear_all_dialog_message">Delete all website data and location permissions?</string>
-    <string name="website_settings_clear_all_dialog_ok_button">OK</string>
-    <string name="website_settings_clear_all_dialog_cancel_button">Cancel</string>
 
     <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
     <string name="progress_dialog_setting_wallpaper">Setting wallpaper\u2026</string>
-
-    <!-- The default state to the "up to parent folder" button in the bookmarks UI. This
-         is displayed when the user is at the highest level and cannot go up [CHAR LIMIT=16] -->
-    <string name="defaultBookmarksUpButton">Bookmarks</string>
 
     <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
@@ -843,50 +634,11 @@
     <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
     <string name="other_bookmarks">Other Bookmarks</string>
 
-    <!-- Access point for RLZ tracking. -->
-    <string name="rlz_access_point">Y1</string>
-
-    <!-- Title for a dialog asking the user which account to sync their bookmarks to [CHAR LIMIT=32] -->
-    <string name="account_chooser_dialog_title" msgid="4833571985009544332">Choose account</string>
-
-    <!-- Title for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=32] -->
-    <string name="import_bookmarks_dialog_title">Sync with Google account</string>
-
     <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
     <string name="import_bookmarks_dialog_description">Bookmarks on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you don\'t want to sync them.</string>
 
-    <!-- Description for selecting the account to add bookmarks to and begin syncing with [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_select_add_account">Add bookmarks currently on this device and begin syncing with Google account</string>
-
-    <!-- Description for selecting the account to sync with and delete local bookmarks [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_delete_select_account">Delete bookmarks currently on this device and begin syncing with Google account</string>
-
-    <!-- Description confirming user's choice to delete bookmarks [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_confirm_delete">Delete bookmarks currently on this device and begin syncing bookmarks with <xliff:g id="Google account" example="account@example.com">%s</xliff:g>?</string>
-
-    <!-- Description confirming user's choice to add bookmarks to an account [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_confirm_add">Add bookmarks currently on this device and begin syncing bookmarks with <xliff:g id="Google account" example="account@example.com">%s</xliff:g>?</string>
-
     <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
     <string name="import_bookmarks_dialog_remove">Delete bookmarks</string>
-
-    <!-- Sync bookmarks wizard option to go to the next screen [CHAR-LIMIT=30] -->
-    <string name="import_bookmarks_wizard_next">Next</string>
-
-    <!-- Sync bookmarks wizard option to go to the previous screen [CHAR-LIMIT=30] -->
-    <string name="import_bookmarks_wizard_previous">Previous</string>
-
-    <!-- Sync bookmarks wizard option to cancel sync setup [CHAR-LIMIT=30] -->
-    <string name="import_bookmarks_wizard_cancel">Cancel</string>
-
-    <!-- Sync bookmarks wizard option to finish sync setup [CHAR-LIMIT=30] -->
-    <string name="import_bookmarks_wizard_done">Done</string>
-
-    <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
-    <string name="import_bookmarks_dialog_add">Add bookmarks to Google account</string>
-
-    <!-- Button allowing users to import all of their existing bookmarks into an account when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
-    <string name="import_bookmarks_dialog_import">Add your Android bookmarks to bookmarks for <xliff:g id="Google account" example="account@example.com">%s</xliff:g></string>
 
     <!-- Url Selection Action Mode -->
 
@@ -897,10 +649,6 @@
          reached. [CHAR LIMIT=50] -->
     <string name="max_tabs_warning">No more tabs available</string>
 
-    <!-- The label used by the instant search labs feature when shown in
-         the search engines list (Preferences->Advanced->Set search engine
-         [CHAR LIMIT=80] -->
-    <string name="instant_search_label">Google with Instant (Labs)</string>
     <!-- Font size preview label in settings [CHAR LIMIT=30] -->
     <string name="preview">Preview</string>
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
@@ -936,8 +684,6 @@
     <string name="accessibility_button_search">Search</string>
     <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_voice">Start voice search</string>
-    <!-- Content description for bookmarks button [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_bookmarks">Bookmarks</string>
     <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_closetab">Close tab</string>
     <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
@@ -946,15 +692,9 @@
     <string name="accessibility_button_newincognitotab">Open new incognito tab</string>
     <!-- Content description for clear button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_clear">Clear input</string>
-    <!-- Content description for user agent switcher [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_uaswitch">Switch user agent</string>
-    <!-- Content description for go button [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_go">Go</string>
 
     <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_navscreen">Page manager</string>
-    <!-- Content description for overflow menu button [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_more">More options</string>
 
     <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
     <string name="accessibility_state_incognito">Incognito page</string>
@@ -1003,11 +743,8 @@
     <string name="exit_minimize">Minimize</string>
     <string name="exit_quit">Quit</string>
 
-    <!-- Add for new bookmark/folder Feature -->
-    <string name="save_bookmark_folder">New folder</string>
     <string name="browser_max_input_title">Reached limit for maximum number of characters</string>
     <string name="browser_max_input">Your input reached the maximum limit of <xliff:g id="MAXLIMIT">%s</xliff:g> characters</string>
-    <string name="save_to_bookmarks_title">Save to bookmarks</string>
     <string name="duplicated_folder_warning">Folder already exists</string>
     <string name="overwrite_bookmark_msg">Bookmark\'s name or address already exists. Overwrite it?</string>
 
@@ -1016,8 +753,6 @@
     <string name="path_wrong">Wrong Path</string>
     <string name="pref_download_title">Download path settings</string>
     <string name="pref_download_path_setting_screen_title">Custom download path</string>
-    <string name="download_start">OK</string>
-    <string name="download_cancel">Cancel</string>
     <string name="download_timeneeded">Time</string>
     <string name="download_filesize">Size</string>
     <string name="download_filepath_label">Path</string>
@@ -1025,10 +760,8 @@
     <string name="download_default_path">/Download</string>
     <string name="download_no_enough_memory">Insufficient memory for download</string>
     <string name="download_settings_title">Download settings</string>
-    <string name="save_page_needs_title">Download filename can not be empty</string>
     <string name="filename_empty_title">Download filename is empty</string>
     <string name="filename_empty_msg">Download filename can not be empty. Please enter a valid filename.</string>
-    <string name="download_file_setting">Download file settings</string>
     <string name="unknow_length">Unknown</string>
     <string name="download_file_exist_msg">File already exists. Please input a new filename.</string>
     <string name="download_file_exist">File already exists</string>
@@ -1038,10 +771,8 @@
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
     <string name="activity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
-    <string name="network_switch_remind_type">wifi_browser_interaction_remind</string>
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>
-    <string name="acivity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
     <!-- Snapdragon Browser Additions -->
     <string name="ssl_certificate">Security certificate</string>
     <string name="ssl_certificate_is_valid">This certificate is valid.</string>

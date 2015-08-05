@@ -18,7 +18,7 @@
   <group android:id="@+id/BOOKMARK_CONTEXT_MENU"
     android:visible="false">
     <item android:id="@+id/open_context_menu_id"
-      android:title="@string/open_bookmark"/>
+      android:title="@string/contextmenu_openlink"/>
     <item android:id="@+id/new_window_context_menu_id"
       android:title="@string/contextmenu_openlink_newwindow"/>
     <item android:id="@+id/edit_context_menu_id"

@@ -113,7 +113,7 @@ class BrowserYesNoPreference extends DialogPreference {
             }
             if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY, false)) {
                 dialogMessage = dialogMessage.concat("\n\t" +
-                        mContext.getString(R.string.pref_privacy_clear_history));
+                        mContext.getString(R.string.history));
                 itemSelected = true;
             }
             if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_FORM_DATA, false)) {

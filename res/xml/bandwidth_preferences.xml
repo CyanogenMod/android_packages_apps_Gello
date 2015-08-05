@@ -20,17 +20,17 @@
         android:key="preload_when"
         android:title="@string/pref_data_preload_title"
         android:summary="@string/pref_data_preload_summary"
-        android:entries="@array/pref_data_preload_choices"
+        android:entries="@array/pref_temporal_choices"
         android:entryValues="@array/pref_data_preload_values"
-        android:dialogTitle="@string/pref_data_preload_dialogtitle" />
+        android:dialogTitle="@string/pref_data_preload_title" />
 
     <ListPreference
         android:key="link_prefetch_when"
         android:title="@string/pref_link_prefetch_title"
         android:summary="@string/pref_link_prefetch_summary"
-        android:entries="@array/pref_link_prefetch_choices"
+        android:entries="@array/pref_temporal_choices"
         android:entryValues="@array/pref_link_prefetch_values"
-        android:dialogTitle="@string/pref_link_prefetch_dialogtitle" />
+        android:dialogTitle="@string/pref_link_prefetch_title" />
 
     <SwitchPreference
         android:key="load_images"

@@ -128,7 +128,7 @@
         android:id="@+id/all_btn"
         style="@style/NavButton"
         android:layout_width="wrap_content"
-        android:contentDescription="@string/accessibility_button_bookmarks"
+        android:contentDescription="@string/bookmarks"
         android:scaleType="center"
         android:src="@drawable/ic_deco_bookmarks_normal" />
 
