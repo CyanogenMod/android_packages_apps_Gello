@@ -16,12 +16,10 @@
  */
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.browser">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="{{ manifest_package }}">
 
-    <permission android:name="{{ package_name }}.permission.PRELOAD"
+    <permission android:name="{{ app_package_name }}.permission.PRELOAD"
         android:label="@string/permission_preload_label"
-        android:protectionLevel="signatureOrSystem" />
-    <permission android:name="{{ package_name }}.permission.INITIALIZE_DATABASE"
         android:protectionLevel="signatureOrSystem" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -44,16 +42,15 @@
     <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-    <uses-permission android:name="{{ package_name }}.permission.READ_HOMEPAGE" />
-    <uses-permission android:name="{{ package_name }}.permission.WRITE_HOMEPAGE" />
-    <uses-permission android:name="{{ package_name }}.permission.INITIALIZE_DATABASE"/>
+    <uses-permission android:name="{{ app_package_name }}.permission.READ_HOMEPAGE" />
+    <uses-permission android:name="{{ app_package_name }}.permission.WRITE_HOMEPAGE" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- Templatize taskAffinity otherwise it will default to 'package'
         defined in manifest -->
-    <application   android:name="Browser"
+    <application   android:name="com.android.browser.Browser"
                    android:label="{{ apk_label }}"
                    android:icon="@mipmap/ic_launcher_browser"
                    android:backupAgent=".BrowserBackupAgent"
@@ -64,8 +61,8 @@
         <uses-library android:name="com.qrd.useragent"
                       android:required="false" />
 
-        <provider android:name=".provider.BrowserProvider2"
-                  android:authorities="{{ package_name }};{{apk_authorities}}"
+        <provider android:name="com.android.browser.provider.BrowserProvider2"
+                  android:authorities="{{ app_package_name }};{{apk_authorities}}"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
@@ -73,11 +70,11 @@
             <path-permission android:path="/bookmarks/search_suggest_query"
                     android:readPermission="android.permission.GLOBAL_SEARCH" />
             <path-permission android:path="/homepage"
-                    android:readPermission="{{ package_name }}.permission.READ_HOMEPAGE"
-                    android:writePermission="{{ package_name }}.permission.WRITE_HOMEPAGE" />
+                    android:readPermission="{{ app_package_name }}.permission.READ_HOMEPAGE"
+                    android:writePermission="{{ app_package_name }}.permission.WRITE_HOMEPAGE" />
         </provider>
 
-        <activity android:name="BrowserLauncher"
+        <activity android:name="com.android.browser.BrowserLauncher"
                   android:theme="@android:style/Theme.NoDisplay" >
             <!-- We are the main entry point of the browser. -->
             <intent-filter>
@@ -88,8 +85,12 @@
                 <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.BrowserLauncher"
+            android:targetActivity="com.android.browser.BrowserLauncher"
+            android:exported="true">
+        </activity-alias>
 
-        <activity android:name="BrowserActivity"
+        <activity android:name="com.android.browser.BrowserActivity"
                   android:label="{{ apk_label }}"
                   android:launchMode="singleTask"
                   android:alwaysRetainTaskState="true"
@@ -167,8 +168,11 @@
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/searchable" />
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.BrowserActivity"
+            android:targetActivity="com.android.browser.BrowserActivity"
+            android:exported="false"/>
 
-        <activity android:name="ShortcutActivity"
+        <activity android:name="com.android.browser.ShortcutActivity"
             android:theme="@style/ShortcutTheme"
             android:label="@string/shortcut_bookmark"
             android:icon="@mipmap/ic_launcher_shortcut_browser_bookmark">
@@ -177,8 +181,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.ShortcutActivity"
+            android:targetActivity="com.android.browser.ShortcutActivity"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name="BrowserPreferencesPage" android:label="@string/menu_preferences"
+        <activity android:name="com.android.browser.BrowserPreferencesPage"
+            android:label="@string/menu_preferences"
             android:parentActivityName=".BrowserActivity"
             android:theme="@style/SettingsTheme">
             <intent-filter>
@@ -186,13 +195,21 @@
                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.BrowserPreferencesPage"
+            android:targetActivity="com.android.browser.BrowserPreferencesPage"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name=".preferences.LegalPreviewActivity"
+        <activity android:name="com.android.browser.preferences.LegalPreviewActivity"
             android:parentActivityName=".BrowserActivity"
             android:theme="@style/SettingsTheme">
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.LegalPreviewActivity"
+            android:targetActivity="com.android.browser.preferences.LegalPreviewActivity"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name="BookmarkSearch"
+        <activity android:name="com.android.browser.BookmarkSearch"
                   android:label="@string/bookmarks_search"
                   android:stateNotNeeded="true"
                   android:theme="@android:style/Theme.NoDisplay"
@@ -204,8 +221,13 @@
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.BookmarkSearch"
+            android:targetActivity="com.android.browser.BookmarkSearch"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name="AddBookmarkPage" android:label="@string/bookmarks_add_page"
+        <activity android:name="com.android.browser.AddBookmarkPage"
+                  android:label="@string/bookmarks_add_page"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize"
                   android:windowSoftInputMode="adjustResize">
@@ -215,8 +237,13 @@
                 <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.AddBookmarkPage"
+            android:targetActivity="com.android.browser.AddBookmarkPage"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name="DownloadSettings" android:label="@string/download_settings_title"
+        <activity android:name="com.android.browser.DownloadSettings"
+                  android:label="@string/download_settings_title"
                   android:theme="@style/DialogWhenLarge"
                   android:launchMode="singleTask"
                   android:configChanges="orientation|keyboardHidden|screenSize"
@@ -226,9 +253,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.DownloadSettings"
+            android:targetActivity="com.android.browser.DownloadSettings"
+            android:exported="false">
+        </activity-alias>
 
         <!-- For creating new folder in bookmarks page -->
-        <activity android:name="AddBookmarkFolder" android:label="@string/new_folder"
+        <activity android:name="com.android.browser.AddBookmarkFolder"
+                  android:label="@string/save_bookmark_folder"
                   android:theme="@style/DialogWhenLarge"
                   android:configChanges="orientation|keyboardHidden|screenSize">
                   <intent-filter>
@@ -236,14 +268,22 @@
                       <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
                   </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.AddBookmarkFolder"
+            android:targetActivity="com.android.browser.AddBookmarkFolder"
+            android:exported="false">
+        </activity-alias>
 
-        <activity android:name="ComboViewActivity"
+        <activity android:name="com.android.browser.ComboViewActivity"
                   android:theme="@style/ComboViewTheme">
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.ComboViewActivity"
+            android:targetActivity="com.android.browser.ComboViewActivity"
+            android:exported="false">
+        </activity-alias>
 
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
-            android:name=".widget.BookmarkThumbnailWidgetProvider"
+            android:name="com.android.browser.widget.BookmarkThumbnailWidgetProvider"
             android:label="@string/bookmarks">
             <intent-filter>
                 <action
@@ -256,29 +296,37 @@
                 android:resource="@xml/bookmarkthumbnailwidget_info" />
         </receiver>
         <service
-            android:name=".widget.BookmarkThumbnailWidgetService"
+            android:name="com.android.browser.widget.BookmarkThumbnailWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
         <receiver
-            android:name=".widget.BookmarkWidgetProxy"
+            android:name="com.android.browser.widget.BookmarkWidgetProxy"
             android:exported="false" />
-        <activity android:name=".widget.BookmarkWidgetConfigure"
+        <activity android:name="com.android.browser.widget.BookmarkWidgetConfigure"
             android:theme="@style/DialogWhenLarge">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.widget.BookmarkWidgetConfigure"
+            android:targetActivity="com.android.browser.widget.BookmarkWidgetConfigure"
+            android:exported="false">
+        </activity-alias>
         <!-- add or edit my navigation activity -->
-        <activity android:name=".mynavigation.AddMyNavigationPage"
+        <activity android:name="com.android.browser.mynavigation.AddMyNavigationPage"
             android:label="@string/my_navigation_page_title"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity-alias android:name="{{ app_package_name }}.mynavigation.AddMyNavigationPage"
+            android:targetActivity="com.android.browser.mynavigation.AddMyNavigationPage"
+            android:exported="false">
+        </activity-alias>
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
-        <meta-data android:name="android.app.default_searchable" android:value=".BrowserActivity" />
+        <meta-data android:name="android.app.default_searchable" android:value="com.android.browser.BrowserActivity" />
 
-        <receiver android:name=".OpenDownloadReceiver">
+        <receiver android:name="com.android.browser.OpenDownloadReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
             </intent-filter>
@@ -286,38 +334,38 @@
 
         <!-- For custom home pages (like most visited) -->
         <provider
-            android:name=".homepages.HomeProvider"
-            android:authorities="{{ package_name }}.home"
+            android:name="com.android.browser.homepages.HomeProvider"
+            android:authorities="{{ app_package_name }}.home"
             android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
 
-        <receiver android:name=".AccountsChangedReceiver">
+        <receiver android:name="com.android.browser.AccountsChangedReceiver">
             <intent-filter>
                 <action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />
             </intent-filter>
         </receiver>
 
-         <receiver android:name=".MessagesReceiver">
+         <receiver android:name="com.android.browser.MessagesReceiver">
             <intent-filter>
                 <action android:name="com.android.mms.transaction.MESSAGE_RECEIVED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".PreloadRequestReceiver"
-             android:permission="{{ package_name }}.permission.PRELOAD" >
+        <receiver android:name="com.android.browser.PreloadRequestReceiver"
+             android:permission="{{ app_package_name }}.permission.PRELOAD" >
              <intent-filter>
                  <action android:name="android.intent.action.PRELOAD"/>
                  <data android:scheme="http" />
              </intent-filter>
          </receiver>
 
-        <provider android:name=".provider.SnapshotProvider"
-                  android:authorities="{{ package_name }}.snapshots"
+        <provider android:name="com.android.browser.provider.SnapshotProvider"
+                  android:authorities="{{ app_package_name }}.snapshots"
                   android:exported="false" />
         <provider
-            android:name=".provider.MyNavigationProvider"
-            android:authorities="{{ package_name }}.mynavigation"
+            android:name="com.android.browser.provider.MyNavigationProvider"
+            android:authorities="{{ app_package_name }}.mynavigation"
             android:exported="false"
             android:grantUriPermissions="true"/>
 
@@ -344,7 +392,7 @@
 
         <!-- Provider for FileProvider. -->
         <provider android:name="android.support.v4.content.FileProvider"
-            android:authorities="{{ package_name }}.FileProvider"
+            android:authorities="{{ app_package_name }}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS"

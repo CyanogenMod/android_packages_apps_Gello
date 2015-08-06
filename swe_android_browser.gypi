@@ -1,6 +1,7 @@
 {
   'variables' : {
-    'browser_config_path': '<(DEPTH)/swe/browser/channels/<(swe_channel)/branding/BRANDING',
+    #This needs to be in sync with java package name, required to generate R.java
+    'swe_browser_java_package': 'com.android.browser',
   },
   'targets' : [
     {
@@ -35,9 +36,7 @@
         ],
         'res_extra_dirs': [ '<@(swe_extra_res_dirs)',
                           ],
-        'override_package_name': '<!(python <(swe_py_config) \
-                                     -i <(browser_config_path) \
-                                     -c PACKAGE_NAME)',
+        'R_package': '<(swe_browser_java_package)',
         'android_manifest_path': '<(SHARED_INTERMEDIATE_DIR)/swe_android_browser_apk/AndroidManifest.xml',
       },
 
@@ -67,10 +66,27 @@
     {
       'target_name': 'swe_android_browser_apk_manifest',
       'type': 'none',
+      'dependencies': [
+        'swe_android_browser_apk_manifest_internal_tool',
+      ],
       'variables': {
         'manifest_input_path': '<(DEPTH)/swe/browser/AndroidManifest.xml.jinja2',
         'manifest_output_path': '<(SHARED_INTERMEDIATE_DIR)/swe_android_browser_apk/AndroidManifest.xml',
         'manifest_config_file_path': '<(browser_config_path)',
+        'swe_manifest_package':  '',
+      },
+      'includes': [ '../swe_generate_manifest.gypi' ],
+    },
+
+    #generate AndroidManifest.xml for internal tool
+    {
+      'target_name': 'swe_android_browser_apk_manifest_internal_tool',
+      'type': 'none',
+      'variables': {
+        'manifest_input_path': '<(DEPTH)/swe/browser/AndroidManifest.xml.jinja2',
+        'manifest_output_path': '<(SHARED_INTERMEDIATE_DIR)/swe_android_browser_apk/as/AndroidManifest.xml',
+        'manifest_config_file_path': '<(browser_config_path)',
+        'swe_manifest_package':  '<(swe_browser_java_package)',
       },
       'includes': [ '../swe_generate_manifest.gypi' ],
     },
