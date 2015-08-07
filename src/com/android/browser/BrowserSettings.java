@@ -595,6 +595,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
                 .clear()
                 .apply();
         resetCachedValues();
+        if (WebRefiner.getInstance() != null) {
+            mPrefs.edit().putBoolean(PREF_WEB_REFINER, true).apply();
+        } else {
+            mPrefs.edit().putBoolean(PREF_WEB_REFINER, false).apply();
+        }
         syncManagedSettings();
     }
 
