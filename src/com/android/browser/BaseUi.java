@@ -702,6 +702,7 @@ public abstract class BaseUi implements UI {
     private void updateTabSecurityState(Tab t) {
         if (t != null && t.inForeground()) {
             mNavigationBar.setSecurityState(t.getSecurityState());
+            setUrlTitle(t);
         }
     }
 
@@ -712,7 +713,7 @@ public abstract class BaseUi implements UI {
             title = url;
         }
         if (tab.inForeground()) {
-            mNavigationBar.setDisplayTitle(url);
+            mNavigationBar.setDisplayTitle(title, url);
         }
     }
 

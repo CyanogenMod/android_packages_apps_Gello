@@ -187,7 +187,8 @@ public class TitleBar extends FrameLayout implements ViewTreeObserver.OnPreDrawL
     }
 
     protected void enableTopControls(boolean animate) {
-        if (mIsFixedTitleBar)
+        if (mIsFixedTitleBar || mNavBar.getTrustLevel() == SiteTileView.TRUST_AVOID
+                || mNavBar.getTrustLevel() == SiteTileView.TRUST_UNTRUSTED)
             return;
         Tab tab = mBaseUi.getActiveTab();
         WebView view = tab != null ? tab.getWebView() : null;

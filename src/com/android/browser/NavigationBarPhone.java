@@ -93,22 +93,21 @@ public class NavigationBarPhone extends NavigationBarBase implements StateListen
     /**
      * Update the text displayed in the title bar.
      * @param title String to display.  If null, the new tab string will be
-     *      shown.
+     * @param url
      */
     @Override
-    void setDisplayTitle(String title) {
+    void setDisplayTitle(String title, String url) {
         mUrlInput.setTag(title);
         if (!isEditingUrl()) {
-           // add for carrier requirement - show title from native instead of url
-            Tab currentTab = mUiController.getTabControl().getCurrentTab();
-            if (BrowserConfig.getInstance(getContext())
-                    .hasFeature(BrowserConfig.Feature.TITLE_IN_URL_BAR) &&
-                    currentTab != null && currentTab.getTitle() != null) {
-                mUrlInput.setText(currentTab.getTitle(), false);
-            } else if (title == null) {
+            // add for carrier requirement - show title from native instead of url
+            if ((BrowserConfig.getInstance(getContext())
+                    .hasFeature(BrowserConfig.Feature.TITLE_IN_URL_BAR) ||
+                    mTrustLevel == SiteTileView.TRUST_TRUSTED) && title != null) {
+                mUrlInput.setText(title, false);
+            } else if (url == null) {
                 mUrlInput.setText(R.string.new_tab);
             } else {
-                mUrlInput.setText(UrlUtils.stripUrl(title), false);
+                mUrlInput.setText(UrlUtils.stripUrl(url), false);
             }
             mUrlInput.setSelection(0);
         }
@@ -127,7 +126,7 @@ public class NavigationBarPhone extends NavigationBarBase implements StateListen
     public void onFocusChange(View view, boolean hasFocus) {
         if (view == mUrlInput && !hasFocus) {
             Tab currentTab = mUiController.getTabControl().getCurrentTab();
-            setDisplayTitle(currentTab.getUrl());
+            setDisplayTitle(currentTab.getTitle(), currentTab.getUrl());
         }
         super.onFocusChange(view, hasFocus);
     }

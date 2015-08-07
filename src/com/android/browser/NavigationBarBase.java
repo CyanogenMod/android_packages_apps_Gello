@@ -58,7 +58,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.codeaurora.net.NetworkServices;
-import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.WebRefiner;
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.ColorUtils;
@@ -92,6 +91,8 @@ public class NavigationBarBase extends LinearLayout implements
     private static final int WEBREFINER_COUNTER_MSG = 4242;
     private static final int WEBREFINER_COUNTER_MSG_DELAY = 3000;
     private Handler mHandler;
+
+    protected int mTrustLevel = SiteTileView.TRUST_UNKNOWN;
 
     private static final String noSitePrefs[] = {
             "browser://",
@@ -165,21 +166,28 @@ public class NavigationBarBase extends LinearLayout implements
     public void setSecurityState(Tab.SecurityState securityState) {
         switch (securityState) {
             case SECURITY_STATE_SECURE:
-                mFaviconTile.setTrustLevel(SiteTileView.TRUST_TRUSTED);
+                mTrustLevel = SiteTileView.TRUST_TRUSTED;
                 mFaviconTile.setBadgeHasCertIssues(false);
                 break;
             case SECURITY_STATE_MIXED:
-                mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNTRUSTED);
+                mTrustLevel = SiteTileView.TRUST_UNTRUSTED;
                 mFaviconTile.setBadgeHasCertIssues(true);
+                mTitleBar.showTopControls(false);
                 break;
             case SECURITY_STATE_BAD_CERTIFICATE:
-                mFaviconTile.setTrustLevel(SiteTileView.TRUST_AVOID);
+                mTrustLevel = SiteTileView.TRUST_AVOID;
                 mFaviconTile.setBadgeHasCertIssues(true);
+                mTitleBar.showTopControls(false);
                 break;
             case SECURITY_STATE_NOT_SECURE:
             default:
-                mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
+                mTrustLevel = SiteTileView.TRUST_UNKNOWN;
         }
+        mFaviconTile.setTrustLevel(mTrustLevel);
+    }
+
+    public int getTrustLevel() {
+        return mTrustLevel;
     }
 
     public static int adjustColor(int color, float hueMultiplier,
@@ -437,7 +445,7 @@ public class NavigationBarBase extends LinearLayout implements
             if (mUrlInput.getText().length() == 0) {
                 Tab currentTab = mUiController.getTabControl().getCurrentTab();
                 if (currentTab != null) {
-                    setDisplayTitle(currentTab.getUrl());
+                    setDisplayTitle(currentTab.getTitle(), currentTab.getUrl());
                 }
             }
         }
@@ -458,10 +466,18 @@ public class NavigationBarBase extends LinearLayout implements
         }
     }
 
-    void setDisplayTitle(String title) {
+    void setDisplayTitle(String title, String url) {
         if (!isEditingUrl()) {
-            if (!title.equals(mUrlInput.getText().toString())) {
-                mUrlInput.setText(title, false);
+            if (!TextUtils.isEmpty(title)) {
+                if (mTrustLevel == SiteTileView.TRUST_TRUSTED) {
+                    if (!title.equals(mUrlInput.getText().toString())) {
+                        mUrlInput.setText(title, false);
+                    }
+                    return;
+                }
+            }
+            if (!url.equals(mUrlInput.getText().toString())) {
+                mUrlInput.setText(url, false);
             }
         }
     }
@@ -499,21 +515,21 @@ public class NavigationBarBase extends LinearLayout implements
             // logic in UrlHandler for other schemas
             if (url != null && t != null &&  url.startsWith("javascript:")) {
                 mUiController.loadUrl(t, url);
-                setDisplayTitle(text);
+                setDisplayTitle(null, text);
                 return;
             }
 
             // add for carrier wap2estore feature
             if (url != null && t != null && wap2estore && isEstoreTypeUrl(url)) {
                 if (handleEstoreTypeUrl(url)) {
-                    setDisplayTitle(text);
+                    setDisplayTitle(null, text);
                     return;
                 }
             }
             // add for rtsp scheme feature
             if (url != null && t != null && isRtspTypeUrl(url)) {
                 if (handleRtspTypeUrl(url)) {
-                    setDisplayTitle(text);
+                    setDisplayTitle(null, text);
                     return;
                 }
             }
@@ -537,7 +553,7 @@ public class NavigationBarBase extends LinearLayout implements
             i.putExtra("source", appData);
         }
         mUiController.handleNewIntent(i);
-        setDisplayTitle(text);
+        setDisplayTitle(null, text);
     }
 
     private boolean isMakeCallTypeUrl(String url) {
@@ -648,7 +664,7 @@ public class NavigationBarBase extends LinearLayout implements
             public void run() {
                 clearFocus();
                 if (currentTab != null) {
-                    setDisplayTitle(currentTab.getUrl());
+                    setDisplayTitle(currentTab.getTitle(), currentTab.getUrl());
                 }
             }
         });
@@ -757,6 +773,7 @@ public class NavigationBarBase extends LinearLayout implements
                             mFaviconTile.setVisibility(View.GONE);
                             mMagnify.setVisibility(View.VISIBLE);
                         }
+                        setDisplayTitle(currentTab.getTitle(), currentTab.getUrl());
                     }
                     mUiController.setWindowDimming(0.0f);
                 }
@@ -769,6 +786,13 @@ public class NavigationBarBase extends LinearLayout implements
                 mMore.setVisibility(View.GONE);
                 if (mUiController != null) {
                     mUiController.setWindowDimming(0.75f);
+                    if (mTrustLevel == SiteTileView.TRUST_TRUSTED) {
+                        Tab currentTab = mUiController.getCurrentTab();
+                        if (currentTab != null) {
+                            mUrlInput.setText(currentTab.getUrl(), false);
+                            mUrlInput.selectAll();
+                        }
+                    }
                 }
                 break;
             case STATE_EDITED:
