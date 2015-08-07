@@ -42,17 +42,15 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.Engine;
-import org.json.JSONException;
+import org.codeaurora.swe.utils.Logger;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -62,7 +60,7 @@ public class UpdateNotificationService extends IntentService {
     private static final String LOGTAG = "UpdateNotificationService";
     private static final String ACTION_CHECK_UPDATES = BrowserConfig.AUTHORITY +
             ".action.check.update";
-    public static final int DEFAULT_UPDATE_INTERVAL = 604800000; // one week
+    public static final int DEFAULT_UPDATE_INTERVAL = 172800000; // two days
     public static final String UPDATE_SERVICE_PREF = "browser_update_service";
     public static final String UPDATE_JSON_VERSION_CODE = "versioncode";
     public static final String UPDATE_JSON_VERSION_STRING = "versionstring";
@@ -111,7 +109,7 @@ public class UpdateNotificationService extends IntentService {
             String arch = (String) ai.metaData.get("Architecture");
             flavor = "url-" + compiler + "-" + arch;
         } catch (Exception e) {
-            Log.e(LOGTAG, "getFlavor Exception : " + e.toString());
+            Logger.e(LOGTAG, "getFlavor Exception : " + e.toString());
         }
         return flavor;
     }
@@ -119,15 +117,13 @@ public class UpdateNotificationService extends IntentService {
     public static void updateCheck(Context context) {
         initEngine(context.getApplicationContext());
         if (!BrowserCommandLine.hasSwitch(BrowserSwitches.AUTO_UPDATE_SERVER_CMD)) {
-            if (Browser.LOGV_ENABLED)
-                Log.v(LOGTAG, "skip no command line: ");
+            Logger.v(LOGTAG, "skip no command line: ");
             return;
         }
         long interval = getInterval(context);
         Long last_update_time = getLastUpdateTimestamp(context);
         if ((last_update_time +  interval) < System.currentTimeMillis()) {
-            if (Browser.LOGV_ENABLED)
-                Log.v(LOGTAG, "check for update now: ");
+            Logger.v(LOGTAG, "check for update now: ");
             startActionUpdateNotificationService(context);
         }
     }
@@ -192,17 +188,15 @@ public class UpdateNotificationService extends IntentService {
         editor.putInt(UPDATE_INTERVAL, interval);
         editor.putString(UPDATE_VERSION, version);
         editor.putString(UPDATE_URL, url);
-        if (Browser.LOGV_ENABLED) {
-            Log.v(LOGTAG, "persist version code : " + versionCode);
-            Log.v(LOGTAG, "persist version : " + version);
-            Log.v(LOGTAG, "persist download url : " + url);
-        }
+        Logger.v(LOGTAG, "persist version code : " + versionCode);
+        Logger.v(LOGTAG, "persist version : " + version);
+        Logger.v(LOGTAG, "persist download url : " + url);
         editor.commit();
     }
 
     private void handleUpdateCheck() {
         String server_url = BrowserCommandLine.getSwitchValue(
-                BrowserSwitches.AUTO_UPDATE_SERVER_CMD) + "/" + getPackageName();
+                BrowserSwitches.AUTO_UPDATE_SERVER_CMD);
         int interval = DEFAULT_UPDATE_INTERVAL;
         InputStream stream = null;
         if (server_url != null && !server_url.isEmpty()) {
@@ -210,8 +204,7 @@ public class UpdateNotificationService extends IntentService {
                 URLConnection connection = new URL(server_url).openConnection();
                 stream = connection.getInputStream();
                 String result = readContents(stream);
-                if (Browser.LOGV_ENABLED)
-                    Log.v(LOGTAG, "handleUpdateCheck result : " + result);
+                Logger.v(LOGTAG, "handleUpdateCheck result : " + result);
                 JSONObject jsonResult = (JSONObject) new JSONTokener(result).nextValue();
                 int versionCode = Integer.parseInt((String) jsonResult.get(UPDATE_JSON_VERSION_CODE));
                 String url = (String) jsonResult.get(getFlavor(this));
@@ -226,7 +219,7 @@ public class UpdateNotificationService extends IntentService {
                 }
                 stream.close();
             } catch (Exception e) {
-                Log.e(LOGTAG, "handleUpdateCheck Exception : " + e.toString());
+                Logger.e(LOGTAG, "handleUpdateCheck Exception : " + e.toString());
             } finally {
                 // always update the timestamp
                 updateTimeStamp();
@@ -239,7 +232,7 @@ public class UpdateNotificationService extends IntentService {
         try {
             pInfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
-            Log.e(LOGTAG, "getCurrentVersionCode Exception : " + e.toString());
+            Logger.e(LOGTAG, "getCurrentVersionCode Exception : " + e.toString());
         }
         return pInfo.versionCode;
     }
@@ -287,12 +280,12 @@ public class UpdateNotificationService extends IntentService {
                 line = reader.readLine();
             }
         } catch (Exception e) {
-            Log.e(LOGTAG, "convertStreamToString Exception : " + e.toString());
+            Logger.e(LOGTAG, "convertStreamToString Exception : " + e.toString());
         } finally {
             try {
                 is.close();
             } catch (Exception e) {
-                Log.e(LOGTAG, "convertStreamToString Exception : " + e.toString());
+                Logger.e(LOGTAG, "convertStreamToString Exception : " + e.toString());
             }
         }
         return sb.toString();
