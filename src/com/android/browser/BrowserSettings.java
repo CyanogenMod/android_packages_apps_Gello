@@ -51,6 +51,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.codeaurora.swe.AutoFillProfile;
@@ -591,11 +592,22 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     }
 
     public void resetDefaultPreferences() {
-        mPrefs.edit()
-                .clear()
-                .apply();
+        WebRefiner webRefiner = WebRefiner.getInstance();
+        if (webRefiner != null) {
+            List<String> webrefiner_list = PermissionsServiceFactory.getOriginsForPermission(
+                    PermissionsServiceFactory.PermissionType.WEBREFINER);
+            if (!webrefiner_list.isEmpty()) {
+                String[] origins = webrefiner_list.toArray(new String[webrefiner_list.size()]);
+                webRefiner.useDefaultPermissionForOrigins(origins);
+            }
+        }
+
+        PermissionsServiceFactory.resetDefaultPermissions();
+        mPrefs.edit().clear().apply();
+
         resetCachedValues();
-        if (WebRefiner.getInstance() != null) {
+
+        if (webRefiner != null) {
             mPrefs.edit().putBoolean(PREF_WEB_REFINER, true).apply();
         } else {
             mPrefs.edit().putBoolean(PREF_WEB_REFINER, false).apply();

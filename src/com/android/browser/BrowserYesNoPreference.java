@@ -28,13 +28,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-class BrowserYesNoPreference extends DialogPreference {
+public class BrowserYesNoPreference extends DialogPreference {
     private SharedPreferences mPrefs;
     private Context mContext;
     private String mNeutralBtnTxt;
     private String mPositiveBtnTxt;
     private String mNegativeBtnTxt;
     private boolean mNeutralBtnClicked = false;
+
+    public static final int CANCEL_BTN = 0;
+    public static final int OK_BTN = 1;
+    public static final int OTHER_BTN = 2;
 
     // This is the constructor called by the inflater
     public BrowserYesNoPreference(Context context, AttributeSet attrs) {
@@ -154,8 +158,8 @@ class BrowserYesNoPreference extends DialogPreference {
 
         if (callChangeListener(result)) {
             setEnabled(false);
-            BrowserSettings settings = BrowserSettings.getInstance();
             if (PreferenceKeys.PREF_CLEAR_SELECTED_DATA.equals(getKey())) {
+                BrowserSettings settings = BrowserSettings.getInstance();
                 if (mPrefs.getBoolean(PreferenceKeys.PREF_PRIVACY_CLEAR_CACHE, false)) {
                     settings.clearCache();
                     settings.clearDatabases();
@@ -176,23 +180,8 @@ class BrowserYesNoPreference extends DialogPreference {
                         false)) {
                     settings.clearLocationAccess();
                 }
-
-                setEnabled(true);
-            } else if (PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES.equals(
-                    getKey())) {
-                if (mNeutralBtnClicked) {
-                    settings.clearCache();
-                    settings.clearDatabases();
-                    settings.clearCookies();
-                    settings.clearHistory();
-                    settings.clearFormData();
-                    settings.clearPasswords();
-                    settings.clearLocationAccess();
-                }
-
-                settings.resetDefaultPreferences();
-                setEnabled(true);
             }
+            setEnabled(true);
         }
     }
 }

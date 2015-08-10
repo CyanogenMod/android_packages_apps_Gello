@@ -33,11 +33,10 @@ import android.util.Log;
 import com.android.browser.BaseUi;
 import com.android.browser.BrowserActivity;
 import com.android.browser.BrowserSettings;
+import com.android.browser.BrowserYesNoPreference;
 import com.android.browser.DownloadHandler;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
-
-import org.codeaurora.swe.PermissionsServiceFactory;
 
 public class AdvancedPreferencesFragment
         implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -157,8 +156,19 @@ public class AdvancedPreferencesFragment
 
         else if (pref.getKey().equals(PreferenceKeys.PREF_RESET_DEFAULT_PREFERENCES)) {
             Integer value = (Integer) objValue;
-            if (value.intValue() != 0) {
-                PermissionsServiceFactory.resetDefaultPermissions();
+            if (value.intValue() != BrowserYesNoPreference.CANCEL_BTN) {
+                BrowserSettings settings = BrowserSettings.getInstance();
+                if (value.intValue() == BrowserYesNoPreference.OTHER_BTN) {
+                    settings.clearCache();
+                    settings.clearDatabases();
+                    settings.clearCookies();
+                    settings.clearHistory();
+                    settings.clearFormData();
+                    settings.clearPasswords();
+                    settings.clearLocationAccess();
+                }
+
+                settings.resetDefaultPreferences();
                 mFragment.startActivity(new Intent(BrowserActivity.ACTION_RESTART, null,
                         mFragment.getActivity(), BrowserActivity.class));
                 return true;
