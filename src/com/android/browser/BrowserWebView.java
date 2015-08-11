@@ -17,6 +17,8 @@
 package com.android.browser;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.content.res.Resources;
 import android.util.AttributeSet;
@@ -197,6 +199,16 @@ public class BrowserWebView extends WebView implements WebView.TitleBarDelegate 
     public void destroy() {
         BrowserSettings.getInstance().stopManagingSettings(getSettings());
         super.destroy();
+    }
+
+    @Override
+    public Bitmap getFavicon() {
+        Tab currentTab = mTitleBar.getUiController().getCurrentTab();
+        if (currentTab != null){
+            return currentTab.getFavicon();
+        }
+        else return BitmapFactory.decodeResource(
+                this.getResources(), R.drawable.ic_deco_favicon_normal);
     }
 
     @Override

@@ -220,8 +220,9 @@ class Tab implements PictureListener {
         String mUrl;
         String mOriginalUrl;
         String mTitle;
-        SecurityState mSecurityState;
         // This is non-null only when mSecurityState is SECURITY_STATE_BAD_CERTIFICATE.
+        SecurityState mSecurityState;
+        // This is non-null only when onReceivedIcon is called or SnapshotTab restores it.
         Bitmap mFavicon;
         boolean mIsBookmarkedSite;
         boolean mIncognito;
@@ -237,14 +238,13 @@ class Tab implements PictureListener {
             mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
         }
 
-        PageState(Context c, boolean incognito, String url, Bitmap favicon) {
+        PageState(Context c, boolean incognito, String url) {
             mIncognito = incognito;
             if (mIncognito)
                 mOriginalUrl = mUrl = "";
             else
                 mOriginalUrl = mUrl = url;
             mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
-            mFavicon = favicon;
         }
 
     }
@@ -335,7 +335,7 @@ class Tab implements PictureListener {
             mUpdateThumbnail = true;
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(mContext,
-                    view.isPrivateBrowsingEnabled(), url, favicon);
+                    view.isPrivateBrowsingEnabled(), url);
             mLoadStartTime = SystemClock.uptimeMillis();
             // Need re-enable FullScreenMode on Page navigation if needed
             if (BrowserSettings.getInstance().useFullscreen()){
@@ -549,6 +549,18 @@ class Tab implements PictureListener {
         @Override
         public void beforeNavigation(WebView view, String url) {
             mTouchIconUrl = null;
+            TitleBar titleBar = null;
+            Controller controller = (Controller)mWebViewController;
+            UI ui = controller.getUi();
+
+            if (ui instanceof BaseUi) {
+                titleBar = ((BaseUi)ui).getTitleBar();
+                if (titleBar != null) {
+                    NavigationBarBase navBar = titleBar.getNavigationBar();
+                    navBar.showCurrentFavicon(Tab.this); // Show the default Favicon while loading a new page
+                }
+            }
+
             if (BaseUi.isUiLowPowerMode()) {
                 return;
             }
@@ -561,19 +573,11 @@ class Tab implements PictureListener {
                 return;
             }
 
-            if (view.getUrl().equals(url)) {
-                return;
-            }
-
             final int idx = view.copyBackForwardList().getCurrentIndex();
             boolean bitmapExists = view.hasSnapshot(idx);
 
             int progress = 100;
-            Controller controller = (Controller)mWebViewController;
-            UI ui = controller.getUi();
-            if (ui instanceof BaseUi) {
-                BaseUi baseUi = (BaseUi) ui;
-                TitleBar titleBar = baseUi.getTitleBar();
+            if (titleBar != null) {
                 progress = titleBar.getProgressView().getProgressPercent();
             }
 
@@ -657,10 +661,10 @@ class Tab implements PictureListener {
                    url.contains(Controller.INCOGNITO_URI)) {
             mCurrentState.mUrl = mCurrentState.mOriginalUrl = "";
         }
+
         else {
             mCurrentState.mUrl = view.getUrl();
             mCurrentState.mOriginalUrl = view.getOriginalUrl();
-            mCurrentState.mFavicon = view.getFavicon();
         }
 
         if (mCurrentState.mUrl == null) {
@@ -1195,6 +1199,16 @@ class Tab implements PictureListener {
             mId = TabControl.getNextId();
         }
         setWebView(w);
+
+        UI ui = ((Controller)mWebViewController).getUi();
+        if (ui instanceof BaseUi) {
+            TitleBar titleBar = ((BaseUi)ui).getTitleBar();
+            if (titleBar != null) {
+                NavigationBarBase navBar = titleBar.getNavigationBar();
+                navBar.showCurrentFavicon(this); // Show the default Favicon while loading a new page
+            }
+        }
+
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message m) {
@@ -1783,7 +1797,7 @@ class Tab implements PictureListener {
         String url = b.getString(CURRURL);
         String title = b.getString(CURRTITLE);
         boolean incognito = b.getBoolean(INCOGNITO);
-        mCurrentState = new PageState(mContext, incognito, url, null);
+        mCurrentState = new PageState(mContext, incognito, url);
         mCurrentState.mTitle = title;
         synchronized (Tab.this) {
             if (mCapture != null) {
@@ -1914,7 +1928,7 @@ class Tab implements PictureListener {
         if (mMainView != null) {
             mPageLoadProgress = INITIAL_PROGRESS;
             mCurrentState = new PageState(
-                                mContext, mMainView.isPrivateBrowsingEnabled(), url, null);
+                                mContext, mMainView.isPrivateBrowsingEnabled(), url);
             mMainView.loadUrl(url, headers);
         }
     }

@@ -35,6 +35,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -87,6 +88,7 @@ public class BrowserHistoryPage extends Fragment
     private ViewGroup mPrefsContainer;
     private FragmentBreadCrumbs mFragmentBreadCrumbs;
     private ExpandableListView mHistoryList;
+    private static Bitmap sDefaultFavicon;
 
     private View mRoot;
 
@@ -210,6 +212,10 @@ public class BrowserHistoryPage extends Fragment
             if (cb != null && cb instanceof CombinedBookmarksCallbacks) {
                 mCallback = (CombinedBookmarksCallbacks) cb;
             }
+        }
+        if (sDefaultFavicon == null) {
+            sDefaultFavicon = BitmapFactory.decodeResource(
+                    this.getResources(), R.drawable.ic_deco_favicon_normal);
         }
     }
 
@@ -676,7 +682,7 @@ public class BrowserHistoryPage extends Fragment
                 item.setFavicon(BitmapFactory.decodeByteArray(data, 0,
                         data.length));
             } else {
-                item.setFavicon(null);
+                item.setFavicon(sDefaultFavicon);
             }
             item.setIsBookmark(cursor.getInt(HistoryQuery.INDEX_IS_BOOKMARK) == 1);
             return item;

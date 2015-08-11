@@ -47,7 +47,6 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.net.http.SslError;
 import android.net.wifi.WifiManager;
 import android.net.wifi.ScanResult;
 import android.os.AsyncTask;
@@ -978,7 +977,7 @@ public class Controller
 
         String url = tab.getUrl();
         // update the bookmark database for favicon
-        maybeUpdateFavicon(tab, null, url, favicon);
+        syncBookmarkFavicon(tab, null, url, favicon);
 
         Performance.tracePageStart(url);
 
@@ -1000,7 +999,7 @@ public class Controller
          }
 
         tab.onPageFinished();
-        maybeUpdateFavicon(tab, tab.getOriginalUrl(), tab.getUrl(), tab.getFavicon());
+        syncBookmarkFavicon(tab, tab.getOriginalUrl(), tab.getUrl(), tab.getFavicon());
 
         Performance.tracePageFinished();
     }
@@ -1068,8 +1067,8 @@ public class Controller
 
     @Override
     public void onFavicon(Tab tab, WebView view, Bitmap icon) {
-        mUi.onTabDataChanged(tab);
-        maybeUpdateFavicon(tab, view.getOriginalUrl(), view.getUrl(), icon);
+        syncBookmarkFavicon(tab, view.getOriginalUrl(), view.getUrl(), icon);
+        ((BaseUi)mUi).setFavicon(tab);
     }
 
     @Override
@@ -1263,8 +1262,8 @@ public class Controller
      * Update the favorites icon if the private browsing isn't enabled and the
      * icon is valid.
      */
-    private void maybeUpdateFavicon(Tab tab, final String originalUrl,
-            final String url, Bitmap favicon) {
+    private void syncBookmarkFavicon(Tab tab, final String originalUrl,
+                                     final String url, Bitmap favicon) {
         if (favicon == null) {
             return;
         }

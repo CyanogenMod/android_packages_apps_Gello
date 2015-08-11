@@ -43,8 +43,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.browser.R;
+import com.android.browser.SiteTileView;
 import com.android.browser.WebStorageSizeManager;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -63,22 +65,35 @@ import org.codeaurora.swe.WebStorage;
 public class WebsiteSettingsFragment extends ListFragment implements OnClickListener {
     private SiteAdapter mAdapter = null;
 
-    private class Site {
+    private class Site implements OnClickListener {
         private String mOrigin;
         private String mTitle;
         private Bitmap mIcon;
+        private View mView;
+        private Bitmap mDefaultIcon = mAdapter.mDefaultIcon;
 
         public Site(String origin) {
             mOrigin = origin;
             mTitle = null;
             mIcon = null;
-            PermissionsServiceFactory.getFavicon(origin, getActivity(),
+            fetchFavicon();
+        }
+
+        private void fetchFavicon() {
+            // Fetch favicon and set it
+            PermissionsServiceFactory.getFavicon(mOrigin, getActivity(),
                     new ValueCallback<Bitmap>() {
                         @Override
                         public void onReceiveValue(Bitmap value) {
-                            mIcon = value;
+                            setIcon(value);
+
                         }
                     });
+        }
+
+        public void updateView(View view){
+            mView = view;
+            fetchFavicon();
         }
 
         public String getOrigin() {
@@ -89,8 +104,14 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             mTitle = title;
         }
 
-        public void setIcon(Bitmap icon) {
-            mIcon = icon;
+        public void setIcon(Bitmap image) {
+            mIcon = image;
+            if (mView != null) {
+                SiteTileView icon = (SiteTileView) mView.findViewById(R.id.icon);
+                icon.replaceFavicon((image == null) ? mDefaultIcon : image);
+                icon.setVisibility(View.VISIBLE);
+                icon.setOnClickListener(this);
+            }
         }
 
         public Bitmap getIcon() {
@@ -111,6 +132,11 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             Uri uri = Uri.parse(str);
             return "http".equals(uri.getScheme()) ?  str.substring(7) : str;
         }
+
+        @Override
+        public void onClick(View v) {
+            clickHandler(this);
+        }
     }
 
     class SiteAdapter extends ArrayAdapter<Site>
@@ -127,7 +153,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mDefaultIcon = BitmapFactory.decodeResource(getResources(),
                     R.drawable.ic_deco_favicon_normal);
-
             mReady = false;
             askForOrigins();
         }
@@ -207,7 +232,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             View view;
             final TextView title;
             final TextView subtitle;
-            final ImageView icon;
 
             if (convertView == null) {
                 view = mInflater.inflate(mResource, parent, false);
@@ -217,9 +241,9 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
 
             title = (TextView) view.findViewById(R.id.title);
             subtitle = (TextView) view.findViewById(R.id.subtitle);
-            icon = (ImageView) view.findViewById(R.id.icon);
 
             Site site = getItem(position);
+            site.updateView(view);
             title.setText(site.getPrettyTitle());
             String subtitleText = site.getPrettyOrigin();
             if (subtitleText != null) {
@@ -232,13 +256,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                 title.setMaxLines(2);
                 title.setSingleLine(false);
             }
-
-            icon.setVisibility(View.VISIBLE);
-            Bitmap bmp = site.getIcon();
-            if (bmp == null) {
-                bmp = mDefaultIcon;
-            }
-            icon.setImageBitmap(bmp);
             // We set the site as the view's tag,
             // so that we can get it in onItemClick()
             view.setTag(site);
@@ -250,21 +267,29 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
                                 View view,
                                 int position,
                                 long id) {
-            Site site = (Site) view.getTag();
-            Activity activity = getActivity();
-            if (activity != null) {
-                Bundle args = new Bundle();
-                args.putString(SiteSpecificPreferencesFragment.EXTRA_ORIGIN, site.getOrigin());
+            clickHandler((Site) view.getTag());
+        }
+    }
 
-                FragmentManager fragmentManager = activity.getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                Fragment newFragment = new SiteSpecificPreferencesFragment();
-                newFragment.setArguments(args);
-                fragmentTransaction.replace(getId(), newFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+    private void clickHandler(Site site) {
+        Activity activity = getActivity();
+        if (activity != null) {
+            Bundle args = new Bundle();
+            args.putString(SiteSpecificPreferencesFragment.EXTRA_ORIGIN, site.getOrigin());
+            if(site.getIcon() != null) {
+                ByteArrayOutputStream favicon = new ByteArrayOutputStream();
+                site.getIcon().compress(Bitmap.CompressFormat.PNG, 100, favicon);
+                args.putByteArray(SiteSpecificPreferencesFragment.EXTRA_FAVICON,
+                        favicon.toByteArray());
             }
+            FragmentManager fragmentManager = activity.getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Fragment newFragment = new SiteSpecificPreferencesFragment();
+            newFragment.setArguments(args);
+            fragmentTransaction.replace(getId(), newFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 

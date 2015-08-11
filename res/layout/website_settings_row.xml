@@ -21,15 +21,13 @@
   android:gravity="center_vertical"
   android:padding="0dip">
 
-  <ImageView android:id="@+id/icon"
-    android:layout_width="20dip"
-    android:layout_height="20dip"
-    android:layout_marginStart="18dip"
-    android:layout_marginEnd="18dip"
-    android:layout_centerVertical="true"
-    android:background="@drawable/bookmark_list_favicon_bg"
-    android:padding="2dip" />
-
+    <com.android.browser.SiteTileView
+        android:id="@+id/icon"
+        android:layout_centerVertical="true"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="6dip"
+        android:layout_marginEnd="6dip"/>
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

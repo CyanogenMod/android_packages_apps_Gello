@@ -41,12 +41,12 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.ArrayMap;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -359,7 +359,7 @@ public class SiteTileView extends View {
             sBackgroundDrawable.getPadding(sBackgroundDrawablePadding);
 
         // load all the badge drawables
-        sBadges = new ArrayMap<>();
+        sBadges = new HashMap<>();
         loadBadgeResources(r, TRUST_AVOID, R.drawable.img_deco_tile_avoid,
                 R.drawable.img_deco_tile_avoid_accent, R.color.TileBadgeTextAvoid);
         loadBadgeResources(r, TRUST_UNTRUSTED, R.drawable.img_deco_tile_untrusted,

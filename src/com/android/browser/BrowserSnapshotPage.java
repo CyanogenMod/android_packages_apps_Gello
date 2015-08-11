@@ -77,6 +77,7 @@ public class BrowserSnapshotPage extends Fragment implements
     private static final int SNAPSHOT_FAVICON = 4;
     private static final int SNAPSHOT_URL = 5;
     private static final int SNAPSHOT_DATE_CREATED = 6;
+    private static Bitmap sDefaultFavicon;
 
     GridView mGrid;
     View mEmpty;
@@ -98,6 +99,9 @@ public class BrowserSnapshotPage extends Fragment implements
             }
         }
         mAnimateId = getArguments().getLong(EXTRA_ANIMATE_ID);
+        if (sDefaultFavicon == null)
+            sDefaultFavicon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.ic_deco_favicon_normal);
     }
 
     @Override
@@ -190,7 +194,13 @@ public class BrowserSnapshotPage extends Fragment implements
     private void populateBookmarkItem(Cursor cursor, BookmarkItem item) {
         item.setName(cursor.getString(SNAPSHOT_TITLE));
         item.setUrl(cursor.getString(SNAPSHOT_URL));
-        item.setFavicon(getBitmap(cursor, SNAPSHOT_FAVICON));
+        Bitmap favicon = getBitmap(cursor, SNAPSHOT_FAVICON);
+        if (favicon != null) {
+            item.setFavicon(favicon);
+        } else {
+            item.setFavicon(sDefaultFavicon);
+        }
+
     }
 
     static Bitmap getBitmap(Cursor cursor, int columnIndex) {

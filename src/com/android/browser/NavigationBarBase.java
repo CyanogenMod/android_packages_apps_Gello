@@ -256,16 +256,20 @@ public class NavigationBarBase extends LinearLayout implements
         return mDefaultStatusBarColor;
     }
 
-    public void setFavicon(Bitmap icon) {
-        int color = ColorUtils.getDominantColorForBitmap(icon);
-        Tab tab = mUiController.getCurrentTab();
+    // Sets the favicon for the given tab if it's in the foreground
+    // If the tab doesn't have a favicon, it sets the default favicon
+    public void showCurrentFavicon(Tab tab) {
+        int color;
+        if (tab == null) { return; }
 
-        if (tab != null) {
+        if (tab.inForeground()) {
             if (tab.hasFavicon()) {
+                color = ColorUtils.getDominantColorForBitmap(tab.getFavicon());
                 updateSiteIconColor(tab.getUrl(), color);
                 setStatusAndNavigationBarColor(mUiController.getActivity(),
                         adjustColor(color, 1, 1, 0.7f));
-            } else {
+
+            }   else {
                 color = getSiteIconColor(tab.getUrl());
                 if (color != 0) {
                     setStatusAndNavigationBarColor(mUiController.getActivity(),
@@ -275,14 +279,9 @@ public class NavigationBarBase extends LinearLayout implements
                             mDefaultStatusBarColor);
                 }
             }
-        } else {
-            setStatusAndNavigationBarColor(mUiController.getActivity(), mDefaultStatusBarColor);
-        }
-
-        //Bitmap favicon = mUiController.getCurrentTopWebView().getFavicon();
-
-        if (mFaviconTile != null) {
-            mFaviconTile.replaceFavicon(mUiController.getCurrentTopWebView().getFavicon());
+            if (mFaviconTile != null) {
+                mFaviconTile.replaceFavicon(tab.getFavicon()); // Always set the tab's favicon
+            }
         }
     }
 
@@ -337,7 +336,7 @@ public class NavigationBarBase extends LinearLayout implements
         Bitmap favicon = mUiController.getCurrentTopWebView().getFavicon();
         if (favicon != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            favicon.compress(Bitmap.CompressFormat.PNG, 50, baos);
+            favicon.compress(Bitmap.CompressFormat.PNG, 100, baos);
             bundle.putByteArray(SiteSpecificPreferencesFragment.EXTRA_FAVICON,
                     baos.toByteArray());
         }
@@ -722,7 +721,6 @@ public class NavigationBarBase extends LinearLayout implements
         mFaviconTile.setBadgeBlockedObjectsCount(0);
         mFaviconTile.setTrustLevel(SiteTileView.TRUST_UNKNOWN);
         mFaviconTile.setBadgeHasCertIssues(false);
-        mFaviconTile.replaceFavicon(mDefaultFavicon);
         setSecurityState(Tab.SecurityState.SECURITY_STATE_NOT_SECURE);
         mHandler.removeMessages(WEBREFINER_COUNTER_MSG);
         mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,

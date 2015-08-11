@@ -228,7 +228,6 @@ public abstract class BaseUi implements UI {
     @Override
     public void onTabDataChanged(Tab tab) {
         setUrlTitle(tab);
-        setFavicon(tab);
         updateTabSecurityState(tab);
         updateNavigationState(tab);
         mTitleBar.onTabDataChanged(tab);
@@ -305,6 +304,7 @@ public abstract class BaseUi implements UI {
         mTitleBar.bringToFront();
         tab.getTopWindow().requestFocus();
         onTabDataChanged(tab);
+        setFavicon(tab);
         onProgressChanged(tab);
         mNavigationBar.setIncognitoMode(tab.isPrivateBrowsingEnabled());
         mBlockFocusAnimations = false;
@@ -722,10 +722,8 @@ public abstract class BaseUi implements UI {
     }
 
     // Set the favicon in the title bar.
-    protected void setFavicon(Tab tab) {
-        if (tab.inForeground()) {
-            mNavigationBar.setFavicon(tab.getWebView().getFavicon());
-        }
+    public void setFavicon(Tab tab) {
+        mNavigationBar.showCurrentFavicon(tab);
     }
 
     // active tabs page
