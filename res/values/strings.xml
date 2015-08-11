@@ -490,7 +490,7 @@
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
     <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
-    <string name="pref_edge_swipe_unknown">Unknown</string>
+    <string name="pref_edge_swipe_unknown">Choose behavior</string>
     <string-array name="pref_edge_swiping_choices">
         <item>@string/pref_temporal_edge_swipe</item>
 <!--
