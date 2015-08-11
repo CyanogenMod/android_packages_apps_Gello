@@ -95,7 +95,7 @@ public class NavigationBarBase extends LinearLayout implements
     protected int mTrustLevel = SiteTileView.TRUST_UNKNOWN;
 
     private static final String noSitePrefs[] = {
-            "browser://",
+            "chrome://",
             "about:",
             "content:",
     };
@@ -513,7 +513,7 @@ public class NavigationBarBase extends LinearLayout implements
             Tab t = mBaseUi.getActiveTab();
             // Only shortcut javascript URIs for now, as there is special
             // logic in UrlHandler for other schemas
-            if (url != null && t != null &&  url.startsWith("javascript:")) {
+            if (url != null && t != null && url.startsWith("javascript:")) {
                 mUiController.loadUrl(t, url);
                 setDisplayTitle(null, text);
                 return;

@@ -48,7 +48,6 @@ import org.codeaurora.swe.BrowserCommandLine;
 public class LegalPreferencesFragment extends PreferenceFragment
                             implements OnPreferenceClickListener {
 
-    private static final String creditsUrl = "browser://credits";
     PreferenceScreen mHeadPref = null;
     String mEulaUrl = "";
     String mPrivacyPolicyUrl = "";
@@ -102,7 +101,8 @@ public class LegalPreferencesFragment extends PreferenceFragment
         Bundle b = new Bundle();
         if(preference.getKey().equals(PreferenceKeys.PREF_LEGAL_CREDITS)) {
             Intent i = new Intent(getActivity(), LegalPreviewActivity.class);
-            i.putExtra(LegalPreviewActivity.URL_INTENT_EXTRA, creditsUrl);
+            i.putExtra(LegalPreviewActivity.URL_INTENT_EXTRA, getResources()
+                    .getString(R.string.swe_open_source_license_url));
             startActivity(i);
             return true;
         } else if(preference.getKey().equals(PreferenceKeys.PREF_LEGAL_EULA)) {
