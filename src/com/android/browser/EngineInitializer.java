@@ -320,7 +320,7 @@ public class EngineInitializer {
             if (!mInitializationStarted) {
                 mInitializationStarted = true;
                 mUiThreadHandler = new Handler(Looper.getMainLooper());
-                Engine.initializeCommandLine(ctx);
+                Engine.initializeCommandLine(ctx, CommandLineManager.getCommandLineSwitches(ctx));
                 mInitializeTask = new InitializeTask(ctx);
                 mInitializeTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 mActivitySchedulerMap = new HashMap<BrowserActivity, ActivityScheduler>();
@@ -356,8 +356,9 @@ public class EngineInitializer {
         assert runningOnUiThread() : "Tried to initialize the engine on the wrong thread.";
 
         if (!mInitializationCompleted) {
+
             // TODO: Evaluate the benefit of async Engine.initialize()
-            Engine.initialize(ctx);
+            Engine.initialize(ctx, CommandLineManager.getCommandLineSwitches(ctx));
             // Add the browser commandline options
             BrowserConfig.getInstance(ctx).initCommandLineSwitches();
 

@@ -66,13 +66,6 @@
             '<(PRODUCT_DIR)/res.java/content_strings_grd.zip',
           ],
         },
-        #swe_res.
-        {
-          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/swe_res/',
-          'files': [
-            '<(PRODUCT_DIR)/res.java/swe_chrome_engine_java.zip',
-          ],
-        },
         #chrome_res.
         {
           'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/chrome_res/',
