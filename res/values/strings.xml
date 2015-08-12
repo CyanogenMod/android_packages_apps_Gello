@@ -784,7 +784,6 @@
     <string name="feedback">Feedback</string>
     <string name="swe_legal">Legal information</string>
     <string name="swe_open_source_licenses">Open source licenses</string>
-    <string name="swe_open_source_license_url" translatable="False">chrome://credits</string>
     <string name="swe_pref_legal_info_summary">Copyright (c) 2015, The Linux Foundation. All rights reserved.</string>
     <string name="swe_eula">End user licenses agreement</string>
     <string name="swe_privacy_policy">Privacy policy</string>

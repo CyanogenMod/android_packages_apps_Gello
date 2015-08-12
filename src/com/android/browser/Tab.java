@@ -228,11 +228,10 @@ class Tab implements PictureListener {
 
         PageState(Context c, boolean incognito) {
             mIncognito = incognito;
+            mOriginalUrl = mUrl = "";
             if (mIncognito) {
-                mOriginalUrl = mUrl = "chrome://incognito";
                 mTitle = c.getString(R.string.new_incognito_tab);
             } else {
-                mOriginalUrl = mUrl = "";
                 mTitle = c.getString(R.string.new_tab);
             }
             mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
@@ -240,7 +239,10 @@ class Tab implements PictureListener {
 
         PageState(Context c, boolean incognito, String url, Bitmap favicon) {
             mIncognito = incognito;
-            mOriginalUrl = mUrl = url;
+            if (mIncognito)
+                mOriginalUrl = mUrl = "";
+            else
+                mOriginalUrl = mUrl = url;
             mSecurityState = SecurityState.SECURITY_STATE_NOT_SECURE;
             mFavicon = favicon;
         }
@@ -506,7 +508,12 @@ class Tab implements PictureListener {
         public WebResourceResponse shouldInterceptRequest(WebView view,
                 String url) {
             //intercept if opening a new incognito tab - show the incognito welcome page
-            if (url.startsWith("chrome://incognito")) {
+
+            // show only incognito content and webview has private
+            // and cannot go back(only supported if explicit from UI )
+            if (view.isPrivateBrowsingEnabled() &&
+                !view.canGoBack() &&
+                url.startsWith(Controller.INCOGNITO_URI)) {
                 Resources resourceHandle = mContext.getResources();
                 InputStream inStream = resourceHandle.openRawResource(
                         com.android.browser.R.raw.incognito_mode_start_page);
@@ -640,13 +647,20 @@ class Tab implements PictureListener {
     private void syncCurrentState(WebView view, String url) {
         // Sync state (in case of stop/timeout)
 
+
+
         if (mReceivedError) {
             mCurrentState.mUrl =  url;
             mCurrentState.mOriginalUrl = url;
-        } else {
-             mCurrentState.mUrl =  view.getUrl();
-             mCurrentState.mOriginalUrl = view.getOriginalUrl();
-             mCurrentState.mFavicon = view.getFavicon();
+        } else if (view.isPrivateBrowsingEnabled() &&
+                   !TextUtils.isEmpty(url) &&
+                   url.contains(Controller.INCOGNITO_URI)) {
+            mCurrentState.mUrl = mCurrentState.mOriginalUrl = "";
+        }
+        else {
+            mCurrentState.mUrl = view.getUrl();
+            mCurrentState.mOriginalUrl = view.getOriginalUrl();
+            mCurrentState.mFavicon = view.getFavicon();
         }
 
         if (mCurrentState.mUrl == null) {
@@ -1899,7 +1913,8 @@ class Tab implements PictureListener {
     public void loadUrl(String url, Map<String, String> headers) {
         if (mMainView != null) {
             mPageLoadProgress = INITIAL_PROGRESS;
-            mCurrentState = new PageState(mContext, false, url, null);
+            mCurrentState = new PageState(
+                                mContext, mMainView.isPrivateBrowsingEnabled(), url, null);
             mMainView.loadUrl(url, headers);
         }
     }
