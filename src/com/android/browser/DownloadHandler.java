@@ -468,6 +468,7 @@ public class DownloadHandler {
             boolean privateBrowsing) {
         if (!privateBrowsing) {
             Intent intent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activity.startActivity(intent);
         } else {
             activity.finish();
