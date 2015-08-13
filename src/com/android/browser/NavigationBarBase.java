@@ -317,7 +317,8 @@ public class NavigationBarBase extends LinearLayout implements
         Bundle bundle = new Bundle();
         bundle.putCharSequence(SiteSpecificPreferencesFragment.EXTRA_SITE,
                 mUiController.getCurrentTab().getUrl());
-
+        bundle.putCharSequence(SiteSpecificPreferencesFragment.EXTRA_SITE_TITLE,
+                mUiController.getCurrentTab().getTitle());
         bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_ADS_INFO, ads);
         bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_TRACKER_INFO, tracker);
         bundle.putInt(SiteSpecificPreferencesFragment.EXTRA_WEB_REFINER_MALWARE_INFO, malware);

@@ -81,6 +81,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     public static final String EXTRA_SITE = "website";
     public static final String EXTRA_ORIGIN = "website_origin";
     public static final String EXTRA_FAVICON = "website_favicon";
+    public static final String EXTRA_SITE_TITLE = "website_title";
     public static final String EXTRA_WEB_REFINER_ADS_INFO = "website_refiner_ads_info";
     public static final String EXTRA_WEB_REFINER_TRACKER_INFO = "website_refiner_tracker_info";
     public static final String EXTRA_WEB_REFINER_MALWARE_INFO = "website_refiner_malware_info";
@@ -193,6 +194,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     private SiteSecurityViewFactory mSecurityViews;
 
     private String mOriginText;
+    private String mSiteTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -209,6 +211,7 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         Bundle args = getArguments();
         if (args != null) {
             mOriginText = args.getString(EXTRA_ORIGIN, null);
+            mSiteTitle = args.getString(EXTRA_SITE_TITLE, null);
 
             if (mOriginText == null) {
                 mOriginText = args.getString(EXTRA_SITE);
@@ -224,10 +227,15 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                     mPermServ = value;
                     Preference pref = findPreference("site_name");
 
-                    pref.setTitle(mOriginText);
+                    pref.setTitle((mSiteTitle != null) ?
+                            mSiteTitle :
+                            mOriginText);
+
                     try {
                         URL url = new URL(mOriginText);
-                        pref.setSummary("(" + url.getHost() + ")");
+                        pref.setSummary((mSiteTitle != null) ?
+                                mOriginText :
+                                "(" + url.getHost() + ")");
                     } catch (MalformedURLException e) {
                     }
                     mOriginInfo = mPermServ.getOriginInfo(mOriginText);
