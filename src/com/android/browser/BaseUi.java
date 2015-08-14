@@ -240,7 +240,11 @@ public abstract class BaseUi implements UI {
     public void onProgressChanged(Tab tab) {
         int progress = tab.getLoadProgress();
         if (tab.inForeground()) {
-            mTitleBar.setProgress(progress);
+            if (tab.inPageLoad()) {
+                mTitleBar.setProgress(progress);
+            } else {
+                mTitleBar.setProgress(100);
+            }
         }
     }
 
