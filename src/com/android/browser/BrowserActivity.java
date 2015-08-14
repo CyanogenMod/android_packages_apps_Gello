@@ -40,6 +40,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import org.chromium.base.VisibleForTesting;
+import com.android.browser.R;
+import com.android.browser.search.DefaultSearchEngine;
+import com.android.browser.search.SearchEngine;
 import com.android.browser.stub.NullController;
 
 import java.util.Locale;
@@ -104,6 +107,17 @@ public class BrowserActivity extends Activity {
             final ActionBar bar = getActionBar();
             bar.hide();
         }
+
+        // If this was a web search request, pass it on to the default web
+        // search provider and finish this activity.
+        /*
+        SearchEngine searchEngine = BrowserSettings.getInstance().getSearchEngine();
+        boolean result = IntentHandler.handleWebSearchIntent(this, null, getIntent());
+        if (result && (searchEngine instanceof DefaultSearchEngine)) {
+            finish();
+            return;
+        }
+        */
 
         mActivityScheduler = EngineInitializer.onActivityCreate(BrowserActivity.this);
 

@@ -18,9 +18,15 @@ package com.android.browser.search;
 import com.android.browser.R;
 import com.android.browser.mdm.SearchEngineRestriction;
 
+import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -36,6 +42,14 @@ class SearchEnginePreference extends ListPreference {
         ArrayList<CharSequence> entryValues = new ArrayList<CharSequence>();
         ArrayList<CharSequence> entries = new ArrayList<CharSequence>();
 
+        SearchEngine defaultSearchEngine = SearchEngines.getDefaultSearchEngine(context);
+        String defaultSearchEngineName = null;
+        if (defaultSearchEngine != null) {
+            defaultSearchEngineName = defaultSearchEngine.getName();
+            entryValues.add(defaultSearchEngineName);
+            entries.add(defaultSearchEngine.getLabel());
+        }
+
         SearchEngineInfo managedSearchEngineInfo = SearchEngineRestriction.getInstance()
                 .getSearchEngineInfo();
 
@@ -47,8 +61,10 @@ class SearchEnginePreference extends ListPreference {
             for (SearchEngineInfo searchEngineInfo : SearchEngines.getSearchEngineInfos(context)) {
                 String name = searchEngineInfo.getName();
                 // Skip entry if name is same as the default or the managed
-                entryValues.add(name);
-                entries.add(searchEngineInfo.getLabel());
+                if (!name.equals(defaultSearchEngineName)) {
+                    entryValues.add(name);
+                    entries.add(searchEngineInfo.getLabel());
+                }
             }
         }
 

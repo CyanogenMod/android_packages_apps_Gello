@@ -17,6 +17,7 @@ package com.android.browser.search;
 
 import com.android.browser.R;
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -27,6 +28,10 @@ import java.util.List;
 public class SearchEngines {
 
     private static final String TAG = "SearchEngines";
+
+    public static SearchEngine getDefaultSearchEngine(Context context) {
+        return DefaultSearchEngine.create(context);
+    }
 
     public static List<SearchEngineInfo> getSearchEngineInfos(Context context) {
         ArrayList<SearchEngineInfo> searchEngineInfos = new ArrayList<SearchEngineInfo>();
@@ -41,11 +46,13 @@ public class SearchEngines {
 
     public static SearchEngine get(Context context, String name) {
         // TODO: cache
-        if (TextUtils.isEmpty(name)) {
-            return null;
+        SearchEngine defaultSearchEngine = getDefaultSearchEngine(context);
+        if (TextUtils.isEmpty(name)
+                || (defaultSearchEngine != null && name.equals(defaultSearchEngine.getName()))) {
+            return defaultSearchEngine;
         }
         SearchEngineInfo searchEngineInfo = getSearchEngineInfo(context, name);
-        if (searchEngineInfo == null) return null;
+        if (searchEngineInfo == null) return defaultSearchEngine;
         return new OpenSearchSearchEngine(context, searchEngineInfo);
     }
 
