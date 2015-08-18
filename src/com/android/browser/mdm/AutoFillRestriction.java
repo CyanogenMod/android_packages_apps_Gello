@@ -42,10 +42,13 @@ public class AutoFillRestriction extends Restriction implements PreferenceKeys {
 
     private final static String TAG = "AutoFillRestriction";
 
-    public static final String AUTO_FILL_RESTRICTION = "AutoFillEnabled";
+    public static final String AUTO_FILL_RESTRICTION_ENABLED = "AutoFillRestrictionEnabled";
+    public static final String AUTO_FILL_ALLOWED = "AutoFillAllowed";
 
     private static AutoFillRestriction sInstance;
     private MdmCheckBoxPreference mPref = null;
+
+    private boolean m_bAfAllowed;
 
     private AutoFillRestriction() {
         super(TAG);
@@ -73,36 +76,38 @@ public class AutoFillRestriction extends Restriction implements PreferenceKeys {
     private void updatePref() {
         if (null != mPref) {
             if (isEnabled()) {
-                mPref.setChecked(false);
+                mPref.setChecked(getValue());
                 mPref.disablePref();
             }
             else {
-                mPref.setChecked(true);
                 mPref.enablePref();
             }
             mPref.setMdmRestrictionState(isEnabled());
         }
     }
 
-    /*
-     *   Note reversed logic:
-     *       [x] 'Restrict' true  = AutoFillEnabled : false   => disable Auto fill in swe
-     *       [ ] 'Restrict' false = AutoFillEnabled : true    => enable Auto fill in swe
-     */
     @Override
     public void enforce(Bundle restrictions) {
         SharedPreferences.Editor editor = BrowserSettings.getInstance().getPreferences().edit();
 
-        boolean bEnable = false;
-        if (restrictions.containsKey(AUTO_FILL_RESTRICTION)) {
-            bEnable = ! restrictions.getBoolean(AUTO_FILL_RESTRICTION);
+        boolean restrictionEnabled = restrictions.getBoolean(AUTO_FILL_RESTRICTION_ENABLED, false);
+        enable(restrictionEnabled);
+
+        if(isEnabled()) {
+            m_bAfAllowed = true;
+            if (restrictions.containsKey(AUTO_FILL_ALLOWED)) {
+                m_bAfAllowed = restrictions.getBoolean(AUTO_FILL_ALLOWED);
+            }
+
+            Log.i(TAG, "Enforce [" + m_bAfAllowed + "]");
+
+            editor.putBoolean(PREF_AUTOFILL_ENABLED, m_bAfAllowed);
+            editor.apply();
         }
-        Log.i(TAG, "Enforce [" + bEnable + "]");
-        enable(bEnable);
-
-        editor.putBoolean(PREF_AUTOFILL_ENABLED, !isEnabled());
-        editor.apply();
-
         updatePref();
+    }
+
+    public boolean getValue() {
+        return m_bAfAllowed;
     }
 }

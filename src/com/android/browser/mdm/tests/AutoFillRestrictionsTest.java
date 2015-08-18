@@ -37,7 +37,6 @@ import android.util.Log;
 
 import com.android.browser.BrowserActivity;
 import com.android.browser.mdm.AutoFillRestriction;
-import com.android.browser.mdm.EditBookmarksRestriction;
 import com.android.browser.mdm.ManagedProfileManager;
 
 public class AutoFillRestrictionsTest extends ActivityInstrumentationTestCase2<BrowserActivity> {
@@ -65,27 +64,35 @@ public class AutoFillRestrictionsTest extends ActivityInstrumentationTestCase2<B
         clearAutoFillRestrictions();
         assertFalse(autoFillRestriction.isEnabled());
 
-        setAutoFillRestrictions(true);
+        setAutoFillRestrictions(true, true);
         assertTrue(autoFillRestriction.isEnabled());
+        assertTrue(autoFillRestriction.getValue());
 
-        setAutoFillRestrictions(false);
+        setAutoFillRestrictions(true, false);
+        assertTrue(autoFillRestriction.isEnabled());
+        assertFalse(autoFillRestriction.getValue());
+
+        setAutoFillRestrictions(false, true);
+        assertFalse(autoFillRestriction.isEnabled());
+
+        setAutoFillRestrictions(false, false);
         assertFalse(autoFillRestriction.isEnabled());
     }
 
     /**
     * Activate EditBookmarks restriction
      * @param clear    if true, sends an empty bundle (which is interpreted as "allow editing"
-     * @param enabled  Required. true (disallow editing: restriction enforced)
-     *                        or false (allow editing: restriction lifted)
+     * @param restrictionEnabled Enables the restriction
+     * @param allowed  Required. true  : allow editing
+     *                        or false : disallow editing
     *
     */
-    private void setAutoFillRestrictions(boolean clear, boolean enabled) {
+    private void setAutoFillRestrictions(boolean clear, boolean restrictionEnabled, boolean allowed) {
         final Bundle restrictions = new Bundle();
 
         if (!clear) {
-            // note reversed logic. This is setting 'EditBookmarksEnabled'
-            //    if enabled is true, we want it set to false and vice cersa
-            restrictions.putBoolean(AutoFillRestriction.AUTO_FILL_RESTRICTION, ! enabled);
+            restrictions.putBoolean(AutoFillRestriction.AUTO_FILL_RESTRICTION_ENABLED, restrictionEnabled);
+            restrictions.putBoolean(AutoFillRestriction.AUTO_FILL_ALLOWED, allowed);
         }
 
         // Deliver restriction on UI thread
@@ -101,10 +108,10 @@ public class AutoFillRestrictionsTest extends ActivityInstrumentationTestCase2<B
     }
 
     private void clearAutoFillRestrictions() {
-        setAutoFillRestrictions(true, false);
+        setAutoFillRestrictions(true, false, false);
     }
 
-    private void setAutoFillRestrictions(boolean enabled) {
-        setAutoFillRestrictions(false, enabled);
+    private void setAutoFillRestrictions(boolean enabled, boolean allowed) {
+        setAutoFillRestrictions(false, enabled, allowed);
     }
 }
