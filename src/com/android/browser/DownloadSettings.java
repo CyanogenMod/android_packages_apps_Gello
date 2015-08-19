@@ -94,7 +94,7 @@ public class DownloadSettings extends Activity {
         downloadEstimateSize = (TextView) findViewById(R.id.download_estimate_size_content);
         downloadEstimateTime = (TextView) findViewById(R.id.download_estimate_time_content);
         downloadStart = (Button) findViewById(R.id.download_start);
-        downloadCancel = (Button) findViewById(R.id.download_cancle);
+        downloadCancel = (Button) findViewById(R.id.download_cancel);
         downloadPathET.setOnClickListener(downloadPathListener);
         downloadStart.setOnClickListener(downloadStartListener);
         downloadCancel.setOnClickListener(downloadCancelListener);

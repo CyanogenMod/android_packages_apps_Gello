@@ -179,7 +179,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/download_cancle"
+            android:id="@+id/download_cancel"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
