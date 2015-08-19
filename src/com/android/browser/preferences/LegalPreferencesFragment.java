@@ -48,7 +48,7 @@ import org.codeaurora.swe.BrowserCommandLine;
 public class LegalPreferencesFragment extends PreferenceFragment
                             implements OnPreferenceClickListener {
 
-    private static final String creditsUrl = "browser://credits";
+    private static final String creditsUrl = "chrome://credits";
     PreferenceScreen mHeadPref = null;
     String mEulaUrl = "";
     String mPrivacyPolicyUrl = "";
