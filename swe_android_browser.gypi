@@ -17,6 +17,8 @@
         'native_lib_version_name': '<(version_full)',
         'java_in_dir': '.',
         'resource_dir': '../browser/res',
+         #TODO need proguard config file before we can enable this
+        'proguard_enabled': 'false',
         'conditions': [
           ['icu_use_data_file_flag==1', {
             'additional_input_paths': [
