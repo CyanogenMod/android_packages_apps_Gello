@@ -677,9 +677,6 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public void onCopySuggestion(String text) {
         mUrlInput.setText(text, true);
-        if (text != null) {
-            mUrlInput.setSelection(text.length());
-        }
     }
 
     public void setCurrentUrlIsBookmark(boolean isBookmark) {
@@ -706,11 +703,11 @@ public class NavigationBarBase extends LinearLayout implements
     void startEditingUrl(boolean clearInput, boolean forceIME) {
         // editing takes preference of progress
         setVisibility(View.VISIBLE);
-        if (!mUrlInput.hasFocus()) {
-            mUrlInput.requestFocus();
-        }
         if (clearInput) {
             mUrlInput.setText("");
+        }
+        if (!mUrlInput.hasFocus()) {
+            mUrlInput.requestFocus();
         }
         if (forceIME) {
             mUrlInput.showIME();
