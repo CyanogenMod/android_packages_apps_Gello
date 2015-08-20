@@ -45,6 +45,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.android.browser.AutoFillSettingsFragment;
+import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
@@ -101,6 +102,10 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
 
         SwitchPreference powersave = (SwitchPreference) findPreference(PREF_POWERSAVE);
         powersave.setOnPreferenceChangeListener(this);
+
+        SwitchPreference nightmode = (SwitchPreference) findPreference(
+                PreferenceKeys.PREF_NIGHTMODE_ENABLED);
+        nightmode.setOnPreferenceChangeListener(this);
 
         final Bundle arguments = getArguments();
         if (arguments != null && arguments.getBoolean("LowPower")) {
@@ -168,8 +173,12 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
                 PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.WEBREFINER, !(Boolean)objValue);
                 showPowerSaveInfo((Boolean) objValue);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
         }
 
+        if (pref.getKey().equals(PreferenceKeys.PREF_NIGHTMODE_ENABLED)) {
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
+        }
         return true;
     }
 

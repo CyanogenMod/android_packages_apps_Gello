@@ -57,6 +57,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.browser.BrowserLocationListPreference;
+import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.NavigationBarBase;
 import com.android.browser.PreferenceKeys;
@@ -93,6 +94,8 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
     private PermissionsServiceFactory.PermissionsService mPermServ;
     private ActionBar mBar;
     private List<String> mLocationValues;
+
+    private Preference mSecurityInfoPrefs;
 
     private boolean mUsingDefaultSettings = true;
     private int mOriginalActionBarOptions;
@@ -182,6 +185,14 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             if (view != null) {
                 view.clearText();
             }
+
+            boolean empty = true;
+            for (Map.Entry<ViewType, String> entry: mTexts.entrySet()) {
+                if (!entry.getValue().isEmpty()) {
+                    empty = false;
+                }
+            }
+            mbEmpty = empty;
         }
 
         public void setResource(ViewType type, View parent, int resId) {
@@ -309,6 +320,8 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 mSslState = 2;
             }
         }
+
+        updateSecurityViewVisibility();
     }
 
     private AlertDialog.Builder createSslCertificateDialog(Context ctx,
@@ -452,14 +465,17 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         Preference pref = findPreference("clear_data");
         updateStorageInfo(pref);
         pref.setOnPreferenceClickListener(this);
-        String warningText = new String("");
+        String warningText = (mSslState == 1) ? getString(R.string.pref_warning_cert) + " " :
+                new String("");
+        boolean setting_warnings = false;
 
         long permission = showPermission("select_geolocation",
                 PermissionsServiceFactory.PermissionType.GEOLOCATION,
                 R.string.pref_security_ask_before_using, R.string.pref_security_not_allowed);
 
         if (PermissionsServiceFactory.Permission.ALLOW == permission) {
-            warningText = getString(R.string.pref_privacy_enable_geolocation);
+            warningText += getString(R.string.pref_privacy_enable_geolocation);
+            setting_warnings = true;
         }
 
         ListPreference geolocation_pref = (ListPreference) findPreference("select_geolocation");
@@ -477,7 +493,8 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 pref.setSummary(customSummary);
             }
             mUsingDefaultSettings = false;
-            warningText = getString(R.string.pref_privacy_enable_geolocation);
+            warningText += getString(R.string.pref_privacy_enable_geolocation);
+            setting_warnings = true;
             geolocation_pref.setValueIndex(1);
         } else if (permission == PermissionsServiceFactory.Permission.ALLOW) {
             geolocation_pref.setValueIndex(2);
@@ -487,25 +504,31 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                 R.string.pref_security_ask_before_using, R.string.pref_security_not_allowed);
 
         if (PermissionsServiceFactory.Permission.ALLOW == permission) {
-            if (!warningText.isEmpty()) {
+            if (!warningText.isEmpty() && setting_warnings) {
                 warningText += ", ";
             }
             warningText += getString(R.string.pref_security_allow_mic);
+            setting_warnings = true;
         }
 
         permission = showPermission("camera", PermissionsServiceFactory.PermissionType.VIDEO,
                 R.string.pref_security_ask_before_using, R.string.pref_security_not_allowed);
         if (PermissionsServiceFactory.Permission.ALLOW == permission) {
-            if (!warningText.isEmpty()) {
+            if (!warningText.isEmpty() && setting_warnings) {
                 warningText += ", ";
             }
             warningText += getString(R.string.pref_security_allow_camera);
+            setting_warnings = true;
         }
 
         if (!warningText.isEmpty()) {
-            warningText += " ";
-            warningText += getResources().getString(R.string.pref_security_access_is_allowed);
-            mSecurityViews.appendText(SiteSecurityViewFactory.ViewType.WARNING, warningText);
+            if (setting_warnings) {
+                warningText += " ";
+                warningText += getResources().getString(R.string.pref_security_access_is_allowed);
+            }
+            mSecurityViews.setText(SiteSecurityViewFactory.ViewType.WARNING, warningText);
+        } else {
+            mSecurityViews.clearText(SiteSecurityViewFactory.ViewType.WARNING);
         }
 
         pref = findPreference("distracting_contents");
@@ -530,13 +553,28 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             mBar.getCustomView().setVisibility(View.VISIBLE);
         }
 
+        updateSecurityViewVisibility();
+    }
+
+    private void updateSecurityViewVisibility() {
         if (mSecurityViews.mbEmpty) {
             PreferenceScreen screen = (PreferenceScreen)
                     findPreference("site_specific_prefs");
 
-            pref = findPreference("site_security_info_title");
-            if (pref != null && screen != null) {
-                screen.removePreference(pref);
+            if (mSecurityInfoPrefs == null) {
+                mSecurityInfoPrefs = findPreference("site_security_info_title");
+            }
+
+            if (mSecurityInfoPrefs != null && screen != null) {
+                screen.removePreference(mSecurityInfoPrefs);
+            }
+        } else {
+            PreferenceScreen screen = (PreferenceScreen)
+                    findPreference("site_specific_prefs");
+
+            Preference pref = findPreference("site_security_info_title");
+            if (pref == null && mSecurityInfoPrefs != null) {
+                screen.addPreference(mSecurityInfoPrefs);
             }
         }
 
@@ -636,6 +674,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                             refiner.useDefaultPermissionForOrigins(origins);
                                         }
 
+                                        BrowserPreferencesPage.sResultExtra =
+                                                PreferenceKeys.ACTION_RELOAD_PAGE;
+                                        BrowserPreferencesPage.onUrlNeedsReload(mOriginText);
                                         finish();
                                     }
                                 }
@@ -752,6 +793,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
             updateTwoStatePreference(pref,
                     PermissionsServiceFactory.PermissionType.COOKIE, (boolean)objValue);
         }
+        BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
+        BrowserPreferencesPage.onUrlNeedsReload(mOriginText);
+        updatePreferenceInfo();
         return true;
     }
 
@@ -767,6 +811,9 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                     mOriginInfo.clearAllStoredData();
                                     Preference e = findPreference("clear_data");
                                     e.setSummary("(Empty)");
+                                    BrowserPreferencesPage.sResultExtra =
+                                            PreferenceKeys.ACTION_RELOAD_PAGE;
+                                    BrowserPreferencesPage.onUrlNeedsReload(mOriginText);
                                 }
                             }
                         })

@@ -143,4 +143,6 @@ public interface PreferenceKeys {
     static final String PREF_LEGAL_CREDITS = "legal_credits";
     static final String PREF_LEGAL_EULA = "legal_eula";
     static final String PREF_LEGAL_PRIVACY_POLICY = "legal_privacy_policy";
+
+    static final String ACTION_RELOAD_PAGE = "reload";
 }

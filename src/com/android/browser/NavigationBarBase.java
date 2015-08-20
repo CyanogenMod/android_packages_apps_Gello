@@ -341,8 +341,8 @@ public class NavigationBarBase extends LinearLayout implements
                     baos.toByteArray());
         }
         BrowserPreferencesPage.startPreferenceFragmentExtraForResult(
-                mUiController.getActivity(),
-                SiteSpecificPreferencesFragment.class.getName(), bundle, 0);
+                mUiController.getActivity(), SiteSpecificPreferencesFragment.class.getName(),
+                bundle, Controller.PREFERENCES_PAGE);
     }
 
     @Override

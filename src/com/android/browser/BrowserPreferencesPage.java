@@ -19,8 +19,10 @@ package com.android.browser;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.android.browser.preferences.AboutPreferencesFragment;
@@ -28,8 +30,12 @@ import com.android.browser.preferences.GeneralPreferencesFragment;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class BrowserPreferencesPage extends Activity {
+    public static String sResultExtra;
+    private static ArrayList<String> sUpdatedUrls =
+            new ArrayList<String>(); //List of URLS for whom settings were updated
 
     public static void startPreferencesForResult(Activity callerActivity, String url, int requestCode) {
         final Intent intent = new Intent(callerActivity, BrowserPreferencesPage.class);
@@ -62,6 +68,8 @@ public class BrowserPreferencesPage extends Activity {
             return;
         }
 
+        sResultExtra = "";
+        sUpdatedUrls.clear();
         Intent intent = getIntent();
         if (intent != null) {
             String action = intent.getAction();
@@ -119,5 +127,23 @@ public class BrowserPreferencesPage extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void finish() {
+        if (!TextUtils.isEmpty(sResultExtra)) {
+            Intent intent = this.getIntent();
+            intent.putExtra(Intent.EXTRA_TEXT, sResultExtra);
+            intent.putStringArrayListExtra(Controller.EXTRA_UPDATED_URLS, sUpdatedUrls);
+            this.setResult(RESULT_OK, intent);
+        }
+        super.finish();
+    }
+
+    public static void onUrlNeedsReload(String url) {
+        String host = (Uri.parse(url)).getHost();
+        if (!sUpdatedUrls.contains(host)) {
+            sUpdatedUrls.add(host);
+        }
     }
 }

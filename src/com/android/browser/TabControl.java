@@ -16,6 +16,7 @@
 
 package com.android.browser;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,6 +38,31 @@ class TabControl {
 
     private static final String POSITIONS = "positions";
     private static final String CURRENT = "current";
+
+
+    /*
+    Find and reload any live tabs that have loaded the given URL.
+    Note - Upto 2 tabs are live at any given moment.
+     */
+    public void findAndReload(String origin) {
+        for (Tab tab : mTabs){
+            if (tab.getWebView() != null) {
+                Uri url = Uri.parse(tab.getWebView().getUrl());
+                if (url.getHost().equals(origin)){
+                    tab.getWebView().reload();
+                }
+            }
+        }
+    }
+
+    // Reload the all the live tabs
+    public void reloadLiveTabs() {
+        for (Tab tab : mTabs) {
+            if (tab.getWebView() != null) {
+                tab.getWebView().reload();
+            }
+        }
+    }
 
     public static interface OnThumbnailUpdatedListener {
         void onThumbnailUpdated(Tab t);

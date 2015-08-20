@@ -17,6 +17,7 @@
 package com.android.browser.preferences;
 
 import com.android.browser.BrowserLocationSwitchPreference;
+import com.android.browser.BrowserPreferencesPage;
 import com.android.browser.BrowserSettings;
 import com.android.browser.PreferenceKeys;
 import com.android.browser.R;
@@ -155,30 +156,35 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
         if (pref.getKey().toString().equalsIgnoreCase("enable_geolocation")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.GEOLOCATION, flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("microphone")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.VOICE, flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("camera")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.VIDEO, flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("distracting_contents")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.WEBREFINER, !flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("popup_windows")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.POPUP, flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
@@ -192,12 +198,14 @@ public class PrivacySecurityPreferencesFragment extends SWEPreferenceFragment
                         PermissionsServiceFactory.PermissionType.THIRDPARTYCOOKIES, flag);
                 showPermission(findPreference("accept_third_cookies"), flag);
             }
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 
         if (pref.getKey().toString().equalsIgnoreCase("accept_third_cookies")) {
             PermissionsServiceFactory.setDefaultPermissions(
                     PermissionsServiceFactory.PermissionType.THIRDPARTYCOOKIES, flag);
+            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
             return true;
         }
 

@@ -134,6 +134,7 @@ public class Controller
     public static final String INCOGNITO_URI = "chrome://incognito";
     public static final String EXTRA_REQUEST_CODE = "_fake_request_code_";
     public static final String EXTRA_RESULT_CODE = "_fake_result_code_";
+    public static final String EXTRA_UPDATED_URLS = "updated_urls";
 
     // Remind switch to data connection if wifi is unavailable
     private static final int NETWORK_SWITCH_TYPE_OK = 1;
@@ -1334,6 +1335,17 @@ public class Controller
                     String action = intent.getStringExtra(Intent.EXTRA_TEXT);
                     if (PreferenceKeys.PREF_PRIVACY_CLEAR_HISTORY.equals(action)) {
                         mTabControl.removeParentChildRelationShips();
+                    } else if (action.equals(PreferenceKeys.ACTION_RELOAD_PAGE)) {
+                        ArrayList<String> origins =
+                                intent.getStringArrayListExtra(EXTRA_UPDATED_URLS);
+                        if (origins.isEmpty()) {
+                            mTabControl.reloadLiveTabs();
+                        }
+                        else{
+                            for (String origin : origins){
+                                mTabControl.findAndReload(origin);
+                            }
+                        }
                     }
                 }
                 break;
