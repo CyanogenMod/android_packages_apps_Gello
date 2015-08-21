@@ -553,6 +553,10 @@ class Tab implements PictureListener {
             Controller controller = (Controller)mWebViewController;
             UI ui = controller.getUi();
 
+            // Clear the page state
+            mCurrentState = new PageState(mContext,
+                    view.isPrivateBrowsingEnabled(), url);
+
             if (ui instanceof BaseUi) {
                 titleBar = ((BaseUi)ui).getTitleBar();
                 if (titleBar != null) {
