@@ -1857,6 +1857,8 @@ public class BrowserProvider2 extends SQLiteContentProvider {
                     }
                 }
             }
+        } catch (Exception e) {
+            return false;
         } finally {
             cursor.close();
         }
