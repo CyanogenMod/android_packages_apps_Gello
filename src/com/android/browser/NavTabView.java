@@ -34,7 +34,6 @@ public class NavTabView extends LinearLayout {
 
     private ViewGroup mContent;
     private Tab mTab;
-    private ImageView mClose;
     private TextView mTitle;
     private View mTitleBar;
     ImageView mImage;
@@ -59,14 +58,9 @@ public class NavTabView extends LinearLayout {
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.nav_tab_view, this);
         mContent = (ViewGroup) findViewById(R.id.nav_tab);
-        mClose = (ImageView) findViewById(R.id.closetab);
         mTitle = (TextView) findViewById(R.id.title);
         mTitleBar = findViewById(R.id.titlebar);
         mImage = (ImageView) findViewById(R.id.tab_preview);
-    }
-
-    protected boolean isClose(View v) {
-        return v == mClose;
     }
 
     protected boolean isTitle(View v) {
@@ -95,7 +89,6 @@ public class NavTabView extends LinearLayout {
         } else if (mTab.isPrivateBrowsingEnabled()) {
             mContent.setBackgroundResource(R.drawable.nav_tab_title_incognito);
             mTitle.setTextColor(getResources().getColor(R.color.white));
-            mClose.setImageResource(R.drawable.ic_action_close_inverted);
             setTitleIcon(R.drawable.ic_deco_incognito_normal);
         } else {
             setTitleIcon(0);
@@ -131,7 +124,6 @@ public class NavTabView extends LinearLayout {
     public void setOnClickListener(OnClickListener listener) {
         mClickListener = listener;
         mTitleBar.setOnClickListener(mClickListener);
-        mClose.setOnClickListener(mClickListener);
         if (mImage != null) {
             mImage.setOnClickListener(mClickListener);
         }

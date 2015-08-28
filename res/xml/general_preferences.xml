@@ -36,27 +36,6 @@
             android:summary="@string/pref_content_search_engine_summary"
             android:title="@string/pref_content_search_engine" />
 
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="false"
-            android:key="fullscreen"
-            android:summary="@string/pref_lab_fullscreen_summary"
-            android:title="@string/pref_lab_fullscreen" />
-
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="false"
-            android:key="nightmode_enabled"
-            android:summary="@string/pref_nightmode_enabled_summary"
-            android:title="@string/pref_nightmode_enabled" />
-
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="false"
-            android:key="powersave_enabled"
-            android:summary="@string/pref_powersave_enabled_summary"
-            android:title="@string/pref_powersave_enabled" />
-
         <com.android.browser.mdm.MdmCheckBoxPreference
             android:layout="@layout/swe_preference"
             android:key="autofill_enabled"
@@ -71,26 +50,9 @@
             android:summary="@string/pref_autofill_profile_editor_summary" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_extras_title"
+    <PreferenceCategory android:title="@string/pref_interface_title"
         android:layout="@layout/swe_preference_category"
-        android:key="advanced">
-
-        <PreferenceScreen android:title="@string/pref_privacy_security_title"
-            android:summary="@string/pref_privacy_security_title_summary"
-            android:layout="@layout/swe_preference"
-            android:key="privacy_security" />
-
-        <PreferenceScreen
-            android:layout="@layout/swe_preference"
-            android:key="accessibility_menu"
-            android:summary="@string/pref_accessibility_title_summary"
-            android:title="@string/pref_accessibility_title"/>
-
-
-        <PreferenceScreen android:title="@string/pref_content_title"
-            android:summary="@string/pref_content_title_summary"
-            android:layout="@layout/swe_preference"
-            android:key="content_settings" />
+        android:key="interface">
 
         <ListPreference
             android:layout="@layout/swe_preference"
@@ -101,6 +63,55 @@
             android:summary="%s"
             android:key="edge_swiping_action"
             android:title="@string/pref_edge_swipe_title" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:key="fullscreen"
+            android:summary="@string/pref_lab_fullscreen_summary"
+            android:title="@string/pref_lab_fullscreen" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:key="nightmode_enabled"
+            android:summary="@string/pref_nightmode_enabled_summary"
+            android:title="@string/pref_nightmode_enabled" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_security_title"
+        android:layout="@layout/swe_preference_category"
+        android:key="security">
+
+        <PreferenceScreen android:title="@string/pref_privacy_security_title"
+            android:summary="@string/pref_privacy_security_title_summary"
+            android:layout="@layout/swe_preference"
+            android:key="privacy_security" />
+
+        <PreferenceScreen android:title="@string/pref_content_title"
+            android:summary="@string/pref_content_title_summary"
+            android:layout="@layout/swe_preference"
+            android:key="content_settings" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_extras_title"
+        android:layout="@layout/swe_preference_category"
+        android:key="advanced">
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:key="powersave_enabled"
+            android:summary="@string/pref_powersave_enabled_summary"
+            android:title="@string/pref_powersave_enabled" />
+
+        <PreferenceScreen
+            android:layout="@layout/swe_preference"
+            android:key="accessibility_menu"
+            android:summary="@string/pref_accessibility_title_summary"
+            android:title="@string/pref_accessibility_title"/>
 
         <com.android.browser.BrowserYesNoPreference
             android:layout="@layout/swe_preference"

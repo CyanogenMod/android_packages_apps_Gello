@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:drawableStart="@drawable/ic_action_bookmark_checked"
+            android:drawableStart="@drawable/ic_action_bookmark"
             android:text="@string/bookmark_this_page"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         <View android:id="@+id/remove_divider"

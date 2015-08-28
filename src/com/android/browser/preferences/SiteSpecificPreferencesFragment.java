@@ -606,15 +606,6 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
                                 ActionBar.DISPLAY_SHOW_TITLE);
                         mBar.setHomeButtonEnabled(true);
                         mBar.setIcon(new BitmapDrawable(getResources(), bitmap));
-                        mBar.setBackgroundDrawable(new ColorDrawable(color));
-                        NavigationBarBase.setStatusAndNavigationBarColor(getActivity(),
-                                NavigationBarBase.adjustColor(color, 1, 1, 0.7f));
-                    }
-                } else {
-                    if (mIconColor != 0) {
-                        mBar.setBackgroundDrawable(new ColorDrawable(mIconColor));
-                        NavigationBarBase.setStatusAndNavigationBarColor(getActivity(),
-                                NavigationBarBase.adjustColor(mIconColor, 1, 1, 0.7f));
                     }
                 }
             }
@@ -626,8 +617,6 @@ public class SiteSpecificPreferencesFragment extends SWEPreferenceFragment
         super.onPause();
         if (mBar != null) {
             mBar.setDisplayOptions(mOriginalActionBarOptions);
-            NavigationBarBase.setStatusAndNavigationBarColor(getActivity(),
-                    NavigationBarBase.getDefaultStatusBarColor());
         }
 
         // flush all the settings in pause to assure that writes happen

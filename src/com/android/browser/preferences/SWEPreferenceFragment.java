@@ -83,10 +83,10 @@ public abstract class SWEPreferenceFragment extends PreferenceFragment  {
     public void onResume() {
         super.onResume();
 
-        ActionBar bar = getActivity().getActionBar();
+        /*ActionBar bar = getActivity().getActionBar();
         if (bar != null) {
             bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.accent)));
-        }
+        }*/
     }
 
     private final void findAndResizeSwitchPreferenceWidget(View parent) {

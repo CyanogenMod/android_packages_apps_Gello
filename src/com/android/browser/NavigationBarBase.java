@@ -76,7 +76,6 @@ public class NavigationBarBase extends LinearLayout implements
     protected ImageView mStopButton;
 
     private SiteTileView mFaviconTile;
-    private ImageView mMagnify;
     private View mVoiceButton;
     private ImageView mClearButton;
     private View mMore;
@@ -122,8 +121,6 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.addTextChangedListener(this);
         mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
-        mMagnify = (ImageView) findViewById(R.id.magnify);
-        mMagnify.setOnClickListener(this);
         mFaviconTile = (SiteTileView) findViewById(R.id.favicon_view);
         mFaviconTile.setOnClickListener(this);
         mVoiceButton = findViewById(R.id.voice);
@@ -359,8 +356,6 @@ public class NavigationBarBase extends LinearLayout implements
             if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage()) ){
                 showSiteSpecificSettings();
             }
-        } else if (mMagnify == v) {
-            startEditingUrl(true, true);
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else if (mStopButton == v) {
@@ -760,14 +755,12 @@ public class NavigationBarBase extends LinearLayout implements
         switch(state) {
             case STATE_NORMAL:
                 mFaviconTile.setVisibility(View.VISIBLE);
-                mMagnify.setVisibility(View.GONE);
                 mMore.setVisibility(View.VISIBLE);
                 if (mUiController != null) {
                     Tab currentTab = mUiController.getCurrentTab();
                     if (currentTab != null){
                         if (TextUtils.isEmpty(currentTab.getUrl())) {
                             mFaviconTile.setVisibility(View.GONE);
-                            mMagnify.setVisibility(View.VISIBLE);
                         }
                         setDisplayTitle(currentTab.getTitle(), currentTab.getUrl());
                     }
@@ -777,7 +770,6 @@ public class NavigationBarBase extends LinearLayout implements
                 break;
             case STATE_HIGHLIGHTED:
                 mFaviconTile.setVisibility(View.GONE);
-                mMagnify.setVisibility(View.VISIBLE);
                 mClearButton.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 if (mUiController != null) {
@@ -801,7 +793,6 @@ public class NavigationBarBase extends LinearLayout implements
                     mClearButton.setVisibility(View.VISIBLE);
                 }
                 mFaviconTile.setVisibility(View.GONE);
-                mMagnify.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 break;
         }

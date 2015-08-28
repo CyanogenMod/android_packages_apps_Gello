@@ -33,9 +33,25 @@
         <item name="android:windowContentOverlay">@null</item>
         <!-- these are defined just in Material attrs -->
         <item name="android:colorPrimary">@color/primary</item>
-        <item name="android:colorPrimaryDark">@color/navigation_bars</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
         <item name="android:colorAccent">@color/accent</item>
         <item name="android:colorEdgeEffect">@color/primary</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+        <item name="android:displayOptions">none</item>
+    </style>
+
+    <style name="OverflowButton" parent="@android:style/Widget.Material.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_action_overflow</item>
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="OverflowButtonInverted" parent="@style/OverflowButton">
+        <item name="android:src">@drawable/ic_action_overflow_white</item>
     </style>
 
     <style name="DialogWhenLarge" parent="@android:style/Theme.Material.Light.DialogWhenLarge" >
@@ -43,11 +59,15 @@
     </style>
     <style name="PopupMenuStyle" parent="@android:style/Widget.Material.Light.PopupMenu">
     </style>
-    <style name="Suggestions" parent="@android:style/Widget.Material.Light.AutoCompleteTextView">
-        <item name="android:popupBackground">@color/NavigationBarBackground</item>
+    <style name="Suggestions" parent="@android:style/Widget.Material.AutoCompleteTextView">
+        <item name="android:popupBackground">@color/white</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:textColor">@color/default_text_color</item>
+        <item name="android:textColor">@color/icon_white</item>
+        <item name="android:textColorHint">@color/icon_black</item>
+    </style>
+    <style name="Widget.UrlInputView" parent="BrowserTheme">
+        <item name="android:colorAccent">@color/white</item>
     </style>
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Material.Small" />
@@ -57,9 +77,9 @@
     <!-- common theme elements -->
 
     <style name="SettingsTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
-        <item name="android:colorPrimary">@color/accent</item>
+        <item name="android:colorPrimary">@color/primary</item>
+         <item name="android:colorPrimaryDark">@color/primary_dark</item>
         <item name="android:colorAccent">@color/accent</item>
-        <item name="android:colorEdgeEffect">@color/accent</item>
     </style>
 
 </resources>

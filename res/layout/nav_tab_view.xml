@@ -19,45 +19,45 @@
     android:id="@+id/nav_tab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/nav_tab_title_normal"
-    android:focusable="false">
+    android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/titlebar"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_tab_titleheight"
-        android:layout_gravity="center_horizontal"
-        android:paddingStart="8dip" >
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1.0"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:lines="1"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:scrollHorizontally="true"
-            android:drawablePadding="8dip" />
-
-        <ImageView
-            android:id="@+id/closetab"
-            style="@style/NavButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card"
+        android:elevation="4dp"
+        android:focusable="false">
+        <LinearLayout
+            android:id="@+id/titlebar"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/accessibility_button_closetab"
-            android:paddingEnd="16dip"
-            android:src="@drawable/ic_action_close" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <ImageView
+                android:id="@+id/tab_preview"
+                android:layout_width="@dimen/nav_tab_width"
+                android:layout_height="@dimen/nav_tab_height"
+                android:paddingStart="2dip"
+                android:paddingEnd="2dip"
+                android:focusable="false" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_tab_titleheight"
+                android:layout_weight="1.0"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!-- Preview Image -->
-    <ImageView
-        android:id="@+id/tab_preview"
-        android:layout_width="@dimen/nav_tab_width"
-        android:layout_height="@dimen/nav_tab_height"
-        android:paddingStart="2dip"
-        android:paddingEnd="2dip"
-        android:focusable="false" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/trasparent" />
 </LinearLayout>

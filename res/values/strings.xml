@@ -325,6 +325,8 @@
         >Valid SSL certificate. Communication is encrypted and identity is verified.</string>
     <string name="pref_invalid_cert">Site has an invalid SSL certificate.</string>
     <string name="pref_warning_cert">Site SSL certificate has warnings.</string>
+    <!-- Settings screen, section title [CHAR LIMIT=50] -->
+    <string name="pref_interface_title">Interface</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
     <string name="pref_autofill_profile_editor">Auto-fill text</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
@@ -380,7 +382,8 @@
     <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
     <string name="disable_autofill">Disable auto-fill</string>
-
+    <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+    <string name="pref_security_title">Security</string>
     <!-- Settings screen, section title [CHAR-LIMIT=50] -->
     <string name="pref_privacy_security_title">Privacy &amp; security</string>
     <string name="pref_privacy_security_title_summary">Browser security and privacy settings</string>
@@ -790,4 +793,6 @@
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>
+    <!-- My Navigation - Bookmarks + History + Saved -->
+    <string name="mystuffs">My Navigation</string>
 </resources>

@@ -1966,7 +1966,6 @@ public class Controller
     }
 
     private void resetMenuItems(Menu menu) {
-        setMenuItemVisibility(menu, R.id.history_menu_id, true);
         setMenuItemVisibility(menu, R.id.find_menu_id, true);
 
         WebView w = getCurrentTopWebView();
@@ -2090,10 +2089,6 @@ public class Controller
 
             case R.id.bookmarks_menu_id:
                 bookmarksOrHistoryPicker(ComboViews.Bookmarks);
-                break;
-
-            case R.id.history_menu_id:
-                bookmarksOrHistoryPicker(ComboViews.History);
                 break;
 
             case R.id.snapshots_menu_id:

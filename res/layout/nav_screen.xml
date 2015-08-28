@@ -17,7 +17,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/TabNavBackgroundColor"
+    android:background="@color/trasparent"
     android:orientation="vertical">
 
     <com.android.browser.NavTabScroller
@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/NavigationBarBackground"
+        android:background="@color/trasparent"
         android:gravity="end"
         android:orientation="horizontal">
 
@@ -46,14 +46,16 @@
                 style="@style/NavButtonWide"
                 android:contentDescription="@string/accessibility_button_newtab"
                 android:gravity="center_vertical"
-                android:src="@drawable/ic_action_add_tab" />
+                android:src="@drawable/ic_action_add_tab"
+                android:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/newincognitotab"
                 style="@style/NavButtonWide"
                 android:contentDescription="@string/accessibility_button_newincognitotab"
                 android:gravity="center_vertical"
-                android:src="@drawable/ic_action_add_incognito" />
+                android:src="@drawable/ic_action_add_incognito"
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageButton
@@ -61,11 +63,11 @@
             style="@style/OverflowButton" />
     </LinearLayout>
 
-    <!-- Cosmetic shadow (covered by anim_screen during transitions) -->
+    <!-- Cosmetic shadow (covered by anim_screen during transitions) >
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginTop="@dimen/toolbar_height"
-        android:background="@drawable/deco_cosmetic_topshadow" />
+        android:background="@drawable/deco_cosmetic_topshadow" /-->
 
 </FrameLayout>

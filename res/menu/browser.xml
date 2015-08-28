@@ -40,32 +40,12 @@
             </item>
         </group>
 
-        <item>
-            <menu>
-                <item
-                    android:id="@+id/new_tab_menu_id"
-                    android:title="@string/new_tab"
-                    android:icon="@drawable/ic_action_add_tab" />
-                <item
-                    android:id="@+id/incognito_menu_id"
-                    android:title="@string/new_incognito_tab"
-                    android:icon="@drawable/ic_action_add_incognito" />
-<!--
-                <item
-                    android:id="@+id/close_other_tabs_id"
-                    android:title="@string/close_other_tabs"
-                    android:icon="@drawable/ic_action_close" />
--->
-            </menu>
-        </item>
-
         <item
-            android:id="@+id/bookmarks_menu_id"
-            android:title="@string/bookmarks"
-            android:showAsAction="never" />
+            android:id="@+id/new_tab_menu_id"
+            android:title="@string/new_tab" />
         <item
-            android:id="@+id/history_menu_id"
-            android:title="@string/history" />
+            android:id="@+id/incognito_menu_id"
+            android:title="@string/new_incognito_tab" />
         <item
             android:id="@+id/snapshots_menu_id"
             android:title="@string/tab_snapshots"
@@ -77,9 +57,8 @@
         <group
             android:id="@+id/LIVE_MENU">
             <item
-                android:id="@+id/ua_desktop_menu_id"
-                android:checkable="true"
-                android:title="@string/ua_switcher_desktop" />
+                android:id="@+id/share_page_menu_id"
+                android:title="@string/share_page" />
 
             <item
                 android:id="@+id/reader_mode_menu_id"
@@ -87,15 +66,21 @@
                 android:title="@string/enable_reader_mode" />
 
             <item
+                android:id="@+id/ua_desktop_menu_id"
+                android:checkable="true"
+                android:title="@string/ua_switcher_desktop" />
+
+            <item
                 android:id="@+id/save_snapshot_menu_id"
                 android:title="@string/menu_save_snapshot" />
             <item
                 android:id="@+id/add_to_homescreen"
                 android:title="@string/add_to_homescreen" />
-            <item
-                android:id="@+id/share_page_menu_id"
-                android:title="@string/share_page" />
         </group>
+
+        <item
+            android:id="@+id/bookmarks_menu_id"
+            android:title="@string/bookmarks" />
 
         <group
             android:id="@+id/SNAPSHOT_MENU"
@@ -114,7 +99,8 @@
             android:title="@string/exit" />
         <item
             android:id="@+id/about_menu_id"
-            android:title="@string/about" />
+            android:title="@string/about"
+            android:visible="false" />
         <!-- followings are debug only -->
         <item
             android:id="@+id/dump_nav_menu_id"
@@ -170,4 +156,3 @@
         android:icon="@drawable/ic_action_reload"
         android:visible="false" />
 </menu>
-

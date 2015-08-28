@@ -130,7 +130,7 @@ public class BrowserProvider2 extends SQLiteContentProvider {
             qualifyColumn(TABLE_HISTORY, History.URL),
             bookmarkOrHistoryColumn(Combined.TITLE),
             bookmarkOrHistoryLiteral(Combined.URL,
-                    Integer.toString(R.drawable.ic_action_bookmark_normal),
+                    Integer.toString(R.drawable.ic_action_bookmark),
                     Integer.toString(R.drawable.ic_suggest_history_normal)),
             qualifyColumn(TABLE_HISTORY, History.DATE_LAST_VISITED)};
 

@@ -182,7 +182,6 @@ public class PhoneUi extends BaseUi {
         }
 
         if (showingNavScreen()) {
-            setMenuItemVisibility(menu, R.id.history_menu_id, false);
             setMenuItemVisibility(menu, R.id.find_menu_id, false);
             menu.setGroupVisible(R.id.LIVE_MENU, false);
             setMenuItemVisibility(menu, R.id.save_snapshot_menu_id, false);
@@ -201,7 +200,6 @@ public class PhoneUi extends BaseUi {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (showingNavScreen()
-                && (item.getItemId() != R.id.history_menu_id)
                 && (item.getItemId() != R.id.snapshots_menu_id)) {
             hideNavScreen(mUiController.getTabControl().getCurrentPosition(), false);
         }

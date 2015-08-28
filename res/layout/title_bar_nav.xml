@@ -17,14 +17,16 @@
 <com.android.browser.NavigationBarPhone xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/NavigationBarBackground"
-    android:orientation="horizontal">
+    android:background="@color/primary"
+    android:orientation="horizontal"
+    android:elevation="8dp">
 
     <LinearLayout
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
         android:gravity="center_vertical"
+        android:paddingStart="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -36,15 +38,6 @@
             android:src="@drawable/ic_deco_incognito_normal"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/magnify"
-            android:layout_width="44dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_search_normal"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:visibility="visible" />
-
         <com.android.browser.SiteTileView
             android:id="@+id/favicon_view"
             android:layout_width="44dp"
@@ -52,6 +45,16 @@
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             android:contentDescription="@string/page_info"/>
+
+        <!-- Cosmetic separator -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="42dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="2dp"
+            android:background="#55FAFAFA" />
+
 
         <ImageView
             android:id="@+id/stop"
@@ -62,7 +65,7 @@
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             android:visibility="gone"
-            android:src="@drawable/ic_action_stop" />
+            android:src="@drawable/ic_action_stop_normal_inverted" />
 
         <com.android.browser.UrlInputView
             android:id="@+id/url"
@@ -77,6 +80,7 @@
             android:focusable="true"
             android:hint="@string/search_hint"
             android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
+            android:theme="@style/Widget.UrlInputView"
             android:inputType="textUri"
             android:lines="1"
             android:paddingStart="4dp"
@@ -120,14 +124,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:clickable="false"
-            android:paddingBottom="3dp"
-            android:paddingEnd="2dp"
-            android:textColor="#333"
+            android:paddingBottom="1dp"
+            android:paddingEnd="1dp"
+            android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold" />
     </FrameLayout>
 
     <ImageButton
         android:id="@+id/more_browser_settings"
-        style="@style/OverflowButton" />
+        style="@style/OverflowButtonInverted" />
 </com.android.browser.NavigationBarPhone>

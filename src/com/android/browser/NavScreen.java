@@ -238,10 +238,7 @@ public class NavScreen extends RelativeLayout
             tabview.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (tabview.isClose(v)) {
-                        mScroller.animateOut(tabview);
-                        mTabViews.remove(tab);
-                    } else if (tabview.isTitle(v)) {
+                    if (tabview.isTitle(v)) {
                         switchToTab(tab);
                         close(position, false);
                         mUi.editUrl(false, true);

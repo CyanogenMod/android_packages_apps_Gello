@@ -323,7 +323,6 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
             bar.setTitle(R.string.pref_extras_website_settings);
             bar.setDisplayHomeAsUpEnabled(false);
             bar.setHomeButtonEnabled(false);
-            bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.accent)));
         }
     }
 
