@@ -80,7 +80,7 @@
 
         <item
             android:id="@+id/bookmarks_menu_id"
-            android:title="@string/bookmarks" />
+            android:title="@string/mystuffs" />
 
         <group
             android:id="@+id/SNAPSHOT_MENU"

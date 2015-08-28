@@ -293,12 +293,12 @@
     <!-- Checkbox setting for enabling/disabling power save mode feature -->
     <string name ="pref_powersave_enabled">Power save mode</string>
     <!-- Settings summary for the powersave feature. -->
-    <string name ="pref_powersave_enabled_summary">Turn on power saving mode</string>
+    <string name ="pref_powersave_enabled_summary">Reduce browser power usage</string>
 
     <!-- Checkbox setting for enabling/disabling night mode feature -->
     <string name ="pref_nightmode_enabled">Night mode</string>
     <!-- Settings summary for the night mode feature. -->
-    <string name ="pref_nightmode_enabled_summary">Turn on night mode</string>
+    <string name ="pref_nightmode_enabled_summary">Invert colors</string>
 
     <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
     <string name="pref_autofill_enabled">Form auto-fill</string>
@@ -488,7 +488,7 @@
     <string name="pref_edge_swipe_option_msg">When swiping, would you like:</string>
     <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
     <string name="pref_spatial_edge_swipe">Change Tab</string>
-    <string name="pref_disable_edge_swipe">Disable edge swipe</string>
+    <string name="pref_disable_edge_swipe">Do nothing</string>
     <string name="pref_edge_swipe_option_close">Close</string>
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
