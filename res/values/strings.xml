@@ -766,7 +766,7 @@
     <string name="download_file_exist_msg">File already exists. Please input a new filename.</string>
     <string name="download_file_exist">File already exists</string>
     <string name ="time_min">min</string>
-    <string name="download_path_phone_storage_label">/Phone Storage</string>
+    <string name="download_path_phone_storage_label">/sdcard</string>
     <string name="download_path_sd_card_label">/SD card</string>
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
