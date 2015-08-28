@@ -1,0 +1,18 @@
+LOCAL_PATH := $(my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := Gello
+LOCAL_MODULE_TAGS := optional
+
+LOCAL_SRC_FILES := SWE_AndroidBrowser.apk
+
+LOCAL_MODULE_CLASS := APPS
+LOCAL_BUILT_MODULE_STEM := package.apk
+LOCAL_MODULE_SUFFIX := $(COMMON_ANDROID_PACKAGE_SUFFIX)
+LOCAL_CERTIFICATE := PRESIGNED
+
+LOCAL_REQUIRED_MODULES := \
+                        java_libraries_list
+
+include $(BUILD_PREBUILT)
