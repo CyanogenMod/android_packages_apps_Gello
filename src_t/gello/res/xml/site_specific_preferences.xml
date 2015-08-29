@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2015, The Linux Foundation. All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above
+          copyright notice, this list of conditions and the following
+          disclaimer in the documentation and/or other materials provided
+          with the distribution.
+        * Neither the name of The Linux Foundation nor the names of its
+          contributors may be used to endorse or promote products derived
+          from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+    ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+    BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+    BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="site_specific_prefs">
+
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category_first"
+        android:title="@string/pref_website_title" >
+        <Preference
+            android:layout="@layout/swe_preference"
+            android:selectable="false"
+            android:key="site_name"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/swe_preference_category"
+        android:key="site_security_info_title"
+        android:title="@string/pref_site_settings_info_panel" >
+
+        <PreferenceScreen
+            android:key="site_security_info"
+            android:selectable="false"
+            android:layout="@layout/site_specific_security_info"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_site_settings_title"
+        android:layout="@layout/swe_preference_category"
+        android:key="site_pref_list">
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sp_webrefiner"
+            android:key="distracting_contents"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_web_refiner" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_thirdcookies"
+            android:key="accept_cookies"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_accept_cookies" />
+
+        <com.android.browser.BrowserLocationListPreference
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_list_widget"
+            android:icon="@drawable/ic_sp_location"
+            android:key="select_geolocation"
+            android:dialogTitle="@string/pref_privacy_clear_geolocation_access"
+            android:entries="@array/geolocation_settings_choices"
+            android:entryValues="@array/geolocation_settings_choices"
+            android:title="@string/pref_privacy_enable_geolocation" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_microphone"
+            android:key="microphone"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_mic" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_sp_camera"
+            android:key="camera"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_camera" />
+
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_sp_popups"
+            android:key="popup_windows"
+            android:summaryOn="@string/pref_security_allowed"
+            android:summaryOff="@string/pref_security_not_allowed"
+            android:title="@string/pref_security_allow_popups" />
+
+        <Preference
+            android:layout="@layout/swe_preference"
+            android:widgetLayout="@layout/swe_preference_trashcan_widget"
+            android:icon="@drawable/ic_sp_storage"
+            android:key="clear_data"
+            android:title="@string/webstorage_clear_data_title" />
+    </PreferenceCategory>
+</PreferenceScreen>
