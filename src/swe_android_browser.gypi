@@ -64,12 +64,25 @@
       ],
       'includes': [ '../../build/java_apk.gypi' ],
     },
+    #generate swe_channel.py for telemetry support
+    {
+      'target_name': 'swe_channel_py',
+      'type': 'none',
+      'variables': {
+        'manifest_input_path': '<(DEPTH)/swe/tools/swe_channel.py.jinja2',
+        'manifest_output_path': '<(DEPTH)/swe/tools/swe_channel.py',
+        'manifest_config_file_path': '<(browser_config_path)',
+        'swe_manifest_package':  '',
+      },
+      'includes': [ '../swe_generate_manifest.gypi' ],
+    },
     #generate AndroidManifest.xml
     {
       'target_name': 'swe_android_browser_apk_manifest',
       'type': 'none',
       'dependencies': [
         'swe_android_browser_apk_manifest_internal_tool',
+        'swe_channel_py'
       ],
       'variables': {
         'manifest_input_path': '<(DEPTH)/swe/browser/AndroidManifest.xml.jinja2',
