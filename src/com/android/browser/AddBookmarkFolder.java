@@ -350,7 +350,10 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
     }
 
     private long addFolderToCurrent(String name) {
-        // Add the folder to the database
+        // Add the folder to the database if doesn't already exists
+        if(getIdFromName(name) != -1)
+            return -1;
+
         ContentValues values = new ContentValues();
         values.put(BrowserContract.Bookmarks.TITLE, name);
         values.put(BrowserContract.Bookmarks.IS_FOLDER, 1);
@@ -704,12 +707,44 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
                     title = cursor.getString(0);
                 }
             }
+        } catch (Exception e) {
+            return title;
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
         }
         return title;
+    }
+
+    // get folder id from folder title
+    private long getIdFromName(String title) {
+        String titleIdString = "-1";
+        Cursor cursor = null;
+        try {
+            cursor = getApplicationContext().getContentResolver().query(
+                    BrowserContract.Bookmarks.CONTENT_URI,
+                    new String[] {
+                            BrowserContract.Bookmarks._ID
+                    },
+                    BrowserContract.Bookmarks.TITLE + " = ? AND "
+                            + BrowserContract.Bookmarks.IS_DELETED + " = ? AND "
+                            + BrowserContract.Bookmarks.IS_FOLDER + " = ? ", new String[] {
+                            title, 0 + "", 1 + ""
+                    }, null);
+            if (cursor != null && cursor.getCount() != 0) {
+                while (cursor.moveToNext()) {
+                    titleIdString = cursor.getString(0);
+                }
+            }
+        } catch (Exception e) {
+            return Long.parseLong(titleIdString);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return Long.parseLong(titleIdString);
     }
 
     private void showRemoveButton() {
@@ -934,6 +969,8 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
                     }
                     c.close();
                 }
+            } catch (Exception e) {
+                return info;
             } finally {
                 if (c != null) {
                     c.close();
