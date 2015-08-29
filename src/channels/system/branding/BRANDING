@@ -1,0 +1,10 @@
+COMPANY_FULLNAME=The CyanogenMod Project
+COMPANY_SHORTNAME=The CyanogenMod Project
+PRODUCT_FULLNAME=CyanogenMod
+PRODUCT_SHORTNAME=CM
+PRODUCT_INSTALLER_FULLNAME=Snapdragon Installer
+PRODUCT_INSTALLER_SHORTNAME=Snapdragon Installer
+COPYRIGHT=Copyright (c) 2015 The CyanogenMod Project. All rights reserved.
+PACKAGE_NAME=org.codeaurora.swe.browser
+APK_LABEL=@string/application_name
+APK_AUTHORITIES=browser

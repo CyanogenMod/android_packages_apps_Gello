@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2014, The Linux Foundation. All rights reserved.
+    Copyright (C) 2011 The Android Open Source Project Licensed under the
+    Apache License, Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <bool name="isTablet">false</bool>
+    <!-- hide the title bar
+      When set to false to enable fixed title bar, the command line switch
+      "enable-top-controls-position-calculation" must be turned off by
+      commenting out the relevant code in the Java code
+    -->
+    <bool name="hide_title">true</bool>
+    <bool name="hide_nav_buttons">true</bool>
+    <!-- Browser menu toggles -->
+    <bool name="menu_show_navigation">true</bool>
+    <bool name="menu_show_bookmarks">true</bool>
+
+
+    <!-- Switches for carrier specific features -->
+
+    <!-- Launch custom app when URL scheme is 'estore:' -->
+    <bool name="feature_wap2estore">false</bool>
+    <!-- Prevent uploading files with DRM filename extensions -->
+    <bool name="feature_drm_uploads">false</bool>
+    <!-- Prompt user to select WiFi access point or otherwise enable WLAN -->
+    <bool name="feature_network_notifier">false</bool>
+    <!-- Add 'Exit' menu item and show 'Minimize or quit' dialog -->
+    <bool name="feature_exit_dialog">false</bool>
+    <!-- Display page title instead of url in URL bar -->
+    <bool name="feature_title_in_URL_bar">false</bool>
+    <!-- Allow users to provide custom download path -->
+    <bool name="feature_custom_download_path">false</bool>
+    <!-- Allow disabling saving history for non-incognito tabs -->
+    <bool name="feature_disable_history">false</bool>
+
+    <!-- Default values for carrier specific features -->
+    <bool name="def_allow_media_downloads">false</bool>
+
+</resources>
