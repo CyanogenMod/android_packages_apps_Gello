@@ -182,6 +182,7 @@ class Tab implements PictureListener {
     private int mCaptureWidth;
     private int mCaptureHeight;
     private Bitmap mCapture;
+    private Bitmap mViewportCapture;
     private Handler mHandler;
     private boolean mUpdateThumbnail;
     private Timestamp timestamp;
@@ -738,8 +739,6 @@ class Tab implements PictureListener {
                 mWebViewController.attachSubWindow(Tab.this);
                 transport.setWebView(mSubView);
             } else {
-                capture();
-
                 final Tab newTab = mWebViewController.openTab(url,
                         Tab.this, true, true);
                 // This is special case for rendering links on a webpage in
@@ -1951,13 +1950,21 @@ class Tab implements PictureListener {
                 updateListener.onThumbnailUpdated(this);
             }
         }
+
+        if (mViewportCapture != null) {
+            mWebViewController.onThumbnailCapture(mViewportCapture);
+            mViewportCapture.recycle();
+            mViewportCapture = null;
+        } else {
+            mWebViewController.onThumbnailCapture(mCapture);
+        }
     }
 
     protected void capture() {
         if (mMainView == null || mCapture == null || !mMainView.isReady() ||
                 mMainView.getContentWidth() <= 0 || mMainView.getContentHeight() <= 0 ||
                 !mFirstVisualPixelPainted || mMainView.isShowingCrashView()) {
-
+            mViewportCapture = null;
             initCaptureBitmap();
             thumbnailUpdated();
             return;
@@ -1967,6 +1974,8 @@ class Tab implements PictureListener {
             new ValueCallback<Bitmap>() {
                 @Override
                 public void onReceiveValue(Bitmap bitmap) {
+                    mViewportCapture = bitmap;
+
                     if (mCapture == null) {
                         initCaptureBitmap();
                     }

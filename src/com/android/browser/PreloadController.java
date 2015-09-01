@@ -252,4 +252,6 @@ public class PreloadController implements WebViewController {
         return false;
     }
 
+    @Override
+    public void onThumbnailCapture(Bitmap bm) { }
 }
