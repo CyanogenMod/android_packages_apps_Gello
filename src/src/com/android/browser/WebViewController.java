@@ -112,4 +112,6 @@ public interface WebViewController {
     void bookmarkedStatusHasChanged(Tab tab);
 
     boolean shouldCaptureThumbnails();
+
+    void onThumbnailCapture(Bitmap bm);
 }

@@ -42,7 +42,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -52,6 +51,7 @@ import android.net.wifi.ScanResult;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -259,6 +259,13 @@ public class Controller
 
     private boolean mCurrentPageBookmarked;
 
+    private Tab mLatestCreatedTab;
+
+    private List<ValueCallback> mThumbnailCbList;
+
+    private CountDownTimer mCaptureTimer;
+    private static final int mCaptureMaxWaitMS = 200;
+
     public Controller(Activity browser) {
         mActivity = browser;
         mSettings = BrowserSettings.getInstance();
@@ -288,6 +295,7 @@ public class Controller
         mNetworkHandler = new NetworkStateHandler(mActivity, this);
         mHomepageHandler = new HomepageHandler(browser, this);
         mAppMenuHandler = new AppMenuHandler(browser, this, R.menu.browser);
+        mThumbnailCbList = new ArrayList<ValueCallback>();
     }
 
     @Override
@@ -649,23 +657,17 @@ public class Controller
             return;
 
         final Tab mytab = tab;
-        final ValueCallback<Bitmap> onScreenshot =  new ValueCallback<Bitmap>() {
-            @Override
-            public void onReceiveValue(Bitmap bitmap) {
-                sharePage(mActivity, mytab.getTitle(), mytab.getUrl(),
-                          mytab.getFavicon(), bitmap);
-            }
-        };
 
         createScreenshotAsync(
-            tab.getWebView(),
-            getDesiredThumbnailWidth(mActivity),
-            getDesiredThumbnailHeight(mActivity),
+            tab,
             new ValueCallback<Bitmap>() {
                 @Override
                 public void onReceiveValue(Bitmap bitmap) {
+                    Bitmap bm = cropAndScaleBitmap(bitmap,
+                            getDesiredThumbnailWidth(mActivity),
+                            getDesiredThumbnailHeight(mActivity));
                     sharePage(mActivity, mytab.getTitle(), mytab.getUrl(),
-                          mytab.getFavicon(), bitmap);
+                          mytab.getFavicon(), bm);
                 }
             });
     }
@@ -2055,6 +2057,25 @@ public class Controller
         mUi.updateMenuState(tab, menu);
     }
 
+    private Bitmap cropAndScaleBitmap(Bitmap bm, int width, int height) {
+        if (width == 0 || height == 0 || bm == null)
+            return bm;
+
+        Bitmap cropped;
+
+        if (bm.getHeight() > bm.getWidth()) {
+            cropped = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),
+                    bm.getWidth() * height / width, null, true);
+        } else {
+            cropped = Bitmap.createBitmap(bm, 0, 0, bm.getHeight() * width / height,
+                    bm.getHeight(), null, true);
+        }
+
+        Bitmap scaled = Bitmap.createScaledBitmap(cropped, width, height, true);
+        cropped.recycle();
+        return scaled;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (null == getCurrentTopWebView()) {
@@ -2074,12 +2095,10 @@ public class Controller
         switch (item.getItemId()) {
             // -- Main menu
             case R.id.new_tab_menu_id:
-                getCurrentTab().capture();
                 openTabToHomePage();
                 break;
 
             case R.id.incognito_menu_id:
-                getCurrentTab().capture();
                 openIncognitoTab();
                 break;
 
@@ -2149,13 +2168,14 @@ public class Controller
                 final Tab source = getTabControl().getCurrentTab();
                 if (source == null) break;
                 createScreenshotAsync(
-                    source.getWebView(),
-                    getDesiredThumbnailWidth(mActivity),
-                    getDesiredThumbnailHeight(mActivity),
+                    source,
                     new ValueCallback<Bitmap>() {
                         @Override
                         public void onReceiveValue(Bitmap bitmap) {
-                           new SaveSnapshotTask(source, bitmap).execute();
+                            Bitmap bm = cropAndScaleBitmap(bitmap,
+                                    getDesiredThumbnailWidth(mActivity),
+                                    getDesiredThumbnailHeight(mActivity));
+                           new SaveSnapshotTask(source, bm).execute();
                         }
                     });
                 break;
@@ -2656,22 +2676,18 @@ public class Controller
                 R.dimen.bookmarkThumbnailHeight);
     }
 
-    static void createScreenshotAsync(WebView view, int width, int height,
-                                        final ValueCallback<Bitmap> cb) {
-        if (view == null || width == 0 || height == 0) {
+    void createScreenshotAsync(Tab tab, final ValueCallback<Bitmap> cb) {
+        if (tab == null) {
+            cb.onReceiveValue(null);
             return;
         }
-        view.getContentBitmapAsync(
-            (float) width / view.getWidth(),
-            new Rect(),
-            new ValueCallback<Bitmap>() {
-                @Override
-                public void onReceiveValue(Bitmap bitmap) {
-                    if (bitmap != null)
-                        bitmap = bitmap.copy(Bitmap.Config.RGB_565, false);
-                    cb.onReceiveValue(bitmap);
-                }});
-    }
+
+        tab.capture();
+
+        synchronized (mThumbnailCbList) {
+            mThumbnailCbList.add(cb);
+        }
+ }
 
     private class Copy implements OnMenuItemClickListener {
         private CharSequence mText;
@@ -2944,6 +2960,16 @@ public class Controller
 
     public Tab openTab(String url, boolean incognito, boolean setActive,
             boolean useCurrent, Tab parent) {
+        boolean change_tabs = false;
+        if (setActive) {
+            Tab currentTab = mTabControl.getCurrentTab();
+            if (currentTab != null) {
+                change_tabs = setActive;
+                setActive = false;
+                currentTab.capture();
+            }
+        }
+
         Tab tab = createNewTab(incognito, setActive, useCurrent);
         if (tab != null) {
             if (parent instanceof SnapshotTab) {
@@ -2957,8 +2983,56 @@ public class Controller
                 loadUrl(tab, url);
             }
         }
+
+        if (change_tabs) {
+            synchronized (mThumbnailCbList) {
+                startCaptureTimer();
+                mLatestCreatedTab = tab;
+                mThumbnailCbList.add(new ValueCallback<Bitmap>() {
+                    @Override
+                    public void onReceiveValue(Bitmap bitmap) {
+                        synchronized (mThumbnailCbList) {
+                            if (mLatestCreatedTab != null) {
+                                setActiveTab(mLatestCreatedTab);
+                                mLatestCreatedTab = null;
+                            }
+                            stopCaptureTimer();
+                        }
+                    }
+                });
+            }
+        }
+
         return tab;
     }
+
+    private void startCaptureTimer() {
+        mCaptureTimer = new CountDownTimer(mCaptureMaxWaitMS, mCaptureMaxWaitMS) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Do nothing
+            }
+
+            @Override
+            public void onFinish() {
+                synchronized (mThumbnailCbList) {
+                    Log.e(LOGTAG, "Screen capture timed out while opening new tab");
+                    if (mLatestCreatedTab != null) {
+                        setActiveTab(mLatestCreatedTab);
+                        mLatestCreatedTab = null;
+                    }
+                }
+            }
+        }.start();
+    }
+
+    private void stopCaptureTimer() {
+        if (mCaptureTimer != null) {
+            mCaptureTimer.cancel();
+            mCaptureTimer = null;
+        }
+    }
+
 
     // this method will attempt to create a new tab
     // incognito: private browsing tab
@@ -3400,6 +3474,19 @@ public class Controller
     @Override
     public boolean shouldCaptureThumbnails() {
         return mUi.shouldCaptureThumbnails();
+    }
+
+    @Override
+    public void onThumbnailCapture(Bitmap bm) {
+        synchronized (mThumbnailCbList) {
+            int num_entries = mThumbnailCbList.size();
+            while (num_entries > 0){
+                num_entries--;
+                ValueCallback<Bitmap> cb = mThumbnailCbList.get(num_entries);
+                cb.onReceiveValue(bm);
+            }
+            mThumbnailCbList.clear();
+        }
     }
 
     @Override
