@@ -102,9 +102,28 @@ public abstract class BaseUi implements UI {
     private NavigationBarBase mNavigationBar;
     private boolean mBlockFocusAnimations;
     private boolean mFullscreenModeLocked;
+    private final static int mFullScreenImmersiveSetting =
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                    View.SYSTEM_UI_FLAG_FULLSCREEN |
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
     private EdgeSwipeController mEdgeSwipeController;
     private EdgeSwipeSettings mEdgeSwipeSettings;
+
+    // This Runnable is used to re-set fullscreen mode after resume.
+    // The immersive mode API on android <6.0 is buggy and will more
+    // often then not glitch out. Using a runnable really helps reduce
+    // the repeatability of this framework bug, however some corner cases
+    // remain. Specifically when interacting with pop-up windows(menu).
+    private Runnable mFullScreenModeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (BrowserSettings.getInstance() != null)
+                setFullscreen(BrowserSettings.getInstance().useFullscreen());
+        }
+    };
 
     public BaseUi(Activity browser, UiController controller) {
         mActivity = browser;
@@ -138,7 +157,7 @@ public abstract class BaseUi implements UI {
             new View.OnSystemUiVisibilityChangeListener() {
                 @Override
                 public void onSystemUiVisibilityChange(int visFlags) {
-                    final boolean lostFullscreen = (visFlags & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0;
+                    final boolean lostFullscreen = (visFlags & mFullScreenImmersiveSetting) == 0;
                     if (lostFullscreen)
                         setFullscreen(BrowserSettings.getInstance().useFullscreen());
                 }
@@ -176,6 +195,10 @@ public abstract class BaseUi implements UI {
         // check if we exited without setting active tab
         // b: 5188145
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
+        //Work around for < Android M
+        if (Build.VERSION.SDK_INT <= 22 && BrowserSettings.getInstance().useFullscreen())
+            mHandler.postDelayed(mFullScreenModeRunnable, 500);
+
         final Tab ct = mTabControl.getCurrentTab();
         if (ct != null) {
             setActiveTab(ct);
@@ -834,19 +857,13 @@ public abstract class BaseUi implements UI {
         Window win = mActivity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        final int fullscreenImmersiveSetting =
-                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                        View.SYSTEM_UI_FLAG_FULLSCREEN |
-                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
         if (mCustomView != null) {
             mCustomView.setSystemUiVisibility(enabled ?
-                    fullscreenImmersiveSetting : View.SYSTEM_UI_FLAG_VISIBLE);
+                    mFullScreenImmersiveSetting : View.SYSTEM_UI_FLAG_VISIBLE);
         } else if (Build.VERSION.SDK_INT >= 19) {
             mContentView.setSystemUiVisibility(enabled ?
-                    fullscreenImmersiveSetting  : View.SYSTEM_UI_FLAG_VISIBLE);
+                    mFullScreenImmersiveSetting  : View.SYSTEM_UI_FLAG_VISIBLE);
         } else {
             mContentView.setSystemUiVisibility(enabled ?
                     View.SYSTEM_UI_FLAG_LOW_PROFILE  : View.SYSTEM_UI_FLAG_VISIBLE);
