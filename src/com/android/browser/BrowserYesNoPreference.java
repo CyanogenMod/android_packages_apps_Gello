@@ -50,6 +50,7 @@ public class BrowserYesNoPreference extends DialogPreference {
         mNeutralBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_neutralButtonText);
         mPositiveBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_positiveButtonText);
         mNegativeBtnTxt = a.getString(R.styleable.BrowserYesNoPreference_negativeButtonText);
+        setDialogIcon(R.drawable.ic_sp_level_warning);
     }
 
     @Override

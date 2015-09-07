@@ -351,6 +351,8 @@ public class AddBookmarkPage extends Activity
                 mSaveToHomeScreen = true;
                 break;
             case FolderSpinnerAdapter.OTHER_FOLDER:
+                setupTopCrumb();
+                getLoaderManager().restartLoader(LOADER_ID_FOLDER_CONTENTS, null, this);
                 switchToFolderSelector();
                 break;
             case FolderSpinnerAdapter.RECENT_FOLDER:
@@ -382,7 +384,7 @@ public class AddBookmarkPage extends Activity
         mAddNewFolder.setVisibility(View.VISIBLE);
         mAddSeparator.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(
-                mListView.getWindowToken(), 0);
+                mFolderNamer.getWindowToken(), 0);
     }
 
     private long addFolderToCurrent(String name) {
