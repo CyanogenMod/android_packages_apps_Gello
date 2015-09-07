@@ -31,8 +31,6 @@ import com.android.browser.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codeaurora.swe.Engine;
-
 /**
  * Shows a popup of menuitems anchored to a host view. When a item is selected we call
  * Activity.onOptionsItemSelected with the appropriate MenuItem.
@@ -183,7 +181,6 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
                 }
             });
         }
-        Engine.warmUpChildProcessAsync(context);
     }
 
     public void invalidate(Context context, Menu menu) {
