@@ -428,6 +428,5 @@ public class EngineInitializer {
     }
 
     public static void onActivityDestroy(BrowserActivity activity) {
-        Engine.releaseSpareChildProcess();
     }
 }
