@@ -67,6 +67,8 @@ import com.android.browser.platformsupport.WebAddress;
 import com.android.browser.platformsupport.BrowserContract.Accounts;
 import com.android.browser.reflect.ReflectHelper;
 
+import org.codeaurora.swe.util.SWEUrlUtils;
+
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.URISyntaxException;
@@ -108,7 +110,7 @@ public class AddBookmarkPage extends Activity
     private boolean     mEditingFolder;
     private Bundle      mMap;
     private String      mTouchIconUrl;
-    private String      mOriginalUrl;
+    private String      mUrl;
     private FolderSpinner mFolder;
     private View mDefaultView;
     private View mFolderSelector;
@@ -669,6 +671,7 @@ public class AddBookmarkPage extends Activity
 
         if (mMap != null) {
             Bundle b = mMap.getBundle(EXTRA_EDIT_BOOKMARK);
+            boolean existing = mMap.getBoolean(CHECK_FOR_DUPE, false);
             if (b != null) {
                 mEditingFolder = mMap.getBoolean(EXTRA_IS_FOLDER, false);
                 mMap = b;
@@ -679,6 +682,8 @@ public class AddBookmarkPage extends Activity
                 } else {
                     showRemoveButton();
                 }
+            } else if (existing) {
+                showRemoveButton();
             } else {
                 int gravity = mMap.getInt("gravity", -1);
                 if (gravity != -1) {
@@ -688,7 +693,7 @@ public class AddBookmarkPage extends Activity
                 }
             }
             title = mMap.getString(BrowserContract.Bookmarks.TITLE);
-            url = mOriginalUrl = mMap.getString(BrowserContract.Bookmarks.URL);
+            url = mUrl = UrlUtils.fixUpUrl(mMap.getString(BrowserContract.Bookmarks.URL));
             mTouchIconUrl = mMap.getString(TOUCH_ICON_URL);
             mCurrentFolder = mMap.getLong(BrowserContract.Bookmarks.PARENT, DEFAULT_FOLDER_ID);
 
@@ -920,7 +925,7 @@ public class AddBookmarkPage extends Activity
 
     private void onDeleteWithConfirm() {
         final String title = mTitle.getText().toString().trim();
-        final String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        final String unfilteredUrl = UrlUtils.fixUpUrl(mAddress.getText().toString());
         final String url = unfilteredUrl.trim();
         new AlertDialog.Builder(this)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
@@ -931,9 +936,9 @@ public class AddBookmarkPage extends Activity
                         ContentResolver cr = getContentResolver();
                         Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
                                 BookmarksLoader.PROJECTION,
-                                "title = ? OR url = ?",
+                                "url = ?",
                                 new String[] {
-                                        title, url
+                                        url
                                 },
                                 null);
 
@@ -965,18 +970,19 @@ public class AddBookmarkPage extends Activity
     }
 
     private void onSaveWithConfirm() {
-        String title = mTitle.getText().toString().trim();
-        String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        String unfilteredUrl = UrlUtils.fixUpUrl(mAddress.getText().toString());
         String url = unfilteredUrl.trim();
-        Long id = mMap.getLong(BrowserContract.Bookmarks._ID);
+        Long id = (mMap == null) ?
+                -1 :
+                mMap.getLong(BrowserContract.Bookmarks._ID);
         int duplicateCount;
         final ContentResolver cr = getContentResolver();
 
         Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
                 BookmarksLoader.PROJECTION,
-                "( title = ? OR url = ? ) AND parent = ?",
+                "url = ? AND parent = ?",
                 new String[] {
-                        title, url, Long.toString(mCurrentFolder)
+                        url, Long.toString(mCurrentFolder)
                 },
                 null);
 
@@ -1032,7 +1038,7 @@ public class AddBookmarkPage extends Activity
         createHandler();
 
         String title = mTitle.getText().toString().trim();
-        String unfilteredUrl = UrlUtils.fixUrl(mAddress.getText().toString());
+        String unfilteredUrl = UrlUtils.fixUpUrl(mAddress.getText().toString());
 
         boolean emptyTitle = title.length() == 0;
         boolean emptyUrl = unfilteredUrl.trim().length() == 0;
@@ -1053,17 +1059,9 @@ public class AddBookmarkPage extends Activity
                 // fail URI parsing, so don't try it if that's the kind of bookmark we have.
 
                 if (!url.toLowerCase().startsWith("javascript:")) {
-                    String encodedUrl = URLEncoder.encode(url, "UTF-8");
-                    URI uriObj = new URI(encodedUrl);
+                    URI uriObj = new URI(url);
                     String scheme = uriObj.getScheme();
-                    if (!Bookmarks.urlHasAcceptableScheme(url)) {
-                        // If the scheme was non-null, let the user know that we
-                        // can't save their bookmark. If it was null, we'll assume
-                        // they meant http when we parse it in the WebAddress class.
-                        if (scheme != null) {
-                            mAddress.setError(r.getText(R.string.bookmark_cannot_save_url));
-                            return false;
-                        }
+                    if (scheme == null) { // SWE will allow bookmarking any scheme
                         WebAddress address;
                         try {
                             address = new WebAddress(unfilteredUrl);
@@ -1079,9 +1077,6 @@ public class AddBookmarkPage extends Activity
             } catch (URISyntaxException e) {
                 mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
                 return false;
-            } catch (UnsupportedEncodingException e) {
-                mAddress.setError(r.getText(R.string.bookmark_url_not_valid));
-                return false;
             }
         }
 
@@ -1089,7 +1084,7 @@ public class AddBookmarkPage extends Activity
             mEditingExisting = false;
         }
 
-        boolean urlUnmodified = url.equals(mOriginalUrl);
+        boolean urlUnmodified = url.equals(mUrl);
 
         if (mEditingExisting) {
             Long id = mMap.getLong(BrowserContract.Bookmarks._ID);
@@ -1266,7 +1261,7 @@ public class AddBookmarkPage extends Activity
         public EditBookmarkInfoLoader(Context context, Bundle bundle) {
             super(context);
             mContext = context.getApplicationContext();
-            mMap = bundle;
+            mMap = (bundle==null) ? new Bundle() : bundle;
         }
 
         @Override

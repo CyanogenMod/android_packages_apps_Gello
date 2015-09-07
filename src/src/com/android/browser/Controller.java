@@ -1939,16 +1939,16 @@ public class Controller
         }
     }
 
-    private int lookupBookmark(String title, String url) {
+    private int lookupBookmark( String url) {
         final ContentResolver cr = getActivity().getContentResolver();
         int count = 0;
         Cursor cursor = null;
         try {
             cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
                     BookmarksLoader.PROJECTION,
-                    "title = ? OR url = ?",
+                    "url = ?",
                     new String[] {
-                        title, url
+                        url
                     },
                     null);
 
@@ -1973,7 +1973,7 @@ public class Controller
 
         String title = w.getTitle();
         String url = w.getUrl();
-        mCurrentPageBookmarked = (lookupBookmark(title, url) > 0);
+        mCurrentPageBookmarked = (lookupBookmark(url) > 0);
         if (title != null && url != null && mCurrentPageBookmarked) {
             bookmark_icon.setChecked(true);
         } else {
@@ -2032,12 +2032,12 @@ public class Controller
         boolean showDebugSettings = mSettings.isDebugEnabled();
         final MenuItem uaSwitcher = menu.findItem(R.id.ua_desktop_menu_id);
         uaSwitcher.setChecked(isDesktopUa);
-        menu.setGroupVisible(R.id.LIVE_MENU, isLive && isLiveScheme);
-        menu.setGroupVisible(R.id.NAV_MENU, isLive && isLiveScheme);
+        setMenuItemVisibility(menu, R.id.find_menu_id, isLive);
+        menu.setGroupVisible(R.id.NAV_MENU, isLive);
         setMenuItemVisibility(menu, R.id.find_menu_id, isLive && isLiveScheme);
         menu.setGroupVisible(R.id.SNAPSHOT_MENU, !isLive);
         setMenuItemVisibility(menu, R.id.add_to_homescreen,
-                isLive && isLiveScheme && isPageFinished);
+                isLive && isPageFinished);
         setMenuItemVisibility(menu, R.id.save_snapshot_menu_id,
                 isLive && ( isLiveScheme || isDistilled ) && isPageFinished && isSavable);
         // history and snapshots item are the members of COMBO menu group,
