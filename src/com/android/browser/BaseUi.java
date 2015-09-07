@@ -448,9 +448,12 @@ public abstract class BaseUi implements UI {
             mEdgeSwipeController.cleanup();
         }
 
-        mEdgeSwipeSettings = null;
-
         String action = BrowserSettings.getInstance().getEdgeSwipeAction();
+
+        if (mEdgeSwipeSettings != null)  {
+            mEdgeSwipeSettings.cleanup();
+        }
+        mEdgeSwipeSettings = null;
 
         if (action.equalsIgnoreCase(
                 mActivity.getResources().getString(R.string.value_temporal_edge_swipe))) {
