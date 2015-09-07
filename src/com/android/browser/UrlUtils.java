@@ -17,8 +17,11 @@
 package com.android.browser;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.webkit.URLUtil;
+
+import org.codeaurora.swe.util.SWEUrlUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +33,11 @@ import java.net.URI;
  * Utility methods for Url manipulation
  */
 public class UrlUtils {
+    // Urls defined by the browser should not be "fixedup" via the engine
+    // Urls are only handled by the browser
+    private static final String BROWSER_URLS[] = {
+            "about:debug",
+    };
     public static final String[] DOWNLOADABLE_SCHEMES_VALUES = new String[]
         { "data", "filesystem", "http", "https" };
 
@@ -171,6 +179,19 @@ public class UrlUtils {
         return null;
     }
 
+    public static String fixUpUrl(String url){
+        if (TextUtils.isEmpty(url))
+                return url;
+
+        for (String preDefined: BROWSER_URLS){
+            if (url.contains(preDefined)) {
+                return url;
+            }
+        }
+        return SWEUrlUtils.fixUpUrl(url);
+    }
+
+    @Deprecated // Use fixUpUrl instead
     public static String fixUrl(String inUrl) {
         // FIXME: Converting the url to lower case
         // duplicates functionality in smartUrlFilter().

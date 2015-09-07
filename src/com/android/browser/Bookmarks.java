@@ -43,17 +43,6 @@ import java.io.ByteArrayOutputStream;
  *  This class is purely to have a common place for adding/deleting bookmarks.
  */
 public class Bookmarks {
-    // We only want the user to be able to bookmark content that
-    // the browser can handle directly.
-    private static final String acceptableBookmarkSchemes[] = {
-            "http:",
-            "https:",
-            "about:",
-            "data:",
-            "javascript:",
-            "file:",
-            "content:"
-    };
 
     private final static String LOGTAG = "Bookmarks";
     /**
@@ -140,19 +129,6 @@ public class Bookmarks {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, os);
         return os.toByteArray();
-    }
-
-    /* package */ static boolean urlHasAcceptableScheme(String url) {
-        if (url == null) {
-            return false;
-        }
-
-        for (int i = 0; i < acceptableBookmarkSchemes.length; i++) {
-            if (url.startsWith(acceptableBookmarkSchemes[i])) {
-                return true;
-            }
-        }
-        return false;
     }
 
     static final String QUERY_BOOKMARKS_WHERE =
