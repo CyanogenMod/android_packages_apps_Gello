@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright 2011, The Android Open Source Project
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<com.android.browser.NavigationBarTablet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/NavigationBarBackground"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/navbuttons"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_back"
+            android:src="@drawable/ic_action_history_backward" />
+
+        <ImageButton
+            android:id="@+id/forward"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_forward"
+            android:src="@drawable/ic_action_history_forward" />
+
+    </LinearLayout>
+
+    <!-- Stop/Refresh button -->
+    <ImageButton
+        android:id="@+id/stop"
+        style="@style/NavButton"
+        android:layout_width="wrap_content"
+        android:contentDescription="@string/accessibility_button_stop"
+        android:gravity="center_vertical" />
+
+    <LinearLayout
+        android:id="@+id/urlbar_focused"
+        android:layout_width="0dip"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/magnify"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_action_search_normal"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:visibility="visible" />
+
+        <com.android.browser.SiteTileView
+            android:id="@+id/favicon_view"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:contentDescription="@string/page_info"/>
+
+        <com.android.browser.UrlInputView
+            android:id="@+id/url"
+            style="@style/Suggestions"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
+            android:inputType="textUri"
+            android:lines="1"
+            android:paddingStart="4dip"
+            android:paddingEnd="0dip"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageButton
+            android:id="@+id/star"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_addbookmark"
+            android:src="@drawable/ic_action_bookmark" />
+
+        <ImageButton
+            android:id="@+id/clear"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_clear"
+            android:src="@drawable/ic_action_stop" />
+
+        <ImageButton
+            android:id="@+id/voice"
+            style="@style/NavButton"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/accessibility_button_voice"
+            android:src="@drawable/ic_action_microphone_normal" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/search"
+        style="@style/NavButton"
+        android:layout_width="wrap_content"
+        android:contentDescription="@string/accessibility_button_search"
+        android:gravity="center_vertical"
+        android:src="@drawable/ic_action_search_normal" />
+
+    <ImageButton
+        android:id="@+id/all_btn"
+        style="@style/NavButton"
+        android:layout_width="wrap_content"
+        android:contentDescription="@string/bookmarks"
+        android:scaleType="center"
+        android:src="@drawable/ic_deco_bookmarks_normal" />
+
+    <ImageButton
+        android:id="@+id/more_browser_settings"
+        style="@style/OverflowButton" />
+</com.android.browser.NavigationBarTablet>

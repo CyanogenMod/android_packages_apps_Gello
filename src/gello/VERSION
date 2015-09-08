@@ -1,0 +1,7 @@
+base=1.0;
+branch=2311;
+# chromium base and branch version, needs to be on
+# top of the file. If you need to change that, please
+# also fix tools/generate_about.sh.
+
+
