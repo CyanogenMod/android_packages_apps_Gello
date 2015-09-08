@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?> 
+ <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"> 
+ <!-- Text to display in about dialog --> 
+<string name="about_text" formatted="false">
+
+Version: 42.0.2311.187027\n
+Built: Tue Sep  8 14:58:47 CEST 2015\n
+Host: envy-linux\n
+User: joey\n
+Hash: ede7d44 (2311)\n
+</string>
+</resources>

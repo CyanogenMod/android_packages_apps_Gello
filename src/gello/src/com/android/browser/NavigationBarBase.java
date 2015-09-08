@@ -76,6 +76,7 @@ public class NavigationBarBase extends LinearLayout implements
     protected ImageView mStopButton;
 
     private SiteTileView mFaviconTile;
+    private View mSeparator;
     private View mVoiceButton;
     private ImageView mClearButton;
     private View mMore;
@@ -121,6 +122,7 @@ public class NavigationBarBase extends LinearLayout implements
         mUrlInput.addTextChangedListener(this);
         mMore = findViewById(R.id.more_browser_settings);
         mMore.setOnClickListener(this);
+        mSeparator = findViewById(R.id.separator);
         mFaviconTile = (SiteTileView) findViewById(R.id.favicon_view);
         mFaviconTile.setOnClickListener(this);
         mVoiceButton = findViewById(R.id.voice);
@@ -755,6 +757,7 @@ public class NavigationBarBase extends LinearLayout implements
         switch(state) {
             case STATE_NORMAL:
                 mFaviconTile.setVisibility(View.VISIBLE);
+                mSeparator.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.VISIBLE);
                 if (mUiController != null) {
                     Tab currentTab = mUiController.getCurrentTab();
@@ -770,6 +773,7 @@ public class NavigationBarBase extends LinearLayout implements
                 break;
             case STATE_HIGHLIGHTED:
                 mFaviconTile.setVisibility(View.GONE);
+                mSeparator.setVisibility(View.GONE);
                 mClearButton.setVisibility(View.VISIBLE);
                 mMore.setVisibility(View.GONE);
                 if (mUiController != null) {

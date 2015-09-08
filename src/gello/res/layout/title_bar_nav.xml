@@ -48,13 +48,14 @@
 
         <!-- Cosmetic separator -->
         <View
+            android:id="@+id/separator"
             android:layout_width="1dp"
-            android:layout_height="42dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingEnd="2dp"
-            android:background="#55FAFAFA" />
-
+            android:layout_height="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@color/icon_white" />
 
         <ImageView
             android:id="@+id/stop"
@@ -103,7 +104,7 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_clear"
-            android:src="@drawable/ic_action_stop"
+            android:src="@drawable/ic_action_stop_normal_inverted"
             android:visibility="gone" />
     </LinearLayout>
 
