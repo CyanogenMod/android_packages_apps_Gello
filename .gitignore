@@ -1,0 +1,9 @@
+.cm_done
+
+# SWE build system files
+src/Gello.apk
+src/build
+src/src
+src/.gclient_entries
+src/_bad_scm
+tools

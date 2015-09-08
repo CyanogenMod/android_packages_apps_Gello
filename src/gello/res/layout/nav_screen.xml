@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/trasparent"
+    android:orientation="vertical">
+
+    <com.android.browser.NavTabScroller
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="@integer/nav_tab_orientation" />
+
+    <!-- Tabs toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/primary"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <!-- animated subset -->
+        <LinearLayout
+            android:id="@+id/nav_toolbar_animate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/newtab"
+                style="@style/NavButtonWide"
+                android:contentDescription="@string/accessibility_button_newtab"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_add_tab"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/newincognitotab"
+                style="@style/NavButtonWide"
+                android:contentDescription="@string/accessibility_button_newincognitotab"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_action_add_incognito"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/more"
+            style="@style/OverflowButtonInverted" />
+    </LinearLayout>
+
+    <!-- Cosmetic shadow (covered by anim_screen during transitions) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="@dimen/toolbar_height"
+        android:background="@drawable/deco_cosmetic_topshadow" />
+
+</FrameLayout>
