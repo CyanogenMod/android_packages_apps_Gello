@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="@color/trasparent"
+        android:background="@color/primary"
         android:gravity="end"
         android:orientation="horizontal">
 
@@ -60,14 +60,14 @@
 
         <ImageButton
             android:id="@+id/more"
-            style="@style/OverflowButton" />
+            style="@style/OverflowButtonInverted" />
     </LinearLayout>
 
-    <!-- Cosmetic shadow (covered by anim_screen during transitions) >
+    <!-- Cosmetic shadow (covered by anim_screen during transitions) -->
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginTop="@dimen/toolbar_height"
-        android:background="@drawable/deco_cosmetic_topshadow" /-->
+        android:background="@drawable/deco_cosmetic_topshadow" />
 
 </FrameLayout>
