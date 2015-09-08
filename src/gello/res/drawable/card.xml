@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp" >
+            <solid android:color="@color/trasparent" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:paddingTop="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="0dp" >
+            <solid android:color="@color/primary" />
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+</layer-list>
