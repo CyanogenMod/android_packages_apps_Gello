@@ -19,11 +19,6 @@
     <!-- fundamental colors -->
     <color name="white">#fafafa</color>
     <color name="black">#14181C</color>
-    <color name="red">#f44336</color>
-    <color name="yellow">#ffc107</color>
-    <color name="green">#4caf50</color>
-    <color name="blue">#2196F3</color>
-
     <color name="trasparent">#ffffffff</color>
 
     <!-- chrome colors -->
@@ -44,7 +39,7 @@
 
     <!-- derived colors -->
     <color name="NavigationBarBackground">@color/primary</color>
-    <color name="NavigationBarBackgroundIncognito">#5A5A5A</color>
+    <color name="NavigationBarBackgroundIncognito">@color/black</color>
     <color name="PopupBackground">@color/white</color>
     <color name="TabNavBackgroundColor">@color/white</color>
     <color name="TabPassiveMessageBackground">#f2f2f2</color>
