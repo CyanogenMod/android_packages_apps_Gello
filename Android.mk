@@ -1,7 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(WITH_GELLO_PREBUILT),true)
-include $(LOCAL_PATH)/src/Android.mk
-else
-include $(LOCAL_PATH)/prebuilt/Android.mk
+ifeq ($(WITH_GELLO_SOURCE),true)
+bash gello_build.sh
+include src/Android.mk
 endif
