@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2013, The Linux Foundation. All rights reserved.
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions are
+  met:
+      * Redistributions of source code must retain the above copyright
+        notice, this list of conditions and the following disclaimer.
+      * Redistributions in binary form must reproduce the above
+          copyright notice, this list of conditions and the following
+          disclaimer in the documentation and/or other materials provided
+          with the distribution.
+      * Neither the name of The Linux Foundation nor the names of its
+          contributors may be used to endorse or promote products derived
+          from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+  ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+  BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+  BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+  OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="vertical"
+    android:showDividers="middle" >
+    <LinearLayout android:id="@+id/title_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="5dip"
+        android:paddingEnd="5dip"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        >
+        <TextView android:id="@+id/download_settings_title"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/download_settings_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableLayout
+                android:id="@+id/download_table_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dip"
+                android:paddingEnd="20dip"
+                android:paddingTop="10dip"
+                android:shrinkColumns="1"
+                android:stretchColumns="1" >
+
+                <TableRow android:layout_marginBottom="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/download_edit_filename_label"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/download_filename_edit"
+                        android:layout_width="260dip"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:inputType="textCapSentences"
+                        android:selectAllOnFocus="true"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </EditText>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginBottom="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/download_filepath_label"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/download_filepath_selected"
+                        android:layout_width="260dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:editable="false"
+                        android:ellipsize="end"
+                        android:focusableInTouchMode="false"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/holo_blue_light"
+                        android:textSize="18sp" >
+                    </EditText>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginBottom="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/download_filesize"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+                    <TextView
+                        android:id="@+id/download_estimate_size_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/download_filesize"
+                        android:paddingStart="10dip"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginBottom="10dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/download_timeneeded"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+                    <TextView
+                        android:id="@+id/download_estimate_time_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="10dip"
+                        android:text="@string/download_timeneeded"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="18sp" >
+                    </TextView>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/download_cancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/download_start"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="@string/ok" />
+    </LinearLayout>
+
+</LinearLayout>
