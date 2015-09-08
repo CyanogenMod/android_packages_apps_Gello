@@ -68,6 +68,8 @@
     </style>
     <style name="Widget.UrlInputView" parent="BrowserTheme">
         <item name="android:colorAccent">@color/white</item>
+        <item name="android:textColor">@color/icon_white</item>
+        <item name="android:textColorHint">@color/icon_white</item>
     </style>
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Material.Small" />
