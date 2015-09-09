@@ -21,6 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -102,6 +103,7 @@ public class BookmarkContainer extends LinearLayout implements OnClickListener {
 
     public void setBottomLabelText(String bottomLabel) {
         ((TextView) findViewById(R.id.label)).setText(bottomLabel);
+        ((TextView) findViewById(R.id.label)).setEllipsize(TextUtils.TruncateAt.END);
     }
 
     public void setOverlayBadge(int imgResId) {
