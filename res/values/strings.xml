@@ -613,12 +613,10 @@
     <string name="loading_video">Loading video\u2026</string>
 
     <!-- Geolocation -->
-    <!-- Permissions prompt -->
-    <string name="geolocation_permissions_prompt_share_for_limited_time">Allow for 24 hours</string>
     <!-- Settings page dialog -->
     <string-array name="geolocation_settings_choices">
         <item>Deny forever</item>
-        <item>Allow for 24 hours</item>
+        <item>@string/geolocation_permissions_prompt_share_for_limited_time</item>
         <item>Allow forever</item>
     </string-array>
 
@@ -795,4 +793,16 @@
     <string name="mdm_managed_alert">Managed by your administrator</string>
     <!-- My Navigation - Bookmarks + History + Saved -->
     <string name="mystuffs">My Navigation</string>
+
+
+    <!-- Place holder for SWE engine strings added to
+         'chrome/android/java/strings/android_chrome_strings.grd'. Follow
+         chromium android grd naming convention. Follow exact mapping rules from
+         grd to xml. All grd strings maps to xml name in lowercase with 'IDS_'
+         prefix being stripped. For more info check out chromium's
+         UI-localization page. -->
+    <!-- Geolocation infobar promt-->
+    <string name="geolocation_permissions_prompt_remember">Remember Preference</string>
+    <string name="geolocation_permissions_prompt_share_for_limited_time">Allow for 24 hours</string>
+
 </resources>
