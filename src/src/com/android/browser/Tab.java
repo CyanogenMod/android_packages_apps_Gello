@@ -608,13 +608,16 @@ class Tab implements PictureListener {
             mTabHistoryUpdateObservable.set(index);
             final int maxIdx = view.copyBackForwardList().getSize();
             final WebView wv = view;
+            final int currIdx = index;
+            final int currentTabIdx = (int) mWebViewController.getTabControl().
+                    getCurrentTab().getId();
             view.getSnapshotIds(new ValueCallback <List<Integer>>() {
                 @Override
                 public void onReceiveValue(List<Integer> ids) {
-                    int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
                     for (Integer id : ids) {
-                        if (getTabIdxFromCaptureIdx(id) == currentTabIdx &&
-                                getNavIdxFromCaptureIdx(id) >= maxIdx) {
+                        int tabIdx = getTabIdxFromCaptureIdx(id);
+                        int navIdx = getNavIdxFromCaptureIdx(id);
+                        if (tabIdx == currentTabIdx && (navIdx >= maxIdx || navIdx == currIdx)) {
                             wv.deleteSnapshot(id);
                         }
                     }
@@ -1363,13 +1366,13 @@ class Tab implements PictureListener {
             final WebView webView = mMainView;
             setWebView(null);
             if (!mWebViewDestroyedByMemoryMonitor && !BaseUi.isUiLowPowerMode()) {
+                final int destroyedTabIdx = (int) mId;
                 // Tabs can be reused with new instance of WebView so delete the snapshots
                 webView.getSnapshotIds(new ValueCallback<List<Integer>>() {
                     @Override
                     public void onReceiveValue(List<Integer> ids) {
-                        int currentTabIdx = mWebViewController.getTabControl().getCurrentPosition();
                         for (Integer id : ids) {
-                            if (getTabIdxFromCaptureIdx(id) == currentTabIdx) {
+                            if (getTabIdxFromCaptureIdx(id) == destroyedTabIdx) {
                                 webView.deleteSnapshot(id);
                             }
                         }

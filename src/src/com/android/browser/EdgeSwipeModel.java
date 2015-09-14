@@ -30,11 +30,15 @@
 package com.android.browser;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.SparseArray;
 import android.webkit.ValueCallback;
 
+import org.codeaurora.swe.WebHistoryItem;
+
 public class EdgeSwipeModel {
     private SparseArray<Bitmap> mBitmaps;
+    private SparseArray<Integer> mColors;
     private Tab mTab;
     private TitleBar mBar;
 
@@ -46,6 +50,7 @@ public class EdgeSwipeModel {
         mTab = tab;
         mBar = bar;
         mBitmaps = new SparseArray<>();
+        mColors = new SparseArray<>();
     }
 
     public void updateSnapshot(final int index) {
@@ -80,6 +85,17 @@ public class EdgeSwipeModel {
     }
 
     public void fetchSnapshot(final int index) {
+        if (mColors.get(index) == null && mTab.getWebView() != null) {
+            WebHistoryItem item = mTab.getWebView().copyBackForwardList().getItemAtIndex(index);
+            if (item != null) {
+                String url = item.getUrl();
+                int color = NavigationBarBase.getSiteIconColor(url);
+                if (color != 0) {
+                    mColors.put(index, color);
+                }
+            }
+        }
+
         if (mBitmaps.get(index) != null) {
             return;
         }
@@ -108,11 +124,29 @@ public class EdgeSwipeModel {
         return mBitmaps.get(index);
     }
 
+    public int getColor(int index) {
+        if (index < 0) {
+            return Color.DKGRAY;
+        }
+
+        if (index > (mTab.getWebView().copyBackForwardList().getSize() - 1)) {
+            return Color.DKGRAY;
+        }
+
+        Integer color = mColors.get(index);
+        if (color != null) {
+            return color.intValue();
+        }
+
+        return Color.DKGRAY;
+    }
+
     public void deleteSnapshot(int index) {
         mBitmaps.delete(index);
     }
 
     public void cleanup() {
         mBitmaps.clear();
+        mColors.clear();
     }
 }
