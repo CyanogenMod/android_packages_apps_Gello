@@ -135,15 +135,21 @@ public class EdgeSwipeView {
         return (mViewGroup.getHeight() < mViewGroup.getWidth());
     }
 
-    private void setBitmap(ImageView view, Bitmap bitmap) {
+    private void setBitmap(ImageView view, Bitmap bitmap, int color) {
         clampViewIfNeeded(view);
         if (bitmap == null) {
-            bitmap = getColorBitmap(Color.DKGRAY);
+            bitmap = getColorBitmap(color);
         }
 
         int offset = 0;
         if (mTitleBar.getY() >= 0) {
             offset = mTitleBar.getNavigationBar().getMeasuredHeight();
+        }
+
+        if ((view.getMeasuredHeight() > view.getMeasuredWidth()) !=
+                (bitmap.getHeight() > bitmap.getWidth())) {
+            view.setImageBitmap(bitmap);
+            return;
         }
 
         int bitmap_height = bitmap.getHeight();
@@ -161,18 +167,18 @@ public class EdgeSwipeView {
         }
     }
 
-    public void setStationaryViewBitmap(Bitmap bitmap) {
+    public void setStationaryViewBitmap(Bitmap bitmap, int color) {
         mbStationaryViewBMSet = null != bitmap;
-        setBitmap(mStationaryView, bitmap);
+        setBitmap(mStationaryView, bitmap, color);
     }
 
     public void setStationaryViewAlpha(float alpha) {
         mStationaryView.setAlpha(alpha);
     }
 
-    public void setSlidingViewBitmap(Bitmap bitmap) {
+    public void setSlidingViewBitmap(Bitmap bitmap, int color) {
         mbSlidingViewBMSet = null != bitmap;
-        setBitmap(mSlidingView, bitmap);
+        setBitmap(mSlidingView, bitmap, color);
     }
 
     public boolean slidingViewHasImage() {

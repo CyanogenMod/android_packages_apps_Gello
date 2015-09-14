@@ -159,7 +159,7 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
         if (!mbCurrBMSynced) {
             Bitmap currBM = mModel.readSnapshot(mCurrIndex);
             if (currBM != null) {
-                mView.setStationaryViewBitmap(currBM);
+                mView.setStationaryViewBitmap(currBM, mModel.getColor(mCurrIndex));
                 mbCurrBMSynced = true;
             }
         }
@@ -168,7 +168,7 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
     private void showCurrBMInSlidingView() {
         if (!mbCurrBMSynced) {
             Bitmap currBM = mModel.readSnapshot(mCurrIndex);
-            mView.setSlidingViewBitmap(currBM);
+            mView.setSlidingViewBitmap(currBM, mModel.getColor(mCurrIndex));
             if (currBM != null) {
                 mbCurrBMSynced = true;
             }
@@ -224,12 +224,14 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                         switch (mFromEdge) {
                             case ViewDragHelper.EDGE_LEFT:
                                 mView.setSlidingViewBitmap(
-                                        getGrayscale(getSnapshotOrFavicon(pageIndex)));
+                                        getGrayscale(getSnapshotOrFavicon(pageIndex)),
+                                        mModel.getColor(pageIndex));
                                 mGrayBM = true;
                                 break;
                             case ViewDragHelper.EDGE_RIGHT:
                                 mView.setStationaryViewBitmap(
-                                        getGrayscale(getSnapshotOrFavicon(pageIndex)));
+                                        getGrayscale(getSnapshotOrFavicon(pageIndex)),
+                                        mModel.getColor(pageIndex));
                                 mGrayBM = true;
                                 break;
                         }
@@ -238,7 +240,8 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                             return;
                         }
                         mView.setStationaryViewBitmap(
-                                getGrayscale(getSnapshotOrFavicon(pageIndex)));
+                                getGrayscale(getSnapshotOrFavicon(pageIndex)),
+                                mModel.getColor(pageIndex));
                         mGrayBM = true;
                     }
                 }
@@ -325,7 +328,8 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
             mView.hideSlidingViews();
 
             if (mbNavigated) {
-                mView.setStationaryViewBitmap(getSnapshotOrFavicon(mCurrIndex));
+                mView.setStationaryViewBitmap(getSnapshotOrFavicon(mCurrIndex),
+                        mModel.getColor(mCurrIndex));
             } else {
                 swipeSessionCleanup();
             }
@@ -402,7 +406,8 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
 
                     if (mPrevIndex >= 0) {
                         if (!mView.stationaryViewHasImage()) {
-                            mView.setStationaryViewBitmap(getSnapshotOrFavicon(mPrevIndex));
+                            mView.setStationaryViewBitmap(getSnapshotOrFavicon(mPrevIndex),
+                                    mModel.getColor(mPrevIndex));
                         }
                     }
                     break;
@@ -412,7 +417,8 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                         mView.moveShadowView(mView.getMeasuredWidth() + left);
 
                         if (!mView.slidingViewHasImage() && mNextIndex < mMaxIndex) {
-                            mView.setSlidingViewBitmap(getSnapshotOrFavicon(mNextIndex));
+                            mView.setSlidingViewBitmap(getSnapshotOrFavicon(mNextIndex),
+                                    mModel.getColor(mNextIndex));
                         }
 
                         showCurrBMInStationaryView();
@@ -451,13 +457,15 @@ public class EdgeSwipeController extends ViewDragHelper.Callback {
                     mView.showSlidingViews();
                     mView.goDormant();
                     mPrevIndex = mCurrIndex - 1;
-                    mView.setStationaryViewBitmap(getSnapshotOrFavicon(mPrevIndex));
+                    mView.setStationaryViewBitmap(getSnapshotOrFavicon(mPrevIndex),
+                            mModel.getColor(mPrevIndex));
                     showCurrBMInSlidingView();
                     break;
                 case ViewDragHelper.EDGE_RIGHT:
                     mView.showSlidingViews();
                     mNextIndex = mCurrIndex + 1;
-                    mView.setSlidingViewBitmap(getSnapshotOrFavicon(mNextIndex));
+                    mView.setSlidingViewBitmap(getSnapshotOrFavicon(mNextIndex),
+                            mModel.getColor(mNextIndex));
                     showCurrBMInStationaryView();
                     if (mbCurrBMSynced)
                         mView.goDormant();
