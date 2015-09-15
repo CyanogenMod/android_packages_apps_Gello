@@ -169,7 +169,7 @@ public class EdgeSwipeSettings extends ViewDragHelper.Callback {
         mStationaryView.setVisibility(View.GONE);
         mSlidingViewShadow.setVisibility(View.GONE);
         mSettingsView.setVisibility(View.GONE);
-        mViewGroup.invalidate();
+        mViewGroup.postInvalidate();
     }
 
     private void goDormant() {
