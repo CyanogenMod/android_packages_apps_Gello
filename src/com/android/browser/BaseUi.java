@@ -46,6 +46,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.res.TypedArray;
 
@@ -850,16 +851,19 @@ public abstract class BaseUi implements UI {
             mContentView.setSystemUiVisibility(enabled ?
                     View.SYSTEM_UI_FLAG_LOW_PROFILE  : View.SYSTEM_UI_FLAG_VISIBLE);
         }
-        if (enabled)
-            winParams.flags |=  bits;
-        else
+        if (enabled) {
+            winParams.flags |= bits;
+        } else {
             winParams.flags &= ~bits;
+        }
 
         win.setAttributes(winParams);
     }
 
     //make full screen by showing/hiding topbar and system status bar
     public void showFullscreen(boolean fullScreen) {
+        ImageView shadow = (ImageView) mActivity.findViewById(R.id.titleBar_dropShadow);
+
         //Hide/show system ui bar as needed
         if (!BrowserSettings.getInstance().useFullscreen())
             setFullscreen(fullScreen);
@@ -869,9 +873,13 @@ public abstract class BaseUi implements UI {
             if (fullScreen) {
                 // hide titlebar
                 mTitleBar.hideTopControls(true);
+                //Hide the Titlebar DropShadow
+                shadow.setVisibility(View.GONE);
             } else {
                 // show titlebar
                 mTitleBar.showTopControls(false);
+                //Show the Titlebar DropShadow
+                shadow.setVisibility(View.VISIBLE);
                 // enable auto hide titlebar
                 if (!mTitleBar.isFixed())
                     mTitleBar.enableTopControls(false);
