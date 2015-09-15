@@ -202,6 +202,8 @@ public class XLargeUi extends BaseUi {
     public void showCustomView(View view, int requestedOrientation,
                                WebChromeClient.CustomViewCallback callback) {
         super.showCustomView(view, requestedOrientation, callback);
+        mTitleBar.setTranslationY(
+                -mActivity.getResources().getDimensionPixelSize(R.dimen.toolbar_height));
         if (mActionBar != null)
             mActionBar.hide();
     }
@@ -269,6 +271,7 @@ public class XLargeUi extends BaseUi {
         super.onHideCustomView();
         if (mActionBar != null)
             mActionBar.show();
+        mTitleBar.setTranslationY(0);
     }
 
     @Override
