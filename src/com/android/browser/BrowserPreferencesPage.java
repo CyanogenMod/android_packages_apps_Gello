@@ -79,8 +79,11 @@ public class BrowserPreferencesPage extends Activity {
             }
 
             Bundle extras = intent.getExtras();
-            if (extras == null)
+            if (extras == null){
+                getFragmentManager().beginTransaction().replace(android.R.id.content,
+                        new GeneralPreferencesFragment()).commit();
                 return;
+            }
 
             String fragment = (String) extras.getCharSequence(PreferenceActivity.EXTRA_SHOW_FRAGMENT);
             if (fragment != null) {

@@ -26,6 +26,8 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
 import org.chromium.base.SysUtils;
+
+import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 
 import java.util.ArrayList;
@@ -159,7 +161,12 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         setMenuHeight(menuItems.size(), visibleDisplayFrame, screenHeight, sizingPadding);
         setPopupOffset(mPopup, mCurrentScreenRotation, visibleDisplayFrame, sizingPadding);
         mPopup.setOnItemClickListener(this);
+        boolean isImmersive = BrowserSettings.getInstance().useFullscreen();
+        if (isImmersive)
+            mPopup.setModal(false); //Disable modal here(it's required until this point)
         mPopup.show();
+        if (isImmersive)
+            mPopup.setModal(true); //Set modal after show, so that Immersive Mode doesn't break
         mPopup.getListView().setItemsCanFocus(true);
         mPopup.getListView().setOnKeyListener(this);
 
