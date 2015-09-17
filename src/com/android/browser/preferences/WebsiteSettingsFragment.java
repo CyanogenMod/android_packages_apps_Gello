@@ -19,6 +19,8 @@ package com.android.browser.preferences;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -30,11 +32,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.ListPreference;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.ValueCallback;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,8 +50,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.browser.BrowserSettings;
 import com.android.browser.R;
 import com.android.browser.SiteTileView;
+import com.android.browser.UrlUtils;
 import com.android.browser.WebStorageSizeManager;
 
 import java.io.ByteArrayOutputStream;
@@ -326,63 +336,146 @@ public class WebsiteSettingsFragment extends ListFragment implements OnClickList
         }
     }
 
-    private void finish() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            getActivity().getFragmentManager().popBackStack();
-        }
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
         case R.id.clear_all_button:
             // Show the prompt to clear all origins of their data and geolocation permissions.
-            new AlertDialog.Builder(getActivity())
-                .setMessage(R.string.website_settings_clear_all_dialog_message)
-                .setPositiveButton(R.string.ok,
-                        new AlertDialog.OnClickListener() {
-                            public void onClick(DialogInterface dlg, int which) {
-                                mAdapter.deleteAllOrigins();
-                                if (GeolocationPermissions.isIncognitoCreated()) {
-                                    GeolocationPermissions.getIncognitoInstance().clearAll();
-                                }
-                                WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
-                                mAdapter.askForOrigins();
-                                finish();
-                            }
-                        })
-                .setNegativeButton(R.string.cancel, null)
-                .setIconAttribute(android.R.attr.alertDialogIcon)
-                .show();
+            ClearAllDialog clearFragment = ClearAllDialog.newInstance();
+            clearFragment.setAdapter(mAdapter);
+            clearFragment.show(getActivity().getFragmentManager(), "clearAll dialog");
             break;
+
         case R.id.add_new_site:
-            final EditText input = new EditText(getActivity());
-            new AlertDialog.Builder(getActivity())
+            NewSiteDialog newFragment = NewSiteDialog.newInstance();
+            newFragment.setTargetFragment(this, -1);
+            newFragment.show(getActivity().getFragmentManager(), "newSite dialog");
+            break;
+        }
+    }
+
+    /*
+   Added this class to manage AlertDialog lifecycle.
+ */
+    public static class NewSiteDialog extends DialogFragment {
+        private final String SAVED = "saved";
+        private EditText editText = null;
+        public static NewSiteDialog newInstance() {
+            NewSiteDialog frag = new NewSiteDialog();
+            return frag;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            editText = new EditText(getActivity());
+            String siteOrigin = savedInstanceState != null ?
+                    savedInstanceState.getString(SAVED): "";
+            editText.setInputType(InputType.TYPE_CLASS_TEXT
+                    | InputType.TYPE_TEXT_VARIATION_URI);
+            editText.setText(siteOrigin);
+            editText.setSingleLine(true);
+            editText.setSelection(editText.getText().length());// Always move the cursor to the end.
+            editText.setImeActionLabel(null, EditorInfo.IME_ACTION_DONE);
+            final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setView(editText)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String siteOrigin = editText.getText().toString();
+                            Fragment frag = getTargetFragment();
+                            if (frag == null || !(frag instanceof WebsiteSettingsFragment)) {
+                                Log.e("NewSiteDialog", "get target fragment error!");
+                                return;
+                            }
+                            Bundle args = new Bundle();
+                            args.putString(SiteSpecificPreferencesFragment.EXTRA_SITE,
+                                    siteOrigin);
+
+                            FragmentTransaction fragmentTransaction =
+                                    getActivity().getFragmentManager().beginTransaction();
+
+                            Fragment newFragment = new SiteSpecificPreferencesFragment();
+                            newFragment.setArguments(args);
+                            fragmentTransaction.replace(frag.getId(), newFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
                     .setTitle(R.string.website_settings_add_origin)
                     .setMessage(R.string.pref_security_origin_name)
-                    .setView(input)
-                    .setPositiveButton(R.string.pref_security_add,
+                    .create();
+
+            editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+            dialog.getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+            return dialog;
+        }
+
+        @Override
+        public void onSaveInstanceState(Bundle outState){
+            super.onSaveInstanceState(outState);
+            outState.putString(SAVED, editText.getText().toString().trim());
+        }
+    }
+
+    /*
+Added this class to manage AlertDialog lifecycle.
+*/
+    public static class ClearAllDialog extends DialogFragment {
+        private SiteAdapter adapter;
+        public static ClearAllDialog newInstance() {
+            ClearAllDialog frag = new ClearAllDialog();
+            return frag;
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                    .setMessage(R.string.website_settings_clear_all_dialog_message)
+                    .setPositiveButton(R.string.ok,
                             new AlertDialog.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    String origin = input.getText().toString();
-                                    Bundle args = new Bundle();
-                                    args.putString(SiteSpecificPreferencesFragment.EXTRA_SITE,
-                                            origin);
-
-                                    FragmentTransaction fragmentTransaction =
-                                            getActivity().getFragmentManager().beginTransaction();
-
-                                    Fragment newFragment = new SiteSpecificPreferencesFragment();
-                                    newFragment.setArguments(args);
-                                    fragmentTransaction.replace(getId(), newFragment);
-                                    fragmentTransaction.addToBackStack(null);
-                                    fragmentTransaction.commit();
-                                }})
+                                public void onClick(DialogInterface dlg, int which) {
+                                    if (adapter == null) {
+                                        return;
+                                    }
+                                    adapter.deleteAllOrigins();
+                                    if (GeolocationPermissions.isIncognitoCreated()) {
+                                        GeolocationPermissions.getIncognitoInstance().clearAll();
+                                    }
+                                    WebStorageSizeManager.resetLastOutOfSpaceNotificationTime();
+                                    adapter.askForOrigins();
+                                    Activity activity = getActivity();
+                                    if (activity != null) {
+                                        getActivity().getFragmentManager().popBackStack();
+                                    }
+                                }
+                            })
                     .setNegativeButton(R.string.cancel, null)
-                    .show();
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
+                    .create();
 
-            break;
+            return dialog;
+        }
+
+        public void setAdapter(SiteAdapter inAdapter) {
+            adapter = inAdapter;
         }
     }
 }
