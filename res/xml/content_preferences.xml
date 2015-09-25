@@ -44,6 +44,7 @@
         android:title="@string/pref_content_javascript" />
 
     <PreferenceScreen
+        android:layout="@layout/swe_preference"
         android:key="download_path_setting_screen"
         android:title="@string/pref_download_path_setting_screen_title"/>
 
