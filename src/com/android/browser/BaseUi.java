@@ -879,7 +879,6 @@ public abstract class BaseUi implements UI {
 
     //make full screen by showing/hiding topbar and system status bar
     public void showFullscreen(boolean fullScreen) {
-        ImageView shadow = (ImageView) mActivity.findViewById(R.id.titleBar_dropShadow);
 
         //Hide/show system ui bar as needed
         if (!BrowserSettings.getInstance().useFullscreen())
@@ -890,13 +889,9 @@ public abstract class BaseUi implements UI {
             if (fullScreen) {
                 // hide titlebar
                 mTitleBar.hideTopControls(true);
-                //Hide the Titlebar DropShadow
-                shadow.setVisibility(View.GONE);
             } else {
                 // show titlebar
                 mTitleBar.showTopControls(false);
-                //Show the Titlebar DropShadow
-                shadow.setVisibility(View.VISIBLE);
                 // enable auto hide titlebar
                 if (!mTitleBar.isFixed())
                     mTitleBar.enableTopControls(false);
@@ -915,15 +910,20 @@ public abstract class BaseUi implements UI {
             }
             float currentY = mTitleBar.getTranslationY();
             float height = mNavigationBar.getHeight();
+
             if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
                 mTitleBar.requestLayout();
             } else if ((height + topControlsOffsetYPix) <= 0) {
-                topControlsOffsetYPix -= 1;
+                // Need to add the progress bar's margin to the offest since it's height is not
+                // accounted for and the dropshadow draws inside it.
+                topControlsOffsetYPix +=
+                        mActivity.getResources().getDimension(R.dimen.progress_bar_margin);
                 mTitleBar.getParent().requestTransparentRegion(mTitleBar);
             }
             // This was done to get HTML5 fullscreen API to work with fixed mode since
             // topcontrols are used to implement HTML5 fullscreen
             mTitleBar.setTranslationY(topControlsOffsetYPix);
+
         }
     }
 
