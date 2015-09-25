@@ -23,6 +23,7 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -38,6 +39,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import org.chromium.base.VisibleForTesting;
 import com.android.browser.R;
@@ -219,6 +221,13 @@ public class BrowserActivity extends Activity {
 
     @Override
     protected void onResume() {
+        // Checking for Lollipop or above as only those builds will use the v21/styles(material)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                BrowserSettings.getInstance().isPowerSaveModeEnabled()) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        }
         super.onResume();
         if (LOGV_ENABLED) {
             Log.v(LOGTAG, "BrowserActivity.onResume: this=" + this);

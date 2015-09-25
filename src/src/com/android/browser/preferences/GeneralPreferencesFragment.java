@@ -171,9 +171,9 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
                 BrowserSettings settings = BrowserSettings.getInstance();
                 settings.setPowerSaveModeEnabled((Boolean)objValue);
                 PermissionsServiceFactory.setDefaultPermissions(
-                    PermissionsServiceFactory.PermissionType.WEBREFINER, !(Boolean)objValue);
+                        PermissionsServiceFactory.PermissionType.WEBREFINER, !(Boolean) objValue);
                 showPowerSaveInfo((Boolean) objValue);
-            BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
+                BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
         }
 
         if (pref.getKey().equals(PreferenceKeys.PREF_NIGHTMODE_ENABLED)) {
