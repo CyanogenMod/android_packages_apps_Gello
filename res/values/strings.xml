@@ -319,7 +319,7 @@
     <string-array name="pref_web_refiner_message">
         <item>"Blocked %s. "</item>
         <item>"Blocked %1$s and %2$s. "</item>
-        <item>"Blocked %1$s, %2$s and $3$s. "</item>
+        <item>"Blocked %1$s, %2$s and %3$s. "</item>
     </string-array>
     <string name="pref_valid_cert"
         >Valid SSL certificate. Communication is encrypted and identity is verified.</string>
