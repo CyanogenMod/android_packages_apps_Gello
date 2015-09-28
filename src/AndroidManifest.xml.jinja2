@@ -17,8 +17,7 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="{{ manifest_package }}"
-    android:installLocation="internalOnly">
+    package="{{ manifest_package }}">
 
     <permission android:name="{{ app_package_name }}.permission.PRELOAD"
         android:label="@string/permission_preload_label"
@@ -87,10 +86,12 @@
                 <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.BrowserLauncher"
             android:targetActivity="com.android.browser.BrowserLauncher"
             android:exported="true">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.BrowserActivity"
                   android:label="{{ apk_label }}"
@@ -170,9 +171,10 @@
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/searchable" />
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.BrowserActivity"
-            android:targetActivity="com.android.browser.BrowserActivity"
-            android:exported="false"/>
+            android:targetActivity="com.android.browser.BrowserActivity"/>
+        {% endif %}
 
         <activity android:name="com.android.browser.ShortcutActivity"
             android:theme="@style/ShortcutTheme"
@@ -183,33 +185,39 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.ShortcutActivity"
             android:targetActivity="com.android.browser.ShortcutActivity"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.BrowserPreferencesPage"
             android:label="@string/menu_preferences"
-            android:parentActivityName=".BrowserActivity"
+            android:parentActivityName="com.android.browser.BrowserActivity"
             android:theme="@style/SettingsTheme">
             <intent-filter>
                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.BrowserPreferencesPage"
             android:targetActivity="com.android.browser.BrowserPreferencesPage"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.preferences.LegalPreviewActivity"
-            android:parentActivityName=".BrowserActivity"
+            android:parentActivityName="com.android.browser.BrowserActivity"
             android:theme="@style/SettingsTheme">
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.LegalPreviewActivity"
             android:targetActivity="com.android.browser.preferences.LegalPreviewActivity"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.BookmarkSearch"
                   android:label="@string/application_name"
@@ -223,10 +231,12 @@
             <meta-data android:name="android.app.searchable"
                     android:resource="@xml/bookmarks_searchable" />
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.BookmarkSearch"
             android:targetActivity="com.android.browser.BookmarkSearch"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.AddBookmarkPage"
                   android:label="@string/bookmarks_add_page"
@@ -239,10 +249,12 @@
                 <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.AddBookmarkPage"
             android:targetActivity="com.android.browser.AddBookmarkPage"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.DownloadSettings"
                   android:label="@string/download_settings_title"
@@ -255,10 +267,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.DownloadSettings"
             android:targetActivity="com.android.browser.DownloadSettings"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <!-- For creating new folder in bookmarks page -->
         <activity android:name="com.android.browser.AddBookmarkFolder"
@@ -270,18 +284,22 @@
                       <data android:mimeType="vnd.android.cursor.dir/bookmark"/>
                   </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.AddBookmarkFolder"
             android:targetActivity="com.android.browser.AddBookmarkFolder"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <activity android:name="com.android.browser.ComboViewActivity"
                   android:theme="@style/ComboViewTheme">
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.ComboViewActivity"
             android:targetActivity="com.android.browser.ComboViewActivity"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <!-- Bookmark thumbnail homescreen widget -->
         <receiver
@@ -310,20 +328,24 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.widget.BookmarkWidgetConfigure"
             android:targetActivity="com.android.browser.widget.BookmarkWidgetConfigure"
             android:exported="false">
         </activity-alias>
+        {% endif %}
         <!-- add or edit my navigation activity -->
         <activity android:name="com.android.browser.mynavigation.AddMyNavigationPage"
             android:label="@string/my_navigation_page_title"
             android:configChanges="orientation|keyboardHidden"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        {% if not app_package_name in ['com.android.browser'] %}
         <activity-alias android:name="{{ app_package_name }}.mynavigation.AddMyNavigationPage"
             android:targetActivity="com.android.browser.mynavigation.AddMyNavigationPage"
             android:exported="false">
         </activity-alias>
+        {% endif %}
 
         <!-- Makes .BrowserActivity the search target for any activity in Browser -->
         <meta-data android:name="android.app.default_searchable" android:value="com.android.browser.BrowserActivity" />
