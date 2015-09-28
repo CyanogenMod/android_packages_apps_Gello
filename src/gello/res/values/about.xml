@@ -3,10 +3,10 @@
  <!-- Text to display in about dialog --> 
 <string name="about_text" formatted="false">
 
-Version: 42.0.2311.187027\n
-Built: Tue Sep  8 14:58:47 CEST 2015\n
+Version: 42.0.2311.187041\n
+Built: Mon Sep 28 21:32:13 CEST 2015\n
 Host: envy-linux\n
 User: joey\n
-Hash: ede7d44 (2311)\n
+Hash: ccad148 (2311)\n
 </string>
 </resources>
