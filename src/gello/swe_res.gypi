@@ -43,12 +43,6 @@
             '<(PRODUCT_DIR)/swe_android_browser_apk/assets/wml/swe_wml.css',
           ],
         },
-        {
-          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/swe_res/assets/web_refiner',
-          'files': [
-            '<(PRODUCT_DIR)/swe_android_browser_apk/assets/web_refiner/web_refiner.conf',
-          ],
-        },
 
         #ui res
         {

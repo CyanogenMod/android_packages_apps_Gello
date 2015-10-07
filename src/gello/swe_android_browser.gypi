@@ -55,12 +55,6 @@
             '<@(swe_assets_wml)',
           ],
         },
-        {
-          'destination': '<(PRODUCT_DIR)/swe_android_browser_apk/assets/web_refiner',
-          'files': [
-            '<@(swe_assets_webrefiner)',
-          ],
-        },
       ],
       'includes': [ '../../build/java_apk.gypi' ],
     },
