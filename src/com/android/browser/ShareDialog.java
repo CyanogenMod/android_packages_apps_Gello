@@ -40,6 +40,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 
 import java.util.List;
@@ -47,6 +49,12 @@ import java.util.Collections;
 
 import android.util.Log;
 
+import org.chromium.base.ContentUriUtils;
+import org.chromium.ui.UiUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ShareDialog extends AppItem {
     private Activity activity = null;
@@ -57,7 +65,8 @@ public class ShareDialog extends AppItem {
     private List<ResolveInfo>apps = null;
     public final static String EXTRA_SHARE_SCREENSHOT = "share_screenshot";
     public final static String EXTRA_SHARE_FAVICON = "share_favicon";
-
+    private static final String SCREENSHOT_DIRECTORY_NAME = "screenshot_share";
+    private static final int MAX_SCREENSHOT_COUNT = 10;
 
     public ShareDialog (Activity activity, String title, String url, Bitmap favicon, Bitmap screenshot) {
         super(null);
@@ -67,6 +76,50 @@ public class ShareDialog extends AppItem {
         this.url = url;
         this.favicon = favicon;
         this.screenshot = screenshot;
+
+        ContentUriUtils.setFileProviderUtil(new FileProviderHelper());
+        trimScreenshots();
+    }
+
+    private void trimScreenshots() {
+        try {
+            File directory = getScreenshotDir();
+            if (directory.list() != null && directory.list().length >= MAX_SCREENSHOT_COUNT) {
+                clearSharedScreenshots();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            clearSharedScreenshots();
+        }
+    }
+
+    private File getScreenshotDir() throws IOException {
+        File baseDir = UiUtils.getDirectoryForImageCapture(activity);
+        return new File(baseDir, SCREENSHOT_DIRECTORY_NAME);
+    }
+
+    private void deleteScreenshotFiles(File file) {
+        if (!file.exists()) return;
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) deleteScreenshotFiles(f);
+        }
+    }
+
+    /**
+     * Clears all shared screenshot files.
+     */
+    private void clearSharedScreenshots() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File dir = getScreenshotDir();
+                    deleteScreenshotFiles(dir);
+                } catch (IOException ie) {
+                    // Ignore exception.
+                }
+            }
+        });
     }
 
     private List<ResolveInfo> getShareableApps() {
@@ -114,7 +167,8 @@ public class ShareDialog extends AppItem {
                 i.putExtra(Intent.EXTRA_TEXT, url);
                 i.putExtra(Intent.EXTRA_SUBJECT, title);
                 i.putExtra(EXTRA_SHARE_FAVICON, favicon);
-                i.putExtra(EXTRA_SHARE_SCREENSHOT, screenshot);
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                i.putExtra(Intent.EXTRA_STREAM, getShareBitmapUri(screenshot));
                 i.setComponent(name);
                 activity.startActivity(i);
             }
@@ -122,4 +176,32 @@ public class ShareDialog extends AppItem {
 
         builderSingle.show();
     }
+
+    public Uri getShareBitmapUri(Bitmap screenshot) {
+        Uri uri = null;
+        if (screenshot != null) {
+            FileOutputStream fOut = null;
+            try {
+                File path = getScreenshotDir();
+                if (path.exists() || path.mkdir()) {
+                    File saveFile = File.createTempFile(
+                            String.valueOf(System.currentTimeMillis()), ".jpg", path);
+                    fOut = new FileOutputStream(saveFile);
+                    screenshot.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
+                    fOut.flush();
+                    fOut.close();
+                    uri = UiUtils.getUriForImageCaptureFile(activity, saveFile);
+                }
+            } catch (IOException ie) {
+                if (fOut != null) {
+                    try {
+                        fOut.close();
+                    } catch (IOException e) {
+                        // Ignore exception.
+                    }
+                }
+            }
+        }
+        return uri;
+   }
 }
