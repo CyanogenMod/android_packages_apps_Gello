@@ -83,7 +83,7 @@ public class NavTabView extends LinearLayout {
             mTitle.setText(txt);
         }
         if (mTab.isSnapshot()) {
-            setTitleIcon(R.drawable.ic_suggest_history_normal);
+            setTitleIcon(R.drawable.ic_suggest_history_inverted);
         } else  if (mTab.isDistilled()) {
             setTitleIcon(R.drawable.ic_deco_reader_mode_normal);
         } else if (mTab.isPrivateBrowsingEnabled()) {
