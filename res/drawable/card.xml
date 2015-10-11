@@ -16,7 +16,7 @@
             android:paddingBottom="0dp"
             android:paddingLeft="0dp" >
             <solid android:color="@color/primary" />
-            <corners android:radius="2dp" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
 </layer-list>
