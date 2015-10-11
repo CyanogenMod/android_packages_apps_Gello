@@ -56,8 +56,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmallInverse" />
         </LinearLayout>
     </LinearLayout>
-    <!--FrameLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/trasparent" /-->
+        android:background="@color/trasparent" />
 </LinearLayout>

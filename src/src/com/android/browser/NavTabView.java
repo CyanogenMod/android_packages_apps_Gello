@@ -87,8 +87,6 @@ public class NavTabView extends LinearLayout {
         } else  if (mTab.isDistilled()) {
             setTitleIcon(R.drawable.ic_deco_reader_mode_normal);
         } else if (mTab.isPrivateBrowsingEnabled()) {
-            mContent.setBackgroundResource(R.drawable.nav_tab_title_incognito);
-            mTitle.setTextColor(getResources().getColor(R.color.white));
             setTitleIcon(R.drawable.ic_deco_incognito_normal);
         } else {
             setTitleIcon(0);
