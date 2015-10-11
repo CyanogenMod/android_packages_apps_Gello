@@ -15,7 +15,6 @@
 -->
 
 <transition xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/bookmarks_widget_thumb_selector_pressed"  />
-    <item android:drawable="@drawable/bookmarks_widget_thumb_selector_longpressed"  />
+    <item android:drawable="@color/white"  />
+    <item android:drawable="@color/white"  />
 </transition>
-
