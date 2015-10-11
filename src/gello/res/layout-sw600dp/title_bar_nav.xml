@@ -76,6 +76,17 @@
             android:paddingEnd="6dp"
             android:contentDescription="@string/page_info"/>
 
+        <!-- Cosmetic separator -->
+        <View
+            android:id="@+id/separator"
+            android:layout_width="1dp"
+            android:layout_height="36dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:background="@color/icon_white" />
+
         <com.android.browser.UrlInputView
             android:id="@+id/url"
             style="@style/Suggestions"
