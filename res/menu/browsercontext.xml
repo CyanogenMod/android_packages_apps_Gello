@@ -64,4 +64,3 @@
             android:title="@string/my_navigation_delete_label"/>
     </group>
 </menu>
-
