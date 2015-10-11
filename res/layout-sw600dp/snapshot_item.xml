@@ -21,12 +21,12 @@
     android:padding="@dimen/combo_snapshot_item_padding">
     <ImageView
         android:id="@+id/thumb"
-        android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
+        android:src="@color/white"
         android:layout_width="@dimen/bookmarkThumbnailWidth"
         android:layout_height="@dimen/bookmarkThumbnailHeight"
         android:scaleType="centerCrop"
         android:cropToPadding="true"
-        android:background="@drawable/border_thumb_bookmarks_widget_holo" />
+        android:background="@color/white" />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -34,7 +34,6 @@
         android:layout_alignBottom="@id/thumb"
         android:layout_alignStart="@id/thumb"
         android:layout_alignEnd="@id/thumb"
-        android:background="@drawable/overlay_url_bookmark_widget_holo"
         android:singleLine="true"
         android:ellipsize="end"
         android:textSize="14sp"

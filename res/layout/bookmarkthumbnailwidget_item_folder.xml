@@ -21,17 +21,16 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/thumb"
-        android:src="@drawable/thumbnail_bookmarks_widget_no_bookmark_holo"
+        android:src="@color/white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/widgetThumbnailHeight"
         android:scaleType="fitEnd"
         android:cropToPadding="true"
-        android:background="@drawable/border_thumb_bookmarks_widget_holo" />
+        android:background="@color/white" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/thumb"
-        android:background="@drawable/overlay_url_bookmark_widget_holo"
         android:layout_marginStart="2dip"
         android:layout_marginEnd="2dip"
         android:layout_marginBottom="2dip">
