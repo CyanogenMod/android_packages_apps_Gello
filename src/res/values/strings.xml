@@ -43,9 +43,9 @@
     <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
     <string name="tab_snapshots">Saved pages</string>
     <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
-    <string name="added_to_bookmarks">Added to bookmarks.</string>
+    <string name="added_to_bookmarks">Added to favorites.</string>
     <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
-    <string name="removed_from_bookmarks">Removed from bookmarks.</string>
+    <string name="removed_from_bookmarks">Removed from favorites.</string>
     <!-- Sign-in dialog -->
     <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
@@ -57,7 +57,7 @@
     <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
     <!-- The name of the add bookmark page activity.-->
-    <string name="bookmarks_add_page">Save bookmark</string>
+    <string name="bookmarks_add_page">Save favorite</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->
@@ -119,37 +119,37 @@
     <string name="http">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
     <!-- Also used as title for AddBookmarkPage -->
-    <string name="save_to_bookmarks">Save to bookmarks</string>
+    <string name="save_to_bookmarks">Save to favorites</string>
     <!-- Title of the dialog to bookmark a page -->
-    <string name="bookmark_this_page">Bookmark this page</string>
+    <string name="bookmark_this_page">Add this page to favorites</string>
     <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
     <string name="remove">Remove</string>
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
-    <string name="edit_bookmark">Edit bookmark</string>
+    <string name="edit_bookmark">Edit favorite</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
     <string name="create_shortcut_bookmark">Add shortcut to home</string>
     <!-- Menu item to remove the currently highlighted bookmark-->
-    <string name="remove_bookmark">Delete bookmark</string>
+    <string name="remove_bookmark">Delete favorite</string>
     <!-- Context menu item to remove a history item from bookmarks -->
-    <string name="remove_from_bookmarks">Remove from bookmarks</string>
+    <string name="remove_from_bookmarks">Remove from favorites</string>
     <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
     <string name="remove_history_item">Remove from history</string>
     <!-- Context menu item for setting the bookmark/history item as the homepage -->
     <string name="set_as_homepage">Set as homepage</string>
     <!-- Toast informing the user that their action to save a bookmark has succeeded -->
-    <string name="bookmark_saved">Bookmarked</string>
+    <string name="bookmark_saved">Added to favorites</string>
     <!-- Toast informing the user that their action to save a bookmark did not succeed -->
-    <string name="bookmark_not_saved">Couldn\'t save bookmark.</string>
+    <string name="bookmark_not_saved">Couldn\'t save favorite.</string>
     <!-- Toast confirming that the homepage has been set -->
     <string name="homepage_set">Homepage set.</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
-    <string name="bookmark_needs_title">"Bookmark must have a name."</string>
+    <string name="bookmark_needs_title">"Favorite must have a name."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
-    <string name="bookmark_needs_url">"Bookmark must have a location."</string>
+    <string name="bookmark_needs_url">"Favorite must have a location."</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">This URL isn\'t valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
-    <string name="bookmark_cannot_save_url">This URL can\'t be bookmarked.</string>
+    <string name="bookmark_cannot_save_url">This URL can\'t be added to favorites.</string>
     <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -158,7 +158,7 @@
     <string name="current_page">from\u0020</string>
     <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
-    <string name="delete_bookmark_warning">Delete bookmark \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
+    <string name="delete_bookmark_warning">Delete favorite \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
     <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
     <string name="delete_folder_warning">Delete folder \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
@@ -169,11 +169,11 @@
     <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
     <string name="close_other_tabs">Close other tabs</string>
     <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
-    <string name="bookmarks">Bookmarks</string>
+    <string name="bookmarks">Favorites</string>
     <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
-    <string name="shortcut_bookmark">Bookmark</string>
+    <string name="shortcut_bookmark">Favorite</string>
     <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
-    <string name="shortcut_bookmark_title">Choose a bookmark</string>
+    <string name="shortcut_bookmark_title">Choose a favorite</string>
     <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
     <string name="history">History</string>
@@ -188,7 +188,7 @@
     <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
     <string name="snapshot_failed">Couldn\'t save for offline reading.</string>
     <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
-    <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bookmarks</string>
+    <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> favorites</string>
     <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
     <string name="contextheader_folder_empty">Empty folder</string>
     <!-- Context Menu item open the currently selected link in the current
@@ -535,7 +535,7 @@
     <!-- Appears on History screen if no history is found -->
     <string name="empty_history">No browser history.</string>
     <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
-    <string name="add_new_bookmark">Add bookmark</string>
+    <string name="add_new_bookmark">Add favorite</string>
     <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
     <string name="add_bookmark_short">Add</string>
@@ -547,7 +547,7 @@
     <!-- This is the button label in the "Go To" UI. -->
     <string name="search_button_text">Go</string>
     <!-- The string used to describe the browser as a searchable item within system search settings. -->
-    <string name="search_settings_description">Bookmarks and web history</string>
+    <string name="search_settings_description">Favorites and web history</string>
 
     <!-- Label for a button to allow a particular popup window to open -->
     <string name="allow">Allow</string>
@@ -630,16 +630,16 @@
 
     <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
-    <string name="empty_bookmarks_folder">No bookmarks.</string>
+    <string name="empty_bookmarks_folder">No favorites.</string>
 
     <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
-    <string name="other_bookmarks">Other Bookmarks</string>
+    <string name="other_bookmarks">Other favorites</string>
 
     <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
-    <string name="import_bookmarks_dialog_description">Bookmarks on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you don\'t want to sync them.</string>
+    <string name="import_bookmarks_dialog_description">Favorites on this device are not yet associated with a Google account. Save these bookmarks by adding them to an account. Delete these bookmarks if you don\'t want to sync them.</string>
 
     <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
-    <string name="import_bookmarks_dialog_remove">Delete bookmarks</string>
+    <string name="import_bookmarks_dialog_remove">Delete favorites</string>
 
     <!-- Url Selection Action Mode -->
 
@@ -653,7 +653,7 @@
     <!-- Font size preview label in settings [CHAR LIMIT=30] -->
     <string name="preview">Preview</string>
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
-    <string name="local_bookmarks">Local</string>
+    <string name="local_bookmarks">My favorites</string>
     <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
     <string name="find_on_page">Find on page</string>
     <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
@@ -680,7 +680,7 @@
     <!-- Content description for stop button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_stop">Stop page load</string>
     <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_addbookmark">Bookmark page</string>
+    <string name="accessibility_button_addbookmark">Add to favorites</string>
     <!-- Content description for search button [CHAR LIMIT=NONE] -->
     <string name="accessibility_button_search">Search</string>
     <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
@@ -705,7 +705,7 @@
     <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
     <string name="accessibility_transition_navscreen">Tab management</string>
     <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
-    <string name="accessibility_button_bookmarks_folder_up">Previous folder</string>
+    <string name="accessibility_button_bookmarks_folder_up">Up</string>
 
     <!--Add for Navigation Feature -->
     <string name="my_navigation_delete_label">Delete website</string>
@@ -747,7 +747,7 @@
     <string name="browser_max_input_title">Reached limit for maximum number of characters</string>
     <string name="browser_max_input">Your input reached the maximum limit of <xliff:g id="MAXLIMIT">%s</xliff:g> characters</string>
     <string name="duplicated_folder_warning">Folder already exists</string>
-    <string name="overwrite_bookmark_msg">Bookmark\'s name or address already exists. Overwrite it?</string>
+    <string name="overwrite_bookmark_msg">Favorite\'s name or address already exists. Overwrite it?</string>
 
     <!-- Add for download save path setting Feature -->
     <string name="invalid_path">Invalid path</string>
@@ -791,7 +791,7 @@
 
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>
-    <!-- My Navigation - Bookmarks + History + Saved -->
+    <!-- My Navigation - Favorites + History + Saved -->
     <string name="mystuffs">My Navigation</string>
 
 
