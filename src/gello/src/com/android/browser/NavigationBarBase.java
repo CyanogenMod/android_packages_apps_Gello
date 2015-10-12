@@ -350,11 +350,13 @@ public class NavigationBarBase extends LinearLayout implements
     @Override
     public void onClick(View v) {
         Tab currentTab = mUiController.getCurrentTab();
-        WebView wv = currentTab.getWebView();
         String url = null;
-        if (currentTab != null){
+        WebView wv = null;
+        if (currentTab != null) {
+            wv = currentTab.getWebView();
             url = currentTab.getUrl();
         }
+
         if (mMore == v) {
             showMenu(mMore);
         } else if (mFaviconTile == v) {
