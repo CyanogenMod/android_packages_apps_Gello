@@ -413,10 +413,7 @@ public abstract class BaseUi implements UI {
 
     @Override
     public void removeTab(Tab tab) {
-        if (mActiveTab == tab) {
-            removeTabFromContentView(tab);
-            mActiveTab = null;
-        }
+        removeTabFromContentView(tab);
     }
 
     @Override
