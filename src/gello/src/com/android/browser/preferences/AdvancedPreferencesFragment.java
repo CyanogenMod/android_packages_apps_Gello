@@ -146,6 +146,8 @@ public class AdvancedPreferencesFragment
 
         } else if (pref.getKey().equals(PreferenceKeys.PREF_SEARCH_ENGINE)) {
             ListPreference lp = (ListPreference) pref;
+            // update the user preference
+            BrowserSettings.getInstance().setUserSearchEngine((String) objValue);
             lp.setValue((String) objValue);
             updateListPreferenceSummary(lp);
             return false;
