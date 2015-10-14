@@ -29,11 +29,14 @@
 
 package com.android.browser.preferences;
 
+import android.app.Activity;
+import android.net.Uri;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.util.Log;
@@ -98,6 +101,33 @@ public class ContentPreferencesFragment extends SWEPreferenceFragment {
                 }
             }
         };
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == DOWNLOAD_PATH_RESULT_CODE &&
+                (resultCode == Activity.RESULT_OK && intent != null)) {
+            final String result_dir_sel =
+                getActivity().getResources().getString(R.string.def_file_manager_result_dir);
+            String downloadPath = intent.getStringExtra(result_dir_sel);
+            // Fallback logic to stock browser
+            if (downloadPath == null) {
+                Uri uri = intent.getData();
+                if(uri != null)
+                    downloadPath = uri.getPath();
+            }
+            if (downloadPath != null) {
+                PreferenceScreen downloadPathPreset =
+                        (PreferenceScreen) findPreference(
+                                PreferenceKeys.PREF_DOWNLOAD_PATH);
+                Editor editor = downloadPathPreset.getEditor();
+                editor.putString(PreferenceKeys.PREF_DOWNLOAD_PATH, downloadPath);
+                editor.apply();
+                String downloadPathForUser = DownloadHandler.getDownloadPathForUser(
+                        getActivity(), downloadPath);
+                downloadPathPreset.setSummary(downloadPathForUser);
+            }
+        }
     }
 
     @Override
