@@ -812,6 +812,8 @@ public class Controller
         }
         mActivityStopped = false;
         UpdateNotificationService.updateCheck(mActivity);
+        // reset the search engine based on locale
+        mSettings.updateSearchEngine(false);
         mSettings.setLastRunPaused(false);
         Tab current = mTabControl.getCurrentTab();
         if (current != null) {
