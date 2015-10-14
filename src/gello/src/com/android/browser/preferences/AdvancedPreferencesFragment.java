@@ -97,36 +97,6 @@ public class AdvancedPreferencesFragment
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == ContentPreferencesFragment.DOWNLOAD_PATH_RESULT_CODE) {
-            if ( resultCode == Activity.RESULT_OK && intent != null) {
-                final String result_dir_sel =
-                    mFragment.getResources().getString(R.string.def_file_manager_result_dir);
-                String downloadPath = intent.getStringExtra(result_dir_sel);
-                // Fallback logic to stock browser
-                if (downloadPath == null) {
-                    Uri uri = intent.getData();
-                    if(uri != null)
-                        downloadPath = uri.getPath();
-                }
-                if (downloadPath != null) {
-                    PreferenceScreen downloadPathPreset =
-                            (PreferenceScreen) mFragment.findPreference(
-                                    PreferenceKeys.PREF_DOWNLOAD_PATH);
-                    Editor editor = downloadPathPreset.getEditor();
-                    editor.putString(PreferenceKeys.PREF_DOWNLOAD_PATH, downloadPath);
-                    editor.apply();
-                    String downloadPathForUser = DownloadHandler.getDownloadPathForUser(
-                            mFragment.getActivity(), downloadPath);
-                    downloadPathPreset.setSummary(downloadPathForUser);
-                }
-
-                return;
-            }
-        }
-        return;
-    }
-
     void updateListPreferenceSummary(ListPreference e) {
         e.setSummary(e.getEntry());
     }

@@ -240,7 +240,6 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mAdvFrag.onActivityResult(requestCode,resultCode, data);
     }
 
     void refreshUi() {
