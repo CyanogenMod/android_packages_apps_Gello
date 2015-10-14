@@ -145,4 +145,8 @@ public interface PreferenceKeys {
     static final String PREF_LEGAL_PRIVACY_POLICY = "legal_privacy_policy";
 
     static final String ACTION_RELOAD_PAGE = "reload";
+
+    // User preference
+    static final String PREF_USER_SEARCH_ENGINE = "user_search_engine-";
+
 }

@@ -24,6 +24,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
@@ -493,7 +494,7 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         return mAppCachePath;
     }
 
-    private void updateSearchEngine(boolean force) {
+    protected void updateSearchEngine(boolean force) {
         String searchEngineName = getSearchEngineName();
         if (force || mSearchEngine == null ||
                 !mSearchEngine.getName().equals(searchEngineName)) {
@@ -799,11 +800,11 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         // it creates the restriction and if enabled it sets the <default_search_engine_value>.
         SearchEngineRestriction.getInstance();
 
-        String defaultSearchEngineValue = mContext.getString(R.string.default_search_engine_value);
+        String defaultSearchEngineValue = getUserSearchEngine();
         if (defaultSearchEngineValue == null) {
             defaultSearchEngineValue = SearchEngine.GOOGLE;
         }
-        return mPrefs.getString(PREF_SEARCH_ENGINE, defaultSearchEngineValue);
+        return defaultSearchEngineValue;
     }
 
     public boolean allowAppTabs() {
@@ -852,6 +853,23 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     public void setEdgeSwipeTemporal() {
         mPrefs.edit().putString(PREF_EDGE_SWIPE,
                 mContext.getResources().getString(R.string.value_temporal_edge_swipe)).apply();
+    }
+
+    public void setUserSearchEngine(String engine) {
+        if (!engine.equals(mContext.getResources().getString(R.string.default_search_engine_value)))
+            mPrefs.edit().putString(
+                PREF_USER_SEARCH_ENGINE + mContext.getResources().getConfiguration().locale,
+                engine).apply();
+        // ensure changing back to default clears the search engine
+        else
+            mPrefs.edit().remove(PREF_USER_SEARCH_ENGINE
+                    + mContext.getResources().getConfiguration().locale).apply();
+    }
+
+    public String getUserSearchEngine() {
+        return mPrefs.getString(
+                PREF_USER_SEARCH_ENGINE + mContext.getResources().getConfiguration().locale
+                , mContext.getResources().getString(R.string.default_search_engine_value));
     }
 
     public void setEdgeSwipeSpatial() {
