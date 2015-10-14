@@ -980,9 +980,9 @@ public class AddBookmarkPage extends Activity
 
         Cursor cursor = cr.query(BrowserContract.Bookmarks.CONTENT_URI,
                 BookmarksLoader.PROJECTION,
-                "url = ? AND parent = ?",
+                "(url = ? OR title = ?) AND parent = ?",
                 new String[] {
-                        url, Long.toString(mCurrentFolder)
+                        url, mTitle.getText().toString().trim(), Long.toString(mCurrentFolder)
                 },
                 null);
 
