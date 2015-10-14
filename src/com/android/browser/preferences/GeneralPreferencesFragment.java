@@ -115,7 +115,7 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
 
         //Disable set search engine preference if SEARCH_ENGINE restriction is enabled
         if (SearchEngineRestriction.getInstance().isEnabled()) {
-            findPreference("search_engine").setEnabled(false);
+            findPreference(PreferenceKeys.PREF_SEARCH_ENGINE).setEnabled(false);
         }
 
         // Register Preference objects with their MDM restriction handlers
@@ -123,6 +123,11 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
                 registerPreference(findPreference(PreferenceKeys.PREF_AUTOFILL_ENABLED));
 
         mAdvFrag = new AdvancedPreferencesFragment(this);
+        // reset the search engine based on locale
+        pref = (ListPreference) findPreference(PreferenceKeys.PREF_SEARCH_ENGINE);
+        String search_engine = BrowserSettings.getInstance().getUserSearchEngine();
+        pref.setValue((String) search_engine);
+        pref.setSummary(pref.getEntry());
         //mPrivFrag = new PrivacySecurityPreferencesFragment(this);
     }
 
@@ -235,11 +240,6 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
 
         mAdvFrag.onResume();
         refreshUi();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     void refreshUi() {
