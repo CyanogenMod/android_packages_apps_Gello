@@ -23,10 +23,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.android.browser.preferences.AboutPreferencesFragment;
 import com.android.browser.preferences.GeneralPreferencesFragment;
+
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 
 public class BrowserPreferencesPage extends Activity {
     public static String sResultExtra;
+    public static String LOGTAG = "BrowserPreferencesPage";
     private static ArrayList<String> sUpdatedUrls =
             new ArrayList<String>(); //List of URLS for whom settings were updated
 
@@ -63,8 +66,12 @@ public class BrowserPreferencesPage extends Activity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
         if (icicle != null) {
+            return;
+        }
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            finish();
             return;
         }
 
