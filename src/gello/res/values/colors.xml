@@ -19,6 +19,7 @@
     <!-- fundamental colors -->
     <color name="white">#fafafa</color>
     <color name="black">#14181C</color>
+    <color name="grey">#eeeeee</color>
     <color name="trasparent">#ffffffff</color>
 
     <!-- chrome colors -->
@@ -34,8 +35,14 @@
     <color name="primary_dark">#161E21</color>
     <color name="accent">@color/blue</color>
     <color name="accent_dark">#5595FE</color>
-    <color name="navigation_bars">@color/primary</color>
+    <color name="navigation_bars">#263238</color>
     <color name="browser_window_background">#F2F2F2</color>
+    <color name="accent_dark">#346AC2</color>
+    <color name="navigation_bars">#263238</color>
+    <color name="browser_window_background">#F2F2F2</color>
+    <color name="edge_title">#0096a9</color>
+    <color name="floating_action_button_touch_tint">#DBA000</color>
+    <color name="download_text_hint">#b3b3b3</color>
 
     <!-- derived colors -->
     <color name="NavigationBarBackground">@color/primary</color>

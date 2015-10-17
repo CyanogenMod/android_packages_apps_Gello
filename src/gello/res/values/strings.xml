@@ -758,7 +758,7 @@
     <string name="download_filesize">Size</string>
     <string name="download_filepath_label">Path</string>
     <string name="download_edit_filename_label">Name</string>
-    <string name="download_default_path" translatable="false">/sdcard</string>
+    <string name="download_default_path" translatable="false">/Download</string>
     <string name="download_no_enough_memory">Insufficient memory for download</string>
     <string name="download_settings_title">Download settings</string>
     <string name="filename_empty_title">Download filename is empty</string>
@@ -772,6 +772,10 @@
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
     <string name="activity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="download_name_hint">File name</string>
+    <string name="download_size_hint">Size</string>
+    <string name="download_eta_hint">ETA</string>
+
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>
     <!-- Snapdragon Browser Additions -->

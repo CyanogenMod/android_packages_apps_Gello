@@ -87,4 +87,15 @@
     <dimen name="edge_swipe_out_slop">18dp</dimen>
 
     <dimen name="SiteTileOverlineWidth">1dp</dimen>
+
+    <dimen name="download_icon_size">46dp</dimen>
+    <dimen name="download_text_hint">18sp</dimen>
+
+    <!-- FAB Dimensions -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_elevation_normal">8dp</dimen>
+    <dimen name="fab_elevation_pressed">6dp</dimen>
+
 </resources>
