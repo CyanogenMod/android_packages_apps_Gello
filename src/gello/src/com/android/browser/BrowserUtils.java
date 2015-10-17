@@ -75,7 +75,7 @@ public class BrowserUtils {
 
         mAlertDialog = new AlertDialog.Builder(context);
         mAlertDialog.setTitle(R.string.browser_max_input_title)
-                .setIcon(android.R.drawable.ic_dialog_info)
+            //    .setIcon(android.R.drawable.ic_dialog_info)
                 .setMessage(context.getString(R.string.browser_max_input, max_length))
                 .setPositiveButton(R.string.ok,
                         new DialogInterface.OnClickListener() {

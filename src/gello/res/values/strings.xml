@@ -489,7 +489,7 @@
     <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
     <string name="pref_spatial_edge_swipe">Change Tab</string>
     <string name="pref_disable_edge_swipe">Do nothing</string>
-    <string name="pref_edge_swipe_option_close">Close</string>
+    <string name="pref_edge_swipe_option_close">Choose later</string>
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
     <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
@@ -501,6 +501,9 @@
 -->
         <item>@string/pref_disable_edge_swipe</item>
     </string-array>
+    <string name="pref_edge_swipe_setup_desc">Swipe from the edge to navigate across history.\nThis feature may overwrite the swipe from edge action used by some websites.\nYou will be able to toggle this feature in the settings</string>
+    <string name="pref_edge_enable">Enable</string>
+    <string name="pref_edge_disable">Disable</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
@@ -758,7 +761,7 @@
     <string name="download_filesize">Size</string>
     <string name="download_filepath_label">Path</string>
     <string name="download_edit_filename_label">Name</string>
-    <string name="download_default_path" translatable="false">/sdcard</string>
+    <string name="download_default_path" translatable="false">/Download</string>
     <string name="download_no_enough_memory">Insufficient memory for download</string>
     <string name="download_settings_title">Download settings</string>
     <string name="filename_empty_title">Download filename is empty</string>
@@ -772,6 +775,10 @@
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
     <string name="activity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="download_name_hint">File name</string>
+    <string name="download_size_hint">Size</string>
+    <string name="download_eta_hint">ETA</string>
+
     <!-- Toast message displayed when the full screen received message -->
     <string name="received_message_full_screen">Receive a message from: <xliff:g id="FROM">%s</xliff:g>.</string>
     <!-- Snapdragon Browser Additions -->
