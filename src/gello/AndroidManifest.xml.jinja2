@@ -364,12 +364,6 @@
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
 
-        <receiver android:name="com.android.browser.AccountsChangedReceiver">
-            <intent-filter>
-                <action android:name="android.accounts.LOGIN_ACCOUNTS_CHANGED" />
-            </intent-filter>
-        </receiver>
-
          <receiver android:name="com.android.browser.MessagesReceiver">
             <intent-filter>
                 <action android:name="com.android.mms.transaction.MESSAGE_RECEIVED" />
