@@ -119,6 +119,8 @@ public class Browser extends ChromiumApplication {
 
         // SWE: Avoid initializing the engine for sandboxed processes.
         if (!isSandboxContext) {
+            if (LOGV_ENABLED)
+                Log.v(LOGTAG, "Browser.onCreate: Main Application");
             BrowserSettings.initialize((Context) this);
             Preloader.initialize((Context) this);
         }
