@@ -19,6 +19,7 @@ package com.android.browser;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -65,13 +66,12 @@ public class BrowserPreferencesPage extends Activity {
 
     @Override
     public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        if (icicle != null) {
-            return;
-        }
         if (!EngineInitializer.isInitialized()) {
             Log.e(LOGTAG, "Engine not Initialized");
-            finish();
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
+        super.onCreate(icicle);
+        if (icicle != null) {
             return;
         }
 

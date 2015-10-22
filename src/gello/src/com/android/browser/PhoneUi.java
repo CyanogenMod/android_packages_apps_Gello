@@ -114,7 +114,8 @@ public class PhoneUi extends BaseUi {
 
     @Override
     public void hideComboView() {
-        mComboView.hideViews();
+        if (mComboView != null)
+            mComboView.hideViews();
     }
 
     @Override
