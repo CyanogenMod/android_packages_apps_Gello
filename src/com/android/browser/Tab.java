@@ -1830,7 +1830,7 @@ class Tab implements PictureListener {
             = new DataController.OnQueryUrlIsBookmark() {
         @Override
         public void onQueryUrlIsBookmark(String url, boolean isBookmark) {
-            if (mCurrentState.mUrl.equals(url)) {
+            if (TextUtils.isEmpty(mCurrentState.mUrl) || mCurrentState.mUrl.equals(url)) {
                 mCurrentState.mIsBookmarkedSite = isBookmark;
                 mWebViewController.bookmarkedStatusHasChanged(Tab.this);
             }
