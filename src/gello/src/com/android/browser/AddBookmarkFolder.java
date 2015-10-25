@@ -124,8 +124,6 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
 
     private BreadCrumbView mCrumbs;
 
-    private TextView mFakeTitle;
-
     private View mCrumbHolder;
 
     private AddBookmarkPage.CustomListView mListView;
@@ -137,8 +135,6 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
     private Drawable mHeaderIcon;
 
     private View mRemoveLink;
-
-    private View mFakeTitleHolder;
 
     private FolderSpinnerAdapter mFolderAdapter;
 
@@ -229,8 +225,7 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
     private void switchToDefaultView(boolean changedFolder) {
         mFolderSelector.setVisibility(View.GONE);
         mDefaultView.setVisibility(View.VISIBLE);
-        mCrumbHolder.setVisibility(View.GONE);
-        mFakeTitleHolder.setVisibility(View.VISIBLE);
+        //mCrumbHolder.setVisibility(View.GONE);
         if (changedFolder) {
             Object data = mCrumbs.getTopData();
             if (data != null) {
@@ -386,11 +381,9 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
     private void switchToFolderSelector() {
         // Set the list to the top in case it is scrolled.
         mListView.setSelection(0);
-        mFakeTitleHolder.setVisibility(View.GONE);
-        // mFakeTitle.setVisibility(View.GONE);
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
-        mCrumbHolder.setVisibility(View.VISIBLE);
+        //mCrumbHolder.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(mListView.getWindowToken(), 0);
     }
 
@@ -603,9 +596,6 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         Window window = getWindow();
 
         String title = this.getString(R.string.new_folder);
-        mFakeTitle = (TextView) findViewById(R.id.fake_title);
-        mFakeTitleHolder = findViewById(R.id.title_holder);
-        mFakeTitle.setText(this.getString(R.string.new_folder));
 
         mTitle = (EditText) findViewById(R.id.title);
         BrowserUtils.maxLengthFilter(AddBookmarkFolder.this, mTitle, BrowserUtils.FILENAME_MAX_LENGTH);
@@ -637,8 +627,8 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
 
         mAddNewFolder = findViewById(R.id.add_new_folder);
         mAddNewFolder.setVisibility(View.GONE);
-        mAddSeparator = findViewById(R.id.add_divider);
-        mAddSeparator.setVisibility(View.GONE);
+        //mAddSeparator = findViewById(R.id.add_divider);
+        //mAddSeparator.setVisibility(View.GONE);
 
         mCrumbs = (BreadCrumbView) findViewById(R.id.crumbs);
         //mCrumbs.setUseBackButton(true);
@@ -745,13 +735,6 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
             }
         }
         return Long.parseLong(titleIdString);
-    }
-
-    private void showRemoveButton() {
-        findViewById(R.id.remove_divider).setVisibility(View.VISIBLE);
-        mRemoveLink = findViewById(R.id.remove);
-        mRemoveLink.setVisibility(View.VISIBLE);
-        mRemoveLink.setOnClickListener(this);
     }
 
     // Called once we have determined which folder is the root folder

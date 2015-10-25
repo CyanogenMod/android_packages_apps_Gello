@@ -88,7 +88,7 @@
 
     <dimen name="SiteTileOverlineWidth">1dp</dimen>
 
-    <dimen name="download_icon_size">46dp</dimen>
+    <dimen name="download_icon_size">36dp</dimen>
     <dimen name="download_text_hint">18sp</dimen>
 
     <!-- FAB Dimensions -->

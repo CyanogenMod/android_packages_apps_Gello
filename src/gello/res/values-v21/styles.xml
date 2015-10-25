@@ -60,6 +60,12 @@
         <item name="android:colorPrimaryDark">@color/accent_dark</item>
         <item name="android:colorAccent">@color/icon_white</item>
     </style>
+    <style name="MyNavAddStyle" parent="@style/DialogWhenLarge">
+        <item name="android:colorPrimary">@color/mynav_primary</item>
+        <item name="android:colorPrimaryDark">@color/mynav_primary_dark</item>
+        <item name="android:colorAccent">@color/mynav_accent</item>
+    </style>
+
     <style name="PopupMenuStyle" parent="@android:style/Widget.Material.Light.PopupMenu">
     </style>
     <style name="Suggestions" parent="@android:style/Widget.Material.AutoCompleteTextView">

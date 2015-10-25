@@ -89,7 +89,7 @@
                     android:orientation="vertical" >
 
                     <LinearLayout android:layout_width="match_parent"
-                        android:layout_height="72dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center">
@@ -114,19 +114,26 @@
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="match_parent"
-                        android:layout_height="72dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginBottom="8dp"
                         android:layout_gravity="center">
                         <ImageView
                             android:layout_height="@dimen/download_icon_size"
                             android:layout_width="@dimen/download_icon_size"
-                            android:src="@drawable/ic_download_size"/>
+                            android:src="@drawable/ic_download_size"
+                            android:gravity="center"/>
                         <LinearLayout android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:paddingStart="16dp"
                             android:paddingBottom="16dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:text="@string/download_size_hint"
+                                android:textSize="18sp" />
                             <TextView
                                 android:id="@+id/download_estimate_size_content"
                                 android:layout_width="wrap_content"
@@ -134,30 +141,31 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/download_filesize"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:textColor="@color/download_text_hint"
-                                android:text="@string/download_size_hint"
                                 android:textSize="@dimen/download_text_hint" />
                         </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout android:layout_width="match_parent"
-                        android:layout_height="72dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="center">
                         <ImageView
                             android:layout_height="@dimen/download_icon_size"
                             android:layout_width="@dimen/download_icon_size"
-                            android:src="@drawable/ic_download_eta"/>
+                            android:src="@drawable/ic_download_eta"
+                            android:gravity="center"/>
                         <LinearLayout android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:paddingBottom="16dp"
                             android:paddingStart="16dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/download_eta_hint"
+                                android:textColor="@color/black"
+                                android:textSize="18sp" />
                             <TextView
                                 android:id="@+id/download_estimate_time_content"
                                 android:layout_width="wrap_content"
@@ -165,12 +173,6 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@string/download_timeneeded"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="@color/black"
-                                android:textSize="18sp" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/download_eta_hint"
                                 android:textColor="@color/download_text_hint"
                                 android:textSize="@dimen/download_text_hint" />
                         </LinearLayout>
