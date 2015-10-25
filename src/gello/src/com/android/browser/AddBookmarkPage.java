@@ -53,6 +53,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -103,9 +104,8 @@ public class AddBookmarkPage extends Activity
 
     private EditText    mTitle;
     private EditText    mAddress;
-    private TextView    mButton;
-    private View        mCancelButton;
-    private View        mDeleteButton;
+    private ImageButton    mButton;
+    private ImageButton        mCancelButton;
     private boolean     mEditingExisting;
     private boolean     mEditingFolder;
     private Bundle      mMap;
@@ -123,15 +123,13 @@ public class AddBookmarkPage extends Activity
     private long mCurrentFolder;
     private FolderAdapter mAdapter;
     private BreadCrumbView mCrumbs;
-    private TextView mFakeTitle;
     private View mCrumbHolder;
     private CustomListView mListView;
     private boolean mSaveToHomeScreen;
     private long mRootFolder;
     private TextView mTopLevelLabel;
     private Drawable mHeaderIcon;
-    private View mRemoveLink;
-    private View mFakeTitleHolder;
+    private ImageButton mRemoveLink;
     private FolderSpinnerAdapter mFolderAdapter;
     private Spinner mAccountSpinner;
     private ArrayAdapter<BookmarkAccount> mAccountAdapter;
@@ -243,7 +241,6 @@ public class AddBookmarkPage extends Activity
         mFolderSelector.setVisibility(View.GONE);
         mDefaultView.setVisibility(View.VISIBLE);
         mCrumbHolder.setVisibility(View.GONE);
-        mFakeTitleHolder.setVisibility(View.VISIBLE);
         if (changedFolder) {
             Object data = mCrumbs.getTopData();
             if (data != null) {
@@ -317,7 +314,7 @@ public class AddBookmarkPage extends Activity
             } else {
                 finish();
             }
-        } else if (v == mDeleteButton || v == mRemoveLink) {
+        } else if (v == mRemoveLink) {
             onDeleteWithConfirm();
         } else if (v == mFolderCancel) {
             completeOrCancelFolderNaming(true);
@@ -418,7 +415,6 @@ public class AddBookmarkPage extends Activity
         mDefaultView.setVisibility(View.GONE);
         mFolderSelector.setVisibility(View.VISIBLE);
         mCrumbHolder.setVisibility(View.VISIBLE);
-        mFakeTitleHolder.setVisibility(View.GONE);
         mAddNewFolder.setVisibility(View.VISIBLE);
         mAddSeparator.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(
@@ -446,8 +442,6 @@ public class AddBookmarkPage extends Activity
             boolean setAccount = false;
             if (info.id != -1) {
                 mEditingExisting = true;
-                showRemoveButton();
-                mFakeTitle.setText(R.string.edit_bookmark);
                 mTitle.setText(info.title);
                 mFolderAdapter.setOtherFolderDisplayText(info.parentTitle);
                 mMap.putLong(BrowserContract.Bookmarks._ID, info.id);
@@ -664,11 +658,6 @@ public class AddBookmarkPage extends Activity
         String url = null;
         mTouchIconUrl = null;
 
-        mFakeTitle = (TextView) findViewById(R.id.fake_title);
-
-        mDeleteButton = findViewById(R.id.delete);
-        mDeleteButton.setOnClickListener(this);
-
         if (mMap != null) {
             Bundle b = mMap.getBundle(EXTRA_EDIT_BOOKMARK);
             boolean existing = mMap.getBoolean(CHECK_FOR_DUPE, false);
@@ -676,14 +665,9 @@ public class AddBookmarkPage extends Activity
                 mEditingFolder = mMap.getBoolean(EXTRA_IS_FOLDER, false);
                 mMap = b;
                 mEditingExisting = true;
-                mFakeTitle.setText(R.string.edit_bookmark);
                 if (mEditingFolder) {
                     findViewById(R.id.row_address).setVisibility(View.GONE);
-                } else {
-                    showRemoveButton();
                 }
-            } else if (existing) {
-                showRemoveButton();
             } else {
                 int gravity = mMap.getInt("gravity", -1);
                 if (gravity != -1) {
@@ -714,10 +698,10 @@ public class AddBookmarkPage extends Activity
         mAddress.setText(url);
         BrowserUtils.maxLengthFilter(AddBookmarkPage.this, mAddress, BrowserUtils.ADDRESS_MAX_LENGTH);
 
-        mButton = (TextView) findViewById(R.id.OK);
+        mButton = (ImageButton) findViewById(R.id.OK);
         mButton.setOnClickListener(this);
 
-        mCancelButton = findViewById(R.id.cancel);
+        mCancelButton = (ImageButton) findViewById(R.id.book_cancel);
         mCancelButton.setOnClickListener(this);
 
         mFolder = (FolderSpinner) findViewById(R.id.folder);
@@ -767,8 +751,6 @@ public class AddBookmarkPage extends Activity
         mAccountSpinner.setOnItemSelectedListener(this);
         mFolder.setSelectionIgnoringSelectionChange(1); // Select Bookmarks by default
 
-        mFakeTitleHolder = findViewById(R.id.title_holder);
-
         if (!window.getDecorView().isInTouchMode()) {
             mButton.requestFocus();
         }
@@ -779,14 +761,6 @@ public class AddBookmarkPage extends Activity
         }
 
         getLoaderManager().restartLoader(LOADER_ID_ACCOUNTS, null, this);
-    }
-
-    private void showRemoveButton() {
-        mDeleteButton.setVisibility(View.VISIBLE);
-        findViewById(R.id.remove_divider).setVisibility(View.VISIBLE);
-        mRemoveLink = findViewById(R.id.remove);
-        mRemoveLink.setVisibility(View.VISIBLE);
-        mRemoveLink.setOnClickListener(this);
     }
 
     // Called once we have determined which folder is the root folder
