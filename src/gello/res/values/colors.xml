@@ -44,6 +44,12 @@
     <color name="floating_action_button_touch_tint">#DBA000</color>
     <color name="download_text_hint">#b3b3b3</color>
 
+    <color name="mynav_primary">#009786</color>
+    <color name="mynav_primary_dark">#017A68</color>
+    <color name="mynav_accent">@color/red</color>
+    <color name="floating_action_button_touch_tint_mynav">#C62828</color>
+
+
     <!-- derived colors -->
     <color name="NavigationBarBackground">@color/primary</color>
     <color name="NavigationBarBackgroundIncognito">@color/black</color>
