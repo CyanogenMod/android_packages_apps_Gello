@@ -489,7 +489,7 @@
     <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
     <string name="pref_spatial_edge_swipe">Change Tab</string>
     <string name="pref_disable_edge_swipe">Do nothing</string>
-    <string name="pref_edge_swipe_option_close">Close</string>
+    <string name="pref_edge_swipe_option_close">Choose later</string>
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
     <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
@@ -501,6 +501,9 @@
 -->
         <item>@string/pref_disable_edge_swipe</item>
     </string-array>
+    <string name="pref_edge_swipe_setup_desc">Swipe from the edge to navigate across history.\nThis feature may overwrite the swipe from edge action used by some websites.\nYou will be able to toggle this feature in the settings</string>
+    <string name="pref_edge_enable">Enable</string>
+    <string name="pref_edge_disable">Disable</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
