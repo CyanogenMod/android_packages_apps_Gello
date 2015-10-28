@@ -902,6 +902,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mPrefs.edit().putBoolean(PREF_AUTOFILL_ENABLED, value).apply();
     }
 
+    public boolean isColoredSBEnabled() {
+        return mPrefs.getBoolean(PREF_COLOREDSB_ENABLED, false);
+    }
+
+    public void setColoredSBEnabled(boolean value) {
+        mPrefs.edit().putBoolean(PREF_COLOREDSB_ENABLED, value).apply();
+    }
+
     public boolean isPowerSaveModeEnabled() {
         return mPrefs.getBoolean(PREF_POWERSAVE_ENABLED, false);
     }

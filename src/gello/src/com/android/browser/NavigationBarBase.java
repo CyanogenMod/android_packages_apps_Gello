@@ -203,6 +203,9 @@ public class NavigationBarBase extends LinearLayout implements
         // The flag that allows coloring is disabled in PowerSaveMode, no point in trying to color.
         if (BrowserSettings.getInstance().isPowerSaveModeEnabled())
             return;
+        // Disable colored statusbar if user asked so
+        if (! BrowserSettings.getInstance().isColoredSBEnabled())
+            return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int currentColor = activity.getWindow().getStatusBarColor();
             Integer from = currentColor;
