@@ -501,6 +501,8 @@
 -->
         <item>@string/pref_disable_edge_swipe</item>
     </string-array>
+    <string name="pref_coloredsb_title">Colored statusbar</string>
+    <string name="pref_coloredsb_summary">Statusbar will change color basing on the visited page</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
