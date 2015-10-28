@@ -62,6 +62,7 @@ public interface PreferenceKeys {
     static final String PREF_AUTOFILL_PROFILE = "autofill_profile";
     static final String PREF_HOMEPAGE = "homepage";
     static final String PREF_POWERSAVE_ENABLED = "powersave_enabled";
+    static final String PREF_COLOREDSB_ENABLED = "coloredsb_enabled";
     static final String PREF_NIGHTMODE_ENABLED = "nightmode_enabled";
     static final String PREF_SYNC_WITH_CHROME = "sync_with_chrome";
 
