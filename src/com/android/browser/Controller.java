@@ -594,7 +594,7 @@ public class Controller
                             case R.id.download_context_menu_id:
                                 DownloadHandler.onDownloadStartNoStream(
                                   mActivity, url, view.getSettings().getUserAgentString(),
-                                  null, null, null, view.isPrivateBrowsingEnabled(), 0);
+                                  null, null, null, null, view.isPrivateBrowsingEnabled(), 0);
                                 break;
                             case R.id.save_link_bookmark_context_menu_id:
                                 if(title == null || title == "")
@@ -1229,12 +1229,13 @@ public class Controller
 
     @Override
     public void onDownloadStart(Tab tab, String url, String userAgent,
-            String contentDisposition, String mimetype, String referer,
+            String contentDisposition, String mimetype, String referer, String auth,
             long contentLength) {
         WebView w = tab.getWebView();
         if ( w == null) return;
         boolean ret = DownloadHandler.onDownloadStart(mActivity, url, userAgent,
-                contentDisposition, mimetype, referer, w.isPrivateBrowsingEnabled(), contentLength);
+                contentDisposition, mimetype, referer, auth,
+                w.isPrivateBrowsingEnabled(), contentLength);
         if (ret == false && w.copyBackForwardList().getSize() == 0) {
             // This Tab was opened for the sole purpose of downloading a
             // file. Remove it.
@@ -2719,7 +2720,7 @@ public class Controller
                 saveDataUri();
             } else {
                 DownloadHandler.onDownloadStartNoStream(mActivity, mText, mUserAgent,
-                        null, null, null, mPrivateBrowsing, 0);
+                        null, null, null, null, mPrivateBrowsing, 0);
             }
             return true;
         }

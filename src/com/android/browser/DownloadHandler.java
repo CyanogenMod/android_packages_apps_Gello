@@ -32,8 +32,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
+import android.text.TextUtils;
 import android.util.Log;
 import org.codeaurora.swe.CookieManager;
+import org.w3c.dom.Text;
+
 import android.webkit.URLUtil;
 import android.widget.Toast;
 
@@ -61,7 +64,8 @@ public class DownloadHandler {
 
     public static void startingDownload(Activity activity,
             String url, String userAgent, String contentDisposition,
-            String mimetype, String referer, boolean privateBrowsing, long contentLength,
+            String mimetype, String referer, String auth,
+            boolean privateBrowsing, long contentLength,
             String filename, String downloadPath) {
         // java.net.URI is a lot stricter than KURL so we have to encode some
         // extra characters. Fix for b 2538060 and b 1634719
@@ -107,6 +111,9 @@ public class DownloadHandler {
         request.addRequestHeader("User-Agent", userAgent);
         request.addRequestHeader("Referer", referer);
         request.setVisibleInDownloadsUi(!privateBrowsing);
+        if (!TextUtils.isEmpty(auth)) {
+            request.addRequestHeader("Authorization", auth);
+        }
         request.setNotificationVisibility(
                 DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         final DownloadManager manager = (DownloadManager) activity
@@ -152,7 +159,8 @@ public class DownloadHandler {
      */
     public static boolean onDownloadStart(final Activity activity, final String url,
             final String userAgent, final String contentDisposition, final String mimetype,
-            final String referer, final boolean privateBrowsing, final long contentLength) {
+            final String referer, final String auth, final boolean privateBrowsing,
+            final long contentLength) {
         // if we're dealing wih A/V content that's not explicitly marked
         //     for download, check if it's streamable.
         if (contentDisposition == null
@@ -184,7 +192,7 @@ public class DownloadHandler {
                 .setPositiveButton(R.string.video_save, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
-                                mimetype, referer, privateBrowsing, contentLength);
+                                mimetype, referer, auth, privateBrowsing, contentLength);
                     }
                  })
                 .setNegativeButton(R.string.video_play, new DialogInterface.OnClickListener() {
@@ -237,7 +245,7 @@ public class DownloadHandler {
             }
         }
         onDownloadStartNoStream(activity, url, userAgent, contentDisposition,
-                mimetype, referer, privateBrowsing, contentLength);
+                mimetype, referer, auth, privateBrowsing, contentLength);
         return false;
     }
 
@@ -284,7 +292,8 @@ public class DownloadHandler {
      */
     /* package */static void onDownloadStartNoStream(Activity activity,
             String url, String userAgent, String contentDisposition,
-            String mimetype, String referer, boolean privateBrowsing, long contentLength) {
+            String mimetype, String referer, String auth,
+            boolean privateBrowsing, long contentLength) {
 
         contentDisposition = trimContentDisposition(contentDisposition);
 
@@ -318,12 +327,12 @@ public class DownloadHandler {
         if (mimetype == null) {
             // We must have long pressed on a link or image to download it. We
             // are not sure of the mimetype in this case, so do a head request
-            new FetchUrlMimeType(activity, url, userAgent, referer,
+            new FetchUrlMimeType(activity, url, userAgent, referer, auth,
                     privateBrowsing, filename).start();
         } else {
             if (DownloadDirRestriction.getInstance().downloadsAllowed()) {
                 startDownloadSettings(activity, url, userAgent, contentDisposition, mimetype, referer,
-                        privateBrowsing, contentLength, filename);
+                        auth, privateBrowsing, contentLength, filename);
             }
             else {
                 Toast.makeText(activity, R.string.managed_by_your_administrator, Toast.LENGTH_SHORT)
@@ -365,7 +374,8 @@ public class DownloadHandler {
 
     public static void startDownloadSettings(Activity activity,
             String url, String userAgent, String contentDisposition,
-            String mimetype, String referer, boolean privateBrowsing, long contentLength,
+            String mimetype, String referer, String auth,
+            boolean privateBrowsing, long contentLength,
             String filename) {
         Bundle fileInfo = new Bundle();
         fileInfo.putString("url", url);
@@ -373,6 +383,7 @@ public class DownloadHandler {
         fileInfo.putString("contentDisposition", contentDisposition);
         fileInfo.putString("mimetype", mimetype);
         fileInfo.putString("referer", referer);
+        fileInfo.putString("authorization", auth);
         fileInfo.putLong("contentLength", contentLength);
         fileInfo.putBoolean("privateBrowsing", privateBrowsing);
         fileInfo.putString("filename", filename);

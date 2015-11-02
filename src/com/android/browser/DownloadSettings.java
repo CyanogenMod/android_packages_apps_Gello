@@ -67,6 +67,7 @@ public class DownloadSettings extends Activity {
     private String contentDisposition;
     private String mimetype;
     private String referer;
+    private String authorization;
     private String filenameBase;
     private String filename;
     private String filenameExtension;
@@ -107,6 +108,7 @@ public class DownloadSettings extends Activity {
         contentDisposition = fileInfo.getString("contentDisposition");
         mimetype = fileInfo.getString("mimetype");
         referer = fileInfo.getString("referer");
+        authorization = fileInfo.getString("authorization");
         contentLength = fileInfo.getLong("contentLength");
         privateBrowsing = fileInfo.getBoolean("privateBrowsing");
         filename = fileInfo.getString("filename");
@@ -242,7 +244,7 @@ public class DownloadSettings extends Activity {
             // staring downloading
             DownloadHandler.startingDownload(DownloadSettings.this,
                     url, userAgent, contentDisposition,
-                    mimetype, referer, privateBrowsing, contentLength,
+                    mimetype, referer, authorization, privateBrowsing, contentLength,
                     Uri.encode(filename), downloadPath);
             isDownloadStarted = true;
         }

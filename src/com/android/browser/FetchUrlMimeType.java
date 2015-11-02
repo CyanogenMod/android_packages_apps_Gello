@@ -57,12 +57,13 @@ class FetchUrlMimeType extends Thread {
     private String mUserAgent;
     private String mFilename;
     private String mReferer;
+    private String mAuth;
     private Activity mActivity;
     private boolean mPrivateBrowsing;
     private long mContentLength;
 
     public FetchUrlMimeType(Activity activity, String url, String userAgent,
-            String referer, boolean privateBrowsing, String filename) {
+            String referer, String auth, boolean privateBrowsing, String filename) {
         mActivity = activity;
         mContext = activity.getApplicationContext();
         mUri = url;
@@ -70,6 +71,7 @@ class FetchUrlMimeType extends Thread {
         mPrivateBrowsing = privateBrowsing;
         mFilename = filename;
         mReferer = referer;
+        mAuth = auth;
     }
 
     @Override
@@ -185,7 +187,7 @@ class FetchUrlMimeType extends Thread {
         }
 
         DownloadHandler.startDownloadSettings(mActivity, mUri, mUserAgent, contentDisposition,
-                mimeType, mReferer, mPrivateBrowsing, mContentLength, filename);
+                mimeType, mReferer, mAuth, mPrivateBrowsing, mContentLength, filename);
     }
 
     /**

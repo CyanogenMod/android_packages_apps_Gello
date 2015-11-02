@@ -151,7 +151,7 @@ public class PreloadController implements WebViewController {
     @Override
     public void onDownloadStart(Tab tab, String url, String useragent,
                                     String contentDisposition, String mimeType,
-                                    String referer, long contentLength) {
+                                    String referer, String auth, long contentLength) {
         if (LOGD_ENABLED) Log.d(LOGTAG, "onDownloadStart()");
     }
 

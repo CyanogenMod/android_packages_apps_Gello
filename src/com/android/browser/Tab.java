@@ -1188,10 +1188,10 @@ class Tab implements PictureListener {
 
         mDownloadListener = new BrowserDownloadListener() {
             public void onDownloadStart(String url, String userAgent,
-                    String contentDisposition, String mimetype, String referer,
+                    String contentDisposition, String mimetype, String referer, String auth,
                     long contentLength) {
                 mWebViewController.onDownloadStart(Tab.this, url, userAgent, contentDisposition,
-                        mimetype, referer, contentLength);
+                        mimetype, referer, auth, contentLength);
             }
         };
 
@@ -1433,10 +1433,10 @@ class Tab implements PictureListener {
             // just need to dismiss the mSubView, rather than close the Tab
             mSubView.setDownloadListener(new BrowserDownloadListener() {
                 public void onDownloadStart(String url, String userAgent,
-                        String contentDisposition, String mimetype, String referer,
+                        String contentDisposition, String mimetype, String referer, String auth,
                         long contentLength) {
                     mWebViewController.onDownloadStart(Tab.this, url, userAgent,
-                            contentDisposition, mimetype, referer, contentLength);
+                            contentDisposition, mimetype, referer, auth, contentLength);
                     if (mSubView.copyBackForwardList().getSize() == 0) {
                         // This subwindow was opened for the sole purpose of
                         // downloading a file. Remove it.

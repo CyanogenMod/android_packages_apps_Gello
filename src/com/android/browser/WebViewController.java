@@ -71,7 +71,7 @@ public interface WebViewController {
             final String host, final String realm);
 
     void onDownloadStart(Tab tab, String url, String useragent, String contentDisposition,
-            String mimeType, String referer, long contentLength);
+            String mimeType, String referer, String auth, long contentLength);
 
     void showCustomView(Tab tab, View view, int requestedOrientation,
             CustomViewCallback callback);
