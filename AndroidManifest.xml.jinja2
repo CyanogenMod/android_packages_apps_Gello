@@ -64,7 +64,7 @@
                       android:required="false" />
 
         <provider android:name="com.android.browser.provider.BrowserProvider2"
-                  android:authorities="{{ app_package_name }};{{apk_authorities}}"
+                  android:authorities="{{app_package_name}};{{apk_authorities}};{{app_authorities}}"
                   android:multiprocess="false"
                   android:exported="true"
                   android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"

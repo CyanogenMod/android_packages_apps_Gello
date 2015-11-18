@@ -8,3 +8,4 @@ COPYRIGHT=Copyright (c) 2015 The Linux Foundation. All rights reserved.
 PACKAGE_NAME=org.codeaurora.swe.browser.beta
 APK_LABEL=@string/application_name
 APK_AUTHORITIES=swe.browser.beta
+APP_AUTHORITIES=local.swe.browser.beta

@@ -36,7 +36,7 @@ import android.content.Context;
 public class BrowserConfig extends BrowserConfigBase {
 
     //Authority string used by different providers
-    public final static String AUTHORITY = "@PACKAGE_NAME@";
+    public final static String AUTHORITY = "@APP_AUTHORITIES@";
 
     private static BrowserConfig sBrowserConfig;
 

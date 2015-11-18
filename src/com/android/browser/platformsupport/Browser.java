@@ -43,7 +43,8 @@ public class Browser {
      * {@link android.Manifest.permission#READ_HISTORY_BOOKMARKS} permission and writing to it
      * requires the {@link android.Manifest.permission#WRITE_HISTORY_BOOKMARKS} permission.
      */
-    public static final Uri BOOKMARKS_URI = Uri.parse("content://browser/bookmarks");
+    public static final Uri BOOKMARKS_URI = Uri.parse(
+                            "content://" + BrowserContract.AUTHORITY + "/bookmarks");
 
     /**
      * The name of extra data when starting Browser with ACTION_VIEW or
@@ -124,7 +125,8 @@ public class Browser {
      * {@link android.Manifest.permission#READ_HISTORY_BOOKMARKS} permission and writing to it
      * requires the {@link android.Manifest.permission#WRITE_HISTORY_BOOKMARKS} permission.
      */
-    public static final Uri SEARCHES_URI = Uri.parse("content://browser/searches");
+    public static final Uri SEARCHES_URI = Uri.parse(
+                            "content://" + BrowserContract.AUTHORITY + "/searches");
 
     /**
      * A projection of {@link #SEARCHES_URI} that contains {@link SearchColumns#_ID},
