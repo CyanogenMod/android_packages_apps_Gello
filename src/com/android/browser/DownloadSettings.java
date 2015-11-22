@@ -52,6 +52,8 @@ import android.view.Window;
 import android.widget.Toast;
 import android.webkit.MimeTypeMap;
 import android.text.TextUtils;
+import android.content.pm.PackageManager;
+import android.Manifest.permission;
 
 import com.android.browser.reflect.ReflectHelper;
 
@@ -85,6 +87,8 @@ public class DownloadSettings extends Activity {
     private static final String ENV_EMULATED_STORAGE_TARGET = "EMULATED_STORAGE_TARGET";
     private static final String APK_TYPE="apk";
     private static final String OCTET_STREAM = "application/octet-stream";
+
+    private int nextRequestCode = 2000;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,14 +246,43 @@ public class DownloadSettings extends Activity {
                 return;
             }
 
-            // staring downloading
-            DownloadHandler.startingDownload(DownloadSettings.this,
-                    url, userAgent, contentDisposition,
-                    mimetype, referer, authorization, privateBrowsing, contentLength,
-                    Uri.encode(filename), downloadPath);
-            isDownloadStarted = true;
+            // check for permission
+            if (!hasPermission(permission.WRITE_EXTERNAL_STORAGE)) {
+                requestPermissions(new String[] {permission.WRITE_EXTERNAL_STORAGE},
+                    ++nextRequestCode);
+            } else {
+                download();
+            }
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+        String[] permissions, int[] grantResults) {
+        if (nextRequestCode == requestCode) {
+            if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                download();
+            } else {
+                finish();
+            }
+        }
+    }
+
+    private void download() {
+        // staring downloading
+        DownloadHandler.startingDownload(DownloadSettings.this,
+                url, userAgent, contentDisposition,
+                mimetype, referer, authorization,
+                privateBrowsing, contentLength,
+                Uri.encode(filename), downloadPath);
+        isDownloadStarted = true;
+    }
+
+    private boolean hasPermission(String permission) {
+        return (checkCallingOrSelfPermission(permission)
+            == PackageManager.PERMISSION_GRANTED);
+    }
 
     private OnClickListener downloadCancelListener = new OnClickListener() {
         @Override
@@ -271,6 +304,9 @@ public class DownloadSettings extends Activity {
 
     protected void onResume() {
         super.onResume();
+        if (isDownloadStarted) {
+            finish();
+        }
     }
 
     @Override

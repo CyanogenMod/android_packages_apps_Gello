@@ -169,6 +169,18 @@ public class BrowserActivity extends Activity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (getController().getCurrentWebView() != null) {
+            if (getController().getCurrentWebView().onRequestPermissionsResult(
+                    requestCode, permissions, grantResults)) {
+                return;
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         if (shouldIgnoreIntents()) return;
         EngineInitializer.onNewIntent(BrowserActivity.this, intent);
