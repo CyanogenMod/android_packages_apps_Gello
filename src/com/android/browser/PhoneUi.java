@@ -288,7 +288,7 @@ public class PhoneUi extends BaseUi {
 
         Bitmap sbm;
         WebView webView = getWebView();
-        if (webView != null) {
+        if (webView != null && webView.getWidth() != 0) {
             int view_width = webView.getWidth();
             int capture_width = mActivity.getResources().getDimensionPixelSize(
                     R.dimen.tab_thumbnail_width);
