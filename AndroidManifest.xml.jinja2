@@ -360,7 +360,7 @@
         <!-- For custom home pages (like most visited) -->
         <provider
             android:name="com.android.browser.homepages.HomeProvider"
-            android:authorities="{{ app_package_name }}.home"
+            android:authorities="{{ app_package_name }}.home;{{app_authorities}}.home"
             android:grantUriPermissions="true"
             android:readPermission="com.android.browser.permission.READ_HISTORY_BOOKMARKS"
             android:exported="false" />
@@ -380,11 +380,11 @@
          </receiver>
 
         <provider android:name="com.android.browser.provider.SnapshotProvider"
-                  android:authorities="{{ app_package_name }}.snapshots"
+                  android:authorities="{{ app_package_name }}.snapshots;{{app_authorities}}.snapshots"
                   android:exported="false" />
         <provider
             android:name="com.android.browser.provider.MyNavigationProvider"
-            android:authorities="{{ app_package_name }}.mynavigation"
+            android:authorities="{{ app_package_name }}.mynavigation;{{app_authorities}}.mynavigation"
             android:exported="false"
             android:grantUriPermissions="true"/>
 
