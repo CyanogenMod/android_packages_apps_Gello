@@ -31,7 +31,6 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,6 +44,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -94,7 +94,7 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
 
     private EditText mAddress;
 
-    private TextView mButton;
+    private ImageButton mButton;
 
     private View mCancelButton;
 
@@ -603,12 +603,11 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
         mTitle.setText(title);
         mAddress = (EditText) findViewById(R.id.address);
         mAddress.setVisibility(View.GONE);
-        findViewById(R.id.row_address).setVisibility(View.GONE);
 
-        mButton = (TextView) findViewById(R.id.OK);
+        mButton = (ImageButton) findViewById(R.id.OK);
         mButton.setOnClickListener(this);
 
-        mCancelButton = findViewById(R.id.cancel);
+        mCancelButton = findViewById(R.id.book_cancel);
         mCancelButton.setOnClickListener(this);
 
         mFolder = (FolderSpinner) findViewById(R.id.folder);
