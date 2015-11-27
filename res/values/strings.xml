@@ -180,9 +180,9 @@
     <!-- Menu item -->
     <string name="share_page">Share</string>
     <!-- Menu item for saving link to homescreen -->
-    <string name="add_to_homescreen">Add to homescreen</string>
+    <string name="add_to_homescreen">Add to home</string>
     <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
-    <string name="menu_save_snapshot">Save for offline reading</string>
+    <string name="menu_save_snapshot">Save</string>
     <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
     <string name="saving_snapshot">Saving\u2026</string>
     <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
@@ -660,9 +660,9 @@
     <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
     <string name="local_bookmarks">My favorites</string>
     <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
-    <string name="find_on_page">Find on page</string>
+    <string name="find_on_page">Find</string>
     <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
-    <string name="ua_switcher_desktop">Request desktop site</string>
+    <string name="ua_switcher_desktop">Desktop site</string>
     <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
     <string name="enable_reader_mode">Reader mode</string>
     <!-- Preload permission label [CHAR LIMIT=40] -->
