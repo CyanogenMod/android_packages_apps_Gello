@@ -37,8 +37,14 @@ import android.webkit.ValueCallback;
 import org.codeaurora.swe.WebHistoryItem;
 
 public class EdgeSwipeModel {
+    private static final int MS_TIME_BETWEEN_CAPTURES = 1000;
     private SparseArray<Bitmap> mBitmaps;
     private SparseArray<Integer> mColors;
+
+    private long mLastCaptureTime;
+    private int mLastCaptureIndex;
+    private Bitmap mLastBitmap;
+
     private Tab mTab;
     private TitleBar mBar;
 
@@ -49,6 +55,8 @@ public class EdgeSwipeModel {
     public EdgeSwipeModel(Tab tab, TitleBar bar) {
         mTab = tab;
         mBar = bar;
+        mLastCaptureIndex = -1;
+        mLastCaptureTime = 0;
         mBitmaps = new SparseArray<>();
         mColors = new SparseArray<>();
     }
@@ -58,7 +66,7 @@ public class EdgeSwipeModel {
             return;
         }
 
-        int captureIndex = mTab.getCaptureIndex(index);
+        final int captureIndex = mTab.getCaptureIndex(index);
 
         boolean bitmapExists = mTab.getWebView().hasSnapshot(captureIndex);
 
@@ -68,10 +76,14 @@ public class EdgeSwipeModel {
         }
 
         int progress = mBar.getProgressView().getProgressPercent();
+        long currentTime = System.currentTimeMillis();
 
-        if (bitmapExists && progress < mMinProgress) {
-            fetchSnapshot(index);
-            return;
+        if (bitmapExists) {
+            if (progress < mMinProgress || (captureIndex == mLastCaptureIndex &&
+                    (currentTime < (mLastCaptureTime + MS_TIME_BETWEEN_CAPTURES)))) {
+                fetchSnapshot(index);
+                return;
+            }
         }
 
         mTab.getWebView().captureSnapshot(captureIndex,
@@ -79,6 +91,9 @@ public class EdgeSwipeModel {
                     @Override
                     public void onReceiveValue(Bitmap value) {
                         mBitmaps.put(index, value);
+                        mLastCaptureTime = System.currentTimeMillis();
+                        mLastCaptureIndex = captureIndex;
+                        mLastBitmap = value;
                     }
                 }
         );
@@ -101,6 +116,12 @@ public class EdgeSwipeModel {
         }
 
         int captureIndex = mTab.getCaptureIndex(index);
+        long currentTime = System.currentTimeMillis();
+        if (captureIndex == mLastCaptureIndex &&
+                (currentTime < (mLastCaptureTime + MS_TIME_BETWEEN_CAPTURES))) {
+            mBitmaps.put(index, mLastBitmap);
+            return;
+        }
 
         mTab.getWebView().getSnapshot(captureIndex,
                 new ValueCallback<Bitmap>() {
