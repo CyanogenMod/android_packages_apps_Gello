@@ -204,16 +204,18 @@ public class ComboView extends LinearLayout
     }
 
     public void hideViews() {
-        if(!(BrowserActivity.isTablet(mActivity)))
-          this.startAnimation(mOutAnimation);
-        this.setVisibility(View.INVISIBLE);
-        mActionBarContainerId = getResources().getIdentifier("action_bar_container", "id", "android");
-        ViewGroup actionBarContainer = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(mActionBarContainerId);
-        if (actionBarContainer != null) {
-            actionBarContainer.removeOnLayoutChangeListener(this);
+        if (isShowing()) {
+            if (!(BrowserActivity.isTablet(mActivity)))
+                this.startAnimation(mOutAnimation);
+            this.setVisibility(View.INVISIBLE);
+            mActionBarContainerId = getResources().getIdentifier("action_bar_container", "id", "android");
+            ViewGroup actionBarContainer = (ViewGroup) mActivity.getWindow().getDecorView().findViewById(mActionBarContainerId);
+            if (actionBarContainer != null) {
+                actionBarContainer.removeOnLayoutChangeListener(this);
+            }
+            ActionBar actionBar = mActivity.getActionBar();
+            actionBar.hide();
         }
-        ActionBar actionBar = mActivity.getActionBar();
-        actionBar.hide();
     }
 
     //TODO: Save the selected tab on BrowserActivity's onSaveInstanceState
