@@ -667,7 +667,7 @@ class Tab implements PictureListener {
         } else if (view.isPrivateBrowsingEnabled() &&
                    !TextUtils.isEmpty(url) &&
                    url.contains(Controller.INCOGNITO_URI)) {
-            mCurrentState.mUrl = mCurrentState.mOriginalUrl = "";
+            mCurrentState.mUrl = mCurrentState.mOriginalUrl = Controller.INCOGNITO_URI;
         }
 
         else {
