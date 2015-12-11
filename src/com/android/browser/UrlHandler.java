@@ -60,13 +60,20 @@ public class UrlHandler {
             return false;
         }
 
+        if (url.startsWith(WebView.SCHEME_TEL)) {
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(WebView.SCHEME_TEL +
+                    Uri.encode(url.substring(WebView.SCHEME_TEL.length()))));
+            mActivity.startActivity(intent);
+            return true;
+        }
         if (url.startsWith(SCHEME_WTAI)) {
             // wtai://wp/mc;number
             // number=string(phone-number)
             if (url.startsWith(SCHEME_WTAI_MC)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse(WebView.SCHEME_TEL +
-                        url.substring(SCHEME_WTAI_MC.length())));
+                        Uri.encode(url.substring(SCHEME_WTAI_MC.length()))));
                 mActivity.startActivity(intent);
                 // before leaving BrowserActivity, close the empty child tab.
                 // If a new tab is created through JavaScript open to load this

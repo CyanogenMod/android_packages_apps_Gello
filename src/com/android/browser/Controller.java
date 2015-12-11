@@ -1579,7 +1579,7 @@ public class Controller
                 menu.setHeaderTitle(Uri.decode(extra));
                 menu.findItem(R.id.dial_context_menu_id).setIntent(
                         new Intent(Intent.ACTION_VIEW, Uri
-                                .parse(WebView.SCHEME_TEL + extra)));
+                                .parse(WebView.SCHEME_TEL + Uri.encode(extra))));
                 Intent addIntent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
                 addIntent.putExtra(Insert.PHONE, Uri.decode(extra));
                 addIntent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);

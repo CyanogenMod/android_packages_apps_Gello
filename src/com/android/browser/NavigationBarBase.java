@@ -580,7 +580,7 @@ public class NavigationBarBase extends LinearLayout implements
         if (url.startsWith(UrlHandler.SCHEME_WTAI_MC)) {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(WebView.SCHEME_TEL +
-                    url.substring(UrlHandler.SCHEME_WTAI_MC.length())));
+                    Uri.encode(url.substring(UrlHandler.SCHEME_WTAI_MC.length()))));
             getContext().startActivity(intent);
             // before leaving BrowserActivity, close the empty child tab.
             // If a new tab is created through JavaScript open to load this
