@@ -192,6 +192,9 @@ class Tab implements PictureListener {
     // determine if webview is destroyed to MemoryMonitor
     private boolean mWebViewDestroyedByMemoryMonitor;
 
+    // Tab started initally in background
+    private boolean mBackgroundTab;
+
     private String mTouchIconUrl;
 
     private Observable mFirstPixelObservable;
@@ -328,6 +331,7 @@ class Tab implements PictureListener {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             setIsDistillable(false);
+            mBackgroundTab = false;
             mInPageLoad = true;
             mPageFinished = false;
             mFirstVisualPixelPainted = false;
@@ -1175,6 +1179,10 @@ class Tab implements PictureListener {
     }
 
     Tab(WebViewController wvcontroller, WebView w, Bundle state) {
+        this(wvcontroller, null, state, false);
+    }
+
+    Tab(WebViewController wvcontroller, WebView w, Bundle state, boolean backgroundTab) {
         mWebViewController = wvcontroller;
         mContext = mWebViewController.getContext();
         mSettings = BrowserSettings.getInstance();
@@ -1185,6 +1193,7 @@ class Tab implements PictureListener {
         mInPageLoad = false;
         mInForeground = false;
         mWebViewDestroyedByMemoryMonitor = false;
+        mBackgroundTab = backgroundTab;
 
         mDownloadListener = new BrowserDownloadListener() {
             public void onDownloadStart(String url, String userAgent,
@@ -1302,18 +1311,9 @@ class Tab implements PictureListener {
             mMainView.setPictureListener(null);
             if (w != null) {
                 syncCurrentState(w, null);
-            } else {
-                mCurrentState = new PageState(mContext, mMainView.isPrivateBrowsingEnabled());
-
-                if (mWebViewDestroyedByMemoryMonitor) {
-                    /*
-                    * If tab was destroyed as a result of the MemoryMonitor
-                    * then we need to restore the state properties
-                    * from the old WebView (mMainView)
-                    */
-                    syncCurrentState(mMainView, null);
-                    mWebViewDestroyedByMemoryMonitor = false;
-                }
+            } else if(!mWebViewDestroyedByMemoryMonitor) {
+                mCurrentState = new PageState(mContext,
+                    mMainView.isPrivateBrowsingEnabled());
             }
         }
         // set the new one
@@ -1340,7 +1340,11 @@ class Tab implements PictureListener {
                     Log.w(LOGTAG, "Failed to restore WebView state!");
                     loadUrl(mCurrentState.mOriginalUrl, null);
                 }
+                mWebViewDestroyedByMemoryMonitor = false;
                 mSavedState = null;
+            } else if(restore && mBackgroundTab && mWebViewDestroyedByMemoryMonitor) {
+                loadUrl(mCurrentState.mOriginalUrl, null);
+                mWebViewDestroyedByMemoryMonitor = false;
             }
         }
     }

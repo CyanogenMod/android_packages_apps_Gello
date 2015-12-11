@@ -249,7 +249,7 @@ class TabControl {
         final WebView w = createNewWebView(privateBrowsing, backgroundTab);
 
         // Create a new tab and add it to the tab list
-        Tab t = new Tab(mController, w, state);
+        Tab t = new Tab(mController, w, state, backgroundTab);
         mTabs.add(t);
         mTabCountObservable.set(mTabs.size());
         if (privateBrowsing) {
