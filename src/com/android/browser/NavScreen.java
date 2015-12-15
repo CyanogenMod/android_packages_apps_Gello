@@ -104,6 +104,8 @@ public class NavScreen extends RelativeLayout
     }
 
     public void refreshAdapter() {
+        mNewTab.setOnClickListener(this);
+        mNewIncognitoTab.setOnClickListener(this);
         mScroller.handleDataChanged(
                 mUiController.getTabControl().getTabPosition(mUi.getActiveTab()));
     }
@@ -143,8 +145,10 @@ public class NavScreen extends RelativeLayout
     public void onClick(View v) {
         if (mNewTab == v) {
             openNewTab();
+            mNewIncognitoTab.setOnClickListener(null);
         } else if (mNewIncognitoTab == v) {
             openNewIncognitoTab();
+            mNewTab.setOnClickListener(null);
         } else if (mMore == v) {
             showPopupMenu();
         }
