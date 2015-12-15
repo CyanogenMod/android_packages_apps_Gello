@@ -109,7 +109,9 @@ public class CrashRecoveryHandler {
     }
 
     public void backupState() {
-        mForegroundHandler.postDelayed(mCreateState, BACKUP_DELAY);
+        // Only write if we are not already destroyed
+        if (mController.getTabControl() != null)
+            mForegroundHandler.postDelayed(mCreateState, BACKUP_DELAY);
     }
 
     private Runnable mCreateState = new Runnable() {
@@ -118,8 +120,11 @@ public class CrashRecoveryHandler {
         public void run() {
             try {
                 final Bundle state = mController.createSaveState();
-                Message.obtain(mBackgroundHandler, MSG_WRITE_STATE, state)
-                        .sendToTarget();
+                // block write of null values
+                if (state != null && mController.getTabControl() != null) {
+                    Message.obtain(mBackgroundHandler, MSG_WRITE_STATE, state)
+                            .sendToTarget();
+                }
                 // Remove any queued up saves
                 mForegroundHandler.removeCallbacks(mCreateState);
             } catch (Throwable t) {

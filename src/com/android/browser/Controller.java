@@ -754,6 +754,12 @@ public class Controller
     /* package */ Bundle createSaveState() {
         Bundle saveState = new Bundle();
         mTabControl.saveState(saveState);
+        // This method is called multiple times.Need to
+        // guard against TabControl not having any tabs
+        // during the destroy cycles which looses all the
+        // existing saved information.
+        if (saveState.isEmpty())
+           return null;
         return saveState;
     }
 
