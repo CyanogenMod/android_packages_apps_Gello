@@ -53,16 +53,22 @@ public class LegalPreviewActivity extends FragmentActivity {
             bar.setTitle(R.string.swe_open_source_licenses);
             bar.setDisplayHomeAsUpEnabled(true);
         }
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        mLegalPreviewFragment = new LegalPreviewFragment();
-        Bundle args = new Bundle();
-        args.putString(URL_INTENT_EXTRA, getIntent().getExtras()
+        if (savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            mLegalPreviewFragment = new LegalPreviewFragment();
+            Bundle args = new Bundle();
+            args.putString(URL_INTENT_EXTRA, getIntent().getExtras()
                             .getString(URL_INTENT_EXTRA));
-        mLegalPreviewFragment.setArguments(args);
-        fragmentTransaction.add(R.id.license_layout, mLegalPreviewFragment,
+            mLegalPreviewFragment.setArguments(args);
+            fragmentTransaction.add(R.id.license_layout, mLegalPreviewFragment,
                 "LegalPreviewFragmentTag");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else  {
+            mLegalPreviewFragment =
+                (LegalPreviewFragment) getFragmentManager().findFragmentByTag(
+                    "LegalPreviewFragmentTag");
+        }
     }
 
     private boolean back() {

@@ -51,6 +51,7 @@ public class LegalPreviewFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         mUrl = args.getString(LegalPreviewActivity.URL_INTENT_EXTRA);
+        mWebView = new WebView(getActivity());
     }
 
     @Override
@@ -61,16 +62,22 @@ public class LegalPreviewFragment extends Fragment {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT);
-        mWebView = new WebView(getActivity());
         contentContainer.addView(mWebView.getView(), params);
         return contentContainer;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mWebView.destroy();
+        mWebView = null;
     }
 
     @Override
     public void onActivityCreated(Bundle b) {
         super.onActivityCreated(b);
         if (mWebView == null) return;
-            mWebView.loadUrl(mUrl);
+        mWebView.loadUrl(mUrl);
     }
 
     public boolean onBackPressed() {
