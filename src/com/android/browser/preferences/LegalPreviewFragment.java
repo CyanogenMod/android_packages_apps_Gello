@@ -35,11 +35,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 import com.android.browser.R;
 
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.WebChromeClient;
 
 public class LegalPreviewFragment extends Fragment {
 
@@ -52,6 +55,19 @@ public class LegalPreviewFragment extends Fragment {
         Bundle args = getArguments();
         mUrl = args.getString(LegalPreviewActivity.URL_INTENT_EXTRA);
         mWebView = new WebView(getActivity());
+
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                // force a touch to fix event propagation to renderer
+                long downTime = SystemClock.uptimeMillis();
+                long eventTime = SystemClock.uptimeMillis() + 50;
+                MotionEvent event = MotionEvent.obtain(
+                    downTime, eventTime, MotionEvent.ACTION_UP,
+                    0.0f, 0.0f, 0);
+                view.dispatchTouchEvent(event);
+            }
+        });
     }
 
     @Override
