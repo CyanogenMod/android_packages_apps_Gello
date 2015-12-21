@@ -22,6 +22,7 @@ import android.util.Log;
 
 import org.codeaurora.swe.GeolocationPermissions;
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.Engine;
 import org.codeaurora.swe.util.Observable;
 
 import java.util.ArrayList;
@@ -306,6 +307,7 @@ class TabControl {
             mNumIncognito -= 1;
             if (mNumIncognito == 0) {
                 GeolocationPermissions.onIncognitoTabsRemoved();
+                Engine.destroyIncognitoProfile();
             }
         }
 
