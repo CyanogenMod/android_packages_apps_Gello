@@ -613,8 +613,7 @@ class Tab implements PictureListener {
             final int maxIdx = view.copyBackForwardList().getSize();
             final WebView wv = view;
             final int currIdx = index;
-            final int currentTabIdx = (int) mWebViewController.getTabControl().
-                    getCurrentTab().getId();
+            final int currentTabIdx = (int) Tab.this.getId();
             view.getSnapshotIds(new ValueCallback <List<Integer>>() {
                 @Override
                 public void onReceiveValue(List<Integer> ids) {
