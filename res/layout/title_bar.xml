@@ -44,7 +44,7 @@
     <ImageView
         android:id="@+id/titleBar_dropShadow"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="@dimen/dropshadow_height"
         android:scaleType="fitXY"
         android:src="@drawable/img_deco_dropshadow" />
 

@@ -906,15 +906,16 @@ public abstract class BaseUi implements UI {
                 mTitleBar.setEnabled(true);
             }
             float currentY = mTitleBar.getTranslationY();
-            float height = mNavigationBar.getHeight();
+            float height = mTitleBar.getHeight();
+            float shadowHeight = mActivity.getResources().getDimension(R.dimen.dropshadow_height);
+            height -= shadowHeight; //this is the height of the titlebar without the shadow
 
             if ((height + currentY) <= 0 && (height + topControlsOffsetYPix) > 0) {
                 mTitleBar.requestLayout();
             } else if ((height + topControlsOffsetYPix) <= 0) {
                 // Need to add the progress bar's margin to the offest since it's height is not
                 // accounted for and the dropshadow draws inside it.
-                topControlsOffsetYPix +=
-                        mActivity.getResources().getDimension(R.dimen.progress_bar_margin);
+                topControlsOffsetYPix -= shadowHeight;
                 mTitleBar.getParent().requestTransparentRegion(mTitleBar);
             }
             // This was done to get HTML5 fullscreen API to work with fixed mode since

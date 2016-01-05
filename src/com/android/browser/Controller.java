@@ -1903,7 +1903,11 @@ public class Controller
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Software menu key (toolbar key)
-        mAppMenuHandler.showAppMenu(mActivity.findViewById(R.id.more_browser_settings), false, false);
+        View overflowMenu = mActivity.findViewById(R.id.more_browser_settings);
+        if (getCurrentTab() != null && getCurrentTab().isSnapshot()) {
+            overflowMenu = mActivity.findViewById(R.id.more);
+        }
+        mAppMenuHandler.showAppMenu(overflowMenu, false, false);
         return true;
     }
 
