@@ -1975,8 +1975,11 @@ class Tab implements PictureListener {
             thumbnailUpdated();
             return;
         }
-
-        mMainView.getContentBitmapAsync((float) mCaptureWidth / mMainView.getWidth(), new Rect(),
+        int orientation = mWebViewController.getActivity().
+                getResources().getConfiguration().orientation;
+        int width = (orientation == Configuration.ORIENTATION_PORTRAIT) ? mMainView.getWidth() :
+                    mMainView.getHeight();
+        mMainView.getContentBitmapAsync((float) mCaptureWidth / width, new Rect(),
             new ValueCallback<Bitmap>() {
                 @Override
                 public void onReceiveValue(Bitmap bitmap) {
