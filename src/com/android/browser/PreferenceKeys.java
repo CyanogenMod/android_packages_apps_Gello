@@ -98,7 +98,6 @@ public interface PreferenceKeys {
     static final String PREF_PRIVACY_CLEAR_HISTORY = "privacy_clear_history";
     static final String PREF_PRIVACY_CLEAR_PASSWORDS = "privacy_clear_passwords";
     static final String PREF_REMEMBER_PASSWORDS = "remember_passwords";
-    static final String PREF_SAVE_FORMDATA = "save_formdata";
     static final String PREF_SHOW_SECURITY_WARNINGS = "show_security_warnings";
     static final String PREF_DO_NOT_TRACK = "do_not_track";
     static final String PREF_WEB_REFINER = "web_refiner";

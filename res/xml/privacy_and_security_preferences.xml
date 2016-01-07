@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (c) 2015, The Linux Foundation. All rights reserved.
+    Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
 
     Redistribution and use in source and binary forms, with or without
     modification, are permitted provided that the following conditions are
@@ -47,14 +47,6 @@
             android:summaryOn="@string/pref_security_remember"
             android:summaryOff="@string/pref_security_not_allowed"
             android:title="@string/pref_security_remember_passwords" />
-
-        <SwitchPreference
-            android:layout="@layout/swe_preference"
-            android:defaultValue="true"
-            android:key="save_formdata"
-            android:summaryOn="@string/pref_security_remember"
-            android:summaryOff="@string/pref_security_not_allowed"
-            android:title="@string/pref_security_save_form_data" />
 
         <com.android.browser.mdm.MdmCheckBoxPreference
             android:layout="@layout/swe_preference"

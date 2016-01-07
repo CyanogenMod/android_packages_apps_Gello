@@ -332,7 +332,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         settings.setLoadsImagesAutomatically(loadImages());
         settings.setLoadWithOverviewMode(loadPageInOverviewMode());
         settings.setSavePassword(rememberPasswords());
-        settings.setSaveFormData(saveFormdata());
         settings.setUseWideViewPort(isWideViewport());
         settings.setDoNotTrack(doNotTrack());
         settings.setNightModeEnabled(isNightModeEnabled());
@@ -1054,10 +1053,6 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
     public boolean acceptCookies() {
         return PermissionsServiceFactory.getDefaultPermissions(
                 PermissionsServiceFactory.PermissionType.COOKIE);
-    }
-
-    public boolean saveFormdata() {
-        return mPrefs.getBoolean(PREF_SAVE_FORMDATA, true);
     }
 
     public boolean enableGeolocation() {
