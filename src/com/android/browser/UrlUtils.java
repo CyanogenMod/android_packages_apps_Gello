@@ -168,6 +168,7 @@ public class UrlUtils {
             return inUrl;
         }
         if (!hasSpace) {
+            if (inUrl.startsWith("rtsp:")) return inUrl;
             if (Patterns.WEB_URL.matcher(inUrl).matches()) {
                 return URLUtil.guessUrl(inUrl);
             }
