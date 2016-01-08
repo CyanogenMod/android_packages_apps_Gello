@@ -18,6 +18,7 @@ package com.android.browser;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.codeaurora.swe.GeolocationPermissions;
@@ -47,9 +48,11 @@ class TabControl {
      */
     public void findAndReload(String origin) {
         for (Tab tab : mTabs){
-            if (tab.getWebView() != null) {
-                Uri url = Uri.parse(tab.getWebView().getUrl());
-                if (url.getHost().equals(origin)){
+            WebView wv = tab.getWebView();
+            if (wv != null && !TextUtils.isEmpty(wv.getUrl())) {
+                Uri url = Uri.parse(wv.getUrl());
+                if ((url != null && url.getHost() != null) &&
+                        url.getHost().equals(origin) ) {
                     tab.getWebView().reload();
                 }
             }
