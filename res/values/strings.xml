@@ -20,10 +20,10 @@
     <!-- The name of the application. -->
     <string name="application_name">Browser</string>
     <!-- Displayed with a file picker to choose a file to upload -->
-    <string name="choose_upload">Choose file for upload</string>
+    <string name="choose_upload">Choose file to upload</string>
     <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
-    <string name="uploads_disabled">File uploads are disabled.</string>
+    <string name="uploads_disabled">Uploads are disabled.</string>
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
     <!-- Crash tab View title -->
     <string name="new_tab">New tab</string>
@@ -57,7 +57,7 @@
     <!-- The label on the "sign in" button -->
     <string name="action">Sign in</string>
     <!-- The name of the add bookmark page activity.-->
-    <string name="bookmarks_add_page">Save favorite</string>
+    <string name="bookmarks_add_page">Save</string>
     <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
     <string name="cancel">Cancel</string>
     <!-- Label for a confirm button.  Used in multiple contexts. -->
@@ -66,7 +66,7 @@
     <!-- Message to be displayed if url character limit exceeds -->
     <string name="max_url_character_limit_msg">Max URL limit reached</string>
     <!-- Message to be displayed when google play store does not exist on the device -->
-    <string name="msg_no_google_play">Sorry, Google Play store app does not exist.</string>
+    <string name="msg_no_google_play">Sorry, Google Play Store app does not exist.</string>
 
     <!-- Menu item -->
     <string name="page_info">Info</string>
@@ -112,7 +112,7 @@
     <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
     <string name="add_to_homescreen_menu_option">Home screen</string>
     <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
-    <string name="add_to_other_folder_menu_option">Select folder...</string>
+    <string name="add_to_other_folder_menu_option">Select folder\u2026</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
@@ -127,7 +127,7 @@
     <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
     <string name="edit_bookmark">Edit</string>
     <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
-    <string name="create_shortcut_bookmark">Add shortcut to home</string>
+    <string name="create_shortcut_bookmark">Add shortcut</string>
     <!-- Menu item to remove the currently highlighted bookmark-->
     <string name="remove_bookmark">Delete</string>
     <!-- Context menu item to remove a history item from bookmarks -->
@@ -284,9 +284,9 @@
     <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
     <string name="pref_general_title">General</string>
-    <string name="pref_default_site_settings_title">Default Site Settings</string>
-    <string name="pref_site_settings_title">Site Settings</string>
-    <string name="pref_site_settings_info_panel">Security Information</string>
+    <string name="pref_default_site_settings_title">Default site settings</string>
+    <string name="pref_site_settings_title">Site settings</string>
+    <string name="pref_site_settings_info_panel">Security information</string>
     <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
     <string name="pref_general_autofill_title">Auto-fill</string>
 
@@ -328,7 +328,7 @@
     <!-- Settings screen, section title [CHAR LIMIT=50] -->
     <string name="pref_interface_title">Interface</string>
     <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
-    <string name="pref_autofill_profile_editor">Auto-fill text</string>
+    <string name="pref_autofill_profile_editor">Auto-fill</string>
     <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
     <string name="pref_autofill_profile_editor_summary">Set up text to auto-fill in web forms</string>
 
@@ -371,14 +371,14 @@
     <string name="autofill_profile_editor_delete_profile">Delete</string>
 
     <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
-    <string name="powersave_dialog_on">Enabled: Processor Core Control.\nDisabled: High Performance Features.\nPlease restart browser.</string>
+    <string name="powersave_dialog_on">Power save mode enabled.\nPlease restart browser.</string>
     <string name="powersave_dialog_off">Power save mode disabled.\nPlease restart browser.</string>
 
     <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_message">The browser can automatically complete web forms like this one. Do you want to set up your auto-fill text?</string>
     <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
-    <string name="autofill_setup_dialog_negative_toast">You can always set up your auto-fill text from the Browser &gt; Settings &gt; General screen.</string>
+    <string name="autofill_setup_dialog_negative_toast">You can always set up your auto-fill text from the Browser &gt; Settings &gt; Auto-fill.</string>
     <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
     <string name="disable_autofill">Disable auto-fill</string>
@@ -432,7 +432,7 @@
 
     <string name="pref_security_allow_mic">Microphone</string>
     <string name="pref_security_allow_camera">Camera</string>
-    <string name="pref_security_web_refiner">Ads and distracting content</string>
+    <string name="pref_security_web_refiner">Ads</string>
     <string name="pref_security_accept_third_party_cookies">Third party cookies</string>
     <string name="pref_security_ask_before_using">Ask before using</string>
     <string name="pref_security_allowed">Allowed</string>
@@ -485,8 +485,8 @@
     <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
     <string name="pref_default_text_encoding_default">UTF-8</string>
     <string name="pref_edge_swipe_title">Edge navigation</string>
-    <string name="pref_edge_swipe_option_msg">When swiping, would you like:</string>
-    <string name="pref_temporal_edge_swipe">Previous/Next Web Site</string>
+    <string name="pref_edge_swipe_option_msg">Swiping from the edge will:</string>
+    <string name="pref_temporal_edge_swipe">Navigate across history</string>
     <string name="pref_spatial_edge_swipe">Change Tab</string>
     <string name="pref_disable_edge_swipe">Do nothing</string>
     <string name="pref_edge_swipe_option_close">Choose later</string>
@@ -501,7 +501,8 @@
 -->
         <item>@string/pref_disable_edge_swipe</item>
     </string-array>
-    <string name="pref_edge_swipe_setup_desc">Swipe from the edge to navigate across history.\nThis feature may conflict with websites using edge-based actions</string>
+    <string name="pref_edge_swipe_setup_desc">
+        Swipe from the edge to navigate across history.\nThis feature may conflict with websites using edge-based actions</string>
     <string name="pref_edge_enable">Enable</string>
     <string name="pref_edge_disable">Disable</string>
     <string name="pref_coloredsb_title">Colored statusbar</string>
