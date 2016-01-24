@@ -60,26 +60,31 @@
         <item name="android:colorPrimaryDark">@color/accent_dark</item>
         <item name="android:colorAccent">@color/icon_white</item>
     </style>
+
     <style name="MyNavAddStyle" parent="@style/DialogWhenLarge">
         <item name="android:colorPrimary">@color/mynav_primary</item>
         <item name="android:colorPrimaryDark">@color/mynav_primary_dark</item>
         <item name="android:colorAccent">@color/mynav_accent</item>
     </style>
 
-    <style name="PopupMenuStyle" parent="@android:style/Widget.Material.Light.PopupMenu">
-    </style>
+    <style name="PopupMenuStyle" parent="@android:style/Widget.Material.Light.PopupMenu"/>
+
     <style name="Suggestions" parent="@android:style/Widget.Material.AutoCompleteTextView">
         <item name="android:popupBackground">@color/white</item>
         <item name="android:dropDownHorizontalOffset">0dip</item>
         <item name="android:dropDownVerticalOffset">0dip</item>
         <item name="android:textColor">@color/icon_white</item>
         <item name="android:textColorHint">@color/icon_black</item>
+        <item name="android:paddingStart">@dimen/suggestion_padding</item>
+        <item name="android:paddingEnd">@dimen/suggestion_padding</item>
     </style>
+
     <style name="Widget.UrlInputView" parent="BrowserTheme">
         <item name="android:colorAccent">@color/white</item>
         <item name="android:textColor">@color/icon_white</item>
         <item name="android:textColorHint">@color/icon_white</item>
     </style>
+
     <style name="TextAppearance.Medium" parent="@android:style/TextAppearance.Material.Medium" />
     <style name="TextAppearance.Small" parent="@android:style/TextAppearance.Material.Small" />
 
@@ -100,9 +105,6 @@
         <item name="android:layout_height">@dimen/fab_size</item>
         <item name="android:layout_gravity">center</item>
     </style>
-    <!-- level 2 parents -->
-
-    <!-- common theme elements -->
 
     <style name="SettingsTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
         <item name="android:colorPrimary">@color/primary</item>

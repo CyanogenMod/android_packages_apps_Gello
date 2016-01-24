@@ -31,14 +31,14 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_back"
-            android:src="@drawable/ic_action_history_backward" />
+            android:src="@drawable/ic_action_history_backward_inverted" />
 
         <ImageButton
             android:id="@+id/forward"
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_forward"
-            android:src="@drawable/ic_action_history_forward" />
+            android:src="@drawable/ic_action_history_forward_inverted" />
 
     </LinearLayout>
 
@@ -57,16 +57,6 @@
         android:layout_weight="1.0"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/magnify"
-            android:layout_width="44dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_action_search_normal"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:visibility="visible" />
-
         <com.android.browser.SiteTileView
             android:id="@+id/favicon_view"
             android:layout_width="44dp"
@@ -80,11 +70,11 @@
         <View
             android:id="@+id/separator"
             android:layout_width="1dp"
-            android:layout_height="36dp"
-            android:paddingTop="6dp"
+            android:layout_height="fill_parent"
+            android:paddingTop="8dp"
             android:paddingBottom="6dp"
             android:paddingStart="4dp"
-            android:paddingEnd="4dp"
+            android:paddingEnd="8dp"
             android:background="@color/icon_white" />
 
         <com.android.browser.UrlInputView
@@ -103,6 +93,7 @@
             android:paddingEnd="0dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
+            android:textColorHint="@color/icon_white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <ImageButton
@@ -110,14 +101,14 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_addbookmark"
-            android:src="@drawable/ic_action_bookmark" />
+            android:src="@drawable/ic_action_bookmark_inverted" />
 
         <ImageButton
             android:id="@+id/clear"
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_clear"
-            android:src="@drawable/ic_action_stop" />
+            android:src="@drawable/ic_action_stop_inverted" />
 
         <ImageButton
             android:id="@+id/voice"
@@ -128,22 +119,6 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/search"
-        style="@style/NavButton"
-        android:layout_width="wrap_content"
-        android:contentDescription="@string/accessibility_button_search"
-        android:gravity="center_vertical"
-        android:src="@drawable/ic_action_search_normal" />
-
-    <ImageButton
-        android:id="@+id/all_btn"
-        style="@style/NavButton"
-        android:layout_width="wrap_content"
-        android:contentDescription="@string/bookmarks"
-        android:scaleType="center"
-        android:src="@drawable/ic_deco_bookmarks_normal" />
-
-    <ImageButton
         android:id="@+id/more_browser_settings"
-        style="@style/OverflowButton" />
+        style="@style/OverflowButtonInverted" />
 </com.android.browser.NavigationBarTablet>

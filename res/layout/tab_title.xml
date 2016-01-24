@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:src="@drawable/ic_suggest_history_normal"
-            android:contentDescription="@string/accessibility_state_frozen"
+        android:contentDescription="@string/accessibility_state_frozen"
         android:visibility="gone" />
     <ImageView
         android:id="@+id/favicon"
@@ -62,5 +62,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/accessibility_button_closetab"
-        android:src="@drawable/ic_action_close" />
+        android:src="@drawable/ic_action_close_inverted" />
 </merge>

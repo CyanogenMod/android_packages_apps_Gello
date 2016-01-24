@@ -33,8 +33,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     private ImageButton mBackButton;
     private ImageButton mForwardButton;
     private ImageView mStar;
-    private ImageView mSearchButton;
-    private View mAllButton;
     private View mNavButtons;
     private boolean mHideNavButtons;
 
@@ -60,18 +58,14 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mAllButton = findViewById(R.id.all_btn);
         mNavButtons = findViewById(R.id.navbuttons);
         mBackButton = (ImageButton) findViewById(R.id.back);
         mForwardButton = (ImageButton) findViewById(R.id.forward);
         mStar = (ImageView) findViewById(R.id.star);
-        mSearchButton = (ImageView) findViewById(R.id.search);
         mUrlContainer = findViewById(R.id.urlbar_focused);
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
-        mAllButton.setOnClickListener(this);
-        mSearchButton.setOnClickListener(this);
         mUrlInput.setContainer(mUrlContainer);
         mUrlInput.setStateListener(this);
     }
@@ -124,10 +118,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             if (intent != null) {
                 getContext().startActivity(intent);
             }
-        } else if (mAllButton == v) {
-            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
-        } else if (mSearchButton == v) {
-            mBaseUi.editUrl(true, true);
         } else {
             super.onClick(v);
         }
@@ -140,14 +130,12 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             if (mHideNavButtons) {
                 hideNavButtons();
             }
-            mSearchButton.setVisibility(View.GONE);
             mStar.setVisibility(View.GONE);
         } else {
             if (mHideNavButtons) {
                 showNavButtons();
             }
             showHideStar(mUiController.getCurrentTab());
-            mSearchButton.setVisibility(View.VISIBLE);
         }
     }
 

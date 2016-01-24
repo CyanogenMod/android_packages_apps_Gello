@@ -354,8 +354,8 @@ public class TabBar extends LinearLayout implements OnClickListener {
                             getColor(R.color.NavigationBarBackground));
                     Bitmap inactiveTexture = Bitmap.createBitmap(
                             mCurrentTextureWidth, mCurrentTextureHeight, Bitmap.Config.ARGB_8888);
-                    inactiveTexture.eraseColor(getResources().
-                            getColor(R.color.TabNavBackgroundColor));
+                    //inactiveTexture.eraseColor(getResources().
+                    //        getColor(R.color.TabNavBackgroundColor));
 
                     mActiveShader = new BitmapShader(activeTexture,
                             Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);

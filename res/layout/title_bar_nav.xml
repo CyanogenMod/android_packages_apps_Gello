@@ -89,7 +89,6 @@
             android:paddingEnd="6dp"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:fontFamily="sans-serif-condensed"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColorHint="@color/icon_white" />
 

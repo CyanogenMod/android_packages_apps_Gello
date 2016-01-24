@@ -31,7 +31,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:textSize="20dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:text="@string/browser_tab_crash_snap" />
 
     <Button
@@ -58,7 +58,7 @@
         android:paddingEnd="10dp"
         android:paddingTop="20dp"
         android:textSize="15dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:text="@string/browser_tab_crash_message" />
 
 </LinearLayout>

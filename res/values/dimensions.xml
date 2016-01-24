@@ -92,6 +92,8 @@
     <dimen name="download_icon_size">36dp</dimen>
     <dimen name="download_text_hint">18sp</dimen>
 
+    <dimen name="suggestion_padding">4dp</dimen>
+
     <!-- FAB Dimensions -->
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_margin">16dp</dimen>

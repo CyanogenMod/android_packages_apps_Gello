@@ -727,7 +727,7 @@ public class NavigationBarBase extends LinearLayout implements
         mHandler.removeMessages(WEBREFINER_COUNTER_MSG);
         mHandler.sendEmptyMessageDelayed(WEBREFINER_COUNTER_MSG,
                 WEBREFINER_COUNTER_MSG_DELAY);
-        mStopButton.setImageResource(R.drawable.ic_action_stop);
+        mStopButton.setImageResource(R.drawable.ic_action_stop_inverted);
         mStopButton.setContentDescription(getResources().
                 getString(R.string.accessibility_button_stop));
     }
@@ -736,7 +736,7 @@ public class NavigationBarBase extends LinearLayout implements
         if (!isEditingUrl()) {
             mFaviconTile.setVisibility(View.VISIBLE);
         }
-        mStopButton.setImageResource(R.drawable.ic_action_reload);
+        mStopButton.setImageResource(R.drawable.ic_action_reload_inverted);
         mStopButton.setContentDescription(getResources().
                 getString(R.string.accessibility_button_refresh));
     }
