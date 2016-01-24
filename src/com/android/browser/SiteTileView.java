@@ -304,7 +304,7 @@ public class SiteTileView extends View {
                 sDefaultSiteBitmap = BitmapFactory.decodeResource(getResources(),
                         DEFAULT_SITE_FAVICON);
             mFaviconBitmap = sDefaultSiteBitmap;
-            fundamentalColor = 0xFF262626;
+            fundamentalColor = 0xFFFAFAFA;
         }
 
         if (mFaviconBitmap != null) {
@@ -343,7 +343,7 @@ public class SiteTileView extends View {
 
         // bitmap paint (copy, smooth scale)
         sBitmapPaint = new Paint();
-        sBitmapPaint.setColor(Color.BLACK);
+        sBitmapPaint.setColor(Color.WHITE);
         sBitmapPaint.setFilterBitmap(true);
 
         // badge text paint (anti-aliased)

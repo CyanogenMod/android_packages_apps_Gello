@@ -39,7 +39,6 @@
     <color name="browser_window_background">#F2F2F2</color>
     <color name="accent_dark">#346AC2</color>
     <color name="navigation_bars">#263238</color>
-    <color name="browser_window_background">#F2F2F2</color>
     <color name="edge_title">#0096a9</color>
     <color name="floating_action_button_touch_tint">#DBA000</color>
     <color name="download_text_hint">#b3b3b3</color>
@@ -54,7 +53,7 @@
     <color name="NavigationBarBackground">@color/primary</color>
     <color name="NavigationBarBackgroundIncognito">@color/black</color>
     <color name="PopupBackground">@color/white</color>
-    <color name="TabNavBackgroundColor">@color/white</color>
+    <color name="TabNavBackgroundColor">#fff</color>
     <color name="TabPassiveMessageBackground">#f2f2f2</color>
     <color name="TabPassiveMessageLine">#b3b3b3</color>
 
@@ -67,21 +66,21 @@
     <color name="bookmarkListFaviconBackground">@color/white</color>
     <color name="bookmarkLabelColor">@color/black</color>
     <color name="comboViewActionBarColor">@color/white</color>
-    <color name="comboViewBackground">#efeff0</color>
+    <color name="comboViewBackground">@color/browser_window_background</color>
     <color name="tabFaviconBackground">@color/primary</color>
     <color name="tabFocusHighlight">#99CC00</color>
     <color name="tabViewTitleBackground">@color/black</color>
     <color name="navtab_bg">@color/black</color>
 
-    <color name="TileBadgeTextAvoid">#fff</color>
-    <color name="TileBadgeTextUntrusted">#333</color>
-    <color name="TileBadgeTextUnknown">#333</color>
-    <color name="TileBadgeTextVerified">#fff</color>
+    <color name="TileBadgeTextAvoid">@color/white</color>
+    <color name="TileBadgeTextUntrusted">@color/black</color>
+    <color name="TileBadgeTextUnknown">@color/black</color>
+    <color name="TileBadgeTextVerified">@color/white</color>
 
     <!-- xml configuration for FolderTileView -->
-    <color name="FolderTileBackground">#555</color>
-    <color name="FolderTileTitle">#fff</color>
-    <color name="FolderTileCount">#fff</color>
+    <color name="FolderTileBackground">@color/black</color>
+    <color name="FolderTileTitle">@color/white</color>
+    <color name="FolderTileCount">@color/white</color>
 
     <!-- location infobar color -->
     <color name="infobar_accent_blue">@color/accent</color>

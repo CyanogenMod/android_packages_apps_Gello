@@ -28,5 +28,5 @@
         style="@style/NavButton"
         android:layout_width="wrap_content"
         android:background="@drawable/add_tab_selector"
-        android:src="@drawable/ic_action_add_tab" />
+        android:src="@drawable/ic_action_add_tab_inverted" />
 </merge>

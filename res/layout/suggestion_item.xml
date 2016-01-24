@@ -25,6 +25,8 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:baselineAligned="false"
+    android:paddingStart="@dimen/suggestion_padding"
+    android:paddingEnd="@dimen/suggestion_padding"
     >
     <LinearLayout
         android:id="@+id/suggestion"
