@@ -34,7 +34,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     private ImageButton mForwardButton;
     private ImageView mStar;
     private ImageView mSearchButton;
-    private View mAllButton;
     private View mNavButtons;
     private boolean mHideNavButtons;
 
@@ -60,7 +59,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mAllButton = findViewById(R.id.all_btn);
         mNavButtons = findViewById(R.id.navbuttons);
         mBackButton = (ImageButton) findViewById(R.id.back);
         mForwardButton = (ImageButton) findViewById(R.id.forward);
@@ -70,7 +68,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
         mBackButton.setOnClickListener(this);
         mForwardButton.setOnClickListener(this);
         mStar.setOnClickListener(this);
-        mAllButton.setOnClickListener(this);
         mSearchButton.setOnClickListener(this);
         mUrlInput.setContainer(mUrlContainer);
         mUrlInput.setStateListener(this);
@@ -124,8 +121,6 @@ public class NavigationBarTablet extends NavigationBarBase implements StateListe
             if (intent != null) {
                 getContext().startActivity(intent);
             }
-        } else if (mAllButton == v) {
-            mUiController.bookmarksOrHistoryPicker(ComboViews.Bookmarks);
         } else if (mSearchButton == v) {
             mBaseUi.editUrl(true, true);
         } else {

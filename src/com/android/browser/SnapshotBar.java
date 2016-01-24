@@ -51,7 +51,6 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
     private ImageView mReadericon;
     private TextView mDate;
     private TextView mTitle;
-    private View mBookmarks;
     private TitleBar mTitleBar;
     private View mTabSwitcher;
     private TextView mTabText;
@@ -114,15 +113,11 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
         mReadericon = (ImageView) findViewById(R.id.reader_icon);
         mDate = (TextView) findViewById(R.id.date);
         mTitle = (TextView) findViewById(R.id.title);
-        mBookmarks = findViewById(R.id.all_btn);
         mTabSwitcher = findViewById(R.id.tab_switcher);
         mTabText = (TextView) findViewById(R.id.tab_switcher_text);
         mOverflowMenu = findViewById(R.id.more);
         mToggleContainer = findViewById(R.id.toggle_container);
 
-        if (mBookmarks != null) {
-            mBookmarks.setOnClickListener(this);
-        }
         if (mTabSwitcher != null) {
             mTabSwitcher.setOnClickListener(this);
         }
@@ -196,9 +191,7 @@ public class SnapshotBar extends LinearLayout implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (mBookmarks == v) {
-            mTitleBar.getUiController().bookmarksOrHistoryPicker(ComboViews.Bookmarks);
-        } else if (mTabSwitcher == v) {
+        if (mTabSwitcher == v) {
             ((PhoneUi) mTitleBar.getUi()).toggleNavScreen();
         } else if (mOverflowMenu == v) {
             NavigationBarBase navBar = mTitleBar.getNavigationBar();
