@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 import org.codeaurora.swe.WebView;
+import org.codeaurora.swe.util.SWEUrlUtils;
 
 public class UrlHandler {
 
@@ -45,6 +46,7 @@ public class UrlHandler {
     /* package */ final static String SCHEME_WTAI_SD = "wtai://wp/sd;";
     /* package */ final static String SCHEME_WTAI_AP = "wtai://wp/ap;";
     /* package */ final static String SCHEME_MAILTO = "mailto:";
+    public static final String EXTRA_BROWSER_FALLBACK_URL = "browser_fallback_url";
     Controller mController;
     Activity mActivity;
 
@@ -139,11 +141,10 @@ public class UrlHandler {
             intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             mActivity.startActivity(intent);
         } catch (URISyntaxException ex) {
-            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            Log.w(TAG, "Bad URI " + url + ": " + ex.getMessage());
             return false;
         } catch (ActivityNotFoundException ex) {
-            Log.w("Browser", "No Activity Found for " + url);
-            return false;
+            Log.w(TAG, "No Activity Found for " + url);
         }
 
         return true;
@@ -168,7 +169,7 @@ public class UrlHandler {
             intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
             mActivity.startActivity(intent);
         } catch (URISyntaxException ex) {
-            Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+            Log.w(TAG, "Bad URI " + url + ": " + ex.getMessage());
             return false;
         } catch (ActivityNotFoundException ex) {
             String downloadUrl = mActivity.getResources().getString(R.string.estore_homepage);
@@ -186,8 +187,17 @@ public class UrlHandler {
       try {
           intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
       } catch (URISyntaxException ex) {
-          Log.w("Browser", "Bad URI " + url + ": " + ex.getMessage());
+          Log.w(TAG, "Bad URI " + url + ": " + ex.getMessage());
           return false;
+      }
+
+      // handle fallback url for deep linking apps
+      String browserFallbackUrl = intent.getStringExtra(EXTRA_BROWSER_FALLBACK_URL);
+      if (browserFallbackUrl != null
+              && SWEUrlUtils.isValidForIntentFallbackNavigation(browserFallbackUrl)) {
+          mController.loadUrl(mController.getCurrentTab(), browserFallbackUrl);
+          mController.closeEmptyTab();
+          return true;
       }
 
       // check whether the intent can be resolved. If not, we will see
@@ -197,9 +207,11 @@ public class UrlHandler {
           if (packagename != null) {
               try {
                 intent = new Intent(Intent.ACTION_VIEW, Uri
-                        .parse("market://search?q=pname:" + packagename));
+                        .parse("market://details?id=" + packagename));
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setPackage("com.android.vending");
                 mActivity.startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 // before leaving BrowserActivity, close the empty child tab.
                 // If a new tab is created through JavaScript open to load this
                 // url, we would like to close it as we will load this url in a
