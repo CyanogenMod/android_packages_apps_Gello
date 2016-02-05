@@ -909,6 +909,14 @@ public class BrowserSettings implements OnSharedPreferenceChangeListener,
         mPrefs.edit().putBoolean(PREF_COLOREDSB_ENABLED, value).apply();
     }
 
+    public boolean isLookLockEnabled() {
+        return mPrefs.getBoolean(PREF_LOOKLOCK_ENABLED, false);
+    }
+
+    public void setLookLockEnabled(boolean value) {
+        mPrefs.edit().putBoolean(PREF_LOOKLOCK_ENABLED, value).apply();
+    }
+
     public boolean isPowerSaveModeEnabled() {
         return mPrefs.getBoolean(PREF_POWERSAVE_ENABLED, false);
     }

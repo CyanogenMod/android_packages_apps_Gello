@@ -101,6 +101,13 @@
             android:layout="@layout/swe_preference"
             android:key="content_settings" />
 
+        <SwitchPreference
+            android:layout="@layout/swe_preference"
+            android:defaultValue="false"
+            android:key="looklock_key"
+            android:summary="@string/pref_looklock_summary"
+            android:title="@string/pref_looklock_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_extras_title"

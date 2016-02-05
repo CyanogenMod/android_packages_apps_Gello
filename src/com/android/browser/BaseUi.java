@@ -49,6 +49,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.res.TypedArray;
+import android.util.Log;
 
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.WebView;
@@ -137,6 +138,15 @@ public abstract class BaseUi implements UI {
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
                 .inflate(R.layout.custom_screen, frameLayout);
+
+        // If looklock is enabled, set FLAG_SECURE
+        if (BrowserSettings.getInstance().isLookLockEnabled()) {
+            mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
         mCustomViewContainer = (FrameLayout) frameLayout.findViewById(
@@ -180,6 +190,12 @@ public abstract class BaseUi implements UI {
     // lifecycle
 
     public void onPause() {
+        if (BrowserSettings.getInstance().isLookLockEnabled()) {
+            mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         if (isCustomViewShowing()) {
             onHideCustomView();
         }
@@ -192,6 +208,12 @@ public abstract class BaseUi implements UI {
 
     public void onResume() {
         mActivityPaused = false;
+        if (BrowserSettings.getInstance().isLookLockEnabled()) {
+            mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
+            mActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+        }
         // check if we exited without setting active tab
         // b: 5188145
         setFullscreen(BrowserSettings.getInstance().useFullscreen());
