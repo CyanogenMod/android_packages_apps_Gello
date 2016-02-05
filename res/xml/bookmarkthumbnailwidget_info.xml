@@ -23,6 +23,5 @@
     android:minResizeWidth="110dip"
     android:updatePeriodMillis="0"
     android:initialLayout="@layout/bookmarkthumbnailwidget"
-    android:resizeMode="vertical|horizontal"
-    android:configure="com.android.browser.widget.BookmarkWidgetConfigure">
+    android:resizeMode="vertical|horizontal">
 </appwidget-provider>
