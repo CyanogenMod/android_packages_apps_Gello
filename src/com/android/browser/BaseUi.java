@@ -137,6 +137,13 @@ public abstract class BaseUi implements UI {
                 .getDecorView().findViewById(android.R.id.content);
         LayoutInflater.from(mActivity)
                 .inflate(R.layout.custom_screen, frameLayout);
+
+        // If looklock is enabled, set FLAG_SECURE
+        if (! BrowserSettings.getInstance().isLookLockEnabled()) {
+            mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         mContentView = (FrameLayout) frameLayout.findViewById(
                 R.id.main_content);
         mCustomViewContainer = (FrameLayout) frameLayout.findViewById(
