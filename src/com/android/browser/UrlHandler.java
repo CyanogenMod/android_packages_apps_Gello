@@ -35,7 +35,6 @@ import java.util.regex.Matcher;
 
 import org.codeaurora.swe.WebView;
 import org.codeaurora.swe.util.SWEUrlUtils;
-
 public class UrlHandler {
 
     private final static String TAG = "UrlHandler";

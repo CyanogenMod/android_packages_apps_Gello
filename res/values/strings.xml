@@ -505,11 +505,15 @@
         Swipe from the edge to navigate across history.\nThis feature may conflict with websites using edge-based actions</string>
     <string name="pref_edge_enable">Enable</string>
     <string name="pref_edge_disable">Disable</string>
+    <!-- Colored statusbar -->
     <string name="pref_coloredsb_title">Colored statusbar</string>
     <string name="pref_coloredsb_summary">Statusbar will change color basing on the visited page</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
+    <!-- ObserveBlock -->
+    <string name="pref_looklock_title">LookLock</string>
+    <string name="pref_looklock_summary">Prevent other apps from reading webivew content from this app</string>
     <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
     <string name="pref_font_size_category">Text size</string>
     <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
