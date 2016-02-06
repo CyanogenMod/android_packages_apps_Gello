@@ -58,6 +58,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.android.browser.BrowserUtils;
 import com.android.browser.R;
@@ -645,6 +646,10 @@ public class AddBookmarkPage extends Activity
 
     @Override
     protected void onCreate(Bundle icicle) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 

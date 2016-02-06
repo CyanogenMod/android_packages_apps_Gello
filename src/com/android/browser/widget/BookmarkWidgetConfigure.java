@@ -29,22 +29,29 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.util.Log;
 
 import com.android.browser.R;
 import com.android.browser.AddBookmarkPage.BookmarkAccount;
 import com.android.browser.platformsupport.BrowserContract.Accounts;
 import com.android.browser.provider.BrowserProvider2;
+import com.android.browser.EngineInitializer;
 
 public class BookmarkWidgetConfigure extends ListActivity
         implements OnClickListener, LoaderCallbacks<Cursor> {
 
     static final int LOADER_ACCOUNTS = 1;
+    private static final String LOGTAG = "BookmarkWidgetConfigure";
 
     private ArrayAdapter<BookmarkAccount> mAccountAdapter;
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         setResult(RESULT_CANCELED);
         setVisible(false);

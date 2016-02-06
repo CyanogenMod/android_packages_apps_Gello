@@ -17,18 +17,24 @@
 package com.android.browser;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.util.Log;
 /**
  * This activity is never started from the browser. Its purpose is to provide bookmark suggestions
  * to global search (through its searchable meta-data), and to handle the intents produced
  * by clicking such suggestions.
  */
 public class BookmarkSearch extends Activity {
+    private final String LOGTAG = "BookmarkSearch";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if (intent != null) {

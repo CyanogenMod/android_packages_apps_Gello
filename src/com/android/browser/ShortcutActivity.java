@@ -24,14 +24,21 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.util.Log;
+import android.content.Context;
 
 public class ShortcutActivity extends Activity
     implements BookmarksPageCallbacks, OnClickListener {
 
+    private static final String LOGTAG = "ShortcutActivity";
     private BrowserBookmarksPage mBookmarks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.shortcut_bookmark_title);
         setContentView(R.layout.pick_bookmark);

@@ -17,17 +17,20 @@ package com.android.browser;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
 
 import com.android.browser.UI.ComboViews;
 
 public class ComboViewActivity extends Activity implements CombinedBookmarksCallbacks {
 
+    private static final String LOGTAG = "ComboViewActivity";
     private static final String STATE_SELECTED_TAB = "tab";
     public static final String EXTRA_COMBO_ARGS = "combo_args";
     public static final String EXTRA_INITIAL_VIEW = "initial_view";
@@ -40,6 +43,10 @@ public class ComboViewActivity extends Activity implements CombinedBookmarksCall
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         setResult(RESULT_CANCELED);
         Bundle extras = getIntent().getExtras();

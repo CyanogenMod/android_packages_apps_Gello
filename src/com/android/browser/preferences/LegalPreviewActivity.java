@@ -37,15 +37,23 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.util.Log;
+import android.content.Context;
+import com.android.browser.EngineInitializer;
 
 import com.android.browser.R;
 
 public class LegalPreviewActivity extends FragmentActivity {
     LegalPreviewFragment mLegalPreviewFragment;
     protected static final String URL_INTENT_EXTRA = "url";
+    private final static String LOGTAG = "LegalPreviewActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.credits_tab);
         ActionBar bar = getActionBar();

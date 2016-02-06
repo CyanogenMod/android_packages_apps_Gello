@@ -54,6 +54,7 @@ import android.webkit.MimeTypeMap;
 import android.text.TextUtils;
 import android.content.pm.PackageManager;
 import android.Manifest.permission;
+import android.content.Context;
 
 import com.android.browser.reflect.ReflectHelper;
 
@@ -91,6 +92,10 @@ public class DownloadSettings extends Activity {
     private int nextRequestCode = 2000;
 
     protected void onCreate(Bundle savedInstanceState) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(savedInstanceState);
         // initial the DownloadSettings view
         requestWindowFeature(Window.FEATURE_NO_TITLE);

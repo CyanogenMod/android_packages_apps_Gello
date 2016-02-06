@@ -55,6 +55,7 @@ import com.android.browser.BrowserUtils;
 import com.android.browser.R;
 import com.android.browser.UrlUtils;
 import com.android.browser.platformsupport.WebAddress;
+import com.android.browser.EngineInitializer;
 
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -88,6 +89,10 @@ public class AddMyNavigationPage extends Activity {
     };
 
     protected void onCreate(Bundle icicle) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.my_navigation_add_page);

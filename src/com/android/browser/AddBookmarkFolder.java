@@ -31,6 +31,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -72,6 +73,8 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
     /* package */static final String EXTRA_EDIT_BOOKMARK = "bookmark";
 
     /* package */static final String EXTRA_IS_FOLDER = "is_folder";
+
+    private final static String LOGTAG = "AddBookmarkFolder";
 
     private static final int MAX_CRUMBS_SHOWN = 1;
 
@@ -586,6 +589,11 @@ public class AddBookmarkFolder extends Activity implements View.OnClickListener,
 
     @Override
     protected void onCreate(Bundle icicle) {
+        if (!EngineInitializer.isInitialized()) {
+            Log.e(LOGTAG, "Engine not Initialized");
+            EngineInitializer.initializeSync((Context) getApplicationContext());
+        }
+
         super.onCreate(icicle);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
