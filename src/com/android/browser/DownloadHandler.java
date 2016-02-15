@@ -363,8 +363,8 @@ public class DownloadHandler {
         return null;
     }
 
-    public static void initStorageDefaultPath(Context context) {
-        mExternalStorage = getExternalStorageDirectory(context);
+    public static void initStorageDefaultPath(Context context, String downloadPath) {
+        mExternalStorage = getExternalStorageDirectory(context, downloadPath);
         if (isPhoneStorageSupported()) {
             mInternalStorage = Environment.getExternalStorageDirectory().getPath();
         } else {
@@ -510,11 +510,11 @@ public class DownloadHandler {
         // assure that internal storage is initialized before
         // comparing it with download path
         if (mInternalStorage == null) {
-            initStorageDefaultPath(activity);
+            initStorageDefaultPath(activity, downloadPath);
         }
 
         if (!(isPhoneStorageSupported() && downloadPath.contains(mInternalStorage))) {
-            String status = getExternalStorageState(activity);
+            String status = getExternalStorageState(activity, downloadPath);
             if (!status.equals(Environment.MEDIA_MOUNTED)) {
                 int title;
                 String msg;
@@ -608,14 +608,14 @@ public class DownloadHandler {
         }
     }
 
-    public static String getDefaultDownloadPath(Context context) {
+    public static String getDefaultDownloadPath(Context context, String downloadPath) {
         String defaultDownloadPath;
 
         String defaultStorage;
         if (isPhoneStorageSupported()) {
             defaultStorage = Environment.getExternalStorageDirectory().getPath();
         } else {
-            defaultStorage = getExternalStorageDirectory(context);
+            defaultStorage = getExternalStorageDirectory(context, downloadPath);
         }
 
         defaultDownloadPath = defaultStorage + DownloadDirRestriction.getInstance().getDownloadDirectory();
@@ -635,7 +635,7 @@ public class DownloadHandler {
             return downloadPath;
         }
         final String phoneStorageDir;
-        final String sdCardDir = getExternalStorageDirectory(activity);
+        final String sdCardDir = getExternalStorageDirectory(activity, downloadPath);
         if (isPhoneStorageSupported()) {
             phoneStorageDir = Environment.getExternalStorageDirectory().getPath();
         } else {
@@ -669,14 +669,17 @@ public class DownloadHandler {
                 "getPath", null, null);
     }
 
-    private static String getExternalStorageDirectory(Context context) {
+    private static String getExternalStorageDirectory(Context context, String downloadPath) {
         String sd = null;
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
         Object[] volumes = (Object[]) ReflectHelper.invokeMethod(
                                  mStorageManager, "getVolumeList", null, null);
         for (int i = 0; i < volumes.length; i++) {
-            if (isRemovable(volumes[i]) && allowMassStorage(volumes[i])) {
+            if (isRemovable(volumes[i])
+                && ((allowMassStorage(volumes[i]) && downloadPath == null)
+                    || (downloadPath != null
+                        && downloadPath.startsWith(getPath(volumes[i]))))) {
                 sd = getPath(volumes[i]);
                 break;
             }
@@ -684,10 +687,10 @@ public class DownloadHandler {
         return sd;
     }
 
-    private static String getExternalStorageState(Context context) {
+    private static String getExternalStorageState(Context context, String downloadPath) {
         StorageManager mStorageManager = (StorageManager) context
                 .getSystemService(Context.STORAGE_SERVICE);
-        String path = getExternalStorageDirectory(context);
+        String path = getExternalStorageDirectory(context, downloadPath);
         Object[] params  = {path};
         Class[] type = new Class[] {String.class};
         return (String) ReflectHelper.invokeMethod(mStorageManager,
