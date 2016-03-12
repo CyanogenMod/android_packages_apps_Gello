@@ -23,6 +23,7 @@ import android.net.http.AndroidHttpClient;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 
 import com.android.browser.reflect.ReflectHelper;
 
@@ -37,6 +38,9 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.http.conn.params.ConnRouteParams;
 
 import org.codeaurora.swe.CookieManager;
+
+import android.widget.Toast;
+import com.android.browser.R;
 
 /**
  * This class is used to pull down the http headers of a given URL so that
@@ -62,6 +66,8 @@ class FetchUrlMimeType extends Thread {
     private boolean mPrivateBrowsing;
     private long mContentLength;
 
+    private String mContentDisposition;
+
     public FetchUrlMimeType(Activity activity, String url, String userAgent,
             String referer, String auth, boolean privateBrowsing, String filename) {
         mActivity = activity;
@@ -74,8 +80,7 @@ class FetchUrlMimeType extends Thread {
         mAuth = auth;
     }
 
-    @Override
-    public void run() {
+    private String getMimeType(String url) {
         // User agent is likely to be null, though the AndroidHttpClient
         // seems ok with that.
         AndroidHttpClient client = AndroidHttpClient.newInstance(mUserAgent);
@@ -91,17 +96,21 @@ class FetchUrlMimeType extends Thread {
         } catch (IllegalArgumentException ex) {
             Log.e(LOGTAG,"Download failed: " + ex);
             client.close();
-            return;
+            mFilename = null;
+            mUri = null;
+            return null;
         }
 
         HttpHead request;
         try {
-            URI uriObj = new URI(mUri);
+            URI uriObj = new URI(url);
             request = new HttpHead(uriObj.toString());
         } catch (URISyntaxException e) {
             Log.e(LOGTAG,"Encode URI failed: " + e);
             client.close();
-            return;
+            mFilename = null;
+            mUri = null;
+            return null;
         }
 
         String cookies = CookieManager.getInstance().getCookie(mUri, mPrivateBrowsing);
@@ -112,7 +121,6 @@ class FetchUrlMimeType extends Thread {
         HttpResponse response;
         String filename = mFilename;
         String mimeType = null;
-        String contentDisposition = null;
         String contentLength = null;
         try {
             response = client.execute(request);
@@ -132,19 +140,57 @@ class FetchUrlMimeType extends Thread {
                 if (contentLengthHeader != null) {
                     contentLength = contentLengthHeader.getValue();
                 }
+
+                if (contentLength != null) {
+                    mContentLength = Long.parseLong(contentLength);
+                } else {
+                    mContentLength = 0;
+                }
+
                 Header contentDispositionHeader = response.getFirstHeader("Content-Disposition");
                 if (contentDispositionHeader != null) {
-                    contentDisposition = contentDispositionHeader.getValue();
+                    mContentDisposition = contentDispositionHeader.getValue();
                 }
+
+                mFilename = URLUtil.guessFileName(url, mContentDisposition, mimeType);
+                mUri = url;
+            } else if (response.getStatusLine().getStatusCode() == 302) {
+                return getMimeType(response.getLastHeader("Location").getValue());
             }
         } catch (IllegalArgumentException ex) {
             if (request != null)
                 request.abort();
+            Log.e(LOGTAG, "Download failed: " + ex);
+            mFilename = null;
+            mUri = null;
         } catch (IOException ex) {
             if (request != null)
                 request.abort();
+            Log.e(LOGTAG, "Download failed: " + ex);
+            mFilename = null;
+            mUri = null;
         } finally {
             client.close();
+        }
+
+        return mimeType;
+    }
+
+    @Override
+    public void run() {
+        String url = mUri;
+        String mimeType = getMimeType(mUri);
+        String filename = mFilename;
+
+        if (mUri == null) {
+            mUri = url; // Restore the intial value
+            mActivity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(mActivity, R.string.cannot_download_generic,
+                                       Toast.LENGTH_SHORT).show();
+                    }
+                });
+            return;
         }
 
         if (mimeType != null) {
@@ -176,17 +222,11 @@ class FetchUrlMimeType extends Thread {
             if (newMimeType != null) {
                 mimeType = newMimeType;
             }
-            filename = guessFileNameEx(mUri, contentDisposition, mimeType);
+            filename = guessFileNameEx(mUri, mContentDisposition, mimeType);
 
         }
 
-        if (contentLength != null) {
-            mContentLength = Long.parseLong(contentLength);
-        } else {
-            mContentLength = 0;
-        }
-
-        DownloadHandler.startDownloadSettings(mActivity, mUri, mUserAgent, contentDisposition,
+        DownloadHandler.startDownloadSettings(mActivity, mUri, mUserAgent, mContentDisposition,
                 mimeType, mReferer, mAuth, mPrivateBrowsing, mContentLength, filename);
     }
 
