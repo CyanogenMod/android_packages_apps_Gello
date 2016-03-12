@@ -371,8 +371,8 @@
     <string name="autofill_profile_editor_delete_profile">Delete</string>
 
     <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
-    <string name="powersave_dialog_on">Power save mode enabled.\nPlease restart browser.</string>
-    <string name="powersave_dialog_off">Power save mode disabled.\nPlease restart browser.</string>
+    <string name="powersave_dialog_on">Power save mode enabled. Browser will be restarted.</string>
+    <string name="powersave_dialog_off">Power save mode disabled. Browser will be restarted.</string>
 
     <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
     <string name="autofill_setup_dialog_message">The browser can automatically complete web forms like this one. Do you want to set up your auto-fill text?</string>
