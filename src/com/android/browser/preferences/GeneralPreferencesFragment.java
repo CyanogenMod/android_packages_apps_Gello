@@ -17,17 +17,21 @@
 package com.android.browser.preferences;
 
 import android.app.ActionBar;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -177,8 +181,8 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
                 settings.setPowerSaveModeEnabled((Boolean)objValue);
                 PermissionsServiceFactory.setDefaultPermissions(
                         PermissionsServiceFactory.PermissionType.WEBREFINER, !(Boolean) objValue);
-                showPowerSaveInfo((Boolean) objValue);
                 BrowserPreferencesPage.sResultExtra = PreferenceKeys.ACTION_RELOAD_PAGE;
+                restartGello(getActivity(), (Boolean) objValue);
         }
 
         if (pref.getKey().equals(PreferenceKeys.PREF_NIGHTMODE_ENABLED)) {
@@ -269,16 +273,26 @@ public class GeneralPreferencesFragment extends SWEPreferenceFragment
         return false;
     }
 
-    void showPowerSaveInfo(boolean toggle) {
-        String toastInfo;
-        if (toggle)
-            toastInfo = getActivity().getResources().getString(R.string.powersave_dialog_on);
-        else
-            toastInfo = getActivity().getResources().getString(R.string.powersave_dialog_off);
+    private void restartGello(final Context context, boolean toggle) {
+            String toastInfo;
+            toastInfo = toggle ?
+                context.getResources().getString(R.string.powersave_dialog_on) :
+                context.getResources().getString(R.string.powersave_dialog_off);
+            Toast.makeText(context, toastInfo, Toast.LENGTH_SHORT).show();
 
-        Toast toast = Toast.makeText(getActivity(), toastInfo, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("Gello", "Power save mode changed, restarting...");
+                Intent restartIntent = context.getPackageManager()
+                        .getLaunchIntentForPackage(context.getPackageName());
+                PendingIntent intent = PendingIntent.getActivity(
+                        context, 0, restartIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                manager.set(AlarmManager.RTC, System.currentTimeMillis() +  1, intent);
+                System.exit(2);
+            }
+        }, 1500);
     }
 
     /*
