@@ -105,7 +105,7 @@
             style="@style/NavButton"
             android:layout_width="wrap_content"
             android:contentDescription="@string/accessibility_button_clear"
-            android:src="@drawable/ic_action_stop_normal_inverted"
+            android:src="@drawable/ic_action_clear"
             android:visibility="gone" />
     </LinearLayout>
 
