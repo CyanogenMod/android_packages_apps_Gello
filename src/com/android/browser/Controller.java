@@ -807,7 +807,8 @@ public class Controller
         mUi.onPause();
         mNetworkHandler.onPause();
         NfcHandler.unregister(mActivity);
-        mActivity.unregisterReceiver(mLowPowerReceiver);
+        if (mLowPowerReceiver != null)
+            mActivity.unregisterReceiver(mLowPowerReceiver);
     }
 
     @Override
@@ -884,7 +885,8 @@ public class Controller
         // Destroy all the tabs
         mTabControl.destroy();
         // Unregister receiver
-        mActivity.unregisterReceiver(mPowerChangeReceiver);
+        if (mPowerChangeReceiver != null)
+            mActivity.unregisterReceiver(mPowerChangeReceiver);
     }
 
     protected boolean isActivityPaused() {
