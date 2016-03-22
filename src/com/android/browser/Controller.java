@@ -2117,6 +2117,10 @@ public class Controller
                 openIncognitoTab();
                 break;
 
+            case R.id.close_other_tabs_id:
+                closeOtherTabs();
+                break;
+
             case R.id.goto_menu_id:
                 editUrl();
                 break;

@@ -196,6 +196,15 @@ public class PhoneUi extends BaseUi {
             menu.setGroupEnabled(R.id.MAIN_SHORTCUT_MENU, false);
         }
 
+        MenuItem closeOthers = menu.findItem(R.id.close_other_tabs_id);
+        if (closeOthers != null) {
+            boolean isLastTab = true;
+            if (tab != null) {
+                isLastTab = (mTabControl.getTabCount() <= 1);
+            }
+            closeOthers.setVisible(!isLastTab);
+        }
+
     }
 
     @Override
