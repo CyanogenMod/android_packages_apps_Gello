@@ -6,6 +6,6 @@
     android:viewportHeight="24">
 
     <path
-        android:fillColor="@color/icon_disabled"
-        android:pathData="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+        android:fillColor="@color/icon_black"
+        android:pathData="M16.59,8.59 L12,13.17 L7.41,8.59 L6,10 L12,16 L18,10 Z" />
 </vector>

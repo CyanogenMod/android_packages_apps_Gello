@@ -48,6 +48,7 @@
     <color name="mynav_accent">#009688</color>
     <color name="floating_action_button_touch_tint_mynav">#00796B</color>
 
+    <color name="icon_disabled">#b3b3b3</color>
 
     <!-- derived colors -->
     <color name="NavigationBarBackground">@color/primary</color>
