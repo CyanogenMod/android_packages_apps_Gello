@@ -27,14 +27,11 @@
     <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
     <!-- Crash tab View title -->
     <string name="new_tab">New tab</string>
-    <string name="browser_tab_crash_snap">Oops, Snap !</string>
+    <string name="browser_tab_crash_snap">Oops, Snap!</string>
     <!-- Crash tab button text -->
     <string name="browser_tab_crash_reload">Reload</string>
     <!-- Crash tab View message -->
-    <string name="browser_tab_crash_message">
-        Something unexpected happened when displaying this webpage.
-        Please reload or go to another page.
-    </string>
+    <string name="browser_tab_crash_message">Something unexpected happened when displaying this webpage. Please reload or go to another page.</string>
     <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
     <string name="new_incognito_tab">Incognito mode</string>
@@ -66,7 +63,7 @@
     <!-- Message to be displayed if url character limit exceeds -->
     <string name="max_url_character_limit_msg">Max URL limit reached</string>
     <!-- Message to be displayed when google play store does not exist on the device -->
-    <string name="msg_no_google_play">Sorry, Google Play Store app does not exist.</string>
+    <string name="msg_no_google_play">Google Play Store is not present on your device.</string>
 
     <!-- Menu item -->
     <string name="page_info">Info</string>
@@ -116,7 +113,7 @@
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
     <!-- Initial value in Location field in Bookmark dialog box -->
-    <string name="http">http://</string>
+    <string name="http" translatable="false">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
     <!-- Also used as title for AddBookmarkPage -->
     <string name="save_to_bookmarks">Save</string>
@@ -143,9 +140,9 @@
     <!-- Toast confirming that the homepage has been set -->
     <string name="homepage_set">Homepage set.</string>
     <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
-    <string name="bookmark_needs_title">"Favorite must have a name."</string>
+    <string name="bookmark_needs_title">Favorite must have a name.</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
-    <string name="bookmark_needs_url">"Favorite must have a location."</string>
+    <string name="bookmark_needs_url">Favorite must have a location.</string>
         <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
     <string name="bookmark_url_not_valid">This URL isn\'t valid.</string>
         <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
@@ -248,11 +245,11 @@
     <string name="menu_preferences">Settings</string>
     <!-- Settings screen, section title -->
     <string name="pref_content_title">Content settings</string>
-    <string name="pref_content_title_summary">Web content setting</string>
+    <string name="pref_content_title_summary">Web content settings</string>
     <!-- Settings label -->
     <string name="pref_content_load_images">Load images</string>
-    <!-- Settings label -->
     <string name="pref_content_load_images_summary">Display images on web pages</string>
+    <!-- Settings label -->
     <string name="pref_security_allow_popups">Pop ups</string>
     <!-- Settings label -->
     <string name="pref_content_javascript">Enable JavaScript</string>
@@ -321,8 +318,7 @@
         <item>"Blocked %1$s and %2$s. "</item>
         <item>"Blocked %1$s, %2$s and %3$s. "</item>
     </string-array>
-    <string name="pref_valid_cert"
-        >Valid SSL certificate. Communication is encrypted and identity is verified.</string>
+    <string name="pref_valid_cert">Valid SSL certificate. Communication is encrypted and identity is verified.</string>
     <string name="pref_invalid_cert">Site has an invalid SSL certificate.</string>
     <string name="pref_warning_cert">Site SSL certificate has warnings.</string>
     <!-- Settings screen, section title [CHAR LIMIT=50] -->
@@ -400,7 +396,7 @@
     <!-- Settings summary -->
     <string name="pref_privacy_clear_cache_summary">Clear locally cached content and databases</string>
     <!-- Settings label -->
-    <string name="pref_privacy_clear_cookies">Cookies and Site Data</string>
+    <string name="pref_privacy_clear_cookies">Cookies and site data</string>
     <!-- Settings summary -->
     <string name="pref_privacy_clear_cookies_summary">Clear all browser cookies and site data</string>
     <!-- Settings summary -->
@@ -442,7 +438,7 @@
     <string name="pref_security_off">Off</string>
     <string name="pref_website_title">Website</string>
     <string name="pref_security_add">Add</string>
-    <string name="pref_security_origin_name">Site Origin</string>
+    <string name="pref_security_origin_name">Site origin</string>
     <string name="pref_security_access_is_allowed">access is allowed</string>
 
     <!-- Settings text size options - displays sample font size in settings -->
@@ -483,11 +479,11 @@
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
     <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
-    <string name="pref_default_text_encoding_default">UTF-8</string>
+    <string name="pref_default_text_encoding_default" translatable="false">UTF-8</string>
     <string name="pref_edge_swipe_title">Edge navigation</string>
     <string name="pref_edge_swipe_option_msg">Swiping from the edge will:</string>
     <string name="pref_temporal_edge_swipe">Navigate across history</string>
-    <string name="pref_spatial_edge_swipe">Change Tab</string>
+    <string name="pref_spatial_edge_swipe">Change tab</string>
     <string name="pref_disable_edge_swipe">Do nothing</string>
     <string name="pref_edge_swipe_option_close">Choose later</string>
     <string name="pref_temporal_edge_swipe_enabled_toast">Swipe from edge to navigate</string>
@@ -506,8 +502,8 @@
     <string name="pref_edge_enable">Enable</string>
     <string name="pref_edge_disable">Disable</string>
     <!-- Colored statusbar -->
-    <string name="pref_coloredsb_title">Colored statusbar</string>
-    <string name="pref_coloredsb_summary">Statusbar will change color basing on the visited page</string>
+    <string name="pref_coloredsb_title">Colored status bar</string>
+    <string name="pref_coloredsb_summary">Status bar will change color based on the visited page</string>
     <!-- Title for accessibility settings [CHAR LIMIT=25] -->
     <string name="pref_accessibility_title">Accessibility</string>
     <string name="pref_accessibility_title_summary">Text size and zooming</string>
@@ -519,8 +515,7 @@
     <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
     <string name="pref_lab_fullscreen">Immersive</string>
     <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
-    <string name="pref_lab_fullscreen_summary">
-      Make the browser fullscreen</string>
+    <string name="pref_lab_fullscreen_summary">Make the browser fullscreen</string>
     <!-- Title for search preloading [CHAR LIMIT=40] -->
     <string name="pref_data_preload_title">Search result preloading</string>
     <!-- Search preloading options [CHAR LIMIT=20] -->
@@ -537,7 +532,7 @@
     <!-- Summary for link prefetching [CHAR LIMIT=80] -->
     <string name="pref_link_prefetch_summary">Allow browser to preload linked web pages in the background</string>
     <!-- Dialog box title -->
-    <string name="browserFrameFormResubmitLabel"></string>
+    <string name="browserFrameFormResubmitLabel" translatable="false"></string>
     <!-- Dialog box message -->
     <string name="browserFrameFormResubmitMessage">The page you\'re trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action the form on the page carried out (such as a search or online purchase) will be repeated.</string>
     <!-- Menu item -->
@@ -575,8 +570,7 @@
     <string name="too_many_subwindows_dialog_title">Pop-up already open</string>
     <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
-    <string name="too_many_subwindows_dialog_message">Only one pop-up can be open
-      at a time.</string>
+    <string name="too_many_subwindows_dialog_message">Only one pop-up can be open at a time.</string>
 
     <!-- Download History UI strings -->
     <!-- Dialog title [CHAR LIMIT=25] -->
@@ -596,7 +590,7 @@
     <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-    <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, touch Turn Off USB Storage in the notification.</string>
+    <string name="download_sdcard_busy_dlg_msg" product="default">The SD card is busy. To allow downloads, tap \'Turn off USB storage\' in the notification.</string>
 
     <!-- Toast for a download which cannot begin because the URL is not http or https -->
     <string name="cannot_download">Can only download \"http\" or \"https\" URLs.</string>
@@ -612,7 +606,7 @@
     <!-- HTML5 dialogs -->
     <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
     <string name="webstorage_outofspace_notification_title">Browser storage full</string>
-    <string name="webstorage_outofspace_notification_text">Touch to free up space.</string>
+    <string name="webstorage_outofspace_notification_text">Tap to free up space.</string>
     <!-- Used in the Browser Settings -->
     <string name="webstorage_clear_data_title">Storage</string>
     <string name="webstorage_private_data_title">Private data</string>
@@ -624,13 +618,13 @@
 
     <!-- Geolocation -->
     <!-- Settings page dialog -->
-    <string-array name="geolocation_settings_choices">
-        <item>Deny forever</item>
+    <string-array name="geolocation_settings_choices" translatable="false">
+        <item>@string/geolocation_permissions_prompt_share_never</item>
         <item>@string/geolocation_permissions_prompt_share_for_limited_time</item>
-        <item>Allow forever</item>
+        <item>@string/geolocation_permissions_prompt_share_forever</item>
     </string-array>
 
-    <string name="website_settings_add_origin">New Site</string>
+    <string name="website_settings_add_origin">New site</string>
     <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
     <string name="website_settings_clear_all">Clear all</string>
     <string name="website_settings_clear_all_dialog_message">Delete all website data and location permissions?</string>
@@ -721,7 +715,7 @@
     <string name="my_navigation_delete_label">Delete website</string>
     <string name="my_navigation_edit_label">Edit website</string>
     <string name="my_navigation_add_label">Add website</string>
-    <string name="my_navigation_add">add</string>
+    <string name="my_navigation_add">Add</string>
     <string name="my_navigation_delete_msg">Delete website?</string>
     <string name="my_navigation_name">Title</string>
     <string name="my_navigation_address">Address</string>
@@ -742,11 +736,11 @@
     <!-- Add for Carrier Feature.Content description for about menu item -->
     <string name="about">About</string>
 
-    <string name="download_estore_app">Estore app does not exist, please download and install it.</string>
-    <string name="estore_url_warning">Launch Estore app failed, url is too long!</string>
+    <string name="download_estore_app">Estore is not present on your device.</string>
+    <string name="estore_url_warning">Failed to launch Estore, URL is too long.</string>
 
     <!-- Add for Unsupport Uploading Drm Files Feature -->
-    <string name="drm_file_unsupported">Uploading DRM files is not supported!</string>
+    <string name="drm_file_unsupported">Uploading DRM files is not supported.</string>
 
     <!-- Add for exit prompt Feature -->
     <string name="exit_browser_title">Exit browser</string>
@@ -761,7 +755,7 @@
 
     <!-- Add for download save path setting Feature -->
     <string name="invalid_path">Invalid path</string>
-    <string name="path_wrong">Wrong Path</string>
+    <string name="path_wrong">Wrong path</string>
     <string name="pref_download_title">Download path settings</string>
     <string name="pref_download_path_setting_screen_title">Custom download path</string>
     <string name="download_timeneeded">Time</string>
@@ -776,12 +770,12 @@
     <string name="unknow_length">Unknown</string>
     <string name="download_file_exist_msg">File already exists. Please input a new filename.</string>
     <string name="download_file_exist">File already exists</string>
-    <string name ="time_min">min</string>
+    <string name="time_min">min</string>
     <string name="download_path_phone_storage_label" translatable="false">/sdcard</string>
     <string name="download_path_sd_card_label" translatable="false">/sdcard</string>
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
-    <string name="activity_not_found">No activity found to handle this intent <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+    <string name="activity_not_found">No activity found to handle this intent: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
     <string name="download_name_hint">File name</string>
     <string name="download_size_hint">Size</string>
     <string name="download_eta_hint">ETA</string>
@@ -792,9 +786,9 @@
     <string name="ssl_certificate">Security certificate</string>
     <string name="ssl_certificate_is_valid">This certificate is valid.</string>
     <string name="version">Version</string>
-    <string name="build_date">Build Date</string>
-    <string name="build_hash">Build Hash</string>
-    <string name="user_agent">User Agent</string>
+    <string name="build_date">Build date</string>
+    <string name="build_hash">Build hash</string>
+    <string name="user_agent">User agent</string>
     <string name="help">Help</string>
     <string name="feedback">Feedback</string>
     <string name="swe_legal">Legal information</string>
@@ -806,7 +800,7 @@
     <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
     <string name="mdm_managed_alert">Managed by your administrator</string>
     <!-- My Navigation - Favorites + History + Saved -->
-    <string name="mystuffs">My Navigation</string>
+    <string name="mystuffs">My navigation</string>
 
     <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
@@ -815,7 +809,9 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
     <!-- Geolocation infobar promt-->
-    <string name="geolocation_permissions_prompt_remember">Remember Preference</string>
+    <string name="geolocation_permissions_prompt_remember">Remember preference</string>
+    <string name="geolocation_permissions_prompt_share_never">Deny forever</string>
     <string name="geolocation_permissions_prompt_share_for_limited_time">Allow for 24 hours</string>
+    <string name="geolocation_permissions_prompt_share_forever">Allow forever</string>
 
 </resources>
