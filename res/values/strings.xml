@@ -112,8 +112,6 @@
     <string name="add_to_other_folder_menu_option">Select folder\u2026</string>
     <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
     <string name="name">Label</string>
-    <!-- Initial value in Location field in Bookmark dialog box -->
-    <string name="http" translatable="false">http://</string>
     <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
     <!-- Also used as title for AddBookmarkPage -->
     <string name="save_to_bookmarks">Save</string>
@@ -478,8 +476,6 @@
     <string name="pref_development_title">Debug</string>
     <!-- Settings screen, setting option name -->
     <string name="pref_default_text_encoding">Text encoding</string>
-    <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
-    <string name="pref_default_text_encoding_default" translatable="false">UTF-8</string>
     <string name="pref_edge_swipe_title">Edge navigation</string>
     <string name="pref_edge_swipe_option_msg">Swiping from the edge will:</string>
     <string name="pref_temporal_edge_swipe">Navigate across history</string>
@@ -490,13 +486,6 @@
     <string name="pref_spatial_edge_swipe_enabled_toast">Swipe from edge to change tabs</string>
     <string name="pref_edge_swipe_disabled_toast">Swiping from edge disabled</string>
     <string name="pref_edge_swipe_unknown">Choose behavior</string>
-    <string-array name="pref_edge_swiping_choices">
-        <item>@string/pref_temporal_edge_swipe</item>
-<!--
-        <item>@string/pref_spatial_edge_swipe</item>
--->
-        <item>@string/pref_disable_edge_swipe</item>
-    </string-array>
     <string name="pref_edge_swipe_setup_desc">
         Swipe from the edge to navigate across history.\nThis feature may conflict with websites using edge-based actions</string>
     <string name="pref_edge_enable">Enable</string>
@@ -531,8 +520,6 @@
     <string name="pref_link_prefetch_title">Web page preloading</string>
     <!-- Summary for link prefetching [CHAR LIMIT=80] -->
     <string name="pref_link_prefetch_summary">Allow browser to preload linked web pages in the background</string>
-    <!-- Dialog box title -->
-    <string name="browserFrameFormResubmitLabel" translatable="false"></string>
     <!-- Dialog box message -->
     <string name="browserFrameFormResubmitMessage">The page you\'re trying to view contains data that has already been submitted (\"POSTDATA\"). If you resend the data, any action the form on the page carried out (such as a search or online purchase) will be repeated.</string>
     <!-- Menu item -->
@@ -615,14 +602,6 @@
     <string name="webstorage_clear_data_dialog_message">Delete all data stored by this website?</string>
     <!-- String shown in a progress view while a video is loading, before it starts playing -->
     <string name="loading_video">Loading video\u2026</string>
-
-    <!-- Geolocation -->
-    <!-- Settings page dialog -->
-    <string-array name="geolocation_settings_choices" translatable="false">
-        <item>@string/geolocation_permissions_prompt_share_never</item>
-        <item>@string/geolocation_permissions_prompt_share_for_limited_time</item>
-        <item>@string/geolocation_permissions_prompt_share_forever</item>
-    </string-array>
 
     <string name="website_settings_add_origin">New site</string>
     <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
@@ -762,7 +741,6 @@
     <string name="download_filesize">Size</string>
     <string name="download_filepath_label">Path</string>
     <string name="download_edit_filename_label">Name</string>
-    <string name="download_default_path" translatable="false">/Download</string>
     <string name="download_no_enough_memory">Insufficient memory for download</string>
     <string name="download_settings_title">Download settings</string>
     <string name="filename_empty_title">Download filename is empty</string>
@@ -771,8 +749,6 @@
     <string name="download_file_exist_msg">File already exists. Please input a new filename.</string>
     <string name="download_file_exist">File already exists</string>
     <string name="time_min">min</string>
-    <string name="download_path_phone_storage_label" translatable="false">/sdcard</string>
-    <string name="download_path_sd_card_label" translatable="false">/sdcard</string>
     <string name="download_path_unavailable_dlg_title">Download directory is unavailable</string>
     <string name="download_path_unavailable_dlg_msg">Please modify the download directory</string>
     <string name="activity_not_found">No activity found to handle this intent: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
@@ -793,7 +769,6 @@
     <string name="feedback">Feedback</string>
     <string name="swe_legal">Legal information</string>
     <string name="swe_open_source_licenses">Open source licenses</string>
-    <string name="swe_pref_legal_info_summary">Copyright (c) 2015, The Linux Foundation. All rights reserved.</string>
     <string name="swe_eula">End user licenses agreement</string>
     <string name="swe_privacy_policy">Privacy policy</string>
 

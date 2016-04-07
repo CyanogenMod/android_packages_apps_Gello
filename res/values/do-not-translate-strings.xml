@@ -163,4 +163,32 @@
     <!--Strings for auto update notification feature -->
     <string name="update" translatable="false">SWE browser update available</string>
     <string name="update_msg" translatable="false">"Version: "</string>
+
+    <string-array name="pref_edge_swiping_choices" translatable="false">
+        <item>@string/pref_temporal_edge_swipe</item>
+<!--
+        <item>@string/pref_spatial_edge_swipe</item>
+-->
+        <item>@string/pref_disable_edge_swipe</item>
+    </string-array>
+
+    <!-- Dialog box title -->
+    <string name="browserFrameFormResubmitLabel" translatable="false"></string>
+    <string name="download_default_path" translatable="false">/Download</string>
+    <string name="download_path_phone_storage_label" translatable="false">/sdcard</string>
+    <string name="download_path_sd_card_label" translatable="false">/sdcard</string>
+    <!-- Initial value in Location field in Bookmark dialog box -->
+    <string name="http" translatable="false">http://</string>
+    <!-- Do not translate. Actual encoding values. Must be valid text encodings understandable from WebKit. -->
+    <string name="pref_default_text_encoding_default" translatable="false">UTF-8</string>
+    
+    <!-- Geolocation -->
+    <!-- Settings page dialog -->
+    <string-array name="geolocation_settings_choices" translatable="false">
+        <item>@string/geolocation_permissions_prompt_share_never</item>
+        <item>@string/geolocation_permissions_prompt_share_for_limited_time</item>
+        <item>@string/geolocation_permissions_prompt_share_forever</item>
+    </string-array>
+    
+    <string name="swe_pref_legal_info_summary" translatable="false">Copyright (c) 2015, The Linux Foundation. All rights reserved.</string>
 </resources>
