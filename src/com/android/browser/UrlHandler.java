@@ -242,6 +242,9 @@ public class UrlHandler {
           }
           intent.putExtra(Browser.EXTRA_APPLICATION_ID, tab.getAppId());
       }
+
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
       // Make sure webkit can handle it internally before checking for specialized
       // handlers. If webkit can't handle it internally, we need to call
       // startActivityIfNeeded
