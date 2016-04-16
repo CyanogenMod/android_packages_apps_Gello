@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2016 The Linux Foundation. All rights reserved.
  * Not a contribution.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +47,7 @@ import com.android.browser.BrowserConfig;
 public class BrowserContract {
     /** The authority for the browser provider */
     public static final String AUTHORITY = BrowserConfig.AUTHORITY;
+    public static final String APP_PACKAGE_NAME = BrowserConfig.APP_PACKAGE_NAME;
 
     /** A content:// style uri to the authority for the browser provider */
     public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);

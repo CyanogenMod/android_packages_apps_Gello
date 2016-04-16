@@ -232,6 +232,34 @@ public class BrowserProvider2 extends SQLiteContentProvider {
         matcher.addURI(authority, "omnibox_suggestions", OMNIBOX_SUGGESTIONS);
         matcher.addURI(authority, "homepage", HOMEPAGE);
 
+        final String app_package_name = BrowserContract.APP_PACKAGE_NAME;
+        matcher.addURI(app_package_name, "accounts", ACCOUNTS);
+        matcher.addURI(app_package_name, "bookmarks", BOOKMARKS);
+        matcher.addURI(app_package_name, "bookmarks/#", BOOKMARKS_ID);
+        matcher.addURI(app_package_name, "bookmarks/folder", BOOKMARKS_FOLDER);
+        matcher.addURI(app_package_name, "bookmarks/folder/#", BOOKMARKS_FOLDER_ID);
+        matcher.addURI(app_package_name, "bookmarks/folder/id", BOOKMARKS_DEFAULT_FOLDER_ID);
+        matcher.addURI(app_package_name,
+                SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
+        matcher.addURI(app_package_name,
+                "bookmarks/" + SearchManager.SUGGEST_URI_PATH_QUERY,
+                BOOKMARKS_SUGGESTIONS);
+        matcher.addURI(app_package_name, "history", HISTORY);
+        matcher.addURI(app_package_name, "history/#", HISTORY_ID);
+        matcher.addURI(app_package_name, "searches", SEARCHES);
+        matcher.addURI(app_package_name, "searches/#", SEARCHES_ID);
+        matcher.addURI(app_package_name, "syncstate", SYNCSTATE);
+        matcher.addURI(app_package_name, "syncstate/#", SYNCSTATE_ID);
+        matcher.addURI(app_package_name, "images", IMAGES);
+        matcher.addURI(app_package_name, "combined", COMBINED);
+        matcher.addURI(app_package_name, "combined/#", COMBINED_ID);
+        matcher.addURI(app_package_name, "settings", SETTINGS);
+        matcher.addURI(app_package_name, "thumbnails", THUMBNAILS);
+        matcher.addURI(app_package_name, "thumbnails/#", THUMBNAILS_ID);
+        matcher.addURI(app_package_name, "omnibox_suggestions", OMNIBOX_SUGGESTIONS);
+        matcher.addURI(app_package_name, "homepage", HOMEPAGE);
+
         // Legacy
         matcher.addURI(LEGACY_AUTHORITY, "searches", SEARCHES);
         matcher.addURI(LEGACY_AUTHORITY, "searches/#", SEARCHES_ID);
