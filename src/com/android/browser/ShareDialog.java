@@ -30,19 +30,13 @@
 package com.android.browser;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 
 import java.util.List;
@@ -56,13 +50,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ShareDialog extends AppItem {
+public class ShareDialog {
     private Activity activity = null;
     public String title = null;
     public String url = null;
     public Bitmap favicon = null;
     public Bitmap screenshot = null;
-    private List<ResolveInfo>apps = null;
     public final static String EXTRA_SHARE_SCREENSHOT = "share_screenshot";
     public final static String EXTRA_SHARE_FAVICON = "share_favicon";
     private static final String SCREENSHOT_DIRECTORY_NAME = "screenshot_share";
@@ -71,9 +64,7 @@ public class ShareDialog extends AppItem {
     public static final String IMAGE_FILE_PATH = "images";
 
     public ShareDialog (Activity activity, String title, String url, Bitmap favicon, Bitmap screenshot) {
-        super(null);
         this.activity = activity;
-        this.apps = getShareableApps();
         this.title = title;
         this.url = url;
         this.favicon = favicon;
@@ -124,61 +115,6 @@ public class ShareDialog extends AppItem {
         });
     }
 
-    private List<ResolveInfo> getShareableApps() {
-        Intent shareIntent = new Intent("android.intent.action.SEND");
-        shareIntent.setType("text/plain");
-        PackageManager pm = activity.getPackageManager();
-        List<ResolveInfo> launchables = pm.queryIntentActivities(shareIntent, 0);
-
-        Collections.sort(launchables,
-                     new ResolveInfo.DisplayNameComparator(pm));
-
-        return launchables;
-    }
-
-
-    public List<ResolveInfo> getApps() {
-        return apps;
-    }
-
-    public void loadView(final AppAdapter adapter) {
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(activity);
-        builderSingle.setIcon(R.mipmap.ic_launcher_browser);
-        builderSingle.setTitle(activity.getString(R.string.choosertitle_sharevia));
-        builderSingle.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position) {
-                dialog.dismiss();
-                ResolveInfo launchable = adapter.getItem(position);
-                ActivityInfo activityInfo = launchable.activityInfo;
-                ComponentName name = new android.content.ComponentName(activityInfo.applicationInfo.packageName,
-                                                     activityInfo.name);
-                Intent i = new Intent(Intent.ACTION_SEND);
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                    // This flag clears the called app from the activity stack,
-                    // so users arrive in the expected place next time this application is restarted
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                } else {
-                    // flag used from Lollipop onwards
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
-                }
-
-                i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT |
-                            Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, url);
-                i.putExtra(Intent.EXTRA_SUBJECT, title);
-                i.putExtra(EXTRA_SHARE_FAVICON, favicon);
-                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                i.putExtra(Intent.EXTRA_STREAM, getShareBitmapUri(screenshot));
-                i.setComponent(name);
-                activity.startActivity(i);
-            }
-        });
-
-        builderSingle.show();
-    }
-
     public Uri getShareBitmapUri(Bitmap screenshot) {
         Uri uri = null;
         if (screenshot != null) {
@@ -208,28 +144,31 @@ public class ShareDialog extends AppItem {
    }
 
     public static Uri getUriForImageCaptureFile(Context context, File file) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
-            ? ContentUriUtils.getContentUriFromFile(context, file)
-            : Uri.fromFile(file);
+        return ContentUriUtils.getContentUriFromFile(context, file);
     }
 
     public static File getDirectoryForImageCapture(Context context) throws IOException {
-        File path;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            path = new File(context.getFilesDir(), IMAGE_FILE_PATH);
-            if (!path.exists() && !path.mkdir()) {
-                throw new IOException("Folder cannot be created.");
-            }
-        } else {
-            File externalDataDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-            path = new File(
-            externalDataDir.getAbsolutePath() + File.separator + EXTERNAL_IMAGE_FILE_PATH);
-            if (!path.exists() && !path.mkdirs()) {
-                path = externalDataDir;
-            }
+        File path = new File(context.getFilesDir(), IMAGE_FILE_PATH);
+        if (!path.exists() && !path.mkdir()) {
+            throw new IOException("Folder cannot be created.");
         }
         return path;
+    }
+
+    public void sharePage() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT |
+                Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(EXTRA_SHARE_FAVICON, favicon);
+        intent.putExtra(Intent.EXTRA_STREAM, getShareBitmapUri(screenshot));
+
+        activity.startActivity(Intent.createChooser(intent,
+                activity.getString(R.string.choosertitle_sharevia)));
     }
 
 }

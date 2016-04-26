@@ -689,9 +689,8 @@ public class Controller
             Bitmap favicon, Bitmap screenshot) {
 
         ShareDialog sDialog = new ShareDialog((Activity)c, title, url, favicon, screenshot);
-        final AppAdapter adapter = new AppAdapter(c, c.getPackageManager(),
-                                        R.layout.app_row, sDialog.getApps());
-        sDialog.loadView(adapter);
+
+        sDialog.sharePage();
     }
 
     private void copy(CharSequence text) {
