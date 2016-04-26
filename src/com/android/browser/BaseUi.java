@@ -49,7 +49,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.res.TypedArray;
-import android.util.Log;
 
 import org.codeaurora.swe.BrowserCommandLine;
 import org.codeaurora.swe.WebView;
@@ -1029,23 +1028,11 @@ public abstract class BaseUi implements UI {
     @Override
     public void onActionModeStarted(ActionMode mode) {
         mInActionMode = true;
-
-        if (mTitleBar.isFixed()) {
-            int fixedTbarHeight = mTitleBar.calculateEmbeddedHeight();
-            setContentViewMarginTop(fixedTbarHeight);
-        } else {
-            mTitleBar.setTranslationY(getActionModeHeight());
-        }
     }
 
     @Override
     public void onActionModeFinished(boolean inLoad) {
         mInActionMode = false;
-        if (mTitleBar.isFixed()) {
-            setContentViewMarginTop(0);
-        } else {
-            mTitleBar.setTranslationY(0);
-        }
     }
 
     @Override
