@@ -40,6 +40,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -134,6 +135,16 @@ public class NavigationBarBase extends LinearLayout implements
 
         mDefaultFavicon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_deco_favicon_normal);
+
+        mMore.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    showMenu(mMore);
+                }
+                return true;
+            }
+        });
 
         mHandler = new Handler() {
             @Override
@@ -360,12 +371,12 @@ public class NavigationBarBase extends LinearLayout implements
             url = currentTab.getUrl();
         }
 
-        if (mMore == v) {
-            showMenu(mMore);
-        } else if (mFaviconTile == v) {
-            if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage()) ){
+        if (mFaviconTile == v) {
+            if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage())) {
                 showSiteSpecificSettings();
             }
+        } else if (mMore == v) {
+            showMenu(mMore);
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else if (mStopButton == v) {
