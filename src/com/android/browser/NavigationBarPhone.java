@@ -18,6 +18,7 @@ package com.android.browser;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 
 import org.codeaurora.swe.util.Activator;
@@ -56,6 +57,16 @@ public class NavigationBarPhone extends NavigationBarBase implements StateListen
         mUrlInput.setContainer(this);
         mUrlInput.setStateListener(this);
         mIncognitoIcon = findViewById(R.id.incognito_icon);
+
+        mTabSwitcher.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    ((PhoneUi) mBaseUi).toggleNavScreen();
+                }
+                return true;
+            }
+        });
 
         if (mTabSwitcherInitialTextSize == 0) {
             mTabSwitcherInitialTextSize = mTabText.getTextSize();
