@@ -50,6 +50,7 @@ import android.widget.Toast;
 
 import com.android.browser.UrlInputView.UrlInputListener;
 import com.android.browser.preferences.SiteSpecificPreferencesFragment;
+import com.android.browser.SensitiveTouch;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -360,12 +361,26 @@ public class NavigationBarBase extends LinearLayout implements
             url = currentTab.getUrl();
         }
 
+        final String fUrl = url;
+        final WebView fWv = wv;
+
         if (mMore == v) {
             showMenu(mMore);
         } else if (mFaviconTile == v) {
-            if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage()) ){
-                showSiteSpecificSettings();
-            }
+            SensitiveTouch.OnSensitiveTouchListener sensitiveTouchListener
+                    = new SensitiveTouch.OnSensitiveTouchListener() {
+                @Override
+                public void onSensitiveTouch() {
+                    if (urlHasSitePrefs(fUrl) && (fWv != null && !fWv.isShowingInterstitialPage())){
+                        showSiteSpecificSettings();
+                    }
+                }
+                @Override
+                public void onLeave() {
+                }
+            };
+
+            SensitiveTouch.setup(v, sensitiveTouchListener).start();
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else if (mStopButton == v) {
