@@ -40,6 +40,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -50,6 +51,7 @@ import android.widget.Toast;
 
 import com.android.browser.UrlInputView.UrlInputListener;
 import com.android.browser.preferences.SiteSpecificPreferencesFragment;
+import com.android.browser.SensitiveTouch;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -134,6 +136,16 @@ public class NavigationBarBase extends LinearLayout implements
 
         mDefaultFavicon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_deco_favicon_normal);
+
+        mMore.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    showMenu(mMore);
+                }
+                return true;
+            }
+        });
 
         mHandler = new Handler() {
             @Override
@@ -360,12 +372,22 @@ public class NavigationBarBase extends LinearLayout implements
             url = currentTab.getUrl();
         }
 
+        final String fUrl = url;
+        final WebView fWv = wv;
+
+        SensitiveTouch.OnSensitiveTouchListener sensitiveTouchListener
+                = new SensitiveTouch.OnSensitiveTouchListener() {
+            @Override
+            public void onSensitiveTouch() {
+                if (urlHasSitePrefs(fUrl) && (fWv != null && !fWv.isShowingInterstitialPage())){
+                    showSiteSpecificSettings();
+                }
+            }
+        };
+        SensitiveTouch.setup(v, sensitiveTouchListener).start();
+
         if (mMore == v) {
             showMenu(mMore);
-        } else if (mFaviconTile == v) {
-            if (urlHasSitePrefs(url) && (wv != null && !wv.isShowingInterstitialPage()) ){
-                showSiteSpecificSettings();
-            }
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else if (mStopButton == v) {
