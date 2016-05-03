@@ -287,7 +287,7 @@ public class AddBookmarkPage extends Activity
     @Override
     public void onClick(View v) {
         if (v == mButton) {
-            if (mFolderSelector.getVisibility() == View.VISIBLE) {
+            /*if (mFolderSelector.getVisibility() == View.VISIBLE) {
                 // We are showing the folder selector.
                 if (mIsFolderNamerShowing) {
                     completeOrCancelFolderNaming(false);
@@ -298,23 +298,23 @@ public class AddBookmarkPage extends Activity
                 }
             } else {
                 // add for carrier which requires same title or address can not
-                // exist.
+                // exist.*/
                 if (mSaveToHomeScreen) {
                     if (save()) {
                         return;
                     }
                 } else {
                     onSaveWithConfirm();
-                }
+                //}
             }
         } else if (v == mCancelButton) {
-            if (mIsFolderNamerShowing) {
+            /*if (mIsFolderNamerShowing) {
                 completeOrCancelFolderNaming(true);
             } else if (mFolderSelector.getVisibility() == View.VISIBLE) {
                 switchToDefaultView(false);
-            } else {
+            } else {*/
                 finish();
-            }
+            //}
         } else if (v == mRemoveLink) {
             onDeleteWithConfirm();
         } else if (v == mFolderCancel) {
@@ -381,7 +381,7 @@ public class AddBookmarkPage extends Activity
             descendInto(name, id);
         }
         setShowFolderNamer(false);
-        mAddNewFolder.setVisibility(View.VISIBLE);
+        mAddNewFolder.setVisibility(View.GONE);
         mAddSeparator.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(
                 mFolderNamer.getWindowToken(), 0);
@@ -414,9 +414,9 @@ public class AddBookmarkPage extends Activity
         // Set the list to the top in case it is scrolled.
         mListView.setSelection(0);
         mDefaultView.setVisibility(View.GONE);
-        mFolderSelector.setVisibility(View.VISIBLE);
+        mFolderSelector.setVisibility(View.GONE);
         mCrumbHolder.setVisibility(View.VISIBLE);
-        mAddNewFolder.setVisibility(View.VISIBLE);
+        mAddNewFolder.setVisibility(View.GONE);
         mAddSeparator.setVisibility(View.VISIBLE);
         getInputMethodManager().hideSoftInputFromWindow(
                 mListView.getWindowToken(), 0);
