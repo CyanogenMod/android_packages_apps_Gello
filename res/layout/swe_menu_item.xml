@@ -19,6 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:gravity="center_vertical"
+        android:background="@android:color/transparent"
         android:singleLine="true"
          />
     <view
