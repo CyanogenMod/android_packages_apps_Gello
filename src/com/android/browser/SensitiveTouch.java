@@ -52,14 +52,6 @@ public class SensitiveTouch {
                                     .getSystemService(Context.VIBRATOR_SERVICE)).vibrate(100);
 
                             onSensitiveTouchListener.onSensitiveTouch();
-
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    onSensitiveTouchListener.onLeave();
-                                }
-                            }, 800);
-
                             mHandler.removeCallbacksAndMessages(null);
                         }
                     }
@@ -71,6 +63,5 @@ public class SensitiveTouch {
 
     public interface OnSensitiveTouchListener {
         void onSensitiveTouch();
-        void onLeave();
     }
 }

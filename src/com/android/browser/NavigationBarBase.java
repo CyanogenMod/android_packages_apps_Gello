@@ -40,6 +40,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -135,6 +136,16 @@ public class NavigationBarBase extends LinearLayout implements
 
         mDefaultFavicon = BitmapFactory.decodeResource(getResources(),
                 R.drawable.ic_deco_favicon_normal);
+
+        mMore.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    showMenu(mMore);
+                }
+                return true;
+            }
+        });
 
         mHandler = new Handler() {
             @Override
@@ -364,23 +375,19 @@ public class NavigationBarBase extends LinearLayout implements
         final String fUrl = url;
         final WebView fWv = wv;
 
+        SensitiveTouch.OnSensitiveTouchListener sensitiveTouchListener
+                = new SensitiveTouch.OnSensitiveTouchListener() {
+            @Override
+            public void onSensitiveTouch() {
+                if (urlHasSitePrefs(fUrl) && (fWv != null && !fWv.isShowingInterstitialPage())){
+                    showSiteSpecificSettings();
+                }
+            }
+        };
+        SensitiveTouch.setup(v, sensitiveTouchListener).start();
+
         if (mMore == v) {
             showMenu(mMore);
-        } else if (mFaviconTile == v) {
-            SensitiveTouch.OnSensitiveTouchListener sensitiveTouchListener
-                    = new SensitiveTouch.OnSensitiveTouchListener() {
-                @Override
-                public void onSensitiveTouch() {
-                    if (urlHasSitePrefs(fUrl) && (fWv != null && !fWv.isShowingInterstitialPage())){
-                        showSiteSpecificSettings();
-                    }
-                }
-                @Override
-                public void onLeave() {
-                }
-            };
-
-            SensitiveTouch.setup(v, sensitiveTouchListener).start();
         } else if (mVoiceButton == v) {
             mUiController.startVoiceRecognizer();
         } else if (mStopButton == v) {
