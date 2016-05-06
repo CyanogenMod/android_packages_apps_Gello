@@ -648,4 +648,20 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+    <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+    <string name="mdm_managed_alert">Verwaltet von deinem Administrator</string>
+    <!-- My Navigation - Favorites + History + Saved -->
+    <string name="mystuffs">Meine Navigation</string>
+
+    <!-- Place holder for SWE engine strings added to
+         'chrome/android/java/strings/android_chrome_strings.grd'. Follow
+         chromium android grd naming convention. Follow exact mapping rules from
+         grd to xml. All grd strings maps to xml name in lowercase with 'IDS_'
+         prefix being stripped. For more info check out chromium's
+         UI-localization page. -->
+    <!-- Geolocation infobar promt-->
+    <string name="geolocation_permissions_prompt_remember">Einstellung behalten</string>
+    <string name="geolocation_permissions_prompt_share_never">Für immer ablehnen</string>
+    <string name="geolocation_permissions_prompt_share_for_limited_time">Für 24 Stunden erlauben</string>
+    <string name="geolocation_permissions_prompt_share_forever">FÜr immer erlauben</string>
 </resources>
