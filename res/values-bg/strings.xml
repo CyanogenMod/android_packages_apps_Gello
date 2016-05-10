@@ -149,10 +149,10 @@
   <string name="current_page">от\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
-  <string name="delete_bookmark_warning">Да се изтрие ли отметката „<xliff:g id="BOOKMARK">%s</xliff:g>“?</string>
+  <string name="delete_bookmark_warning">Да бъди ли изтрита отметката „<xliff:g id="Bookmark">%s</xliff:g>“?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
-  <string name="delete_folder_warning">Да се изтрие ли папката\"<xliff:g id="bookmark">%s </xliff:g>\"?</string>
+  <string name="delete_folder_warning">Да бъде ли изтрита папката\"<xliff:g id="bookmark">%s </xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Отваряне на всички в нови раздели</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
@@ -383,7 +383,7 @@
   <!-- Settings summary -->
   <string name="pref_privacy_clear_history_summary">Изчистване на навигационната история на браузъра</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_privacy_clear_history_dlg">Да се изтрие ли историята на сърфиране на браузъра?</string>
+  <string name="pref_privacy_clear_history_dlg">Да бъде ли изтрита историята на сърфиране на браузъра?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_form_data">Изчистване на данни за формуляри</string>
   <!-- Settings summary -->
@@ -529,7 +529,7 @@
   <string name="too_many_windows_dialog_title">Достигнато е ограничението за раздели</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Не можете да отворите нов раздел, докато не затворите един.</string>
+  <string name="too_many_windows_dialog_message">Не може да се отвори нов раздел, докато не затворите един.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Изскачащият прозорец вече е отворен</string>

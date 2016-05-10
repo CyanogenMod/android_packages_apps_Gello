@@ -529,7 +529,7 @@ Scorri dal bordo per navigare nella cronologia.\nQuesta funzione potrebbe andare
   <string name="too_many_windows_dialog_title">Raggiunto il limite di tab</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Impossibile aprire una nuova scheda fino a quando non ne chiuderai almeno una. Sei annoiato\u003f</string>
+  <string name="too_many_windows_dialog_message">Impossibile aprire una nuova scheda fino a quando non ne chiudi un\'altra.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Pop up già aperto</string>

@@ -529,7 +529,7 @@ Pasatu hatza ertzetik historialaren zehar nabigatzeko.\nEzaugarri hau ertzean ek
   <string name="too_many_windows_dialog_title">Fitxa kopurua mugara iritsi da</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Ezin duzu fitxa bat ireki beste bat itxi arte. Aspertuta zaude\u003f</string>
+  <string name="too_many_windows_dialog_message">Ezin da ireki fitxa berririk bat itxi arte.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Laster-leihoa irekita dago jada</string>

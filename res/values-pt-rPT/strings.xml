@@ -290,6 +290,10 @@
     <item quantity="one">%d anúncio</item>
     <item quantity="other">%d anúncios</item>
   </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d tracker</item>
+    <item quantity="other">%d trackers</item>
+  </plurals>
   <plurals name="pref_web_refiner_malware">
     <item quantity="one">%d ameaça de malware</item>
     <item quantity="other">%d ameaças de malware</item>
@@ -525,7 +529,7 @@
   <string name="too_many_windows_dialog_title">Limite de separadores atingido</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Não é possível abrir novo separador até fechar outro.</string>
+  <string name="too_many_windows_dialog_message">Feche alguns separadores para poder abrir novos.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Janela de pop-up já aberta</string>

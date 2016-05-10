@@ -535,7 +535,7 @@
   <string name="too_many_windows_dialog_title">Dosežena je omejitev zavihkov</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Novega zavihka ni mogoče odpreti, dokler enega ne zaprete. Se dolgočasite\u003f</string>
+  <string name="too_many_windows_dialog_message">Novega zavihka ni mogoče odpreti, dokler enega ne zaprete.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Pojavno okno je že odprto</string>

@@ -19,321 +19,707 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Trình duyệt</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Chọn tập tin để tải lên</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Nội dung tải lên bị tắt.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Tab mới</string>
+  <string name="browser_tab_crash_snap">Ồ, Tách !</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Tải lại</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Đã có sự cố không mong đợi khi hiển thị trang web này. Vui lòng tải lại hoặc đến trang khác.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Chế độ ẩn danh</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Truy cập nhiều nhất</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">Trang đã lưu</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Đã thêm vào yêu thích.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Đã xóa khỏi yêu thích.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Đăng nhập vào <xliff:g id="hostname">%s1</xliff:g> "<xliff:g id="realm">%s2</xliff:g>\"</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Tên</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Mật khẩu</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Đăng nhập</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Lưu dấu trang</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Hủy</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Đã đạt giới hạn URL tối đa</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play Store không tồn tại trên thiết bị của bạn.</string>
   <!-- Menu item -->
+  <string name="page_info">Thông tin trang</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Địa chỉ:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Cảnh báo bảo mật</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Chứng chỉ này không hợp lệ.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Lỗi chứng chỉ không xác định.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Đang dừng\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Dừng</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Làm mới</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Quay lại</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Chuyển tiếp</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Địa chỉ</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Tài khoản</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Thêm vào</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Thư mục mới</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Chỉnh sửa thư mục</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Xóa thư mục</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Không có thư mục con.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Màn hình chính</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Chọn thư mục\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Nhãn</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Lưu vào dấu trang</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Thêm trang này vào yêu thích</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Xóa</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Chỉnh sửa dấu trang</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Thêm lối tắt</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Xóa dấu trang</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Xóa khỏi dấu trang</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Xóa khỏi lịch sử</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Đặt làm trang chủ</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Đã thêm vào yêu thích</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Không thể lưu yêu thích.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Đã đặt trang chủ.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">Yêu thích phải có tên.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Yêu thích phải có vị trí.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">URL này không hợp lệ.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Không thể thêm URL này vào yêu thích.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">từ\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Xóa yêu thích \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Xóa thư mục \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Mở tất cả cửa sổ trong tab mới</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Chọn một thao tác cho văn bản</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Đóng các tab khác</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Yêu thích</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Yêu thích</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Chọn yêu thích</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Lịch sử</string>
   <!-- Menu item -->
+  <string name="share_page">Chia sẻ trang</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Thêm vào trang chủ</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Lưu để đọc ngoại tuyến</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Đang lưu\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Không thể lưu để đọc ngoại tuyến.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> yêu thích</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Thư mục trống</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Mở</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Mở trong tab mới</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Mở trong tab nền mới</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Lưu liên kết</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Chia sẻ liên kết</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Sao chép</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Sao chép URL liên kết</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Lưu hình ảnh</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Xem hình ảnh</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Đặt làm hình nền</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Quay số\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Thêm số liên hệ</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Gửi email</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Bản đồ</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Chia sẻ qua</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Xóa</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Thay thế</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Cài đặt</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Cài đặt nội dung</string>
+  <string name="pref_content_title_summary">Cài đặt nội dung web</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">Tải hình ảnh</string>
+  <string name="pref_content_load_images_summary">Hiển thị hình ảnh trên trang web</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Cửa sổ bật lên</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">Bật JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Mở dưới nền</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Mở tab mới phía sau tab hiện tại</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Trang chủ</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Công cụ tìm kiếm</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Chọn công cụ tìm kiếm</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Đặt thành</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Trang hiện tại</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Trang trống</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Trang mặc định</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Các trang web được truy cập nhiều nhất</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Khác</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Chung</string>
+  <string name="pref_default_site_settings_title">Cài đặt trang web mặc định</string>
+  <string name="pref_site_settings_title">Cài đặt trang web</string>
+  <string name="pref_site_settings_info_panel">Thông tin bảo mật</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Tự động điền</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Chế độ tiết kiệm điện năng</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Giảm bớt việc sử dụng điện năng của trình duyệt</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Chế độ ban đêm</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Đảo ngược màu</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Tự động điền biểu mẫu</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Điền biểu mẫu web chỉ với một cú chạm</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="other">%d quảng cáo</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="other">%d trình theo dõi</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="other">%d mối đe dọa bằng phần mềm độc hại</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"Đã chặn %s. "</item>
+    <item>"Đã chặn %1$s và %2$s. "</item>
+    <item>"Đã chặn %1$s, %2$s và %3$s. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Chứng chỉ SSL hợp lệ. Thông tin liên lạc được mã hóa và thông tin nhận dạng được xác minh.</string>
+  <string name="pref_invalid_cert">Trang web có chứng chỉ SSL không hợp lệ.</string>
+  <string name="pref_warning_cert">Chứng chỉ SSL của trang web có các cảnh báo.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Giao diện</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Tự động điền</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Thiết lập văn bản để tự động điền vào biểu mẫu web</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Nhập văn bản bạn muốn tự động điền vào biểu mẫu web.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Tên đầy đủ:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">Email:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Tên công ty:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Dòng địa chỉ 1:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Địa chỉ đường phố, hộp thư bưu điện, c/o</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Dòng địa chỉ 2:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Căn hộ, phòng, bộ phận, tòa nhà, tầng, v.v.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Thành phố/Thị trấn:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Tiểu bang/Tỉnh/Vùng:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Mã zip:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Quốc gia:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Điện thoại:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Số điện thoại không hợp lệ.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Lưu</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Đã lưu văn bản tự động điền.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">Đã xóa văn bản tự động điền.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Xóa</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Chế độ tiết kiệm điện năng được bật. Trình duyệt sẽ được khởi động lại.</string>
+  <string name="powersave_dialog_off">Chế độ tiết kiệm điện năng đã bị vô hiệu hóa. Trình duyệt sẽ được khởi động lại.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Trình duyệt có thể tự động hoàn tất các biểu mẫu web giống như biểu mẫu này. Bạn có muốn thiết lập văn bản tự động điền của mình không?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Bạn luôn có thể thiết lập văn bản tự động điền của mình từ màn hình Trình duyệt &gt; Cài đặt &gt; Tự động điền.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Tắt tính năng tự động điền</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Bảo mật</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Riêng tư &amp; bảo mật</string>
+  <string name="pref_privacy_security_title_summary">Cài đặt quyền riêng tư và bảo mật của trình duyệt</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Chọn các mục cần xóa</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Xóa các mục đã chọn</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Xóa các mục đã chọn trong danh sách</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Xóa các mục sau?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Bộ nhớ cache</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Xóa nội dung và cơ sở dữ liệu được lưu trong bộ nhớ cache cục bộ</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Cookie và dữ liệu trang web</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Xóa tất cả cookie của trình duyệt và dữ liệu trang web</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Xóa lịch sử điều hướng của trình duyệt</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Xóa lịch sử điều hướng của trình duyệt?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Dữ liệu biểu mẫu</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Xóa tất cả dữ liệu biểu mẫu đã lưu</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Mật khẩu</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Xóa tất cả mật khẩu đã lưu</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Vị trí</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Truy cập vị trí</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Xóa truy cập vị trí cho tất cả trang web</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Nhớ mật khẩu</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Nhớ dữ liệu biểu mẫu</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Yêu cầu \'Không theo dõi\'</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Chấp nhận cookie</string>
+  <string name="pref_security_allow_mic">Micro</string>
+  <string name="pref_security_allow_camera">Máy ảnh</string>
+  <string name="pref_security_web_refiner">Quảng cáo</string>
+  <string name="pref_security_accept_third_party_cookies">Cookie của bên thứ ba</string>
+  <string name="pref_security_ask_before_using">Hỏi trước khi sử dụng</string>
+  <string name="pref_security_allowed">Được phép</string>
+  <string name="pref_security_not_allowed">Không được phép</string>
+  <string name="pref_security_remember">Nhớ</string>
+  <string name="pref_security_on">Bật</string>
+  <string name="pref_security_off">Tắt</string>
+  <string name="pref_website_title">Trang web</string>
+  <string name="pref_security_add">Thêm</string>
+  <string name="pref_security_origin_name">Nguồn gốc trang web</string>
+  <string name="pref_security_access_is_allowed">được phép truy cập</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Kéo thanh trượt để điều chỉnh kích thước phông chữ để đặt kích thước đọc thoải mái mong muốn.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Kích thước phông chữ tối thiểu</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Chia tỷ lệ văn bản</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Bắt buộc bật thu phóng</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Ghi đè yêu cầu của trang web để kiểm soát hành vi thu phóng</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Hiển thị màn hình đảo ngược</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Hiển thị màu sắc đảo ngược</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Màu đen chuyển thành màu trắng và ngược lại</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Độ tương phản</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Nâng cao</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Cho mỗi cài đặt trang web</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Cài đặt nâng cao cho các trang web riêng lẻ</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Thiết lập lại về mặc định</string>
+  <string name="pref_extras_reset">Thiết lập lại</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Khôi phục cài đặt mặc định</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Hoàn nguyên cài đặt về giá trị mặc định?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Gỡ lỗi</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Mã hóa văn bản</string>
+  <string name="pref_edge_swipe_title">Điều hướng cạnh</string>
+  <string name="pref_edge_swipe_option_msg">Vuốt từ cạnh sẽ:</string>
+  <string name="pref_temporal_edge_swipe">Điều hướng qua lịch sử</string>
+  <string name="pref_spatial_edge_swipe">Thay đổi tab</string>
+  <string name="pref_disable_edge_swipe">Không làm gì</string>
+  <string name="pref_edge_swipe_option_close">Chọn sau</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Vuốt từ cạnh để điều hướng</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Vuốt từ cạnh để thay đổi các tab</string>
+  <string name="pref_edge_swipe_disabled_toast">Tính năng vuốt từ cạnh đã bị vô hiệu hóa</string>
+  <string name="pref_edge_swipe_unknown">Chọn hành vi</string>
+  <string name="pref_edge_swipe_setup_desc">
+        Vuốt từ cạnh để điều hướng qua lịch sử.\nTính năng này có thể xung đột với các trang web sử dụng các thao tác trên cạnh</string>
+  <string name="pref_edge_enable">Bật</string>
+  <string name="pref_edge_disable">Tắt</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Thanh trạng thái màu</string>
+  <string name="pref_coloredsb_summary">Thanh trạng thái sẽ đổi màu dựa trên trang đã truy cập</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Khả năng truy cập</string>
+  <string name="pref_accessibility_title_summary">Kích thước văn bản và thu phóng</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Ngăn không cho các ứng dụng khác đọc nội dung xem trên web từ ứng dụng này</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Kích thước văn bản</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">Toàn màn hình</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Đưa trình duyệt sang chế độ toàn màn hình</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Tải trước kết quả tìm kiếm</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Không bao giờ</item>
+    <item>Chỉ trên Wi-Fi</item>
+    <item>Luôn luôn</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Cho phép trình duyệt tải trước các kết quả tìm kiếm trong nền</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Tải trước trang web</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Cho phép trình duyệt tải trước các trang web liên kết trong nền</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">Trang bạn đang cố xem chứa dữ liệu đã được gửi (\"POSTDATA\"). Nếu bạn gửi lại dữ liệu, bất kỳ tác vụ nào mà biểu mẫu trên trang đã thực hiện (như tìm kiếm hoặc mua trực tuyến) sẽ được lặp lại.</string>
   <!-- Menu item -->
+  <string name="clear_history">Xóa lịch sử</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Không có lịch sử trình duyệt nào.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Thêm yêu thích</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Thêm</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Tìm kiếm hoặc nhập URL</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">Đến</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Yêu thích và lịch sử web</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Cho phép</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Chặn</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Đã đạt tới giới hạn tab</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Không thể mở một tab mới cho đến khi bạn đóng tab kia.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">Cửa sổ bật lên đã mở</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">Chỉ có thể mở một cửa sổ bật lên mỗi lần.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Không có thẻ SD nào</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Cần thẻ SD để tải xuống <xliff:g id="filename">%s</xliff:g>.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">Thẻ SD không khả dụng</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">Thẻ SD đang bận. Để cho phép tải xuống, hãy chạm vào \'Tắt bộ lưu trữ USB\' trong thông báo.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Chỉ có thể tải xuống URL \"http\" hoặc \"https\".</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Đang bắt đầu tải xuống\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Tìm kiếm web</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Bộ lưu trữ của trình duyệt đầy</string>
+  <string name="webstorage_outofspace_notification_text">Chạm để giải phóng dung lượng.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Bộ lưu trữ</string>
+  <string name="webstorage_private_data_title">Dữ liệu cá nhân</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Xóa tất cả dữ liệu do trang web này lưu trữ?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Đang tải video\u2026</string>
+  <string name="website_settings_add_origin">Trang web mới</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Xóa tất cả</string>
+  <string name="website_settings_clear_all_dialog_message">Xóa tất cả dữ liệu trang web và giấy phép vị trí?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Đang đặt hình nền\u2026</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Không có yêu thích nào.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Yêu thích khác</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">Các yêu thích trên thiết bị này hiện chưa được liên kết với tài khoản Google. Lưu các dấu trang này bằng cách thêm chúng vào tài khoản. Xóa các dấu trang này nếu bạn không muốn đồng bộ hóa chúng.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Xóa yêu thích</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Chia sẻ</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Không có thêm tab nào</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Xem trước</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Yêu thích của tôi</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Tìm</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Trang web dành cho máy tính</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Chế độ đọc</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Tải trước kết quả</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Không có trang nào được lưu.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Xóa trang đã lưu</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Phát trực tuyến</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Quay lại</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">Tiến về phía trước</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Làm mới trang</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Ngừng tải trang</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Thêm vào yêu thích</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Tìm kiếm</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Bắt đầu tìm kiếm bằng giọng nói</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Đóng tab</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Mở tab mới</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Mở tab ẩn danh mới</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Xóa văn bản nhập</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Trình quản lý trang</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Trang ẩn danh</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Trang đã lưu</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Quản lý tab</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Thư mục trước</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Xóa trang web</string>
+  <string name="my_navigation_edit_label">Sửa trang web</string>
+  <string name="my_navigation_add_label">Thêm trang web</string>
+  <string name="my_navigation_add">Thêm</string>
+  <string name="my_navigation_delete_msg">Xóa trang web?</string>
+  <string name="my_navigation_name">Tên</string>
+  <string name="my_navigation_address">Địa chỉ</string>
+  <string name="website_needs_title">Trang web phải có tên</string>
+  <string name="website_needs_url">Trang web phải có URL</string>
+  <string name="my_navigation_cannot_save_url">URL không hợp lệ</string>
+  <string name="my_navigation_duplicate_url">URL đã tồn tại</string>
+  <string name="my_navigation_page_title">Trang chủ</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Vui lòng chọn cách xử lý tập tin phương tiện</string>
+  <string name="video_save">Lưu</string>
+  <string name="video_play">Phát</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Thoát</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Giới thiệu</string>
+  <string name="download_estore_app">Ứng dụng Estore không tồn tại trên thiết bị của bạn.</string>
+  <string name="estore_url_warning">Khởi chạy ứng dụng Estore không thành công, URL quá dài.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Không hỗ trợ tải lên tập tin DRM.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Thoát trình duyệt</string>
+  <string name="exit_browser_msg">Vui lòng chọn cách thoát trình duyệt</string>
+  <string name="exit_minimize">Thu nhỏ</string>
+  <string name="exit_quit">Thoát</string>
+  <string name="browser_max_input_title">Đã đạt giới hạn số ký tự tối đa</string>
+  <string name="browser_max_input">Bạn đã nhập đến giới hạn tối đa <xliff:g id="MAXLIMIT">%s</xliff:g> ký tự</string>
+  <string name="duplicated_folder_warning">Thư mục đã tồn tại</string>
+  <string name="overwrite_bookmark_msg">Tên hoặc địa chỉ của yêu thích đã tồn tại. Ghi đè lên?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Đường dẫn không hợp lệ</string>
+  <string name="path_wrong">Đường dẫn sai</string>
+  <string name="pref_download_title">Cài đặt đường dẫn tải về</string>
+  <string name="pref_download_path_setting_screen_title">Đường dẫn tải về tùy chỉnh</string>
+  <string name="download_timeneeded">Thời gian</string>
+  <string name="download_filesize">Kích thước</string>
+  <string name="download_filepath_label">Đường dẫn</string>
+  <string name="download_edit_filename_label">Tên</string>
+  <string name="download_no_enough_memory">Không đủ bộ nhớ để tải về</string>
+  <string name="download_settings_title">Cài đặt tải về</string>
+  <string name="filename_empty_title">Tên tập tin tải về trống</string>
+  <string name="filename_empty_msg">Tên tập tin tải về không thể để trống. Vui lòng nhập tên tập tin hợp lệ.</string>
+  <string name="unknow_length">Không xác định</string>
+  <string name="download_file_exist_msg">Tập tin đã tồn tại. Vui lòng nhập tên tập tin mới.</string>
+  <string name="download_file_exist">Tập tin đã tồn tại</string>
+  <string name="time_min">phút</string>
+  <string name="download_path_unavailable_dlg_title">Thư mục tải về không có sẵn</string>
+  <string name="download_path_unavailable_dlg_msg">Vui lòng sửa đổi thư mục tải về</string>
+  <string name="activity_not_found">Không tìm thấy hoạt động để xử lý ý định này: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">Tên tập tin</string>
+  <string name="download_size_hint">Kích thước</string>
+  <string name="download_eta_hint">ETA</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Nhận một tin nhắn từ: <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Chứng chỉ bảo mật</string>
+  <string name="ssl_certificate_is_valid">Chứng chỉ này hợp lệ.</string>
+  <string name="version">Phiên bản</string>
+  <string name="build_date">Ngày dựng</string>
+  <string name="build_hash">Mã hash bản dựng</string>
+  <string name="user_agent">Đại diện người dùng</string>
+  <string name="help">Trợ giúp</string>
+  <string name="feedback">Phản hồi</string>
+  <string name="swe_legal">Thông tin pháp lý</string>
+  <string name="swe_open_source_licenses">Giấy phép nguồn mở</string>
+  <string name="swe_eula">Thỏa thuận giấy phép người dùng cuối</string>
+  <string name="swe_privacy_policy">Chính sách về quyền riêng tư</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Được quản lý bởi người quản trị của bạn</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">Điều hướng của tôi</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +727,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">Nhớ ưu tiên</string>
+  <string name="geolocation_permissions_prompt_share_never">Từ chối mãi mãi</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Cho phép 24 giờ</string>
+  <string name="geolocation_permissions_prompt_share_forever">Cho phép mãi mãi</string>
 </resources>
