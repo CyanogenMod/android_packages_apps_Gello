@@ -28,11 +28,17 @@
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
   <string name="new_tab">Nowa karta</string>
+  <string name="browser_tab_crash_snap">Ups, Snap!</string>
   <!-- Crash tab button text -->
   <string name="browser_tab_crash_reload">Przeładuj</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">
+      Podczas wyświetlania tej strony wydarzyło się coś nieoczekiwanego.
+    Załaduj ją ponownie lub przejdź do innej strony.
+    </string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Tryb incognito</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
   <string name="tab_most_visited">Najczęściej odwiedzane</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
@@ -44,6 +50,7 @@
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Zaloguj się na <xliff:g id="hostname">%s1 </xliff:g> "<xliff:g id="realm"> %s2 </xliff:g>\"</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
   <string name="username">Nazwa</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
@@ -57,6 +64,7 @@
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Osiągnięto limit adresu URL</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
   <!-- Menu item -->
   <string name="page_info">Informacje</string>

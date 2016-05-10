@@ -19,321 +19,710 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Navigateur</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Choisir le fichier à importer</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Les transferts de fichiers sont désactivés.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Nouvel onglet</string>
+  <string name="browser_tab_crash_snap">Oups !</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Recharger</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Un événement inattendu est survenu lors de l\'affichage de cette page web. Veuillez la recharger ou accéder à une autre page.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Mode navigation privée</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Les + visités</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">Pages enregistrées</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Ajouté aux favoris.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Supprimé des favoris.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Connectez-vous à <xliff:g id="HOSTNAME">%s1</xliff:g> "<xliff:g id="REALM">%s2</xliff:g>\"</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Nom</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Mot de passe</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Se connecter</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Ajouter aux favoris</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Annuler</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Limite URL atteinte</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">L\'application Google Play Store n\'existe pas sur votre appareil.</string>
   <!-- Menu item -->
+  <string name="page_info">Informations</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Adresse :</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Avertissement de sécurité</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Ce certificat n\'est pas valide.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Erreur : Certificat inconnu.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Arrêt\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Interrompre</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Actualiser</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Retour</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Suivant</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Adresse</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Compte</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Ajouter à</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Nouveau dossier</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Modifier le dossier</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Supprimer le dossier</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Aucun sous-dossier</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Écran d\'accueil</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Sélectionner dossier\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Libellé</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Ajouter aux favoris</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Ajouter cette page aux favoris</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Supprimer</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Modifier le favori</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Ajouter un raccourci</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Supprimer le favori</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Supprimer des favoris</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Supprimer de l\'historique</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Définir comme page d\'accueil</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Enregistré dans les favoris</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Impossible d\'enregistrer le favori.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">La page d\'accueil a été définie.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">Vous devez attribuer un nom à votre favori.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Le favori doit disposer d\'un emplacement.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">Cette URL n\'est pas valide.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Impossible d\'ajouter cette URL aux favoris.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">de </string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Supprimer le favori \"<xliff:g id="BOOKMARK">%s</xliff:g>\" ?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Supprimer le dossier \"<xliff:g id="bookmark">%s</xliff:g>\" ?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Toujours ouvrir dans un nouvel onglet</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Choisir une action pour le texte</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Fermer les autres onglets</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Favoris</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Favori</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Sélectionner un favori</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Historique</string>
   <!-- Menu item -->
+  <string name="share_page">Partager</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Ajouter à l\'écran d\'accueil</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Enregistrer pour lire hors connexion</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Enregistrement en cours…</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Échec enregistrement pour lecture hors connexion.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="BOOKMARK_COUNT">%d</xliff:g> favoris</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Dossier vide</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Ouvrir</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Ouvrir dans un nouvel onglet</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Ouvrir dans un nouvel onglet d\'arrière-plan</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Enregistrer le lien</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Partager le lien</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Copier</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Copier l\'URL du lien</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Enregistrer l\'image</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Afficher l\'image</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Définir comme fond d\'écran</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Composer...</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Ajouter un contact</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Envoyer un e-mail</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Plan</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Partager via</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Effacer</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Remplacer</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Paramètres</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Paramètres du contenu</string>
+  <string name="pref_content_title_summary">Paramètres de contenu web</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">Charger les images</string>
+  <string name="pref_content_load_images_summary">Afficher les images des pages Web</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Notifications flottantes</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">Activer JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Ouvrir en arrière-plan</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Ouvrir nouveaux onglets derrière l\'onglet actuel</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Définir la page d\'accueil</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Moteur de recherche</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Sélectionner un moteur de recherche</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Définir sur</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Page actuelle</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Page blanche</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Page par défaut</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Sites les plus visités</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Autre</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Général</string>
+  <string name="pref_default_site_settings_title">Paramètres par défaut du site Web</string>
+  <string name="pref_site_settings_title">Paramètres du site</string>
+  <string name="pref_site_settings_info_panel">Informations de sécurité</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Saisie automatique</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Mode économie d\'énergie</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Réduire la consommation d\'énergie du navigateur</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Mode nuit</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Inverser les couleurs</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Saisie auto du formulaire</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Remplir les formulaires Web en un seul geste</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d publicité</item>
+    <item quantity="other">%d publicités</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d traqueur</item>
+    <item quantity="other">%d traqueurs</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d menace de logiciel malveillant</item>
+    <item quantity="other">%d menaces de logiciels malveillants</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"%s bloqué. "</item>
+    <item>"%1$s et %2$s bloqués. "</item>
+    <item>"%1$s, %2$s et %3$s bloqués. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Certificat SSL valide. La communication est cryptée et l\'identité est vérifiée.</string>
+  <string name="pref_invalid_cert">Le site possède un certificat SSL invalide.</string>
+  <string name="pref_warning_cert">Le certificat SSL du site possède des avertissements.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Interface</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Saisie automatique</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Définir le texte à saisir automatiquement dans les formulaires Web</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Taper le texte à saisir automatiquement dans les formulaires Web.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Nom et prénom :</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">Adresse e-mail :</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Nom de la société :</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Ligne d\'adresse 1 :</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Adresse postale, boîte postale, \"Aux soins de\"</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Ligne d\'adresse 2 :</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Résidence, bâtiment, appartement, étage, etc.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Ville :</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">État/Province/Région :</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Code postal :</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Pays :</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Téléphone :</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Numéro de téléphone incorrect.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Enregistrer</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Texte de saisie automatique enregistré.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">Texte de saisie automatique supprimé.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Supprimer</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Mode économie d’énergie activé. Le navigateur va redémarrer.</string>
+  <string name="powersave_dialog_off">Mode économie d’énergie désactivé. Le navigateur va redémarrer.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Le navigateur peut remplir automatiquement les formulaires Web similaires à celui-ci. Voulez-vous créer un texte de saisie automatique ?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Vous pourrez définir un texte de saisie automatique en accédant à Navigateur &gt; Paramètres &gt; Général.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Désactiver la saisie automatique</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Sécurité</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Confidentialité et sécurité</string>
+  <string name="pref_privacy_security_title_summary">Paramètres de sécurité et de confidentialité du navigateur</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Sélectionner les éléments à supprimer</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Supprimer les éléments sélectionnés</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Supprimer les éléments sélectionnés dans la liste</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Supprimer les éléments suivants ?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Vider le cache</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Supprimer les bases de données et le contenu localement en cache</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Effacer tous les cookies</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Effacer tous les cookies du navigateur et données du site</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Effacer l\'historique du navigateur</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Supprimer l\'historique de navigation ?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Données du formulaire</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Effacer toutes les données de formulaire enregistrées</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Mots de passe</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Effacer tous les mots de passe enregistrés</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Activer la localisation</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Accès localisation</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Supprimer l\'accès aux données de localisation pour tous les sites Web</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Mémoriser mots de passe</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Mémoriser données de formulaires</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Interdire le suivi</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Accepter les cookies</string>
+  <string name="pref_security_allow_mic">Microphone</string>
+  <string name="pref_security_allow_camera">Appareil photo</string>
+  <string name="pref_security_web_refiner">Publicités</string>
+  <string name="pref_security_accept_third_party_cookies">Cookies tiers</string>
+  <string name="pref_security_ask_before_using">Demander avant l\'utilisation</string>
+  <string name="pref_security_allowed">Autorisé</string>
+  <string name="pref_security_not_allowed">Non autorisé</string>
+  <string name="pref_security_remember">Retenir le choix</string>
+  <string name="pref_security_on">Activé</string>
+  <string name="pref_security_off">Désactivé</string>
+  <string name="pref_website_title">Site web</string>
+  <string name="pref_security_add">Ajouter</string>
+  <string name="pref_security_origin_name">Origine du site</string>
+  <string name="pref_security_access_is_allowed">accès autorisé</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Faites glisser le curseur pour régler la police sur une taille de lecture confortable.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Taille de police minimale</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Mise à l\'échelle du texte</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Forcer activation du zoom</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Ignorer la demande du site Web de contrôler le zoom</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Rendu inversé de l\'écran</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Rendu inversé</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Le noir devient blanc, et inversement.</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Contraste</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Options avancées</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Paramètres du site Web</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Paramètres avancés pour sites Web individuels</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Réinitialiser aux valeurs par défaut</string>
+  <string name="pref_extras_reset">Réinitialiser</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Rétablir les paramètres par défaut</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Rétablir les valeurs par défaut ?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Débogage</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Codage du texte</string>
+  <string name="pref_edge_swipe_title">Navigation avec les bords</string>
+  <string name="pref_edge_swipe_option_msg">Balayer depuis le bord permettra de :</string>
+  <string name="pref_temporal_edge_swipe">Naviguer à travers l\'historique</string>
+  <string name="pref_spatial_edge_swipe">Changer d\'onglet</string>
+  <string name="pref_disable_edge_swipe">Ne rien faire</string>
+  <string name="pref_edge_swipe_option_close">Choisir plus tard</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Balayer depuis le bord pour naviguer</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Balayer depuis le bord pour changer d\'onglet</string>
+  <string name="pref_edge_swipe_disabled_toast">Balayage depuis le bord désactivé</string>
+  <string name="pref_edge_swipe_unknown">Choisir le comportement</string>
+  <string name="pref_edge_swipe_setup_desc">
+        Balayer depuis le bord pour naviguer à travers l\'historique.\n Cette fonctionnalité peut entrer en conflit avec les sites web utilisant des actions basées sur le bord</string>
+  <string name="pref_edge_enable">Activer</string>
+  <string name="pref_edge_disable">Désactiver</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Barre d\'état colorée</string>
+  <string name="pref_coloredsb_summary">La barre d\'état changera de couleur selon la page visitée</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Accessibilité</string>
+  <string name="pref_accessibility_title_summary">Taille du texte et zoom</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Empêcher les autres applications de lire le contenu de la vue web de cette application</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Taille de la police</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">Plein écran</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Utiliser le mode plein écran pour masquer la barre d\'état</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Préchargement résultats de recherche</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Jamais</item>
+    <item>Wi-Fi uniquement</item>
+    <item>Toujours</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Autoriser le préchargement des résultats de recherche en arrière-plan</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Préchargement des pages Web</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Autoriser le navigateur à précharger en arrière-plan les pages Web associées</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">La page que vous tentez d\'afficher contient des données qui ont déjà été envoyées (\"POSTDATA\"). Si vous les renvoyez, toute action effectuée par le formulaire sur la page (telle que les recherches ou les achats en ligne) sera répétée.</string>
   <!-- Menu item -->
+  <string name="clear_history">Effacer l\'historique</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Aucun historique de navigation</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Ajouter un favori</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Ajouter</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Rechercher ou saisir l\'URL</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">OK</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Favoris et historique Web</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Autoriser</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Bloquer</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Limite d\'onglets atteinte</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Impossible d\'ouvrir un nouvel onglet tant que vous n\'en avez pas fermé un autre.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">Pop-up déjà ouverte</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">Une seule fenêtre pop-up peut être ouverte à la fois.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Aucune carte SD</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Le téléchargement de <xliff:g id="FILENAME">%s</xliff:g> requiert une carte SD.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">Carte SD non disponible</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">La carte SD n\'est pas disponible. Pour autoriser les téléchargements, appuyez sur \"Désactiver la mémoire de stockage USB\" dans les notifications.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Vous ne pouvez télécharger que des URL de type \"http\" et \"https\".</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Début du téléchargement...</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Rechercher sur le Web</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Espace de stockage du navigateur saturé</string>
+  <string name="webstorage_outofspace_notification_text">Appuyer pour libérer de l\'espace.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Stockage</string>
+  <string name="webstorage_private_data_title">Données privées</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Supprimer toutes les données stockées par ce site Web ?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Chargement de la vidéo...</string>
+  <string name="website_settings_add_origin">Nouveau site</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Tout effacer</string>
+  <string name="website_settings_clear_all_dialog_message">Supprimer toutes les données et les autorisations de localisation du site Web ?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Définition du fond d\'écran…</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Aucun favori.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Autres favoris</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">Les favoris de cet appareil ne sont pas encore associés à un compte Google. Enregistrez-les en les ajoutant à un compte. Supprimez-les si vous ne souhaitez pas les synchroniser.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Supprimer les favoris</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Partager</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Plus aucun onglet n\'est disponible.</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Aperçu</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Mes favoris</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Rechercher</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Version ordinateur</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Mode lecture</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Précharger les résultats</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Aucune page enregistrée.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Supprimer la page enregistrée</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Version en ligne</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Retour</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">Avancer</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Actualiser la page</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Arrêter le chargement de la page</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Ajouter aux favoris</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Rechercher</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Démarrer la recherche vocale</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Fermer l\'onglet</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Ouvrir un nouvel onglet</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Ouvrir un onglet de navigation privée</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Effacer la saisie</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Gestionnaire de pages</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Page de navigation privée</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Page enregistrée</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Gestion des onglets</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Dossier précédent</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Supprimer le site Web</string>
+  <string name="my_navigation_edit_label">Modifier le site Web</string>
+  <string name="my_navigation_add_label">Ajouter le site Web</string>
+  <string name="my_navigation_add">Ajouter</string>
+  <string name="my_navigation_delete_msg">Supprimer le site Web ?</string>
+  <string name="my_navigation_name">Titre</string>
+  <string name="my_navigation_address">Adresse</string>
+  <string name="website_needs_title">Le site Web doit avoir un titre</string>
+  <string name="website_needs_url">Le site Web doit avoir une URL</string>
+  <string name="my_navigation_cannot_save_url">URL non valide</string>
+  <string name="my_navigation_duplicate_url">L\'URL existe déjà</string>
+  <string name="my_navigation_page_title">Accueil</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Veuillez sélectionner le mode de traitement du fichier multimédia</string>
+  <string name="video_save">Enregistrer</string>
+  <string name="video_play">Lire</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Quitter</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">À propos</string>
+  <string name="download_estore_app">L\'application Estore n\'existe pas sur votre appareil.</string>
+  <string name="estore_url_warning">Le lancement de l\'application Estore a échoué. L\'URL est trop longue !</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Le chargement des fichiers DRM n\'est pas pris en charge !</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Quitter le navigateur</string>
+  <string name="exit_browser_msg">Sélectionnez la manière de quitter le navigateur</string>
+  <string name="exit_minimize">Réduire</string>
+  <string name="exit_quit">Quitter</string>
+  <string name="browser_max_input_title">Nombre maximal de caractères atteint</string>
+  <string name="browser_max_input">Vous avez atteint le nombre maximal de <xliff:g id="MAXLIMIT">%s</xliff:g> caractères</string>
+  <string name="duplicated_folder_warning">Le dossier existe déjà</string>
+  <string name="overwrite_bookmark_msg">Le nom du favori ou l\'adresse existe déjà. Écraser ?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Chemin non valide</string>
+  <string name="path_wrong">Chemin incorrect</string>
+  <string name="pref_download_title">Paramètres du chemin de téléchargement</string>
+  <string name="pref_download_path_setting_screen_title">Chemin de téléchargement personnalisé</string>
+  <string name="download_timeneeded">Heure</string>
+  <string name="download_filesize">Taille</string>
+  <string name="download_filepath_label">Chemin</string>
+  <string name="download_edit_filename_label">Nom</string>
+  <string name="download_no_enough_memory">Mémoire insuffisante pour le téléchargement</string>
+  <string name="download_settings_title">Paramètres de téléchargement</string>
+  <string name="filename_empty_title">Le nom de fichier de téléchargement est vide</string>
+  <string name="filename_empty_msg">Le nom de fichier de téléchargement ne peut pas être vide. Veuillez saisir un nom de fichier valide.</string>
+  <string name="unknow_length">Inconnu</string>
+  <string name="download_file_exist_msg">Le fichier existe déjà. Veuillez saisir un nouveau nom de fichier.</string>
+  <string name="download_file_exist">Le fichier existe déjà</string>
+  <string name="time_min">min</string>
+  <string name="download_path_unavailable_dlg_title">Le répertoire de téléchargement n\'est pas disponible</string>
+  <string name="download_path_unavailable_dlg_msg">Veuillez modifier le répertoire de téléchargement</string>
+  <string name="activity_not_found">Aucune activité trouvée pour gérer cette intention <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">Nom du fichier</string>
+  <string name="download_size_hint">Taille</string>
+  <string name="download_eta_hint">Temps restant estimé</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Message reçu de : <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Certificat de sécurité</string>
+  <string name="ssl_certificate_is_valid">Ce certificat est valide.</string>
+  <string name="version">Version</string>
+  <string name="build_date">Date de compilation</string>
+  <string name="build_hash">Créer dièse</string>
+  <string name="user_agent">Agent utilisateur</string>
+  <string name="help">Aide</string>
+  <string name="feedback">Commentaires</string>
+  <string name="swe_legal">Mentions légales</string>
+  <string name="swe_open_source_licenses">Licences open source</string>
+  <string name="swe_eula">Contrat de licences de l\'utilisateur final</string>
+  <string name="swe_privacy_policy">Politique de confidentialité</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Géré par votre administrateur</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">Ma navigation</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +730,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">Mémoriser les préférences</string>
+  <string name="geolocation_permissions_prompt_share_never">Refuser pour toujours</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Autoriser pour 24 heures</string>
+  <string name="geolocation_permissions_prompt_share_forever">Autoriser pour toujours</string>
 </resources>

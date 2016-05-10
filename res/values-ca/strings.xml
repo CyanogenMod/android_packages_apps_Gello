@@ -529,7 +529,7 @@ Llisca des de la vora per navegar a través de l\'historial.\nAquesta caracterí
   <string name="too_many_windows_dialog_title">S\'ha arribat al límit de pestanyes</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">No es pot obrir una nova pestanya fins que no en tanquis alguna. Estàs avorrit\u003f</string>
+  <string name="too_many_windows_dialog_message">No es pot obrir una nova pestanya fins que en tanquis una.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Finestra emergent ja oberta</string>

@@ -19,321 +19,710 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">דפדפן</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">בחר בקובץ להעלאה</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">העלאות הקובץ הושבתו.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">כרטיסייה חדשה</string>
+  <string name="browser_tab_crash_snap">אופס, כרטיסיה קרסה!</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">טען מחדש</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">משהו לא צפוי התרחש בעת הצגת דף אינטרנט זה. טען מחדש או עבור לדף אחר.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">כרטיסיית גלישה בסתר חדשה</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">הפופולריים ביותר</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">דפים שמורים</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">נוסף לסימניות.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">הוסר מהסימניות.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">התחבר אל <xliff:g id="hostname">%s1</xliff:g> "<xliff:g id="realm">%s2</xliff:g>\"</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">שם</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">סיסמה</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">התחבר</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">שמור</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">בטל</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">אישור</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">כתובת האתר הגיעה למגבלת האורך</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">חנות היישומים Google Play Store אינה מותקנת על מכשירך.</string>
   <!-- Menu item -->
+  <string name="page_info">פרטי דף</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">כתובת:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">אזהרת אבטחה</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">אישור זה אינו חוקי.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">שגיאת אישור לא ידועה.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">מפסיק\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">הפסק</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">רענון</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">חזור</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">העבר קדימה</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">כתובת</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">חשבון</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">הוסף אל</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">תיקיה חדשה</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">ערוך תיקיה</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">מחק תיקיה</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">אין תיקיות משנה.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">מסך דף הבית</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">תיקיה אחרת\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">תווית</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">שמור בסימניות</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">הוסף דף זה לסימניות</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">הסר</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">ערוך סימניה</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">הוסף קיצור דרך</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">מחק סימניה</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">הסר מסימניות</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">הסר מההיסטוריה</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">הגדר כדף הבית</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">נוסף לסימניות</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">לא ניתן היה לשמור את הסימנייה.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">דף הבית הוגדר.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">לסימנייה חייב להיות שם.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">לסימניה חייב להיות מיקום.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">כתובת אתר זו אינה חוקית.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">לא ניתן להוסיף כתובת אתר זו לסימניות.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">מאת\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">למחוק את הסימנייה \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">למחוק את התיקייה \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">פתח הכל בכרטיסיות חדשות</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">בחר בפעולה עבור הטקסט</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">סגור את שאר הכרטיסיות</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">סימניות</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">סימניות</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">בחר בסימנייה</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">היסטוריה</string>
   <!-- Menu item -->
+  <string name="share_page">שתף דף</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">הוסף לעמוד הבית</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">שמור לקריאה במצב לא מקוון</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">שומר\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">לא ניתן היה לשמור לקריאה במצב לא מקוון.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> סימניות</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">תיקיה ריקה</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">פתח</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">פתח בכרטיסייה חדשה</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">פתח בכרטיסיית רקע חדשה</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">שמור קישור</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">שתף קישור</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">העתק</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">העתק כתובת אתר של הקישור</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">שמור תמונה</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">הצג תמונה</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">הגדר כטפט</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">חייג\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">הוסף איש קשר</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">שלח דוא\"ל</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">מפה</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">שתף באמצעות</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">נקה</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">החלף</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">הגדרות</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">הגדרות תוכן</string>
+  <string name="pref_content_title_summary">הגדרות תוכן אינטרנט</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">טען תמונות</string>
+  <string name="pref_content_load_images_summary">הצג תמונות בדפי אינטרנט</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">הודעות קופצות</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">הפעל JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">פתוח ברקע</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">פתח כרטיסיות חדשות מאחורי הכרטיסייה הנוכחית</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">דף הבית</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">מנוע חיפוש</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">בחר במנוע חיפוש</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">הגדר</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>דף נוכחי</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>דף ריק</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>דף ברירת מחדל</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>האתרים הפופולריים ביותר</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>אחר</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">כללי</string>
+  <string name="pref_default_site_settings_title">הגדרות ברירת מחדל לאתר</string>
+  <string name="pref_site_settings_title">הגדרות אתר</string>
+  <string name="pref_site_settings_info_panel">מידע על אבטחה</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">מילוי אוטומטי</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">מצב חיסכון סוללה</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">הפחת את צריכת החשמל של הדפדפן</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">מצב לילה</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">הפוך צבעים</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">מילוי טפסים אוטומטי</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">מלא טפסים באינטרנט בנגיעה אחת</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">פרסומת %d</item>
+    <item quantity="other">%d פרסומות</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">עוקב %d</item>
+    <item quantity="other">%d עוקבים</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">איום תוכנה זדונית %d</item>
+    <item quantity="other">%d איומי תוכנה זדונית</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"%s נחסמו. "</item>
+    <item>"נחסמו %1$s ו- %2$s. "</item>
+    <item>"נחסמו %1$s, %2$s ו- %3$s. "</item>
+  </string-array>
+  <string name="pref_valid_cert">אישור SSL תקף. התקשורת הוצפנה והזהות אומתה.</string>
+  <string name="pref_invalid_cert">האתר מציג אישור SSL לא חוקי.</string>
+  <string name="pref_warning_cert">התגלו אזהרות לאישור ה־SSL של האתר.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">ממשק</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">מילוי אוטומטי</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">הגדר מילוי אוטומטי של טקסט לטפסים באינטרנט</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">הקלד את הטקסט שברצונך למלא באופן אוטומטי בטפסים באינטרנט.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">שם מלא:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">דוא\"ל:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">שם חברה:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">שורת כתובת 1:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">כתובת רחוב, תא דואר, אצל</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">שורת כתובת 2:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">דירה, סוויטה, יחידה, בניין, קומה וכדומה</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">עיר:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">מדינה/מחוז/אזור:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">מיקוד:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">ארץ:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">טלפון:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">מספר טלפון לא חוקי.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">שמור</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">טקסט למילוי אוטומטי נשמר.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">טקסט למילוי אוטומטי נמחק.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">מחק</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">הופעל מצב חסכון לסוללה, הדפדפן יאותחל.</string>
+  <string name="powersave_dialog_off">הושבת מצב חיסכון לסוללה, הדפדפן יאותחל.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">הדפדפן יכול לבצע השלמה אוטומטית של טפסים באינטרנט כמו טופס זה. האם ברצונך להגדיר טקסט למילוי אוטומטי?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">תוכל תמיד להגדיר טקסט למילוי אוטומטי באמצעות \'דפדפן\' &gt; \'הגדרות\' &gt; \'כללי\'.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">השבת \'מילוי אוטומטי\'</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">אבטחה</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">פרטיות ואבטחה</string>
+  <string name="pref_privacy_security_title_summary">הגדרות אבטחה ופרטיות הדפדפן</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">בחר פריטים לניקוי</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">נקה את הפריטים שנבחרו</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">נקה פרטים שנבחרו ברשימה</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">לנקות את הפריטים הבאים?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">מטמון</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">נקה תוכן ומסדי נתונים במטמון המקומי</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">נתוני אתרים וקובצי Cookie</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">נקה את כל קובצי ה-Cookie ונתוני האתרים שבדפדפן</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">נקה את היסטוריית הניווט של הדפדפן</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">למחוק את היסטוריית הניווט של הדפדפן?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">נתוני טופס</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">נקה את כל נתוני הטפסים שנשמרו</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">סיסמאות</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">נקה את כל הסיסמאות השמורות</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">מיקום</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">גישה למיקום</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">נקה את הגישה למיקומים בכל האתרים</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">זכור סיסמאות</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">זכור את נתוני הטופס</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">בקש \'אל תעקוב אחרי\'</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">קבל קובצי Cookie</string>
+  <string name="pref_security_allow_mic">מיקרופון</string>
+  <string name="pref_security_allow_camera">מצלמה</string>
+  <string name="pref_security_web_refiner">מודעות</string>
+  <string name="pref_security_accept_third_party_cookies">קובצי cookie של צד שלישי</string>
+  <string name="pref_security_ask_before_using">שאל לפני השימוש</string>
+  <string name="pref_security_allowed">מאושר</string>
+  <string name="pref_security_not_allowed">לא מאושר</string>
+  <string name="pref_security_remember">זכור</string>
+  <string name="pref_security_on">מופעל</string>
+  <string name="pref_security_off">כבוי</string>
+  <string name="pref_website_title">אתר אינטרנט</string>
+  <string name="pref_security_add">הוסף</string>
+  <string name="pref_security_origin_name">מקור אתר</string>
+  <string name="pref_security_access_is_allowed">הגישה מותרת</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">גרור את המחוון לשינוי גודל הגופן כדי להגדיר את הגודל הרצוי לקריאה נוחה.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">גודל גופן מינימלי</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">שינוי גודל טקסט</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">אלץ הפעלת זום</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">עקוף בקשה של אתר לשליטה בפעולת הזום</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">עיבוד מסך הפוך</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">עיבוד הפוך</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">שחור הופך ללבן ולהיפך</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">ניגודיות</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">מתקדם</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">הגדרות אתר</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">הגדרות מתקדמות לאתרים ספציפיים</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">איפוס לברירת מחדל</string>
+  <string name="pref_extras_reset">איפוס</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">שחזר הגדרות ברירת מחדל</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">להחזיר את ההגדרות לערכי ברירת המחדל?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">ניקוי באגים</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">קידוד טקסט</string>
+  <string name="pref_edge_swipe_title">ניווט קצה המסך</string>
+  <string name="pref_edge_swipe_option_msg">גרירה מקצה המסך תפעיל:</string>
+  <string name="pref_temporal_edge_swipe">ניווט דרך ההיסטוריה</string>
+  <string name="pref_spatial_edge_swipe">החלף כרטיסיה</string>
+  <string name="pref_disable_edge_swipe">אל תעשה דבר</string>
+  <string name="pref_edge_swipe_option_close">בחר מאוחר יותר</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">גרור מקצה המסך להפעלת ניווט</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">גרור מקצה המסך להחלפת כרטיסיות</string>
+  <string name="pref_edge_swipe_disabled_toast">גרירה מקצה המסך הושבתה</string>
+  <string name="pref_edge_swipe_unknown">בחר בהתנהגות</string>
+  <string name="pref_edge_swipe_setup_desc">
+גרור מקצה המסך כדי לדפדף בהיסטוריה.\nהתכונה עלולה להתנגש באתרים המשתמשים בתכונת הפעלה מן הקצה</string>
+  <string name="pref_edge_enable">הפעל</string>
+  <string name="pref_edge_disable">בטל</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">שורת מצב צבועה</string>
+  <string name="pref_coloredsb_summary">שורת המצב תחליף צבעים בהתאם לדף בו מבקרים</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">נגישות</string>
+  <string name="pref_accessibility_title_summary">גודל הטקסט והגדלה</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">חוסם-מציצנים</string>
+  <string name="pref_looklock_summary">מונע מיישומים אחרים את קריאת תצוגת האתר שמאפשר יישום זה</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">גודל טקסט</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">מסך מלא</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">השתמש במצב מסך מלא כדי להסתיר את שורת המצב</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">טעינה מוקדמת של תוצאות חיפוש</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>אף פעם</item>
+    <item>ב- Wi-Fi בלבד</item>
+    <item>תמיד</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">אשר לדפדפן לטעון מראש תוצאות חיפוש בעלות אמינות גבוהה ברקע</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">טעינה מוקדמת של דף אינטרנט</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">אשר לדפדפן לבצע טעינה מוקדמת של דפי אינטרנט מקושרים ברקע</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">הדף שאתה מנסה להציג מכיל נתונים שכבר נשלחו (\"POSTDATA\"). אם תשלח שוב את הנתונים, כל פעולה שהטופס בדף ביצע (כגון חיפוש או רכישה מקוונת) תבוצע שוב.</string>
   <!-- Menu item -->
+  <string name="clear_history">נקה היסטוריה</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">לא נמצאה היסטוריית דפדפן.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">הוסף סימניה</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">הוסף</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">חפש או הקלד כתובת אתר</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">עבור אל</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">סימניות והיסטוריית אתרים</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">אישור</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">חסום</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">הגעת למגבלת הכרטיסיות</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">לא ניתן לפתוח כרטיסיה חדשה עד לסגירת אחת הכרטיסיות.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">החלון הקופץ כבר פתוח</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">ניתן לפתוח רק חלון קופץ אחד בכל פעם.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">ללא כרטיס SD</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">נדרש כרטיס SD כדי להוריד את <xliff:g id="filename">%s</xliff:g>.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">כרטיס SD לא זמין</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">כרטיס ה-SD אינו פנוי. כדי לאפשר הורדות, גע ב\"כבה אחסון USB\" בהתראה.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">ניתן להוריד רק כתובות אתר המתחילות ב-\"http\" או \"https\".</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">מתחיל בהורדה\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">חפש באינטרנט</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">אחסון הדפדפן מלא</string>
+  <string name="webstorage_outofspace_notification_text">גע כדי לפנות שטח.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">אחסון</string>
+  <string name="webstorage_private_data_title">נתונים פרטיים</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">למחוק את כל הנתונים שאוחסנו על ידי אתר זה?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">טוען וידאו\u2026</string>
+  <string name="website_settings_add_origin">אתר חדש</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">נקה הכל</string>
+  <string name="website_settings_clear_all_dialog_message">למחוק את כל נתוני האתר ואת הרשאות המיקום?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">מגדיר טפט\u2026</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">ללא סימניות.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">סימניות אחרות</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">הסימניות במכשיר זה אינן משויכות עדיין לחשבון Google. שמור סימניות אלה על-ידי הוספתן לחשבון. מחק את הסימניות אם אינך מעוניין לסנכרן אותן.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">מחק סימניות</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">שתף</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">אין עוד כרטיסיות זמינות</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">תצוגה מקדימה</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">סימניות מקומיות</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">מצא</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">בקש אתר לשולחן העבודה</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">מצב קריאה</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">טעינה מוקדמת של תוצאות</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">אין דפים שמורים.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">מחק דף שמור</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">עבור למצב חי</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">חזור</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">העבר קדימה</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">רענן עמוד</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">הפסק טעינת דף</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">הוסף דף לסימניות</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">חיפוש</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">התחל חיפוש קולי</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">סגור כרטיסייה</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">פתח כרטיסייה חדשה</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">פתח כרטיסייה חדשה לגלישה בסתר</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">נקה תוכן</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">מנהל דפים</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">דף גלישה בסתר</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">דף שמור</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">ניהול כרטיסיות</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">התיקייה הקודמת</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">מחק אתר</string>
+  <string name="my_navigation_edit_label">ערוך אתר</string>
+  <string name="my_navigation_add_label">הוסף אתר</string>
+  <string name="my_navigation_add">הוסף</string>
+  <string name="my_navigation_delete_msg">למחוק אתר?</string>
+  <string name="my_navigation_name">כותרת</string>
+  <string name="my_navigation_address">כתובת</string>
+  <string name="website_needs_title">לאתר חייבת להיות כותרת</string>
+  <string name="website_needs_url">לאתר חייבת להיות כתובת</string>
+  <string name="my_navigation_cannot_save_url">כתובת אתר לא חוקית</string>
+  <string name="my_navigation_duplicate_url">כתובת האתר כבר קיימת</string>
+  <string name="my_navigation_page_title">בית</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">בחר כיצד להציג את קובץ המדיה</string>
+  <string name="video_save">שמור</string>
+  <string name="video_play">נגן</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">צא</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">אודות</string>
+  <string name="download_estore_app">Estore אינו מותקן במכשירך.</string>
+  <string name="estore_url_warning">הפעלת Estore נכשלה, הכתובת ארוכה מדי.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">העלאת קבצים מוגנים ב- DRM (נז״ק דיגיטלי) אינה נתמכת.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">צא מהדפדפן</string>
+  <string name="exit_browser_msg">בחר כיצד לצאת מהדפדפן</string>
+  <string name="exit_minimize">מזער</string>
+  <string name="exit_quit">צא</string>
+  <string name="browser_max_input_title">הגעת למגבלת מספר התווים</string>
+  <string name="browser_max_input">הקלט הגיע למגבלה המרבית בסך <xliff:g id="MAXLIMIT">%s </xliff:g> תווים</string>
+  <string name="duplicated_folder_warning">התיקיה כבר קיימת</string>
+  <string name="overwrite_bookmark_msg">הכתובת או השם לסימנייה כבר קיימים. להחליף?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">נתיב לא חוקי</string>
+  <string name="path_wrong">נתיב שגוי</string>
+  <string name="pref_download_title">הגדרות נתיב הורדה</string>
+  <string name="pref_download_path_setting_screen_title">נתיב הורדה מותאם אישית</string>
+  <string name="download_timeneeded">זמן</string>
+  <string name="download_filesize">גודל</string>
+  <string name="download_filepath_label">נתיב</string>
+  <string name="download_edit_filename_label">שם</string>
+  <string name="download_no_enough_memory">אין די זיכרון עבור הורדה</string>
+  <string name="download_settings_title">הגדרות הורדה</string>
+  <string name="filename_empty_title">שם קובץ להורדה ריק</string>
+  <string name="filename_empty_msg">שם הקובץ אינו יכול להיות ריק. עליך להזין שם קובץ חוקי.</string>
+  <string name="unknow_length">לא ידוע</string>
+  <string name="download_file_exist_msg">הקובץ כבר קיים. הזן שם קובץ חדש.</string>
+  <string name="download_file_exist">הקובץ כבר קיים</string>
+  <string name="time_min">דק\'</string>
+  <string name="download_path_unavailable_dlg_title">תיקיית ההורדות אינה זמינה</string>
+  <string name="download_path_unavailable_dlg_msg">בחר בתיקיה אחרת להורדות</string>
+  <string name="activity_not_found">לא נמצאה הגדרת יישום אחראי לפעילות שהתבקשה: <xliff:g id="NOACTIVITY">%s </xliff:g></string>
+  <string name="download_name_hint">שם קובץ</string>
+  <string name="download_size_hint">גודל</string>
+  <string name="download_eta_hint">זמן סיום משוער</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">קבל הודעה מאת: <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">אישור אבטחה</string>
+  <string name="ssl_certificate_is_valid">אישור זה תקף.</string>
+  <string name="version">גרסה</string>
+  <string name="build_date">תאריך בנייה</string>
+  <string name="build_hash">גיבוב/חתימה דיגיטלית של הבנייה</string>
+  <string name="user_agent">סוכן משתמש</string>
+  <string name="help">עזרה</string>
+  <string name="feedback">משוב</string>
+  <string name="swe_legal">מידע משפטי</string>
+  <string name="swe_open_source_licenses">רשיונות קוד פתוח</string>
+  <string name="swe_eula">הסכם רשיון למשתמש קצה</string>
+  <string name="swe_privacy_policy">מדיניות הפרטיות</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">מנוהל על ידי מנהל המערכת שלך</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">הניווט שלי</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +730,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">זכור העדפה</string>
+  <string name="geolocation_permissions_prompt_share_never">חסום לתמיד</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">אישור למשך 24 שעות</string>
+  <string name="geolocation_permissions_prompt_share_forever">אישור לתמיד</string>
 </resources>

@@ -86,6 +86,7 @@
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
   <string name="edit_folder">Redigera mapp</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Ta bort mapp</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->

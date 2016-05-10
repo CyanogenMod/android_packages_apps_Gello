@@ -529,7 +529,7 @@
   <string name="too_many_windows_dialog_title">Välilehtien enimmäismäärä on saavutettu</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Ei voida avata uutta välilehteä ennenkuin suljet yhden. Onko sinulla tylsää\u003f</string>
+  <string name="too_many_windows_dialog_message">Ei voida avata uutta välilehteä ennenkuin suljet yhden.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Ponnahdusikkuna on jo auki</string>

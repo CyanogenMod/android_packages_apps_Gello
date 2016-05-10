@@ -24,7 +24,7 @@
   <string name="choose_upload">Escolha o arquivo para envio</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
-  <string name="uploads_disabled">Envios estão desativados.</string>
+  <string name="uploads_disabled">Envios desativados.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
   <string name="new_tab">Nova aba</string>
@@ -61,7 +61,7 @@
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
-  <string name="max_url_character_limit_msg">Limite máximo do URL alcançado</string>
+  <string name="max_url_character_limit_msg">Limite máximo de URLs atingido</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
   <string name="msg_no_google_play">Play Store do Google não está presente no seu dispositivo.</string>
   <!-- Menu item -->
@@ -96,7 +96,7 @@
          in the add bookmark dialog -->
   <string name="new_folder">Nova pasta</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
-  <string name="edit_folder">Editar a pasta</string>
+  <string name="edit_folder">Editar pasta</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
   <string name="delete_folder">Excluir pasta</string>
   <!-- Label stating that the currently open folder has no subfolders
@@ -105,7 +105,7 @@
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
   <string name="add_to_homescreen_menu_option">Página Inicial</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
-  <string name="add_to_other_folder_menu_option">Selecione uma pasta\u2026</string>
+  <string name="add_to_other_folder_menu_option">Selecionar pasta\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
   <string name="name">Rótulo</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
@@ -120,7 +120,7 @@
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
   <string name="create_shortcut_bookmark">Adicionar atalho</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
-  <string name="remove_bookmark">Apagar</string>
+  <string name="remove_bookmark">Excluir</string>
   <!-- Context menu item to remove a history item from bookmarks -->
   <string name="remove_from_bookmarks">Remover</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
@@ -138,7 +138,7 @@
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
   <string name="bookmark_needs_url">O favorito precisa ter um URL.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
-  <string name="bookmark_url_not_valid">Esta URL não é válida.</string>
+  <string name="bookmark_url_not_valid">Este URL não é válido.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
   <string name="bookmark_cannot_save_url">Esta URL não pode ser adicionada aos favoritos.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
@@ -149,10 +149,10 @@
   <string name="current_page">de\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
-  <string name="delete_bookmark_warning">Apagar o favorito \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
+  <string name="delete_bookmark_warning">Excluir o favorito \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
-  <string name="delete_folder_warning">Apagar a pasta \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
+  <string name="delete_folder_warning">Excluir a pasta \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Abrir todos em novas abas</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
@@ -190,7 +190,7 @@
   <string name="contextmenu_openlink_newwindow">Abrir em nova aba</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
-  <string name="contextmenu_openlink_newwindow_background">Abrir uma nova aba anônima em segundo plano</string>
+  <string name="contextmenu_openlink_newwindow_background">Abrir uma nova aba em segundo plano</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
   <string name="contextmenu_savelink">Salvar link</string>
@@ -239,7 +239,7 @@
   <string name="pref_content_load_images">Carregar imagens</string>
   <string name="pref_content_load_images_summary">Mostrar imagens nas páginas web</string>
   <!-- Settings label -->
-  <string name="pref_security_allow_popups">Pop ups</string>
+  <string name="pref_security_allow_popups">Pop-ups</string>
   <!-- Settings label -->
   <string name="pref_content_javascript">Ativar JavaScript</string>
   <!-- Settings label -->
@@ -352,7 +352,7 @@
   <string name="powersave_dialog_on">Modo de economia de energia ativado. O navegador será reiniciado.</string>
   <string name="powersave_dialog_off">Modo de economia de energia desativado. O navegador será reiniciado.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
-  <string name="autofill_setup_dialog_message">O navegador pode completar automaticamente formulários da web como este. Quer configurar os seus textos para preenchimento automático?</string>
+  <string name="autofill_setup_dialog_message">O navegador pode completar automaticamente formulários da web como este. Deseja configurar os seus textos para preenchimento automático?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
   <string name="autofill_setup_dialog_negative_toast">Você pode sempre configurar os seus textos de preenchimento automático indo a Navegador &gt; Configurações &gt; Preenchimento automático.</string>
@@ -421,7 +421,7 @@
   <string name="pref_security_origin_name">Origem do site</string>
   <string name="pref_security_access_is_allowed">o acesso é permitido</string>
   <!-- Settings text size options - displays sample font size in settings -->
-  <string name="pref_sample_font_size">Arraste o controle deslizante para ajustar o tamanho da fonte que ajusta ao tamanho desejado para uma leitura confortável.</string>
+  <string name="pref_sample_font_size">Arraste o controle deslizante para ajustar o tamanho da fonte para definir o tamanho desejado para uma leitura confortável.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Tamanho mínimo da fonte</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -431,9 +431,9 @@
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
   <string name="pref_force_userscalable">Forçar ativação do zoom</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
-  <string name="pref_force_userscalable_summary">Substitui o pedido de sites para controlarem o comportamento do zoom</string>
+  <string name="pref_force_userscalable_summary">Substituir a solicitação de um site para controlar o comportamento do zoom</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
-  <string name="pref_inverted_category">Processamento tela invertida</string>
+  <string name="pref_inverted_category">Renderização de tela invertida</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
   <string name="pref_inverted">Renderização invertida</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
@@ -461,14 +461,14 @@
   <string name="pref_edge_swipe_option_msg">Deslizar a partir da borda irá:</string>
   <string name="pref_temporal_edge_swipe">Navegar pelo histórico</string>
   <string name="pref_spatial_edge_swipe">Mudar de aba</string>
-  <string name="pref_disable_edge_swipe">Nada</string>
+  <string name="pref_disable_edge_swipe">Fazer nada</string>
   <string name="pref_edge_swipe_option_close">Escolher mais tarde</string>
-  <string name="pref_temporal_edge_swipe_enabled_toast">Deslizar da borda para navegar</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Deslizar a partir da borda para navegar</string>
   <string name="pref_spatial_edge_swipe_enabled_toast">Deslizar a partir da borda para mudar de aba</string>
   <string name="pref_edge_swipe_disabled_toast">Deslizar a partir da borda está desativado</string>
   <string name="pref_edge_swipe_unknown">Escolha o comportamento</string>
   <string name="pref_edge_swipe_setup_desc">
-        Deslizar a partir da borda para navegar pelo histórico.\nEste recurso pode entrar em conflito com sites que usem ações baseadas em gestos a partir da borda</string>
+Deslizar a partir da borda para navegar pelo histórico.\nEste recurso pode entrar em conflito com sites que usem ações baseadas em bordas</string>
   <string name="pref_edge_enable">Ativar</string>
   <string name="pref_edge_disable">Desativar</string>
   <!-- Colored statusbar -->
@@ -502,7 +502,7 @@
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
   <string name="pref_link_prefetch_summary">Permite que o navegador pré-carregue páginas em segundo plano</string>
   <!-- Dialog box message -->
-  <string name="browserFrameFormResubmitMessage">A página que você está tentando visualizar contém dados que já foram enviados (\"POSTDATA\"). Se você reenviar os dados, qualquer ação do formulário na página efetuada (por exemplo, uma pesquisa ou compra on-line) será repetida.</string>
+  <string name="browserFrameFormResubmitMessage">A página que você está tentando visualizar contém dados que já foram enviados (\"POSTDATA\"). Se você reenviar os dados, qualquer ação do formulário na página executada (por exemplo, uma pesquisa ou compra on-line) será repetida.</string>
   <!-- Menu item -->
   <string name="clear_history">Limpar histórico</string>
   <!-- Appears on History screen if no history is found -->
@@ -529,10 +529,10 @@
   <string name="too_many_windows_dialog_title">Limite de abas atingido</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
-  <string name="too_many_windows_dialog_message">Não é possível abrir uma nova aba até fechar alguma existente. Você está aborrecido\u003f</string>
+  <string name="too_many_windows_dialog_message">Não é possível abrir uma nova aba até fechar uma outra.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
-  <string name="too_many_subwindows_dialog_title">Já existe um pop-up aberta</string>
+  <string name="too_many_subwindows_dialog_title">Já existe um pop-up aberto</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_message">Apenas um pop-up pode estar aberto por vez.</string>
@@ -554,7 +554,7 @@
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-  <string name="download_sdcard_busy_dlg_msg" product="default">O cartão SD está ocupado. Para permitir o download, toque em \"Desativar armazenamento USB\" na notificação.</string>
+  <string name="download_sdcard_busy_dlg_msg" product="default">O cartão SD está cheio. Para permitir downloads, toque em \"Desativar armazenamento USB\" na notificação.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
   <string name="cannot_download">Só e possível fazer o download apartir de URLs \"http\" ou \"https\".</string>
   <!-- Message in the list of items which have received download requests
@@ -587,9 +587,9 @@
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
   <string name="other_bookmarks">Outros favoritos</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
-  <string name="import_bookmarks_dialog_description">Os favoritos deste dispositivo ainda não estão associados a uma conta Google. Guarde estes marcadores adicionando-os a uma conta. Apague estes marcadores se não quiser sincronizá-los.</string>
+  <string name="import_bookmarks_dialog_description">Os favoritos deste dispositivo ainda não estão associados a uma conta Google. Guarde estes marcadores adicionando-os a uma conta. Exclua estes marcadores se não quiser sincronizá-los.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
-  <string name="import_bookmarks_dialog_remove">Apagar favoritos</string>
+  <string name="import_bookmarks_dialog_remove">Excluir favoritos</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
   <string name="menu_share_url">Compartilhar</string>
@@ -611,7 +611,7 @@
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
   <string name="empty_snapshots_folder">Não há páginas salvas.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
-  <string name="remove_snapshot">Apagar página salva</string>
+  <string name="remove_snapshot">Excluir página salva</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
   <string name="snapshot_go_live">Ao vivo</string>
   <!--  Accessibility content descriptions -->
@@ -648,11 +648,11 @@
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_bookmarks_folder_up">Acima</string>
   <!--Add for Navigation Feature -->
-  <string name="my_navigation_delete_label">Apagar site</string>
+  <string name="my_navigation_delete_label">Excluir site</string>
   <string name="my_navigation_edit_label">Editar site</string>
   <string name="my_navigation_add_label">Adicionar site</string>
   <string name="my_navigation_add">Adicionar</string>
-  <string name="my_navigation_delete_msg">Apagar site?</string>
+  <string name="my_navigation_delete_msg">Excluir site?</string>
   <string name="my_navigation_name">Título</string>
   <string name="my_navigation_address">Endereço</string>
   <string name="website_needs_title">O site deve ter um título</string>
@@ -663,7 +663,7 @@
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
   <string name="http_video_msg">Por favor, selecione como lidar com o arquivo multimédia</string>
   <string name="video_save">Salvar</string>
-  <string name="video_play">Tocar</string>
+  <string name="video_play">Reproduzir</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
   <string name="exit">Sair</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
@@ -677,20 +677,20 @@
   <string name="exit_browser_msg">Por favor, selecione como deseja sair do navegador</string>
   <string name="exit_minimize">Minimizar</string>
   <string name="exit_quit">Sair</string>
-  <string name="browser_max_input_title">Atingiu o limite para o número máximo de caracteres</string>
+  <string name="browser_max_input_title">Limite atingido para o número máximo de caracteres</string>
   <string name="browser_max_input">A sua entrada atingiu o limite máximo de <xliff:g id="MAXLIMIT">%s</xliff:g> caracteres</string>
   <string name="duplicated_folder_warning">A pasta já existe</string>
   <string name="overwrite_bookmark_msg">Nome ou endereço do favorito já existe. Substituí-lo?</string>
   <!-- Add for download save path setting Feature -->
   <string name="invalid_path">Caminho inválido</string>
-  <string name="path_wrong">Caminho errado</string>
+  <string name="path_wrong">Caminho incorreto</string>
   <string name="pref_download_title">Configurações do local para download</string>
   <string name="pref_download_path_setting_screen_title">Local de downloads personalizado</string>
   <string name="download_timeneeded">Hora</string>
   <string name="download_filesize">Tamanho</string>
   <string name="download_filepath_label">Caminho</string>
   <string name="download_edit_filename_label">Nome</string>
-  <string name="download_no_enough_memory">Memória insuficiente para realizar o download</string>
+  <string name="download_no_enough_memory">Memória insuficiente para download</string>
   <string name="download_settings_title">Configurações de download</string>
   <string name="filename_empty_title">O nome de arquivo está vazio</string>
   <string name="filename_empty_msg">O nome de arquivo não pode ser vazio. Por favor insira um nome de arquivo válido.</string>
