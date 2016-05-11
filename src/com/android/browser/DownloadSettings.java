@@ -212,54 +212,62 @@ public class DownloadSettings extends Activity {
     };
 
     private OnClickListener downloadStartListener = new OnClickListener() {
-
         @Override
         public void onClick(View v) {
-            filenameBase = getFilenameBaseFromUserEnter();
-            // check the filename user enter is null or not
-            if (TextUtils.isEmpty(filenameBase) || TextUtils.isEmpty(downloadPath)) {
-                DownloadHandler.showFilenameEmptyDialog(DownloadSettings.this);
-                return;
-            }
-
-            filenameExtension = DownloadHandler.getFilenameExtension(filename);
-            filename = filenameBase + "." + filenameExtension;
-
-            // check the storage status
-            if (!DownloadHandler.isStorageStatusOK(DownloadSettings.this, filename, downloadPath)) {
-                return;
-            }
-
-            // check the storage memory enough or not
-            try {
-                DownloadHandler.setAppointedFolder(downloadPath);
-            } catch (Exception e) {
-                DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
-                return;
-            }
-            boolean isNoEnoughMemory = DownloadHandler.manageNoEnoughMemory(contentLength,
-                    downloadPath);
-            if (isNoEnoughMemory) {
-                DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
-                return;
-            }
-
-            // check the download file is exist or not
-            String fullFilename = downloadPath + "/" + filename;
-            if (mimetype != null && new File(fullFilename).exists()) {
-                DownloadHandler.fileExistQueryDialog(DownloadSettings.this);
-                return;
-            }
-
-            // check for permission
-            if (!hasPermission(permission.WRITE_EXTERNAL_STORAGE)) {
-                requestPermissions(new String[] {permission.WRITE_EXTERNAL_STORAGE},
-                    ++nextRequestCode);
-            } else {
-                download();
-            }
+            onHandleDownload();
         }
     };
+
+    private void onHandleDownload() {
+
+        filenameBase = getFilenameBaseFromUserEnter();
+
+        // check the filename user enter is null or not
+        if (TextUtils.isEmpty(filenameBase) || TextUtils.isEmpty(downloadPath)) {
+            DownloadHandler.showFilenameEmptyDialog(DownloadSettings.this);
+            return;
+        }
+
+        // check for permission
+        if (!hasPermission(permission.WRITE_EXTERNAL_STORAGE)) {
+            requestPermissions(new String[] {permission.WRITE_EXTERNAL_STORAGE},
+                ++nextRequestCode);
+            return;
+        }
+
+        filenameExtension = DownloadHandler.getFilenameExtension(filename);
+        filename = filenameBase + "." + filenameExtension;
+
+        // check the storage status
+        if (!DownloadHandler.isStorageStatusOK(DownloadSettings.this, filename, downloadPath)) {
+            return;
+        }
+
+        // check the storage memory enough or not
+        try {
+            DownloadHandler.setAppointedFolder(downloadPath);
+        } catch (Exception e) {
+            DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
+            return;
+        }
+        boolean isNoEnoughMemory = DownloadHandler.manageNoEnoughMemory(contentLength,
+                downloadPath);
+        if (isNoEnoughMemory) {
+            DownloadHandler.showNoEnoughMemoryDialog(DownloadSettings.this);
+            return;
+        }
+
+        // check the download file is exist or not
+        String fullFilename = downloadPath + "/" + filename;
+        if (mimetype != null && new File(fullFilename).exists()) {
+            DownloadHandler.fileExistQueryDialog(DownloadSettings.this);
+            return;
+        }
+
+        download();
+
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -267,7 +275,7 @@ public class DownloadSettings extends Activity {
         if (nextRequestCode == requestCode) {
             if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                download();
+                onHandleDownload();
             } else {
                 finish();
             }
