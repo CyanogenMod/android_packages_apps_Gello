@@ -19,71 +19,127 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Restolador</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Escoyer ficheru pa xubir</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Les xubes tán deshabilitaes.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Llingüeta nueva</string>
+  <string name="browser_tab_crash_snap">¡Ai, coima!</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Recargar</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Asocedió daqué inesperao al amosar esta páxina web. Recarga o vete a otra páxina, por favor.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Mou d\'incógnito</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Lo más visitao</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Amestóse a favoritos.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Desanicióse de favoritos.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Aniciar sesión en <xliff:g id="hostname">%s1</xliff:g> «<xliff:g id="realm">%s2</xliff:g>»</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Nome</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Contraseña</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Aniciar sesión</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Guardar</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Encaboxar</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">Aceutar</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Algamóse la llende máxima d\'URL</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play Store nun ta presente nel to preséu.</string>
   <!-- Menu item -->
+  <string name="page_info">Información</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Direición:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Alvertencia de seguranza</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Esti certificáu nun ye válidu.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Fallu desconocíu de certificáu.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Parando\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Parar</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Refrescar</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Atrás</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Alantre</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Direición</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Cuenta</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Amestar a</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Carpeta nueva</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Editar carpeta</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Desaniciar carpeta</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Nun hai socarpetes.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Pantalla d\'aniciu</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Esbillar carpeta\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Etiqueta</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Guardar</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Amesta esta páxina a favoritos</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Desaniciar</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Editar</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Amestar atayu</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Desaniciar</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Desaniciar</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Desaniciar</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Afitar como páxina d\'aniciu</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Amestóse a favoritos</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Nun pudo guardase\'l favoritu.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Afitóse la páxina d\'aniciu.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">El favoritu tien de tener un nome.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">El favoritu tien de tener un allugamientu.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">Esta URL nun ye válida.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Esta URL nun pue amestase a favoritos.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -91,249 +147,538 @@
             the bookmarks screen. -->
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">¿Desaniciar favoritu «<xliff:g id="bookmark">%s</xliff:g>»?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">¿Desaniciar la carpeta «<xliff:g id="bookmark">%s</xliff:g>»?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Abrir too en llingüetes nueves</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Escueyi una aición pal testu</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Zarrar otres llingüetes</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Favoritos</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Favoritu</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Escueyi un favoritu</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Historial</string>
   <!-- Menu item -->
+  <string name="share_page">Compartir</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Amestar al aniciu</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Guardar</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Guardando\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> favoritos</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Carpeta balera</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Abrir</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Abrir nuna llingüeta nueva</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Abrir nuna llingüeta nueva de fondu</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Guardar enllaz</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Compartir enllaz</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Copiar</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Copiar URL d\'enllaz</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Guardar imaxe</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Ver imaxe</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Afitar como fondu de pantalla</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Marcar\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Amestar contautu</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Unviar corréu</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Mapa</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Compartir per</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Llimpiar</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Trocar</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Axustes</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Axustes de conteníu</string>
+  <string name="pref_content_title_summary">Axustes de conteníu web</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">Cargar imáxenes</string>
+  <string name="pref_content_load_images_summary">Amuesa imáxenes nes páxines web</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Ventanos emerxentes</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">Habilitar JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Abrir de fondu</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Abre llingüetes nueves darrera l\'actual</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Páxina d\'aniciu</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Motor de gueta</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Escueye un motor de gueta</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Afitar a</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Páxina actual</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Páxina balera</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Páxina por defeutu</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Sitios más visitaos</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Otres</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Xeneral</string>
+  <string name="pref_default_site_settings_title">Axustes predeterminaos del sitiu</string>
+  <string name="pref_site_settings_title">Axustes del sitiu</string>
+  <string name="pref_site_settings_info_panel">Información de seguranza</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Autocompletar</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Mou d\'aforru d\'enerxía</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Amenorga l\'usu d\'enerxía del restolador</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Mou nocherniegu</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Invierte los colores</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Autocompletar formularios</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Rellena formularios web con un toque</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d anunciu</item>
+    <item quantity="other">%d anuncios</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d rastrexador</item>
+    <item quantity="other">%d rastrexadores</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d amenaza de malware</item>
+    <item quantity="other">%d amenazes de malware</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"Bloquióse %s. "</item>
+    <item>"Bloquióse %1$s y %2$s. "</item>
+    <item>"Bloquióse %1$s, %2$s y %3$s. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Certificáu SSL válidu. La comunicación ta cifrada y la identidá verificada.</string>
+  <string name="pref_invalid_cert">El sitiu tien un certificáu SSL non válidu.</string>
+  <string name="pref_warning_cert">El certificáu SSL del sitiu tien alvertencies.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Interfaz</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Autocompletar</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Configura l\'autocompletáu nos formularios web</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Teclexa\'l testu que quies p\'autocompletar en formularios web.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Nome completu:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">Corréu:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Nome de compaña:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Llinia 1 de direición:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Cai, direición postal</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Llinia 2 de direición:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Apartamentu, pisu, bloque, edificiu, planta, etc.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Ciudá/Pueblu:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Estáu/provincia/rexón:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Códigu postal:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">País:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Teléfonu:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Númberu de teléfonu non válidu.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Guardar</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Guardóse\'l testu d\'autocompletar.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Desaniciar</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Mou d\'aforru d\'enerxía habilitáu. Reaniciaráse\'l restolador.</string>
+  <string name="powersave_dialog_off">Mou d\'aforru d\'enerxía deshabilitáu. Reaniciaráse\'l restolador.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">El restolador pue completar de mou automáticu los formularios web como esti. ¿Quies configurar el to testu d\'autocompletáu?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Siempres pues configurar el to testu d\'autocompletáu dende Restolador &gt; Axustes &gt; Autocompletáu.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Seguranza</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Privacidá y seguranza</string>
+  <string name="pref_privacy_security_title_summary">Axustes de seguranza y privacidá del restolador</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Esbilla los elementos pa llimpiar</string>
   <!-- Settings label -->
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Llimpia los elementos esbillaos nel llistáu</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">¿Llimpiar los elementos de darréu?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Caché</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Llimpia conteníu llocal na caché y bases de datos</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Cookies y datos del sitiu</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Llimpia toles cookies del restolador y datos de sitios</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Llimpia tol historial de restolar</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">¿Desaniciar l\'historial de restolar?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Datos de formularios</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Llimpia tolos datos de formularios</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Contraseñes</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Llimpia toles contraseñes guardaes</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Allugamientu</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Accesu d\'allugamientu</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Llimpia l\'accesu d\'allugamientu pa tolos sitios web</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Recordar contraseñes</string>
   <!-- Settings label -->
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Solicitar «Nun rastrexar»</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Aceutar cookies</string>
+  <string name="pref_security_allow_mic">Micrófonu</string>
+  <string name="pref_security_allow_camera">Cámara</string>
+  <string name="pref_security_web_refiner">Anuncios</string>
+  <string name="pref_security_accept_third_party_cookies">Cookies de terceres partes</string>
+  <string name="pref_security_ask_before_using">Entrugar enantes d\'usar</string>
+  <string name="pref_security_remember">Recordar</string>
+  <string name="pref_website_title">Sitiu web</string>
+  <string name="pref_security_add">Amestar</string>
+  <string name="pref_security_origin_name">Orixe del sitiu</string>
+  <string name="pref_security_access_is_allowed">accesu permitíu</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Tamañu mínimu de fonte</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Escaláu de testu</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Anula la solicitú de control de zoom de les páxines web</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">El prietu conviértese en blancu y al aviesu</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Contraste</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Avanzao</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Axustes per páxina</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Axustes avanzaos pa sitios web individuales</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Reafitar valores</string>
+  <string name="pref_extras_reset">Reafitar</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Restaura los axustes por defeutu</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">¿Revertir los axustes a los valores por defeutu?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Depurar</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Codificación de testu</string>
+  <string name="pref_disable_edge_swipe">Nun facer nada</string>
+  <string name="pref_edge_swipe_option_close">Escoyer más sero</string>
+  <string name="pref_edge_swipe_unknown">Escoyer comportamientu</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Barra d\'estáu pintada</string>
+  <string name="pref_coloredsb_summary">La barra d\'estáu camudará\'l color basándose na páxina visitada</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Accesibilidá</string>
+  <string name="pref_accessibility_title_summary">Tamañu de testu y zoom</string>
   <!-- LookLock -->
+  <string name="pref_looklock_summary">Evita qu\'otres aplicaciones llean el conteníu webview d\'esta aplicación</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Tamañu de testu</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Pon el restolador a pantalla completa</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Precarga de resultáu de gueta</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Enxamás</item>
+    <item>Namái na Wi-Fi</item>
+    <item>Siempres</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Permite que\'l restolador precargue de fondu los resultaos de gueta</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Precarga de páxines web</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Permite al restolar precargar de fondu les páxines web enllazaes</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">La páxina que tas tentando de ver contién datos que yá s\'unviaron («POSTDATA»). Si los reunvies, repitiráse cualesquier aición que\'l formulariu fixere na páxina (como una gueta o merca en llinia).</string>
   <!-- Menu item -->
+  <string name="clear_history">Llimpiar historial</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Nun hai historial del restolador.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Amestar favoritu</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Amestar</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Gueta o teclexa una URL</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">Dir</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Favoritos ya historial web</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Permitir</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Bloquiar</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Algamóse la llende de llingüetes</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Nun puen abrise más llingüetes fasta que nun zarres una.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">S\'abrió\'l ventanu emerxente</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Nun hai tarxeta SD</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Ríquese una tarxeta SD pa baxar <xliff:g id="filename">%s</xliff:g>.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">Tarxeta SD non disponible</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">La tarxeta SD ta ocupada. Pa permitir les descargues, calca en «Desactivar almacenamientu USB» nel avisu.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Namái puen baxase URLs «http» o «https».</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Aniciando descarga\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Almacenamientu enllén del restolador</string>
+  <string name="webstorage_outofspace_notification_text">Calca pa lliberar espaciu.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Almacenamientu</string>
+  <string name="webstorage_private_data_title">Datos privaos</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">¿Desaniciar tolos datos atroxaos por esti sitiu web?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Cargando videu\u2026</string>
+  <string name="website_settings_add_origin">Sitiu nuevu</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Llimpiar too</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Afitando fondu de pantalla\u2026</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Nun hai favoritos.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Otros favoritos</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Desanciar favoritos</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Compartir</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Nun hai más llingüetes disponibles</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Los mios favoritos</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Sitiu d\'escritoriu</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Mou de llector</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Precargar resultaos</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Nun hai páxines guardaes.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Refrescar páxina</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Parar carga de páxina</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Amestar a favoritos</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Guetar</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Aniciar gueta per voz</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Zarra llingüeta</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Abrir llingüeta nueva</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Abrir llingüeta nueva d\'incógnito</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Xestor de páxines</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Páxina d\'incógnito</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Páxina guardada</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Xestión de llingüetes</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Desaniciar sitiu web</string>
+  <string name="my_navigation_edit_label">Editar sitiu web</string>
+  <string name="my_navigation_add_label">Amestar sitiu web</string>
+  <string name="my_navigation_add">Amestar</string>
+  <string name="my_navigation_delete_msg">¿Desaniciar sitiu web?</string>
+  <string name="my_navigation_name">Títulu</string>
+  <string name="my_navigation_address">Direición</string>
+  <string name="website_needs_title">El sitiu web tien de tener un títulu</string>
+  <string name="website_needs_url">El sitiu web tien de tener una URL</string>
+  <string name="my_navigation_cannot_save_url">URL non válida</string>
+  <string name="my_navigation_duplicate_url">Yá esiste la URL</string>
+  <string name="my_navigation_page_title">Aniciu</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Esbilla cómo remanar los ficheros multimedia, por favor</string>
+  <string name="video_save">Guardar</string>
+  <string name="video_play">Reproducir</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Colar</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Tocante a</string>
+  <string name="download_estore_app">Estore nun ta presente nel to preséu.</string>
+  <string name="estore_url_warning">Fallu al llazanzar Estore, la URL ye perllarga.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Nun se sofita la xuba de ficheros DRM.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Colar del restolador</string>
+  <string name="exit_browser_msg">Esbilla cómo colar del restolador, por favor</string>
+  <string name="exit_minimize">Minimizar</string>
+  <string name="exit_quit">Colar</string>
+  <string name="browser_max_input_title">Algamóse la llende pal númberu máximu de caráuteres</string>
+  <string name="duplicated_folder_warning">Yá esiste la carpeta</string>
+  <string name="overwrite_bookmark_msg">Yá esiste\'l nome del favoritu o direición. ¿Trocar?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Camín non válidu</string>
+  <string name="path_wrong">Camín incorreutu</string>
+  <string name="pref_download_title">Axustes del camín de descarga</string>
+  <string name="pref_download_path_setting_screen_title">Camín de descarga personalizáu</string>
+  <string name="download_filesize">Tamañu</string>
+  <string name="download_filepath_label">Camín</string>
+  <string name="download_edit_filename_label">Nome</string>
+  <string name="download_no_enough_memory">Memoria non abonda pa la descarga</string>
+  <string name="download_settings_title">Axustes de descarga</string>
+  <string name="filename_empty_title">El nome de la descarga ta baleru</string>
+  <string name="filename_empty_msg">El nome de la descarga nun pue tar baleru. Introduz un nome válidu, por favor.</string>
+  <string name="unknow_length">Desconocíu</string>
+  <string name="download_file_exist_msg">Yá esiste\'l nome de ficheru. Introduz un nome nuevu de ficheru, por favor.</string>
+  <string name="download_file_exist">Yá esiste\'l ficheru</string>
+  <string name="time_min">min</string>
+  <string name="download_path_unavailable_dlg_title">Nun ta disponible\'l direutoriu de descarga</string>
+  <string name="download_path_unavailable_dlg_msg">Modifica\'l direutoriu de descarga, por favor</string>
+  <string name="activity_not_found">Nun s\'alcontró actividá dala pa remanar esti intentu: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">Nome de ficheru</string>
+  <string name="download_size_hint">Tamañu</string>
   <!-- Toast message displayed when the full screen received message -->
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Certificáu de seguranza</string>
+  <string name="ssl_certificate_is_valid">Esti certificáu ye válidu.</string>
+  <string name="version">Versión</string>
+  <string name="build_date">Data de construcción</string>
+  <string name="build_hash">Hash de construcción</string>
+  <string name="user_agent">Axente d\'usuariu</string>
+  <string name="help">Ayuda</string>
+  <string name="feedback">Feedback</string>
+  <string name="swe_legal">Información llegal</string>
+  <string name="swe_open_source_licenses">Llicencies de códigu abiertu</string>
+  <string name="swe_eula">Alcuerdu de llicencies del usuariu final</string>
+  <string name="swe_privacy_policy">Política de privacidá</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Xestionao pol to alministrador</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">El mio restolar</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +686,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">Recordar preferencia</string>
+  <string name="geolocation_permissions_prompt_share_never">Ñegar dafechu</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Permitir 24 hores</string>
+  <string name="geolocation_permissions_prompt_share_forever">Permitir siempres</string>
 </resources>

@@ -74,7 +74,9 @@
   <string name="page_info_address">Adres:</string>
   <!-- Title for an SSL error dialog  -->
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Certyfikat jest nieprawidłowy.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Nieznany błąd certyfikatu.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
   <string name="stopping">Zatrzymywanie\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
@@ -101,6 +103,7 @@
          in the add bookmark dialog [CHAR-LIMIT=none]-->
   <string name="no_subfolders">Brak podkatalogów.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Ekran główny</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
   <string name="add_to_other_folder_menu_option">Wybierz katalog\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
@@ -125,6 +128,7 @@
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
   <string name="set_as_homepage">Ustaw jako stronę startową</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Dodano do ulubionych</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
   <!-- Toast confirming that the homepage has been set -->
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
@@ -141,56 +145,81 @@
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Otwórz wszystkie w nowych kartach</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Zamknij inne karty</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Zakładki</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Zakładka</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Wybierz zakładkę</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Historia</string>
   <!-- Menu item -->
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Dodaj do ekranu głównego</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Pusty folder</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Otwórz</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Otwórz w nowej karcie</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Otwórz w nowej karcie w tle</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Zapisz link</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Udostępnij link</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Kopiuj</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Zapisz obraz</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Wyświetl obraz</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Ustaw jako tapetę</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Dodaj kontakt</string>
   <!-- Context Menu item to send an email using the selected email address.-->
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Mapa</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Udostępnij przez</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Wyczyść</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Ustawienia</string>
   <!-- Settings screen, section title -->
   <!-- Settings label -->
+  <string name="pref_content_load_images">Wczytuj obrazy</string>
+  <string name="pref_content_load_images_summary">Wyświetlaj obrazy na stronach internetowych</string>
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_content_javascript">Włącz JavaScript</string>
   <!-- Settings label -->
   <!-- Settings summary [CHAR LIMIT=50]-->
   <!-- Settings label [CHAR LIMIT=50] -->
@@ -199,6 +228,7 @@
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Ogólne</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
   <!-- Settings summary for the powersave feature. -->
@@ -256,6 +286,9 @@
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_allow_mic">Mikrofon</string>
+  <string name="pref_security_allow_camera">Aparat</string>
+  <string name="pref_security_web_refiner">Reklamy</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -266,7 +299,9 @@
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Kontrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Zaawansowane</string>
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings label -->
@@ -376,9 +411,14 @@
   <!-- Add for Carrier Feature.Content description for about menu item -->
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <!-- Add for exit prompt Feature -->
+  <string name="exit_minimize">Zminimalizuj</string>
+  <string name="exit_quit">Zamknij</string>
   <!-- Add for download save path setting Feature -->
   <!-- Toast message displayed when the full screen received message -->
   <!-- Snapdragon Browser Additions -->
+  <string name="version">Wersja</string>
+  <string name="build_date">Data kompilacji</string>
+  <string name="help">Pomoc</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
   <!-- My Navigation - Favorites + History + Saved -->
   <!-- Place holder for SWE engine strings added to
