@@ -140,6 +140,7 @@
             <url of new bookmark>?" -->
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Налады</string>
   <!-- Settings screen, section title -->
   <!-- Settings label -->
   <!-- Settings label -->

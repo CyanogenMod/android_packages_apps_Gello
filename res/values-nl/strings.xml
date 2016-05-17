@@ -110,6 +110,7 @@
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
   <string name="remove">Verwijderen</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Bewerken</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
   <string name="create_shortcut_bookmark">Snelkoppeling toevoegen</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
@@ -125,10 +126,13 @@
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
   <string name="bookmark_not_saved">Kan bladwijzer niet opslaan.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Startpagina is ingesteld.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
   <string name="bookmark_needs_title">Bladwijzer moet een naam hebben.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Bladwijzer moet een locatie hebben.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">URL is niet geldig.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
   <string name="bookmark_cannot_save_url">URL kan niet worden toegevoegd aan bladwijzers.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
@@ -151,45 +155,65 @@
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
   <!-- Menu item -->
+  <string name="share_page">Delen</string>
   <!-- Menu item for saving link to homescreen -->
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Opslaan</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
   <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> bladwijzers</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Lege map</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Openen</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Openen in nieuw tabblad</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Openen in nieuw tabblad op de achtergrond</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Link opslaan</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Link delen</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Kopiëren</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Afbeelding opslaan</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Afbeelding weergeven</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Instellen als achtergrond</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Bellen\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Contact toevoegen</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">E-mail verzenden</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Kaart</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Delen via</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Wissen</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Vervangen</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Instellingen</string>
   <!-- Settings screen, section title -->
   <!-- Settings label -->
   <!-- Settings label -->
@@ -232,15 +256,26 @@
   <string name="pref_autofill_enabled">Formulieren automatisch invullen</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <string name="pref_autofill_enabled_summary">Webformulieren invullen met één aanraking</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d advertentie</item>
+    <item quantity="other">%d advertenties</item>
+  </plurals>
   <plurals name="pref_web_refiner_trackers">
     <item quantity="one">%d tracker</item>
     <item quantity="other">%d trackers</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d malwaredreiging</item>
+    <item quantity="other">%d malwaredreigingen</item>
   </plurals>
   <string-array name="pref_web_refiner_message">
     <item>"%s geblokkeerd. "</item>
     <item>"%1$s en %2$s geblokkeerd. "</item>
     <item>"%1$s, %2$s en %3$s geblokkeerd. "</item>
   </string-array>
+  <string name="pref_valid_cert">Geldig SSL-certificaat. Communicatie wordt versleuteld en identiteit is geverifieerd.</string>
+  <string name="pref_invalid_cert">Website heeft een ongeldig SSL-certificaat.</string>
+  <string name="pref_warning_cert">SSL-certificaat van de website heeft waarschuwingen.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_interface_title">Interface</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
@@ -285,18 +320,23 @@
   <string name="autofill_profile_editor_delete_profile">Verwijderen</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">De browser kan webformulieren zoals deze automatisch invullen. Wilt u het automatisch aanvullen van tekst instellen?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">U kunt de tekst voor automatisch aanvullen altijd instellen via \'Browser\' &gt; \'Instellingen\' &gt; \'Algemeen\'.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
   <string name="disable_autofill">Automatisch aanvullen uitschakelen</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Beveiliging</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Privacy en beveiliging</string>
   <!-- Popup dialog -->
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Confirmation dialog message -->
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Cache</string>
   <!-- Settings summary -->
   <!-- Settings label -->
   <!-- Settings summary -->
@@ -368,6 +408,7 @@
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
   <string name="pref_lab_fullscreen">Volledig scherm</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Browser in volledige scherm gebruiken</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
   <string name="pref_data_preload_title">Zoekresultaten vooraf laden</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
@@ -378,11 +419,13 @@
     <item>Altijd</item>
   </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Browser toestaan zoekresultaten vooraf te laden</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
   <string name="pref_link_prefetch_title">Webpagina\'s vooraf laden</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
   <string name="pref_link_prefetch_summary">Toestaan dat de browser gekoppelde webpagina\'s vooraf laadt op de achtergrond</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">De pagina die u probeert te openen bevat gegevens die al verzonden zijn (\'POSTDATA\'). Als u de gegevens opnieuw verzendt, wordt elke actie herhaald die het formulier op de pagina heeft uitgevoerd (zoals een zoekopdracht of online aankoop).</string>
   <!-- Menu item -->
   <string name="clear_history">Geschiedenis wissen</string>
   <!-- Appears on History screen if no history is found -->
@@ -421,6 +464,7 @@
   <string name="download_no_sdcard_dlg_title" product="default">Geen SD-kaart</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">SD-kaart vereist om <xliff:g id="filename">%s</xliff:g> te downloaden.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
@@ -432,20 +476,33 @@
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">SD-kaart is in gebruik. Als u downloads wilt toestaan, tikt u in de melding op \'USB-opslag uitschakelen\'.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
   <string name="cannot_download">Kan alleen URL\'s met \'http\' of \'https\' downloaden.</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Downloaden starten\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Zoeken op internet</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Browseropslag is vol</string>
+  <string name="webstorage_outofspace_notification_text">Tik om ruimte vrij te maken.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Opslag</string>
+  <string name="webstorage_private_data_title">Privé-gegevens</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Alle gegevens verwijderen die zijn opgeslagen door deze website?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Video laden\u2026</string>
+  <string name="website_settings_add_origin">Nieuwe site</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Alles wissen</string>
+  <string name="website_settings_clear_all_dialog_message">Alle websitegegevens en locatierechten verwijderen?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Achtergrond instellen\u2026</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
   <string name="empty_bookmarks_folder">Geen bladwijzers.</string>
@@ -457,32 +514,49 @@
   <string name="import_bookmarks_dialog_remove">Bladwijzers verwijderen</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Delen</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Er zijn niet meer tabbladen beschikbaar</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Voorbeeld</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
   <string name="local_bookmarks">Mijn bladwijzers</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Zoeken</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Resultaten vooraf laden</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Geen opgeslagen pagina\'s.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Opgeslagen pagina verwijderen</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Live gaan</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Pagina vernieuwen</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Stoppen met laden van de pagina</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_addbookmark">Toevoegen aan bladwijzers</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Zoeken</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Gesproken zoekopdracht</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Tabblad sluiten</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Nieuw tabblad openen</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Nieuw incognitotabblad openen</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Invoer wissen</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Paginabeheer</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
   <string name="accessibility_state_incognito">Incognitopagina</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
@@ -490,6 +564,7 @@
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
   <string name="accessibility_transition_navscreen">Tabbladbeheer</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Vorige</string>
   <!--Add for Navigation Feature -->
   <string name="my_navigation_delete_label">Website verwijderen</string>
   <string name="my_navigation_edit_label">Website bewerken</string>
@@ -505,6 +580,7 @@
   <string name="my_navigation_page_title">Thuis</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
   <string name="video_save">Opslaan</string>
+  <string name="video_play">Afspelen</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
   <!-- Add for Carrier Feature.Content description for about menu item -->
   <string name="about">Over</string>
