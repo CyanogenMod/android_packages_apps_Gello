@@ -28,6 +28,7 @@
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
   <string name="new_tab">Nová karta</string>
+  <string name="browser_tab_crash_snap">Jejda, spadlo to!</string>
   <!-- Crash tab button text -->
   <string name="browser_tab_crash_reload">Znovu načíst</string>
   <!-- Crash tab View message -->
@@ -170,6 +171,7 @@
   <!-- Menu item -->
   <string name="share_page">Sdílet stránku</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Přidat domů</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <string name="menu_save_snapshot">Uložit ke čtení offline</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
@@ -237,6 +239,7 @@
   <string name="pref_content_load_images">Načítání obrázků</string>
   <string name="pref_content_load_images_summary">Zobrazovat na webových stránkách obrázky</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Vyskakovací okna</string>
   <!-- Settings label -->
   <string name="pref_content_javascript">Povolit JavaScript</string>
   <!-- Settings label -->
@@ -283,8 +286,29 @@
   <string name="pref_autofill_enabled">Automatické vyplňování formulářů</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <string name="pref_autofill_enabled_summary">Vyplňování webových formulářů jediným dotykem</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d inzerce</item>
+    <item quantity="few">%d inzerce</item>
+    <item quantity="other">%d inzercí</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d sledovač</item>
+    <item quantity="few">%d sledovače</item>
+    <item quantity="other">%d sledovačů</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d hrozba malware</item>
+    <item quantity="few">%d hrozby malware</item>
+    <item quantity="other">%d hrozeb malware</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"Blokované %s. "</item>
+    <item>"Blokované %1$s a %2$s. "</item>
+    <item>"Blokované %1$s, %2$s a %3$s. "</item>
+  </string-array>
   <string name="pref_valid_cert">Platný certifikát SSL. Komunikace je šifrovaná a identita je ověřena.</string>
   <string name="pref_invalid_cert">Stránka nemá platný certifikát SSL.</string>
+  <string name="pref_warning_cert">Certifikát SSL serveru má varování.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_interface_title">Rozhraní</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
@@ -344,6 +368,7 @@
   <string name="pref_privacy_security_title">Ochrana soukromí a zabezpečení</string>
   <string name="pref_privacy_security_title_summary">Nastavení zabezpečení a ochrany osobních údajů prohlížeče</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Vyberte položky ke smazání</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_selected">Vymazat vybrané položky</string>
   <!-- Settings summary -->
@@ -396,8 +421,10 @@
   <string name="pref_security_off">Vypnout</string>
   <string name="pref_website_title">Webová stránka</string>
   <string name="pref_security_add">Přidat</string>
+  <string name="pref_security_origin_name">Místo původu</string>
   <string name="pref_security_access_is_allowed">přístup je povolen</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Přesunutím posuvníku upravte velikost písma pro pohodlné čtení.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Minimální velikost písma</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -433,16 +460,28 @@
   <string name="pref_development_title">Ladit</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Kódování textu</string>
+  <string name="pref_edge_swipe_title">Navigace od okraje</string>
+  <string name="pref_edge_swipe_option_msg">Tažení od okraje:</string>
+  <string name="pref_temporal_edge_swipe">Navigovat přes historii</string>
   <string name="pref_spatial_edge_swipe">Změnit kartu</string>
   <string name="pref_disable_edge_swipe">Nedělat nic</string>
+  <string name="pref_edge_swipe_option_close">Zvolit později</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Tažení od okraje pro navigaci</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Tažení od okraje pro změnu karty</string>
+  <string name="pref_edge_swipe_disabled_toast">Tažení od okraje zakázáno</string>
+  <string name="pref_edge_swipe_unknown">Zvolit chování</string>
+  <string name="pref_edge_swipe_setup_desc">Tažením od okraje navigovat v historii.\nToto nastavení může kolidovat se stránkami, které používají akce při okrajích</string>
   <string name="pref_edge_enable">Povolit</string>
   <string name="pref_edge_disable">Zakázat</string>
   <!-- Colored statusbar -->
   <string name="pref_coloredsb_title">Barevný stavový řádek</string>
+  <string name="pref_coloredsb_summary">Změna barvy stavového řádku podle navštívené stránky</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <string name="pref_accessibility_title">Usnadnění</string>
   <string name="pref_accessibility_title_summary">Velikost textu a zvětšování</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Zabránit ostatním aplikacím čtení obsahu webu z této aplikace</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
   <string name="pref_font_size_category">Velikost textu</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
@@ -455,7 +494,7 @@
   <!-- Link prefetching options [CHAR LIMIT=20] -->
   <string-array name="pref_temporal_choices">
     <item>Nikdy</item>
-    <item>Only on Wi-Fi</item>
+    <item>Pouze přes Wi-Fi</item>
     <item>Vždy</item>
   </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
@@ -492,6 +531,7 @@
   <string name="too_many_windows_dialog_title">Bylo dosaženo maximálního počtu karet</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Nelze otevřít novou kartu, dokud jednu nezavřete.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Vyskakovací okno je již otevřené</string>
@@ -537,6 +577,7 @@
   <string name="webstorage_clear_data_dialog_message">Smazat veškerá data uložená tímto webem?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
   <string name="loading_video">Načítání videa…</string>
+  <string name="website_settings_add_origin">Nová stránka</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
   <string name="website_settings_clear_all">Vymazat vše</string>
   <string name="website_settings_clear_all_dialog_message">Smazat všechna data webových stránek a oprávnění přistupovat k informacím o poloze?</string>
@@ -562,6 +603,7 @@
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
   <string name="local_bookmarks">Mé oblíbené</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Najít</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
   <string name="ua_switcher_desktop">Verze webu pro PC</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
@@ -628,10 +670,13 @@
   <string name="exit">Ukončit</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
   <string name="about">O aplikaci</string>
+  <string name="download_estore_app">Estore není k dispozici ve vašem zařízení.</string>
+  <string name="estore_url_warning">Nepodařilo se zahájit Estore, adresa URL je příliš dlouhá.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <string name="drm_file_unsupported">Ukládání DRM souborů není podporováno.</string>
   <!-- Add for exit prompt Feature -->
   <string name="exit_browser_title">Ukončit prohlížeč</string>
+  <string name="exit_browser_msg">Vyberte prosím jak ukončit prohlížeč</string>
   <string name="exit_minimize">Minimalizovat</string>
   <string name="exit_quit">Ukončit</string>
   <string name="browser_max_input_title">Bylo dosaženo limitu pro maximální počet znaků</string>
@@ -640,31 +685,44 @@
   <string name="overwrite_bookmark_msg">Oblíbené jméno nebo adresa již existuje. Chcete jej přepsat?</string>
   <!-- Add for download save path setting Feature -->
   <string name="invalid_path">Neplatná cesta</string>
+  <string name="path_wrong">Špatná cesta</string>
+  <string name="pref_download_title">Nastavení cesty stahování</string>
+  <string name="pref_download_path_setting_screen_title">Vlastní cesty pro stažení</string>
   <string name="download_timeneeded">Čas</string>
   <string name="download_filesize">Velikost</string>
   <string name="download_filepath_label">Cesta</string>
   <string name="download_edit_filename_label">Jméno</string>
+  <string name="download_no_enough_memory">Nedostatek paměti ke stažení</string>
   <string name="download_settings_title">Nastavení stahování</string>
+  <string name="filename_empty_title">Název stahovaného souboru je prázdný</string>
+  <string name="filename_empty_msg">Jméno stahovaného souboru nesmí být prázdné. Napište platné jméno.</string>
   <string name="unknow_length">Neznámé</string>
   <string name="download_file_exist_msg">Soubor již existuje. Zadejte nový název souboru.</string>
   <string name="download_file_exist">Soubor již existuje</string>
+  <string name="time_min">min</string>
+  <string name="download_path_unavailable_dlg_title">Stahovaný adresář není k dispozici</string>
   <string name="download_path_unavailable_dlg_msg">Prosím změňte adresář pro stahování</string>
+  <string name="activity_not_found">Nenalezena žádná aktivita při zpracování tohoto intentu: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
   <string name="download_name_hint">Název souboru</string>
   <string name="download_size_hint">Velikost</string>
   <string name="download_eta_hint">ETA</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Přijatá zpráva od: <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
   <string name="ssl_certificate">Certifikát zabezpečení</string>
   <string name="ssl_certificate_is_valid">Certifikát je platný.</string>
   <string name="version">Verze</string>
   <string name="build_date">Datum sestavení</string>
+  <string name="build_hash">Sestavit hash</string>
   <string name="user_agent">Vlastní nastavení identifikace</string>
   <string name="help">Nápověda</string>
   <string name="feedback">Zpětná vazba</string>
   <string name="swe_legal">Právní informace</string>
   <string name="swe_open_source_licenses">Licence Open Source</string>
+  <string name="swe_eula">Licence s koncovým uživatelem</string>
   <string name="swe_privacy_policy">Zásady ochrany osobních údajů</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Spravováno administrátorem</string>
   <!-- My Navigation - Favorites + History + Saved -->
   <string name="mystuffs">Moje navigace</string>
   <!-- Place holder for SWE engine strings added to
@@ -676,4 +734,6 @@
   <!-- Geolocation infobar promt-->
   <string name="geolocation_permissions_prompt_remember">Zapamatovat předvolbu</string>
   <string name="geolocation_permissions_prompt_share_never">Navždy odepřít</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Povolit na dalších 24 hodin</string>
+  <string name="geolocation_permissions_prompt_share_forever">Povolit navždy</string>
 </resources>
