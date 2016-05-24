@@ -85,7 +85,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://br-sayt.ff.search.yahoo.com/gossip-br-sayt?output=fxjson&amp;command={searchTerms}</item>
   </string-array>
   <string-array name="bing_zh_HK" translatable="false">
-    <item>Bing</item>
+    <item>Bing HK</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=zh-HK&amp;q={searchTerms}</item>
@@ -93,7 +93,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_el_GR" translatable="false">
-    <item>Bing</item>
+    <item>Bing GR</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=el-GR&amp;q={searchTerms}</item>
@@ -101,7 +101,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_tr_TR" translatable="false">
-    <item>Bing</item>
+    <item>Bing TR</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=tr-TR&amp;q={searchTerms}</item>
@@ -149,7 +149,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="yahoo_ch" translatable="false">
-    <item>Yahoo! Suche</item>
+    <item>Yahoo! CH</item>
     <item>ch.yahoo.com</item>
     <item>http://ch.search.yahoo.com/favicon.ico</item>
     <item>http://ch.search.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
@@ -157,7 +157,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_nl_BE" translatable="false">
-    <item>Bing</item>
+    <item>Bing BE (nl)</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=nl-BE&amp;q={searchTerms}</item>
@@ -189,7 +189,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://ss.es.ask.com/query?q={searchTerms}&amp;li=ff</item>
   </string-array>
   <string-array name="bing_cs_CZ" translatable="false">
-    <item>Bing</item>
+    <item>Bing CZ</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=cs-CZ&amp;q={searchTerms}</item>
@@ -197,7 +197,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="altavista_se" translatable="false">
-    <item>AltaVista</item>
+    <item>AltaVista SE</item>
     <item>se.altavista.com</item>
     <item>http://se.altavista.com/favicon.ico</item>
     <item>http://se.altavista.com/web/results?q={searchTerms}</item>
@@ -221,7 +221,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_zh_CN" translatable="false">
-    <item>Bing</item>
+    <item>Bing CN</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=zh-CN&amp;q={searchTerms}</item>
@@ -237,7 +237,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>https://www.google.com/complete/search?client=android&amp;q={searchTerms}</item>
   </string-array>
   <string-array name="bing_en_NZ" translatable="false">
-    <item>Bing</item>
+    <item>Bing NZ</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-NZ&amp;q={searchTerms}</item>
@@ -245,7 +245,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_fr_BE" translatable="false">
-    <item>Bing</item>
+    <item>Bing BE (fr)</item>
     <item></item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=fr-BE&amp;q={searchTerms}</item>
@@ -277,7 +277,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://pesquisa.sapo.pt/livesapo?q={searchTerms}</item>
   </string-array>
   <string-array name="bing_it_IT" translatable="false">
-    <item>Bing</item>
+    <item>Bing IT</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=it-IT&amp;q={searchTerms}</item>
@@ -285,7 +285,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_es_ES" translatable="false">
-    <item>Bing</item>
+    <item>Bing ES</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=es-ES&amp;q={searchTerms}</item>
@@ -317,7 +317,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://de-sayt.ff.search.yahoo.com/gossip-de-sayt?output=fxjson&amp;command={searchTerms}</item>
   </string-array>
   <string-array name="bing_de_AT" translatable="false">
-    <item>Bing</item>
+    <item>Bing AT</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=de-AT&amp;q={searchTerms}</item>
@@ -325,7 +325,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_pl_PL" translatable="false">
-    <item>Bing</item>
+    <item>Bing PL</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=pl-PL&amp;q={searchTerms}</item>
@@ -373,7 +373,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_en_GB" translatable="false">
-    <item>Bing</item>
+    <item>Bing GB</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-GB&amp;q={searchTerms}</item>
@@ -397,7 +397,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_sv_SE" translatable="false">
-    <item>Bing</item>
+    <item>Bing SE</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=sv-SE&amp;q={searchTerms}</item>
@@ -501,7 +501,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}</item>
   </string-array>
   <string-array name="bing_en_IE" translatable="false">
-    <item>Bing</item>
+    <item>Bing IE</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-IE&amp;q={searchTerms}</item>
@@ -509,7 +509,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_pt_PT" translatable="false">
-    <item>Bing</item>
+    <item>Bing PT</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=pt-PT&amp;q={searchTerms}</item>
@@ -517,7 +517,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_de_CH" translatable="false">
-    <item>Bing</item>
+    <item>Bing CH (de)</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=de-CH&amp;q={searchTerms}</item>
@@ -525,7 +525,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_nl_NL" translatable="false">
-    <item>Bing</item>
+    <item>Bing NL</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=nl-NL&amp;q={searchTerms}</item>
@@ -533,7 +533,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_fr_CH" translatable="false">
-    <item>Bing</item>
+    <item>Bing CH (fr)</item>
     <item></item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=fr-CH&amp;q={searchTerms}</item>
@@ -541,7 +541,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_zh_TW" translatable="false">
-    <item>Bing</item>
+    <item>Bing TW</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=zh-TW&amp;q={searchTerms}</item>
@@ -549,7 +549,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_ru_RU" translatable="false">
-    <item>Bing</item>
+    <item>Bing RU</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=ru-RU&amp;q={searchTerms}</item>
@@ -557,7 +557,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_en_AU" translatable="false">
-    <item>Bing</item>
+    <item>Bing AU</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-AU&amp;q={searchTerms}</item>
@@ -565,7 +565,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="bing_da_DK" translatable="false">
-    <item>Bing</item>
+    <item>Bing DK</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=da-DK&amp;q={searchTerms}</item>
@@ -589,7 +589,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://suggest.yandex.net/suggest-ff.cgi?part={searchTerms}</item>
   </string-array>
   <string-array name="bing_ja_JP" translatable="false">
-    <item>Bing</item>
+    <item>Bing JP</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=ja-JP&amp;q={searchTerms}</item>
@@ -621,7 +621,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_fr_FR" translatable="false">
-    <item>Bing</item>
+    <item>Bing FR</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=fr-FR&amp;q={searchTerms}</item>
@@ -637,7 +637,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_nb_NO" translatable="false">
-    <item>Bing</item>
+    <item>Bing NO</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=nb-NO&amp;q={searchTerms}</item>
@@ -661,7 +661,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_de_DE" translatable="false">
-    <item>Bing</item>
+    <item>Bing DE</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=de-DE&amp;q={searchTerms}</item>
@@ -669,7 +669,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://api.bing.com/osjson.aspx?query={searchTerms}&amp;language={language}</item>
   </string-array>
   <string-array name="search_de_CH" translatable="false">
-    <item>search.ch</item>
+    <item>search.ch (german)</item>
     <item>search.ch</item>
     <item>http://www.search.ch/favicon.ico</item>
     <item>http://www.search.ch/index.de.html?q={searchTerms}</item>
@@ -685,7 +685,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="search_fr_CH" translatable="false">
-    <item>search.ch</item>
+    <item>search.ch (french)</item>
     <item></item>
     <item>http://www.search.ch/favicon.ico</item>
     <item>http://www.search.ch/index.fr.html?q={searchTerms}</item>
@@ -701,7 +701,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="bing_en_SG" translatable="false">
-    <item>Bing</item>
+    <item>Bing SG</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-SG&amp;q={searchTerms}</item>
@@ -717,7 +717,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://it-sayt.ff.search.yahoo.com/gossip-it-sayt?output=fxjson&amp;command={searchTerms}</item>
   </string-array>
   <string-array name="yahoo_at" translatable="false">
-    <item>Yahoo! Suche</item>
+    <item>Yahoo! AT</item>
     <item>at.yahoo.com</item>
     <item>http://at.search.yahoo.com/favicon.ico</item>
     <item>http://at.search.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
@@ -725,7 +725,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item></item>
   </string-array>
   <string-array name="yahoo_au" translatable="false">
-    <item>Yahoo!7</item>
+    <item>Yahoo! AU</item>
     <item>au.yahoo.com</item>
     <item>http://au.search.yahoo.com/favicon.ico</item>
     <item>http://au.search.yahoo.com/search?ei={inputEncoding}&amp;fr=crmas&amp;p={searchTerms}</item>
@@ -733,7 +733,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://aue-sayt.ff.search.yahoo.com/gossip-au-sayt?output=fxjson&amp;command={searchTerms}</item>
   </string-array>
   <string-array name="bing_pt_BR" translatable="false">
-    <item>Bing</item>
+    <item>Bing BR</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=pt-BR&amp;q={searchTerms}</item>
@@ -765,7 +765,7 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>http://ac.search.naver.com/autocompl?m=s&amp;ie={inputEncoding}&amp;oe=utf-8&amp;q={searchTerms}</item>
   </string-array>
   <string-array name="bing_en_ZA" translatable="false">
-    <item>Bing</item>
+    <item>Bing ZA</item>
     <item>bing.com</item>
     <item>http://www.bing.com/s/wlflag.ico</item>
     <item>http://www.bing.com/search?setmkt=en-ZA&amp;q={searchTerms}</item>
