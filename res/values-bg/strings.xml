@@ -447,7 +447,7 @@
   <!-- Settings summary -->
   <string name="pref_extras_website_settings_summary">Разширени настройки за отделни уебсайтове</string>
   <!-- Settings label -->
-  <string name="pref_extras_reset_default">Възстановяване на стандартните</string>
+  <string name="pref_extras_reset_default">Нулиране на настройките</string>
   <string name="pref_extras_reset">Нулиране</string>
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">Възстановяване на стандартните настройки</string>

@@ -21,6 +21,7 @@
   <!-- The name of the application. -->
   <string name="application_name">Webbläsare</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Välj fil att ladda upp</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
@@ -170,7 +171,9 @@
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Visa bild</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Använd som bakgrund</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
   <string name="contextmenu_dial_dot">Ring\u2026</string>
@@ -181,6 +184,7 @@
   <string name="contextmenu_send_mail">Skicka e-post</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Karta</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
@@ -293,8 +297,15 @@
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_allow_camera">Kamera</string>
+  <string name="pref_security_web_refiner">Annonser</string>
+  <string name="pref_security_allowed">Tillåts</string>
+  <string name="pref_security_not_allowed">Tillåts inte</string>
+  <string name="pref_security_remember">Kom ihåg</string>
   <string name="pref_security_on">På</string>
   <string name="pref_security_off">Av</string>
+  <string name="pref_website_title">Hemsida</string>
+  <string name="pref_security_add">Lägg till</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -306,14 +317,18 @@
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Avancerat</string>
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings label -->
+  <string name="pref_extras_reset">Återställ</string>
   <!-- Settings summary -->
   <!-- Confirmation dialog message -->
   <!-- Title for a group of settings -->
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Textkodning</string>
+  <string name="pref_edge_enable">Aktivera</string>
+  <string name="pref_edge_disable">Inaktivera</string>
   <!-- Colored statusbar -->
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <string name="pref_accessibility_title">Tillgänglighet</string>
@@ -326,7 +341,7 @@
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
   <string-array name="pref_temporal_choices">
-    <item>Never</item>
+    <item>Aldrig</item>
     <item>Only on Wi-Fi</item>
     <item>Alltid</item>
   </string-array>
@@ -362,6 +377,7 @@
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Inget SD-kort</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
   <!-- Title for a dialog informing the user that the SD card used for
@@ -436,23 +452,29 @@
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <!--Add for Navigation Feature -->
   <string name="my_navigation_add">Lägg till</string>
+  <string name="my_navigation_name">Titel</string>
+  <string name="my_navigation_cannot_save_url">Ogiltig URL</string>
   <string name="my_navigation_page_title">Hem</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
   <string name="video_save">Spara</string>
   <string name="video_play">Spela</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Stäng</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
   <string name="about">Om</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <!-- Add for exit prompt Feature -->
   <string name="exit_minimize">Minimera</string>
   <string name="exit_quit">Avsluta</string>
+  <string name="duplicated_folder_warning">Mappen finns redan</string>
   <!-- Add for download save path setting Feature -->
+  <string name="path_wrong">Felaktig genväg</string>
   <string name="download_timeneeded">Tid</string>
   <string name="download_filesize">Storlek</string>
   <string name="download_filepath_label">Sökväg</string>
   <string name="download_edit_filename_label">Namn</string>
   <string name="unknow_length">Okänd</string>
+  <string name="download_file_exist">Filen finns redan</string>
   <string name="time_min">min</string>
   <string name="download_name_hint">Filnamn</string>
   <string name="download_size_hint">Storlek</string>
