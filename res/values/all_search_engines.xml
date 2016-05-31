@@ -40,7 +40,15 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
     <item>DuckDuckGo</item>
     <item>duckduckgo.com</item>
     <item>http://duckduckgo.com/favicon.ico</item>
-    <item>https://duckduckgo.com/?q={searchTerms}</item>
+    <item>https://duckduckgo.com/?q={searchTerms}&amp;t=cyanogenmod</item>
+    <item>UTF-8</item>
+    <item></item>
+  </string-array>
+  <string-array name="duckduckgo_en_gb" translatable="false">
+    <item>DuckDuckGo (UK)</item>
+    <item>duckduckgo.com</item>
+    <item>https://duckduckgo.com/favicon.ico</item>
+    <item>https://duckduckgo.com/?q={searchTerms}%20r:uk&amp;t=cyanogenmod</item>
     <item>UTF-8</item>
     <item></item>
   </string-array>
