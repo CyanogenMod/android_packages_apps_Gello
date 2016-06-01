@@ -86,6 +86,7 @@
   <!-- Menu item to go back to the previous page -->
   <string name="back">Wróć</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Dalej</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
   <string name="location">Adres</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
@@ -130,11 +131,17 @@
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
   <string name="bookmark_saved">Dodano do ulubionych</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Nie można zapisać zakładki.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Strona główna została ustawiona.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">Zakładka musi mieć nazwę.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Zakładka musi zawierać adres.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">URL jest nieprawidłowy</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">URL-a nie można dodać do zakładek.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
@@ -142,11 +149,14 @@
             the bookmarks screen. -->
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Usunąć zakładkę „<xliff:g id="BOOKMARK">%s</xliff:g>”?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Usunąć katalog \"<xliff:g id="bookmark">%s </xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Otwórz wszystkie w nowych kartach</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Wybierz akcję dla tekstu</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
   <string name="close_other_tabs">Zamknij inne karty</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
@@ -159,12 +169,16 @@
         Tab-->
   <string name="history">Historia</string>
   <!-- Menu item -->
+  <string name="share_page">Udostępnij stronę</string>
   <!-- Menu item for saving link to homescreen -->
   <string name="add_to_homescreen">Dodaj do ekranu głównego</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Zapisywanie…</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Nie można zapisać do czytania w trybie offline.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount">Zakładki: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g></string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
   <string name="contextheader_folder_empty">Pusty folder</string>
   <!-- Context Menu item open the currently selected link in the current
@@ -186,6 +200,7 @@
   <string name="contextmenu_copy">Kopiuj</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Kopiuj adres URL linku</string>
   <!-- Context Menu item to save the image to external storage -->
   <string name="contextmenu_download_image">Zapisz obraz</string>
   <!-- Context Menu item to view the image by itself in the browser -->
@@ -194,10 +209,12 @@
   <string name="contextmenu_set_wallpaper">Ustaw jako tapetę</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Wybierz numer…</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
   <string name="contextmenu_add_contact">Dodaj kontakt</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Wyślij e-mail</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
   <string name="contextmenu_map">Mapa</string>
@@ -210,10 +227,12 @@
   <string name="clear">Wyczyść</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Zastąp adres</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
   <string name="menu_preferences">Ustawienia</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title_summary">Ustawienia zawartości strony</string>
   <!-- Settings label -->
   <string name="pref_content_load_images">Wczytuj obrazy</string>
   <string name="pref_content_load_images_summary">Wyświetlaj obrazy na stronach internetowych</string>
@@ -222,6 +241,7 @@
   <string name="pref_content_javascript">Włącz JavaScript</string>
   <!-- Settings label -->
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Otwieraj nowe karty za bieżącą</string>
   <!-- Settings label [CHAR LIMIT=50] -->
   <!-- Settings label -->
   <!-- Settings summary -->
@@ -230,6 +250,7 @@
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
   <string name="pref_general_title">Ogólne</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Autouzupełnianie</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
   <!-- Settings summary for the powersave feature. -->
   <!-- Checkbox setting for enabling/disabling night mode feature -->
@@ -238,6 +259,7 @@
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Autouzupełnianie</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->

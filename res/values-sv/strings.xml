@@ -28,6 +28,7 @@
   <!-- Crash tab View title -->
   <string name="new_tab">Ny flik</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Ladda om</string>
   <!-- Crash tab View message -->
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
@@ -38,6 +39,7 @@
   <string name="tab_snapshots">Sparade</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Togs bort från favoriter.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
@@ -126,6 +128,7 @@
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">från\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
   <!-- Confirmation dialog message confirming that the user wishes to delete
@@ -170,6 +173,7 @@
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Spara bild</string>
   <!-- Context Menu item to view the image by itself in the browser -->
   <string name="contextmenu_view_image">Visa bild</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
@@ -210,7 +214,7 @@
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
   <string-array name="pref_homepage_choices">
     <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
-    <item>Current page</item>
+    <item>Aktuell sida</item>
     <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
     <item>Tom sida</item>
     <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->

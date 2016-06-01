@@ -288,14 +288,20 @@
   <string name="pref_autofill_enabled_summary">מלא טפסים באינטרנט בנגיעה אחת</string>
   <plurals name="pref_web_refiner_advertisements">
     <item quantity="one">פרסומת %d</item>
+    <item quantity="two">%d פרסומות</item>
+    <item quantity="many">%d פרסומות</item>
     <item quantity="other">%d פרסומות</item>
   </plurals>
   <plurals name="pref_web_refiner_trackers">
     <item quantity="one">עוקב %d</item>
+    <item quantity="two">%d עוקבים</item>
+    <item quantity="many">%d עוקבים</item>
     <item quantity="other">%d עוקבים</item>
   </plurals>
   <plurals name="pref_web_refiner_malware">
     <item quantity="one">איום תוכנה זדונית %d</item>
+    <item quantity="two">%d איומי תוכנה זדונית</item>
+    <item quantity="many">%d איומי תוכנה זדונית</item>
     <item quantity="other">%d איומי תוכנה זדונית</item>
   </plurals>
   <string-array name="pref_web_refiner_message">
