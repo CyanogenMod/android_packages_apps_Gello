@@ -66,6 +66,7 @@
   <!-- Message to be displayed if url character limit exceeds -->
   <string name="max_url_character_limit_msg">Osiągnięto limit adresu URL</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Nie wykryto sklepu Google Play na urządzeniu.</string>
   <!-- Menu item -->
   <string name="page_info">Informacje</string>
   <!-- Page Info dialog strings -->
@@ -232,6 +233,7 @@
   <!-- Menu item to open the Settings screen -->
   <string name="menu_preferences">Ustawienia</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Ustawienia zawartości</string>
   <string name="pref_content_title_summary">Ustawienia zawartości strony</string>
   <!-- Settings label -->
   <string name="pref_content_load_images">Wczytuj obrazy</string>
@@ -240,21 +242,41 @@
   <!-- Settings label -->
   <string name="pref_content_javascript">Włącz JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Otwórz w tle</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
   <string name="pref_content_open_in_background_summary">Otwieraj nowe karty za bieżącą</string>
   <!-- Settings label [CHAR LIMIT=50] -->
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Bieżąca strona</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Pusta strona</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Default page</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Most visited sites</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Other</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
   <string name="pref_general_title">Ogólne</string>
+  <string name="pref_default_site_settings_title">Domyślne ustawienia strony</string>
+  <string name="pref_site_settings_title">Ustawienia strony</string>
+  <string name="pref_site_settings_info_panel">Informacje o zabezpieczeniach</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
   <string name="pref_general_autofill_title">Autouzupełnianie</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Tryb oszczędzania energii</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Zmniejsza zużycie energii przez przeglądarkę</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Tryb nocny</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Odwróć kolory</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <!-- Settings screen, section title [CHAR LIMIT=50] -->

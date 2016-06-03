@@ -368,7 +368,7 @@
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
   <string name="pref_security_title">Varnost</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
-  <string name="pref_privacy_security_title">Zasebnost &amp; varnost</string>
+  <string name="pref_privacy_security_title">Zasebnost in varnost</string>
   <string name="pref_privacy_security_title_summary">Nastavitve varnosti in zasebnosti brskalnika</string>
   <!-- Popup dialog -->
   <string name="pref_select_items">Izberite predmete za čiščenje</string>
