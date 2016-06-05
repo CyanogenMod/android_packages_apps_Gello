@@ -42,7 +42,7 @@ import android.widget.EditText;
 public class BrowserUtils {
 
     private static final String LOGTAG = "BrowserUtils";
-    public static final int FILENAME_MAX_LENGTH = 32;
+    public static final int FILENAME_MAX_LENGTH = 48;
     public static final int ADDRESS_MAX_LENGTH = 2048;
     private static AlertDialog.Builder mAlertDialog = null;
 
