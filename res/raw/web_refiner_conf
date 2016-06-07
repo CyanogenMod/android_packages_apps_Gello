@@ -6,14 +6,14 @@
       "name"            : "Malware Domains Filter",
       "category"        : "MALWARE_DOMAINS",
       "format"          : "WebRefiner 1.0",
-      "url"             : "https://easylist-downloads.adblockplus.org/exceptionrules.txt",
+      "url"             : "https://easylist-downloads.adblockplus.org/malwaredomains_full.txt",
       "expiration"      : "2 days"
     },
     {
       "name"            : "Privacy Filter",
       "category"        : "TRACKERS",
       "format"          : "WebRefiner 1.0",
-      "url"             : "none",
+      "url"             : "https://easylist-downloads.adblockplus.org/easyprivacy.txt",
       "expiration"      : "2 days"
     },
     {
