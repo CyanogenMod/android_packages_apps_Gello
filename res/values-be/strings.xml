@@ -165,6 +165,7 @@
   <!-- Menu item -->
   <string name="share_page">Даслаць старонку</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Дадаць на галоўны экран</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <string name="menu_save_snapshot">Захаваць для чытання ў аўтаномным рэжыме</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
@@ -208,6 +209,7 @@
   <string name="contextmenu_send_mail">Даслаць праз Email</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Мапа</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
@@ -232,6 +234,7 @@
   <!-- Settings label -->
   <!-- Settings summary [CHAR LIMIT=50]-->
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Хатняя старонка</string>
   <!-- Settings label -->
   <string name="pref_content_search_engine">Усталяваць пошукавую сістэму</string>
   <!-- Settings summary -->
@@ -253,12 +256,18 @@
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
   <string name="pref_general_title">Агульныя</string>
+  <string name="pref_default_site_settings_title">Налады сайту па змаўчанні</string>
+  <string name="pref_site_settings_title">Налады сайту</string>
+  <string name="pref_site_settings_info_panel">Інфармацыя аб бяспецы</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
   <string name="pref_general_autofill_title">Запоўніць аўтаматычна</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Энэргазахаванне</string>
   <!-- Settings summary for the powersave feature. -->
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Ноч</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Інвертаваць колер</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <string name="pref_autofill_enabled">Аўтаматычнае запаўненне формы</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
@@ -305,6 +314,7 @@
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
   <string name="autofill_profile_editor_delete_profile">Выдаліць</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Энэргазахванне прылады. Аглядальнік будзе зачынены.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
   <string name="autofill_setup_dialog_message">Браўзер можа аўтаматычна запаўняць вэб-формы, падобныя на гэту. Хочаце уключыць аўтазапаўненне?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
@@ -314,6 +324,7 @@
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
   <string name="disable_autofill">Адключыць аўтаматычнае запаўненне</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Бяспека</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
   <string name="pref_privacy_security_title">Канфідэнцыяльнасць і бяспека</string>
   <!-- Popup dialog -->
@@ -353,6 +364,9 @@
   <!-- Settings Label -->
   <!-- Settings label -->
   <string name="pref_security_accept_cookies">Прымаць файлы сookie</string>
+  <string name="pref_security_allow_mic">Мікрафон</string>
+  <string name="pref_security_allow_camera">Камера</string>
+  <string name="pref_security_web_refiner">Рэклама</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Мінімальны памер шрыфта</string>
@@ -402,6 +416,11 @@
   <string name="pref_data_preload_title">Папярэдняя загрузка вынікаў пошуку</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Ніколі</item>
+    <item>Толькі Wi-Fi</item>
+    <item>Always</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
   <string name="pref_data_preload_summary">Дазволіць браўзэру загадзя загружаць вынікі пошуку высокага даверу ў фоне</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
@@ -480,6 +499,7 @@
   <string name="webstorage_clear_data_dialog_message">Выдаліць усе дадзеныя, якія захоўваюцца на гэтым сайце?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
   <string name="loading_video">Загрузка відэа...</string>
+  <string name="website_settings_add_origin">Новы сайт</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
   <string name="website_settings_clear_all">Ачысціць усё</string>
   <string name="website_settings_clear_all_dialog_message">Выдаліць усе дадзеныя вэб-сайта i дазволы на выкарыстанне месцазнаходжання?</string>
@@ -496,13 +516,16 @@
   <string name="import_bookmarks_dialog_remove">Выдаліць закладкі</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Падзяліцца</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
   <string name="max_tabs_warning">Больш няма ўкладак</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Прагляд</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
   <string name="local_bookmarks">Лакальныя</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Знайсці</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
   <string name="ua_switcher_desktop">Запытаць версію старонкі для настольнага кампутара</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
@@ -548,14 +571,36 @@
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_bookmarks_folder_up">Папярэдняя</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Выдаліць сайт</string>
+  <string name="my_navigation_edit_label">Рэдагаваць сайт</string>
+  <string name="my_navigation_add_label">Дадаць сайт</string>
+  <string name="my_navigation_add">Дадаць</string>
+  <string name="my_navigation_delete_msg">Выдаліць сайт?</string>
+  <string name="my_navigation_name">Назва</string>
+  <string name="my_navigation_address">Адрас</string>
+  <string name="my_navigation_page_title">Дамоў</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="video_save">Захаваць</string>
+  <string name="video_play">Прайграць</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Выйсце</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Пра дадатак</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Выйсці з аглядальніку</string>
+  <string name="exit_browser_msg">Абяры варыянт выйсце з аглядальніку</string>
   <!-- Add for download save path setting Feature -->
+  <string name="download_file_exist">Файл ужо існуе</string>
+  <string name="time_min">хв</string>
+  <string name="download_size_hint">Памер</string>
   <!-- Toast message displayed when the full screen received message -->
   <!-- Snapdragon Browser Additions -->
+  <string name="version">Версія</string>
+  <string name="build_date">Дата зборкі</string>
+  <string name="build_hash">Хэш зборкі</string>
+  <string name="help">Дапамога</string>
+  <string name="swe_legal">Юрыдычная інфармацыя</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
   <!-- My Navigation - Favorites + History + Saved -->
   <!-- Place holder for SWE engine strings added to
