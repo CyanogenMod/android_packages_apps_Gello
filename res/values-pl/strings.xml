@@ -148,6 +148,7 @@
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">z </string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
   <string name="delete_bookmark_warning">Usunąć zakładkę „<xliff:g id="BOOKMARK">%s</xliff:g>”?</string>
@@ -174,6 +175,7 @@
   <!-- Menu item for saving link to homescreen -->
   <string name="add_to_homescreen">Dodaj do ekranu głównego</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Zapisz do czytania offline</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
   <string name="saving_snapshot">Zapisywanie…</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
@@ -246,6 +248,7 @@
   <!-- Settings summary [CHAR LIMIT=50]-->
   <string name="pref_content_open_in_background_summary">Otwieraj nowe karty za bieżącą</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Strona domowa</string>
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
