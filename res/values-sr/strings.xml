@@ -532,6 +532,7 @@
   <string name="too_many_windows_dialog_title">Достигнуто је ограничење броја картица</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Не могу отворити нову картицу док не затвориш једну.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Искачући прозор је већ отворен</string>
