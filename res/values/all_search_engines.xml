@@ -82,6 +82,15 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
         <item>http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}</item>
     </string-array>
 
+    <string-array name="google (encrypted)" translatable="false">
+	<item>Google (encrypted)</item>
+	<item>encrypted.google.com</item>
+	<item>https://encrypted.google.com/favicon.ico</item>
+	<item>https://encrypted.google.com/search?ie={inputEncoding}&amp;source=android-browser&amp;q={searchTerms}</item>
+	<item>UTF-8</item>
+	<item>https://encrypted.google.com/complete/search?client=android&amp;q={searchTerms}</item>
+    </string-array>
+
     <!-- Custom search engines used from overlays -->
     <string-array name="custom_search_engine_1" translatable="false" />
     <string-array name="custom_search_engine_2" translatable="false" />
