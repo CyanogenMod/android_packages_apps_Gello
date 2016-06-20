@@ -19,137 +19,237 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Browser</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Vælg fil at uploade</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Upload er deaktiveret.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Ny fane</string>
+  <string name="browser_tab_crash_snap">Ups, Snap!</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Genindlæs</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Noget uventet skete ved visning af denne webside. Genindlæs venligst eller gå til en anden side.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Inkognito tilstand</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Mest besøgte</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">Gemt</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Tilføjet til favoritter.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Fjernet fra favoritter.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Log på <xliff:g id="hostname">%s1</xliff:g> "<xliff:g id="realm">%s2</xliff:g>\"</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Navn</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Adgangskode</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Log ind</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Gem</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Annullér</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Maks. URL-grænse nået</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play Butik findes ikke på din enhed.</string>
   <!-- Menu item -->
+  <string name="page_info">Sideoplysninger</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Adresse:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Sikkerhedsadvarsel</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Dette certifikat er ugyldigt.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Ukendt fejl i certifikatet.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Stopper\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Stop</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Opdater</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Tilbage</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Fremad</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Adresse</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Konto</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Tilføj til</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Ny mappe</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Rediger mappen</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Slet mappen</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Ingen undermapper.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Startskærm</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Vælg mappe\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Etiket</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Gem</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Føj denne side til favoritter</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Fjern</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Rediger</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Tilføj genvej</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Slet</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Fjern</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Fjern</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Angiv som startside</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Tilføjet til favoritter</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Kunne ikke gemme favorit.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Startside angivet.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">Favoritten skal have et navn.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Favoritten skal have en placering.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">Denne URL-adresse er ikke gyldig.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Denne URL-adresse kan ikke føjes til favoritter.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">fra\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Slet favoritten \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Slet mappen \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Åbn alle på nye faner</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Luk andre faner</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Favoritter</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Favorit</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Vælg en favorit</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Historik</string>
   <!-- Menu item -->
+  <string name="share_page">Del</string>
   <!-- Menu item for saving link to homescreen -->
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Gem</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Gemmer\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Siden kunne ikke gemmes til læsning offline.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> favoritter</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Tom mappe</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Åbn</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Åbn link i ny fane</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Åbn link i ny baggrundsfane</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Gem link</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Del link</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Kopiér</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Kopier linkadresse</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Gem billede</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Vis billede</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Angiv som baggrund</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Ring til\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Tilføj kontaktperson</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Send e-mail</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Kort</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Del via</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Ryd</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Erstat</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Indstillinger</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Sideindhold</string>
+  <!-- Settings label -->
+  <string name="pref_content_load_images">Indlæs billeder</string>
+  <string name="pref_content_load_images_summary">Vis billeder på websider</string>
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_content_javascript">Aktivér JavaScript</string>
   <!-- Settings label -->
-  <!-- Settings label -->
+  <string name="pref_content_open_in_background">Åben i baggrunden</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Åbn nye faner bag den aktuelle fane</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Startside</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Søgemaskine</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Vælg en søgemaskine</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Indstil til</string>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
@@ -173,117 +273,220 @@
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Postnummer:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Land:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Telefon:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Ugyldigt telefonnummer.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Gem</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">AutoFyld-tekst er gemt.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">AutoFyld-teksten er slettet.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Slet</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Browseren kan automatisk udfylde webformularer som denne. Vil du oprette din AutoFyld-tekst?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Du kan altid oprette din AutoFyld-tekst fra skærmen Browser &gt; Indstillinger &gt; Generelt.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Deaktiver AutoFyld</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Sikkerhed</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Privatliv &amp; sikkerhed</string>
+  <string name="pref_privacy_security_title_summary">Browser-sikkerhed og privatlivsindstillinger</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Vælg elementer, der skal ryddes</string>
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Confirmation dialog message -->
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Ryd cache</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Ryd lokalt cachelagret indhold og databaser</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Ryd alle cookiedata</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Ryd alle browsercookies og sidedata</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Ryd browserens navigationshistorik</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Vil du slette browserens navigationshistorik?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Formulardata</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Ryd alle gemte formulardata</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Adgangskoder</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Ryd alle gemte adgangskoder</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Placering</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Placeringsadgang</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Ryd placeringsadgang for alle websites</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Husk adgangskoder</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Husk formulardata</string>
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Accepter cookies</string>
+  <string name="pref_security_allow_mic">Mikrofon</string>
+  <string name="pref_security_allow_camera">Kamera</string>
+  <string name="pref_security_web_refiner">Annoncer</string>
+  <string name="pref_security_accept_third_party_cookies">Tredjepartscookies</string>
+  <string name="pref_security_allowed">Tilladt</string>
+  <string name="pref_security_not_allowed">Ikke tilladt</string>
+  <string name="pref_security_remember">Husk</string>
+  <string name="pref_security_on">Til</string>
+  <string name="pref_security_off">Fra</string>
+  <string name="pref_website_title">Hjemmeside</string>
+  <string name="pref_security_add">Tilføj</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Mindste skriftstørrelse</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Skalering af tekst</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Tving aktivering af zoom</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Tilsidesæt et websites anmodning om at kontrollere zoom-adfærd</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Omvendt skærmgengivelse</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Omvendt gengivelse</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Sort bliver hvidt og omvendt</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Kontrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Avanceret</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Indstillinger for websites</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Avancerede indstillinger for individuelle websites</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Nulstil til standard</string>
+  <string name="pref_extras_reset">Nulstil</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Gendan standardindstillingerne</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Gendan indstillingerne til standardværdierne?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Fejlretning</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Tekstkodning</string>
+  <string name="pref_disable_edge_swipe">Gør ingenting</string>
+  <string name="pref_edge_swipe_option_close">Vælg senere</string>
+  <string name="pref_edge_swipe_unknown">Vælg funktionsmåde</string>
+  <string name="pref_edge_enable">Aktivér</string>
+  <string name="pref_edge_disable">Deaktiver</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Farvet statuslinje</string>
+  <string name="pref_coloredsb_summary">Statuslinjen vil ændre farve baseret på den besøgte side</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Tilgængelighed</string>
   <!-- LookLock -->
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Tekststørrelse</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">Fuld skærm</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Brug fuldskærmstilstand</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Forudindlæsning af søgeresultater</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Aldrig</item>
+    <item>Only on Wi-Fi</item>
+    <item>Altid</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Tillad at browseren forudindlæser søgeresultater i baggrunden</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Forudindlæsning af websider</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Tillad, at browseren forudindlæser websider, der linkes til, i baggrunden</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">Den side, du prøver at få vist, indeholder data, der allerede er indsendt (\"POSTDATA\"). Hvis du sender dataene igen, gentages alle handlinger, som formularen på siden udførte (som f.eks. en søgning eller et onlinekøb).</string>
   <!-- Menu item -->
+  <string name="clear_history">Ryd historik</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Ingen browserhistorik.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Tilføj bogmærke</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Tilføj</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Søg eller indtast en webadresse</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">Gå</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Bogmærker og webhistorik</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Tillad</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Bloker</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Grænsen for faner er nået</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">Pop op er allerede åben</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">Der kan kun være ét pop op-vindue åbent ad gangen.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Der er intet SD-kort</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Et SD-kort er påkrævet for at downloade <xliff:g id="filename">%s</xliff:g>.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">SD-kortet er ikke tilgængeligt</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">SD-kortet er optaget. Vælg \"Slå USB-lagring fra\" i meddelelsen for at tillade downloads.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Kan kun downloade webadresser, der starter med \"http\" eller https\".</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Starter download\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Søg på nettet</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Browserlageret er fuldt</string>
+  <string name="webstorage_outofspace_notification_text">Tryk for at frigøre plads.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Ryd lagrede data</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
@@ -305,25 +508,49 @@
   <!-- Preload permission label [CHAR LIMIT=40] -->
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Slet gemt side</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Indlæs liveversion</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Gå tilbage</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">Gå fremad</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Opdater side</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Stop sideindlæsning</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Føj siden til favoritter</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Søg</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Start stemmesøgning</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Luk fane</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Åbn ny fane</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Åbn ny inkognitofane</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Ryd input</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Sideadministrering</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Inkognitoside</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Gemt side</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Administrering af faner</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Forrige mappe</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_edit_label">Rediger hjemmeside</string>
+  <string name="my_navigation_add_label">Tilføj hjemmeside</string>
+  <string name="my_navigation_add">Tilføj</string>
+  <string name="my_navigation_delete_msg">Slet hjemmeside?</string>
+  <string name="my_navigation_name">Titel</string>
+  <string name="website_needs_title">Hjemmesiden skal have en titel</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
   <!-- Add for Carrier Feature.Content description for exit menu item -->
   <!-- Add for Carrier Feature.Content description for about menu item -->
@@ -332,8 +559,18 @@
   <!-- Add for download save path setting Feature -->
   <!-- Toast message displayed when the full screen received message -->
   <!-- Snapdragon Browser Additions -->
+  <string name="version">Version</string>
+  <string name="build_date">Kørselsdato</string>
+  <string name="user_agent">Brugeragent</string>
+  <string name="help">Hjælp</string>
+  <string name="feedback">Feedback</string>
+  <string name="swe_legal">Juridiske oplysninger</string>
+  <string name="swe_open_source_licenses">Open source licenser</string>
+  <string name="swe_privacy_policy">Privatlivspolitik</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Administreres af din administrator</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">Min navigation</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from

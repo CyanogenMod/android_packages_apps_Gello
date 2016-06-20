@@ -250,17 +250,20 @@
   <!-- Settings label [CHAR LIMIT=50] -->
   <string name="pref_content_homepage">Strona domowa</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Wyszukiwarka</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Wybierz wyszukiwarkę.</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Ustaw</string>
   <string-array name="pref_homepage_choices">
     <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
     <item>Bieżąca strona</item>
     <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
     <item>Pusta strona</item>
     <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
-    <item>Default page</item>
+    <item>Strona domyślna</item>
     <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
-    <item>Most visited sites</item>
+    <item>Najczęściej odwiedzane strony</item>
     <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
     <item>Other</item>
   </string-array>
