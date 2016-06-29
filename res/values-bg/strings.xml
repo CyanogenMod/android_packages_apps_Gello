@@ -24,7 +24,7 @@
   <string name="choose_upload">Избор на файл за качване</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
-  <string name="uploads_disabled">Качванията на файлове са деактивирани.</string>
+  <string name="uploads_disabled">Качването на файлове е изключено.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
   <string name="new_tab">Нов раздел</string>
@@ -35,7 +35,7 @@
   <string name="browser_tab_crash_message">Нещо неочаквано се случи при показване на тази уеб страница. Моля, презаредете или отидете на друга страница.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
-  <string name="new_incognito_tab">Нов раздел „инкогнито“</string>
+  <string name="new_incognito_tab">Нов раздел „Инкогнито“</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
   <string name="tab_most_visited">Най-посещавани</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
@@ -59,7 +59,7 @@
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
   <string name="cancel">Отказ</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
-  <string name="ok">Добре</string>
+  <string name="ok">Да</string>
   <!-- Message to be displayed if url character limit exceeds -->
   <string name="max_url_character_limit_msg">Достигнат е максималният брой URL</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
@@ -120,11 +120,11 @@
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
   <string name="create_shortcut_bookmark">Добавяне на пряк път</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
-  <string name="remove_bookmark">Изтриване на отметка</string>
+  <string name="remove_bookmark">Изтриване</string>
   <!-- Context menu item to remove a history item from bookmarks -->
   <string name="remove_from_bookmarks">Премахване от отметки</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
-  <string name="remove_history_item">Премахване от история</string>
+  <string name="remove_history_item">Премахване от историята</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
   <string name="set_as_homepage">Задай като начална страница</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
@@ -634,13 +634,13 @@
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_newtab">Отваряне на нов раздел</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
-  <string name="accessibility_button_newincognitotab">Отваряне на нов раздел „инкогнито“</string>
+  <string name="accessibility_button_newincognitotab">Отваряне на нов раздел „Инкогнито“</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_clear">Изчистване на въведеното</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_navscreen">Диспечер на страниците</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
-  <string name="accessibility_state_incognito">Страница в режим „инкогнито“</string>
+  <string name="accessibility_state_incognito">Страница в режим „Инкогнито“</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
   <string name="accessibility_state_frozen">Запазена страница</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->

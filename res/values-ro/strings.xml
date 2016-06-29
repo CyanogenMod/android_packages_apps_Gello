@@ -37,6 +37,7 @@
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Nume</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
   <!-- The label on the "sign in" button -->
   <!-- The name of the add bookmark page activity.-->
@@ -48,6 +49,7 @@
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Adresă:</string>
   <!-- Title for an SSL error dialog  -->
   <!-- Message in an SSL Error dialog -->
   <!-- Message in an SSL Error dialog -->
@@ -58,6 +60,7 @@
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Cont</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->

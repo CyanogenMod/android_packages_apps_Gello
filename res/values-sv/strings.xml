@@ -38,6 +38,7 @@
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
   <string name="tab_snapshots">Sparade</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Lades till i favoriter.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
   <string name="removed_from_bookmarks">Togs bort från favoriter.</string>
   <!-- Sign-in dialog -->
