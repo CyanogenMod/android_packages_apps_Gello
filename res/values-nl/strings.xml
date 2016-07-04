@@ -155,6 +155,7 @@
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Alle bladwijzers openen op nieuwe tabbladen</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Actie voor tekst selecteren</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
   <string name="close_other_tabs">Andere tabbladen sluiten</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->

@@ -24,6 +24,7 @@
   <string name="choose_upload">Välj fil att ladda upp</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Uppladdningar är inaktiverade.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
   <string name="new_tab">Ny flik</string>
