@@ -85,4 +85,18 @@
 
     <!-- location infobar color -->
     <color name="infobar_accent_blue">@color/accent</color>
+
+
+    <!-- Exposed colors for themes -->
+    <color name="bookmark_sync_wizard_background_color">@android:color/black</color>
+    <color name="bookmarkthumbnailwidget_item_label_text_color">@android:color/white</color>
+    <color name="white_background_color">@color/white</color>
+    <color name="black_text_color">@color/black</color>
+    <color name="bookmarks_list_background_color">@color/white</color>
+    <color name="snapshot_item_date_text_color">#AAAAAA</color>
+    <color name="browser_crash_reload_btn_color">@android:color/holo_green_dark</color>
+    <color name="dialog_title_text_color">@android:color/white</color>
+    <color name="thumb_src_color">@color/white</color>
+    <color name="menu_item_checkbox_tint_color">@color/black</color>
+    <color name="navview_opacity_background_color">@color/black</color>
 </resources>

@@ -78,8 +78,8 @@
             android:layout_below="@android:id/summary"
             android:layout_toEndOf="@android:id/widget_frame"
             android:layout_alignParentEnd="true"
-            android:textColor="@color/black"
-            android:background="@color/white"/>
+            android:textColor="@color/black_text_color"
+            android:background="@color/white_background_color"/>
 
     </RelativeLayout>
 

@@ -49,7 +49,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:gravity="center_vertical"
             android:text="@string/my_navigation_edit_label"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/dialog_title_text_color" />
     </LinearLayout>
 
     <ScrollView

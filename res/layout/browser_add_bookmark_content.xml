@@ -56,7 +56,7 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/white_background_color"
         android:elevation="0dp" >
 
         <LinearLayout android:layout_width="match_parent"
@@ -153,7 +153,7 @@
                             android:layout_alignParentEnd="true"
                             android:hint="@string/http"
                             android:inputType="textUri"
-                            android:textColor="@color/black"
+                            android:textColor="@color/black_text_color"
                             android:paddingStart="16dp"
                             android:paddingBottom="16dp"
                             android:textSize="18sp" />
