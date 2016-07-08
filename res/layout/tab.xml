@@ -28,7 +28,7 @@
     <ImageView android:id="@+id/navview_opacity"
         android:layout_gravity="top"
         android:scaleType="fitStart"
-        android:background="@color/black"
+        android:background="@color/navview_opacity_background_color"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

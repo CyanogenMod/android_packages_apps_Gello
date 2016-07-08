@@ -21,12 +21,12 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/thumb"
-        android:src="@color/white"
+        android:src="@color/thumb_src_color"
         android:layout_width="match_parent"
         android:layout_height="@dimen/widgetThumbnailHeight"
         android:scaleType="fitEnd"
         android:cropToPadding="true"
-        android:background="@color/white" />
+        android:background="@color/bookmarks_list_background_color" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,6 +54,6 @@
             android:ellipsize="end"
             android:textSize="12sp"
             android:typeface="sans"
-            android:textColor="@android:color/white" />
+            android:textColor="@color/bookmarkthumbnailwidget_item_label_text_color" />
     </LinearLayout>
 </RelativeLayout>
