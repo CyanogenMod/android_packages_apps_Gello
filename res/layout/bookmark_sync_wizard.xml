@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/black">
+        android:background="@color/bookmark_sync_wizard_background_color">
 
         <TextView
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/black">
+        android:background="@color/bookmark_sync_wizard_background_color">
 
         <TextView
             android:id="@+id/select_account_description"
@@ -72,7 +72,7 @@
         android:id="@+id/confirm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
+        android:background="@color/bookmark_sync_wizard_background_color"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </view>

@@ -35,7 +35,7 @@
         android:id="@+id/menu_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:tint="@color/black"
+        android:tint="@color/menu_item_checkbox_tint_color"
         android:visibility="gone"
         android:clickable="true" />
 </LinearLayout>

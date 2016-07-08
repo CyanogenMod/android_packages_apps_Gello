@@ -31,7 +31,7 @@
         android:id="@+id/anim_screen_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white" />
+        android:background="@color/white_background_color" />
 
     <!-- block the size of the menu (to protect touch during animations) -->
     <!-- View

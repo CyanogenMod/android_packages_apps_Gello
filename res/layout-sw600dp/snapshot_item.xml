@@ -21,12 +21,12 @@
     android:padding="@dimen/combo_snapshot_item_padding">
     <ImageView
         android:id="@+id/thumb"
-        android:src="@color/white"
+        android:src="@color/thumb_src_color"
         android:layout_width="@dimen/bookmarkThumbnailWidth"
         android:layout_height="@dimen/bookmarkThumbnailHeight"
         android:scaleType="centerCrop"
         android:cropToPadding="true"
-        android:background="@color/white" />
+        android:background="@color/white_background_color" />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:ellipsize="end"
         android:textSize="14sp"
         android:typeface="sans"
-        android:textColor="#AAAAAA"
+        android:textColor="@color/snapshot_item_date_text_color"
         android:paddingStart="6dip"
         android:paddingEnd="2dip"
         android:gravity="center_vertical" />

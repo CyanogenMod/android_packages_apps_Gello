@@ -28,7 +28,7 @@
         android:verticalSpacing="@dimen/widgetVerticalSpacing"
         android:drawSelectorOnTop="true"
         android:listSelector="@drawable/bookmark_widget_thumb_selector"
-        android:background="@color/white" />
+        android:background="@color/bookmarks_list_background_color" />
 
     <ImageButton
         android:id="@+id/app_shortcut"

@@ -31,7 +31,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white_background_color">
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textColor="@color/black_text_color"
         android:text="@string/browser_tab_crash_snap" />
 
     <Button
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/browser_crash_reload_btn_color"
         android:text="@string/browser_tab_crash_reload"/>
 
     <TextView android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
         android:paddingEnd="10dp"
         android:paddingTop="20dp"
         android:textSize="15dp"
-        android:textColor="@color/black"
+        android:textColor="@color/black_text_color"
         android:text="@string/browser_tab_crash_message" />
 
 </LinearLayout>
