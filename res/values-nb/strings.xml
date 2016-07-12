@@ -710,7 +710,7 @@ Dra fingeren fra kanten for å navigere imellom historikken.\nDette kan skape pr
   <string name="ssl_certificate">Sikkerhetssertifikat</string>
   <string name="ssl_certificate_is_valid">Dette sertifikatet er gyldig.</string>
   <string name="version">Versjon</string>
-  <string name="build_date">Build dato</string>
+  <string name="build_date">Build-dato</string>
   <string name="build_hash">Build \"hash\"</string>
   <string name="user_agent">Brukeragent</string>
   <string name="help">Hjelp</string>
