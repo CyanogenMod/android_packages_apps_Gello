@@ -470,8 +470,7 @@
   <string name="pref_spatial_edge_swipe_enabled_toast">Свайп від межі екрану для зміни вкладок</string>
   <string name="pref_edge_swipe_disabled_toast">Свайп від межі екрану вимкнутий</string>
   <string name="pref_edge_swipe_unknown">Виберіть дію</string>
-  <string name="pref_edge_swipe_setup_desc">
-Свайп від межі екрану для навігації в історії відвідувань.\nЦе може призвести до конфліктів з веб-сайтами, які використовують дії меж екрану</string>
+  <string name="pref_edge_swipe_setup_desc">Свайп від межі екрану для навігації в історії відвідувань.\nЦе може призвести до конфліктів з веб-сайтами, які використовують дії меж екрану</string>
   <string name="pref_edge_enable">Увімкнути</string>
   <string name="pref_edge_disable">Вимкнути</string>
   <!-- Colored statusbar -->
