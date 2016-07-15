@@ -144,38 +144,87 @@
   <!-- Settings label -->
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_content_javascript">JavaScript aktivéieren</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Am Hannergrond opmaachen</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Nei Tabs hannert dem aktuellen Tab opmaachen</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Startsäit</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Sichmaschinn</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Eng Sichmaschinn auswielen</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Setzen op</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Aktuell Säit</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Eidel Säit</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Standard-Säit</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Am meescht besicht Säiten</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Aner</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Allgemeng</string>
+  <string name="pref_default_site_settings_title">Standardastellungen</string>
+  <string name="pref_site_settings_title">Astellunge fir de Site</string>
+  <string name="pref_site_settings_info_panel">Sécherheetsinformatioun</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Automatescht Ausfëllen</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
   <!-- Settings summary for the powersave feature. -->
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Nuetsmodus</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Faarwen invertéieren</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Automatescht Ausfëlle vu Formulairen</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Formulairë mat engem Klick ausfëllen</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d Reklamm</item>
+    <item quantity="other">%d Reklammen</item>
+  </plurals>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Interface</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Automatescht Ausfëllen</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Text definéieren deen automatesch a Formulairen ausgefëllt gëtt</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Gëff den Text an, deen automatesch a Formulairë soll ausgefëllt ginn.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Ganzen Numm:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">E-Mail:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Firmennumm:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Éischt Adresszeil:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Strooss, Postkëscht, c/o</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Zweet Adresszeil:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Appartement, Unitéit, Gebai, Stack, etc.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Stad/Uertschaft:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Staat/Provënz/Regioun:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Postleetzuel:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Land:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Telefon:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Ongëlteg Telefonsnummer.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
@@ -209,31 +258,63 @@
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_allow_camera">Fotoapparat</string>
+  <string name="pref_security_not_allowed">Net erlaabt</string>
+  <string name="pref_security_remember">Erënneren</string>
+  <string name="pref_security_on">Un</string>
+  <string name="pref_security_off">Aus</string>
+  <string name="pref_website_title">Websäit</string>
+  <string name="pref_security_add">Dobäisetzen</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Minimal Schrëftgréisst</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Textskaléierung</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Zoom zwéngend aktivéieren</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Ufro fir d\'Steierung vum Zoomverhalen iwwerschreiwen</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Negativ Faarwen</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Aus Schwaarz gëtt Wäiss an ëmgedréint</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Kontrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Erweidert</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Websäiten-Astellungen</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Erweidert Astellunge fir individuell Websäiten</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Op de Standard zrécksetzen</string>
+  <string name="pref_extras_reset">Zrécksetzen</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Standardastellungen zrécksetzen</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Astellungen op d\'Standardwäerter zrécksetzen?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Debuggen</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Zeechecodéierung</string>
+  <string name="pref_spatial_edge_swipe">Tab änneren</string>
+  <string name="pref_disable_edge_swipe">Näischt maachen</string>
+  <string name="pref_edge_swipe_option_close">Méi spéit auswielen</string>
+  <string name="pref_edge_enable">Aktivéieren</string>
+  <string name="pref_edge_disable">Desaktivéieren</string>
   <!-- Colored statusbar -->
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Accessibilitéit</string>
   <!-- LookLock -->
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Textgréisst</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Sichresultater virlueden</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
   <!-- Summary for search preloading [CHAR LIMIT=80] -->

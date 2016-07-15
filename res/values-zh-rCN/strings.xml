@@ -96,7 +96,7 @@
          in the add bookmark dialog -->
   <string name="new_folder">新建文件夹</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
-  <string name="edit_folder">修改文件夹</string>
+  <string name="edit_folder">编辑文件夹</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
   <string name="delete_folder">删除文件夹</string>
   <!-- Label stating that the currently open folder has no subfolders

@@ -493,7 +493,7 @@
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
   <string name="pref_lab_fullscreen_summary">Preklopi brskalnik v celozaslonski način</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
-  <string name="pref_data_preload_title">Vnaprejšnje nalaganje iskalnih rezultatov</string>
+  <string name="pref_data_preload_title">Vnaprejšnje nalaganje rezultatov iskanja</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
   <string-array name="pref_temporal_choices">
@@ -502,7 +502,7 @@
     <item>Vedno</item>
   </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
-  <string name="pref_data_preload_summary">Dovoli brskalniku vnaprejšnje nalaganje iskalnih rezultatov v ozadju</string>
+  <string name="pref_data_preload_summary">Dovoli brskalniku vnaprejšnje nalaganje rezultatov iskanja v ozadju</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
   <string name="pref_link_prefetch_title">Vnaprejšnje nalaganje spletnih strani</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
