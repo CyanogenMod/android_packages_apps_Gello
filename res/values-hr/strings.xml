@@ -451,7 +451,7 @@
   <string name="pref_extras_website_settings_summary">Napredne postavke za pojedinačne web-lokacije</string>
   <!-- Settings label -->
   <string name="pref_extras_reset_default">Ponovo postavi na zadano</string>
-  <string name="pref_extras_reset">Resetiraj</string>
+  <string name="pref_extras_reset">Ponovno postavi</string>
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">Vrati na zadane postavke</string>
   <!-- Confirmation dialog message -->
