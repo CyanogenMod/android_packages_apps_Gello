@@ -32,6 +32,7 @@
   <!-- Crash tab button text -->
   <string name="browser_tab_crash_reload">Opnieuw laden</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Er gebeurde iets onverwachts bij het weergeven van deze webpagina. Probeer opnieuw te laden of ga naar een andere pagina.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
   <string name="new_incognito_tab">Incognitomodus</string>
@@ -170,6 +171,7 @@
   <!-- Menu item -->
   <string name="share_page">Delen</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Toevoegen aan thuisscherm</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <string name="menu_save_snapshot">Opslaan</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
@@ -232,6 +234,7 @@
   <string name="menu_preferences">Instellingen</string>
   <!-- Settings screen, section title -->
   <string name="pref_content_title">Pagina-inhoud</string>
+  <string name="pref_content_title_summary">Instellingen webinhoud</string>
   <!-- Settings label -->
   <string name="pref_content_load_images">Afbeeldingen laden</string>
   <string name="pref_content_load_images_summary">Afbeeldingen op webpagina\'s weergeven</string>
@@ -367,14 +370,19 @@
   <!-- Settings summary -->
   <string name="pref_privacy_clear_selected_summary">Geselecteerde items in de lijst wissen</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Deze items wissen?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_cache">Cache</string>
   <!-- Settings summary -->
   <string name="pref_privacy_clear_cache_summary">Lokaal opgeslagen inhoud en databases wissen</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Cookies en sitegegevens</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Alle cookies en sitegegevens wissen</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Navigatiegeschiedenis van de browser wissen</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Navigatiegeschiedenis van de browser verwijderen?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_form_data">Formuliergegevens</string>
   <!-- Settings summary -->
@@ -392,6 +400,7 @@
   <!-- Settings label -->
   <string name="pref_security_remember_passwords">Wachtwoorden opslaan</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Formuliergegevens onthouden</string>
   <!-- Settings Label -->
   <!-- Settings label -->
   <string name="pref_security_accept_cookies">Cookies accepteren</string>
@@ -408,21 +417,30 @@
   <string name="pref_website_title">Website</string>
   <string name="pref_security_add">Toevoegen</string>
   <string name="pref_security_origin_name">Oorsprong van de site</string>
+  <string name="pref_security_access_is_allowed">toegang is toegestaan</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Sleep de schuifknop om de grootte van de letters in te stellen op een prettig leesbare grootte.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Minimum lettergrootte</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="FONT_SIZE">%d</xliff:g> pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Tekst schalen</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Zoom inschakelen forceren</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Omgekeerde opbouw van scherm</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Omgekeerde opbouw</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Zwart wordt wit en andersom</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
   <string name="pref_inverted_contrast">Contrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_extras_title">Geavanceerd</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Website-instellingen</string>
   <!-- Settings summary -->
   <string name="pref_extras_website_settings_summary">Geavanceerde instellingen voor afzonderlijke websites</string>
   <!-- Settings label -->
@@ -436,8 +454,12 @@
   <string name="pref_development_title">Foutopsporing</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Tekstcodering</string>
+  <string name="pref_edge_swipe_title">Randnavigatie</string>
+  <string name="pref_edge_swipe_option_msg">Vegen vanaf de rand zal:</string>
+  <string name="pref_temporal_edge_swipe">Bladeren in geschiedenis</string>
   <string name="pref_disable_edge_swipe">Niets doen</string>
   <string name="pref_edge_swipe_option_close">Later kiezen</string>
+  <string name="pref_edge_swipe_unknown">Gedrag kiezen</string>
   <string name="pref_edge_enable">Inschakelen</string>
   <string name="pref_edge_disable">Uitschakelen</string>
   <!-- Colored statusbar -->
@@ -447,6 +469,7 @@
   <string name="pref_accessibility_title_summary">Tekstgrootte en zoomen</string>
   <!-- LookLock -->
   <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Voorkomen dat andere apps webview-inhoud lezen van deze app</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
   <string name="pref_font_size_category">Tekstgrootte</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
@@ -570,7 +593,9 @@
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
   <string name="find_on_page">Zoeken</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Desktopversie</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">\'Reader\'-modus</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
   <string name="permission_preload_label">Resultaten vooraf laden</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
@@ -581,6 +606,7 @@
   <string name="snapshot_go_live">Live gaan</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Terug</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_refresh">Pagina vernieuwen</string>
@@ -627,22 +653,31 @@
   <string name="video_save">Opslaan</string>
   <string name="video_play">Afspelen</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Sluiten</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
   <string name="about">Over</string>
   <string name="download_estore_app">Estore is niet aanwezig op uw apparaat.</string>
+  <string name="estore_url_warning">Kan Estore niet openen, URL is te lang.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Uploaden van DRM-bestanden wordt niet ondersteund.</string>
   <!-- Add for exit prompt Feature -->
   <string name="exit_browser_title">Browser afsluiten</string>
   <string name="exit_minimize">Minimaliseren</string>
   <string name="exit_quit">Afsluiten</string>
+  <string name="browser_max_input_title">Limiet voor het maximum aantal tekens bereikt</string>
   <string name="duplicated_folder_warning">Map bestaat al</string>
   <string name="overwrite_bookmark_msg">Naam of adres van bladwijzer bestaat al. Overschrijven?</string>
   <!-- Add for download save path setting Feature -->
   <string name="invalid_path">Ongeldig pad</string>
+  <string name="path_wrong">Verkeerd pad</string>
+  <string name="pref_download_title">Instellingen download-pad</string>
+  <string name="pref_download_path_setting_screen_title">Aangepast download-pad</string>
   <string name="download_timeneeded">Tijd</string>
   <string name="download_filesize">Grootte</string>
   <string name="download_filepath_label">Pad</string>
   <string name="download_edit_filename_label">Naam</string>
+  <string name="download_no_enough_memory">Onvoldoende geheugen om te downloaden</string>
+  <string name="download_settings_title">Download-instellingen</string>
   <string name="unknow_length">Onbekend</string>
   <string name="download_file_exist_msg">Bestand bestaat al. Voer een nieuwe bestandsnaam in.</string>
   <string name="download_file_exist">Bestand bestaat al</string>
@@ -656,6 +691,7 @@
   <string name="ssl_certificate_is_valid">Dit certificaat is geldig.</string>
   <string name="version">Versie</string>
   <string name="build_date">Build-datum</string>
+  <string name="build_hash">Build-hash</string>
   <string name="user_agent">Useragent</string>
   <string name="help">Help</string>
   <string name="feedback">Feedback</string>
@@ -674,4 +710,5 @@
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
   <string name="geolocation_permissions_prompt_remember">Voorkeur onthouden</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Toestaan voor 24 uur</string>
 </resources>
