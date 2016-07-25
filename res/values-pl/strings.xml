@@ -74,6 +74,7 @@
             screen. -->
   <string name="page_info_address">Adres:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Ostrzeżenie o zabezpieczeniach</string>
   <!-- Message in an SSL Error dialog -->
   <string name="ssl_invalid">Certyfikat jest nieprawidłowy.</string>
   <!-- Message in an SSL Error dialog -->
@@ -265,7 +266,7 @@
     <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
     <item>Najczęściej odwiedzane strony</item>
     <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
-    <item>Other</item>
+    <item>Inna</item>
   </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
@@ -285,13 +286,24 @@
   <string name="pref_nightmode_enabled_summary">Odwróć kolory</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Wypełniaj formularze internetowe za pomocą jednego dotknięcia.</string>
+  <string-array name="pref_web_refiner_message">
+    <item>"Zablokowane %s. "</item>
+    <item>"Zablokowano %1$s i %2$s. "</item>
+    <item>"Zablokowano %1$s, %2$s i %3$s. "</item>
+  </string-array>
+  <string name="pref_invalid_cert">Strona ma nieprawidłowy certyfikat SSL.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Interfejs</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
   <string name="pref_autofill_profile_editor">Autouzupełnianie</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Wpisz tekst, który będzie autouzupełniany w formularzach internetowych.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Imię i nazwisko:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">E-mail:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
