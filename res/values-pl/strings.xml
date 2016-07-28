@@ -343,34 +343,68 @@
   <!-- Settings summary -->
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Anuluj dostęp do lokalizacji</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Wyczyść bieżące ustawienia dostępu do lokalizacji dla witryn</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Pamiętaj hasła</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Pamiętaj wpisane dane</string>
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Akceptuj pliki cookie</string>
   <string name="pref_security_allow_mic">Mikrofon</string>
   <string name="pref_security_allow_camera">Aparat</string>
   <string name="pref_security_web_refiner">Reklamy</string>
+  <string name="pref_security_ask_before_using">Pytaj przed użyciem</string>
+  <string name="pref_security_allowed">Zezwolono</string>
+  <string name="pref_security_not_allowed">Nie zezwolono</string>
+  <string name="pref_security_remember">Zapamiętaj</string>
+  <string name="pref_security_on">Wł.</string>
+  <string name="pref_security_off">Wył.</string>
+  <string name="pref_website_title">Strona internetowa</string>
+  <string name="pref_security_add">Dodaj</string>
+  <string name="pref_security_origin_name">Pochodzenie strony</string>
+  <string name="pref_security_access_is_allowed">dostęp jest dozwolony</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Przeciągnij suwak, aby dostosować wielkość czcionki, do komfortowego czytania.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Minimalny rozmiar czcionki</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g> pkt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Skalowanie tekstu</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Wymuś powiększenie</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Nie zezwalaj witrynie sterować powiększeniem</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Negatyw ekranu</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Negatyw</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Czarny zmieni się w biały i odwrotnie</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
   <string name="pref_inverted_contrast">Kontrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_extras_title">Zaawansowane</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Ustawienia witryn</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Ustawienia zaawansowane dla poszczególnych witryn</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Przywróć wartości domyślne</string>
+  <string name="pref_extras_reset">Reset</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Przywróć domyślne</string>
   <!-- Confirmation dialog message -->
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Debugowanie</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_temporal_edge_swipe">Nawiguj przez historię</string>
+  <string name="pref_spatial_edge_swipe">Zmień kartę</string>
+  <string name="pref_disable_edge_swipe">Nic nie rób</string>
+  <string name="pref_edge_swipe_unknown">Wybierz zachowanie</string>
   <!-- Colored statusbar -->
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <!-- LookLock -->
@@ -396,6 +430,7 @@
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
   <!-- Label for a button to allow a particular popup window to open -->
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Zablokuj</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
   <!-- Message in a dialog telling the user that they cannot open any more
@@ -427,7 +462,9 @@
          in the text field. -->
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Pamięć przeglądarki jest pełna</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Wyczyść zapisane dane</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
@@ -490,4 +527,5 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Zezwól na 24 godziny</string>
 </resources>

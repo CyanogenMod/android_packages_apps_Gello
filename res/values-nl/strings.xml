@@ -382,7 +382,7 @@
   <!-- Settings summary -->
   <string name="pref_privacy_clear_history_summary">Navigatiegeschiedenis van de browser wissen</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_privacy_clear_history_dlg">Navigatiegeschiedenis van de browser verwijderen?</string>
+  <string name="pref_privacy_clear_history_dlg">Navigatiegeschiedenis van de browser wissen?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_form_data">Formuliergegevens</string>
   <!-- Settings summary -->
