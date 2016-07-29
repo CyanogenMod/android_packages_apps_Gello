@@ -82,8 +82,8 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
         <item>http://ff.search.yahoo.com/gossip?output=fxjson&amp;command={searchTerms}</item>
     </string-array>
 
-    <string-array name="google (encrypted)" translatable="false">
-	<item>Google (encrypted)</item>
+    <string-array name="googleEncrypted" translatable="false">
+	<item>Google Encrypted</item>
 	<item>encrypted.google.com</item>
 	<item>https://encrypted.google.com/favicon.ico</item>
 	<item>https://encrypted.google.com/search?ie={inputEncoding}&amp;source=android-browser&amp;q={searchTerms}</item>
