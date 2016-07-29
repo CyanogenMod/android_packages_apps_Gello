@@ -23,7 +23,7 @@ Each value in the string-array is the name of a value in all_search_engines.xml
     <item>DuckDuckGo</item>
     <item>google</item>
     <item>yahoo</item>
-    <item>google (encrypted)</item>
+    <item>googleEncrypted</item>
   </string-array>
-  <string name="default_search_engine_value">google</string>
+  <string name="default_search_engine_value">googleEncrypted</string>
 </resources>
