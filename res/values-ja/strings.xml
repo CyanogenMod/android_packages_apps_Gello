@@ -281,7 +281,7 @@
   <!-- Checkbox setting for enabling/disabling night mode feature -->
   <string name="pref_nightmode_enabled">夜間モード</string>
   <!-- Settings summary for the night mode feature. -->
-  <string name="pref_nightmode_enabled_summary">色を反転</string>
+  <string name="pref_nightmode_enabled_summary">色を反転する</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <string name="pref_autofill_enabled">フォームの自動入力</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
@@ -408,8 +408,8 @@
   <string name="pref_security_web_refiner">広告</string>
   <string name="pref_security_accept_third_party_cookies">サードパーティCookie</string>
   <string name="pref_security_ask_before_using">使用前に確認する</string>
-  <string name="pref_security_allowed">許可</string>
-  <string name="pref_security_not_allowed">拒否</string>
+  <string name="pref_security_allowed">許可する</string>
+  <string name="pref_security_not_allowed">拒否する</string>
   <string name="pref_security_remember">保存する</string>
   <string name="pref_security_on">ON</string>
   <string name="pref_security_off">OFF</string>
@@ -449,13 +449,13 @@
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">デフォルトの設定を復元する</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_extras_reset_default_dlg">設定をデフォルト値に戻しますか？</string>
+  <string name="pref_extras_reset_default_dlg">設定をデフォルトの値に戻しますか？</string>
   <!-- Title for a group of settings -->
   <string name="pref_development_title">デバッグ</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">テキストエンコード</string>
   <string name="pref_edge_swipe_title">エッジナビゲーション</string>
-  <string name="pref_edge_swipe_option_msg">エッジからスワイプした時の動作:</string>
+  <string name="pref_edge_swipe_option_msg">エッジからスワイプでの動作:</string>
   <string name="pref_temporal_edge_swipe">履歴を移動する</string>
   <string name="pref_spatial_edge_swipe">タブを変更する</string>
   <string name="pref_disable_edge_swipe">何もしない</string>
@@ -463,7 +463,7 @@
   <string name="pref_temporal_edge_swipe_enabled_toast">エッジからスワイプして履歴を移動します</string>
   <string name="pref_spatial_edge_swipe_enabled_toast">エッジからスワイプしてタブを変更します</string>
   <string name="pref_edge_swipe_disabled_toast">エッジからのスワイプは無効になっています</string>
-  <string name="pref_edge_swipe_unknown">動作を選択</string>
+  <string name="pref_edge_swipe_unknown">動作を選択する</string>
   <string name="pref_edge_swipe_setup_desc">エッジからスワイプして履歴を移動することができます。\nこの機能はエッジを使った操作を使用しているウェブサイトと干渉する可能性があります。</string>
   <string name="pref_edge_enable">有効化</string>
   <string name="pref_edge_disable">無効化</string>
