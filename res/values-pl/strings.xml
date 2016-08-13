@@ -342,6 +342,7 @@
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Lokalizacja</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_geolocation_access">Anuluj dostęp do lokalizacji</string>
   <!-- Settings summary -->
