@@ -72,6 +72,7 @@
   <string name="ssl_invalid">Certifikatet är ogiltigt.</string>
   <!-- Message in an SSL Error dialog -->
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Avbryter\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
   <string name="stop">Stoppa</string>
   <!-- Menu item to reload or refresh the current page. -->
@@ -152,6 +153,7 @@
   <!-- Menu item for saving link to homescreen -->
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Sparar\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
@@ -208,6 +210,7 @@
   <!-- Settings label -->
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_content_javascript">Aktivera JavaScript</string>
   <!-- Settings label -->
   <!-- Settings summary [CHAR LIMIT=50]-->
   <!-- Settings label [CHAR LIMIT=50] -->
@@ -257,6 +260,7 @@
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
   <string name="autofill_profile_editor_address_line_2_hint">Lägenhet, svit, enhet, byggnad, våning osv.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Ort:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_state">Stat/Provins/Region:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -303,6 +307,8 @@
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Acceptera cookies</string>
+  <string name="pref_security_allow_mic">Mikrofon</string>
   <string name="pref_security_allow_camera">Kamera</string>
   <string name="pref_security_web_refiner">Annonser</string>
   <string name="pref_security_allowed">Tillåts</string>
