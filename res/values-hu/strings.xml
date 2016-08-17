@@ -159,60 +159,105 @@
   <string name="close_other_tabs">Többi lap bezárása</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Könyvjelző</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Előzmények</string>
   <!-- Menu item -->
+  <string name="share_page">Megosztás</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Hozzáadás a kezdőképernyőhöz</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Mentés</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Mentés\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> könyvjelző</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Üres mappa</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Megnyitás</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Megnyitás új lapon a háttérben</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Link mentése</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Link megosztása</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Másolás</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Kép mentése</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Kép megtekintése</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Beállítás háttérképként</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Tárcsázás\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Névjegy hozzáadása</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">E-mail küldése</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Térkép</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Törlés</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Cserél</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Beállítások</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Tartalombeállítások</string>
+  <string name="pref_content_title_summary">Webes tartalombeállítások</string>
+  <!-- Settings label -->
+  <string name="pref_content_load_images">Képek betöltése</string>
+  <string name="pref_content_load_images_summary">Képek megjelenítése a weboldalakon</string>
+  <!-- Settings label -->
+  <string name="pref_security_allow_popups">Felugró ablakok</string>
   <!-- Settings label -->
   <!-- Settings label -->
-  <!-- Settings label -->
-  <!-- Settings label -->
+  <string name="pref_content_open_in_background">Megnyitás a háttérben</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Új lapok megnyitása a jelenlegi mögött</string>
   <!-- Settings label [CHAR LIMIT=50] -->
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Keresőmotor</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Keresőmotor kiválasztása</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Current page</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Üres oldal</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Alapértelmezett oldal</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Most visited sites</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Egyéb</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Általános</string>
   <string name="pref_site_settings_title">Oldalbeállítások</string>
   <string name="pref_site_settings_info_panel">Biztonsági információk</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
@@ -241,38 +286,74 @@
     <item quantity="one">%d rosszindulatú fenyegetés</item>
     <item quantity="other">%d rosszindulatú fenyegetés</item>
   </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"%s blokkolva. "</item>
+    <item>"%1$s és %2$s blokkolva. "</item>
+    <item>"%1$s, %2$s és %3$s blokkolva. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Érvényes SSL-tanúsítvány. Kommunikáció titkosítva és az identitás ellenőrizve.</string>
+  <string name="pref_invalid_cert">Az oldal érvénytelen SSL-tanúsítvánnyal rendelkezik.</string>
+  <string name="pref_warning_cert">Az oldal SSL-tanúsítványa figyelmeztetéseket tartalmaz.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Felhasználói felület</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Szöveg beállítása webes űrlapok automatikus kitöltéséhez</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Írja be a kívánt szöveget a webes űrlapok automatikus kitöltéséhez.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Teljes név:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">E-mail:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Cím 1. sora:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Utcanév, postafiókszám, levelezési cím</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Cím 2. sora:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Város:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Állam/megye/régió:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Irányítószám:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Ország:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Telefon:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Érvénytelen telefonszám.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Mentés</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Automatikus kitöltés szövege elmentve.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">Automatikus kitöltés szövege törölve.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Törlés</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Energiatakarékos mód engedélyezve. Böngésző újraindul.</string>
+  <string name="powersave_dialog_off">Energiatakarékos mód letiltva. Böngésző újraindul.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">A böngésző automatikusan ki tudja tölteni az ilyen típusú internetes űrlapokat. Szeretné beállítani az automatikus kitöltés szövegét?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Automatikus kitöltés letiltása</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Biztonság</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Adatvédelem és biztonság</string>
+  <string name="pref_privacy_security_title_summary">Böngésző biztonsági és adatvédelmi beállításai</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Törlésre kerülő elemek kijelölése</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Kiválasztott elemek törlése</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">A listában kijelölt elemek törlése</string>
   <!-- Confirmation dialog message -->
   <!-- Settings label -->
   <!-- Settings summary -->
@@ -325,17 +406,22 @@
   <!-- Menu item -->
   <!-- Appears on History screen if no history is found -->
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Könyvjelző hozzáadása</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Hozzáadás</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Keressen vagy írjon be egy URL-t</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
   <!-- Label for a button to allow a particular popup window to open -->
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Blokkolás</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Elérte a lapok maximális számát</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
   <!-- Title for a dialog informing the user that they cannot open a subwindow
