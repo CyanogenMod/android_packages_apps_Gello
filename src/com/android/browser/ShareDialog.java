@@ -123,9 +123,9 @@ public class ShareDialog {
                 File path = getScreenshotDir();
                 if (path.exists() || path.mkdir()) {
                     File saveFile = File.createTempFile(
-                            String.valueOf(System.currentTimeMillis()), ".jpg", path);
+                            String.valueOf(System.currentTimeMillis()), ".png", path);
                     fOut = new FileOutputStream(saveFile);
-                    screenshot.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
+                    screenshot.compress(Bitmap.CompressFormat.PNG, 100, fOut);
                     fOut.flush();
                     fOut.close();
                     uri = getUriForImageCaptureFile(activity, saveFile);
