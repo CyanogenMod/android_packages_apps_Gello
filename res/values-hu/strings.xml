@@ -253,6 +253,7 @@
   <!-- Settings summary -->
   <string name="pref_content_search_engine_summary">Keresőmotor kiválasztása</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Beállítva</string>
   <string-array name="pref_homepage_choices">
     <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
     <item>Aktuális oldal</item>
