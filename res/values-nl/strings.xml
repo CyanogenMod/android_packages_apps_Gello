@@ -473,6 +473,7 @@ Veeg vanaf de rand om door de geschiedenis te bladeren.\nDeze functie kan confli
   <string name="pref_edge_disable">Uitschakelen</string>
   <!-- Colored statusbar -->
   <string name="pref_coloredsb_title">Gekleurde statusbalk</string>
+  <string name="pref_coloredsb_summary">Statusbalk zal van kleur veranderen op basis van de bezochte pagina</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <string name="pref_accessibility_title">Toegankelijkheid</string>
   <string name="pref_accessibility_title_summary">Tekstgrootte en zoomen</string>
@@ -676,7 +677,7 @@ Veeg vanaf de rand om door de geschiedenis te bladeren.\nDeze functie kan confli
   <string name="exit_minimize">Minimaliseren</string>
   <string name="exit_quit">Afsluiten</string>
   <string name="browser_max_input_title">Limiet voor het maximum aantal tekens bereikt</string>
-  <string name="browser_max_input">U heeft de limiet van <xliff:g id="MAXLIMIT">%s</xliff:g> tekens bereikt</string>
+  <string name="browser_max_input">U hebt de limiet van <xliff:g id="MAXLIMIT">%s</xliff:g> tekens bereikt</string>
   <string name="duplicated_folder_warning">Map bestaat al</string>
   <string name="overwrite_bookmark_msg">Naam of adres van bladwijzer bestaat al. Overschrijven?</string>
   <!-- Add for download save path setting Feature -->
