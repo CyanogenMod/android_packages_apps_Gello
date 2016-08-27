@@ -174,6 +174,7 @@
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Lando:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
@@ -327,6 +328,7 @@
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
   <!-- Add for Carrier Feature.Content description for exit menu item -->
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Pri</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <!-- Add for exit prompt Feature -->
   <!-- Add for download save path setting Feature -->
