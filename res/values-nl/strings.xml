@@ -661,6 +661,7 @@ Veeg vanaf de rand om door de geschiedenis te bladeren.\nDeze functie kan confli
   <string name="my_navigation_duplicate_url">URL bestaat al</string>
   <string name="my_navigation_page_title">Thuis</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Selecteer hoe een mediabestand te behandelen</string>
   <string name="video_save">Opslaan</string>
   <string name="video_play">Afspelen</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
