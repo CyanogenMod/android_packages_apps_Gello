@@ -448,9 +448,9 @@
   <string name="pref_extras_website_settings_summary">Configuració avançada per llocs web individuals</string>
   <!-- Settings label -->
   <string name="pref_extras_reset_default">Restableix als valors per defecte</string>
-  <string name="pref_extras_reset">Reestableix</string>
+  <string name="pref_extras_reset">Restableix</string>
   <!-- Settings summary -->
-  <string name="pref_extras_reset_default_summary">Reestableix la configuració per defecte</string>
+  <string name="pref_extras_reset_default_summary">Restableix la configuració per defecte</string>
   <!-- Confirmation dialog message -->
   <string name="pref_extras_reset_default_dlg">Vols revertir la configuració als valors per defecte?</string>
   <!-- Title for a group of settings -->
