@@ -447,7 +447,7 @@
   <!-- Settings summary -->
   <string name="pref_extras_website_settings_summary">Geavanceerde instellingen voor afzonderlijke websites</string>
   <!-- Settings label -->
-  <string name="pref_extras_reset_default">Standaardwaarden</string>
+  <string name="pref_extras_reset_default">Standaardinstellingen</string>
   <string name="pref_extras_reset">Opnieuw instellen</string>
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">Standaardinstellingen terugzetten</string>

@@ -170,6 +170,7 @@
   <!-- Menu item -->
   <string name="share_page">Del</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Tilføj til startside</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <string name="menu_save_snapshot">Gem</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
@@ -250,28 +251,81 @@
   <string name="pref_content_search_engine_summary">Vælg en søgemaskine</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
   <string name="pref_set_homepage_to">Indstil til</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Aktuel side</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Tom side</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Standardside</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Mest besøgte websteder</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Andet</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Generelt</string>
+  <string name="pref_default_site_settings_title">Standard webstedsindstillinger</string>
+  <string name="pref_site_settings_title">Webstedsindstillinger</string>
+  <string name="pref_site_settings_info_panel">Sikkerhedsoplysninger</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Auto-udfyld</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Strømsparetilstand</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Reducere browserens strømforbrug</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Nattilstand</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Invertere farver</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Formular til Autofyld</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Udfyld webformularer med et enkelt tryk</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d reklame</item>
+    <item quantity="other">%d reklamer</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d sporing</item>
+    <item quantity="other">%d sporinger</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d malware trussel</item>
+    <item quantity="other">%d malware trusler</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"Blokerede %s. "</item>
+    <item>"Blokerede %1$s og %2$s. "</item>
+    <item>"Blocked %1$s, %2$s and %3$s. "</item>
+  </string-array>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Brugerflade</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Auto-udfyld</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Opret tekst, som skal indsættes i webformularer med AutoFyld</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Angiv den tekst, du vil indsætte i webformularer med AutoFyld.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Fulde navn:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">E-mail:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Virksomhedsnavn:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Adresselinje 1:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Adresse, postboks, c/o</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Adresselinje 2:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Lejlighed, suite, afdeling, bygning, etage osv.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">By:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Stat/provins/region:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_zip_code">Postnummer:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -289,6 +343,8 @@
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
   <string name="autofill_profile_editor_delete_profile">Slet</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Strømbesparelsestilstand aktiveret. Browser genstartes.</string>
+  <string name="powersave_dialog_off">Strømbesparelsestilstand deaktiveret. Browser genstartes.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
   <string name="autofill_setup_dialog_message">Browseren kan automatisk udfylde webformularer som denne. Vil du oprette din AutoFyld-tekst?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
