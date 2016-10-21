@@ -91,6 +91,15 @@ http://www.opensearch.org/Specifications/OpenSearch/1.1/Draft_4#OpenSearch_1.1_p
 	<item>https://encrypted.google.com/complete/search?client=android&amp;q={searchTerms}</item>
     </string-array>
 
+    <string-array name="startpage" translatable="false">
+	<item>StartPage</item>
+	<item>startpage.com</item>
+	<item>https://www.startpage.com/favicon.ico</item>
+	<item>https://www.startpage.com/do/search?language={language}&amp;cat=web&amp;query={searchTerms}</item>
+	<item>UTF-8</item>
+	<item></item>
+    </string-array>
+
     <!-- Custom search engines used from overlays -->
     <string-array name="custom_search_engine_1" translatable="false" />
     <string-array name="custom_search_engine_2" translatable="false" />
