@@ -420,7 +420,7 @@
   <!-- Settings text size options - displays sample font size in settings -->
   <string name="pref_sample_font_size">Seret penggeser untuk menyesuaikan ukuran font yang nyaman.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
-  <string name="pref_min_font_size">Ukuran font minimum</string>
+  <string name="pref_min_font_size">Ukuran font minimal</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
   <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->

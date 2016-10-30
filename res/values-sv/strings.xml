@@ -59,6 +59,7 @@
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Max URL längd nådd</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
   <string name="msg_no_google_play">Google Play-butiken är inte tillgänglig i enheten.</string>
   <!-- Menu item -->

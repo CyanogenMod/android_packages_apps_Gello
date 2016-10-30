@@ -156,6 +156,7 @@
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Åbn alle på nye faner</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Vælg en handling for besked</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
   <string name="close_other_tabs">Luk andre faner</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
@@ -233,10 +234,12 @@
   <string name="menu_preferences">Indstillinger</string>
   <!-- Settings screen, section title -->
   <string name="pref_content_title">Sideindhold</string>
+  <string name="pref_content_title_summary">Indstillinger for webindhold</string>
   <!-- Settings label -->
   <string name="pref_content_load_images">Indlæs billeder</string>
   <string name="pref_content_load_images_summary">Vis billeder på websider</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Pop ups</string>
   <!-- Settings label -->
   <string name="pref_content_javascript">Aktivér JavaScript</string>
   <!-- Settings label -->
@@ -298,8 +301,11 @@
   <string-array name="pref_web_refiner_message">
     <item>"Blokerede %s. "</item>
     <item>"Blokerede %1$s og %2$s. "</item>
-    <item>"Blocked %1$s, %2$s and %3$s. "</item>
+    <item>"Blokerede %1$s, %2$s og %3$s. "</item>
   </string-array>
+  <string name="pref_valid_cert">Gyldig SSL-certifikat. Kommunikationen er krypteret og identiteten er bekræftet.</string>
+  <string name="pref_invalid_cert">Siden har et ugyldigt SSL certifikat.</string>
+  <string name="pref_warning_cert">Sidens SSL-certifikat har advarsler.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_interface_title">Brugerflade</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
@@ -361,8 +367,11 @@
   <!-- Popup dialog -->
   <string name="pref_select_items">Vælg elementer, der skal ryddes</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Ryd markeret elementer</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Ryd markeret elementer på listen</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Fjern følgende elementer?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_cache">Ryd cache</string>
   <!-- Settings summary -->
@@ -394,12 +403,14 @@
   <!-- Settings label -->
   <string name="pref_security_save_form_data">Husk formulardata</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Anmod om \'Ikke spor\'</string>
   <!-- Settings label -->
   <string name="pref_security_accept_cookies">Accepter cookies</string>
   <string name="pref_security_allow_mic">Mikrofon</string>
   <string name="pref_security_allow_camera">Kamera</string>
   <string name="pref_security_web_refiner">Annoncer</string>
   <string name="pref_security_accept_third_party_cookies">Tredjepartscookies</string>
+  <string name="pref_security_ask_before_using">Spørg før du anvender</string>
   <string name="pref_security_allowed">Tilladt</string>
   <string name="pref_security_not_allowed">Ikke tilladt</string>
   <string name="pref_security_remember">Husk</string>
@@ -407,7 +418,10 @@
   <string name="pref_security_off">Fra</string>
   <string name="pref_website_title">Hjemmeside</string>
   <string name="pref_security_add">Tilføj</string>
+  <string name="pref_security_origin_name">Sideoprindelse</string>
+  <string name="pref_security_access_is_allowed">adgang er tilladt</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Træk skydekontrollen for at justere skriftstørrelsen og indstille den ønskede behagelige læse størrelse.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Mindste skriftstørrelse</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -443,9 +457,18 @@
   <string name="pref_development_title">Fejlretning</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Tekstkodning</string>
+  <string name="pref_edge_swipe_title">Kant navigation</string>
+  <string name="pref_edge_swipe_option_msg">Stryg fra kanten vil:</string>
+  <string name="pref_temporal_edge_swipe">Navigerer på tværs af historik</string>
+  <string name="pref_spatial_edge_swipe">Ændre fane</string>
   <string name="pref_disable_edge_swipe">Gør ingenting</string>
   <string name="pref_edge_swipe_option_close">Vælg senere</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Stryg fra kanten for at navigere</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Stryg fra kanten for at skifte faner</string>
+  <string name="pref_edge_swipe_disabled_toast">Stryg fra kanten deaktiveret</string>
   <string name="pref_edge_swipe_unknown">Vælg funktionsmåde</string>
+  <string name="pref_edge_swipe_setup_desc">
+        Stryg fra kanten for at navigere på tværs af historikken.\nDenne funktion kan konflikte med websider der benytter kantbaseret handlinger</string>
   <string name="pref_edge_enable">Aktivér</string>
   <string name="pref_edge_disable">Deaktiver</string>
   <!-- Colored statusbar -->
@@ -453,7 +476,10 @@
   <string name="pref_coloredsb_summary">Statuslinjen vil ændre farve baseret på den besøgte side</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <string name="pref_accessibility_title">Tilgængelighed</string>
+  <string name="pref_accessibility_title_summary">Tekststørrelse og zoom</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">KiggeLås</string>
+  <string name="pref_looklock_summary">Forhindre andre apps i at læse webside indhold fra denne app</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
   <string name="pref_font_size_category">Tekststørrelse</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
@@ -503,6 +529,7 @@
   <string name="too_many_windows_dialog_title">Grænsen for faner er nået</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Kan ikke åbne en ny fane, før du lukker en.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Pop op er allerede åben</string>
@@ -543,26 +570,46 @@
   <string name="webstorage_outofspace_notification_text">Tryk for at frigøre plads.</string>
   <!-- Used in the Browser Settings -->
   <string name="webstorage_clear_data_title">Ryd lagrede data</string>
+  <string name="webstorage_private_data_title">Private data</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Vil du slette alle data, som dette website har gemt?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Indlæser video\u2026</string>
+  <string name="website_settings_add_origin">Ny side</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Ryd alle</string>
+  <string name="website_settings_clear_all_dialog_message">Vil du slette alle websitedata og placeringstilladelser?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Angiver baggrund...</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Ingen favoritter.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Andre favoritter</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">Favoritter på denne enhed er endnu ikke knyttet til en Google-konto. Gem disse bogmærker ved at føje dem til en konto. Slette disse bogmærker, hvis du ikke ønsker at synkronisere dem.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Slet favoritter</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Del</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Ikke flere faner tilgængelige</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Vis eks.</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Mine favoritter</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Find</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Computerversion</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Læsetilstand</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Forudindlæs resultater</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Ingen gemte sider.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
   <string name="remove_snapshot">Slet gemt side</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
@@ -601,27 +648,76 @@
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_bookmarks_folder_up">Forrige mappe</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Slet hjemmeside</string>
   <string name="my_navigation_edit_label">Rediger hjemmeside</string>
   <string name="my_navigation_add_label">Tilføj hjemmeside</string>
   <string name="my_navigation_add">Tilføj</string>
   <string name="my_navigation_delete_msg">Slet hjemmeside?</string>
   <string name="my_navigation_name">Titel</string>
+  <string name="my_navigation_address">Adresse</string>
   <string name="website_needs_title">Hjemmesiden skal have en titel</string>
+  <string name="website_needs_url">Hjemmesiden skal have en URL</string>
+  <string name="my_navigation_cannot_save_url">Ugyldig URL-adresse</string>
+  <string name="my_navigation_duplicate_url">URL-adressen findes allerede</string>
+  <string name="my_navigation_page_title">Hjem</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Vælg venligst hvordan mediefiler skal håndteres</string>
+  <string name="video_save">Gem</string>
+  <string name="video_play">Afspil</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Afslut</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Om</string>
+  <string name="download_estore_app">Estore findes ikke på din enhed.</string>
+  <string name="estore_url_warning">Kunne ikke starte Estore, URL\'en er for lang.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Upload af DRM-filer understøttes ikke.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Afslut browseren</string>
+  <string name="exit_browser_msg">Vælg venligst hvordan du vil afslutte browseren</string>
+  <string name="exit_minimize">Minimere</string>
+  <string name="exit_quit">Afslut</string>
+  <string name="browser_max_input_title">Grænsen for højeste antal tilladte tegn er nået</string>
+  <string name="browser_max_input">Dit input har nået den maksimale grænse i <xliff:g id="MAXLIMIT">%s</xliff:g> tegn</string>
+  <string name="duplicated_folder_warning">Mappen findes allerede</string>
+  <string name="overwrite_bookmark_msg">Favorittens navn eller adresse findes allerede. Vil du overskrive den?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Ugyldig sti</string>
+  <string name="path_wrong">Forkert sti</string>
+  <string name="pref_download_title">Downloadindstillinger</string>
+  <string name="pref_download_path_setting_screen_title">Brugerdefinerede download sti</string>
+  <string name="download_timeneeded">Tid</string>
+  <string name="download_filesize">Størrelse</string>
+  <string name="download_filepath_label">Sti</string>
+  <string name="download_edit_filename_label">Navn</string>
+  <string name="download_no_enough_memory">Utilstrækkelig hukommelse til download</string>
+  <string name="download_settings_title">Downloadindstillinger</string>
+  <string name="filename_empty_title">Download filnavnet er tomt</string>
+  <string name="filename_empty_msg">Download filnavnet må ikke være tomt. Angiv et gyldigt filnavn.</string>
+  <string name="unknow_length">Ukendt</string>
+  <string name="download_file_exist_msg">Filen findes allerede. Indtast et nyt filnavn.</string>
+  <string name="download_file_exist">Filen findes allerede</string>
+  <string name="time_min">min.</string>
+  <string name="download_path_unavailable_dlg_title">Download mappen er ikke tilgængelig</string>
+  <string name="download_path_unavailable_dlg_msg">Ret venligst download mappen</string>
+  <string name="activity_not_found">Ingen aktivitet fundet til at håndtere denne hensigt: <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">Filnavn</string>
+  <string name="download_size_hint">Størrelse</string>
+  <string name="download_eta_hint">ETA</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Modtage en besked fra: <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Sikkerhedscertifikatet</string>
+  <string name="ssl_certificate_is_valid">Dette certifikat er gyldigt.</string>
   <string name="version">Version</string>
   <string name="build_date">Kørselsdato</string>
+  <string name="build_hash">Hash-kompilering</string>
   <string name="user_agent">Brugeragent</string>
   <string name="help">Hjælp</string>
   <string name="feedback">Feedback</string>
   <string name="swe_legal">Juridiske oplysninger</string>
   <string name="swe_open_source_licenses">Open source licenser</string>
+  <string name="swe_eula">Slutbruger licensaftaler</string>
   <string name="swe_privacy_policy">Privatlivspolitik</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
   <string name="mdm_managed_alert">Administreres af din administrator</string>
@@ -634,4 +730,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">Husk indstilling</string>
+  <string name="geolocation_permissions_prompt_share_never">Afvis altid</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Tillad i 24 timer</string>
+  <string name="geolocation_permissions_prompt_share_forever">Tillad altid</string>
 </resources>

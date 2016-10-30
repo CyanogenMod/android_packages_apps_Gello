@@ -407,7 +407,7 @@
   <string name="pref_security_allow_camera">カメラ</string>
   <string name="pref_security_web_refiner">広告</string>
   <string name="pref_security_accept_third_party_cookies">サードパーティCookie</string>
-  <string name="pref_security_ask_before_using">使用前に確認する</string>
+  <string name="pref_security_ask_before_using">使用する前に確認する</string>
   <string name="pref_security_allowed">許可する</string>
   <string name="pref_security_not_allowed">拒否する</string>
   <string name="pref_security_remember">保存する</string>
