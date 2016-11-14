@@ -19,321 +19,712 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Браузер</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Виберіть файл для завантаження</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Завантаження файлів вимкнуто.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Нова вкладка</string>
+  <string name="browser_tab_crash_snap">Помилка!</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Перезавантажити</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">При відображенні цієї веб-сторінки виникло щось непередбачене. Перезавантажте цю сторінку або перейдіть на іншу.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Вкладка в режимі інкогніто</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Найбільш відвідувані</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">Збережені сторінки</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Додано в закладки.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Видалено з закладок.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Увійти в <xliff:g id="hostname">%s1</xliff:g>«<xliff:g id="realm"> %s2</xliff:g>»</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">"Ім'я"</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Пароль</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Увійти</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Зберегти закладку</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Скасувати</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">ОК</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Досягнуто ліміту довжини URL-адреси</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play відсутній на вашому пристрої.</string>
   <!-- Menu item -->
+  <string name="page_info">Деталі</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Адреса:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Попередження системи безпеки</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Даний сертифікат недійсний.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Невідома помилка сертифіката.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Зупинка\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Зупинити</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Оновити</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Назад</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Вперед</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Адреса</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Аккаунт</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Додати в</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Нова папка</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Змінити папку</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Видалити папку</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Немає підпапок.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Домашній екран</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Вибрати папку\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Мітка</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Додати закладку</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Додати цю сторінку в закладки</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Видалити</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Редагувати</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Помістити на головний екран</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Видалити</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Видалити</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Видалити з історії</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Зробити головною сторінкою</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Додано в закладки</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Не вдалося зберегти закладку.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Головна сторінка встановлена.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">"Необхідно вказати ім'я закладки."</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Необхідно вказати місце закладки.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">Ця URL-адреса недійсна.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Цю сторінку неможливо додати в закладки.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">з:\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Видалити закладку «<xliff:g id="bookmark">%s</xliff:g>»?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Видалити папку «<xliff:g id="bookmark">%s</xliff:g>»?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Відкрити все в нових вкладках</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Виберіть дію для текста</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Закрити інші вкладки</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Закладки</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Закладка</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Виберіть закладку</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">Історія</string>
   <!-- Menu item -->
+  <string name="share_page">Поділитися</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Додати на головний екран</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Зберегти сторінку</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Збереження\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Не вдалося зберегти сторінку.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount">Закладок: <xliff:g id="BOOKMARK_COUNT">%d</xliff:g></string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Папка порожня</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Відкрити</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Відкрити в новій вкладці</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Вдкрити в фоновій вкладці</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Зберегти посилання</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Надіслати посилання</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Копіювати</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Копіювати URL</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Зберегти зображення</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Переглянути зображення</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Встановити як шпалери</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Набрати номер\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Додати контакт</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Надіслати ел. повід.</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Мапа</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Спосіб надсилання</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Очистити</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Замінити</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Налаштування</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Зміст сторінки</string>
+  <string name="pref_content_title_summary">Налаштування змісту веб-сторінки</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">Завантажити зображення</string>
+  <string name="pref_content_load_images_summary">Показувати зображення на веб-сторінках</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Виринаючі вікна</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">Увімкнути JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Фонові вкладки</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Відкрити нові вкладки позаду поточної</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Головна сторінка</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Пошукова система</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Вибір пошукової системи</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Встановити</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Поточна сторінка</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Порожня сторінка</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Сторінка за замовчуванням</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Найбільш відвідувані веб-сайти</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Інша</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Загальні налаштування</string>
+  <string name="pref_default_site_settings_title">Налаштування за замовчуванням</string>
+  <string name="pref_site_settings_title">Настройки сайта</string>
+  <string name="pref_site_settings_info_panel">Відомості про безпеку</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Автозаповнення</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Режим енергозбереження</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Знизити енергоспоживання браузера</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Нічний режим</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Інвертувати кольори</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Автозаповнення форм</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Заповнюйте веб-форми одним дотиком</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d оголошення</item>
+    <item quantity="few">%d оголошення</item>
+    <item quantity="other">%d оголошень</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d трекер</item>
+    <item quantity="few">%d трекера</item>
+    <item quantity="other">%d трекерів</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d загроза шкідливих програм</item>
+    <item quantity="few">%d загрози шкідливих програм</item>
+    <item quantity="other">%d загроз шкідливих програм</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"%s заблоковано. "</item>
+    <item>"%1$s і %2$s заблоковано. "</item>
+    <item>"%1$s, %2$s і %3$s заблоковано. "</item>
+  </string-array>
+  <string name="pref_valid_cert">"Дійсний SSL-сертифікат. Зв'язок шифрується, а ідентичність перевірена."</string>
+  <string name="pref_invalid_cert">Сайт має неприпустимий SSL-сертифікат.</string>
+  <string name="pref_warning_cert">SSL-сертифікат сайту має попередження.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Інтерфейс</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Автозаповнення</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Налаштувати текст для автозаповнення веб-форм</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Введіть текст для автозаповнення.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">"Повне ім'я:"</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">Ел. пошта:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Назва компанії:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">Адресний рядок 1:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Адреса, поштова скринька, адреса до запитання</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">Адресний рядок 2:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Квартира, офіс, будівля, поверх тощо</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Місто:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Регіон:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">Поштовий індекс:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Країна:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Номер телефону:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Невірний номер телефону.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Зберегти</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Текст автозаповнення збережений.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">Текст автозаповнення видалений.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Видалити</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Увімкнуто режим економії енергії. Браузер буде перезапущений.</string>
+  <string name="powersave_dialog_off">Вимкнуто режим економії енергії. Браузер буде перезапущений.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Браузер може автоматично заповнювати такі веб-форми. Увімкнути автозаповнення?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Автозаповнення можна налаштувати в загальних налаштуваннях браузера.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Вимкнути автозаповнення</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Безпека</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Конфіденційність і безпека</string>
+  <string name="pref_privacy_security_title_summary">Налаштування безпеки і конфіденційності браузера</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Виберіть елементи для видалення</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Видалити вибрані елементи</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Видалити вибрані елементи в списку</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Видалити ці елементи?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Очистити кеш</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Видалити вміст і дані, збережені браузером</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Видалити cookie і дані сайтів</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Видалити всі файли cookie браузера і дані сайтів</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Очистити список відвіданих в Інтернеті сторінок</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Видалити історію браузера?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Очистити дані форми</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Видалити всі збережені дані форм</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Очистити паролі</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Видалити всі збережені паролі</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Доступ до геоданих</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Закрити геодані</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Очистити список сайтів, що мають доступ до даних про ваше місцезнаходження</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Зберігати паролі</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Зберігати дані форм</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Заборона відстеження</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Дозволити файли cookie</string>
+  <string name="pref_security_allow_mic">Мікрофон</string>
+  <string name="pref_security_allow_camera">Камера</string>
+  <string name="pref_security_web_refiner">Реклама</string>
+  <string name="pref_security_accept_third_party_cookies">Сторонні файли cookie</string>
+  <string name="pref_security_ask_before_using">Запитувати перед використанням</string>
+  <string name="pref_security_allowed">Дозволено</string>
+  <string name="pref_security_not_allowed">Не дозволено</string>
+  <string name="pref_security_remember">"Запам'ятати"</string>
+  <string name="pref_security_on">Увім.</string>
+  <string name="pref_security_off">Вим.</string>
+  <string name="pref_website_title">Веб-сайт</string>
+  <string name="pref_security_add">Додати</string>
+  <string name="pref_security_origin_name">Походження сайту</string>
+  <string name="pref_security_access_is_allowed">доступ дозволений</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Перетягніть повзунок, щоб змінити розмір шрифту і вказати найкомфортніший для читання.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Мін. розмір шрифту</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="FONT_SIZE">%d</xliff:g> пт</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Масштабування тексту</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Зафіксувати масштаб</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Використовувати задане масштабування</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Режим інверсії</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Інверсія</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Чорне стає білим і навпаки</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Контрастність</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Розширені</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Налаштування веб-сайтів</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Додаткові налаштування для окремих сайтів</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Скинути налаштуванн</string>
+  <string name="pref_extras_reset">Скинути</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Відновити значення за замовчуванням</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Відновити налаштування за замовчуванням?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Виконати налагодження</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Кодування тексту</string>
+  <string name="pref_edge_swipe_title">Навігація від межі екрану</string>
+  <string name="pref_edge_swipe_option_msg">Дія по свайпу від межі екрана:</string>
+  <string name="pref_temporal_edge_swipe">Навігація в історії</string>
+  <string name="pref_spatial_edge_swipe">Зміна вкладки</string>
+  <string name="pref_disable_edge_swipe">Нічого не робити</string>
+  <string name="pref_edge_swipe_option_close">Вибрати пізніше</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Свайп від межі екрану для навігації</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Свайп від межі екрану для зміни вкладок</string>
+  <string name="pref_edge_swipe_disabled_toast">Свайп від межі екрану вимкнутий</string>
+  <string name="pref_edge_swipe_unknown">Виберіть дію</string>
+  <string name="pref_edge_swipe_setup_desc">Свайп від межі екрану для навігації в історії відвідувань.\nЦе може призвести до конфліктів з веб-сайтами, які використовують дії меж екрану</string>
+  <string name="pref_edge_enable">Увімкнути</string>
+  <string name="pref_edge_disable">Вимкнути</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Кольоровий рядок стану</string>
+  <string name="pref_coloredsb_summary">Рядок стану буде підлаштовуватися під колір веб-сторінок</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Спеціальні можливості</string>
+  <string name="pref_accessibility_title_summary">Розмір тексту і масштабування</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Запобігти можливості читання іншими додатками веб-контенту цього додатка</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Розмір тексту</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">На весь екран</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Щоб приховати рядок стану, використовуйте повноекранний режим</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Попереднє зввантаження результатів пошуку</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Ніколи</item>
+    <item>Тільки через Wi-Fi</item>
+    <item>Завжди</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Дозволити браузеру попередньо завантажувати результати пошуку у фоновому режимі</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Попереднє завантаження веб-сторінок</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Дозволити браузеру попередньо завантажувати веб-сторінки у фоновому режимі</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">Сторінка, яку ви намагаєтеся відкрити, містить вже відправлені дані (POSTDATA). У разі їх повторної відправки повторяться всі дії, виконані на сторінці після заповнення форми (наприклад, пошук чи покупка).</string>
   <!-- Menu item -->
+  <string name="clear_history">Очистити історію</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Немає історії браузера.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Додати закладку</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Додати</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Введіть запит або URL</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">Пошук</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Закладки і історія пошуку</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Дозволити</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Заблокувати</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Відкрито макс. число вкладок</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Неможливо відкрити нову вкладку, поки ви не закриєте іншу.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">Виринаюче вікно вже відкрито</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">Можна відкрити тільки одне виринаюче вікно.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">SD-карта відсутня</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Для завантаження <xliff:g id="FILENAME">%s</xliff:g> необхідна SD-карта.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">SD-карта недоступна</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">SD-карта зайнята. Щоб дозволити завантаження, виберіть «Відключити USB-накопичувач» у повідомленні.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Завантаження можливе тільки з URL, що починаються з «http» або «https».</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Починається завантаження\u2026</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Пошук в Інтернеті</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">"Пам'ять браузера переповнена"</string>
+  <string name="webstorage_outofspace_notification_text">Натисніть, щоб звільнити місце.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Видалити збережені дані</string>
+  <string name="webstorage_private_data_title">Особисті дані</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Видалити всі дані, збережені цим веб-сайтом?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Завантаження відео\u2026</string>
+  <string name="website_settings_add_origin">Новий сайт</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Видалити все</string>
+  <string name="website_settings_clear_all_dialog_message">Видалити всі дані веб-сайту і дозволи на доступ до відомостей про ваше місцезнаходження?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Встановлення шпалер\u2026</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Немає закладок.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Інші закладки</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">"Закладки на пристрої поки не пов'язані з аккаунтом Google. Щоб зберегти і синхронізувати закладки, додайте їх в аккаунт. В іншому випадку просто видаліть їх."</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Видалити закладки</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Надіслати</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">Досягнута межа кількості вкладок</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Попередній перегляд</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Локальні</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Пошук на сторінці</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Повна версія</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Режим читання</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Попередньо завантажити результати</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Немає збережених сторінок.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Видалити збережену сторінку</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Інтерактивна версія</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Назад</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">Вперед</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Оновити сторінку</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Зупинити завантаження сторінки</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Додати сторінку в закладки</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Пошук</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Почати голосовий пошук</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Закрити вкладку</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Відкрити нову вкладку</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Відкрити нову вкладку в режимі інкогніто</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Очистити введення</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Менеджер сторінок</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Сторінка в режимі інкогніто</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Збережена сторінка</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Керування вкладками</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Попередня папка</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Видалити веб-сайт</string>
+  <string name="my_navigation_edit_label">Змінити веб-сайт</string>
+  <string name="my_navigation_add_label">Додати веб-сайт</string>
+  <string name="my_navigation_add">Додати</string>
+  <string name="my_navigation_delete_msg">Видалити веб-сайт?</string>
+  <string name="my_navigation_name">Заголовок</string>
+  <string name="my_navigation_address">Адреса</string>
+  <string name="website_needs_title">У веб-сайту повинен бути заголовок</string>
+  <string name="website_needs_url">У веб-сайту повинна бути URL-адреса</string>
+  <string name="my_navigation_cannot_save_url">невірна URL-адреса</string>
+  <string name="my_navigation_duplicate_url">URL-адреса вже існує</string>
+  <string name="my_navigation_page_title">Головна</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Виберіть дію для медіафайлу</string>
+  <string name="video_save">Зберегти</string>
+  <string name="video_play">Відтворити</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Вийти</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Відомості</string>
+  <string name="download_estore_app">Estore відсутній на вашому пристрої.</string>
+  <string name="estore_url_warning">Помилка запуску Estore. Занадто довга URL-адреса.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Завантаження файлів DRM не підтримується.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Вихід з браузера</string>
+  <string name="exit_browser_msg">Виберіть спосіб виходу з браузера</string>
+  <string name="exit_minimize">Згорнути</string>
+  <string name="exit_quit">Закрити</string>
+  <string name="browser_max_input_title">Досягнуто максимальної кількісті символів</string>
+  <string name="browser_max_input">Обсяг інформації, що вводиться, досяг граничного значення по символам: <xliff:g id="MAXLIMIT">%s</xliff:g></string>
+  <string name="duplicated_folder_warning">Папка вже існує</string>
+  <string name="overwrite_bookmark_msg">Назва або адреса закладки вже існує. Перезаписати її?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Недійсний шлях</string>
+  <string name="path_wrong">Невірно вказний шлях</string>
+  <string name="pref_download_title">Налаштування шляху для завантажень</string>
+  <string name="pref_download_path_setting_screen_title">Настроюваний шлях для завантажень</string>
+  <string name="download_timeneeded">Час</string>
+  <string name="download_filesize">Розмір</string>
+  <string name="download_filepath_label">Шлях</string>
+  <string name="download_edit_filename_label">"Ім'я"</string>
+  <string name="download_no_enough_memory">"Недостатньо пам'яті для завантаження"</string>
+  <string name="download_settings_title">Налаштування завантаження</string>
+  <string name="filename_empty_title">"Порожнє ім'я файлу завантаження"</string>
+  <string name="filename_empty_msg">"Ім'я файлу завантаження не може бути порожнім. Введіть допустиме ім'я."</string>
+  <string name="unknow_length">Невідомо</string>
+  <string name="download_file_exist_msg">"Файл вже існує. Введіть інше ім'я файлу."</string>
+  <string name="download_file_exist">Файл уже существует</string>
+  <string name="time_min">хв.</string>
+  <string name="download_path_unavailable_dlg_title">Папка завантаження недоступна</string>
+  <string name="download_path_unavailable_dlg_msg">Змініть папку завантаженняи</string>
+  <string name="activity_not_found">Не знайдено дії для обробки завдання <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">"Ім'я файлу"</string>
+  <string name="download_size_hint">Розмір</string>
+  <string name="download_eta_hint">Залишок часу</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Отримання повідомлення від: <xliff:g id="FROM">%s</xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Сертифікат безпеки</string>
+  <string name="ssl_certificate_is_valid">Даний сертифікат дійсний.</string>
+  <string name="version">Версія</string>
+  <string name="build_date">Дата збірки</string>
+  <string name="build_hash">Хеш збірки</string>
+  <string name="user_agent">Агент користувача</string>
+  <string name="help">Довідка</string>
+  <string name="feedback">"Зворотній зв'язок"</string>
+  <string name="swe_legal">Юридична інформація</string>
+  <string name="swe_open_source_licenses">Ліцензії ПЗ з відкритим вихідним кодом</string>
+  <string name="swe_eula">Угода користувача</string>
+  <string name="swe_privacy_policy">Політика конфіденційності</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Керується вашим адміністратором</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">Моя навігація</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +732,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">"Запам'ятати налаштування"</string>
+  <string name="geolocation_permissions_prompt_share_never">Заборонити назавжди</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Дозволити на 24 години</string>
+  <string name="geolocation_permissions_prompt_share_forever">Дозволити назавжди</string>
 </resources>
