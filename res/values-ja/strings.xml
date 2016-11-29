@@ -407,7 +407,7 @@
   <string name="pref_security_allow_camera">カメラ</string>
   <string name="pref_security_web_refiner">広告</string>
   <string name="pref_security_accept_third_party_cookies">サードパーティCookie</string>
-  <string name="pref_security_ask_before_using">使用前に確認する</string>
+  <string name="pref_security_ask_before_using">使用する前に確認する</string>
   <string name="pref_security_allowed">許可する</string>
   <string name="pref_security_not_allowed">拒否する</string>
   <string name="pref_security_remember">保存する</string>
@@ -481,7 +481,7 @@
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
   <string name="pref_lab_fullscreen">全画面</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
-  <string name="pref_lab_fullscreen_summary">ブラウザをフルスクリーンにする</string>
+  <string name="pref_lab_fullscreen_summary">ブラウザを全画面表示する</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
   <string name="pref_data_preload_title">検索結果のプリロード</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->

@@ -234,10 +234,12 @@
   <string name="menu_preferences">Instellings</string>
   <!-- Settings screen, section title -->
   <string name="pref_content_title">Bladsyinhoud</string>
+  <string name="pref_content_title_summary">Web-inhoud instellings</string>
   <!-- Settings label -->
   <string name="pref_content_load_images">Laai prente</string>
   <string name="pref_content_load_images_summary">Wys prente op webbladsye</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Pop ups</string>
   <!-- Settings label -->
   <string name="pref_content_javascript">Aktiveer JavaScript</string>
   <!-- Settings label -->
@@ -267,17 +269,45 @@
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
   <string name="pref_general_title">Algemeen</string>
+  <string name="pref_default_site_settings_title">Standaard webwerf instellings</string>
+  <string name="pref_site_settings_title">Webwerf-instellings</string>
+  <string name="pref_site_settings_info_panel">Sekuriteit inligting</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
   <string name="pref_general_autofill_title">Outo-invul</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Krag besparing modus</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Verminder kraggebruik van blaaier</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Nag modus</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Keer kleure om</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <string name="pref_autofill_enabled">Vorm outo-invul</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <string name="pref_autofill_enabled_summary">Vul webvorms in met \'n enkele raak</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d advertensie</item>
+    <item quantity="other">%d advertensies</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d tracker</item>
+    <item quantity="other">%d trackers</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d skadelike sagteware bedreiging</item>
+    <item quantity="other">%d skadelike sagteware bedreigings</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"Geblokkeerde %s. "</item>
+    <item>"Blokkeer %1$s en %2$s. "</item>
+    <item>"Geblokkeer: %1$s, %2$s en %3$s. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Geldige SSL-sertifikaat. Kommunikasie is geënkodeer en identiteit is geverifieer.</string>
+  <string name="pref_invalid_cert">Werf het \'n ongeldige SSL-sertifikaat.</string>
+  <string name="pref_warning_cert">Webwerf SSL-sertifikaat het waarskuwings.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Koppelvlak</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
   <string name="pref_autofill_profile_editor">Outo voltooi</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
@@ -319,6 +349,8 @@
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
   <string name="autofill_profile_editor_delete_profile">Vee uit</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Krag bespaarder modus aangeskakel. Web Blaaier sal herlaai word.</string>
+  <string name="powersave_dialog_off">Krag bespaarder modus afgeskakel. Web Blaaier sal herlaai word.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
   <string name="autofill_setup_dialog_message">Die blaaier kan outomaties webvorms soos hierdie een voltooi. Wil jy nou outo-invul-teks opstel?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
@@ -328,12 +360,18 @@
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
   <string name="disable_autofill">Deaktiveer outo-invul</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Sekeriteit</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
   <string name="pref_privacy_security_title">Privaatheid en sekuriteit</string>
+  <string name="pref_privacy_security_title_summary">Sekuriteit en privaatheid blaaier instellings</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Kies items om verwyder te word</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Verwyder gekose items</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Verwyder gekose item uit die lys</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Verwyder die volgende items?</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_cache">Maak kas skoon</string>
   <!-- Settings summary -->
@@ -365,9 +403,25 @@
   <!-- Settings label -->
   <string name="pref_security_save_form_data">Onthou vormdata</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Versoek \'nie spoor nie\'</string>
   <!-- Settings label -->
   <string name="pref_security_accept_cookies">Aanvaar koekies</string>
+  <string name="pref_security_allow_mic">Mikrofoon</string>
+  <string name="pref_security_allow_camera">Kamera</string>
+  <string name="pref_security_web_refiner">Advertensies</string>
+  <string name="pref_security_accept_third_party_cookies">Derdeparty koekies</string>
+  <string name="pref_security_ask_before_using">Vra voor gebruik</string>
+  <string name="pref_security_allowed">Toegelaat</string>
+  <string name="pref_security_not_allowed">Nie toegelaat nie</string>
+  <string name="pref_security_remember">Onthou</string>
+  <string name="pref_security_on">Aan</string>
+  <string name="pref_security_off">Af</string>
+  <string name="pref_website_title">Webwerf</string>
+  <string name="pref_security_add">Voeg by</string>
+  <string name="pref_security_origin_name">Werf oorsprong</string>
+  <string name="pref_security_access_is_allowed">toegang is toegelaat</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Sleep die glyer om die font grootte te stel vir die gewenste font lees grootte.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <string name="pref_min_font_size">Minimum lettergrootte</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -394,6 +448,7 @@
   <string name="pref_extras_website_settings_summary">Gevorderde instellings vir individuele webwerwe</string>
   <!-- Settings label -->
   <string name="pref_extras_reset_default">Stel terug na verstek</string>
+  <string name="pref_extras_reset">Stel terug</string>
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">Stel verstek instellings terug</string>
   <!-- Confirmation dialog message -->
@@ -402,10 +457,29 @@
   <string name="pref_development_title">Ontfout</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Teksenkodering</string>
+  <string name="pref_edge_swipe_title">Rand navigasie</string>
+  <string name="pref_edge_swipe_option_msg">Vee van die rand sal:</string>
+  <string name="pref_temporal_edge_swipe">Navigeer geskiedenis</string>
+  <string name="pref_spatial_edge_swipe">Verandering oortjie</string>
+  <string name="pref_disable_edge_swipe">Doen niks</string>
+  <string name="pref_edge_swipe_option_close">Kies later</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Vee vanaf rand om te navigeer</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Vee vanaf rand verander oortjies</string>
+  <string name="pref_edge_swipe_disabled_toast">Na vee van rand is afgeskakel</string>
+  <string name="pref_edge_swipe_unknown">Gedrag om te kies</string>
+  <string name="pref_edge_swipe_setup_desc">
+Vee vanaf die rand om geskiedenis te navigeer. \nHierdie kenmerk kan bots met webwerwe wat rand-gebaseerde aksies gebruik</string>
+  <string name="pref_edge_enable">Aktiveer</string>
+  <string name="pref_edge_disable">Deaktiveer</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Gekleurde statusbalk</string>
+  <string name="pref_coloredsb_summary">Statusbalk kleur sal verander gebaseer op die blad besoek</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
   <string name="pref_accessibility_title">Toeganklikheid</string>
+  <string name="pref_accessibility_title_summary">Teksgrootte en Zoem</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Verhoed dat ander toepassings webview inhoud van hierdie toepassing lees</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
   <string name="pref_font_size_category">Teksgrootte</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
@@ -416,6 +490,11 @@
   <string name="pref_data_preload_title">Soek resultaat vooraf laai</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Nooit</item>
+    <item>Slegs op Wi-Fi</item>
+    <item>Altyd</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
   <string name="pref_data_preload_summary">Laat blaaier toe om waarskynlike soekresultate in die agtergrond vooraf te laai</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
@@ -450,6 +529,7 @@
   <string name="too_many_windows_dialog_title">Oortjielimiet bereik</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Kan nie \'n nuwe oortjie oopmaak totdat een toegemaak word nie.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
   <string name="too_many_subwindows_dialog_title">Opspringer alreeds oop</string>
@@ -490,10 +570,12 @@
   <string name="webstorage_outofspace_notification_text">Raak om spasie te maak.</string>
   <!-- Used in the Browser Settings -->
   <string name="webstorage_clear_data_title">Maak gestoorde data skoon</string>
+  <string name="webstorage_private_data_title">Privaat data</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
   <string name="webstorage_clear_data_dialog_message">Vee alle data uit wat deur hierdie webwerf gestoor is?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
   <string name="loading_video">Laai tans video\u2026</string>
+  <string name="website_settings_add_origin">Nuwe webwerf</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
   <string name="website_settings_clear_all">Maak alles skoon</string>
   <string name="website_settings_clear_all_dialog_message">Vee alle webwerf data en ligging toestemmings uit?</string>
@@ -519,9 +601,11 @@
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
   <string name="local_bookmarks">My gunstelinge</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Vind</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
   <string name="ua_switcher_desktop">Versoek volle webwerf</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Lees modus</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
   <string name="permission_preload_label">Laai resultate vooraf</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
@@ -564,16 +648,81 @@
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_bookmarks_folder_up">Vorige vouer</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Skrap webwerf</string>
+  <string name="my_navigation_edit_label">Redigeer webwerf</string>
+  <string name="my_navigation_add_label">Voeg webwerf by</string>
+  <string name="my_navigation_add">Voeg by</string>
+  <string name="my_navigation_delete_msg">Skrap webwerf?</string>
+  <string name="my_navigation_name">Titel</string>
+  <string name="my_navigation_address">Adres</string>
+  <string name="website_needs_title">Webwerf moet \'n titel hê</string>
+  <string name="website_needs_url">Webwerf moet \'n URL hê</string>
+  <string name="my_navigation_cannot_save_url">Ongeldige URL</string>
+  <string name="my_navigation_duplicate_url">URL bestaan reeds</string>
+  <string name="my_navigation_page_title">Tuis</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Kies asseblief hoe om medialêer te hanteer</string>
+  <string name="video_save">Stoor</string>
+  <string name="video_play">Speel</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Verlaat</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Aangaande</string>
+  <string name="download_estore_app">Estore is nie teenwoordig op jou toestel nie.</string>
+  <string name="estore_url_warning">Kon nie Estore laai nie, URL is te lank.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Oplaai van DRM lêers word nie ondersteun nie.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Verlaat blaaier</string>
+  <string name="exit_browser_msg">Kies asseblief hoe om blaaier te verlaat</string>
+  <string name="exit_minimize">Verklein</string>
+  <string name="exit_quit">Afsluit</string>
+  <string name="browser_max_input_title">Maksimum limiet vir aantal karakters bereik</string>
+  <string name="browser_max_input">Jou insette het die maksimum limiet van <xliff:g id="MAXLIMIT">%s </xliff:g> karakters bereik</string>
+  <string name="duplicated_folder_warning">Vouer bestaan reeds</string>
+  <string name="overwrite_bookmark_msg">Jou gunsteling se naam of adres bestaan alreeds. Oorskryf dit?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Ongeldige pad</string>
+  <string name="path_wrong">Verkeerde pad</string>
+  <string name="pref_download_title">Aflaai pad instellings</string>
+  <string name="pref_download_path_setting_screen_title">Pasgemaakte aflaai pad</string>
+  <string name="download_timeneeded">Tyd</string>
+  <string name="download_filesize">Grootte</string>
+  <string name="download_filepath_label">Pad</string>
+  <string name="download_edit_filename_label">Naam</string>
+  <string name="download_no_enough_memory">Onvoldoende geheue vir aflaai</string>
+  <string name="download_settings_title">Aflaai instellings</string>
+  <string name="filename_empty_title">Aflaai lêernaam is leeg</string>
+  <string name="filename_empty_msg">Aflaai lêernaam kan nie leeg wees nie. Tik asseblief \'n geldige lêernaam in.</string>
+  <string name="unknow_length">Onbekend</string>
+  <string name="download_file_exist_msg">Lêer bestaan reeds. Sleutel asseblief \'n nuwe lêernaam in.</string>
+  <string name="download_file_exist">Lêer bestaan reeds</string>
+  <string name="time_min">min</string>
+  <string name="download_path_unavailable_dlg_title">Aflaai vouer is nie beskikbaar nie</string>
+  <string name="download_path_unavailable_dlg_msg">Wysig asseblief die aflaai-vouer</string>
+  <string name="activity_not_found">Geen aktiwiteit is gevind om hierdie \'intent\' te hanteer nie: <xliff:g id="NOACTIVITY">%s </xliff:g></string>
+  <string name="download_name_hint">Lêernaam</string>
+  <string name="download_size_hint">Grootte</string>
+  <string name="download_eta_hint">ETA</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Ontvang \'n boodskap van: <xliff:g id="FROM">%s </xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Sekuriteitsertifikaat</string>
+  <string name="ssl_certificate_is_valid">Hierdie sertifikaat is geldig.</string>
+  <string name="version">Weergawe</string>
+  <string name="build_date">Bou datum</string>
+  <string name="build_hash">Bou huts</string>
+  <string name="user_agent">Gebruiker agent</string>
+  <string name="help">Hulp</string>
+  <string name="feedback">Terugvoer</string>
+  <string name="swe_legal">Wetlike inligting</string>
+  <string name="swe_open_source_licenses">Oopbron lisensies</string>
+  <string name="swe_eula">Eindgebruiker lisensies ooreenkoms</string>
+  <string name="swe_privacy_policy">Privaatheid beleid</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Deur jou administrateur bestuur</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">My navigasie</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -582,4 +731,7 @@
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
   <string name="geolocation_permissions_prompt_remember">Onthou voorkeur</string>
+  <string name="geolocation_permissions_prompt_share_never">Weier vir ewig</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Laat toe vir 24 uur</string>
+  <string name="geolocation_permissions_prompt_share_forever">Laat altyd toe</string>
 </resources>

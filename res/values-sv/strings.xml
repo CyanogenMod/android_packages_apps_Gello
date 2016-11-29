@@ -59,6 +59,7 @@
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Max URL längd nådd</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
   <string name="msg_no_google_play">Google Play-butiken är inte tillgänglig i enheten.</string>
   <!-- Menu item -->
@@ -354,6 +355,8 @@
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Textkodning</string>
   <string name="pref_spatial_edge_swipe">Byt flik</string>
+  <string name="pref_disable_edge_swipe">Gör ingenting</string>
+  <string name="pref_edge_swipe_option_close">Välj senare</string>
   <string name="pref_edge_enable">Aktivera</string>
   <string name="pref_edge_disable">Inaktivera</string>
   <!-- Colored statusbar -->
@@ -454,6 +457,7 @@
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Sänd live</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_back">Tillbaka</string>
@@ -462,6 +466,7 @@
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_refresh">Uppdatera sida</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Avbryt hämtning av sidan</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_addbookmark">Lägg till favoriter</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
@@ -476,9 +481,13 @@
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Sparad sida</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Ta bort hemsida</string>
+  <string name="my_navigation_edit_label">Redigera hemsida</string>
+  <string name="my_navigation_add_label">Lägg till hemsida</string>
   <string name="my_navigation_add">Lägg till</string>
   <string name="my_navigation_name">Titel</string>
   <string name="my_navigation_cannot_save_url">Ogiltig URL</string>
