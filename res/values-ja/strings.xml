@@ -475,7 +475,7 @@
   <string name="pref_accessibility_title_summary">文字サイズと拡大</string>
   <!-- LookLock -->
   <string name="pref_looklock_title">ルックロック</string>
-  <string name="pref_looklock_summary">このアプリのwebviewコンテンツを他のアプリが読み取ることを防止する</string>
+  <string name="pref_looklock_summary">このアプリのWebviewコンテンツを他のアプリが読み取ることを防止する</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
   <string name="pref_font_size_category">テキストサイズ</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
