@@ -24,6 +24,7 @@
          system can provide a file [CHAR-LIMIT=NONE]-->
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Nova langeto</string>
   <!-- Crash tab button text -->
   <!-- Crash tab View message -->
   <!-- Name of menu item of a new incognito tab.  Also used in the
@@ -36,10 +37,14 @@
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Nomo</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Pasvorto</string>
   <!-- The label on the "sign in" button -->
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Konservi</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Nuligi</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <!-- Message to be displayed if url character limit exceeds -->
   <!-- Message to be displayed when google play store does not exist on the device -->
@@ -47,6 +52,7 @@
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Adreso:</string>
   <!-- Title for an SSL error dialog  -->
   <!-- Message in an SSL Error dialog -->
   <!-- Message in an SSL Error dialog -->
@@ -56,11 +62,16 @@
   <!-- Menu item to go back to the previous page -->
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Adreso</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Konto</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Aldoni al</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Nova dosierujo</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Redakti dosierujon</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
@@ -69,12 +80,17 @@
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Konservi</string>
   <!-- Title of the dialog to bookmark a page -->
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Forigi</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Redakti</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Forigi</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Forigi</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
@@ -104,6 +120,7 @@
   <!-- Menu item -->
   <!-- Menu item for saving link to homescreen -->
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Konservi</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
@@ -116,12 +133,14 @@
          background window. [CHAR LIMIT=50] -->
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Konservi ligilon</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
   <!-- Context Menu item -->
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Konservi bildon</string>
   <!-- Context Menu item to view the image by itself in the browser -->
   <!-- Context Menu item to set the image as the home screen wallpaper -->
   <!-- Context Menu item to open the dialer app with the selected phone number
@@ -177,9 +196,11 @@
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Konservi</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Forigi</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
@@ -201,14 +222,17 @@
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Pasvortoj</string>
   <!-- Settings summary -->
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Loko</string>
   <!-- Settings label -->
   <!-- Settings summary -->
   <!-- Settings label -->
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_add">Aldoni</string>
   <!-- Settings text size options - displays sample font size in settings -->
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
@@ -236,6 +260,11 @@
   <!-- Title for search preloading [CHAR LIMIT=40] -->
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Neniam</item>
+    <item>Only on Wi-Fi</item>
+    <item>Ĉiam</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
@@ -245,6 +274,7 @@
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Aldoni</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
   <!-- This string is for the browser "Go To" UI. -->
@@ -324,12 +354,17 @@
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_add">Aldoni</string>
+  <string name="my_navigation_address">Adreso</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="video_save">Konservi</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">Pri</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
   <!-- Add for exit prompt Feature -->
   <!-- Add for download save path setting Feature -->
+  <string name="download_edit_filename_label">Nomo</string>
   <!-- Toast message displayed when the full screen received message -->
   <!-- Snapdragon Browser Additions -->
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->

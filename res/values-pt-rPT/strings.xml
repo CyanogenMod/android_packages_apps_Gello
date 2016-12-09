@@ -103,7 +103,7 @@
          in the add bookmark dialog [CHAR-LIMIT=none]-->
   <string name="no_subfolders">Sem pastas secundárias.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
-  <string name="add_to_homescreen_menu_option">Ecrã principal</string>
+  <string name="add_to_homescreen_menu_option">Ecrã inicial</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
   <string name="add_to_other_folder_menu_option">Selecionar pasta\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
@@ -275,7 +275,7 @@
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
   <string name="pref_general_autofill_title">Preenchimento automático</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
-  <string name="pref_powersave_enabled">Modo de poupança de energia</string>
+  <string name="pref_powersave_enabled">Modo de poupança de bateria</string>
   <!-- Settings summary for the powersave feature. -->
   <string name="pref_powersave_enabled_summary">Reduzir o consumo de energia do navegador</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
@@ -349,8 +349,8 @@
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
   <string name="autofill_profile_editor_delete_profile">Eliminar</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
-  <string name="powersave_dialog_on">Modo de poupança de energia ativado. O navegador será reiniciado.</string>
-  <string name="powersave_dialog_off">Modo de poupança de energia desativado. O navegador será reiniciado.</string>
+  <string name="powersave_dialog_on">Modo de poupança de bateria ativado. O navegador será reiniciado.</string>
+  <string name="powersave_dialog_off">Modo de poupança de bateria desativado. O navegador será reiniciado.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
   <string name="autofill_setup_dialog_message">O navegador pode preencher automaticamente formulários Web como este. Pretende configurar o texto de preenchimento automático?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure

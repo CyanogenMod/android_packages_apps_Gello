@@ -59,7 +59,9 @@
   <!-- Label for a confirm button.  Used in multiple contexts. -->
   <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Max URL längd nådd</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play-butiken är inte tillgänglig i enheten.</string>
   <!-- Menu item -->
   <string name="page_info">Info</string>
   <!-- Page Info dialog strings -->
@@ -71,7 +73,9 @@
   <!-- Message in an SSL Error dialog -->
   <string name="ssl_invalid">Certifikatet är ogiltigt.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Okänt certifikatfel.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Avbryter\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
   <string name="stop">Stoppa</string>
   <!-- Menu item to reload or refresh the current page. -->
@@ -85,6 +89,7 @@
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
   <string name="account">Konto</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Lägg till i</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
   <string name="new_folder">Ny mapp</string>
@@ -135,10 +140,12 @@
             the bookmark they selected for deletion -->
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Ta bort mappen \"<xliff:g id="bookmark">%s</xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">Öppna alla i nya flikar</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Stäng övriga flikar</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
   <string name="bookmarks">Bokmärken</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
@@ -152,6 +159,7 @@
   <!-- Menu item for saving link to homescreen -->
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Sparar\u2026</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
@@ -174,6 +182,7 @@
   <string name="contextmenu_copy">Kopiera</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Kopiera länkens webbadress</string>
   <!-- Context Menu item to save the image to external storage -->
   <string name="contextmenu_download_image">Spara bild</string>
   <!-- Context Menu item to view the image by itself in the browser -->
@@ -208,6 +217,7 @@
   <!-- Settings label -->
   <!-- Settings label -->
   <!-- Settings label -->
+  <string name="pref_content_javascript">Aktivera JavaScript</string>
   <!-- Settings label -->
   <!-- Settings summary [CHAR LIMIT=50]-->
   <!-- Settings label [CHAR LIMIT=50] -->
@@ -239,11 +249,17 @@
   <!-- Settings summary for the night mode feature. -->
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string-array name="pref_web_refiner_message">
+    <item>"Blockerade %s. "</item>
+    <item>"Blockerade %1$s och %2$s. "</item>
+    <item>"Blockerade %1$s, %2$s och %3$s. "</item>
+  </string-array>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Fullständigt namn:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_email_address">E-post:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -257,6 +273,7 @@
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
   <string name="autofill_profile_editor_address_line_2_hint">Lägenhet, svit, enhet, byggnad, våning osv.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Ort:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_state">Stat/Provins/Region:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -279,6 +296,7 @@
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Inaktivera Autofyll</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
   <string name="pref_security_title">Säkerhet</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
@@ -303,6 +321,8 @@
   <!-- Settings label -->
   <!-- Settings Label -->
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Acceptera cookies</string>
+  <string name="pref_security_allow_mic">Mikrofon</string>
   <string name="pref_security_allow_camera">Kamera</string>
   <string name="pref_security_web_refiner">Annonser</string>
   <string name="pref_security_allowed">Tillåts</string>
@@ -331,8 +351,12 @@
   <!-- Settings summary -->
   <!-- Confirmation dialog message -->
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Felsökning</string>
   <!-- Settings screen, setting option name -->
   <string name="pref_default_text_encoding">Textkodning</string>
+  <string name="pref_spatial_edge_swipe">Byt flik</string>
+  <string name="pref_disable_edge_swipe">Gör ingenting</string>
+  <string name="pref_edge_swipe_option_close">Välj senare</string>
   <string name="pref_edge_enable">Aktivera</string>
   <string name="pref_edge_disable">Inaktivera</string>
   <!-- Colored statusbar -->
@@ -433,13 +457,16 @@
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Sänd live</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_back">Tillbaka</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_forward">Framåt</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Uppdatera sida</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Avbryt hämtning av sidan</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
   <string name="accessibility_button_addbookmark">Lägg till favoriter</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
@@ -454,9 +481,13 @@
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Sparad sida</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Ta bort hemsida</string>
+  <string name="my_navigation_edit_label">Redigera hemsida</string>
+  <string name="my_navigation_add_label">Lägg till hemsida</string>
   <string name="my_navigation_add">Lägg till</string>
   <string name="my_navigation_name">Titel</string>
   <string name="my_navigation_cannot_save_url">Ogiltig URL</string>
@@ -489,6 +520,8 @@
   <string name="version">Version</string>
   <string name="build_date">Byggdatum</string>
   <string name="help">Hjälp</string>
+  <string name="swe_open_source_licenses">Licenser för öppen källkod</string>
+  <string name="swe_eula">Licensavtal för slutanvändare</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
   <!-- My Navigation - Favorites + History + Saved -->
   <!-- Place holder for SWE engine strings added to
@@ -498,4 +531,5 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_share_forever">Tillåt alltid</string>
 </resources>

@@ -215,7 +215,7 @@
             -->
   <string name="contextmenu_add_contact">Gehitu kontaktua</string>
   <!-- Context Menu item to send an email using the selected email address.-->
-  <string name="contextmenu_send_mail">Bidali eposta</string>
+  <string name="contextmenu_send_mail">Bidali e-posta</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
   <string name="contextmenu_map">Mapa</string>
@@ -317,7 +317,7 @@
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_name">Izen osoa:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
-  <string name="autofill_profile_editor_email_address">Eposta:</string>
+  <string name="autofill_profile_editor_email_address">E-posta:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_company_name">Enpresaren izena:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
