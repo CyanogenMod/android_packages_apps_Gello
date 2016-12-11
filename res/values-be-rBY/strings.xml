@@ -479,7 +479,7 @@
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
-  <string name="download_sdcard_busy_dlg_msg" product="default">SD-карта занятая. Каб дазволіць спампаванне, выберыце у апавяшчэнні \"Адключыць USB-назапашвальнiк\".</string>
+  <string name="download_sdcard_busy_dlg_msg" product="default">SD-картка занятая. Каб дазволіць спампаваньне, абяры паведамленьні \"Адключыць USB-назапашвальнiк\".</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
   <string name="cannot_download">Можна спампаваць толькі \"HTTP\" або \"HTTPS\" URL.</string>
   <!-- Message in the list of items which have received download requests
