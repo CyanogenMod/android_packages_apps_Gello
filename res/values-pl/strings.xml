@@ -299,12 +299,15 @@
     <item>"Zablokowano %1$s i %2$s. "</item>
     <item>"Zablokowano %1$s, %2$s i %3$s. "</item>
   </string-array>
+  <string name="pref_valid_cert">Prawidłowy certyfikat SSL. Komunikacja jest szyfrowana, a tożsamość zweryfikowana.</string>
   <string name="pref_invalid_cert">Strona ma nieprawidłowy certyfikat SSL.</string>
+  <string name="pref_warning_cert">Ostrzeżenie bezpieczeństwa certyfikatu SSL strony.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
   <string name="pref_interface_title">Interfejs</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
   <string name="pref_autofill_profile_editor">Autouzupełnianie</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Zdefiniuj tekst autouzupełniania w formularzach internetowych</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
   <string name="autofill_profile_editor_heading">Wpisz tekst, który będzie autouzupełniany w formularzach internetowych.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -315,8 +318,10 @@
   <string name="autofill_profile_editor_company_name">Nazwa firmy:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Adres, skrzynka pocztowa, adres korespondencyjny</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Numer mieszkania, klatka, numer budynku, piętro i inne.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
   <string name="autofill_profile_editor_city">Miasto:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
@@ -341,6 +346,7 @@
   <string name="powersave_dialog_on">Włączono tryb oszczędzania energii. Przeglądarka zostanie ponownie uruchomiona.</string>
   <string name="powersave_dialog_off">Wyłączono tryb oszczędzania energii. Przeglądarka zostanie ponownie uruchomiona.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Przeglądarka może automatycznie wypełnianie takie jak ten formularze na stronach internetowych. Czy chcesz ustawić automatyczne wypełniania tekstu?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
@@ -365,13 +371,18 @@
   <string name="pref_privacy_clear_cache_summary">Wyczyść zawartość lokalnej pamięci podręcznej i baz danych</string>
   <!-- Settings label -->
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Wyczyść wszystkie pliki cookie przeglądarki</string>
   <!-- Settings summary -->
   <string name="pref_privacy_clear_history_summary">Wyczyść historię przeglądania</string>
   <!-- Confirmation dialog message -->
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Wyczyść dane formularzy</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Usuń wszystkie zapisane dane formularzy.</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Wyczyść hasła</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Wyczyść wszystkie zapisane hasła</string>
   <!-- Settings label -->
   <string name="pref_privacy_enable_geolocation">Lokalizacja</string>
   <!-- Settings label -->
@@ -388,6 +399,7 @@
   <string name="pref_security_allow_mic">Mikrofon</string>
   <string name="pref_security_allow_camera">Aparat</string>
   <string name="pref_security_web_refiner">Reklamy</string>
+  <string name="pref_security_accept_third_party_cookies">Pliki cookie firm trzecich</string>
   <string name="pref_security_ask_before_using">Pytaj przed użyciem</string>
   <string name="pref_security_allowed">Zezwolono</string>
   <string name="pref_security_not_allowed">Nie zezwolono</string>
@@ -433,10 +445,18 @@
   <!-- Title for a group of settings -->
   <string name="pref_development_title">Debugowanie</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Kodowanie znaków</string>
+  <string name="pref_edge_swipe_title">Gesty nawigacji</string>
+  <string name="pref_edge_swipe_option_msg">Przeciągnięcie od krawędzi będzie:</string>
   <string name="pref_temporal_edge_swipe">Nawiguj przez historię</string>
   <string name="pref_spatial_edge_swipe">Zmień kartę</string>
   <string name="pref_disable_edge_swipe">Nic nie rób</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Przeciągnij od krawędzi, aby nawigować</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Przeciągnij od krawędzi, aby zmienić karty</string>
+  <string name="pref_edge_swipe_disabled_toast">Gesty nawigacji wyłączone</string>
   <string name="pref_edge_swipe_unknown">Wybierz zachowanie</string>
+  <string name="pref_edge_swipe_setup_desc">
+        Przesuń od krawędzi, aby nawigować po historii.\nTa funkcjonalność może powodować problemy ze stronami, które mają akcje na krawędziach</string>
   <string name="pref_edge_enable">Włącz</string>
   <string name="pref_edge_disable">Wyłącz</string>
   <!-- Colored statusbar -->
@@ -500,6 +520,7 @@
   <!-- Dialog title -->
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Do pobrania pliku <xliff:g id="FILENAME">%s</xliff:g> potrzebna jest karta SD.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
