@@ -19,321 +19,698 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">Prehliadač</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">Zvoľte súbor, který chcete nahrať</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">Nahrávanie súborov je zakázané.</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">Nová karta</string>
+  <string name="browser_tab_crash_snap">Jejda, spadlo to!</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">Znovu načítať</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">Pri načítavaní tejto webovej stránky sa stalo niečo neočakávané. Načítajte ju znovu alebo prejdite na inú stránku.</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">Nová anonymná karta</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">Najviac navštevované</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">Uložené stránky</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">Pridané medzi záložky.</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">Odstránené zo záložiek.</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">Prihláste sa do služby <xliff:g id="HOSTNAME">%s1</xliff:g> „<xliff:g id="REALM">%s2</xliff:g>“</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">Meno</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">Heslo</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">Prihlásiť sa</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">Uložiť záložku</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">Zrušiť</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">OK</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">Bol dosiahnutý maximálny limit URL</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">Google Play Store sa nenachádza vo vašom prístroji.</string>
   <!-- Menu item -->
+  <string name="page_info">Informácie o stránke</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">Adresa:</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">Bezpečnostné upozornenie</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">Tento certifikát je neplatný.</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">Neznáma chyba certifikátu.</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">Zastavujem\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">Zastaviť</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">Obnoviť</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">Späť</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">Dopredu</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">Adresa</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">Účet</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">Pridať do</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">Nový priečinok</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">Upraviť priečinok</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">Odstrániť priečinok</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">Žiadne podpriečinky.</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">Domovská obrazovka</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">Vybrať priečinok\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">Menovka</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">Uložiť medzi záložky</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">Pridať stránku k obľúbeným</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">Odstrániť</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">Upraviť záložku</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">Pridať odkaz na plochu</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">Odstrániť záložku</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">Odstrániť zo záložiek</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">Odstrániť z histórie</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">Nastaviť ako domovskú stránku</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">Uložené medzi záložky.</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">Záložky sa nepodarilo uložiť.</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">Domovská stránka bola nastavená.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">Záložka musí mať názov.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">Záložka musí obsahovať umiestnenie.</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">Táto adresa URL nie je platná.</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">Túto adresu URL nemožno pridať do záložiek.</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">od\u0020</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">Odstrániť záložku „<xliff:g id="bookmark">%s</xliff:g>“?</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">Vymazať priečinok \"<xliff:g id="bookmark">%s </xliff:g>\"?</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">Otvoriť všetko na nových kartách</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">Vybrať akciu pre text</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">Zavrieť ostatné karty</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">Záložky</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">Záložka</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">Zvoľte záložku</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">História</string>
   <!-- Menu item -->
+  <string name="share_page">Zdieľať stránku</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">Pridať do domova</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">Uložiť na čítanie offline</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">Prebieha ukladanie...</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">Nepodarilo sa uložiť na čítanie v režime offline.</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount">Počet záložiek: <xliff:g id="bookmark_count">%d</xliff:g></string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">Prázdny priečinok</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">Otvoriť</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">Otvoriť na novej karte</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">Otvoriť na novej karte na pozadí</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">Uložiť odkaz</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">Zdieľať odkaz</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">Kopírovať</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">Kopírovať adresu URL odkazu</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">Uložiť obrázok</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">Zobraziť obrázok</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">Nastaviť ako tapetu</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">Volať\u2026</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">Pridať kontakt</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">Poslať e-mail</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">Mapa</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">Zdieľať pomocou</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">Vymazať</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">Nahradiť</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">Nastavenia</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">Obsah stránky</string>
+  <string name="pref_content_title_summary">Nastavenia webového obsahu</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">Načítať obrázky</string>
+  <string name="pref_content_load_images_summary">Zobrazovať obrázky na webových stránkach</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">Vyskakovacie okná</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">Povoliť JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">Otvoriť na pozadí</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">Otvárať nové karty za aktuálnou kartou</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">Nastaviť domovskú stránku</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">Nastaviť vyhľadávač</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">Zvoľte vyhľadávací nástroj</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">Nastaviť na</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>Aktuálna stránka</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>Prázdna stránka</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>Predvolená stránka</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>Najviac navštevované stránky</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>Iná</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">Všeobecné</string>
+  <string name="pref_default_site_settings_title">Predvolené nastavenia webu</string>
+  <string name="pref_site_settings_title">Nastavenia webu</string>
+  <string name="pref_site_settings_info_panel">Informácie o zabezpečení</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">Automatické dopĺňanie</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">Režim šetrenia energie</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">Znížiť spotrebu energie v prehliadači</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">Nočný režim</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">Invertovať farby</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">Automatické dopĺňanie formulárov</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">Vyplňovanie webových formulárov jediným dotykom</string>
+  <string-array name="pref_web_refiner_message">
+    <item>"Blokované %s. "</item>
+    <item>"Blokované %1$s a %2$s. "</item>
+    <item>"Blokované %1$s, %2$s a %3$s. "</item>
+  </string-array>
+  <string name="pref_valid_cert">Platný certifikát SSL. Komunikácia je šifrovaná a totožnosť overená.</string>
+  <string name="pref_invalid_cert">Stránka má neplatný SSL certifikát.</string>
+  <string name="pref_warning_cert">SSL certifikát obsahuje upozornenia.</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">Rozhranie</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">Automatické dopĺňanie textu</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">Nastaviť text, ktorý sa má automaticky dopĺňať do webových formulárov</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">Zadajte text, ktorý chcete automaticky dopĺňať do webových formulárov.</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">Celé meno:</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">E-mail:</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">Názov spoločnosti:</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">1. riadok adresy:</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">Adresa, č.p., P.O. box</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">2. riadok adresy:</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">Izba, apartmán, bunka, budova, poschodie a pod.</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">Mesto:</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">Štát / Provincia / Región:</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">PSČ:</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">Krajina:</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">Telefón:</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">Neplatné telefónne číslo.</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">Uložiť</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">Automaticky dopĺňaný text bol uložený.</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">Automaticky dopĺňaný text bol odstránený.</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">Odstrániť</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">Úsporný režim zapnutý. Prehliadač sa reštartuje.</string>
+  <string name="powersave_dialog_off">Úsporný režim vypnutý. Prehliadač sa reštartuje.</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">Podobné webové formuláre môže prehliadač vypĺňať automaticky. Chcete nastaviť automatické dopĺňanie textu?</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">Automatické dopĺňanie textu môžete v prehliadači kedykoľvek nastaviť v časti Nastavenia &gt; Hlavná obrazovka.</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">Vypnúť automatické dopĺňanie</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">Bezpečnosť</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">Ochrana osobných údajov a zabezpečenie</string>
+  <string name="pref_privacy_security_title_summary">Nastavenia zabezpečenia a ochrany osobných údajov prehliadača</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">Vyberte položky na vymazanie</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">Vymazať vybraté položky</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">Vymazať vybraté položky v zozname</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">Vymazať tieto položky?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">Vymazať medzipamäť</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">Vymazať všetok obsah a databázy uložené do miestnej medzipamäte</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">Vymazať údaje súborov cookie</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">Vymazať všetky súbory cookie prehliadača</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">Vymazať históriu navigácie v prehliadači</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">Odstrániť históriu navigácie v prehliadači?</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">Vymazať údaje formulárov</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">Vymazať všetky uložené údaje formulárov</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">Vymazať heslá</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">Vymazať všetky uložené heslá</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">Povoliť polohu</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">Zrušiť prístup k polohe</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">Zrušiť všetkým webovým stránkam prístup k polohe</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">Pamätať si heslá</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">Pamätať si údaje formulárov</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">Požadovať „Nesledovať“</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">Prijímať súbory cookie</string>
+  <string name="pref_security_allow_mic">Mikrofón</string>
+  <string name="pref_security_allow_camera">Fotoaparát</string>
+  <string name="pref_security_web_refiner">Reklamy</string>
+  <string name="pref_security_accept_third_party_cookies">Cookies tretích strán</string>
+  <string name="pref_security_ask_before_using">Pýtať sa pred použitím</string>
+  <string name="pref_security_allowed">Povolené</string>
+  <string name="pref_security_not_allowed">Nepovolené</string>
+  <string name="pref_security_remember">Zapamätať si</string>
+  <string name="pref_security_on">Zapnuté</string>
+  <string name="pref_security_off">Vypnuté</string>
+  <string name="pref_website_title">Webová stránka</string>
+  <string name="pref_security_add">Pridať</string>
+  <string name="pref_security_origin_name">Pôvod lokality</string>
+  <string name="pref_security_access_is_allowed">prístup je povolený</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">Posunutím jazdca upravte veľkosť písma na veľkosť požadovanú na pohodlné čítanie.</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">Minimálna veľkosť písma</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="font_size">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">Zväčšenie/zmenšenie textu</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">Vynútiť povolenie priblíženia</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">Prepísať žiadosť webových stránok o ovládanie priblíženia</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">Invertované vykresľovanie na obrazovke</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">Invertované vykresľovanie</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">Z čiernej sa stane biela a naopak</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">Kontrast</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">Rozšírené</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">Nastavenia jednotlivých webových stránok</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">Rozšírené nastavenia pre jednotlivé webové lokality</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">Obnoviť predvolené</string>
+  <string name="pref_extras_reset">Obnoviť</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">Obnoviť predvolené nastavenia</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">Vrátiť nastavenia späť na predvolené hodnoty?</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">Ladiť</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">Kódovanie textu</string>
+  <string name="pref_edge_swipe_title">Navigácia od okraja</string>
+  <string name="pref_edge_swipe_option_msg">Potiahnutie od okraja:</string>
+  <string name="pref_temporal_edge_swipe">Prechádzať cez históriu</string>
+  <string name="pref_spatial_edge_swipe">Zmeniť kartu</string>
+  <string name="pref_disable_edge_swipe">Nerobiť nič</string>
+  <string name="pref_edge_swipe_option_close">Vybrať neskôr</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">Potiahnite od okraja pre navigáciu</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">Potiahnite od okraja pre zmenu kariet</string>
+  <string name="pref_edge_swipe_disabled_toast">Potiahnutie od okraja zakázané</string>
+  <string name="pref_edge_swipe_unknown">Vybrať správanie</string>
+  <string name="pref_edge_swipe_setup_desc">
+Potiahnutím od okraja prechádzajte cez históriu. \nTáto funkcia môže spôsobiť konflikt s webovými stránkami ktoré používajú ovládanie na okrajoch</string>
+  <string name="pref_edge_enable">Povoliť</string>
+  <string name="pref_edge_disable">Zakázať</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">Farebný stavový riadok</string>
+  <string name="pref_coloredsb_summary">Stavový riadok zmení farbu podľa navštívenej stránky</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">Zjednodušenie</string>
+  <string name="pref_accessibility_title_summary">Veľkosť textu a priblíženie</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">Zabrániť iným aplikáciám čítať obsah webových stránok z tejto aplikácie</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">Veľkosť písma</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">Celá obrazovka</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">Ak chcete skryť stavový riadok, použite režim celej obrazovky</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">Predbežné načít. výsledkov vyhľadávania</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>Nikdy</item>
+    <item>Iba cez Wi-Fi</item>
+    <item>Vždy</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">Umožniť prehliadaču predbežne na pozadí načítať relevantné výsledky vyhľadávania</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">Predbežné načítanie webovej stránky</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">Povoliť prehliadaču predbežne načítať prepojené webové stránky na pozadí</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">Stránka, ktorú sa pokúšate zobraziť, obsahuje údaje, ktoré už boli odoslané („POSTDATA“). Ak údaje odošlete znova, akákoľvek akcia vykonaná pomocou formulára na stránke prebehne znova (napr. vyhľadávanie či nákup online).</string>
   <!-- Menu item -->
+  <string name="clear_history">Vymazať históriu</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">Žiadna história prehliadača.</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">Pridať záložku</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">Pridať</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">Vyhľadajte alebo zadajte adresu URL</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">Hľadať</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">Záložky a webová história</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">Povoliť</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">Blokovať</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">Bol dosiahnutý limit počtu kariet</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">Nemôžete otvoriť novú kartu, pokiaľ nezatvoríte inú.</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">Kontextové okno je už otvorené</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">V jednej chvíli môže byť otvorené len jedno kontextové okno.</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">Žiadna karta SD</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">Na stiahnutie súboru <xliff:g id="filename">%s</xliff:g> je potrebná SD karta.</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">Karta SD nie je dostupná</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">Karta SD je zaneprázdnená. Ak chcete povoliť preberanie, kliknite v upozornení na možnosť Vypnúť ukladací priestor USB.</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">Môžete prevziať len adresy URL začínajúce na „http“ alebo „https“.</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">Spúšťam sťahovanie...</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">Hľadať na webe</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">Pamäť prehliadača je plná</string>
+  <string name="webstorage_outofspace_notification_text">Dotykom uvoľníte miesto.</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">Úložisko</string>
+  <string name="webstorage_private_data_title">Súkromné údaje</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">Odstrániť všetky údaje uložené touto webovou stránkou?</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">Načítavanie videa…</string>
+  <string name="website_settings_add_origin">Nová lokalita</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">Vyčistiť všetko</string>
+  <string name="website_settings_clear_all_dialog_message">Odstrániť všetky údaje webových stránok a oprávnenia pristupovať k informáciám o polohe?</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">Prebieha nastavenie tapety...</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">Žiadne záložky.</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">Iné záložky</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">Záložky na tomto zariadení ešte nie sú priradené k účtu Google. Pridaním záložiek k účtu ich uložíte. Ak záložky nechcete synchronizovať, odstráňte ich.</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">Odstrániť záložky</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">Zdieľať</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">K dispozícii nie sú žiadne ďalšie záložky</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">Zobraziť ukážku</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">Moje obľúbené</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">Nájsť</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">Vyžiadať web stránky pre počítače</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">Čítací mód</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">Predbežné načítanie výsledkov</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">Žiadne uložené stránky.</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">Odstrániť uloženú stránku</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">Prejsť online</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">Späť</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">Ďalej</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">Obnoviť stránku</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">Zastaviť načítanie stránky</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">Pridať do obľúbených</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">Hľadať</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">Spustenie hlasového vyhľadávania</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">Zatvoriť kartu</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">Otvoriť novú kartu</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">Otvoriť novú anonymnú kartu</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">Vymazať vstup</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">Správca stránky</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">Anonymná stránka</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">Uložená stránka</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">Správa kariet</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">Predchádzajúci priečinok</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">Odstrániť stránky</string>
+  <string name="my_navigation_edit_label">Upraviť stránku</string>
+  <string name="my_navigation_add_label">Pridať stránku</string>
+  <string name="my_navigation_add">Pridať</string>
+  <string name="my_navigation_delete_msg">Vymazať stránku?</string>
+  <string name="my_navigation_name">Názov</string>
+  <string name="my_navigation_address">Adresa</string>
+  <string name="website_needs_title">Webové stránky musia mať názov</string>
+  <string name="website_needs_url">Webové stránky musia mať adresu URL</string>
+  <string name="my_navigation_cannot_save_url">Neplatné URL</string>
+  <string name="my_navigation_duplicate_url">URL už existuje</string>
+  <string name="my_navigation_page_title">Domov</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">Vyberte si prosím spôsob spracovania multimediálneho súboru</string>
+  <string name="video_save">Uložiť</string>
+  <string name="video_play">Prehrať</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">Ukončiť</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">O</string>
+  <string name="download_estore_app">Estore sa nenachádza vo vašom prístroji.</string>
+  <string name="estore_url_warning">Nepodarilo sa spustiť Estore, URL je príliš dlhé.</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">Nahrávanie DRM súborov nie je podporované.</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">Ukončiť prehliadač</string>
+  <string name="exit_browser_msg">Prosím, vyberte, ako ukončiť prehliadač</string>
+  <string name="exit_minimize">Minimalizovať</string>
+  <string name="exit_quit">Ukončiť</string>
+  <string name="browser_max_input_title">Dosiahol sa limit pre maximálny počet znakov</string>
+  <string name="browser_max_input">Váš vstup dosiahol maximálny limit <xliff:g id="MAXLIMIT">%s</xliff:g> znakov</string>
+  <string name="duplicated_folder_warning">Priečinok už existuje</string>
+  <string name="overwrite_bookmark_msg">Názov obľúbenej položky alebo adresa existuje. Prepísať?</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">Neplatná cesta</string>
+  <string name="path_wrong">Zlá cesta</string>
+  <string name="pref_download_title">Nastavenia cesty na sťahovanie</string>
+  <string name="pref_download_path_setting_screen_title">Vlastná cesta na sťahovanie</string>
+  <string name="download_timeneeded">Čas</string>
+  <string name="download_filesize">Veľkosť</string>
+  <string name="download_filepath_label">Cesta</string>
+  <string name="download_edit_filename_label">Meno</string>
+  <string name="download_no_enough_memory">Nedostatok pamäte na stiahnutie</string>
+  <string name="download_settings_title">Nastavenia preberania</string>
+  <string name="filename_empty_title">Názov súboru na stiahnutie je prázdny</string>
+  <string name="filename_empty_msg">Názov súboru na stiahnutie nemôže byť prázdny. Zadajte platný názov súboru.</string>
+  <string name="unknow_length">Neznáme</string>
+  <string name="download_file_exist_msg">Súbor už existuje. Zadajte nový názov súboru.</string>
+  <string name="download_file_exist">Súbor už existuje</string>
+  <string name="time_min">min</string>
+  <string name="download_path_unavailable_dlg_title">Adresár na stiahnutie je nedostupný</string>
+  <string name="download_path_unavailable_dlg_msg">Prosím zmeňte adresár pre sťahovanie</string>
+  <string name="activity_not_found">Žiadna aktivita na spracovanie tohto zámeru: <xliff:g id="NOACTIVITY">%s </xliff:g></string>
+  <string name="download_name_hint">Názov súboru</string>
+  <string name="download_size_hint">Veľkosť</string>
+  <string name="download_eta_hint">Predpokladaný čas</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">Prijať správu od: <xliff:g id="FROM">%s </xliff:g>.</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">Bezpečnostný certifikát</string>
+  <string name="ssl_certificate_is_valid">Tento certifikát je platný.</string>
+  <string name="version">Verzia</string>
+  <string name="build_date">Dátum zostavy</string>
+  <string name="build_hash">Hash zostavy</string>
+  <string name="user_agent">Užívateľský agent</string>
+  <string name="help">Pomocník</string>
+  <string name="feedback">Spätná väzba</string>
+  <string name="swe_legal">Právne informácie</string>
+  <string name="swe_open_source_licenses">Licencie otvoreného zdroja</string>
+  <string name="swe_eula">Licenčná zmluva používateľa licencie</string>
+  <string name="swe_privacy_policy">Ochrana osobných údajov</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">Spravuje váš správca</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">Moja navigácia</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +718,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">Zapamätať si nastavenie</string>
+  <string name="geolocation_permissions_prompt_share_never">Zakázať navždy</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">Povoliť na 24 hodín</string>
+  <string name="geolocation_permissions_prompt_share_forever">Povoliť navždy</string>
 </resources>
