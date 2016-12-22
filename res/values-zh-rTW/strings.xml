@@ -19,321 +19,706 @@
 ]>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- The name of the application. -->
+  <string name="application_name">瀏覽器</string>
   <!-- Displayed with a file picker to choose a file to upload -->
+  <string name="choose_upload">選擇要上傳的檔案</string>
   <!-- Toast to show the user after they try to open the file picker but no apps on the
          system can provide a file [CHAR-LIMIT=NONE]-->
+  <string name="uploads_disabled">檔案上傳功能已停用。</string>
   <!-- Name of menu item of a new tab.  Also used in the title bar when displaying a new tab -->
   <!-- Crash tab View title -->
+  <string name="new_tab">新分頁</string>
+  <string name="browser_tab_crash_snap">啊噢，糟糕了！</string>
   <!-- Crash tab button text -->
+  <string name="browser_tab_crash_reload">重新載入</string>
   <!-- Crash tab View message -->
+  <string name="browser_tab_crash_message">顯示此網頁時發生意外錯誤。請重新載入或轉到其他頁面。</string>
   <!-- Name of menu item of a new incognito tab.  Also used in the
          title bar when displaying a new tab [CHAR LIMIT=30] -->
+  <string name="new_incognito_tab">新無痕式分頁</string>
   <!-- Name of tab containing the user's most visited websites, organized by number of visits -->
+  <string name="tab_most_visited">最常造訪</string>
   <!-- Name of tab containing the user's saved pages, organized by time created [CHAR LIMIT=20] -->
+  <string name="tab_snapshots">已儲存的網頁</string>
   <!-- Toast shown when a history item's star is clicked, converting it to a bookmark -->
+  <string name="added_to_bookmarks">已加入我的最愛。</string>
   <!-- Toast shown when a history item's star is clicked off, removing its bookmark -->
+  <string name="removed_from_bookmarks">已從我的最愛中移除。</string>
   <!-- Sign-in dialog -->
   <!-- This is used as the title of a dialog which is used to sign in to a secure site.
             "%s1"is replaced with the host and "%s2" with realm -->
+  <string name="sign_in_to">登入到 <xliff:g id="HOSTNAME">%s1</xliff:g>「<xliff:g id="REALM">%s2</xliff:g>」</string>
   <!-- Prompt for an input box that allows the user to enter their login name -->
+  <string name="username">名稱</string>
   <!-- Prompt for an input box that allows the user to enter their password -->
+  <string name="password">密碼</string>
   <!-- The label on the "sign in" button -->
+  <string name="action">登入</string>
   <!-- The name of the add bookmark page activity.-->
+  <string name="bookmarks_add_page">儲存書籤</string>
   <!-- Label for a cancel button.  It is used for multiple cancel buttons in different contexts -->
+  <string name="cancel">取消</string>
   <!-- Label for a confirm button.  Used in multiple contexts. -->
+  <string name="ok">確定</string>
   <!-- Message to be displayed if url character limit exceeds -->
+  <string name="max_url_character_limit_msg">已達分頁數量上限</string>
   <!-- Message to be displayed when google play store does not exist on the device -->
+  <string name="msg_no_google_play">抱歉，Google Play 商店應用程式不存在。</string>
   <!-- Menu item -->
+  <string name="page_info">頁面資訊</string>
   <!-- Page Info dialog strings -->
   <!-- Noun.  The url for the current page. Displayed on the Page Info
             screen. -->
+  <string name="page_info_address">位址：</string>
   <!-- Title for an SSL error dialog  -->
+  <string name="security_warning">安全性警告</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_invalid">這個憑證無效。</string>
   <!-- Message in an SSL Error dialog -->
+  <string name="ssl_unknown">未知的憑證錯誤。</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
+  <string name="stopping">停止中…</string>
   <!-- Menu item to stop the current page from loading. -->
+  <string name="stop">停止</string>
   <!-- Menu item to reload or refresh the current page. -->
+  <string name="reload">重新整理</string>
   <!-- Menu item to go back to the previous page -->
+  <string name="back">上一頁</string>
   <!-- Menu item to go to the next page (only useful if the user has previously hit back.) -->
+  <string name="forward">下一頁</string>
   <!-- Field label in Bookmark dialog box: refers to URL of the page to bookmark -->
+  <string name="location">地址</string>
   <!-- Field label in Bookmark dialog box: refers to the account to save the bookmark to -->
+  <string name="account">帳戶</string>
   <!-- Field label in Bookmark dialog box: refers to the folder in which to save the bookmark -->
+  <string name="containing_folder">新增至</string>
   <!-- Default name for a new folder and label for a button that allows the user to create a new folder
          in the add bookmark dialog -->
+  <string name="new_folder">新資料夾</string>
   <!-- Context menu item to edit a folder [CHAR LIMIT=50] -->
+  <string name="edit_folder">編輯資料夾</string>
   <!-- Context menu item to delete a folder [CHAR LIMIT=50] -->
+  <string name="delete_folder">刪除資料夾</string>
   <!-- Label stating that the currently open folder has no subfolders
          in the add bookmark dialog [CHAR-LIMIT=none]-->
+  <string name="no_subfolders">沒有子資料夾。</string>
   <!-- Menu item to save the newly created bookmark to the home screen. [CHAR-LIMIT=30]-->
+  <string name="add_to_homescreen_menu_option">主螢幕</string>
   <!-- Menu item to open a picker to determine which folder to save a bookmark in. [CHAR-LIMIT=30]-->
+  <string name="add_to_other_folder_menu_option">選擇資料夾\u2026</string>
   <!-- Field label in Bookmark dialog box: title that the user wishes to use for the bookmark -->
+  <string name="name">標籤</string>
   <!-- Menu item that opens a dialog to save a bookmark for the current page [CHAR LIMIT=30] -->
   <!-- Also used as title for AddBookmarkPage -->
+  <string name="save_to_bookmarks">儲存至書籤</string>
   <!-- Title of the dialog to bookmark a page -->
+  <string name="bookmark_this_page">將這個網頁加入我的最愛</string>
   <!-- Option on bookmark dialog to remove the bookmark [CHAR LIMIT=30] -->
+  <string name="remove">移除</string>
   <!-- Menu item on the bookmarks page, to edit an existing bookmark -->
+  <string name="edit_bookmark">編輯書籤</string>
   <!-- Context menu item to create a shortcut to the bookmark on the desktop [CHAR LIMIT=50] -->
+  <string name="create_shortcut_bookmark">新增捷徑至主螢幕</string>
   <!-- Menu item to remove the currently highlighted bookmark-->
+  <string name="remove_bookmark">刪除書籤</string>
   <!-- Context menu item to remove a history item from bookmarks -->
+  <string name="remove_from_bookmarks">移除</string>
   <!-- Menu item to remove the currently highlighted history entry from the list of previously visited sites -->
+  <string name="remove_history_item">移除</string>
   <!-- Context menu item for setting the bookmark/history item as the homepage -->
+  <string name="set_as_homepage">設為首頁</string>
   <!-- Toast informing the user that their action to save a bookmark has succeeded -->
+  <string name="bookmark_saved">已加入我的最愛</string>
   <!-- Toast informing the user that their action to save a bookmark did not succeed -->
+  <string name="bookmark_not_saved">無法儲存書籤。</string>
   <!-- Toast confirming that the homepage has been set -->
+  <string name="homepage_set">已設定為首頁。</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Name field -->
+  <string name="bookmark_needs_title">請輸入書籤名稱。</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with empty Location field -->
+  <string name="bookmark_needs_url">請選取書籤位置。</string>
   <!-- Error that appears in the title of Bookmark dialog when user selects OK with invalid URL -->
+  <string name="bookmark_url_not_valid">這個網址無效。</string>
   <!-- Error that appears in the Bookmark dialog when user selects OK with a URL of a type we cannot bookmark -->
+  <string name="bookmark_cannot_save_url">無法將此網址加入到我的最愛。</string>
   <!-- Summary text under the New Bookmark item on the Bookmarks screen.
             Tells the user that if they select this item, it will bring up a
             dialog to bookmark the page that the browser is currently viewing,
             though it is not currently being displayed, since they are viewing
             the bookmarks screen. -->
+  <string name="current_page">來源 </string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
+  <string name="delete_bookmark_warning">刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」書籤？</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
+  <string name="delete_folder_warning">刪除資料夾「<xliff:g id="bookmark">%s</xliff:g>」？</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
+  <string name="open_all_in_new_window">在新分頁中開啟所有書籤</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
+  <string name="sendText">選擇文字的操作</string>
   <!-- Menu item to close all other tabs [CHAR LIMIT=40] -->
+  <string name="close_other_tabs">關閉其他分頁</string>
   <!-- Menu item to open the bookmarks page and name of the Tab in the combo view -->
+  <string name="bookmarks">我的最愛</string>
   <!-- Secondary name for the Activity "BrowserBookmarksPage" -->
+  <string name="shortcut_bookmark">書籤</string>
   <!-- Title for the activity asking the user to select a bookmark [CHAR LIMIT=50] -->
+  <string name="shortcut_bookmark_title">選擇書籤</string>
   <!-- Menu item to display the History of previously visited pages and the name of the combo view
         Tab-->
+  <string name="history">記錄</string>
   <!-- Menu item -->
+  <string name="share_page">分享網頁</string>
   <!-- Menu item for saving link to homescreen -->
+  <string name="add_to_homescreen">新增至主螢幕</string>
   <!-- Menu item for saving a page for offline reading. This is a view-only snapshot of the page. [CHAR LIMIT=50] -->
+  <string name="menu_save_snapshot">儲存頁面即可供離線閱讀</string>
   <!-- Dialog message that is shown while saving a page for offline reading. [CHAR LIMIT=50] -->
+  <string name="saving_snapshot">儲存中…</string>
   <!-- Toast informing the user that saving the page for offline reading has failed. [CHAR LIMIT=50] -->
+  <string name="snapshot_failed">無法儲存網頁即可供離線閱讀。</string>
   <!-- The number of bookmarks in a folder [CHAR LIMT=50] -->
+  <string name="contextheader_folder_bookmarkcount"><xliff:g id="bookmark_count">%d</xliff:g> 個我的最愛</string>
   <!-- No bookmarks in the folder [CHAR LIMIT=50] -->
+  <string name="contextheader_folder_empty">空資料夾</string>
   <!-- Context Menu item open the currently selected link in the current
             window.-->
+  <string name="contextmenu_openlink">開啟</string>
   <!-- Context Menu item to open the currently selected link in a new
             window. -->
+  <string name="contextmenu_openlink_newwindow">在新分頁中開啟</string>
   <!-- Context Menu item to open the currently selected link in a new
          background window. [CHAR LIMIT=50] -->
+  <string name="contextmenu_openlink_newwindow_background">在新背景分頁中開啟</string>
   <!-- Context Menu item to save the webpage referred to by this link to the
             SD card (external storage) -->
+  <string name="contextmenu_savelink">儲存連結</string>
   <!-- Context Menu item to send the url of the selected link to someone else,
             via Gmail or another app [CHAR LIMIT=50] -->
+  <string name="contextmenu_sharelink">分享連結</string>
   <!-- Context Menu item -->
+  <string name="contextmenu_copy">複製</string>
   <!-- Context Menu item to copy the url of the selected link to the
             clipboard -->
+  <string name="contextmenu_copylink">複製連結網址</string>
   <!-- Context Menu item to save the image to external storage -->
+  <string name="contextmenu_download_image">儲存圖片</string>
   <!-- Context Menu item to view the image by itself in the browser -->
+  <string name="contextmenu_view_image">檢視圖片</string>
   <!-- Context Menu item to set the image as the home screen wallpaper -->
+  <string name="contextmenu_set_wallpaper">設為桌布</string>
   <!-- Context Menu item to open the dialer app with the selected phone number
             -->
+  <string name="contextmenu_dial_dot">撥打…</string>
   <!-- Context Menu item to add the selected phone number to the address book.
             -->
+  <string name="contextmenu_add_contact">新增聯絡人</string>
   <!-- Context Menu item to send an email using the selected email address.-->
+  <string name="contextmenu_send_mail">傳送電子郵件</string>
   <!-- Context Menu item to show the currently selected address in the Maps
             application -->
+  <string name="contextmenu_map">地圖</string>
   <!-- Title of the dialog used for selecting the application that should be
             used for sharing a link (e.g. Gmail or another app). See also
             contextmenu_sharelink above -->
+  <string name="choosertitle_sharevia">分享方式：</string>
   <!-- Used as the title of dialogs in the Browser Settings confirming that
             the user wants to clear (cache, history, or cookie data) -->
+  <string name="clear">清除</string>
   <!-- Part of a sentence that says "Replace <url of existing bookmark> with
             <url of new bookmark>?" -->
+  <string name="replace">取代</string>
   <!-- Settings screen strings -->
   <!-- Menu item to open the Settings screen -->
+  <string name="menu_preferences">設定</string>
   <!-- Settings screen, section title -->
+  <string name="pref_content_title">內容設定</string>
+  <string name="pref_content_title_summary">網頁內容設定</string>
   <!-- Settings label -->
+  <string name="pref_content_load_images">載入圖片</string>
+  <string name="pref_content_load_images_summary">顯示網頁上的圖片</string>
   <!-- Settings label -->
+  <string name="pref_security_allow_popups">彈出式窗口</string>
   <!-- Settings label -->
+  <string name="pref_content_javascript">啟用 JavaScript</string>
   <!-- Settings label -->
+  <string name="pref_content_open_in_background">在背景中開啟</string>
   <!-- Settings summary [CHAR LIMIT=50]-->
+  <string name="pref_content_open_in_background_summary">在目前分頁的後面開啟新分頁</string>
   <!-- Settings label [CHAR LIMIT=50] -->
+  <string name="pref_content_homepage">設定首頁</string>
   <!-- Settings label -->
+  <string name="pref_content_search_engine">設定搜尋引擎</string>
   <!-- Settings summary -->
+  <string name="pref_content_search_engine_summary">選擇搜尋引擎</string>
   <!-- Settings button label that to pick what to set the homepage to [CHAR LIMIT=40] -->
+  <string name="pref_set_homepage_to">設為</string>
+  <string-array name="pref_homepage_choices">
+    <!-- Setting choice to set the homepage to the current page [CHAR LIMIT=40] -->
+    <item>目前網頁</item>
+    <!-- Setting choice to set the homepage to a blank page [CHAR LIMIT=40] -->
+    <item>空白網頁</item>
+    <!-- Setting choice to set the homepage to the default page [CHAR LIMIT=40] -->
+    <item>預設網頁</item>
+    <!-- Setting choice to set the homepage to the "Most Visited" homepage feature, which is a list of most visited sites [CHAR LIMIT=40] -->
+    <item>常用網站</item>
+    <!-- Setting choice to set the homepage to a user entered URL [CHAR LIMIT=40] -->
+    <item>其他</item>
+  </string-array>
   <!-- Settings screen & section title for "General settings". These include things like
          configuring bookmark syncing to Google servers and form auto fill settings. [CHAR-LIMIT=32] -->
+  <string name="pref_general_title">一般設定</string>
+  <string name="pref_default_site_settings_title">預設網頁設定</string>
+  <string name="pref_site_settings_title">網頁設定</string>
+  <string name="pref_site_settings_info_panel">安全資訊</string>
   <!-- Settings category for autofill under general. [CHAR-LIMIT=50] -->
+  <string name="pref_general_autofill_title">自動填入</string>
   <!-- Checkbox setting for enabling/disabling power save mode feature -->
+  <string name="pref_powersave_enabled">省電模式</string>
   <!-- Settings summary for the powersave feature. -->
+  <string name="pref_powersave_enabled_summary">開啟省電模式</string>
   <!-- Checkbox setting for enabling/disabling night mode feature -->
+  <string name="pref_nightmode_enabled">夜間模式</string>
   <!-- Settings summary for the night mode feature. -->
+  <string name="pref_nightmode_enabled_summary">開啟夜間模式</string>
   <!-- Checkbox setting for enabling/disabling the form AutoFill feature [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_enabled">表單自動填入</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_enabled_summary">輕觸一下即可填妥網頁表單</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="other">%d 個廣告</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="other">%d 個追蹤</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="other">%d 個惡意威脅</item>
+  </plurals>
+  <string-array name="pref_web_refiner_message">
+    <item>"已封鎖 %s "</item>
+    <item>"%1$s 和 %2$s 已被封鎖 "</item>
+    <item>"%1$s 、%2$s 和 %3$s 已被封鎖 "</item>
+  </string-array>
+  <string name="pref_valid_cert">有效的 SSL 認證。通訊已加密且身分已驗證。</string>
+  <string name="pref_invalid_cert">網站有一個不正確 SSL 憑證。</string>
+  <string name="pref_warning_cert">網站 SSL 憑證的警告。</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_interface_title">介面</string>
   <!-- Label for option that when clicked opens the AutoFill settings screen. Also used as the title of that AutoFill Settings screen. [CHAR-LIMIT=32] -->
+  <string name="pref_autofill_profile_editor">自動填入文字</string>
   <!-- Summary for the AutoFill Settings preference [CHAR-LIMIT=none] -->
+  <string name="pref_autofill_profile_editor_summary">設定要在網路表單中自動填入的文字</string>
   <!-- Heading for the AutoFill profile editor to tell the user what AutoFill does and why they should fill out the profile. [CHAR-LIMIT=None] -->
+  <string name="autofill_profile_editor_heading">輸入您要在網路表單中自動填入的文字。</string>
   <!-- String for the user's full name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_name">全名：</string>
   <!-- String for the user's e-mail address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_email_address">電子郵件：</string>
   <!-- String for the user's company name in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_company_name">公司名稱：</string>
   <!-- String for the first line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_1">地址行 1：</string>
   <!-- String to suggest to the user the kind of data to be used for the first line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_1_hint">路街巷弄、郵政信箱、代收人</string>
   <!-- String for the second line of the user's address in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_address_line_2">地址行 2：</string>
   <!-- String to suggest to the user the kind of data to be used for the second line of the address. CHAR-LIMIT=64] -->
+  <string name="autofill_profile_editor_address_line_2_hint">門牌號碼、樓層等</string>
   <!-- String for the user's city or town in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_city">鄉/鎮/市/區：</string>
   <!-- String for the user's state or province or region in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_state">州/省/地區：</string>
   <!-- String for the user's zip code in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_zip_code">郵遞區號：</string>
   <!-- String for the user's country in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_country">國家/地區：</string>
   <!-- String for the user's phone number in the AutoFill profile editor. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number">電話：</string>
   <!-- String to display in an error tooltip to inform the user the phone number they provided is not valid. [CHAR-LIMIT=32] -->
+  <string name="autofill_profile_editor_phone_number_invalid">電話號碼無效。</string>
   <!-- Button text to save the AutoFill profile [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_save_profile">儲存</string>
   <!-- Toast message displayed when the profile has been successfully saved [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_save">已儲存自動填入文字。</string>
   <!-- Toast message displayed when the profile has been successfully deleted [CHAR-LIMIT=none] -->
+  <string name="autofill_profile_successful_delete">已刪除自動填入文字。</string>
   <!-- Button text to delete all the AutoFill profile data [CHAR-LIMIT=20] -->
+  <string name="autofill_profile_editor_delete_profile">刪除</string>
   <!-- Text on toast shown to the user when power save mode is enabled or disabled -->
+  <string name="powersave_dialog_on">省電模式啟用。瀏覽器將重新啟動。</string>
+  <string name="powersave_dialog_off">省電模式已停用。瀏覽器將重新啟動。</string>
   <!-- Text on a dialog shown to the user when they are prompted to set up the autofill feature [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_message">瀏覽器可以自動輸入這類網路表單，您要設定自動填入文字嗎？</string>
   <!-- Toast message displayed when the user decides to not set up autofill at this time. We want to remind them that they can configure
          it through the Browser Settings menu. [CHAR-LIMIT=NONE] -->
+  <string name="autofill_setup_dialog_negative_toast">您隨時可以前往 [瀏覽器] &gt; [設定] &gt; [一般] 畫面設定自動填入文字。</string>
   <!-- Text on a checkbox in the "setup autofill" dialog which is shown to the user when they are prompted to set up the autofill feature.
          The checkbox allows them to specify they would like to disable the feature altogether [CHAR-LIMIT=NONE] -->
+  <string name="disable_autofill">停用自動填入功能</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_security_title">安全性</string>
   <!-- Settings screen, section title [CHAR-LIMIT=50] -->
+  <string name="pref_privacy_security_title">隱私權和安全性</string>
+  <string name="pref_privacy_security_title_summary">瀏覽器安全和隱私設定</string>
   <!-- Popup dialog -->
+  <string name="pref_select_items">選擇項目被清除</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_selected">清除所選項目</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_selected_summary">在列表中清除所選項目</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_selected_dlg">清除以下項目？</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cache">缓存</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cache_summary">清除本機快取內容與資料庫</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_cookies">清除所有 Cookie</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_cookies_summary">清除瀏覽器中所有 Cookie</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_history_summary">清除瀏覽記錄</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_privacy_clear_history_dlg">刪除瀏覽記錄？</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_form_data">表單資料</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_form_data_summary">清除所有已儲存的表單資料</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_passwords">密碼</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_passwords_summary">清除所有已儲存密碼</string>
   <!-- Settings label -->
+  <string name="pref_privacy_enable_geolocation">啟用定位功能</string>
   <!-- Settings label -->
+  <string name="pref_privacy_clear_geolocation_access">位置訪問</string>
   <!-- Settings summary -->
+  <string name="pref_privacy_clear_geolocation_access_summary">清除所有網站的位置資訊存取權限</string>
   <!-- Settings label -->
+  <string name="pref_security_remember_passwords">記住密碼</string>
   <!-- Settings label -->
+  <string name="pref_security_save_form_data">儲存表單資料</string>
   <!-- Settings Label -->
+  <string name="pref_do_not_track">不要追蹤</string>
   <!-- Settings label -->
+  <string name="pref_security_accept_cookies">接受 Cookie</string>
+  <string name="pref_security_allow_mic">麥克風</string>
+  <string name="pref_security_allow_camera">相機</string>
+  <string name="pref_security_web_refiner">廣告</string>
+  <string name="pref_security_accept_third_party_cookies">第三方 Cookies</string>
+  <string name="pref_security_ask_before_using">在顯示之前詢問</string>
+  <string name="pref_security_allowed">允許</string>
+  <string name="pref_security_not_allowed">不允許</string>
+  <string name="pref_security_remember">記得</string>
+  <string name="pref_security_on">開啟</string>
+  <string name="pref_security_off">關閉</string>
+  <string name="pref_website_title">網站</string>
+  <string name="pref_security_add">新增</string>
+  <string name="pref_security_origin_name">網站來源</string>
+  <string name="pref_security_access_is_allowed">允許訪問</string>
   <!-- Settings text size options - displays sample font size in settings -->
+  <string name="pref_sample_font_size">拖動滑塊即可調整字體大小來選取您舒適的閱讀尺寸。</string>
   <!-- Label for minimum font size [CHAR LIMIT=30] -->
+  <string name="pref_min_font_size">最小字型大小</string>
   <!-- Label for the current minimum font size value [CHAR LIMIT=6] -->
+  <string name="pref_min_font_size_value"><xliff:g id="FONT_SIZE">%d</xliff:g>pt</string>
   <!-- Label for text scaling (percent) [CHAR LIMIT=30] -->
+  <string name="pref_text_zoom">文字比例</string>
   <!-- Label for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable">強制啟用縮放功能</string>
   <!-- Summary for whether or not to force-enable user scalablity (aka, zoom) [CHAR LIMIT=30] -->
+  <string name="pref_force_userscalable_summary">覆蓋網站的控制縮放行為請求</string>
   <!-- Inverted screen category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_inverted_category">畫面色彩反轉</string>
   <!-- Title for the inverted screen feature. This causes the screen to render with inverted colors (black becomes white and vice versa) [CHAR LIMIT=40] -->
+  <string name="pref_inverted">色彩反轉</string>
   <!-- Summary for the inverted screen feature. [CHAR LIMIT=120] -->
+  <string name="pref_inverted_summary">黑色轉換成白色，反之亦然</string>
   <!-- Title for the inverted screen contrast. Change the contrast value from 1.0 to 3.0. [CHAR LIMIT=30] -->
+  <string name="pref_inverted_contrast">對比</string>
   <!-- Settings screen, section title [CHAR LIMIT=50] -->
+  <string name="pref_extras_title">進階</string>
   <!-- Settings label -->
+  <string name="pref_extras_website_settings">網站設定</string>
   <!-- Settings summary -->
+  <string name="pref_extras_website_settings_summary">個別網站的進階設定</string>
   <!-- Settings label -->
+  <string name="pref_extras_reset_default">還原至初始設定</string>
+  <string name="pref_extras_reset">回復預設</string>
   <!-- Settings summary -->
+  <string name="pref_extras_reset_default_summary">還原預設設定</string>
   <!-- Confirmation dialog message -->
+  <string name="pref_extras_reset_default_dlg">將設定回復成預設值？</string>
   <!-- Title for a group of settings -->
+  <string name="pref_development_title">偵錯</string>
   <!-- Settings screen, setting option name -->
+  <string name="pref_default_text_encoding">文字編碼</string>
+  <string name="pref_edge_swipe_title">邊緣導航</string>
+  <string name="pref_edge_swipe_option_msg">滑過邊緣時，您想：</string>
+  <string name="pref_temporal_edge_swipe">瀏覽記錄</string>
+  <string name="pref_spatial_edge_swipe">更換標籤頁</string>
+  <string name="pref_disable_edge_swipe">不執行任何操作</string>
+  <string name="pref_edge_swipe_option_close">關閉</string>
+  <string name="pref_temporal_edge_swipe_enabled_toast">從邊緣滑動來導航</string>
+  <string name="pref_spatial_edge_swipe_enabled_toast">從邊緣滑動來切換分頁</string>
+  <string name="pref_edge_swipe_disabled_toast">邊緣滑動已停用</string>
+  <string name="pref_edge_swipe_unknown">選擇操作</string>
+  <string name="pref_edge_swipe_setup_desc">        從邊緣滑動來進行瀏覽記錄。\n此功能可能會和網站自身的邊緣滑動設定衝突。</string>
+  <string name="pref_edge_enable">啟用</string>
+  <string name="pref_edge_disable">停用</string>
   <!-- Colored statusbar -->
+  <string name="pref_coloredsb_title">變色狀態列</string>
+  <string name="pref_coloredsb_summary">狀態列顏色會依照所瀏覽的網站來換色</string>
   <!-- Title for accessibility settings [CHAR LIMIT=25] -->
+  <string name="pref_accessibility_title">協助工具</string>
+  <string name="pref_accessibility_title_summary">字體大小和縮放</string>
   <!-- LookLock -->
+  <string name="pref_looklock_title">LookLock</string>
+  <string name="pref_looklock_summary">防止其他應用程式讀取此應用程式的 Webview 內容</string>
   <!-- Font size settings category under accessibility settings [CHAR LIMIT=50] -->
+  <string name="pref_font_size_category">文字大小</string>
   <!-- Title for the fullscreen lab feature [CHAR LIMIT=40] -->
+  <string name="pref_lab_fullscreen">全螢幕</string>
   <!-- Summary for the fullscreen lab feature [CHAR LIMIT=120] -->
+  <string name="pref_lab_fullscreen_summary">使用全螢幕模式即可隱藏狀態列</string>
   <!-- Title for search preloading [CHAR LIMIT=40] -->
+  <string name="pref_data_preload_title">預先載入搜尋結果</string>
   <!-- Search preloading options [CHAR LIMIT=20] -->
   <!-- Link prefetching options [CHAR LIMIT=20] -->
+  <string-array name="pref_temporal_choices">
+    <item>永不</item>
+    <item>只限 Wi-Fi</item>
+    <item>永遠</item>
+  </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
+  <string name="pref_data_preload_summary">允許瀏覽器在背景預先載入可信度高的搜尋結果</string>
   <!-- Title for link prefetching [CHAR LIMIT=40] -->
+  <string name="pref_link_prefetch_title">網頁預先載入</string>
   <!-- Summary for link prefetching [CHAR LIMIT=80] -->
+  <string name="pref_link_prefetch_summary">允許瀏覽器在背景預先載入已連結的網頁</string>
   <!-- Dialog box message -->
+  <string name="browserFrameFormResubmitMessage">您要瀏覽的網頁包含已提交的資料 (「POSTDATA」)。如果您重新傳送資料，系統將重複執行該網頁表單上的作業 (例如搜尋或線上購物)。</string>
   <!-- Menu item -->
+  <string name="clear_history">清除記錄</string>
   <!-- Appears on History screen if no history is found -->
+  <string name="empty_history">沒有瀏覽器記錄。</string>
   <!-- Displayed at the top of the bookmarks page.  When clicked, it bookmarks the page the browser is currently showing -->
+  <string name="add_new_bookmark">新增書籤</string>
   <!-- Verb placed in front of a screenshot of a web page that, when clicked,
             will add that page to bookmarks -->
+  <string name="add_bookmark_short">新增</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the hint text shown in the Go To widget, before text is entered. -->
+  <string name="search_hint">搜尋或輸入網址</string>
   <!-- This string is for the browser "Go To" UI. -->
   <!-- This is the button label in the "Go To" UI. -->
+  <string name="search_button_text">前往</string>
   <!-- The string used to describe the browser as a searchable item within system search settings. -->
+  <string name="search_settings_description">我的最愛與網頁紀錄</string>
   <!-- Label for a button to allow a particular popup window to open -->
+  <string name="allow">允許</string>
   <!-- Label for a button to disallow a particular popup from opening -->
+  <string name="block">封鎖</string>
   <!-- Title for a dialog informing the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_title">已達分頁數量上限</string>
   <!-- Message in a dialog telling the user that they cannot open any more
             windows because the limit has been reached. -->
+  <string name="too_many_windows_dialog_message">在您關閉一個分頁前不能打開新分頁</string>
   <!-- Title for a dialog informing the user that they cannot open a subwindow
             because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_title">已開啟快顯視窗</string>
   <!-- Message for a dialog informing the user that they cannot open a
             subwindow because only one can be open at a time. -->
+  <string name="too_many_subwindows_dialog_message">一次只能開啟一個彈出式視窗。</string>
   <!-- Download History UI strings -->
   <!-- Dialog title [CHAR LIMIT=25] -->
   <!-- Dialog title -->
+  <string name="download_no_sdcard_dlg_title" product="default">沒有 SD 卡</string>
   <!-- Dialog message [CHAR LIMIT=NONE] -->
   <!-- Dialog message -->
+  <string name="download_no_sdcard_dlg_msg" product="default">需要 SD 卡下載 <xliff:g id="FILENAME">%s</xliff:g>。</string>
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything [CHAR LIMIT=25] -->
   <!-- Title for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything -->
+  <string name="download_sdcard_busy_dlg_title" product="default">無法使用 SD 卡</string>
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage [CHAR LIMIT=NONE] -->
   <!-- Message for a dialog informing the user that the SD card used for
             external storage is busy so they cannot download anything.  Informs
             the user how to enable SD card storage -->
+  <string name="download_sdcard_busy_dlg_msg" product="default">SD 卡忙碌中。如要允許下載，請輕觸通知中的 [關閉 USB 儲存裝置]。</string>
   <!-- Toast for a download which cannot begin because the URL is not http or https -->
+  <string name="cannot_download">僅可下載「http」或「https」網址的檔案。</string>
   <!-- Message in the list of items which have received download requests
             telling their status.  This message states that the download has not
             yet begun -->
+  <string name="download_pending">正在開始下載…</string>
   <!-- The description of the suggestion that lets the user search the web for the query currently
          in the text field. -->
+  <string name="search_the_web">搜尋網頁</string>
   <!-- HTML5 dialogs -->
   <!-- Used as a status bar notification when the browser is running out of space trying to allocate or increase the database quota for an HTML5 databae or application cache. -->
+  <string name="webstorage_outofspace_notification_title">瀏覽器儲存空間已滿</string>
+  <string name="webstorage_outofspace_notification_text">輕觸即可釋放儲存空間。</string>
   <!-- Used in the Browser Settings -->
+  <string name="webstorage_clear_data_title">清除儲存的資料</string>
+  <string name="webstorage_private_data_title">隱私資料</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
+  <string name="webstorage_clear_data_dialog_message">刪除這個網站儲存的所有資料？</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
+  <string name="loading_video">正在載入影片…</string>
+  <string name="website_settings_add_origin">新網站</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
+  <string name="website_settings_clear_all">全部清除</string>
+  <string name="website_settings_clear_all_dialog_message">刪除所有網站資料和位置存取權限？</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
+  <string name="progress_dialog_setting_wallpaper">正在設定桌布…</string>
   <!-- The string that is displayed when there are no bookmarks to display.
          This is centered in the middle of the screen [CHAR LIMIT=NONE] -->
+  <string name="empty_bookmarks_folder">沒有我的最愛。</string>
   <!-- The folder name for the special "Other Bookmarks" folder created by Chrome [CHAR LIMIT=24] -->
+  <string name="other_bookmarks">其他我的最愛</string>
   <!-- Description for a dialog asking the user what they want to do with their bookmarks when adding a sync account [CHAR-LIMIT=none] -->
+  <string name="import_bookmarks_dialog_description">這個裝置上的我的最愛尚未與 Google 帳戶建立關聯。您可以將這些書籤新增至帳戶中加以儲存；如果您不想同步處理這些書籤，只需將其刪除即可。</string>
   <!-- Button allowing users to remove all of their existing bookmarks when setting up syncing with their bookmarks stored in Google Chrome [CHAR-LIMIT=64] -->
+  <string name="import_bookmarks_dialog_remove">刪除我的最愛</string>
   <!-- Url Selection Action Mode -->
   <!-- Menu item to share URL selection [CHAR LIMIT=30] -->
+  <string name="menu_share_url">分享</string>
   <!-- Toast to inform the user that the maximum number of tabs has been
          reached. [CHAR LIMIT=50] -->
+  <string name="max_tabs_warning">已無分頁可供使用</string>
   <!-- Font size preview label in settings [CHAR LIMIT=30] -->
+  <string name="preview">預覽</string>
   <!-- Name for the user's unsynced, local bookmarks [CHAR LIMIT=50] -->
+  <string name="local_bookmarks">我的最愛</string>
   <!-- allows the user to find on webpage [CHAR LIMIT=None] -->
+  <string name="find_on_page">尋找</string>
   <!-- Popup menu checkbox that allows the user to request the desktop version of a webpage [CHAR LIMIT=50] -->
+  <string name="ua_switcher_desktop">電腦版網站</string>
   <!-- Popup menu checkbox that loads the reader mode version of the current webpage -->
+  <string name="enable_reader_mode">閱讀模式</string>
   <!-- Preload permission label [CHAR LIMIT=40] -->
+  <string name="permission_preload_label">預先載入結果</string>
   <!-- Empty text for the "saved pages" tab that is shown when no saved pages exist. [CHAR LIMIT=None] -->
+  <string name="empty_snapshots_folder">沒有已儲存的網頁。</string>
   <!-- Menu option to delete the currently selected saved page [CHAR LIMIT=50] -->
+  <string name="remove_snapshot">刪除儲存的頁面</string>
   <!-- Popup menu option to load the live version of a saved page [CHAR LIMIT=20] -->
+  <string name="snapshot_go_live">載入實際版本</string>
   <!--  Accessibility content descriptions -->
   <!-- Content description for back button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_back">返回</string>
   <!-- Content description for forward button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_forward">往前</string>
   <!-- Content description for refresh button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_refresh">重新整理頁面</string>
   <!-- Content description for stop button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_stop">停止載入網頁</string>
   <!-- Content description for add bookmark button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_addbookmark">加入我的最愛</string>
   <!-- Content description for search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_search">搜尋</string>
   <!-- Content description for voice search button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_voice">開始語音搜尋</string>
   <!-- Content description for close tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_closetab">關閉分頁</string>
   <!-- Content description for new tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newtab">開啟新分頁</string>
   <!-- Content description for new incognito tab button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_newincognitotab">開啟新的無痕式分頁</string>
   <!-- Content description for clear button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_clear">清除輸入</string>
   <!-- Content description for tab switcher button [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_navscreen">網頁管理員</string>
   <!-- Content description for incognito state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_incognito">無痕式頁面</string>
   <!-- Content description for frozen state [CHAR LIMIT=NONE] -->
+  <string name="accessibility_state_frozen">儲存的頁面</string>
   <!-- Content description for tab switcher transition [CHAR LIMIT=NONE] -->
+  <string name="accessibility_transition_navscreen">分頁管理</string>
   <!-- Content description for navigating up in the bookmark folder hierarchy [CHAR LIMIT=NONE] -->
+  <string name="accessibility_button_bookmarks_folder_up">上一個資料夾</string>
   <!--Add for Navigation Feature -->
+  <string name="my_navigation_delete_label">刪除網站</string>
+  <string name="my_navigation_edit_label">編輯網站</string>
+  <string name="my_navigation_add_label">新增網站</string>
+  <string name="my_navigation_add">新增</string>
+  <string name="my_navigation_delete_msg">確定要刪除網站？</string>
+  <string name="my_navigation_name">名稱</string>
+  <string name="my_navigation_address">網址</string>
+  <string name="website_needs_title">網站必須有標題</string>
+  <string name="website_needs_url">網站必須有網址</string>
+  <string name="my_navigation_cannot_save_url">無效網址</string>
+  <string name="my_navigation_duplicate_url">網址已存在</string>
+  <string name="my_navigation_page_title">首頁</string>
   <!-- Add for Carrier Feature.Content description for AV save/play prompt dialog -->
+  <string name="http_video_msg">請選擇如何處理媒體檔案</string>
+  <string name="video_save">儲存</string>
+  <string name="video_play">播放</string>
   <!-- Add for Carrier Feature.Content description for exit menu item -->
+  <string name="exit">離開</string>
   <!-- Add for Carrier Feature.Content description for about menu item -->
+  <string name="about">相關資訊</string>
+  <string name="download_estore_app">Estore 應用程式不存在，請下載並安裝。</string>
+  <string name="estore_url_warning">啟動 Estore 應用程式失敗，網址太長！</string>
   <!-- Add for Unsupport Uploading Drm Files Feature -->
+  <string name="drm_file_unsupported">不支援上傳中的 DRM 檔案！</string>
   <!-- Add for exit prompt Feature -->
+  <string name="exit_browser_title">離開瀏覽器</string>
+  <string name="exit_browser_msg">請選擇如何離開瀏覽器</string>
+  <string name="exit_minimize">最小化</string>
+  <string name="exit_quit">退出</string>
+  <string name="browser_max_input_title">超過字元上限</string>
+  <string name="browser_max_input">您的輸入已達到 <xliff:g id="MAXLIMIT">%s</xliff:g> 個字元的上限。</string>
+  <string name="duplicated_folder_warning">資料夾已存在</string>
+  <string name="overwrite_bookmark_msg">此書籤的名稱或位址已存在，要覆蓋嗎？</string>
   <!-- Add for download save path setting Feature -->
+  <string name="invalid_path">無效路徑</string>
+  <string name="path_wrong">錯誤的路徑</string>
+  <string name="pref_download_title">下載路徑設定</string>
+  <string name="pref_download_path_setting_screen_title">自訂下載路徑</string>
+  <string name="download_timeneeded">時間</string>
+  <string name="download_filesize">大小</string>
+  <string name="download_filepath_label">路徑</string>
+  <string name="download_edit_filename_label">名稱</string>
+  <string name="download_no_enough_memory">容量不足，無法下載</string>
+  <string name="download_settings_title">下載設定</string>
+  <string name="filename_empty_title">下載檔案名為空</string>
+  <string name="filename_empty_msg">下載檔案名不能為空。請輸入一個有效的檔案名。</string>
+  <string name="unknow_length">未知</string>
+  <string name="download_file_exist_msg">檔案已存在。請輸入新的檔案名稱。</string>
+  <string name="download_file_exist">檔案已存在</string>
+  <string name="time_min">分鐘</string>
+  <string name="download_path_unavailable_dlg_title">下載目錄不可用</string>
+  <string name="download_path_unavailable_dlg_msg">請修改下載目錄</string>
+  <string name="activity_not_found">找不到活動處理意圖 <xliff:g id="NOACTIVITY">%s</xliff:g></string>
+  <string name="download_name_hint">檔案名稱</string>
+  <string name="download_size_hint">大小</string>
+  <string name="download_eta_hint">預計時間</string>
   <!-- Toast message displayed when the full screen received message -->
+  <string name="received_message_full_screen">收到一則訊息從 ︰ <xliff:g id="FROM">%s </xliff:g>。</string>
   <!-- Snapdragon Browser Additions -->
+  <string name="ssl_certificate">安全憑證</string>
+  <string name="ssl_certificate_is_valid">此憑證有效。</string>
+  <string name="version">版本</string>
+  <string name="build_date">版本日期</string>
+  <string name="build_hash">版本哈希值</string>
+  <string name="user_agent">瀏覽器UA標識</string>
+  <string name="help">幫助</string>
+  <string name="feedback">反饋</string>
+  <string name="swe_legal">法律資訊</string>
+  <string name="swe_open_source_licenses">開放原始碼許可</string>
+  <string name="swe_eula">最終使用者許可協議</string>
+  <string name="swe_privacy_policy">隱私政策</string>
   <!-- Toast message displayed when user attempts to modify a setting disabled by the administrator -->
+  <string name="mdm_managed_alert">由管理員管理</string>
   <!-- My Navigation - Favorites + History + Saved -->
+  <string name="mystuffs">我的導航</string>
   <!-- Place holder for SWE engine strings added to
          'chrome/android/java/strings/android_chrome_strings.grd'. Follow
          chromium android grd naming convention. Follow exact mapping rules from
@@ -341,4 +726,8 @@
          prefix being stripped. For more info check out chromium's
          UI-localization page. -->
   <!-- Geolocation infobar promt-->
+  <string name="geolocation_permissions_prompt_remember">記住偏好設定</string>
+  <string name="geolocation_permissions_prompt_share_never">總是拒絕</string>
+  <string name="geolocation_permissions_prompt_share_for_limited_time">24小時內允許</string>
+  <string name="geolocation_permissions_prompt_share_forever">總是允許</string>
 </resources>
