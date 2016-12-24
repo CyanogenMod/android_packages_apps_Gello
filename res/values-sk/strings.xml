@@ -286,6 +286,21 @@
   <string name="pref_autofill_enabled">Automatické dopĺňanie formulárov</string>
   <!-- Settings summary for the form AutoFill feature. [CHAR-LIMIT=none] -->
   <string name="pref_autofill_enabled_summary">Vyplňovanie webových formulárov jediným dotykom</string>
+  <plurals name="pref_web_refiner_advertisements">
+    <item quantity="one">%d reklama</item>
+    <item quantity="few">%d reklamy</item>
+    <item quantity="other">%d reklám</item>
+  </plurals>
+  <plurals name="pref_web_refiner_trackers">
+    <item quantity="one">%d sledovač</item>
+    <item quantity="few">%d sledovače</item>
+    <item quantity="other">%d sledovačov</item>
+  </plurals>
+  <plurals name="pref_web_refiner_malware">
+    <item quantity="one">%d malware hrozba</item>
+    <item quantity="few">%d malware hrozby</item>
+    <item quantity="other">%d malware hrozieb</item>
+  </plurals>
   <string-array name="pref_web_refiner_message">
     <item>"Blokované %s. "</item>
     <item>"Blokované %1$s a %2$s. "</item>
