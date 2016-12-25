@@ -77,7 +77,7 @@
   <!-- Message in an SSL Error dialog -->
   <string name="ssl_unknown">未知的憑證錯誤。</string>
   <!-- Toast informing the user that loading has stopped for the current page. -->
-  <string name="stopping">停止中…</string>
+  <string name="stopping">正在停止\u2026</string>
   <!-- Menu item to stop the current page from loading. -->
   <string name="stop">停止</string>
   <!-- Menu item to reload or refresh the current page. -->
@@ -149,10 +149,10 @@
   <string name="current_page">來源 </string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
             the bookmark they selected for deletion -->
-  <string name="delete_bookmark_warning">刪除「<xliff:g id="BOOKMARK">%s</xliff:g>」的我的最愛？</string>
+  <string name="delete_bookmark_warning">是否刪除「<xliff:g id="bookmark">%s</xliff:g>」的我的最愛？</string>
   <!-- Confirmation dialog message confirming that the user wishes to delete
                the folder they selected for deletion -->
-  <string name="delete_folder_warning">刪除資料夾「<xliff:g id="bookmark">%s</xliff:g>」？</string>
+  <string name="delete_folder_warning">是否刪除資料夾「<xliff:g id="bookmark">%s</xliff:g>」？</string>
   <!-- Context menu item to open every bookmark in a folder in new tabs [CHAR LIMIT=50] -->
   <string name="open_all_in_new_window">在新分頁中開啟所有的</string>
   <!-- Displayed in title of chooser dialog for text sent to another app,e.g-send text via SMS or IM-->
@@ -368,7 +368,7 @@
   <!-- Settings summary -->
   <string name="pref_privacy_clear_selected_summary">在清單中清除所選項目</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_privacy_clear_selected_dlg">清除以下項目？</string>
+  <string name="pref_privacy_clear_selected_dlg">是否清除以下項目？</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_cache">快取</string>
   <!-- Settings summary -->
@@ -380,7 +380,7 @@
   <!-- Settings summary -->
   <string name="pref_privacy_clear_history_summary">清除瀏覽記錄</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_privacy_clear_history_dlg">刪除瀏覽記錄？</string>
+  <string name="pref_privacy_clear_history_dlg">是否刪除瀏覽記錄？</string>
   <!-- Settings label -->
   <string name="pref_privacy_clear_form_data">表單資料</string>
   <!-- Settings summary -->
@@ -449,7 +449,7 @@
   <!-- Settings summary -->
   <string name="pref_extras_reset_default_summary">還原預設設定</string>
   <!-- Confirmation dialog message -->
-  <string name="pref_extras_reset_default_dlg">將設定回復成預設值？</string>
+  <string name="pref_extras_reset_default_dlg">是否將設定回復成預設值？</string>
   <!-- Title for a group of settings -->
   <string name="pref_development_title">偵錯</string>
   <!-- Settings screen, setting option name -->
@@ -489,7 +489,7 @@
   <string-array name="pref_temporal_choices">
     <item>永不</item>
     <item>僅限 Wi-Fi</item>
-    <item>永遠</item>
+    <item>一律</item>
   </string-array>
   <!-- Summary for search preloading [CHAR LIMIT=80] -->
   <string name="pref_data_preload_summary">允許瀏覽器在背景預先載入可信度高的搜尋結果</string>
@@ -568,13 +568,13 @@
   <string name="webstorage_clear_data_title">儲存空間</string>
   <string name="webstorage_private_data_title">隱私資料</string>
   <!-- Confirmation dialog when the user ask to clear all data for an origin -->
-  <string name="webstorage_clear_data_dialog_message">刪除這個網站儲存的所有資料？</string>
+  <string name="webstorage_clear_data_dialog_message">是否刪除這個網站儲存的所有資料？</string>
   <!-- String shown in a progress view while a video is loading, before it starts playing -->
-  <string name="loading_video">正在載入影片…</string>
+  <string name="loading_video">正在載入影片\u2026</string>
   <string name="website_settings_add_origin">新網站</string>
   <!-- Label for the menu item in the website settings activity used to clear data stored by all websites -->
   <string name="website_settings_clear_all">全部清除</string>
-  <string name="website_settings_clear_all_dialog_message">刪除所有網站資料和位置存取權限？</string>
+  <string name="website_settings_clear_all_dialog_message">是否刪除所有網站資料和位置存取權限？</string>
   <!-- Text in the progress dialog when we are setting an image as the home screen wallpaper. -->
   <string name="progress_dialog_setting_wallpaper">正在設定桌布…</string>
   <!-- The string that is displayed when there are no bookmarks to display.
@@ -648,7 +648,7 @@
   <string name="my_navigation_edit_label">編輯網站</string>
   <string name="my_navigation_add_label">新增網站</string>
   <string name="my_navigation_add">新增</string>
-  <string name="my_navigation_delete_msg">確定要刪除網站？</string>
+  <string name="my_navigation_delete_msg">是否確定要刪除網站？</string>
   <string name="my_navigation_name">名稱</string>
   <string name="my_navigation_address">網址</string>
   <string name="website_needs_title">網站必須有名稱</string>
@@ -676,7 +676,7 @@
   <string name="browser_max_input_title">超過字元上限</string>
   <string name="browser_max_input">您的輸入已達到 <xliff:g id="MAXLIMIT">%s</xliff:g> 個字元的上限。</string>
   <string name="duplicated_folder_warning">資料夾已存在</string>
-  <string name="overwrite_bookmark_msg">此我的最愛的名稱或位址已存在，要覆蓋嗎？</string>
+  <string name="overwrite_bookmark_msg">此我的最愛的名稱或位址已存在，是否覆蓋？</string>
   <!-- Add for download save path setting Feature -->
   <string name="invalid_path">無效路徑</string>
   <string name="path_wrong">錯誤的路徑</string>
